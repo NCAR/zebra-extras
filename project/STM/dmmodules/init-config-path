@@ -1,5 +1,5 @@
 !
-! $Id: init-config-path,v 1.1.1.1 1995-03-17 19:57:43 granger Exp $
+! $Id: init-config-path,v 1.2 1995-09-11 19:03:15 granger Exp $
 !
 ! Initialize the config search path and default save directory.  By
 ! default, save configs to a user-specific subdirectory.  That directory is
@@ -8,12 +8,6 @@
 !
 set ConfigDir "./dconfig"
 set ConfigPath ConfigDir
-
-!
-! For now, make everyone share the same time file.  Maybe we should make
-! it read-only so people don't destroy it during the conference.
-!
-set TimeFile './dconfig/Showcases'
 
 !
 ! First define the procedure, then actually invoke it
