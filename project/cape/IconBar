@@ -230,27 +230,23 @@ endmenu
 define widget FilledMesonet intmenu 'Filled mesonet contour selection'
 	title 'Mesonet data in filled contours'
 	line
-	entry 'Temperature' \
- 		'putc1 p_fcontour field tdry'
-	entry 'Dewpoint Temperature' \
-		'putc1 p_fcontour field dp'
-	entry 'Relative Humidity' \
-		'putc1 p_fcontour field rh'
-	entry 'Raw Pressure' \
-		'putc1 p_fcontour field pres'
-	entry 'Corrected Pressure' \
-	 	'putc1 p_fcontour field cpres0'
-	entry 'Mixing Ratio' \
-		'putc1 p_fcontour field mr'
-	entry 'Potential Temperature' \
-		'putc1 p_fcontour field pt'
-	entry 'Equivalent Potential Temperature' \
-		'putc1 p_fcontour field ept'
-	entry '15-Minute Rain Accumulation' \
-		'putc1 p_fcontour field raina15'
-	entry '60-Minute Rain Accumulation' \
-		'putc1 p_fcontour field raina60'
+	entry 'Temperature' 'cape-put-filled tdry'
+	entry 'Dewpoint Temperature' 'cape-put-filled dp'
+	entry 'Relative Humidity' 'cape-put-filled rh'
+	entry 'Raw Pressure' 'cape-put-filled pres'
+	entry 'Corrected Pressure' 'cape-put-filled cpres0'
+	entry 'Mixing Ratio' 'cape-put-filled mr'
+	entry 'Potential Temperature' 'cape-put-filled pt'
+	entry 'Equivalent Potential Temperature' 'cape-put-filled ept'
+	entry '15-Minute Rain Accumulation' 'cape-put-filled raina15'
+	entry '60-Minute Rain Accumulation' 'cape-put-filled raina60'
 endmenu
+
+procedure cape-put-filled field string
+	putc3 p_fcontour field #field icon mesonet platform mesonet
+endprocedure
+
+
 
 define widget KSCFilledMesonet intmenu 'Filled mesonet contour selection'
 	title 'Mesonet data in filled contours'
@@ -270,18 +266,21 @@ endmenu
 define widget LineMesonet intmenu 'Line mesonet contour selection'
 	title 'Mesonet data in line contours'
 	line
-	entry 'Temperature' 		'putc1 p_contour field tdry'
-	entry 'Dewpoint Temperature'	'putc1 p_contour field dp'
-	entry 'Relative Humidity'	'putc1 p_contour field rh'
-	entry 'Raw Pressure'		'putc1 p_contour field pres'
-	entry 'Corrected Pressure' 	'putc1 p_contour field cpres0'
-	entry 'Mixing Ratio'		'putc1 p_contour field mr'
-	entry 'Potential Temperature'	'putc1 p_contour field pt'
-	entry 'Equivalent Potential Temperature' 'putc1 p_contour field ept'
-	entry '15-Minute Rain Accumulation' 'putc1 p_contour field raina15'
-	entry '60-Minute Rain Accumulation' 'putc1 p_contour field raina60'
+	entry 'Temperature' 		'cape-put-line tdry'
+	entry 'Dewpoint Temperature'	'cape-put-line dp'
+	entry 'Relative Humidity'	'cape-put-line rh'
+	entry 'Raw Pressure'		'cape-put-line pres'
+	entry 'Corrected Pressure' 	'cape-put-line cpres0'
+	entry 'Mixing Ratio'		'cape-put-line mr'
+	entry 'Potential Temperature'	'cape-put-line pt'
+	entry 'Equivalent Potential Temperature' 'cape-put-line ept'
+	entry '15-Minute Rain Accumulation' 'cape-put-line raina15'
+	entry '60-Minute Rain Accumulation' 'cape-put-line raina60'
 endmenu
 
+procedure cape-put-line field string
+	putc3 p_contour field #field icon mesonet platform mesonet
+endprocedure
 
 define widget KSCLineMesonet intmenu 'Line mesonet contour selection'
 	title 'Mesonet data in line contours'
