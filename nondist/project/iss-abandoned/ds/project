@@ -1,0 +1,31 @@
+! $Id: project,v 1.1 2000-06-06 22:54:48 granger Exp $
+!
+! Helpful datastore classes and definitions for all projects.
+!
+
+if (not defined("ds_Project"))
+set ds_Project 1
+
+!
+! The Project class lets us put all the platforms for a project under one
+! directory, which will be its name, and add a qualification to their name
+! to help differentiate from other project platforms.  It also sets the
+! project-wide default filetype to netcdf, which Instrument inherits.
+!
+class Project
+	virtual
+	filetype	netcdf
+	organization	nspace
+	instancedir	subdirparent
+endclass
+
+
+!
+! Generic class for instruments which inherits the Project class defaults.
+!
+class Instrument Project
+	virtual
+	abstract
+endclass
+
+endif

@@ -1,0 +1,38 @@
+! $Id: class,v 1.1 2000-06-06 22:54:47 granger Exp $
+!
+! CLASS platform classes
+!
+
+require "project"
+
+message "Loading sounding classes..."
+
+class Sounding Instrument
+	comment		'Balloon Sounding'
+      	organization	scalar
+	maxsamples	5000
+	mobile
+endclass
+
+class CLASS Sounding
+	comment		'CLASS Balloon Sounding'
+endclass
+
+class MobileCLASS CLASS
+	comment		'Mobile CLASS'
+endclass
+
+! Override the maxsamples for GLASS platforms since the 1-second
+! samples tend to number over the CLASS original limit of 5000
+!
+class GLASS Sounding
+	comment		'GPS Balloon Sounding'
+	maxsamples	20000
+endclass
+
+! Just like GLASS except mobile...
+!
+class MobileGLASS GLASS
+	comment		'Mobile GLASS'
+endclass
+

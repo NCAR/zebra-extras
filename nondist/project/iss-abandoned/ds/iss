@@ -1,0 +1,49 @@
+! $Id: iss,v 1.1 2000-06-06 22:54:47 granger Exp $
+
+require "project"
+require "class"
+
+if (not defined("ds_ISS"))
+set ds_ISS 1
+
+message "Loading ISS classes..."
+
+class ProfilerMom Instrument
+	organization	nspace
+	maxsamples	1000
+endclass
+
+class Profiler Instrument
+	comment		'915 MHz Wind Profiler'
+	organization	1dgrid
+	maxsamples	1000
+endclass
+
+class RASS Instrument
+	comment		'915 MHz Radio-Acoustic Sounding System'
+	organization	1dgrid
+	maxsamples	1000
+endclass
+
+class Surface Instrument
+	comment		'Surface Meteorology'
+      	organization	scalar
+	filetype	netcdf
+	maxsamples	1440
+endclass
+
+!
+! The whole ISS site, described with all of its subplatform instruments.
+! The sounding platform is now GLASS, which should still work for older
+! projects with CLASS platforms.
+!
+class ISS Instrument
+	virtual
+	comment 'Integrated Sounding System'
+	subplat GLASS class
+	subplat Profiler prof915h prof915l
+	subplat RASS rass915
+	subplat Surface surface_met
+endclass
+
+endif
