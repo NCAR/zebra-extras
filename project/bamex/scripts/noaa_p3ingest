@@ -1,0 +1,18 @@
+#
+# Start NOAA P3 ingest when packets come in port 25002
+# (copy this file to the /etc/xinetd.d directory)
+#
+service noaa_p3ingest
+{
+	disable	= no
+	type			= UNLISTED
+	port			= 25002
+	socket_type		= dgram
+	protocol		= udp
+	wait			= yes
+	user			= zebra
+	server			= /opt/zebra/project/bamex/scripts/noaa_p3ingest.csh
+	log_type		= SYSLOG daemon
+	log_on_success		+= DURATION EXIT
+	log_on_failure		+= ATTEMPT
+}
