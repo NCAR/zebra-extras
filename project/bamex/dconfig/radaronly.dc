@@ -4,7 +4,7 @@ prototype fallback 'Default' gp 'gp.init'
 
 config radaronly
 	widget 'iconbar' 11 84 75 378
-	graphic 'x' 99 41 928 972 'Default'
+	graphic 'x' 99 41 1112 1089 'Default'
 		description 'radaronly-x'
 		buttonmap 'big'
 		forcepd
@@ -15,6 +15,7 @@ beginpd 'radaronly-x'
 global
    parameter altitude                  '0.0000'
    parameter altitude-label            ''
+   parameter axis-bottom-space         '20'
    parameter frame-rate                '2'
    parameter frame-skip                '10'
    parameter movie-end-time            'now'
@@ -32,10 +33,10 @@ global
    parameter ta-scale                  '14'
    parameter ta-space                  '0.05'
    parameter time-frames               '3'
-   parameter x-max                     '703.6440'
-   parameter x-min                     '-1178.9772'
-   parameter y-max                     '1196.5137'
-   parameter y-min                     '-841.2986'
+   parameter x-max                     '715.1548'
+   parameter x-min                     '-1167.7771'
+   parameter y-max                     '1179.7401'
+   parameter y-min                     '-735.9069'
 component p_goes_1km
    parameter altitude-control          'false'
    parameter color-table               'gray64'
@@ -306,5 +307,20 @@ component p_aircraft.1
    parameter trigger-global            'true'
    parameter x-field                   'u_wind'
    parameter y-field                   'v_wind'
+component p_llgrid
+   parameter annot-height              '12'
+   parameter color                     'gray70'
+   parameter field                     'grid'
+   parameter icon                      'grid'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-right-menu           'llgrid-right'
+   parameter lat-lon                   'true'
+   parameter line-width                '0'
+   parameter platform                  'irrelevant'
+   parameter representation            'overlay'
+   parameter require                   'grid, simple-color'
+   parameter tic-width                 '3'
+   parameter x-spacing                 '60'
+   parameter y-spacing                 '60'
 endpd
 
