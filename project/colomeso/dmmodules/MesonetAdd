@@ -1,0 +1,82 @@
+procedure MesoAddToCAP platform string field string target_win string
+!
+! See if we have a station plot for this platform in the window yet
+!
+	local comps pd_complist(target_win)
+	local havestplot false
+
+	foreach comp #comps
+		if (comp <> 'global' and not havestplot)
+			local rep PDParam(target_win,comp,'representation')
+			local cplat PDParam(target_win,comp,'platform')
+			if (cplat = platform and rep = 'station')
+				local havestplot true
+			endif
+		endif
+	endfor
+!
+! Add a station plot component if we don't have one already
+!
+	if (not havestplot)
+		local iconname concat(platform,"_st")
+		parameter p_station p_station platform #platform
+		parameter p_station p_station icon #iconname
+		add p_station p_station #target_win
+	endif
+!
+! Add a contour component
+!
+	parameter p_contour p_contour platform #platform
+	parameter p_contour p_contour icon #platform
+	parameter p_contour p_contour field #field 
+	add p_contour p_contour #target_win
+endprocedure
+
+
+
+
+procedure MesoAddToXY platform string field string target_win string
+	parameter p_xytrace p_xytrace platform #platform
+	parameter p_xytrace p_xytrace y-field #field
+	parameter p_xytrace p_xytrace icon #platform
+	add p_xytrace p_xytrace #target_win
+endprocedure
+
+
+
+procedure MesonetAdd platform string subplat string field string
+!
+! Start by finding a window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+!
+! Now figure out what sort of window this is.
+! If it's a CAP plot, add a contour component, and add a station plot
+! component if there isn't one yet.
+!
+	local ptype PDParam(target_win, 'global', 'plot-type')
+
+	if (ptype = 'CAP')
+		MesoAddToCAP #platform #field #target_win
+		return
+	endif
+!
+! If it's NOT an xygraph, we don't know what to do.
+!
+	if (ptype = 'xygraph')
+		local fullplat concat3( platform, "/", subplat )
+		MesoAddToXY #fullplat #field #target_win
+		return
+	endif
+!
+! Can't handle any other plot types
+!
+	message 'MesonetAdd cannot add to plot-type "#"' ptype
+	beep
+	return
+endprocedure

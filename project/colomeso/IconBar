@@ -1,0 +1,127 @@
+! $Id: IconBar,v 1.1 1996-06-19 21:43:10 burghart Exp $
+!
+! Generic IconBar template
+!
+
+set ui$bitmap_directory concat(c$libdir, "/icons")
+
+require MesonetAdd
+
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	noheader
+	!
+	! Define the menus
+	!
+	menu help bitmap iconbar-help
+		title 'Zeb Help Access'
+		line
+		entry 'Introduction' 'help intro'
+		entry 'On-line topics' 'help index'
+		entry 'Starting Zebra' 'help start'
+		entry 'Shutting down' 'help shut-down'
+		entry 'Keys and mouse buttons' 'help keys'
+		entry 'The icon bar' 'help iconbar'
+		entry 'Editing display configurations' 'help editing-configs'
+		line
+		entry 'Horizontal plots' 'help horizontal-plots'
+		entry 'Skew-t plots' 'help skewt'
+		entry 'XYGraph plots' 'help xy-graphs'
+		entry 'Cross-section plots' 'help cross-section'
+	endmenu
+	menu tools bitmap tools-big
+		title 'Tools'
+		line
+		entry 'Time widget'	'popup time'
+		entry 'Make a print' 'popup hardcopy'
+		line
+		entry 'Add display window' 'popup newwindow'
+		entry 'Delete display window' 'popup zorchwindow'
+		entry 'Save current configuration' 'popup saveconfig'
+		line
+		entry 'Data store contents' 'shell "dsdwidget &"'
+		entry 'Data store management' 'shell "dsmanage &"'
+		line
+		entry 'Shut down Zebra' 'shutdown'
+	endmenu
+!
+! The project display configurations are added in this menu
+!
+	menu configs bitmap configs
+		title 'Display configurations'
+		line
+	!
+	! Example:
+	!	entry 'Wide-screen satellite' 'display wide' \
+	!		(dm$config = 'wide')
+	!
+		entry 'Simple horizontal plot' 'display simple' \
+			(dm$config = 'simple')
+		line
+		entry 'Empty screen' 'display empty' (dm$config = 'empty')
+	endmenu
+!
+! General platform/data menus here
+!
+! Example:
+!	menu satellite bitmap satellite
+!		title 'Satellite Data'
+!		line
+!		entry 'GOES Visible' 'putc2 c_goes platform goes field vis'
+!		entry 'GOES IR' 'putc2 c_goes platform goes field ir'
+!		line
+!	endmenu
+	menu mesonet bitmap mesonet
+		title 'Mesonet data'
+		line
+		entry 'PAM met' 'MesonetAdd pam 1 tdry'
+		entry 'PAM status' 'MesonetAdd pam_status 1 pres_id'
+		entry 'Colorado mesonet' 'MesonetAdd co_meso bouc2 tp'
+	endmenu
+!
+! Maps, locations and other informational overlays
+!
+	menu 'overlays' bitmap overlays
+		title 'Static Overlays'
+		line
+		entry 'Default Map' 'putc2 p_map platform default icon map'
+		entry 'X-Y Grid (km)' \
+			'putc3 p_kmgrid x-spacing 100 y-spacing 100 color cyan'
+		entry 'Lat/Lon Grid' \
+			'putc3 p_llgrid x-spacing 60 y-spacing 60 color cyan'
+		entry 'Window Bounds' put_wbounds p_wbounds
+		entry 'Boulder!' 'putc2 p_loc platform boulder color yellow'
+	endmenu
+enddef
+
+
+!
+! Put in window bounds.
+!
+procedure put_wbounds comp string
+!
+! Get the window we want to see.
+!
+	set wbounds_win "none"
+	pickwin wbounds_win
+	if (wbounds_win = "none")
+		beep
+		return
+	endif
+!
+! And now the place where it goes.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")
+		beep
+		return
+	endif
+!
+! Fix up the component and ship it over.
+!
+	parameter #comp #comp platform #wbounds_win
+	add #comp #comp #target_win
+endprocedure

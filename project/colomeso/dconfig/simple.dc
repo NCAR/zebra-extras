@@ -1,0 +1,82 @@
+! Auto-saved display configuration.
+
+prototype fallback 'Default' gp 'gp.init'
+
+config simple
+	widget 'iconbar' 1029 36 80 550
+	graphic 'one' 27 35 984 894 'Default'
+		description 'simple-one'
+		buttonmap 'big'
+		forcepd
+	endgraphic
+endconfig
+
+beginpd 'simple-one'
+global
+   parameter altitude                  '1635.0000'
+   parameter altitude-label            ''
+   parameter pd-name                   'simple-one'
+   parameter plot-hold                 'false'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '18-May-95,19:57:00'
+   parameter plot-type                 'CAP'
+   parameter proj-topannot-left-menu   'projection'
+   parameter radar-space               'false'
+   parameter x-max                     '97.3132'
+   parameter x-min                     '-130.0786'
+   parameter y-max                     '142.4574'
+   parameter y-min                     '-73.0994'
+component p_contour
+   parameter color                     'cyan'
+   parameter color-table               'Contour'
+   parameter do-labels                 'true'
+   parameter field                     'tp'
+   parameter icon                      'co_meso'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'FieldMenu'
+   parameter icon-right-menu           'contour-right'
+   parameter label-blanking            'false'
+   parameter limit-proc                'contour-putup-adj'
+   parameter platform                  'co_meso'
+   parameter representation            'contour'
+   parameter require                   'contour, simple-color'
+   parameter scale-mode                'auto'
+   parameter tp-center                 '285.0000'
+   parameter tp-step                   '3.0000'
+component p_map
+   parameter color                     'yellow'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'default'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_station
+   parameter active-icon               'true'
+   parameter annot-field-menu-extras   'station|Station Identification,none'
+   parameter annot-left-menu           'FieldMenu'
+   parameter annot-middle-menu         'FieldMenu'
+   parameter arrow-scale               '0.01'
+   parameter field-select-command      'p_toggle_quadrant'
+   parameter icon                      'co_meso_st'
+   parameter icon-field-menu-extras    'station|Station Identification'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'FieldMenu'
+   parameter icon-right-menu           'p-station-right'
+   parameter limit-proc                'adj_arrow_scale'
+   parameter platform                  'co_meso'
+   parameter plot-hold                 'false'
+   parameter posicon-middle-menu       'station-send'
+   parameter quad1                     'station'
+   parameter representation            'station'
+   parameter require                   'station,simple-color'
+   parameter sa-scale                  '11'
+   parameter u-field                   'u_wind'
+   parameter v-field                   'v_wind'
+   parameter wdir-field                'wd'
+   parameter wind-style                'vector'
+   parameter wspd-field                'ws'
+endpd
+
