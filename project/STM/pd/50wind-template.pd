@@ -1,17 +1,15 @@
 global
-	alt-scale-y-max:	7.0
-	altitude:	310.00
-	altitude-label:	
+	altitude:	313.0000
+	altitude-label:	Alt: 313 m MSL
 	axis-bottom-space:	30
 	axis-left-space:	60
 	axis-right-space:	20
-	heights-scale-y-max:	8.0
-	heights-scale-y-min:	0.0
+	height-scale-y-max:	7
 	icon-middle-menu:	DataAvailable
 	pd-name:	50wind-template
 	platform:	Dsgp50rwpwindC1.a2
-	plot-mode:	real-time
-	plot-time:	9-Sep-95,7:14:17
+	plot-mode:	history
+	plot-time:	6-sep-1995,00:13:09
 	plot-type:	xygraph
 	require:	simple-color
 	sa-scale:	12
@@ -21,12 +19,12 @@ global
 	xy-axis-b-font-scale:	10
 	xy-axis-b-tic-interval:	60m
 	xy-axis-l-font-scale:	12
-	xy-axis-l-tic-interval:	(Undefined)
+	xy-axis-l-tic-interval:	0.5
 	xy-axis-r-font-scale:	10
 	xy-axis-r-tic-interval:	0.5
 	xy-data-mode:	series
 	xy-scale-x-mode:	autoscale
-	xy-scale-y-mode:	manual
+	xy-scale-y-mode:	autoscale
 	xy-series-span:	720m
 50prof
 	adj-axis-side:	l
@@ -37,12 +35,10 @@ global
 	axis-l-tic-interval:	0.5
 	axis-t-tic-interval:	7200s
 	barb-scale:	30
-	coords:	rectangular
+	coords:	compass
 	data-skip:	0
-	dimensions:	power=0
+	dimensions:	power=1
 	icon:	iss-prof
-	icon-background:	black
-	icon-color:	green
 	icon-left-menu:	standard-cap-left-menu
 	icon-middle-menu:	profiler-power
 	icon-right-menu:	time-height-winds
@@ -50,22 +46,22 @@ global
 	platform:	Dsgp50rwpwindC1.a2
 	representation:	wind
 	representation-style:	barb
-	require:	xytrace,profiler
+	require:	xytrace,profiler,xywind
 	scale-y-mode:	autoscale
 	skip-data-points:	9999.0,-9999.0
 	step:	3
 	trigger:	platform
-	u-field:	u_wind
-	v-field:	v_wind
 	vec-scale:	2
+	wdir-field:	dir
+	wspd-field:	spd
 	x-field:	time
-	xyprivate-data-begin:	11-Sep-95,4:49:16
-	xyprivate-data-end:	11-Sep-95,16:49:16
-	xyprivate-x-max:	11-Sep-95,17:07:16
-	xyprivate-x-min:	11-Sep-95,4:49:16
+	xyprivate-data-begin:	5-Sep-95,12:13:09
+	xyprivate-data-end:	6-Sep-95,0:13:09
+	xyprivate-x-max:	6-Sep-95,0:31:09
+	xyprivate-x-min:	5-Sep-95,12:13:09
 	xyprivate-x-type:	t
-	xyprivate-y-max:	-10988999680.0000
-	xyprivate-y-min:	10988999680.0000
+	xyprivate-y-max:	9.7433
+	xyprivate-y-min:	2.2347
 	xyprivate-y-type:	f
 	y-field:	height_p
 

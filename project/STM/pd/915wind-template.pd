@@ -1,17 +1,15 @@
 global
-	alt-scale-y-max:	7.0
-	altitude:	310.00
-	altitude-label:	
+	altitude:	313.0000
+	altitude-label:	Alt: 313 m MSL
 	axis-bottom-space:	30
 	axis-left-space:	60
 	axis-right-space:	20
-	heights-scale-y-max:	8.0
-	heights-scale-y-min:	0.0
+	height-scale-y-max:	7
 	icon-middle-menu:	DataAvailable
 	pd-name:	915wind-template
 	platform:	Dsgp915rwpwindC1.a2
-	plot-mode:	real-time
-	plot-time:	9-Sep-95,16:17:32
+	plot-mode:	history
+	plot-time:	9-sep-1995,00:11:30
 	plot-type:	xygraph
 	require:	simple-color
 	sa-scale:	12
@@ -21,12 +19,12 @@ global
 	xy-axis-b-font-scale:	10
 	xy-axis-b-tic-interval:	60m
 	xy-axis-l-font-scale:	12
-	xy-axis-l-tic-interval:	(Undefined)
+	xy-axis-l-tic-interval:	0.5
 	xy-axis-r-font-scale:	10
 	xy-axis-r-tic-interval:	0.5
 	xy-data-mode:	series
 	xy-scale-x-mode:	autoscale
-	xy-scale-y-mode:	manual
+	xy-scale-y-mode:	autoscale
 	xy-series-span:	720m
 915prof
 	adj-axis-side:	l
@@ -41,8 +39,6 @@ global
 	data-skip:	0
 	dimensions:	power=1
 	icon:	iss-prof
-	icon-background:	black
-	icon-color:	green
 	icon-left-menu:	standard-cap-left-menu
 	icon-middle-menu:	profiler-power
 	icon-right-menu:	time-height-winds
@@ -50,7 +46,7 @@ global
 	platform:	Dsgp915rwpwindC1.a2
 	representation:	wind
 	representation-style:	barb
-	require:	xytrace,profiler
+	require:	xytrace,profiler,xywind
 	scale-y-mode:	autoscale
 	skip-data-points:	9999.0,-9999.0
 	step:	3
@@ -59,13 +55,13 @@ global
 	wdir-field:	dir
 	wspd-field:	spd
 	x-field:	time
-	xyprivate-data-begin:	11-Sep-95,4:37:53
-	xyprivate-data-end:	11-Sep-95,16:37:53
-	xyprivate-x-max:	11-Sep-95,16:55:53
-	xyprivate-x-min:	11-Sep-95,4:37:53
+	xyprivate-data-begin:	8-Sep-95,12:11:30
+	xyprivate-data-end:	9-Sep-95,0:11:30
+	xyprivate-x-max:	9-Sep-95,0:29:30
+	xyprivate-x-min:	8-Sep-95,12:11:30
 	xyprivate-x-type:	t
-	xyprivate-y-max:	-10988999680.0000
-	xyprivate-y-min:	10988999680.0000
+	xyprivate-y-max:	5.5616
+	xyprivate-y-min:	0.0704
 	xyprivate-y-type:	f
 	y-field:	height_p
 

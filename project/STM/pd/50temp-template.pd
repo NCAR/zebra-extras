@@ -1,18 +1,16 @@
 global
-	alt-scale-y-max:	7.0
-	altitude:	310.00
 	altitude-label:	
 	axis-bottom-space:	30
 	axis-left-space:	60
 	axis-right-space:	20
 	axis-top-space:	30
-	height-scale-y-max:	2.0
+	height-scale-y-max:	10000.0
 	height-scale-y-min:	0.0
 	icon-middle-menu:	DataAvailable
 	pd-name:	50temp-template
 	platform:	Dsgp50rwptempC1.a2
-	plot-mode:	real-time
-	plot-time:	9-Sep-95,7:14:17
+	plot-mode:	history
+	plot-time:	9-sep-1995,00:00:52
 	plot-type:	xygraph
 	sa-scale:	12
 	show-steps:	false
@@ -25,8 +23,9 @@ global
 	xy-axis-r-tic-interval:	0.5
 	xy-data-mode:	series
 	xy-scale-x-mode:	autoscale
-	xy-scale-y-mode:	manual
-	xy-series-span:	720m
+	xy-scale-y-mode:	autoscale
+	xy-scale-z-mode:	autoscale
+	xy-series-span:	12h
 50prof
 	adj-axis-side:	l
 	axis-b-label:	time
@@ -34,12 +33,11 @@ global
 	axis-l-color:	green
 	axis-l-label:	50 MHz Profiler Altitude (km agl)
 	axis-t-tic-interval:	7200s
-	barb-scale:	20
+	color-table:	Rainbow
 	data-skip:	0
 	field-color:	yellow
 	icon:	iss-prof
-	icon-background:	black
-	icon-color:	green
+	icon-color:	yellow
 	icon-left-menu:	standard-cap-left-menu
 	icon-middle-menu:	DataAvailable
 	icon-right-menu:	xytrace-right
@@ -48,20 +46,20 @@ global
 	representation:	obs
 	representation-style:	line
 	require:	xytrace
+	scale-y-mode:	autoscale
 	skip-data-points:	9999.0,-9999.0
 	trigger:	platform
-	vec-scale:	3
 	x-field:	time
-	xyprivate-data-begin:	11-Sep-95,4:49:16
-	xyprivate-data-end:	11-Sep-95,16:49:16
-	xyprivate-x-max:	11-Sep-95,17:07:16
-	xyprivate-x-min:	11-Sep-95,4:49:16
+	xyprivate-data-begin:	8-Sep-95,12:00:52
+	xyprivate-data-end:	9-Sep-95,0:00:52
+	xyprivate-x-max:	9-Sep-95,0:18:52
+	xyprivate-x-min:	8-Sep-95,12:00:52
 	xyprivate-x-type:	t
-	xyprivate-y-max:	-10988999680.0000
-	xyprivate-y-min:	10988999680.0000
+	xyprivate-y-max:	3.7425
+	xyprivate-y-min:	1.9275
 	xyprivate-y-type:	f
-	y-field:	virtual_temp
-	z-field:	temp
+	y-field:	height
+	z-field:	virtual_temp
 	z-justify:	base
 	z-scale:	0.01
 
