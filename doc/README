@@ -1,64 +1,86 @@
 
-This is the README file for the Zebra documentation directory.  All of
-the manuals in this directory are in PostScript format.
+This is the README file for the Zebra documentation directory.  All of the
+manuals in this directory are in PostScript format.  Almost all of these
+manuals are also available in HTML, or on-line through the Zebra home page:
+		   
+	http://www.atd.ucar.edu/rdp/zebra.html
 
+Release.ps	-- Zebra Release Notes (12 pages) 
 
-Release.ps	-- The Zebra Release Notes.  An overview (about 5 pages) 
-		   of recent and past changes.  RELEASE.NOTES in the top
-		   directory of the distribution is the ASCII text version.
+		   An overview of recent and past changes.  RELEASE.NOTES
+		   in the top directory of the distribution is the ASCII
+		   text version.
 
-Install.ps	-- The Zebra Installation Manual, about 50 pages.  
+Install.ps	-- Zebra Installation Manual (55 pages)
+
 		   The installation steps for binary and source releases,
 		   including machine-dependent tips and suggestions.
 		   
-Intro.ps	-- "Introducing Zebra".  A guide to getting started with
-		   Zebra, including the basics of the Zebra start-up script,
-		   user customization, and a simple introduction to the
-		   online help system.  Much information remains to be added.
+Intro.ps	-- Introducing Zebra (40 pages)
 
-AdvUsers.ps	-- The Zebra advanced user's manual, somewhere around 200
-		   pages.  Includes details on operating and configuring 
-		   all of the essential Zebra processes.  Information on
-		   real-time processes and installations has been moved
-		   to the "Guide to Realtime Zebra" manual.
+		   A guide to getting started with Zebra, including the
+		   basics of the Zebra start-up script, user customization,
+		   and a simple introduction to the online help system.
+		   Much information still needs to be added.
 
-Data.ps		-- "Zebra Data Management Guide."  A manual about the data
-		   management side of Zebra: file formats, converters,
-		   ingestors, and other data utilities.
+AdvUsers.ps	-- Zebra Advanced User's Manual (188 pages)
 
-Realtime.ps	-- "Guide to Realtime Zebra."  Information relevant to 
-		   designing, setting up, configuring, and maintaining
-		   real-time Zebra projects.
+		   Includes details on operating and configuring all of the
+		   essential Zebra processes.  Information on real-time
+		   processes and installations has been moved to the "Guide
+		   to Realtime Zebra" manual.
 
-Library.ps	-- The Zebra Library Interface Manual, 70 pages.
+Data.ps		-- Zebra Data Management Guide (31 pages)
+
+		   A manual about the data management side of Zebra: file
+		   formats, converters, ingestors, and other data
+		   utilities.
+
+Realtime.ps	-- Guide to Realtime Zebra (23 pages)
+
+		   Information relevant to designing, setting up,
+		   configuring, and maintaining real-time Zebra projects.
+
+Library.ps	-- The Zebra Library Interface Manual (70 pages)
+
 		   Describes all of the functions and types available in
 		   the Zebra library, including the message manager and
 		   timer interfaces, the plot description routines, the
-		   graphics widget, and the simpler geographical types 
-		   and utilities.
+		   graphics widget, and the simpler geographical types and
+		   utilities.
 
-DataStore.ps	-- The Zebra Data Store Interface Manual, 150 pages.
+DataStore.ps	-- The Zebra Data Store Interface Manual (155 pages)
+
 		   Includes the data chunk model and interface, and the
 		   data store query, storage, and retrieval interface.
 
-Developer.ps	-- A general reference for those writing Zebra applications.
-		   At the moment it mainly contains details on Zebra's
-		   Imake implementation and information on setting up 
-		   Imakefile's.
+Developer.ps	-- Zebra Developer's Guide (37 pages)
 
-overview.ps	-- A 5-page article giving an overview of Zebra.  
-		   This file includes a color PostScript raster image of a
-		   typical Zebra display, so you can print it only if you
-		   have a color PostScript printer or a mono printer which
-		   can greyscale or ignore the color image.
+		   A general reference for those writing Zebra
+		   applications.  At the moment it mainly contains details
+		   on Zebra's Imake implementation and information on
+		   setting up Imakefiles.
 
-gp.ps		-- The Graphics Process Structures and Internals Manual.
-		   A 27-page preliminary description of the graphics
-		   process internals, for anyone wishing to add plotting
-		   capability to the graphics process.  Though very out of
-		   date and incomplete, it still gives a useful functional
-		   overview of the Zebra graphics process.
+Overview.ps	-- A Superficial Overview of Zebra (5 pages)
+
+		   An article giving an overview of Zebra.  This file
+		   includes a color PostScript raster image of a typical
+		   Zebra display, so you can print it only if you have a
+		   color PostScript printer or a mono printer which can
+		   greyscale or ignore the color image.
+
+gp.ps		-- Graphics Process Structures and Internals Manual (28 pages)
 		   
-gp-index.ps	-- Index to the Graphics Process Internals Manual.
+		   A preliminary description of the graphics process
+		   internals, intended for programmers wishing to add
+		   plotting capability to the graphics process.  Though
+		   very out of date and incomplete, it still gives a
+		   useful, functional, and relevant overview of the
+		   implementation of the Zebra graphics process.
+		   
+gp-index.ps	-- Index to the Graphics Process Internals Manual
 
-$Id: README,v 1.1 1996-02-21 00:43:01 granger Exp $
+README		-- Zebra documentation summary.  This file.
+
+
+$Id: README,v 1.2 1996-02-21 23:21:46 granger Exp $
