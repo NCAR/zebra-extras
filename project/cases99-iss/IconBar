@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.4 1998-03-25 23:33:00 granger Exp $
+! $Id: IconBar,v 1.5 1998-03-26 17:03:22 granger Exp $
 !
 ! All the definitions required to make the iconbar work.
 !
@@ -7,7 +7,30 @@
 !
 set ui$bitmap_directory concat(c$libdir, "/icons")
 
-read ToolBar
+!-----------------------------------
+! Default window template menu
+!
+require "cfg-tools"
+
+define widget template-menu intmenu 'window templates'
+	title 'Window Templates'
+	line
+	entry 'Constant altitude plot' \
+		'create-window cap cap-template big'
+	entry 'Skew-t plot' \
+		'create-window skewt skewt-template sounding'
+	entry 'Time-series plot' \
+		'create-window tseries tseries-template xyplot'
+	entry 'Time-height plot' \
+		'create-window theight time-height-template xyplot'
+	entry 'Simple line plot' \
+		'create-window lineplot lineplot-template xyplot'
+	entry 'Wind profile' 'create-window wind wind-template xyplot'
+	entry 'RASS profile' 'create-window rass rass-template xyplot'
+	entry 'XY Graph' 'create-window xygraph xygraph-template xyplot'
+	line
+	entry 'Real-time clock' 'create-clock'
+endmenu
 
 !
 ! Project iconbar
