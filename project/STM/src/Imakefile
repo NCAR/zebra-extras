@@ -1,4 +1,4 @@
-XCOMM $Id: Imakefile,v 1.6 1995-09-28 13:53:54 granger Exp $
+XCOMM $Id: Imakefile,v 1.7 1997-02-04 14:56:17 granger Exp $
 
 CFGFILES = ds.config IconBar dm.config dm.pd \
 	   cf-active-loc ef-active-loc bf-active-loc
@@ -13,13 +13,17 @@ HELPSRCS = empty.html.cpp arm-iconbar.html.cpp arm-index.html.cpp \
 
 DISTFILES = Imakefile $(CFGSRCS) $(HELPSRCS)
 
-DEFDATADIR = /apps/data/sgp/platforms
+#include "config.h"
+
+DEFDATADIR = DefaultDataDir
 DATADEFINE = -DDEFDATADIR=\"$(DEFDATADIR)\" 
 HELPLIBDIR = $(LIBDIR)/help
 HELPDEFINE = -DHELPDIR=$(HELPLIBDIR)
-PROJECT = UAV
+PROJECT = ARMProject
 PROJDEFINE = -DPROJECT=$(PROJECT) -D$(PROJECT)
+#ifdef Realtime
 REALTIME = -DREALTIME
+#endif
 
 DEFINES = $(PROJDEFINE) $(HELPDEFINE) $(DATADEFINE) $(REALTIME)
 
@@ -38,6 +42,7 @@ InstallCppFile(ds.config,$(PROJDIR))
 InstallCppFile(dm.config,$(PROJDIR))
 InstallCppFile(IconBar,$(PROJDIR))
 InstallCppFile(dm.pd,$(PROJDIR))
+InstallCppFile(proj_env,$(PROJDIR))
 
 InstallCppFile(cf-active-loc,$(MODULEDIR))
 InstallCppFile(bf-active-loc,$(MODULEDIR))

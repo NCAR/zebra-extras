@@ -6,6 +6,9 @@ ef-active-loc
 dm.config
 dm.pd
 ds.config
+config.h
+proj_env
+arm-tutorial.html
 arm-displays.html
 arm-iconbar.html
 arm-index.html
