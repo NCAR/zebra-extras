@@ -1,0 +1,70 @@
+!
+! Project-specific parameters which get dropped into the defaults database
+!
+
+global
+	pd-name:	lake_ice
+
+defaults
+!
+! Origin 
+!
+	origin-lat:			30.00
+	origin-lon:			-80.00
+	origin-alt:			0.100
+!
+! Where to put the frame cache files.
+!
+	file-path:	tmp
+!
+! The maximum number of frames to be stored in the file.
+!
+	max-frames:	30
+
+!
+! Commands to be executed out of the DataAvailable menu.
+!
+	data-available-command:		DefaultDataAvail
+!
+! Set ISS data-available commands
+!
+	iss1/prof915h-data-available-command: ISSDataAvailable
+	iss2/prof915h-data-available-command: ISSDataAvailable
+	iss3/prof915h-data-available-command: ISSDataAvailable
+	iss4/prof915h-data-available-command: ISSDataAvailable
+
+!
+! Layout sizing factors.
+!
+	cap-axis-bottom-space:	30	! leave room for grid labels
+	cap-axis-left-space:	30
+	cap-axis-top-space:	0
+	cap-axis-right-space:	5	! Separate legend from plots
+
+	xygraph-axis-bottom-space:	25
+	xygraph-axis-left-space:	50
+	xygraph-axis-top-space:		0
+	xygraph-axis-right-space:	0
+
+	! Skewt's turn most things off since they plot directly to
+	! the data region
+	!
+	skewt-sa-space:			0
+	skewt-axis-left-space:		0
+	skewt-axis-top-space:		0
+	skewt-axis-bottom-space:	0
+
+	! Defaults for everything else
+	!
+	axis-bottom-space:	30
+	axis-left-space:	30
+	axis-top-space:		0
+	axis-right-space:	5
+
+locations
+
+	algonquin-location:		45.5	-78.25	0
+	beatlyville-location:		49.0	-77	0
+	belleterre-location:		47.4	-78.6	0
+	sudbury-location:		46.5	-80.8	0
+	timmins-location:		48.5	-81.3	0

@@ -1,0 +1,55 @@
+!
+! Location support.
+!
+require simple-color
+
+define widget location-options intmenu 'label options'
+	title 'Location options'
+	line
+	submenu 'Color' simple-color
+	submenu 'Annotation Size' 'label-size-scale'
+	entry 'Name labels' 'ToggleLabels' \
+		(PDParam (icon_component, 'label') = 'platform')
+	entry 'Time labels' 'ToggleBoolean time-label' \
+		(PDParam (icon_component, 'time-label') = 'true')
+endmenu
+
+
+procedure ToggleLabels
+	local enabled (PDParam (icon_component, "label") <> "none")
+	if (enabled)
+		parameter #icon_component label 'none'
+	else
+		parameter #icon_component label 'platform'
+	endif
+endprocedure
+
+define widget label-size-scale intmenu 'Label size annotation'
+	title 'Annotation Size'
+	line
+	entry 'Small' 'do_label_size 11' \
+		(pd_param(icon_component, "label-size", "string") = "11")
+	entry 'Medium' 'do_label_size 20' \
+		(pd_param(icon_component, "label-size", "string") = "20")
+	entry 'Large' 'do_label_size 30' \
+		(pd_param(icon_component, "label-size", "string") = "30")
+endmenu
+
+procedure do_label_size size string
+        parameter #icon_component label-size #size
+endprocedure
+
+
+!
+! Ship out data -- used by p_active_loc
+!
+define widget pa-send-data intmenu ' '
+       title 'Data options'
+       line
+       entry 'Display in other window' 'pa-sendother'
+endmenu
+
+procedure pa-sendother
+	local dmcmd quote(concat3 ('PutScalar ', icon_platform, ' junk'))
+	dm #dmcmd
+endprocedure

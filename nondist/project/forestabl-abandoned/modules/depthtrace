@@ -1,0 +1,19 @@
+!
+! Stuff for CTD depth plots.
+!
+
+!
+! The field selection procedure.
+!
+procedure depthtrace-field field string
+	if (area_type = "yfield")
+		parameter #icon_component y-field #field
+	else
+		parameter #icon_component x-field #field
+	endif
+endprocedure
+
+
+
+
+

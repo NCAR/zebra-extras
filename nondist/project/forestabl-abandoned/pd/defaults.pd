@@ -1,0 +1,356 @@
+!
+! This file contains the default values for all plot description parameters.
+! Project-specific changes should be made in the lake_ice pd.
+!
+defaults
+	pd-name:			defaults
+!
+! Post processing mode parameters.
+!
+	post-proc-mode:			true
+	pp-dm-time-adjust:		65m
+!
+! Various menus for the icons in the plot windows.
+!
+	icon-left-menu:			standard-cap-left-menu
+	global-icon-left-menu:		global-left
+	global-icon-right-menu:		globaltopannot
+!
+! Age limits for changing icon color.
+!
+	icon-age-foreground:		pink
+	icon-age-background:		red
+!
+! Commands to be executed out of the DataAvailable menu.
+!
+	data-available-command:		DefaultDataAvail
+!
+! Origin 
+!
+	origin-lat:			30.00
+	origin-lon:			-80.00
+	origin-alt:			0.100
+!
+! The default, big picture zoom locations.
+!
+	x-min:				-4500
+	x-max:				1400
+	y-min:				0
+	y-max:				1500
+!
+! Where to put the frame cache files.
+!
+	file-path:	tmp
+!
+! The maximum number of frames to be stored in the file.
+!
+	max-frames:	30
+!
+! The icons to use in the windows, qualified by platform name.
+!
+	global-icon:			global
+	icon-color:			yellow
+	icon-background:		midnight blue
+	disabled-icon-color:		gray90
+	disabled-icon-background:	gray40
+!
+! FEST range limits
+!
+	u_wind-range-min:		-25
+	u_wind-range-max:		25
+	v_wind-range-min:		-25
+	v_wind-range-max:		25
+	dp-range-min:			-30
+	dp-range-max:			30
+	tdry-range-min:			-30
+	tdry-range-max:			30
+	pres-range-max:			1040
+	pres-range-min:			800
+	cpres-range-max:		1040
+	cpres-range-min:		800
+	raina15-range-min:		0.0
+	raina15-range-max:		50.0
+	raina60-range-min:		0.0
+	raina60-range-max:		50.0
+!
+! What RBand uses to draw the box/line.  Don't mess with it.
+!
+	xorvalue:			63
+	xor-line-width:			3
+!
+! field-annotation-format to specify an alternative printf format for
+! track side annotation.
+!
+	alt-annotation-format:		%.3f
+!
+! Some stuff to make the demos look nicer.
+!
+	frame-rate:	10
+	frame-skip:	60
+	movie-end-time:	16-dec-92
+	movie-minutes:	300
+	ta-color-match:			true
+!
+! Where cross sections are done.
+!
+	xsect-window:			little2
+	xsect-component:		global
+!
+! Grid parameters.
+!
+	grid-tic-width:			5
+	grid-solid:			false
+	grid-color:			gray40
+	grid-icon-middle-menu:		simple-color
+	grid-icon-right-menu:		grid_spacing
+	grid-icon:			grid
+!
+! Plotting limits.
+!
+!
+! Representation -> Skewt.
+!
+	skewt-pres-minval:		100
+	skewt-pres-maxval:		1050
+	skewt-temp-minval:		-30
+	skewt-temp-maxval:		35
+!
+!Representation -> Raster.
+!
+	raster-reflectivity-center:	30
+	raster-reflectivity-step:	8
+	raster-maxdz-center:		30
+	raster-maxdz-step:		8
+	raster-velocity-center:		0
+	raster-velocity-step:		5
+	raster-radialvelocity-center:	0
+	raster-radialvelocity-step:	8
+	raster-w_wind-center:		0
+	raster-w_wind-step:		8
+	raster-reflectivity-nsteps:	11
+	raster-maxdz-nsteps:		11
+	raster-velocity-nsteps:		11
+	raster-radialvelocity-nsteps:	11
+	raster-w_wind-nsteps:		11
+	raster-vis-center:		128
+	raster-vis-step:		16
+	raster-vis-nsteps:		17
+	raster-visr-center:		100
+	raster-visr-step:		12
+	raster-visr-nsteps:		17
+	raster-ir-center:		128
+	raster-ir-step:			16
+	raster-ir-nsteps:		17
+	raster-intensity-center:	40
+	raster-intensity-step:		20
+	raster-intensity-nsteps:	17
+	raster-div-center:		0
+	raster-div-step:		2
+	raster-div-nsteps:		17
+!
+! Other.
+!
+	winds/arrow-scale:		20
+	winds-representation:		vector
+	winds/arrow-color:		green
+	Xarrow-color:			purple
+!
+! If all else fails, these should prevent things from dying altogether.
+!
+	contour-center:			0
+	contour-step:			25
+	track-center:			10
+	track-step:			10
+	pres-minval:			900
+	pres-maxval:			1100
+	rh-minval:			20
+	rh-maxval:			40
+	dp-minval:			0
+	dp-maxval:			20
+	tdry-minval:			-10
+	tdry-maxval:			10
+!
+! Adjust limit procedures.
+!
+	track-arrow-limit-proc:		adj_arrow_scale
+	track-time-limit-proc:		adj_time_period
+	track-centstep-limit-proc:	adj_center_step
+	raster-highrange-limit-proc:	adj_highlight_range
+	raster-centstep-limit-proc:	adj_center_step
+	raster-limit-proc:		adj_center_step
+	vector-limit-proc:		adj_arrow_scale
+	contour-limit-proc:		adj_center_step
+	filled-contour-limit-proc:	adj_fill_centstep
+	contour-limit-proc:		adj_line_centstep
+	filled-contour-centstep-limit-proc:	adj_center_step
+	contour-centstep-limit-proc:	adj_center_step
+	skewt-pres-limit-proc:		adj_pres_minmax
+	skewt-temp-limit-proc:		adj_temp_minmax
+	global-x-limit-proc:		adj_x_minmax
+	global-y-limit-proc:		adj_y_minmax
+	lightning-limit-proc:		adj_time_step
+!
+! XY-Graph default parameters.
+!
+	do-color-proc:		change_ta_color
+!
+! XY-Simple defaults.
+!
+	xy-simple-representation-style:	line
+!
+! XY-Wind defaults.
+!
+	xy-wind-representation-style:	arrow
+	xy-wind-coords:			cartesian
+	xy-wind-wdir-field:		wdir
+	xy-wind-wspd-field:		wspd
+	xy-wind-vec-scale:		5.0
+	xy-wind-barb-scale:		25
+!
+! Other.
+!
+	winds/arrow-scale:		20
+	winds-representation:		vector
+	winds/arrow-color:		green
+	Xarrow-color:			purple
+!
+! If all else fails, these should prevent things from dying altogether.
+!
+	contour-center:			0
+	contour-step:			25
+	track-center:			10
+	track-step:			10
+	pres-minval:			900
+	pres-maxval:			1100
+	rh-minval:			20
+	rh-maxval:			40
+	dp-minval:			0
+	dp-maxval:			20
+	tdry-minval:			-10
+	tdry-maxval:			10
+!
+! Adjust limit procedures.
+!
+	track-arrow-limit-proc:		adj_arrow_scale
+	track-time-limit-proc:		adj_time_period
+	track-centstep-limit-proc:	adj_center_step
+	raster-highrange-limit-proc:	adj_highlight_range
+	raster-centstep-limit-proc:	adj_center_step
+	raster-limit-proc:		adj_center_step
+	vector-limit-proc:		adj_arrow_scale
+	contour-limit-proc:		adj_center_step
+	filled-contour-limit-proc:	adj_fill_centstep
+	contour-limit-proc:		adj_line_centstep
+	filled-contour-centstep-limit-proc:	adj_center_step
+	contour-centstep-limit-proc:	adj_center_step
+	skewt-pres-limit-proc:		adj_pres_minmax
+	skewt-temp-limit-proc:		adj_temp_minmax
+	global-x-limit-proc:		adj_x_minmax
+	global-y-limit-proc:		adj_y_minmax
+	lightning-limit-proc:		adj_time_step
+!
+! XY-Graph default parameters.
+!
+	do-color-proc:		change_ta_color
+!
+! XY-Simple defaults.
+!
+	xy-simple-representation-style:	line
+!
+! XY-Wind defaults.
+!
+	xy-wind-representation-style:	arrow
+	xy-wind-coords:			cartesian
+	xy-wind-wdir-field:		wdir
+	xy-wind-wspd-field:		wspd
+	xy-wind-vec-scale:		5.0
+	xy-wind-barb-scale:		25
+	xy-wind-color-table:		Winds
+	xy-wind-data-skip:		5
+	xy-wind-step:			5.0
+	xy-wind-scale-speed:		25.0
+!
+! XY-Contour defaults.
+!
+!	xy-contour-representation-style:	line
+	xy-contour-color-table:		AllWhite
+	xy-contour-x-grid:		25
+	xy-contour-y-grid:		25
+	xy-contour-z-step:		2.5
+	xy-contour-grid-method:		profile-linear
+	xy-contour-do-side-annotation: false
+!
+! field specific XY defaults
+!
+! x scale min's and max's
+!
+	tdry-scale-x-min:	-80.0
+	tdry-scale-x-max:	20.0
+	dp-scale-x-min:		-80.0
+	dp-scale-x-max:		20.0
+	wspd-scale-x-min:	0.0
+	wspd-scale-x-max:	50.0
+	wdir-scale-x-min:	0.0
+	wdir-scale-x-max:	360.0
+	rh-scale-x-min:		0.0
+	rh-scale-x-max:		100.0
+	pres-scale-x-min:	50.0
+	pres-scale-x-max:	800.0
+	u_wind-scale-x-max:	20.0
+	u_wind-scale-x-min:	-20.0
+	v_wind-scale-x-max:	20.0
+	v_wind-scale-x-min:	-20.0
+	tv-scale-x-min:		-80.0
+	tv-scale-x-max:		20.0
+	vt-scale-x-min:		-80.0
+	vt-scale-x-max:		50.0
+	v_temp-scale-x-min:	0.0
+	v_temp-scale-x-max:	30.0
+	height-scale-x-min:	0.0
+	height-scale-x-max:	10.0
+	speed-scale-x-min:	0.0
+	speed-scale-x-max:	50.0
+	direction-scale-x-min:	0.0
+	direction-scale-x-max:	360.0
+	uComp-scale-x-max:	20.0
+	uComp-scale-x-min:	-20.0
+	vComp-scale-x-max:	20.0
+	vComp-scale-x-min:	-20.0
+!
+! y scale min's and max's
+!
+	alt-scale-y-min:	0.0
+	alt-scale-y-max:	10.0
+	height-scale-y-min:	0.0
+	height-scale-y-max:	10000.0
+	wspd-scale-y-min:	0
+	wspd-scale-y-max:	10
+	rh-scale-y-min:		0
+	rh-scale-y-max:		100
+	rh-scale-y-min:		0
+	rh-scale-y-max:		100
+	tdry-scale-y-min:	-5
+	tdry-scale-y-max:	20
+	wdir-scale-y-min:	0
+	wdir-scale-y-max:	360
+	pres-scale-y-min:	830
+	pres-scale-y-max:	850
+	sol-scale-y-min:	0
+	sol-scale-y-max:	800
+	soldiff-scale-y-min:	0
+	soldiff-scale-y-max:	800
+	netrad-scale-y-min:	-400
+	netrad-scale-y-max:	400
+	batt-scale-y-min:	12
+	batt-scale-y-max:	14
+	tbox-scale-y-min:	-10
+	tbox-scale-y-max:	30
+	rain-scale-y-min:	0
+	rain-scale-y-max:	10
+!
+! Layout sizing factors.
+!
+	axis-bottom-space:	25
+	axis-left-space:	50
+	axis-top-space:		0
+	axis-right-space:	0

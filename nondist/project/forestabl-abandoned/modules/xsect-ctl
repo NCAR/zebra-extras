@@ -1,0 +1,20 @@
+!
+! The controlling side of cross sections.
+!
+
+procedure redoxsect
+	message 'redox'
+	local sx0 string(linex0)
+	local sx1 string(linex1)
+	local sy0 string(liney0)
+	local sy1 string(liney1)
+	local ep1 concat3(sx0, ' ', sy0)
+	local ep2 concat3(sx1, ' ', sy1)
+	local dmcmd quote(concat4('AllXSect ', ep1, ' ', ep2))
+	dm #dmcmd
+endprocedure
+
+procedure AllXSect
+	drawline redoxsect
+endprocedure
+

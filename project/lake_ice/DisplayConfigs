@@ -1,0 +1,36 @@
+! $Id: DisplayConfigs,v 1.1.1.1 1997-12-04 18:27:37 granger Exp $
+!
+! All of the predefined display configurations live in this file.
+!
+
+
+set default_exec 'gp'
+set default_arg1 'gp.init'
+set gp_exec default_exec
+
+!
+! Generic process classes
+!
+proto Graphic gp gp.init
+proto explicit GPDebug /localbin/xxgdb gp
+proto GPTC /src/steam/granger/zeb/src/gp/gp.tc	
+proto fallback Default gp gp.init
+proto Clock fccclock
+proto EventLogger EventLogger
+proto explicit ClockDebug /localbin/xgdb clock
+proto explicit Debug /localbin/xgdb
+
+set clock_exec (concat (c$bindir, "/fccclock"))
+
+!
+! Generic linked PD to display one window zoomed.
+!
+config zoom 1
+	window 'humungo' 5 5 1100 850 #gp_exec #default_arg1
+		buttonmap 'big'
+		linkpd 1
+	endwindow
+endconfig
+
+require "zoom"
+

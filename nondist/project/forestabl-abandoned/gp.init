@@ -1,0 +1,71 @@
+! $Id: gp.init,v 1.1.1.1 1997-12-04 18:27:37 granger Exp $
+!
+
+! Our various path variables.
+!
+set RequirePath concat('./modules,',RequirePath)
+set MapPath concat('./maps,','MapPath')
+
+!
+! We just gotta have this one...
+!
+require simple-color
+
+!
+! Data available command for ISS stuff.  The only real purpose for this,
+! in addition to what DefaultDataAvail provides, is to set the global trigger
+! to match our platform.
+!
+procedure ISSDataAvailable platform string when string
+	if (pd_param ("global", "trigger", "string") <> platform)
+		parameter global trigger #platform
+	endif
+	DefaultDataAvail #platform #when
+endprocedure
+
+!
+! Omega sonde fields.
+!
+define widget omegafield intmenu 'omegafield'
+	title "Omega Sonde Fields"
+	line
+	entry 'Pressure'		'omega_fldset pres'
+	entry 'Temperature'		'omega_fldset temp'
+	entry 'Relative Humidity'	'omega_fldset rh'
+	entry 'U wind component'	'omega_fldset u_wind'
+	entry 'V wind component'	'omega_fldset v_wind'
+	entry 'Dewpoint'		'omega_fldset dp'
+	entry 'Wind speed'		'omega_fldset wspd'
+endmenu
+
+procedure omega_fldset name string
+	parameter #icon_component x-field #name
+endprocedure
+
+!
+! Move to center around a click without changing zoom.
+!
+procedure CtrMove
+	local xmin pd_paramsearch('global','x-min','x','float')
+	local xmax pd_paramsearch('global','x-max','x','float')
+	local ymin pd_paramsearch('global','y-min','x','float')
+	local ymax pd_paramsearch('global','y-max','x','float')
+	local xshift (buttonx - (xmax + xmin)/2)
+	local yshift (buttony - (ymax + ymin)/2)
+	local newv string(xmin + xshift)
+	parameter global x-min #newv
+	local newv string(xmax + xshift)
+	parameter global x-max #newv
+	local newv string(ymin + yshift)
+	parameter global y-min #newv
+	local newv string(ymax + yshift)
+	parameter global y-max #newv
+endprocedure
+
+!
+! Get our field definitions.
+!
+!set DefFile (concat (concat (c$libdir, "/"), "FieldDefs"))
+set DefFile "FieldDefs"
+read #DefFile
+

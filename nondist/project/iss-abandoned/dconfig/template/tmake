@@ -1,0 +1,29 @@
+#! /bin/sh
+#
+# Make target display configs from the given template
+# $Id: tmake,v 1.1.1.1 1997-12-04 18:27:40 granger Exp $
+
+template=iss-batch
+
+for target in iss1 iss2 iss3; do
+
+    dc=$target.dc
+    rm -f $dc
+    echo "Generating $dc from $template..."
+    # Warning header:
+    cat > $dc <<EOF
+! ================
+! WARNING: Auto-generated display configuration!
+!
+! This display was generated from the template $template, and probably
+! will be again, so any changes made in this file will be forgotten.
+! Permanent changes for all the basic iss configurations should be
+! made in $template, then run tmake to re-generate this display config.
+! ================
+EOF
+    # Substitute for platform names and the config name
+    sed -e "s/iss[123456789]/$target/g" \
+        -e "s/$template/$target/g" < $template.dc >> $dc
+
+done
+

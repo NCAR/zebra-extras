@@ -1,0 +1,453 @@
+!
+! Procedures and menus separated out from the ISS displays into
+! this module file
+!
+
+require simple-color
+
+define widget iss-xytrace-right intmenu 'x'
+        title 'XYGraph options'
+        line
+        entry 'Line representation' 'xyrep line' \
+                (PDParam (icon_component, 'representation-style') = 'line')
+        entry 'Point representation' 'xyrep point' \
+                (PDParam (icon_component, 'point-icon') = 'point')
+        entry 'Cross representation' 'xyrep cross' \
+                (PDParam (icon_component, 'point-icon') = 'cross')
+        entry 'X-mark representation' 'xyrep xmark' \
+                (PDParam (icon_component, 'point-icon') = 'xmark')
+        entry 'Circle representation' 'xyrep fmill-loc' \
+                (PDParam (icon_component, 'point-icon') = 'fmill-loc')
+        line
+        submenu 'Select Color' select-color
+        line
+        submenu 'Side annotation size' xysideannot
+        entry 'Show time in side annotation' 'ToggleBoolean time-annot' \
+                (PDParam (icon_component, 'time-annot') = 'true')
+        line
+        entry 'Add new field' xyaddfield
+endmenu
+
+!
+! Imported from ISS
+!
+define widget time-height-winds intmenu 'Generic winds'
+	title 'Time-Height Winds'
+	line
+	entry 'Vector' 'adjust_representation_style vector' (pd_param(icon_component,"representation-style","string") = "vector")
+	entry 'Barb' 'adjust_representation_style barb'  (pd_param(icon_component,"representation-style","string") = "barb")
+	line
+	entry 'Grids on/off' 'toggle_grid adj-axis-side'
+	entry 'Set Height...' 'adjust_time_height'
+	entry 'Set Tic Interval...' 'adjust_tic_interval adj-axis-side float'
+	line
+	entry 'Data Skip Factor...' 'adjust_data_skip xy-wind'
+	entry 'Wind Scale...' 'adjust_wind_scale'
+endmenu
+
+procedure toggle_grid sideParam string
+	local side pd_paramsearch(icon_component,sideParam,"xy","string")
+	local param concat(concat("axis-",side),"-grid-intensity")
+	local grid pd_paramsearch(icon_component,param,"xy","string")
+	if ( grid = "0.0" )
+	    param #icon_component #param 0.75
+	else
+	    param #icon_component #param 0.0
+	endif
+endprocedure
+
+procedure adjust_wind_scale
+	local symbol pd_paramsearch(icon_component,"representation-style","xy-wind","string")
+	if ( symbol = "barb" )
+	    local scale pd_paramsearch(icon_component,"barb-scale","xy-wind","string")
+	    activate singlefloat #icon_component "barb-scale" \
+		"Barb shaft length: " #scale 
+	else
+	    local scale pd_paramsearch(icon_component,"vec-scale","xy-wind","string")
+	    activate singlefloat #icon_component "vec-scale" \
+		"Vector scale: " #scale 
+	endif
+endprocedure
+
+
+procedure adjust_representation_style style string
+	param #icon_component representation-style #style
+endprocedure
+
+procedure adjust_data_skip qual string
+    local n pd_paramsearch(icon_component,"data-skip",qual,"string")
+    activate singleint #icon_component "data-skip"  "Data-skip factor: " #n 
+endprocedure
+
+procedure adjust_tic_interval sideParam string type string
+	local side pd_paramsearch(icon_component,sideParam,"xy","string")
+	local param concat(concat("axis-",side),"-tic-interval")
+	if ( icon_component = "global" )
+	     local param concat("xy-",param)
+	endif
+	local tint pd_paramsearch(icon_component,param,"xy","string")
+	if ( type = "time" )
+            activate singlestring #icon_component #param  "Tic Interval: " #tint
+	elseif ( type = "float" )
+            activate singlefloat #icon_component #param  "Tic Interval: " #tint
+	endif
+endprocedure
+
+!
+! XY-Series Simple
+!
+define widget xy-simple intmenu 'Generic field-alt profile'
+	title 'XY Profile'
+	line
+	entry 'Line' 'set_representation_style line'  (pd_param(icon_component,"representation-style","string") = "line")
+	entry 'Point' 'set_representation_style point'  (pd_param(icon_component,"representation-style","string") = "point")
+	entry 'X Mark' 'set_representation_style xmark'  (pd_param(icon_component,"representation-style","string") = "xmark")
+	entry 'Cross' 'set_representation_style cross'  (pd_param(icon_component,"representation-style","string") = "cross")
+	line
+	entry 'Adjust Field Scale...' 'adjust_scale adj-scale-dim'
+	entry 'Set Tic Interval...' 'adjust_tic_interval adj-axis-side float'
+	entry 'Grids on/off' 'toggle_grid adj-axis-side'
+	line
+	submenu 'Select Color' select-color
+	entry 'Remove' 'toggle_component absolute #icon_component' 
+endmenu
+
+!
+! XY-Series Obs
+!
+define widget xy-obs intmenu 'Generic field-alt profile'
+	title 'XY Observation'
+	line
+	entry 'Line' 'adjust_representation_style line'  (pd_param(icon_component,"representation-style","string") = "line")
+	entry 'Point' 'adjust_representation_style point'  (pd_param(icon_component,"representation-style","string") = "point")
+	entry 'X Mark' 'adjust_representation_style xmark'  (pd_param(icon_component,"representation-style","string") = "xmark")
+	entry 'Cross' 'adjust_representation_style cross'  (pd_param(icon_component,"representation-style","string") = "cross")
+	line
+!
+! I don't know where this procedure can be found... \/
+!
+!	entry 'Adjust Observation Scale...' 'adjust_obs_scale'
+	entry 'Grids on/off' 'toggle_grid adj-axis-side'
+	line
+	submenu 'Select Color' select-color
+	line
+	entry 'Contour Overlay' 'toggle_component contour-pd contour-comp' \
+        (substring(pd_param("global","component-list","string"),pd_param(icon_component,"contour-comp","string")))
+	entry 'Omega Overlay' 'toggle_component woverlay-pd woverlay-comp' \
+        (substring(pd_param("global","component-list","string"),pd_param(icon_component,"woverlay-comp","string")))
+endmenu
+
+!
+! ISS Global menus hacked from ISS configurations - should be cleaned
+! up or thrown out
+!
+! Left button - Generic ISS Global Utilities
+!
+define widget iss-global-util intmenu 'Global left menu'
+	title 'Global Utilities'
+	line
+	entry 'Refresh' 'iss-not-implemented'
+!	entry 'Zoom' 'dm "zoom #dm$button_window"' 
+!	entry 'Print' 'iss-not-implemented'
+!	submenu 'Top Annotation Color' select-color
+	submenu 'Movies' movie-control
+endmenu
+
+!
+! Middle button - Global plot configuration operations
+!
+! Time-Height Wind Barbs/Vectors
+!
+define widget iss-global-winds intmenu 'Global middle menu'
+	title 'Time-Height Winds'
+	line
+	entry 'Adjust Time Span...' 'i_adjust_global series-span-proc'
+	entry 'Set Time Tic Interval...' \
+		'adjust_tic_interval adj-axis-side time'
+	submenu 'Adjust Vertical Scale' adjust-height 
+	line
+	entry 'Contour Overlay' 'toggle_component contour-pd contour-comp' \
+        (substring(pd_param("global","component-list","string"),pd_param("global","contour-comp","string")))
+	entry 'Class Overlay' 'toggle_component woverlay-pd woverlay-comp' \
+        (substring(pd_param("global","component-list","string"),pd_param("global","woverlay-comp","string")))
+	
+endmenu
+
+define widget iss-global-profile intmenu 'Global middle menu'
+	title 'Field-Height Profile'
+	line
+	submenu 'Adjust Height Scale' adjust-height 
+	submenu 'Class Parts' class-parts
+	submenu 'Profiler Parts' prof-parts
+	submenu 'RASS Parts' rass-parts
+	line
+endmenu
+	
+!
+! Component menus
+!
+! Time-Height Contour (right)
+!
+define widget time-height-contour intmenu 'Generic contour'
+	title 'Time-Height Contour'
+	line
+	entry 'Set X-Grid Resolution' 'set_contour_grid x'
+	entry 'Set Y-Grid Resolution' 'set_contour_grid y'
+	entry 'Set Contour Interval' 'set_contour_interval'
+endmenu
+
+!
+! A color menu for components with a simple "color" component.
+!
+define widget select-color intmenu 'select colors'
+	title 'Select Color'
+	line
+	entry 'white' 'select_color do-color-proc white'
+	entry 'gray' 'select_color do-color-proc gray50'
+	entry 'steel' 'select_color do-color-proc SteelBlue'
+	entry 'sky' 'select_color do-color-proc DeepSkyBlue'
+	entry 'blue' 'select_color do-color-proc blue'
+	entry 'cyan' 'select_color do-color-proc cyan'
+	entry 'green' 'select_color do-color-proc green'
+	entry 'spring' 'select_color do-color-proc SpringGreen1'
+	entry 'yellow' 'select_color do-color-proc yellow'
+	entry 'yellow2' 'select_color do-color-proc lemonchiffon'
+	entry 'tan' 'select_color do-color-proc tan'
+	entry 'brown' 'select_color do-color-proc brown'
+	entry 'orange' 'select_color do-color-proc orange'
+	entry 'red' 'select_color do-color-proc red'
+	entry 'magenta' 'select_color do-color-proc magenta'
+	entry 'hot-pink' 'select_color do-color-proc HotPink'
+	entry 'pink' 'select_color do-color-proc pink'
+	entry 'violet' 'select_color do-color-proc violet'
+	entry 'orchid' 'select_color do-color-proc MediumOrchid'
+endmenu
+
+procedure select_color procparam string color string
+	local proc pd_paramsearch(icon_component, procparam, "global", "string")
+	if (proc <> "(Undefined)")
+		#proc #color 
+	else
+		dm "beep"
+	endif
+endprocedure
+
+procedure set_representation_style style string
+	param #icon_component representation-style #style
+endprocedure
+
+procedure change_component_color color string
+    parameter #icon_component field-color #color
+    parameter #icon_component icon-color #color
+    local side pd_paramsearch(icon_component,"adj-axis-side","xy","string")
+    local param concat(concat( "axis-",side ),"-color")
+    parameter #icon_component #param #color
+endprocedure
+
+!
+!  surface met field choices
+!
+define widget surface-field-menu intmenu 'Field control popup'
+	title 'Surface Met Fields'
+	line
+	entry 'Adjust Time Span...' 'i_adjust_global series-span-proc'
+	entry 'Set Time Tic Interval...'  'adjust_tic_interval adj-axis-side time'
+	line
+	entry 'Wind Speed'        'toggle_component wspd-pd wspd-comp' \
+	(substring(pd_param("global","component-list","string"),pd_param("global","wspd-comp","string")))
+	entry 'Wind Direction'    'toggle_component wdir-pd wdir-comp' \
+	(substring(pd_param("global","component-list","string"),pd_param("global","wdir-comp","string")))
+	entry 'Relative Humidity' 'toggle_component rh-pd rh-comp' \
+	(substring(pd_param("global","component-list","string"),pd_param("global","rh-comp","string")))
+	entry 'Pressure'          'toggle_component pres-pd pres-comp' \
+	(substring(pd_param("global","component-list","string"),pd_param("global","pres-comp","string")))
+	entry 'Temperature'       'toggle_component tdry-pd tdry-comp' \
+	(substring(pd_param("global","component-list","string"),pd_param("global","tdry-comp","string")))
+	entry 'Total Visible'     'toggle_component soltot-pd soltot-comp' \
+	(substring(pd_param("global","component-list","string"),pd_param("global","soltot-comp","string")))
+	entry 'Difuse Visible'    'toggle_component soldiff-pd soldiff-comp' \
+	(substring(pd_param("global","component-list","string"),pd_param("global","soldiff-comp","string")))
+	entry 'Net Radiation'     'toggle_component netrad-pd netrad-comp' \
+	(substring(pd_param("global","component-list","string"),pd_param("global","netrad-comp","string")))
+	entry 'Rainfall'          'toggle_component rain-pd rain-comp' \
+	(substring(pd_param("global","component-list","string"),pd_param("global","rain-comp","string")))
+	entry 'Campbell Battery'   'toggle_component batt-pd batt-comp' \
+	(substring(pd_param("global","component-list","string"),pd_param("global","batt-comp","string")))
+	entry 'Campbell Temp'     'toggle_component tbox-pd tbox-comp' \
+	(substring(pd_param("global","component-list","string"),pd_param("global","tbox-comp","string")))
+endmenu
+
+!
+procedure adj_series_span_old
+	local span pd_paramsearch("global", "xy-series-span", "", "string")
+	activate singlestring "global" "xy-series-span" "Time Span: " #span
+endprocedure
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! everything from here down added or changed by mindy
+!
+! XY-Series Simple
+!
+define widget my-xy-simple intmenu 'New Generic field-alt profile'
+        title 'XY Profile'
+        line
+        entry 'Line' 'set_representation_style line'  (pd_param(icon_component,"representation-style","string") = "line")
+        entry 'Point' 'set_representation_style point'  (pd_param(icon_component,"representation-style","string") = "point")
+        entry 'X Mark' 'set_representation_style xmark'  (pd_param(icon_component,"representation-style","string") = "xmark")
+        entry 'Cross' 'set_representation_style cross'  (pd_param(icon_component,"representation-style","string") = "cross")
+        line
+        entry 'Adjust Field Scale...' 'adjust_scale adj-scale-dim'
+        entry 'Set Tic Interval...' 'adjust_tic_interval adj-axis-side float'
+        entry 'Grids on/off' 'toggle_grid adj-axis-side'
+        line
+        submenu 'Select Color' select-color
+        entry 'Disable/reenable' 'ToggleBoolean "disable"' \
+                (PDParam(icon_component,"disable") = "true")
+        entry 'Remove' 'toggle_component absolute #icon_component'
+endmenu
+
+!
+! XY-Series Obs
+!
+define widget my-xy-obs intmenu 'My Generic field-alt profile'
+        title 'XY Observation'
+        line
+        entry 'Line' 'adjust_representation_style line'  (pd_param(icon_component,"representation-style","string") = "line")
+        entry 'Point' 'adjust_representation_style point'  (pd_param(icon_component,"representation-style","string") = "point")
+        entry 'X Mark' 'adjust_representation_style xmark'  (pd_param(icon_component,"representation-style","string") = "xmark")
+        entry 'Cross' 'adjust_representation_style cross'  (pd_param(icon_component,"representation-style","string") = "cross")
+        line
+!
+! I don't know where this procedure can be found... \/
+!
+        entry 'Adjust Observation Scale...' 'adjust_obs_scale'
+        entry 'Grids on/off' 'toggle_grid adj-axis-side'
+        line
+        submenu 'Select Color' select-field-color
+!       line
+!       entry 'Contour Overlay' 'toggle_component contour-pd contour-comp' \
+!        (substring(pd_param("global","component-list","string"),pd_param(icon_component,"contour-comp","string")))
+!       entry 'Omega Overlay' 'toggle_component woverlay-pd woverlay-comp' \
+!        (substring(pd_param("global","component-list","string"),pd_param(icon_component,"woverlay-comp","string")))
+endmenu
+
+procedure adjust_obs_scale
+        local scale pd_paramsearch(icon_component,"z-scale","xy-obs","string")
+        activate singlefloat #icon_component "z-scale" \
+                "Observation scale: " #scale
+endprocedure
+
+!
+! Middle button - Global plot configuration operations
+!
+! Time-Height Wind Barbs/Vectors
+!
+define widget my-iss-global-winds intmenu 'Global middle menu'
+        title 'Time-Height Winds'
+        line
+        entry 'Adjust Time Span...' 'i_adjust_global xy-series-span'
+        entry 'Set Tic Interval...' \
+                'adjust_tic_interval adj-axis-side time'
+        submenu 'Adjust Vertical Scale' adjust-height
+        line
+        entry 'High/Low profile' 'myxyhighlow'
+endmenu
+
+define widget iss-global-rass intmenu 'Global middle menu'
+        title 'Time-Height Rass'
+        line
+        entry 'Adjust Time Span...' 'i_adjust_global xy-series-span'
+        entry 'Set Tic Interval...' \
+                'adjust_tic_interval adj-axis-side time'
+        submenu 'Adjust Vertical Scale' adjust-height
+!       line
+!        entry 'High/Low profile' 'myxyhighlow'
+endmenu
+
+!
+! Toggle between high and low profiles.
+!
+!procedure myxyhighlow
+!        local current PDParam('915profh','platform')
+!        message 'current #' current
+!        if (substring (current, '915h'))
+!                local new ReplString(current,'915h','915l')
+!        else
+!                local new ReplString(current,'915l','915h')
+!        endif
+!        message 'platform #' new
+!        parameter 915profh platform #new
+!        parameter 915contourh platform #new
+!endprocedure
+
+!
+! Toggle between high and low profiles.
+! this is really just xyhighlow, if it works, change all myxyhighlow
+! to xyhighlow
+!
+procedure myxyhighlow
+        local current PDParam(icon_component,'platform')
+        if (substring (current, '_h'))
+                local new ReplString(current,'_h','_l')
+        elseif (substring (current, '_l'))
+                local new ReplString(current,'_l','_h')
+        endif
+        parameter #icon_component platform #new
+endprocedure
+
+define widget select-field-color intmenu 'select colors'
+        title 'Select Color'
+        line
+        entry 'white' 'parameter #icon_component field-color white'
+        entry 'gray' 'parameter #icon_component field-color gray50'
+        entry 'steel' 'parameter #icon_component field-color SteelBlue'
+        entry 'sky' 'parameter #icon_component field-color DeepSkyBlue'
+        entry 'blue' 'parameter #icon_component field-color blue'
+        entry 'cyan' 'parameter #icon_component field-color cyan'
+        entry 'green' 'parameter #icon_component field-color green'
+        entry 'spring' 'parameter #icon_component field-color SpringGreen1'
+        entry 'yellow' 'parameter #icon_component field-color yellow'
+        entry 'yellow2' 'parameter #icon_component field-color lemonchiffon'
+        entry 'tan' 'parameter #icon_component field-color tan'
+        entry 'brown' 'parameter #icon_component field-color brown'
+        entry 'orange' 'parameter #icon_component field-color orange'
+        entry 'red' 'parameter #icon_component field-color red'
+        entry 'magenta' 'parameter #icon_component field-color magenta'
+        entry 'hot-pink' 'parameter #icon_component field-color HotPink'
+        entry 'pink' 'parameter #icon_component field-color pink'
+        entry 'violet' 'parameter #icon_component field-color violet'
+        entry 'orchid' 'parameter #icon_component field-color MediumOrchid'
+endmenu
+
+procedure adjust_scale dimParam string
+        local dim pd_paramsearch(icon_component,dimParam,"xy","string")
+        local param concat(dim,"-field")
+        local qual pd_param(icon_component,param,"string")
+
+        local smin  concat( concat("scale-",dim),"-min")
+        local min pd_paramsearch(icon_component, smin,qual, "string")
+
+        local smax  concat( concat("scale-",dim),"-max")
+        local max pd_paramsearch(icon_component, smax, qual,"string")
+
+        local fmin concat( qual, "-min:")
+        local fmax concat( qual, "-max:")
+        parameter #icon_component scale-x-mode manual
+        activate doublefloat #icon_component #smin #fmin #min #smax #fmax #max
+endprocedure
+
+
+!
+! Tweak the color of the grid.
+!
+procedure iss-xytrace-color-tweaker color string
+        local plats PDParam(icon_component,'platform')
+	message 'plats #' plats
+        local pos ListPosition(icon_platform, plats)
+	message 'pos #' pos
+        local clist PDParam(icon_component,'field-color')
+	message 'clist #' clist
+        local clist ReplElement(clist, pos, color)
+	message 'clist #' clist
+        parameter #icon_component field-color #clist
+!!!!!!	parameter #icon_component field-color #color
+endprocedure

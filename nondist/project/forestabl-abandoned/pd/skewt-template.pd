@@ -1,0 +1,35 @@
+global
+	add-data-command:	sk-add-data
+	add-data-mode:	replace
+	altitude-label:	
+	axis-bottom-space:	0
+	axis-left-space:	0
+	axis-top-space:	0
+	icon-space:	40
+	pd-name:	skewt-template
+	plot-mode:	history
+	plot-time:	now
+	plot-type:	skewt
+	require:	simple-color, active-time
+	sa-space:	0
+	ta-scale:	20
+	time-annot-active:	true
+	time-topannot-left-menu:	global-time-left-menu
+skewt
+	annot-time:	true
+	color-table:	Skew-t
+	icon:	sounding
+	icon-left-menu:	skewt-left
+	icon-middle-menu:	DataAvailable
+	icon-right-menu:	skewt-right
+	overlay-mode:	true
+	platform:	iss2/class
+	representation:	skewt
+	require:	skewt
+	skprivate-thermo-npts:	717
+	skprivate-wind-npts:	717
+	top-annot-active:	true
+	topannot-left-menu:	skewt-topannot
+	topannot-right-menu:	skewt-topannot-offsets
+	trigger:	platform
+

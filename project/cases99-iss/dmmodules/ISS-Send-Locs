@@ -1,0 +1,78 @@
+!
+! $Id: ISS-Send-Locs,v 1.1.1.1 1997-12-04 18:27:55 granger Exp $
+!
+! Module for project-specific ISS locations and the procedures for
+! sending them
+!
+
+!
+! Need some locations in our defaults description
+!
+pddrop locations idass_iss defaults defaults
+
+set ISSes 'saltfork,redrock'
+set isssurf 'saltfork,redrock'
+set Rawin 'dodge,norman,sgp,topeka'
+set SndLocs1 'saltfork,'
+set SndLocs2 'norman,sgp,topeka,'
+set SndLocs3 'dodge,kingfisher,kingman,'
+set SndLocs4 'topeka,pawhuska'
+set SndLocs concat4(SndLocs1,SndLocs2,SndLocs3,SndLocs4)
+
+! rass
+set RASSLocs 'saltfork,redrock'
+
+!
+! Profilers.  Don't bother with both high and low, since they tend to have
+! similar locations.
+!
+set ProfLocs 'saltfork,redrock'
+
+!
+! Change the library ISS location pd to the ISS stations for this project
+!
+parameter p_iss_loc p_iss_loc platform #ISSes
+
+!
+! Add an iss location overlay if one isn't already there.
+!
+procedure ISS-Send-Locs type string
+	if (type = 'sounding')
+		parameter p_active_loc p_active_loc location-time observation
+		putc3 p_active_loc platform #SndLocs icon sounding-small \
+			time-label true
+	elseif (type = 'profiler')
+		putc2 p_active_loc platform #ProfLocs icon prof-sm
+	elseif (type = 'rass')
+		putc2 p_active_loc platform #RASSlocs icon rass-sm
+	elseif (type = 'station')
+	        putc2 p_station platform #isssurf icon iss-iss-small
+	endif
+	parameter p_active_loc p_active_loc location-time point
+!
+! Now we have to drop in an ISS overlay too, if one doesn't already 
+! exist.
+!
+	if (target_win = "none")
+		return
+	endif
+	parameter #target_win global plot-hold true
+	local comps pd_complist(target_win)
+	foreach comp #comps
+	!
+	! Key on the iss-loc icon, which is kludgy but easy.
+	!
+		if (PDParam(target_win,comp,'icon') = 'iss-loc')
+			parameter #target_win global plot-hold false
+			return
+		endif
+	endfor
+	sendout p_iss_loc #target_win
+	parameter #target_win global plot-hold false
+endprocedure
+
+
+procedure ISS-Send-Stations
+	putc3 p_station platform #isssurf active-icon false icon iss-iss-small
+endprocedure
+

@@ -1,0 +1,191 @@
+! $Id: IconBar,v 1.1.1.1 1997-12-04 18:27:37 granger Exp $
+!
+! All the definitions required to make the iconbar work.
+!
+!
+! The right way to do this....
+!
+set ui$bitmap_directory concat(c$libdir, "/icons")
+
+read ToolBar
+
+!
+! Project iconbar
+!
+define widget iconbar menubar " "
+	noheader
+
+	menu help bitmap iconbar-help
+		title 'Zebra Help Access'
+		line
+		entry 'Introduction' 'help intro'
+		entry 'On-line Help Index' 'help index'
+		entry 'Starting Zebra' 'help start'
+		entry 'Shutting Down' 'help shut-down'
+		entry 'Keys and Mouse Buttons' 'help keys'
+		entry 'The Icon Bar' 'help iconbar'
+		entry 'Editing Display Configurations' 'help editing-configs'
+		line
+		entry 'Horizontal plots' 'help horizontal-plots'
+		entry 'Skew-t plots' 'help skewt'
+		entry 'XYGraph plots' 'help xy-graphs'
+		entry 'Cross section plots' 'help cross-section'
+	endmenu
+
+	menu tools bitmap tools-big
+		title 'Tools'
+		line
+		entry 'Project Icon Bar' 'popup iconbar'
+		entry 'Dismiss Tool Bar' 'popdown toolbar'
+		entry 'Time Control Tool...' 'popup time'
+		entry 'Printing Tool...' 'popup hardcopy'
+		entry 'Configuration Tool...' 'popup ConfigEdit'
+		entry 'XTerm Shell Tool' 'shell \
+  "xterm -T ZebraShell -bg grey90 -fg purple -fn 8x13bold -e zstart -shell &"'
+		submenu 'Data Listings' dslistings
+		entry 'Data Store Management' 'shell "dsmanage &"'
+		line
+		entry 'Begin new configuration...' 'popup newconfig'
+		submenu 'Add new window' 'template-menu'
+		entry 'Kill window by cursor' 'point-and-shoot'
+		entry 'Add window named...' 'popup NewWindow'
+		entry 'Kill window named...' 'popup ZorchWindow'
+		line
+		entry 'Save this configuration' 'cfgsave #dm$config'
+		entry 'Save this configuration as...' 'popup SaveConfig'
+		entry 'Restore configuration' 'cfg-restore'
+		line
+		entry 'Event Logger' 'shell "EventLogger -w &"'
+		line
+		entry 'Shutdown Zebra' 'shutdown'
+	endmenu
+
+	menu configs bitmap configs
+		title 'Display configurations'
+		line
+		entry 'Montague (ISS 1)' 'display iss1' (dm$config = 'iss1')
+		entry 'Sheboygan (ISS 2)' 'display iss2' (dm$config = 'iss2')
+		entry 'Greenville (ISS 3)' 'display iss3' (dm$config = 'iss3')
+		line
+		entry 'Empty screen' 'display empty' (dm$config = 'empty')
+	endmenu
+
+	menu surface bitmap surface
+	     	title 'Surface observations'
+		line
+		entry 'ISS Surface Stations' \
+      'putc3 p_station platform #isssurf active-icon false icon iss-iss-small'
+		line
+		entry 'Montague(1) Surface Met' \
+			'PutScalar iss1/surface_met tdry'
+		entry 'Sheboygan(2) Surface Met' \
+			'PutScalar iss2/surface_met tdry'
+		entry 'Greenville(3) Surface Met' \
+			'PutScalar iss3/surface_met tdry'
+	endmenu
+
+	menu sounding bitmap sounding
+		title 'Soundings'
+		line
+		entry 'Montague(1) CLASS' 'PutScalar iss1/class tdry'
+		entry 'Sheboygan(2) CLASS' 'PutScalar iss2/class tdry'
+		entry 'Greenville(3) CLASS' 'PutScalar iss3/class tdry'
+	endmenu
+
+	menu rass bitmap iss-rass
+		title 'RASS'
+		line
+		entry 'Montague(1) RASS' 'PutScalar iss1/rass915 tv'
+		entry 'Sheboygan(2) RASS' 'PutScalar iss2/rass915 tv'
+		entry 'Greenville(3) RASS' 'PutScalar iss3/rass915 tv'
+	endmenu
+
+	menu prof bitmap iss-prof
+		title 'Profilers'
+		line
+		entry 'Montague(1) Profiler (High)' \
+			'PutScalar iss1/prof915h wind'
+		entry 'Montague(1) Profiler (Low)' \
+			'PutScalar iss1/prof915l wind'
+		entry 'Sheboygan(2) Profiler (High)' \
+			'PutScalar iss2/prof915h wind'
+		entry 'Sheboygan(2) Profiler (Low)' \
+			'PutScalar iss2/prof915l wind'
+		entry 'Greenville(3) Profiler (High)' \
+			'PutScalar iss3/prof915h wind'
+		entry 'Greenville(3) Profiler (Low)' \
+			'PutScalar iss3/prof915l wind'
+	endmenu
+
+	menu 'overlays' bitmap overlays
+		title 'Static Overlays'
+		line
+		entry 'US Map' \
+		      'putc3 p_map platform stormfest color brown icon map'
+		entry 'ISS Stations' 'SendLocs station'
+		entry 'Sounding station locations' 'SendLocs sounding'
+		entry 'Profiler locations' 'SendLocs profiler'
+		entry 'RASS locations' 'SendLocs rass'
+		line
+		entry 'X-Y Grid (km)' \
+			'putc3 p_kmgrid x-spacing 300 y-spacing 300 color cyan'
+		entry 'Lat/Lon Grid' \
+			'putc3 p_llgrid x-spacing 300 y-spacing 300 color cyan'
+	endmenu
+enddef
+
+
+!
+! Location variables for long stuff.  DO NOT PUT SPACES IN THESE STRINGS or
+! unpleasant things will happen to you.
+!
+set ISSes 'iss1,iss2,iss3,iss4'
+set isssurf 'iss1/surface_met,iss2/surface_met,iss3/surface_met'
+set SndLocs 'iss1/class,iss2/class,iss3/class'
+set RASSLocs 'iss1/rass,iss2/rass,iss3/rass'
+
+!
+! Profilers.  Don't bother with both high and low, since they tend to have
+! similar locations.
+!
+set ProfLocs 'iss1/prof915l,iss2/prof915l,iss3/prof915l'
+
+!
+! Add an iss location overlay if one isn't already there.
+!
+procedure SendLocs type string
+	if (type = 'sounding')
+		parameter p_active_loc p_active_loc location-time observation
+		putc3 p_active_loc platform #SndLocs icon sounding-small \
+			time-label true
+	elseif (type = 'profiler')
+		putc2 p_active_loc platform #ProfLocs icon prof-sm
+	elseif (type = 'rass')
+		putc2 p_active_loc platform #RASSlocs icon rass-sm
+	elseif (type = 'station')
+	        putc2 p_station platform #isssurf icon iss-iss-small
+	endif
+	parameter p_active_loc p_active_loc location-time point
+!
+! Now we have to drop in an ISS overlay too, if one doesn't already 
+! exist.
+!
+	if (target_win = "none")
+		return
+	endif
+	parameter #target_win global plot-hold true
+	local comps pd_complist(target_win)
+	foreach comp #comps
+	!
+	! Key on the iss-loc icon, which is kludgy but easy.
+	!
+		if (PDParam(target_win,comp,'icon') = 'iss-loc')
+			parameter #target_win global plot-hold false
+			return
+		endif
+	endfor
+	sendout tc_iss_loc #target_win
+	parameter #target_win global plot-hold false
+endprocedure
+
+

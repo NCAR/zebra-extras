@@ -1,0 +1,88 @@
+!
+! Support for active ISS locations.
+!
+
+define widget iss-to-other intmenu 'other'
+	title 'Display in other window'
+	line
+        entry 'Omega sounding' 'iss-shipout sounding/ none'
+        entry 'Wind profile (high)' 'iss-shipout prof/ _h'
+        entry 'Wind profile (low)' 'iss-shipout prof/ _l'
+        entry 'RASS' 'iss-shipout rass/ _r'
+        entry 'Surface measurements' 'iss-shipout surf/ _s'
+endmenu
+
+
+define widget other-profiler intmenu 'Other Profiler'
+	title 'Other Profiler'
+	line
+	entry 'Wind profile (high) MPS style (computed from spectra)' \
+		'iss-shipout prof/ w_h'
+	entry 'Wind profile (low) MPS style (computed from spectra)' \
+		'iss-shipout prof/ w_l'
+	entry 'Wind profile (high) raw (computed from spectra)' \
+		'iss-shipout prof/ r_h'
+	entry 'Wind profile (low) raw (computed from spectra)' \
+		'iss-shipout prof/ r_l'
+	entry 'Wind profile (high) MPS style 2 (from pop moments)' \
+		'iss-shipout prof/ pw2_h'
+	entry 'Wind profile (low) MPS style 2 (from pop moments)' \
+		'iss-shipout prof/ pw2_l'
+	entry 'Wind profile (high) MPS style 3 (from pop moments)' \
+		'iss-shipout prof/ pw3_h'
+	entry 'Wind profile (low) MPS style 3 (from pop moments)' \
+		'iss-shipout prof/ pw3_l'
+	entry 'Wind profile (high) MPS style 4 (from pop moments)' \
+		'iss-shipout prof/ pw4_h'
+	entry 'Wind profile (low) MPS style 4 (from pop moments)' \
+		'iss-shipout prof/ pw4_l'
+	entry 'Wind profile (high) MPS with errlim = 0 (from pop moments)' \
+		'iss-shipout prof/ 0err_h'
+	entry 'Wind profile (low) MPS with errlim = 0 (from pop moments)' \
+		'iss-shipout prof/ 0err_l'
+	entry 'Wind profile (high) MPS with errlim = 2 (from pop moments)' \
+		'iss-shipout prof/ 2err_h'
+	entry 'Wind profile (low) MPS with errlim = 2 (from pop moments)' \
+		'iss-shipout prof/ 2err_l'
+endmenu
+!
+! The function which actually gets this data around.
+!
+procedure iss-shipout prefix string suffix string
+	if (suffix <> 'none')
+		local fullplat concat3(prefix, icon_platform, suffix)
+	else
+		local fullplat icon_platform
+	endif
+	local dmcmd quote(concat3 ('PutScalar ', fullplat, ' tdry'))
+	dm #dmcmd
+endprocedure
+
+
+define widget send-iss intmenu 'iss sender'
+	title 'Add Data to Other Window'
+	line
+	entry 'RASS data' 'iss-rass'
+	entry 'Sonde data' 'iss-sonde'
+	entry 'Profiler data' 'iss-profiler'
+endmenu
+
+
+!
+! Stuff called out of the above
+!
+procedure iss-rass
+	local dmcmd quote(concat3('rass-add rass/', icon_platform, '_r'))
+	dm #dmcmd
+endprocedure
+
+procedure iss-sonde
+	local dmcmd quote(concat('sounding-add sounding/', icon_platform))
+	dm #dmcmd
+endprocedure
+
+procedure iss-profiler
+	local dmcmd quote(concat('profiler-add prof/', icon_platform))
+	dm #dmcmd
+endprocedure
+

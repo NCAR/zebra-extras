@@ -1,0 +1,104 @@
+!
+! $Id: ToolBar,v 1.1.1.1 1997-12-04 18:27:38 granger Exp $
+!
+
+!-----------------------------------
+! Default window template menu
+!
+require "cfg-tools"
+
+define widget template-menu intmenu 'window templates'
+	title 'Window Templates'
+	line
+	entry 'Constant altitude plot' \
+		'create-window cap cap-template big'
+	entry 'Skew-t plot' \
+		'create-window skewt skewt-template sounding'
+	entry 'Time-series plot' \
+		'create-window tseries tseries-template xyplot'
+	entry 'Time-height plot' \
+		'create-window theight time-height-template xyplot'
+	entry 'Simple line plot' \
+		'create-window lineplot lineplot-template xyplot'
+	entry 'Wind profile' 'create-window wind wind-template xyplot'
+	entry 'RASS profile' 'create-window rass rass-template xyplot'
+	entry 'XY Graph' 'create-window xygraph xygraph-template xyplot'
+	line
+	entry 'Real-time clock' 'create-clock'
+endmenu
+
+
+!-----------------------------------------
+! DataStore widget default listings
+!
+define widget dslistings intmenu 'dsdwidget listings'
+	title 'Data Store Widget Listings'
+	line
+	entry 'All Platforms' \
+	   'shell "dsdwidget -a -t All\ Platforms &"'
+endmenu
+
+
+!
+! This is the generic tools iconbar which projects can just reference without
+! having to always include it in project menubars.
+!
+define widget toolbar menubar " "
+	noheader
+
+	menu help bitmap iconbar-help
+		title 'Zebra Help Access'
+		line
+		entry 'Introduction' 'help intro'
+		entry 'On-line Help Index' 'help index'
+		entry 'Starting Zebra' 'help start'
+		entry 'Shutting Down' 'help shut-down'
+		entry 'Keys and Mouse Buttons' 'help keys'
+		entry 'The Icon Bar' 'help iconbar'
+		entry 'Editing Display Configurations' 'help editing-configs'
+		line
+		entry 'Horizontal plots' 'help horizontal-plots'
+		entry 'Skew-t plots' 'help skewt'
+		entry 'XYGraph plots' 'help xy-graphs'
+		entry 'Cross section plots' 'help cross-section'
+	endmenu
+
+	menu tools bitmap tools-big
+		title 'Tools'
+		line
+		entry 'Project Icon Bar' 'popup iconbar'
+		entry 'Time Control Tool...' 'popup time'
+		entry 'Printing Tool...' 'popup hardcopy'
+		entry 'Configuration Tool...' 'popup ConfigEdit'
+		entry 'XTerm Shell Tool' 'shell \
+  "xterm -T ZebraShell -bg grey90 -fg purple -fn 8x13bold -e zstart -shell &"'
+		submenu 'Data Listings' dslistings
+		entry 'Data Store Management' 'shell "dsmanage &"'
+		line
+		entry 'Begin new configuration...' 'popup newconfig'
+		submenu 'Add new window' 'template-menu'
+		entry 'Kill window by cursor' 'point-and-shoot'
+		entry 'Add window named...' 'popup NewWindow'
+		entry 'Kill window named...' 'popup ZorchWindow'
+		line
+		entry 'Save this configuration' 'cfgsave #dm$config'
+		entry 'Save this configuration as...' 'popup SaveConfig'
+		entry 'Restore configuration' 'cfg-restore'
+		line
+		entry 'Event Logger' 'shell "EventLogger -w &"'
+		line
+		entry 'Shutdown Zebra' 'shutdown'
+	endmenu
+
+	menu 'overlays' bitmap overlays
+		title 'Standard Overlays'
+		line
+		entry 'X-Y Grid (km)' \
+			'putc3 p_kmgrid x-spacing 300 y-spacing 300 color cyan'
+		entry 'Lat/Lon Grid' \
+			'putc3 p_llgrid x-spacing 300 y-spacing 300 color cyan'
+		line
+		entry 'Window Bounds' 'require send-wbounds; send-wbounds'
+	endmenu
+enddef
+
