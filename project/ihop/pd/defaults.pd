@@ -120,8 +120,13 @@ defaults
 	mesonet_15-data-age-limit:	90m
 	ok_mesonet-icon-age-limit:	10m
 	ok_mesonet-data-age-limit:	20m
-	elev-icon-age-limit:	20000d
-	topo-icon-age-limit:	20000d
+!
+! No data or icon age limit for elev and topo data
+!
+	elev-icon-age-limit:	0s
+	elev-data-age-limit:	0s
+	topo-icon-age-limit:	0s
+	topo-data-age-limit:	0s
 !
 ! What color is the time label when we're in history mode
 !

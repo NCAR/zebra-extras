@@ -1,7 +1,7 @@
 !
 ! This file contains the default values for some plot description parameters.
 !
-! $Id: defaults.pd,v 1.9 2003-03-20 16:55:38 burghart Exp $
+! $Id: defaults.pd,v 1.10 2003-08-05 20:11:21 burghart Exp $
 !
 defaults
 	pd-name:			defaults
@@ -43,10 +43,6 @@ defaults
 !
 	boundary-age-limit:	4h
 	icon-age-limit:		12h
-	elev-icon-age-limit:	20000d
-	elev-data-age-limit:	20000d
-	landsat-icon-age-limit: 20000d
-	landsat-data-age-limit: 20000d
 	swf-icon-age-limit:	90d
 	stj-icon-age-limit:	90d
 	sfj-icon-age-limit:	90d
@@ -56,6 +52,15 @@ defaults
 	spol-data-age-limit:	20m
 	goes-icon-age-limit:	30m
 	goes-data-age-limit:	60m
+!
+! No data or icon age limit for elev, topo, and landsat data
+!
+	elev-icon-age-limit:	0s
+	elev-data-age-limit:	0s
+	topo-icon-age-limit:	0s
+	topo-data-age-limit:	0s
+	landsat-icon-age-limit:	0s
+	landsat-data-age-limit:	0s
 !
 	history-color:		green
 !

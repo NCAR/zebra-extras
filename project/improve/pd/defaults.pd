@@ -40,8 +40,13 @@ defaults
 !
 	icon-age-limit:		15m
 	spol-icon-age-limit:	5m
-	elev-icon-age-limit:	20000d
-	topo-icon-age-limit:	20000d
+!
+! No data or icon age limit for elev and topo data
+!
+	elev-icon-age-limit:	0s
+	elev-data-age-limit:	0s
+	topo-icon-age-limit:	0s
+	topo-data-age-limit:	0s
 !
 ! What color is the time label when we're in history mode
 !
