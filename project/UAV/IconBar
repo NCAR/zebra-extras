@@ -130,7 +130,12 @@ enddef
 
 procedure place_goes field string
 	parameter p_raster p_raster require "raster, goes"
-	putc3 p_raster platform sgpgoesvis.tmp field #field icon-middle-menu goes-middle
+	if (field = "vis")
+		putc3 p_raster platform sgpgoesvis.tmp field #field icon-middle-menu goes-middle
+	else
+		parameter p_raster p_raster platform sgpgoesir.tmp
+		putc3 p_raster platform sgpgoesir.tmp field #field icon-middle-menu goes-middle
+	endif
 endprocedure
 
 
