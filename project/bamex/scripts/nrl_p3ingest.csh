@@ -20,7 +20,7 @@ set datadir = /scr/js1/bamex/nrl_p3
 # just doesn't work...
 #
 at "now + 1 minute" <<EOF
-    ./platwatch.nrl_p3 $datadir 10 >>& $logfile 
+    ./platwatch.nrl_p3 $datadir 10 >> $logfile 2>&1
 EOF
 
 #
