@@ -1,0 +1,11 @@
+
+SRCS = teflun2class.cc
+OBJS = teflun2class.o
+
+LIBS = $(LIBRDSSUTIL)
+DISTFILES = $(SRCS) Imakefile
+
+CccProgramTarget(teflun2class, $(OBJS), $(DEPLIBS), $(LIBS), $(SYSLIBS))
+DistfilesTarget($(DISTFILES))
+DependTarget()
+LintTarget()
