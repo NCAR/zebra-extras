@@ -1,4 +1,6 @@
 
+require xywind
+
 define widget profiler-power intmenu 'Change profiler power dimension'
 	title 'Profiler Power'
 	line
