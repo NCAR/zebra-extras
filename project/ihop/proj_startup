@@ -1,0 +1,8 @@
+#!/bin/tcsh
+#
+# This will eventually be the project startup file.  We need to:
+#
+#	Run the rainfall stuff
+#	Run the archiver
+#	What else?
+#
