@@ -254,7 +254,7 @@ defaults
 ! Refractivity fields
 ! 
 	n-center:		280
-	n-nsteps:		8
+	n-nsteps:		10
 	n-step:			-10
 	delta_n-center:		0
 	delta_n-nsteps:		14
