@@ -7,22 +7,22 @@ prototype fallback 'Default' gp 'gp.init'
 
 config auto
 	widget 'iconbar' 890 29 400 70
-	graphic 'dbz' 324 140 601 601 'Default'
+	graphic 'dbz' 324 140 600 600 'Default'
 		description 'auto-dbz'
 		buttonmap 'big'
 		forcepd
 	endgraphic
-	graphic 'refractivity' 508 134 601 602 'Default'
+	graphic 'refractivity' 508 134 600 600 'Default'
 		description 'auto-refractivity'
 		buttonmap 'big'
 		forcepd
 	endgraphic
-	graphic 'composite' 22 99 741 635 'Default'
+	graphic 'composite' 22 99 750 600 'Default'
 		description 'auto-composite'
 		buttonmap 'big'
 		forcepd
 	endgraphic
-	graphic 'velocity' 323 139 601 601 'Default'
+	graphic 'velocity' 323 139 600 600 'Default'
 		description 'auto-velocity'
 		buttonmap 'big'
 		forcepd
