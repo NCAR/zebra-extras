@@ -1,6 +1,6 @@
 global
 	altitude-label:	
-	pd-name:	sonde-UpperLeft
+	pd-name:	sondeC1-UpperLeft
 	plot-mode:	real-time
 	plot-time:	3-Feb-94,21:43:00
 	plot-type:	skewt

@@ -48,13 +48,13 @@ define widget iconbar menubar " "
 		entry 'NWS Surface Plot' 'pconfig Mesonet' \
 			(dm$config = "Mesonet")
 		entry 'Satellite Display' 'pconfig Satellite' (dm$config = "Satellite")
-		entry 'Thermodynamics Display' 'pconfig sonde' (dm$config = "sonde")
+!		entry 'Thermodynamics Display' 'pconfig sonde' (dm$config = "sonde")
+		submenu 'Thermodynamic Displays' 'sonde_menu'
 		entry 'Profiler Wind and Temperature' \
 			'pconfig Profiler' (dm$config = "Profiler")
 		entry 'Cloud Display' 'pconfig clouds' (dm$config = 'clouds')
 		submenu 'Radiation Display (by facility)' 'siros_by_facility'
 		submenu 'Surface Meterology Display (by facility)' 'surf_by_facility'
-!		submenu 'SIROS Facilities' 'siros_by_facility'
 		line
 		entry 'Time Widget'	'popup time'
 		entry 'Hardcopy Widget' 'popup hardcopy'
@@ -84,16 +84,15 @@ define widget iconbar menubar " "
 		line
 		entry 'Central Facility (also E13, Lamont)' \
 			'putc1 c_siros platform DsgpsirosE13.a1'
-		entry 'Extended Facility E9 (also Ashton)' \
+		entry 'Extended Facility E4 (Plevna)' \
+			'putc1 c_siros platform DsgpsirosE4.a1'
+		entry 'Extended Facility E9 (Ashton)' \
 			'putc1 c_siros platform DsgpsirosE9.a1'
-		entry 'Extended Facility E15 (also Ringwood)' \
+		entry 'Extended Facility E15 (Ringwood)' \
 			'putc1 c_siros platform DsgpsirosE15.a1'
+		entry 'Extended Facility E16 (Vici)' \
+			'putc1 c_siros platform DsgpsirosE16.a1'
 	endmenu
-!	menu 'platforms' bitmap /apps/development/UAV/icons/extended
-!		title 'Platforms for UAV Extented Facilities'
-!		line
-!		submenu 'siros facilities' 'siros_facilities'
-!	endmenu 
 	menu mesonet bitmap mesonet
 		title 'NWS Hourly Surface Data'
 		line
@@ -101,7 +100,8 @@ define widget iconbar menubar " "
 		entry 'Line Contours' 'place_surf_contours p_contour'
 		entry 'Filled Contours' 'place_surf_contours p_fcontour'
 		entry 'Gridded Wind Vectors' \
-		   'putc2 p_irg_winds platform sgpsfchrlyX1.a1 icon grid_hourly_vectors'
+		   'putc2 p_irg_winds platform sgpnwssurfX1.a1 icon grid_hourly_vectors'
+!		   'putc2 p_irg_winds platform sgpsfchrlyX1.a1 icon grid_hourly_vectors'
 	endmenu
 	menu satellite bitmap satellite
 		title 'Satellite Data'
@@ -148,14 +148,16 @@ procedure place_station_plot
 	parameter p_station p_station annot-left-menu nws-station-fields
 	parameter p_station p_station annot-middle-menu nws-station-fields
 	parameter p_station p_station require "station, simple-color, surface"
-	putc2 p_station platform sgpsfchrlyX1.a1 icon meso_stations
+	putc2 p_station platform sgpnwssurfX1.a1 icon meso_stations
+!	putc2 p_station platform sgpsfchrlyX1.a1 icon meso_stations
 endprocedure
 
 
 procedure place_surf_contours pd string
 	parameter #pd #pd icon-middle-menu nws-surf-fields
 	parameter #pd #pd require "contour, simple-color, surface"
-	putc3 #pd platform sgpsfchrlyX1.a1 field tdry icon grid_hourly
+	putc3 #pd platform sgpnwssurfX1.a1 field tdry icon grid_hourly
+!	putc3 #pd platform sgpsfchrlyX1.a1 field tdry icon grid_hourly
 endprocedure
 
 
@@ -224,12 +226,21 @@ define widget LocMenu intmenu 'Location menu'
 !	entry 'Boundary Layer Array' 'put_component c_array_loc'
 endmenu
 
-define widget siros_facilities intmenu 'Siros Facilities'
-	title 'siros facilities'
+define widget sonde_menu intmenu 'Sonde Menu'
+	title 'Sounding Display Options'
 	line
-	entry 'Central Facility (also E13, Lamont)' 'put_component c_CF_siros'
-	entry 'Extended Facility E9 (also Ashton)' 'put_component c_E9_siros'
-	entry 'Extended Facility E15 (also Ringwood)' 'put_component c_E15_siros'
+	entry 'Central Facility (also C1, Lamont)' \
+			'pconfig sondeC1' (dm$config = "sondeC1")
+	entry 'Boundary Facility B1 (north)' \
+			'pconfig sondeB1' (dm$config = "sondeB1")
+	entry 'Boundary Facility B4 (west)' \
+			'pconfig sondeB4' (dm$config = "sondeB4")
+	entry 'Boundary Facility B5 (east)' \
+			'pconfig sondeB5' (dm$config = "sondeB5")
+	entry 'Boundary Facility B6 (south)' \
+			'pconfig sondeB6' (dm$config = "sondeB6")
+	entry 'All Boundary Facilities: Skew-T' \
+			'pconfig sondeskew' (dm$config = "sondeskew")
 endmenu
 
 define widget siros_by_facility intmenu 'SIROS by Facility'
@@ -238,12 +249,18 @@ define widget siros_by_facility intmenu 'SIROS by Facility'
 	entry 'Central Facility (also E13, Lamont)' \
 			'pconfig siros_tseries_cf' (dm$config = "siros_tseries_cf")
 !			'siros-display "DsgpsirosE13.a1"' 
-	entry 'Extended Facility E9 (also Ashton)' \
+	entry 'Extended Facility E4 (Plevna)' \
+			'pconfig siros_tseries_E4' (dm$config = "siros_tseries_E4")
+!			'siros-display "DsgpsirosE4.a1"'
+	entry 'Extended Facility E9 (Ashton)' \
 			'pconfig siros_tseries_E9' (dm$config = "siros_tseries_E9")
 !			'siros-display "DsgpsirosE9.a1"'
-	entry 'Extended Facility E15 (also Ringwood))' \
+	entry 'Extended Facility E15 (Ringwood))' \
 			'pconfig siros_tseries_E15' (dm$config = "siros_tseries_E15")
 !			'siros-display "DsgpsirosE15.a1"'
+	entry 'Extended Facility E16 (Vici))' \
+			'pconfig siros_tseries_E16' (dm$config = "siros_tseries_E16")
+!			'siros-display "DsgpsirosE16.a1"'
 endmenu
 
 !

@@ -5,8 +5,8 @@ global
 	axis-right-space:	20
 	axis-top-space:	30
 	global-series-span-proc:	adj_series_span
-	pd-name:	sonde-LowerRight
-	platform:	sgpsondewrpnC1.a1
+	pd-name:	sondeB5-LowerRight
+	platform:	sgpsondewrpnB5.a1
 	require:	simple-color
 	plot-mode:	real-time
 	plot-time:	2-feb-1994,20:33:00
@@ -42,7 +42,7 @@ c_wind
 	icon:	sounding
 	icon-middle-menu:	DataAvailable
 	icon-right-menu:	time-height-winds
-	platform:	sgpsondewrpnC1.a1
+	platform:	sgpsondewrpnB5.a1
 	skip-data-points:	-9999.0
 	representation:	wind
 	representation-style:	barb
@@ -54,12 +54,4 @@ c_wind
 	wdir-field:	deg
 	wspd-field:	wspd
 	x-field:	time
-	xyprivate-data-begin:	1-Feb-94,20:33:00
-	xyprivate-data-end:	2-Feb-94,20:33:00
-	xyprivate-x-max:	2-Feb-94,21:09:00
-	xyprivate-x-min:	1-Feb-94,20:33:00
-	xyprivate-x-type:	t
-	xyprivate-y-max:	26059.9492
-	xyprivate-y-min:	-910.9500
-	xyprivate-y-type:	f
 	y-field:	alt

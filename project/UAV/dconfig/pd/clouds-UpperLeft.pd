@@ -5,6 +5,7 @@ global
 	axis-top-space:	30
 	pd-name:	clouds-UpperLeft
 	platform:	sgpmwrlosC1.a1
+	require:	simple-color
 	plot-mode:	real-time
 	plot-time:	2-Feb-94,20:41:00
 	plot-type:	xygraph
@@ -35,68 +36,64 @@ xy-grid
 	x-field:	time
 	y-field:	nothing
 l_xytrace
-	annot-left-menu:	xy-an-left
-	annot-middle-menu:	mwrfields
-	annot-right-menu:	simple-color
-	axis-b-tic-interval:	7200s
-	axis-bottom:	false
-	axis-l-color:	rgb:ffff/00/00
-	axis-l-grid-intensity:	0.7
-	axis-l-tic-interval:	.1
-	axis-left:	true
-	axis-r-tic-interval:	1.0000
-	axis-right:	false
-	axis-t-tic-interval:	7200s
-	axis-top:	false
-	color-tweaker:	xytrace-color
-	disable:	false
-	do-side-annotation:	true
-	field-color:	rgb:ffff/00/00
-	field-select-command:	xytrace-field
 	icon:	tseries
 	icon-color:	rgb:ffff/00/00
 	icon-middle-menu:	mwrfields
 	icon-right-menu:	xytrace-right
+	do-side-annotation:	true
+	annot-left-menu:	xy-an-left
+	annot-middle-menu:	mwrfields
+	annot-right-menu:	simple-color
+	axis-bottom:	false
+	axis-top:		false
+	axis-right:		false
+	axis-left:		true
+	axis-l-color:	rgb:ffff/00/00
+!	axis-l-grid-intensity:	0.7
+!	axis-l-tic-interval:	.1
+	color-tweaker:	xytrace-color
+	disable:	false
+	field-color:	rgb:ffff/00/00
+	field-select-command:	xytrace-field
 	limit-proc:	xytrace-adjust
 	platform:	sgpmwrlosC1.a1
 	representation:	simple
 	representation-style:	cross
 	require:	xytrace, simple-color, mwr
-	scale-y-max:	2.0
-	scale-y-min:	.5
-	scale-y-mode:	manual
+!	scale-y-max:	2.0
+!	scale-y-min:	.5
+!	scale-y-mode:	manual
+	scale-y-mode:	autoscale
 	x-field:	time
 	y-field:	vap
 r_xytrace
-	annot-left-menu:	xy-an-left
-	annot-middle-menu:	mwrfields
-	annot-right-menu:	simple-color
-	axis-b-tic-interval:	7200s
-	axis-bottom:	false
-	axis-l-tic-interval:	1.0000
-	axis-left:	false
-	axis-r-color:	rgb:ffff/a5a5/00
-	axis-r-grid-intensity:	0.0
-	axis-r-tic-interval:	.01
-	axis-right:	true
-	axis-t-tic-interval:	7200s
-	axis-top:	false
-	color-tweaker:	xytrace-color
-	disable:	false
-	do-side-annotation:	true
-	field-color:	rgb:ffff/a5a5/00
-	field-select-command:	xytrace-field
 	icon:	tseries
 	icon-color:	rgb:ffff/a5a5/00
 	icon-middle-menu:	mwrfields
 	icon-right-menu:	xytrace-right
+	do-side-annotation:	true
+	annot-left-menu:	xy-an-left
+	annot-middle-menu:	mwrfields
+	annot-right-menu:	simple-color
+	axis-bottom:	false
+	axis-left:		false
+	axis-top:		false
+	axis-right:	true
+	axis-r-color:	rgb:ffff/a5a5/00
+	axis-r-grid-intensity:	0.0
+!	axis-r-tic-interval:	.01
+	color-tweaker:	xytrace-color
+	disable:	false
+	field-color:	rgb:ffff/a5a5/00
+	field-select-command:	xytrace-field
 	limit-proc:	xytrace-adjust
 	platform:	sgpmwrlosC1.a1
 	representation:	simple
 	representation-style:	line
 	require:	xytrace, simple-color, mwr
-	scale-y-max:	+1.0
-	scale-y-min:	-0.01
-	scale-y-mode:	manual
+!	scale-y-max:	+1.0
+!	scale-y-min:	-0.01
+!	scale-y-mode:	manual
+	scale-y-mode:	autoscale
 	x-field:	time
 	y-field:	liq

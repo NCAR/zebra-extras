@@ -14,7 +14,8 @@ global
 	plot-time:	14-Feb-94,23:10:00
 	plot-type:	CAP
 	ta-scale:	.03
-	time-frames:	7
+!	time-frames:	7
+	time-frames:	2
 	trigger:	platform
 	x-max:	440.9472
 	x-min:	-334.0206

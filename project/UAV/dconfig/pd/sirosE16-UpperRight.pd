@@ -9,15 +9,15 @@ global
 	axis-left-space:	100
 	axis-right-space:	100
 	axis-top-space:		30
-	pd-name:	siros-UpperRight
-	platform:	SOMETHING
+	pd-name:	sirosE16-UpperRight
+	platform:	DsgpsirosE16.a1
 	plot-mode:	history
 	plot-time:	now
 	plot-type:	xygraph
 	ta-scale:	.022
 	trigger:	platform
-	icon-left-menu:		DataAvailable
-	icon-middle-menu:	siros-platforms
+	icon-middle-menu:		DataAvailable
+!	icon-middle-menu:	siros-platforms
 	xy-axis-b-font-scale:	10
 	xy-axis-l-font-scale:	10
 	xy-axis-r-font-scale:	10
@@ -36,7 +36,7 @@ xy-grid
 	do-side-annotation:	true
 	field-color:	red
 	icon:	none
-	platform:	SOMETHING
+	platform:	DsgpsirosE16.a1
 	representation:	simple
 	representation-style:	line
 	x-field:	time
@@ -62,7 +62,7 @@ c_channel0
 !	icon-middle-menu:	siros-optical-plots
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	SOMETHING
+	platform:	DsgpsirosE16.a1
 	representation:	simple
 	representation-style:	line
 	require:	xytrace, simple-color, siros, xyplots
@@ -88,7 +88,7 @@ c_channel1
 	icon:	tseries
 	icon-color:	yellow
 	icon-right-menu:	xytrace-right
-	platform:	SOMETHING
+	platform:	DsgpsirosE16.a1
 	representation:	simple
 	representation-style:	line
 	require:	xytrace, simple-color, siros, xyplots
@@ -111,7 +111,7 @@ c_channel2
 	icon:	tseries
 	icon-color:	green
 	icon-right-menu:	xytrace-right
-	platform:	SOMETHING
+	platform:	DsgpsirosE16.a1
 	representation:	simple
 	representation-style:	line
 	require:	xytrace, simple-color, siros, xyplots
@@ -134,7 +134,7 @@ c_channel3
 	icon:	tseries
 	icon-color:	cyan
 	icon-right-menu:	xytrace-right
-	platform:	SOMETHING
+	platform:	DsgpsirosE16.a1
 	representation:	simple
 	representation-style:	line
 	require:	xytrace, simple-color, siros, xyplots
@@ -157,7 +157,7 @@ c_channel4
 	icon:	tseries
 	icon-color:	blue
 	icon-right-menu:	xytrace-right
-	platform:	SOMETHING
+	platform:	DsgpsirosE16.a1
 	representation:	simple
 	representation-style:	line
 	require:	xytrace, simple-color, siros, xyplots
@@ -180,7 +180,7 @@ c_channel5
 	icon:	tseries
 	icon-color:	brown
 	icon-right-menu:	xytrace-right
-	platform:	SOMETHING
+	platform:	DsgpsirosE16.a1
 	representation:	simple
 	representation-style:	line
 	require:	xytrace, simple-color, siros, xyplots
@@ -203,7 +203,7 @@ c_channel6
 	icon:	tseries
 	icon-color:	violet
 	icon-right-menu:	xytrace-right
-	platform:	SOMETHING
+	platform:	DsgpsirosE16.a1
 	representation:	simple
 	representation-style:	line
 	require:	xytrace, simple-color, siros, xyplots

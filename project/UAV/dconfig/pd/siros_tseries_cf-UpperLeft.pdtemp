@@ -3,8 +3,8 @@ global
 	axis-left-space:	50
 	axis-right-space:	50
 	axis-top-space:	30
-	pd-name:	surface_met_E9-UpperLeft
-	platform:	sgp30smosE9.a1
+	pd-name:	siros_tseries_cf-UpperLeft
+	platform:	DsgpsirosE13.a1
 	plot-mode:	real-time
 	plot-time:	2-Feb-94,20:41:00
 	plot-type:	xygraph
@@ -25,14 +25,14 @@ xy-grid
 	do-side-annotation:	false
 	field-color:	red
 	icon:	none
-	platform:	sgp30smosE9.a1
+	platform:	DsgpsirosE13.a1
 	representation:	simple
 	representation-style:	line
 	x-field:	time
 	y-field:	nothing
 r_xytrace
 	annot-left-menu:	xy-an-left
-	annot-middle-menu:	smosfields
+!	annot-middle-menu:	sirosfields
 	annot-right-menu:	simple-color
 	axis-bottom:	false
 	axis-left:	false
@@ -47,18 +47,18 @@ r_xytrace
 	field-select-command:	xytrace-field
 	icon:	tseries
 	icon-color:	rgb:ffff/a5a5/00
-	icon-middle-menu:	smosfields
+!	icon-middle-menu:	sirosfields
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	sgp30smosE9.a1
+	platform:	DsgpsirosE13.a1
 	representation:	simple
 	representation-style:	line
-	require:	xytrace, simple-color, smos
+	require:	xytrace,simple-color,siros
 	x-field:	time
-	y-field:	wspd
+	y-field:	up_short_hemisp
 l_xytrace
 	annot-left-menu:	xy-an-left
-	annot-middle-menu:	smosfields
+!	annot-middle-menu:	sirosfields
 	annot-right-menu:	simple-color
 	axis-bottom:	false
 	axis-l-color:	rgb:ffff/00/00
@@ -73,12 +73,12 @@ l_xytrace
 	field-select-command:	xytrace-field
 	icon:	tseries
 	icon-color:	rgb:ffff/00/00
-	icon-middle-menu:	smosfields
+!	icon-middle-menu:	sirosfields
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	sgp30smosE9.a1
+	platform:	DsgpsirosE13.a1
 	representation:	simple
 	representation-style:	line
-	require:	xytrace, simple-color, smos
+	require:	xytrace,simple-color,siros
 	x-field:	time
-	y-field:	bar_pres
+	y-field:	down_short_hemisp

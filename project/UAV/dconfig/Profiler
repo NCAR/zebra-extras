@@ -5,13 +5,23 @@ config Profiler
 !		description 'Profiler-Clock'
 !		buttonmap 'default'
 !	endwindow
-	window 'UpperLeft' 0 257 576 610 gp gp.init
-		description 'Profiler-UpperLeft'
+	window 'UpperLeft' 0 84 570 410 gp gp.init
+		description 'Profiler50-UpperLeft'
 		buttonmap 'xygraph'
 		forcepd
 	endwindow
-	window 'UpperRight' 479 256 692 609 gp gp.init
-		description 'Profiler-UpperRight'
+	window 'LowerLeft' 0 490 570 410 gp gp.init
+		description 'Profiler915-UpperLeft'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'UpperRight' 582 60 560 400 gp gp.init
+		description 'Profiler50-UpperRight'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'LowerRight' 582 490 560 400 gp gp.init
+		description 'Profiler915-UpperRight'
 		buttonmap 'xygraph'
 		forcepd
 	endwindow

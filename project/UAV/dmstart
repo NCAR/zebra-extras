@@ -17,4 +17,5 @@
 #
 		setenv DEFAULT_CONFIG empty
         $BINHOME/dm  $CONFIGHOME/dm.config
+#	xgdb $BINHOME/dm 
 wait

@@ -5,7 +5,7 @@ global
 	axis-right-space:	20
 	axis-top-space:	30
 	global-series-span-proc:	adj_series_span
-	pd-name:	sonde-LowerRight
+	pd-name:	sondeC1-LowerRight
 	platform:	sgpsondewrpnC1.a1
 	require:	simple-color
 	plot-mode:	real-time

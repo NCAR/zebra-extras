@@ -2,16 +2,18 @@ global
 	axis-bottom-space:	30
 	axis-left-space:	50
 	axis-right-space:	100
-	axis-top-space:	30
-	cloud2-scale-y-max:	0.0
+	axis-top-space:		30
+	cloud1-scale-y-min:	0.0
 	cloud2-scale-y-min:	0.0
+	cloud3-scale-y-min:	0.0
 	pd-name:	clouds-UpperRight
-	platform:	DsgpblcC1.a1
+	platform:	sgpblcC1.a1
+	require:	simple-color
 	plot-mode:	real-time
 	plot-time:	20-Jan-94,21:43:00
 	plot-type:	xygraph
-	sa-scale:	.03
-	ta-scale:	.026
+	ta-scale:	.03
+	sa-scale:	.02
 	trigger:	platform
 	xy-axis-b-font-scale:	10
 	xy-axis-l-font-scale:	10
@@ -28,7 +30,8 @@ xy-grid
 	do-side-annotation:	false
 	field-color:	white
 	icon:	none
-	platform:	DsgpblcC1.a1
+!	platform:	DsgpblcC1.a1
+	platform:	sgpblcC1.a1
 	representation:	simple
 	representation-style:	line
 	x-field:	time
@@ -42,6 +45,7 @@ xy-grid
 	xyprivate-y-type:	f
 	y-field:	nothing
 1_xytrace
+	do-side-annotation:	true
 	annot-left-menu:	xy-an-left
 	annot-right-menu:	simple-color
 	axis-bottom:	false
@@ -52,17 +56,19 @@ xy-grid
 	axis-top:	false
 	color-tweaker:	xytrace-color
 	disable:	false
-	do-side-annotation:	true
 	field-color:	rgb:ffff/00/00
 	field-select-command:	xytrace-field
 	icon:	tseries
 	icon-color:	rgb:ffff/00/00
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	DsgpblcC1.a1
+!	platform:	DsgpblcC1.a1
+	platform:	sgpblcC1.a1
 	representation:	simple
 	representation-style:	line
 	require:	xytrace, simple-color
+	scale-y-mode:	manual
+	scale-y-max:	6000
 !	scale-y-mode:	autoscale
 	x-field:	time
 	xyprivate-data-begin:	20-Jan-94,9:42:55
@@ -75,6 +81,7 @@ xy-grid
 	xyprivate-y-type:	f
 	y-field:	cloud1
 2_xytrace
+	do-side-annotation:	true
 	annot-left-menu:	xy-an-left
 	annot-right-menu:	simple-color
 	axis-bottom:	false
@@ -85,18 +92,20 @@ xy-grid
 	axis-top:	false
 	color-tweaker:	xytrace-color
 	disable:	false
-	do-side-annotation:	true
 	field-color:	rgb:ffff/a5a5/00
 	field-select-command:	xytrace-field
 	icon:	tseries
 	icon-color:	rgb:ffff/a5a5/00
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	DsgpblcC1.a1
+!	platform:	DsgpblcC1.a1
+	platform:	sgpblcC1.a1
 	representation:	simple
 	representation-style:	xmark
 	require:	xytrace, simple-color
 	x-field:	time
+	scale-y-mode:	manual
+	scale-y-max:	6000
 	xyprivate-data-begin:	20-Jan-94,9:42:55
 	xyprivate-data-end:	20-Jan-94,21:42:50
 	xyprivate-x-max:	20-Jan-94,22:01:00
@@ -107,6 +116,7 @@ xy-grid
 	xyprivate-y-type:	f
 	y-field:	cloud2
 3_xytrace
+	do-side-annotation:	true
 	annot-left-menu:	xy-an-left
 	annot-right-menu:	simple-color
 	axis-bottom:	false
@@ -118,18 +128,20 @@ xy-grid
 	axis-top:	false
 	color-tweaker:	xytrace-color
 	disable:	false
-	do-side-annotation:	true
 	field-color:	HotPink
 	field-select-command:	xytrace-field
 	icon:	tseries
 	icon-color:	HotPink
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	DsgpblcC1.a1
+!	platform:	DsgpblcC1.a1
+	platform:	sgpblcC1.a1
 	representation:	simple
 	representation-style:	xmark
 	require:	xytrace, simple-color
 	x-field:	time
+	scale-y-mode:	manual
+	scale-y-max:	6000
 	xyprivate-data-begin:	20-Jan-94,9:42:55
 	xyprivate-data-end:	20-Jan-94,21:42:50
 	xyprivate-x-max:	20-Jan-94,22:01:00

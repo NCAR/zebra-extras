@@ -1,7 +1,7 @@
 ! Auto-saved display configuration.
 config Satellite
-	widget 'iconbar' -4 -25 499 115
-	window 'UpperLeft' -2 239 810 661 gp gp.init
+	widget 'iconbar' 0 0 460 80
+	window 'UpperLeft' 0 237 810 661 gp gp.init
 		description 'Satellite-UpperLeft'
 		buttonmap 'big'
 		forcepd

@@ -17,7 +17,8 @@ global
 	ta-scale:	.04
 	temperature-range-max:	290
 	temperature-range-min:	260
-	time-frames:	9
+!	time-frames:	9
+	time-frames:	2
 	trigger:	sgpngm250X1.ns.issue
 	x-max:	700
 	x-min:	-800

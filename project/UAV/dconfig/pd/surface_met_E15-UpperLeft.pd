@@ -4,7 +4,7 @@ global
 	axis-right-space:	50
 	axis-top-space:	30
 	pd-name:	surface_met_E15-UpperLeft
-	platform:	Dsgp30smosE15.a1
+	platform:	sgp30smosE15.a1
 	plot-mode:	real-time
 	plot-time:	2-Feb-94,20:41:00
 	plot-type:	xygraph
@@ -25,7 +25,7 @@ xy-grid
 	do-side-annotation:	false
 	field-color:	red
 	icon:	none
-	platform:	Dsgp30smosE15.a1
+	platform:	sgp30smosE15.a1
 	representation:	simple
 	representation-style:	line
 	x-field:	time
@@ -50,7 +50,7 @@ r_xytrace
 	icon-middle-menu:	smosfields
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	Dsgp30smosE15.a1
+	platform:	sgp30smosE15.a1
 	representation:	simple
 	representation-style:	line
 	require:	xytrace, simple-color, smos
@@ -76,7 +76,7 @@ l_xytrace
 	icon-middle-menu:	smosfields
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	Dsgp30smosE15.a1
+	platform:	sgp30smosE15.a1
 	representation:	simple
 	representation-style:	line
 	require:	xytrace, simple-color, smos

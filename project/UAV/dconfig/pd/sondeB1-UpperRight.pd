@@ -4,8 +4,8 @@ global
 	axis-left-space:	50
 	axis-right-space:	50
 	axis-top-space:	30
-	pd-name:	sonde-UpperRight
-	platform:	sgpsondewrpnC1.a1
+	pd-name:	sondeB1-UpperRight
+	platform:	sgpsondewrpnB1.a1
 	plot-mode:	real-time
 	plot-time:	3-Feb-94,21:43:00
 	plot-type:	xygraph
@@ -21,27 +21,19 @@ xy-grid
 	axis-b-label:	Time
 	axis-b-tic-interval:	7200s
 	axis-bottom:	true
-	axis-l-tic-interval:	10.0000
+!	axis-l-tic-interval:	10.0000
 	axis-left:	false
-	axis-r-tic-interval:	10.0000
+!	axis-r-tic-interval:	10.0000
 	axis-right:	false
 	axis-t-tic-interval:	7200s
 	axis-top:	false
 	do-side-annotation:	false
 	field-color:	red
 	icon:	none
-	platform:	sgpsondewrpnC1.a1
+	platform:	sgpsondewrpnB1.a1
 	representation:	simple
 	representation-style:	line
 	x-field:	time
-	xyprivate-data-begin:	6-Feb-94,22:00:40
-	xyprivate-data-end:	6-Feb-94,22:00:40
-	xyprivate-x-max:	1-Apr-94,22:15:46
-	xyprivate-x-min:	1-Apr-94,9:57:46
-	xyprivate-x-type:	t
-	xyprivate-y-max:	-10489499648.0000
-	xyprivate-y-min:	499499968.0000
-	xyprivate-y-type:	f
 	y-field:	nothing
 l_xytrace
 	do-side-annotation:	true
@@ -52,9 +44,9 @@ l_xytrace
 	axis-bottom:	false
 	axis-l-color:	rgb:ffff/00/00
 	axis-l-grid-intensity:	0.7
-	axis-l-tic-interval:	10.0
+!	axis-l-tic-interval:	10.0
 	axis-left:	true
-	axis-r-tic-interval:	10.0000
+!	axis-r-tic-interval:	10.0000
 	axis-right:	false
 	axis-t-tic-interval:	7200s
 	axis-top:	false
@@ -67,20 +59,12 @@ l_xytrace
 	icon-middle-menu:	sondefields
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	sgpsondewrpnC1.a1
+	platform:	sgpsondewrpnB1.a1
 	skip-data-points:	-9999.0
 	representation:	simple
 	representation-style:	cross
 	require:	xytrace, simple-color, sonde
 	x-field:	time
-	xyprivate-data-begin:	6-Feb-94,22:00:40
-	xyprivate-data-end:	6-Feb-94,22:00:40
-	xyprivate-x-max:	1-Apr-94,22:15:46
-	xyprivate-x-min:	1-Apr-94,9:57:46
-	xyprivate-x-type:	t
-	xyprivate-y-max:	44.4500
-	xyprivate-y-min:	44.3500
-	xyprivate-y-type:	f
 	y-field:	wspd
 r_xytrace
 	do-side-annotation:	true
@@ -89,11 +73,11 @@ r_xytrace
 	annot-right-menu:	simple-color
 	axis-b-tic-interval:	7200s
 	axis-bottom:	false
-	axis-l-tic-interval:	10.0000
+!	axis-l-tic-interval:	10.0000
 	axis-left:	false
 	axis-r-color:	rgb:ffff/a5a5/00
 	axis-r-grid-intensity:	0.0
-	axis-r-tic-interval:	10.0
+!	axis-r-tic-interval:	10.0
 	axis-right:	true
 	axis-t-tic-interval:	7200s
 	axis-top:	false
@@ -106,18 +90,10 @@ r_xytrace
 	icon-middle-menu:	sondefields
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	sgpsondewrpnC1.a1
+	platform:	sgpsondewrpnB1.a1
 	skip-data-points:	-9999.0
 	representation:	simple
 	representation-style:	point
 	require:	xytrace, simple-color, sonde
 	x-field:	time
-	xyprivate-data-begin:	6-Feb-94,22:00:40
-	xyprivate-data-end:	6-Feb-94,22:00:40
-	xyprivate-x-max:	1-Apr-94,22:15:46
-	xyprivate-x-min:	1-Apr-94,9:57:46
-	xyprivate-x-type:	t
-	xyprivate-y-max:	-86.5500
-	xyprivate-y-min:	-86.6500
-	xyprivate-y-type:	f
 	y-field:	dp

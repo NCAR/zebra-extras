@@ -1,0 +1,32 @@
+config sondeskew
+	widget 'iconbar' 0 0 460 80
+	window 'Clock' 4 100 250 60 fccclock
+		description 'sonde-Clock'
+		buttonmap 'default'
+	endwindow
+	window 'UpperLeft' 385 18 336 286 gp gp.init
+		description 'sondeB1-UpperLeft'
+		buttonmap 'xyplot'
+		forcepd
+	endwindow
+	window 'Center' 385  300 336 286 gp gp.init
+		description 'sondeC1-UpperLeft'
+		buttonmap 'sounding'
+		forcepd
+	endwindow
+	window 'LowerRight' 385 590 336 286 gp gp.init
+		description 'sondeB6-UpperLeft'
+		buttonmap 'sounding'
+		forcepd
+	endwindow
+	window 'UpperRight' 720 300 336 286 gp gp.init
+		description 'sondeB5-UpperLeft'
+		buttonmap 'sounding'
+		forcepd
+	endwindow
+	window 'LowerLeft' 40 300 336 286 gp gp.init
+		description 'sondeB4-UpperLeft'
+		buttonmap 'sounding'
+		forcepd
+	endwindow
+endconfig

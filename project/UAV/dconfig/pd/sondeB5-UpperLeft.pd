@@ -1,10 +1,10 @@
 global
 	altitude-label:	
-	pd-name:	sonde-UpperLeft
+	pd-name:	sondeB5-UpperLeft
 	plot-mode:	real-time
 	plot-time:	3-Feb-94,21:43:00
 	plot-type:	skewt
-	platform:	sgpsondewrpnC1.a1
+	platform:	sgpsondewrpnB5.a1
 	trigger:	platform
 	require:	simple-color
 	x-max:	0.9693
@@ -17,9 +17,9 @@ skewt
 	icon-left-menu:	skewt-left
 	icon-middle-menu:	DataAvailable
 	icon-right-menu:	feet-km
-	menu-platform:	sgpsondewrpnC1.a1
+	menu-platform:	sgpsondewrpnB5.a1
 	skip-data-points:	-9999.0
-	platform:	sgpsondewrpnC1.a1
+	platform:	sgpsondewrpnB5.a1
 	representation:	skewt
 	require:	skewt
 	skprivate-thermo-npts:	2571

@@ -52,10 +52,14 @@ define widget siros-platforms intmenu 'SIROS platforms'
 	line
 	entry 'Central Facility (also E13, Lamont)' \
 			'siros-set-platforms "DsgpsirosE13.a1"' 
-	entry 'Extended Facility E9 (also Ashton)' \
+	entry 'Extended Facility E4 (Plevna)' \
+			'siros-set-platforms "DsgpsirosE4.a1"' 
+	entry 'Extended Facility E9 (Ashton)' \
 			'siros-set-platforms "DsgpsirosE9.a1"' 
-	entry 'Extended Facility E15 (also Ringwood)' \
+	entry 'Extended Facility E15 (Ringwood)' \
 			'siros-set-platforms "DsgpsirosE15.a1"' 
+	entry 'Extended Facility E16 (Vici)' \
+			'siros-set-platforms "DsgpsirosE16.a1"' 
 endmenu
 
 
@@ -66,7 +70,7 @@ endmenu
 define widget siros-optical-plots intmenu 'types of optical plots'
 	title 'Optical Depth Plots'	
 	line
-	entry 'Time Series' 'siros-newpd "siros-optical"'
+ 	entry 'Time Series' 'siros-newpd "siros-optical"'
 !	entry 'Contour' 'siros-newpd "siros-optical-contour"'
 !	entry 'Profiles' 'siros-newpd "siros-optical-profiles"'
 endmenu

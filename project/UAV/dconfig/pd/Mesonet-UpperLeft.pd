@@ -10,7 +10,8 @@ global
 	plot-type:	CAP
 	ta-scale:	.04
 	time-frames:	2
-	platform:	sgpsfchrlyX1.a1
+	platform:	sgpnwssurfX1.a1
+	require:    simple-color
 	trigger:	platform
 	x-max:	700
 	x-min:	-800
@@ -29,9 +30,9 @@ p_fcontour
 	icon-right-menu:	contour-right
 	label-blanking:	false
 	limit-proc:	contour-putup-adj
-	platform:	sgpsfchrlyX1.a1
+	platform:	sgpnwssurfX1.a1
 	representation:	filled-contour
-	require:	contour, simple-color, surface
+	require:	contour, surface
 	scale-mode:	auto
 	tdry-center:	0.0000
 	tdry-step:	2.0000
@@ -58,7 +59,7 @@ p_model
 	platform:	sgpngm250X1.ns.valid
 	posicon-middle-menu:	ngm-field-menu
 	representation:	vector
-	require:	contour, simple-color, ngm
+	require:	contour, ngm
 	scale-mode:	auto
 	tdry-center:	277.2000
 	tdry-step:	0.6000
@@ -113,10 +114,10 @@ p_irg_winds
 	icon-right-menu:	irg-winds-right
 	limit-proc:	adj_arrow_scale
 	max-fill:	3.0
-	platform:	sgpsfchrlyX1.a1
+	platform:	sgpnwssurfX1.a1
 	radius:	2.0
 	representation:	vector
-	require:	irg_winds, simple-color
+	require:	irg_winds
 	u-field:	u_wind
 	v-field:	v_wind
 	x-points:	15
@@ -135,10 +136,10 @@ p_station
 	icon-middle-menu:	nws-station-fields
 	icon-right-menu:	p-station-right
 	limit-proc:	adj_arrow_scale
-	platform:	sgpsfchrlyX1.a1
+	platform:	sgpnwssurfX1.a1
 	posicon-middle-menu:	nws-station-fields
 	quad4:	none
 	representation:	station
-	require:	station, simple-color, surface
+	require:	station, surface
 	u-field:	u_wind
 	v-field:	v_wind
