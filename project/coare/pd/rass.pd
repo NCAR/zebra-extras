@@ -28,5 +28,3 @@ rass
 	trigger: rass
 	x-field: v_temp
 	y-field: height
-endpd
-

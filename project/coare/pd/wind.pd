@@ -28,5 +28,4 @@ wind
 	trigger: wind
 	x-field: u_wind
 	y-field: height
-endpd
 
