@@ -1,0 +1,24 @@
+GLOBAL
+	comment:	Display gridded radar data.
+	pd-name:	c_chill_grid
+	plot-mode:	real-time
+	plot-type:	CAP
+c_chill_grid
+	platform:	chill_grid
+	field:		reflectivity
+	representation:	contour
+	reflectivity-step:	10
+	reflectivity-center:	30
+	color-table:	Rainbow
+	every-sweep:	true
+	icon-middle-menu:	radar-middle
+	trigger-global:	true
+	trigger:	chill_grid
+	icon-right-menu:	DataAvailable
+	menu-platform:	chill_grid
+
+
+
+
+
+

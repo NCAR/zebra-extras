@@ -1,0 +1,42 @@
+global
+	pd-name:	chill-big
+	comment:	Display gridded radar data.
+	altitude:	3.50
+	arrow:		true
+	arrow-color:	lavender
+	buttonmap:	big
+	plot-mode:	real-time
+	plot-type:	CAP
+	radar-space:	false
+	raster-velocity-center:	0.0
+	raster-velocity-step:	5.0
+	ta-color:	white
+	ta-scale:	0.04
+	time-frames:	2
+	trigger:	mhr_grid
+	x-max:	70
+	x-min:	-30
+	y-max:	60
+	y-min:	-60
+c_radar
+	buttonmap:	big
+	color-table:	wild_new
+	every-sweep:	true
+	field:		reflectivity
+	menu-platform:	mhr_grid
+	platform:	mhr_grid
+	representation:	raster
+	trigger:	mhr_grid
+	trigger-global:	true
+	icon-middle-menu:	radar-middle
+	icon-right-menu:	DataAvailable
+c_rings
+	azimuth-interval:	30
+	color:	white
+	field:	range-rings
+	icon:	rings
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-menu
+	platform:	mhr
+	representation:	overlay
+	ring-interval:	20

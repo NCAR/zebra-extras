@@ -1,0 +1,13 @@
+!
+! Parameters to ingest cartesian MHR data from RAP's CIDD data server.
+!
+set host 'anteater.rap.ucar.edu'
+set port 43200
+set frequency 300
+field 'reflectivity' 0
+field 'velocity' 1
+set levels 5
+set firstlevel 2.0
+set levelspacing 1
+set site_lat 39.8785
+set site_lon -104.7568

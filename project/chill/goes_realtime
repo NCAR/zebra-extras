@@ -1,0 +1,78 @@
+#!/bin/csh
+#
+# Shell script to run newSatIngest on a periodic basis for real-time ingest
+#
+@ sleep_time = 10
+@ timeout = 0
+set rawdir = "/data/raps/raw_goes"
+
+while (1)
+	#
+	# If both files exist, start the ingest
+	#
+	if (-e $rawdir/area0002 && -e $rawdir/area0003) then
+		@ timeout = 0
+		sleep 15	# timing problem?
+		ELog $0 EF_INFO "Starting GOES ingest"
+		nice +5 newSatIngest goes.ini
+		if ($status) then
+			ELog $0 EF_EMERGENCY "Exiting on newSatIngest failure"
+			exit 1
+		else
+#			rm -f $rawdir/area0002 $rawdir/area0003
+			set ftime = `date +%y%m%d%H%M`
+			mv -f $rawdir/area0002 $rawdir/$ftime.vis
+			mv -f $rawdir/area0003 $rawdir/$ftime.ir
+		endif
+	#
+	# Ingest vis only if IR doesn't show up within five minutes of the
+	# arrival of vis
+	#
+	else if (-e $rawdir/area0002) then
+		if ($timeout > 300) then
+			@ timeout = 0
+			ELog $0 EF_INFO "TIMEOUT: Starting ingest of vis only"
+			nice +5 newSatIngest goes_vis.ini
+			if ($status) then
+				ELog $0 EF_EMERGENCY \
+					"Exiting on newSatIngest failure"
+				exit 1
+			else
+#				rm -f $rawdir/area0002 $rawdir/area0003
+				set ftime = `date +%y%m%d%H%M`
+				mv -f $rawdir/area0002 $rawdir/$ftime.vis
+			endif
+		else
+			@ timeout = $timeout + $sleep_time
+		endif
+	#
+	# Ingest IR only if vis doesn't show up within five minutes of the
+	# arrival of IR
+	#
+	else if (-e $rawdir/area0003) then
+		if ($timeout > 300) then
+			@ timeout = 0
+			ELog $0 EF_INFO "TIMEOUT: Starting ingest of IR only"
+			nice +5 newSatIngest goes_ir.ini
+			if ($status) then
+				ELog $0 EF_EMERGENCY \
+					"Exiting on newSatIngest failure"
+				exit 1
+			else
+#				rm -f $rawdir/area0002 $rawdir/area0003
+				set ftime = `date +%y%m%d%H%M`
+				mv -f $rawdir/area0003 $rawdir/$ftime.ir
+			endif
+		else
+			@ timeout = $timeout + $sleep_time
+		endif
+	#
+	# If neither file is here, reset the timeout counter
+	#
+	else
+		@ timeout = 0
+	endif
+
+	sleep $sleep_time
+end
+

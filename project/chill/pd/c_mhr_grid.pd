@@ -1,0 +1,24 @@
+GLOBAL
+	comment:	Display gridded radar data.
+	pd-name:	c_mhr_grid
+	plot-mode:	real-time
+	plot-type:	CAP
+c_mhr_grid
+	platform:	mhr_grid
+	field:		reflectivity
+	representation:	contour
+	reflectivity-step:	10
+	reflectivity-center:	30
+	color-table:	Rainbow
+	every-sweep:	true
+	icon-middle-menu:	radar-middle
+	trigger-global:	true
+	trigger:	mhr_grid
+	icon-right-menu:	DataAvailable
+	menu-platform:	mhr_grid
+
+
+
+
+
+

@@ -1,0 +1,10 @@
+global
+	pd-name:	c_cart_grid
+c_cart_grid
+	platform:	grid
+	origin:		cp2
+	representation:	overlay
+	field:		grid
+	lat-lon:	false
+	x-spacing:	10
+	y-spacing:	10

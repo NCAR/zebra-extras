@@ -1,0 +1,12 @@
+config chill
+	window 'big' 5 5 700 700 gp gp.init
+		description 'chill-big'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 710 250 30 fccclock
+		description 'chill-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 300 710 339 55
+endconfig
