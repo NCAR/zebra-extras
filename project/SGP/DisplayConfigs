@@ -39,12 +39,6 @@ config empty
 	endwindow
 endconfig
 
-config skewt
-	window 'win1' 50 50 650 800 #gp_exec #init_file
-		description 'skewt'
-		buttonmap 'xygraph'
-		forcepd
-	endwindow
-endconfig
+read Display.skewt
 
 read Display.all
