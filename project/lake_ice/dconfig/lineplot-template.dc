@@ -45,7 +45,7 @@ global
    parameter require                   'iss,iss-new'
    parameter sa-space                  '0.2'
    parameter ta-scale                  '20'
-   parameter time-frames               '11'
+   parameter time-frames               '1'
    parameter trigger                   'iss3/prof915l'
    parameter xy-adj-axis-side          't'
    parameter xy-adj-scale-dim          'x'
