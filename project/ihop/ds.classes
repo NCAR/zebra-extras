@@ -36,6 +36,15 @@ class NC3DGrid
 endclass
 
 !
+! Mesonet
+!
+class Mesonet
+	organization	IRGrid
+	filetype	netcdf
+	composite
+endclass
+
+!
 ! DORADE sweepfile
 !
 class Sweepfile
