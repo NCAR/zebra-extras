@@ -1,0 +1,11 @@
+#
+# Establish defaults
+#
+Read "/etc/X11/fvwm2/system.fvwm2rc"
+
+# No titles on Zebra plot windows
+#
+Style "Graphproc" NoTitle
+Style "iconbar" NoTitle
+Style "DisplayMgr" NoTitle
+

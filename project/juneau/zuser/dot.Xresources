@@ -1,0 +1,37 @@
+! @(#)Xdefaults 1.18 93/03/12   OpenWindows Default X Resources
+!
+!
+Xedit*enableBackups:    True
+Xedit*font: -adobe-courier-bold-r-normal--14-140-75-75-m-90-iso8859-1
+xgdb*commandWindow.background:  CadetBlue
+xgdb*font:      -adobe-courier-medium-r-normal--12-120-75-75-m-70-iso8859-1
+xterm*scrollBar:        true
+xterm*reverseVideo:     false
+xterm*font:     -adobe-courier-bold-r-normal--14-140-75-75-m-90-iso8859-1
+xterm*boldFont: -adobe-courier-bold-r-normal--14-140-75-75-m-90-iso8859-1
+xterm*jumpScroll:       true
+XTerm*bd:       blue
+XTerm*borderWidth:      2
+XTerm*cursorColor:      tomato
+xman*Command.foreground:        blue
+xman*Text.border:       Green
+xman*background:        tan
+xman*manualFontBold:    -adobe-courier-bold-r-normal--18-180-75-75-m-110-iso8859-1
+xman*manualFontItalic:  -adobe-courier-bold-r-normal--18-180-75-75-m-110-iso8859-1
+xman*manualFontNormal:  -adobe-courier-medium-o-normal--18-180-75-75-m-110-iso8859-1
+!
+!emacs defaults
+!
+Emacs.bitmapIcon:on
+Emacs.foreground:black
+Emacs.background:gray72
+Emacs.borderColor:yellow
+Emacs.cursorColor:rgb:b2/22/17
+Emacs.pointerColor:tomato
+Emacs.geometry:100x35+100+100
+
+
+
+
+
+
