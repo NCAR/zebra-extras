@@ -583,6 +583,7 @@ endclass
 
 instance AERI sgpaerich1C1.a1 sgpaerich2C1.a1 sgpaerisummaryC1.a1
 instance AERI sgpqmeaerilblC1.c1 sgpqmeaerimeansC1.c1 sgpaerilbldiffC1.c1
+instance AERI sgpaerilblcloudsC1.c1
 
 !======================================================================
 ! WVR
