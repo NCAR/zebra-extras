@@ -77,16 +77,29 @@ define widget iconbar menubar " "
 		title 'Display configurations'
 		line
 		entry 'Empty screen' 'display empty' (dm$config = 'empty')
-		entry 'ISS Time Height' 'display iss-timeht' \
+		entry 'MM5 model' 'display mm5' (dm$config = 'mm5')
+		entry 'MM5 cross sections' 'display mm5-xs' \
+		      (dm$config = 'mm5-xs')
+		entry 'Time-height and soundings' 'display iss-timeht' \
 			(dm$config = 'iss-timeht')
-		entry 'ISS Line Plot' 'display iss-lineplot' \
-			(dm$config = 'iss-lineplot')
-		entry 'ISS LinePlot and TimeHeight' \
-			'display iss-lineplot-timeheight' \
-			(dm$config = 'iss-lineplot-timeheight')
-		entry 'ISS TimeHeight, SkewT, Temp' \
-			'display iss-timeheight-skew-temp' \
-			(dm$config = 'iss-timeheight-skew-temp')
+		entry 'Sounding cross sections' 'display snd_xsect' \
+		        (dm$config = 'snd_xsect')
+		entry 'RUC model' 'display ruc' (dm$config = 'ruc')
+		entry 'Oklahoma Mesonet' 'display ok-mesonet' \
+			(dm$config = 'ok-mesonet')
+		entry 'Wind Profiler Demo Network' 'display wpdn' \
+			(dm$config = 'wpdn')
+		entry 'SMOS Time Series' 'display smos-tseries' \
+			(dm$config = 'smos-tseries')
+		submenu 'UAV Configurations' uav-config-menu
+!		entry 'ISS Line Plot' 'display iss-lineplot' \
+!			(dm$config = 'iss-lineplot')
+!		entry 'ISS LinePlot and TimeHeight' \
+!			'display iss-lineplot-timeheight' \
+!			(dm$config = 'iss-lineplot-timeheight')
+!		entry 'ISS TimeHeight, SkewT, Temp' \
+!			'display iss-timeheight-skew-temp' \
+!			(dm$config = 'iss-timeheight-skew-temp')
 		line
 		submenu 'Saved Configurations' saved-config-menu
 	endmenu
@@ -239,6 +252,19 @@ define widget iconbar menubar " "
 		entry 'Window Bounds' 'send-wbounds'
 	endmenu
 enddef
+
+
+define widget uav-config-menu intmenu 'UAV configurations'
+	title 'UAV Configurations'
+	line
+	entry 'UDF Track' 'display uav-track' (dm$config = 'uav-track')
+	entry 'NGM Model' 'display NGM' (dm$config = 'NGM')
+	entry 'NWS Surface Hourlies' 'display Mesonet' (dm$config = 'Mesonet')
+	entry 'Profiler' 'display Profiler' (dm$config = 'Profiler')
+	entry 'GOES Satellite' 'display Satellite' (dm$config = 'Satellite')
+endmenu
+
+
 
 !
 ! DataStore widget listings
@@ -426,9 +452,9 @@ define widget wpdn-menu intmenu 'wpdn plots'
 	   'putc2 p_wpdn_winds u-field u_wind_hi v-field v_wind_hi'
 	line
 	entry 'Consensus Contours - Low Mode' \
-	   'putc2 p_wpdn_contour field cons_n_low'
+	   'putc1 p_wpdn_contour field cons_n_low'
 	entry 'Consensus Contours - High Mode' \
-	   'putc2 p_wpdn_contour field cons_n_hi'
+	   'putc1 p_wpdn_contour field cons_n_hi'
 endmenu
 
 define widget smos-irgrid-menu intmenu 'smos irgrids'
