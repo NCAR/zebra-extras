@@ -3,6 +3,7 @@
 # Watch for new GOES files, move them to the appropriate Zebra data
 # directories, and let the data store know about them
 #
+set echo
 echo "$0 started at `date`"
 set nonomatch
 unalias cd	# GRRRRRRR
@@ -10,13 +11,14 @@ unalias cd	# GRRRRRRR
 #
 # we only want one of me; kill any others
 #
-onintr -	# ignore the INT we're about to get
+onintr -	# ignore the INT signal we're about to send out...
 killall -s INT $0:t
-onintr		# listen for signals again
+onintr		# pay attention to signals again
 
 #
 # loop forever
 #
+
 while (1)
     foreach plat (goes_1km goes_4km)
 	set srcdir = /scr/data/${plat}_tmp
@@ -30,7 +32,6 @@ while (1)
 	foreach file ($filelist)
 	    mv $file $destdir
 	    dsrescan -file $file $plat
-	    echo "New $plat file $file has been made available to Zebra"
 	end
     end
     sleep 30
