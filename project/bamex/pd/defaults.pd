@@ -257,14 +257,18 @@ defaults
 	goes_1km-data-age-limit:	90m
 	goes_4km-icon-age-limit:	60m
 	goes_4km-data-age-limit:	90m
-	p3-icon-age-limit:	2m
-	p3-data-age-limit:	120m
-	dc8-icon-age-limit:	2m
-	dc8-data-age-limit:	120m
-	mesonet_15-icon-age-limit:	60m
-	mesonet_15-data-age-limit:	90m
-	ok_mesonet-icon-age-limit:	10m
-	ok_mesonet-data-age-limit:	20m
+	nrl_p3-icon-age-limit:	2m
+	nrl_p3-data-age-limit:	120m
+	noaa_p3-icon-age-limit:	2m
+	noaa_p3-data-age-limit:	120m
+	lear-icon-age-limit:	2m
+	lear-data-age-limit:	120m
+	mips-icon-age-limit:	1h
+	mips-data-age-limit:	4h
+	mglass1-icon-age-limit:	1h
+	mglass1-data-age-limit:	4h
+	mglass2-icon-age-limit:	1h
+	mglass2-data-age-limit:	4h
 	elev-icon-age-limit:	20000d
 	topo-icon-age-limit:	20000d
 !
@@ -321,6 +325,8 @@ defaults
 !
 ! Default plot limits.
 !
+	Drops-center:		4
+	Drops-step:		1
 	vr-center:		0
 	vr-nsteps:		14
 	vr-step:		4
