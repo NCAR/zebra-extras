@@ -1,5 +1,8 @@
 # This is just a default to keep zstart from asking, since the
 # actual platform directories are hard-coded in ds.config
 #
-setenv DATA_DIR /scr/steam/weather
+setenv DATA_DIR /scr/steam/weather/fl
+#setenv DS_DAEMON_HOST steam
+#setenv ZEB_MESSAGE 'message -debug steam@steam.atd.ucar.edu:3344 -p 3344 -i'
+#setenv ZEB_MESSAGE 'message -debug -p 3344 -i'
 
