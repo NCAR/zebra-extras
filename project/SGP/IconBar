@@ -153,7 +153,10 @@ define widget instrumentmenu menubar " "
 	menu 'SONDE' bitmap sonde
 		title 'SONDE Instruments'
 		line
-		submenu "SONDE1 Central" instsonde1
+		submenu "SONDE Central" instsonde1
+		submenu "SONDE Hillsboro" instsonde81
+		submenu "SONDE Vici" instsonde84
+		submenu "SONDE Morris" instsonde85
 	endmenu
 	menu 'TWR21X' bitmap twr21x
 		title 'TWR21X Instruments'
@@ -237,18 +240,21 @@ define widget hills intmenu 'HILLSBORO'
 	title 'Hillsboro Facility Instruments'
 	line
 	submenu 'MWR011' mwr11
+	submenu 'SONDE B1' sonde81
 endmenu
 
 define widget morris intmenu 'MORRIS'
 	title 'Morris Facility Instruments'
 	line
 	submenu 'MWR012' mwr12
+	submenu 'SONDE B5' sonde85
 endmenu
 
 define widget vici intmenu 'VICI'
 	title 'Vici Facility Instruments'
 	line
 	submenu 'MWR004' mwr4
+	submenu 'SONDE B4' sonde84
 endmenu
 
 !
@@ -282,7 +288,7 @@ define widget bsrn1 intmenu 'BSRN1'
 		'put_4parameters "DsgpbsrnC1.a1" "nip" "psp1" "psp2" "psig"'
 endmenu
 
-define widget sonde1 intmenu 'SONDE1'
+define widget sonde1 intmenu 'SONDE CF'
 	title 'Balloon Borne Sounding System Data'
 	entry 'Sonde CF A1: pres,tdry,dp,rh'\
 		'put_4parameters "DsgpsondeC1.a1" "pres" "tdry" "dp" "rh"'
@@ -293,6 +299,45 @@ define widget sonde1 intmenu 'SONDE1'
 	line
 	entry 'Sonde CF A1: Skew-T Plot'\
          'parameter sounding skewt platform "DsgpsondeC1.a1"; display sounding'
+endmenu
+
+define widget sonde81 intmenu 'SONDE B1'
+	title 'Balloon Borne Sounding System Data'
+	entry 'Sonde B1 A1: pres,tdry,dp,rh'\
+		'put_4parameters "DsgpsondeB1.a1" "pres" "tdry" "dp" "rh"'
+	entry 'Sonde B1 A1: wspd, deg, u_wind, v_wind'\
+		'put_4parameters "DsgpsondeB1.a1" "wspd" "deg" "u_wind" "v_wind"'
+	entry 'Sonde B1 A1: alt, wstat, asc'\
+		'put_3parameters "DsgpsondeB1.a1" "alt" "wstat" "asc"'
+	line
+	entry 'Sonde B1 A1: Skew-T Plot'\
+         'parameter sounding skewt platform "DsgpsondeB1.a1"; display sounding'
+endmenu
+
+define widget sonde84 intmenu 'SONDE B4'
+	title 'Balloon Borne Sounding System Data'
+	entry 'Sonde B4 A1: pres,tdry,dp,rh'\
+		'put_4parameters "DsgpsondeB4.a1" "pres" "tdry" "dp" "rh"'
+	entry 'Sonde B4 A1: wspd, deg, u_wind, v_wind'\
+		'put_4parameters "DsgpsondeB4.a1" "wspd" "deg" "u_wind" "v_wind"'
+	entry 'Sonde B4 A1: alt, wstat, asc'\
+		'put_3parameters "DsgpsondeB4.a1" "alt" "wstat" "asc"'
+	line
+	entry 'Sonde B4 A1: Skew-T Plot'\
+         'parameter sounding skewt platform "DsgpsondeB4.a1"; display sounding'
+endmenu
+
+define widget sonde85 intmenu 'SONDE B5'
+	title 'Balloon Borne Sounding System Data'
+	entry 'Sonde B5 A1: pres,tdry,dp,rh'\
+		'put_4parameters "DsgpsondeB5.a1" "pres" "tdry" "dp" "rh"'
+	entry 'Sonde B5 A1: wspd, deg, u_wind, v_wind'\
+		'put_4parameters "DsgpsondeB5.a1" "wspd" "deg" "u_wind" "v_wind"'
+	entry 'Sonde B5 A1: alt, wstat, asc'\
+		'put_3parameters "DsgpsondeB5.a1" "alt" "wstat" "asc"'
+	line
+	entry 'Sonde B5 A1: Skew-T Plot'\
+         'parameter sounding skewt platform "DsgpsondeB5.a1"; display sounding'
 endmenu
 
 define widget mfrsr1 intmenu 'MFRSR1'
@@ -735,17 +780,56 @@ define widget instbsrn1 intmenu 'BSRN1'
 		'put_4parameters "DsgpbsrnC1.a1" "nip" "psp1" "psp2" "psig"'
 endmenu
 
-define widget instsonde1 intmenu 'SONDE1'
+define widget instsonde1 intmenu 'SONDE CF'
 	title 'Balloon Borne Sounding System Data'
+	line
 	entry 'Sonde CF A1: pres,tdry,dp,rh'\
 		'put_4parameters "DsgpsondeC1.a1" "pres" "tdry" "dp" "rh"'
 	entry 'Sonde CF A1: wspd, deg, u_wind, v_wind'\
 		'put_4parameters "DsgpsondeC1.a1" "wspd" "deg" "u_wind" "v_wind"'
 	entry 'Sonde CF A1: alt, wstat, asc'\
 		'put_3parameters "DsgpsondeC1.a1" "alt" "wstat" "asc"'
-	line
 	entry 'Sonde CF A1: Skew-T Plot'\
          'parameter sounding skewt platform "DsgpsondeC1.a1"; display sounding'
+endmenu
+
+define widget instsonde81 intmenu 'SONDE B1'
+	title 'Balloon Borne Sounding System Data'
+	line
+	entry 'Sonde B1 A1: pres,tdry,dp,rh'\
+		'put_4parameters "DsgpsondeB1.a1" "pres" "tdry" "dp" "rh"'
+	entry 'Sonde B1 A1: wspd, deg, u_wind, v_wind'\
+		'put_4parameters "DsgpsondeB1.a1" "wspd" "deg" "u_wind" "v_wind"'
+	entry 'Sonde B1 A1: alt, wstat, asc'\
+		'put_3parameters "DsgpsondeB1.a1" "alt" "wstat" "asc"'
+	entry 'Sonde B1 A1: Skew-T Plot'\
+         'parameter sounding skewt platform "DsgpsondeB1.a1"; display sounding'
+endmenu
+
+define widget instsonde84 intmenu 'SONDE B4'
+	title 'Balloon Borne Sounding System Data'
+	line
+	entry 'Sonde B4 A1: pres,tdry,dp,rh'\
+		'put_4parameters "DsgpsondeB4.a1" "pres" "tdry" "dp" "rh"'
+	entry 'Sonde B4 A1: wspd, deg, u_wind, v_wind'\
+		'put_4parameters "DsgpsondeB4.a1" "wspd" "deg" "u_wind" "v_wind"'
+	entry 'Sonde B4 A1: alt, wstat, asc'\
+		'put_3parameters "DsgpsondeB4.a1" "alt" "wstat" "asc"'
+	entry 'Sonde B4 A1: Skew-T Plot'\
+         'parameter sounding skewt platform "DsgpsondeB4.a1"; display sounding'
+endmenu
+
+define widget instsonde85 intmenu 'SONDE B5'
+	title 'Balloon Borne Sounding System Data'
+	line
+	entry 'Sonde B5 A1: pres,tdry,dp,rh'\
+		'put_4parameters "DsgpsondeB5.a1" "pres" "tdry" "dp" "rh"'
+	entry 'Sonde B5 A1: wspd, deg, u_wind, v_wind'\
+		'put_4parameters "DsgpsondeB5.a1" "wspd" "deg" "u_wind" "v_wind"'
+	entry 'Sonde B5 A1: alt, wstat, asc'\
+		'put_3parameters "DsgpsondeB5.a1" "alt" "wstat" "asc"'
+	entry 'Sonde B5 A1: Skew-T Plot'\
+         'parameter sounding skewt platform "DsgpsondeB5.a1"; display sounding'
 endmenu
 
 define widget instmfrsr1 intmenu 'MFRSR1'
