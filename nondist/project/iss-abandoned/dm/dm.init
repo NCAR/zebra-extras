@@ -1,4 +1,4 @@
-! $Id: dm.init,v 1.1 2000-06-07 20:00:01 granger Exp $ 
+! $Id: dm.init,v 1.2 2000-06-07 23:05:05 granger Exp $ 
 !
 ! The generic and perpetual loading process, encapsulated into a simple
 ! module.  At least, I think this is generic enough that someday it could
@@ -13,6 +13,13 @@ set SoundEnabled false
 set AutoAdvance true
 set ForceHistory true
 set UseXHelp false
+
+
+! Use the UI bitmap path to search for icons in both the project
+! icons directory and the zebra library icon directory.  These
+! are good defaults for most projects but can be overridden.
+!
+set ui$bitmap_path concat3("./icons,",c$libdir, "/icons")
 
 !
 ! When and how long to sleep when creating windows.
