@@ -32,9 +32,9 @@ defaults
 	aws-icon-age-limit:		10m
 	lidar-icon-age-limit:		15m
 	ro_radar-icon-age-limit:	15m
-	ro_sat-icon-age-limit:		35m
-	iss/class-icon-age-limit:	60m
-	lantau/prof-icon-age-limit:	30m
+	ro_sat-icon-age-limit:		3h 
+	iss/class-icon-age-limit:	120m
+	lantau/prof-icon-age-limit:	60m
 !
 ! Using the LIDAR (clk station) for the plot origin
 !
@@ -69,15 +69,16 @@ defaults
 !
 ! Still need the Lantau profiler
 !
-!	lantau/profiler-location:
+	ro_radar-location:	22.3594 114.2152 0.5875	# Tate's Cairn
+	profiler-location:      22.2910 113.8989 0.01 # Sha Lo Wan
 !
-	waglan-location:		22.1 114.18 0.321
-	iss-location:			22.1 114.18 0.321
-	iss/class-location:		22.1 114.18 0.321
-	iss/prof915l-location:		22.1 114.18 0.321
-	iss/prof915h-location:		22.1 114.18 0.321
-	iss/surface_met-location:	22.1 114.18 0.321
-	iss/rass915-location:		22.1 114.18 0.321
+	waglan-location:		22.1827 114.3011 0.321
+	iss-location:			22.1827 114.3011 0.321
+	iss/class-location:		22.1827 114.3011 0.321
+	iss/profiler915l-location:	22.1827 114.3011 0.321
+	iss/profiler915h-location:	22.1827 114.3011 0.321
+	iss/surface_met-location:	22.1827 114.3011 0.321
+	iss/rass915-location:		22.1827 114.3011 0.321
 !
 ! Sounding locations
 !
@@ -129,6 +130,8 @@ defaults
 	SKG-location:  	22.3772 114.2716 0.0312	# Sai Kung (Tui Min Hoi)
 	WCN-location:  	22.2813 114.1711 0.3780	# Central Plaza (Wan Chai)
 	TAP-location:  	22.4727 114.3580 0.0371	# Tap Mun
+!	LT9-location:  	22.1595 113.5444 0.7000	# Lantau - Nei Lak Shan 2
+	LT9-location:  	22.2651 113.9091 0.7000	# Lantau - Nei Lak Shan 2
 !
 ! Where to put the frame cache files.
 !
@@ -212,7 +215,7 @@ defaults
 !
 	movie-end-time:			now
 	movie-minutes:			60
-	frame-rate:			 5
+	frame-rate:			 2
 	frame-skip:			10
 	ta-color-match:			true
 !
@@ -429,10 +432,9 @@ defaults
 	tseries-ept-step:       10
 	tseries-mr-center:      20
 	tseries-mr-step:        3
-	tseries-tdry-center:    30
-	tseries-tdry-step:      3
-	tseries-twet-center:    30
-	tseries-twet-step:      3
+	tseries-tdry-center:    25
+	tseries-tdry-step:      5
+	tseries-tdry-nsteps:    4
 	tseries-pt-center:      305
 	tseries-pt-step:        5
 	tseries-dp-center:      26
@@ -549,7 +551,7 @@ defaults
 	height-scale-y-min:	0.0
 	height-scale-y-max:	10000.0
 	wspd-scale-y-min:	0
-	wspd-scale-y-max:	10
+	wspd-scale-y-max:	15
 	rh-scale-y-min:		0
 	rh-scale-y-max:		100
 	rh-scale-y-min:		0
