@@ -11,8 +11,8 @@ define widget particle-middle intmenu 'x'
 		(PDParam (icon_component, 'field') = 'pd')
 	entry 'UW particle types' 'partfield wpd uwparticle' \
 		(PDParam (icon_component, 'field') = 'wpd')
-	entry 'Reflectivity' 'partfield dbz carbone17' \
-		(PDParam (icon_component, 'field') = 'dbz')
+	entry 'Reflectivity' 'partfield dz carbone17' \
+		(PDParam (icon_component, 'field') = 'dz')
 !	line
 !	entry 'Hold angle mode' 'ToggleBoolean every-sweep' \
 !		(PDParam (icon_component, "every-sweep") = "false")
@@ -34,20 +34,12 @@ endprocedure
 
 procedure toggle_main 
    if (pd_defined ("p_pdesc", "field"))
-      if (pd_param ("p_pdesc", "field", "string") = "DBZ")
-                parameter p_pdesc scale-mode "manual"
-                parameter p_pdesc radialvelocity-center "0"
-                parameter p_pdesc radialvelocity-nsteps "11"
-                parameter p_pdesc radialvelocity-step "3"
+      if (pd_param ("p_pdesc", "field", "string") = "dz")
                 parameter p_pdesc color-table "carbone17"
-                parameter p_pdesc field "VR"
-      elseif (pd_param ("p_pdesc", "field", "string") = "VR")
-                parameter p_pdesc scale-mode "manual"
-                parameter p_pdesc maxdz-center "15"
-                parameter p_pdesc maxdz-nsteps "11"
-                parameter p_pdesc maxdz-step "5"
+                parameter p_pdesc field "vr"
+      elseif (pd_param ("p_pdesc", "field", "string") = "vr")
                 parameter p_pdesc color-table "carbone17"
-                parameter p_pdesc field "VR"
+                parameter p_pdesc field "dz"
       elseif (pd_param ("p_pdesc", "field", "string") = "wpd")
 		parameter p_pdesc color-table "particle"
 		parameter p_pdesc field "pd"
