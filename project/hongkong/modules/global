@@ -18,6 +18,7 @@ define widget global-left intmenu 'Global left menu'
 	entry 'Overlay Times' 'popup overlay'
 	entry 'Movie Controller' 'popup movie'
 	entry 'Position Readout' 'popup position'
+	entry 'Show Bounds in other Window' 'show-bounds'
 	submenu 'Movies' movie-control
 endmenu
 
@@ -39,6 +40,17 @@ define widget adjust_global_limits intmenu "Adjust Global Limits"
 	entry 'X Limits' 'i_adjust_global x-limit-proc'
 	entry 'Y Limits' 'i_adjust_global y-limit-proc'
 endmenu
+
+!
+! Send our boundaries to another window to be drawn, relies on the
+! display manager to choose that other window.  Assume the name of our
+! plot description is the name of the window.
+!
+procedure show-bounds
+	local this_window c$msgname
+	local dmcmd quote(concat("putc1 p_wbounds platform ",this_window))
+	dm #dmcmd
+endprocedure
 
 !
 ! Adjust the limits on the global component.
@@ -111,5 +123,21 @@ endprocedure
 
 procedure do_side_annot_size size string
 	parameter #icon_component sa-scale #size
+endprocedure
+
+!
+! Change the endpoints for an associated (presumably cross-section) window.
+! We force ourselves to update (by issuing a parameter command but not actually
+! changing anything) so that we'll be current if we're displaying the bounds
+! of the cross-section window.
+!
+! This is here and not in xsect module because every window will need it for
+! the buttonmap, even if no cross-sections are on the screen
+!
+procedure ChangeXSect
+	drawline sendendpoints
+
+	local ptype PDParam('global', 'plot-type')
+	parameter global plot-type #ptype
 endprocedure
 
