@@ -67,7 +67,7 @@ defaults
 ! Form: 
 !	<sitename>-location:	<lat> <lon> <alt>
 !
-	spol-location:		45.71667 8.73333  280
+	spol-location:		45.70906 8.70878  280
 	mt_lema-location:	46.04179 8.83436 1625
 	ronsard-location:	45.460   8.517    155
 	bric-location:		45.0344  7.73306  727
