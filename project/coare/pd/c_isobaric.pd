@@ -1,0 +1,27 @@
+!
+! Fancy generic plot description intended to work with filled or line 
+! contours.  Uses line contours by default.  Platform and field need to be
+! filled in.
+!
+global
+	pd-name:		c_isobaric
+c_isobaric
+	platform:		CHANGEME
+	representation:		contour
+	field:			theta_e
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	contour-right
+	require:		contour, simple-color
+	scale-mode:		auto
+	color-table:		Contour
+	color:			yellow
+	icon:			platform
+	do-labels:		true
+	label-blanking:		false
+	limit-proc:		contour-putup-adj
+	max-fill:		5
+	radius:			6
+	x-points:		30
+	y-points:		30
+	grid-method:		barnes

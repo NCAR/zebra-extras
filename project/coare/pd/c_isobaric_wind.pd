@@ -1,0 +1,21 @@
+GLOBAL
+	pd-name:	c_isobaric_wind
+	pd-comment:	Generic winds from sounding isobaric data
+c_isobaric_wind
+	arrow-scale:	0.01
+	color:	red
+	grid-method:	barnes
+	icon:	platform
+	icon-left-menu:	standard-cap-left-menu
+	icon-right-menu:	irg-winds-right
+	limit-proc:	adj_arrow_scale
+	line-width:	2
+	max-fill:	5
+	platform:	CHANGEME
+	radius:	6
+	representation:	vector
+	require:	irg_winds, simple-color
+	u-field:	u_wind
+	v-field:	v_wind
+	x-points:	30
+	y-points:	30
