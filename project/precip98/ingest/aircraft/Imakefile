@@ -15,17 +15,22 @@
  * through use or modification of this software.  UCAR does not provide 
  * maintenance or updates for its software.
  */
-MFVERSION="$Id: Imakefile,v 1.1 1999-03-23 00:29:36 burghart Exp $"
+MFVERSION="$Id: Imakefile,v 1.2 1999-05-06 22:25:54 burghart Exp $"
 
 LIBS = $(DFALIBS) $(ZLIBS)
-SYSLIBS = $(LIBREGEXP)
+SYSLIBS = $(LIBREGEXP) $(LIBMATH)
 
-OBJS = citation.o
-SRCS = citation.cc
+CITATIONOBJS = citation.o
+DC8OBJS = dc8_er2.o
+ER2OBJS = dc8_er2.o
+SRCS = citation.cc dc8_er2.cc
 
-DISTFILES = Imakefile $(SRCS) citation.cc
+DISTFILES = Imakefile $(SRCS)
 
-CccProgramTarget(citation,$(OBJS),$(DEPLIBS),$(LIBS) $(XLIBS),$(SYSLIBS))
+CccProgramTarget(citation,$(CITATIONOBJS),$(DEPLIBS),$(LIBS) $(XLIBS),\
+	$(SYSLIBS))
+CccProgramTarget(dc8,$(DC8OBJS),$(DEPLIBS),$(LIBS) $(XLIBS),$(SYSLIBS))
+CccProgramTarget(er2,$(ER2OBJS),$(DEPLIBS),$(LIBS) $(XLIBS),$(SYSLIBS))
 
 DependTarget()
 LintTarget()
