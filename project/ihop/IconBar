@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.7 2002-05-17 15:13:57 burghart Exp $
+! $Id: IconBar,v 1.8 2002-05-18 15:23:51 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -126,10 +126,10 @@ define widget iconbar menubar " "
 	menu aircraft bitmap aircraft
 		title 'Aircraft'
 		line
-                entry 'UW Convair-580 (manual)' \
-          'putc3 p_track platform convairmanual icon littleplane color pink'
-                entry 'UW Convair-580 (batch)' \
-          'putc3 p_track platform convair icon littleplane color white'
+                entry 'NRL P3' \
+			'putc3 p_track platform p3 icon p3 color pink'
+                entry 'NASA DC-8' \
+			'putc3 p_track platform dc8 icon dc8 color white'
 	endmenu
 
 !
