@@ -1,6 +1,8 @@
+/* $Id: defaults,v 1.2 1998-01-20 07:02:11 granger Exp $ */
 
-tdry[][] = [T][C];
-pres[][] = [P][hPa];
-rh[][] = [rh][%];
+[T][degC][Temperature] = tdry;
+[P][hPa][Pressure] = pres;
+[rh][%][Relative humidity] = rh;
 
+mr[w][g/kg][Mixing ratio] = [w];
 
