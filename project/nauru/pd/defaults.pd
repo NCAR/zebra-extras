@@ -1,0 +1,133 @@
+!
+! This file contains the default values for all plot description parameters.
+!
+defaults
+	pd-name:			defaults
+!
+	post-proc-mode:		true
+	pp-dm-time-adjust:	15m
+!
+!
+!	Site location information for nauru
+	iss-site-lat:			-1.0
+	iss-site-lon:			167.0
+	iss-site-alt:			0.0
+!
+	origin-lat:			-1.0
+	origin-lon:			167.0
+	origin-alt:			0.0
+!
+	pres-minval:		100
+	pres-maxval:		1050
+	temp-minval:		-40.0
+	temp-maxval:		35.0
+	do-color-proc:		change_ta_color
+!
+! XY-Simple defaults
+!
+	xy-simple-representation-style:	line
+!
+! XY-Wind defaults
+!
+	xy-wind-representation-style:	barb
+	xy-wind-coords:			compass
+	xy-wind-wdir-field:		wdir
+	xy-wind-wspd-field:		wspd
+	xy-wind-vec-scale:		5.0
+	xy-wind-barb-scale:		25
+	xy-wind-color-table:		Winds
+	xy-wind-data-skip:		5
+	xy-wind-step:			5.0
+	xy-wind-scale-speed:		25.0
+!
+! XY-Contour defaults
+!
+	xy-contour-representation-style:	line
+	xy-contour-color-table:		AllWhite
+	xy-contour-x-grid:		25
+	xy-contour-y-grid:		25
+	xy-contour-z-step:		2.5
+	xy-contour-grid-method:		profile-linear
+	xy-contour-do-side-annotation: false
+!
+! field specific XY defaults
+!
+! x scale min's and max's
+	tdry-scale-x-min:	-80.0
+	tdry-scale-x-max:	20.0
+	dp-scale-x-min:	-80.0
+	dp-scale-x-max:	20.0
+	wspd-scale-x-min:	0.0
+	wspd-scale-x-max:      50.0
+	wdir-scale-x-min:       0.0
+	wdir-scale-x-max:       360.0
+	rh-scale-x-min: 0.0
+	rh-scale-x-max: 100.0
+	pres-scale-x-min:       50.0
+	pres-scale-x-max:       800.0
+	u_wind-scale-x-max:     20.0
+	u_wind-scale-x-min:     -20.0
+	v_wind-scale-x-max:     20.0
+	v_wind-scale-x-min:     -20.0
+	tv-scale-x-min:         -80.0
+	tv-scale-x-max:         20.0
+! y scale min's and max's
+	alt-scale-y-min:	0.0
+	alt-scale-y-max:	10.0
+	height-scale-y-min:	0.0
+	height-scale-y-max:	10000.0
+	wspd-scale-y-min:       0
+	wspd-scale-y-max:       10
+	rh-scale-y-min: 0
+	rh-scale-y-max: 100
+	rh-scale-y-min: 0
+	rh-scale-y-max: 100
+	tdry-scale-y-min:       -5
+	tdry-scale-y-max:       20
+	wdir-scale-y-min:       0
+	wdir-scale-y-max:       360
+	pres-scale-y-min:       830
+	pres-scale-y-max:       850
+	sol-scale-y-min:	0
+	sol-scale-y-max:	800
+	soldiff-scale-y-min:    0
+	soldiff-scale-y-max:    800
+	netrad-scale-y-min:     -400
+	netrad-scale-y-max:     400
+	batt-scale-y-min:       12
+	batt-scale-y-max:       14
+	tbox-scale-y-min:       -10
+	tbox-scale-y-max:       30
+	rain-scale-y-min:       0
+	rain-scale-y-max:       10
+!
+!
+!
+! Zoom parameters to nicely cover the CINDE area.
+!
+	x-min:				0
+	x-max:				80
+	y-min:				-70
+	y-max:				20
+!
+! Commands to be executed out of the DataAvailable menu
+!
+	data-available-command:		DefaultDataAvail
+!
+! The icons to use in the windows, qualified by platform name.
+!
+	global-icon:			iss-iss
+	icon-color:			cyan
+	icon-background:		black
+!
+!   location of frame cache
+!
+	file-path:			/zeb/tmp
+	max-frames:			5
+!
+! Layout sizing factors
+!
+	axis-bottom-space:	25
+	axis-left-space:	50
+	axis-top-space:		0
+	axis-right-space:	0

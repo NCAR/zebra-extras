@@ -1,0 +1,63 @@
+!
+! All the definitions required to make the iconbar work.
+!
+set ui$bitmap_directory "/zeb/lib/icons"
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	!
+	! All this stuff tells the system to put it, unadorned by headers and
+	! title bars, where we want it.  DM does "override" by itself now,
+	! since this iconbar appears in the display config, so we don't
+	! bother with it here.
+	!
+	noheader
+	!size 110 440 
+	!location 100 100
+	vertical
+	!override
+	!
+	! Now we can define the menus themselves.
+	!
+	menu 'global' bitmap iss-iss
+		title 'Integrated Sounding System'
+		line
+		entry 'shut down' 'shutdown'
+	endmenu
+	menu 'time-control' bitmap iss-clock
+		title 'Time'
+		line
+		entry 'popup time controller' 'popup time'
+	endmenu
+	menu 'graphics-display' bitmap iss-display
+		title 'Display'
+		line
+		entry 'blank' 'display iss_init' \
+			(dm$config = "iss_init")
+ 		entry 'omega summary ' 'display omega_summary' \
+			(dm$config = "omega_summary")
+ 		entry 'omega skew-t ' 'display omega_skewt' \
+			(dm$config = "omega_skewt")
+ 		entry 'omega, prof and rass' 'display omega_prof_rass' \
+			(dm$config = "omega_prof_rass")
+		entry 'profiler, low mode' 'display wind_summary_low' \
+			(dm$config = "wind_summary_low")
+		entry 'profiler, high mode' 'display wind_summary_high' \
+			(dm$config = "wind_summary_high")
+		entry 'surface met' 'display surface' \
+			(dm$config = "surface")
+		entry 'vptu' 'display vptu' \
+			(dm$config = "vptu")
+		entry 'time_height' 'display time_height' \
+			(dm$config = "time_height")
+		line
+		entry 'print window' 'shell "/u1/iss/bin/print_X_window&"'
+	endmenu
+	menu 'data-display' bitmap iss-data
+		title 'Data'
+		line
+		entry 'data store inventory' 'shell "dsdwidget &"'
+		entry 'last data display' 'shell "LastData /u1/configs/nauru/LastData.config&"'
+	endmenu
+enddef

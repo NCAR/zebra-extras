@@ -1,0 +1,81 @@
+GLOBAL
+	pd-name:	vptu
+	plot-mode:	real-time
+	plot-type:	xygraph
+	trigger:	120s
+	xy-data-mode:		snapshot
+	xy-scale-y-mode:	manual
+	xy-scale-x-mode:	manual
+	xy-axis-b-font-scale:	0.013
+	xy-axis-l-font-scale:	0.013
+	xy-axis-r-font-scale:	0.013
+	xy-axis-t-font-scale:	0.013
+	axis-top-space:		5
+	axis-bottom-space:	100
+	axis-left-space:	60
+	axis-right-space:	5
+	ta-scale:		0.03
+!
+! menus
+!
+	global-icon-left-menu:	iss-global-util
+	global-icon-middle-menu:	iss-global-profile
+	global-do-color-proc:	change_component_color
+	xy-adj-scale-dim:	x
+	xy-adj-axis-side:  t
+	component-list:	nothing,vptutemp
+!
+! List of components that can be toggle on this plot
+!
+	vtemp-pd:	vptu_parts
+	vtemp-comp:	vptutemp
+	vRH-pd:		vptu_parts
+	vRH-comp:	vpturh
+	vpres-pd:	vptu_parts
+	vpres-comp:	vptupres
+	vu-pd:		vptu_parts
+	vu-comp:	vptuu
+	vv-pd:		vptu_parts
+	vv-comp:	vptuv
+	vwdir-pd:	vptu_parts
+	vwdir-comp:	vptuwdir
+	vwspd-pd:	vptu_parts
+	vwspd-comp:	vptuwspd
+nothing
+	trigger:	1000s
+	representation:	simple
+	representation-style:	cross
+	x-field:	nothing
+	field-color:	black
+	platform:	prof_azcn5_l
+	axis-bottom:	false
+! left axis:
+	scale-y-style:	invert
+	y-field:	pressure
+	axis-l-label:	Pressure (mb)
+	axis-l-tic-interval:	10.0
+	axis-l-grid-intensity:	0.0
+vptutemp
+	trigger:	5s
+	representation:	simple
+	representation-style:	cross
+	platform:	prof_azcn5_l
+	icon:		iss-tdry
+	icon-background:	black
+	field-color:	cyan
+	icon-color:	cyan
+	axis-left:	false
+	scale-y-style:	invert
+	y-field:	pressure
+! bottom axis:
+	x-field:	temp
+	scale-x-min:	-80.0
+	scale-x-max:	20.0
+	axis-b-label:	temperature (deg C)
+	axis-b-tic-interval:	5.0
+	axis-b-grid-intensity:	0.0
+	icon-right-menu:	DataAvailable
+	menu-platform:		prof_azcn5_l,prof_azcn5_h
+	icon-left-menu:	xy-simple
+	axis-b-color:	cyan
+	adj-axis-side:  b

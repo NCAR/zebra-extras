@@ -1,0 +1,20 @@
+GLOBAL
+	pd-name:	oskewt
+	plot-mode:	real-time
+	plot-type:	skewt
+	trigger:	omega
+	ta-scale:	0.03
+!
+! User-interface
+! Menus
+	global-icon-left-menu:	iss-global-util
+oskewt
+	representation:	skewt
+	platform:	omega
+	max-platform:	5
+	color-table:	Skew-t
+	icon:		sounding
+	icon-background: black
+	icon-color:	red
+	icon-right-menu:	DataAvailable
+	icon-left-menu: skewt-menu

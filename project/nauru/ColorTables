@@ -1,0 +1,115 @@
+colortable Contour
+	xcolor Orchid
+	xcolor MediumSlateBlue
+	xcolor CadetBlue
+	xcolor Green
+	xcolor Gray80
+	xcolor Goldenrod
+	xcolor Coral
+	xcolor Red
+	xcolor FireBrick
+	xcolor Black
+	xcolor White
+	xcolor Gray60
+	xcolor Gray45
+	xcolor SteelBlue
+	xcolor Sienna
+	xcolor Red
+	xcolor Cyan
+	xcolor Magenta
+	xcolor MediumSlateBlue
+	xcolor Yellow
+	xcolor Green
+	xcolor Gold
+	xcolor DarkOrchid
+	xcolor PaleGreen
+endtable
+
+colortable Rainbow
+	xcolor Violet
+	xcolor Purple
+	xcolor Blue
+	xcolor Green
+	xcolor Yellow
+	xcolor Orange
+	xcolor Red
+endtable
+
+colortable Winds
+	xcolor Violet
+	xcolor Purple
+	xcolor CornflowerBlue
+	xcolor Blue
+	xcolor Cyan
+	xcolor Green
+	xcolor GreenYellow
+	xcolor Yellow
+	xcolor Orange
+	xcolor DarkOrange
+	xcolor Red
+endtable
+
+colortable Skew-t
+	xcolor Black
+	xcolor White
+	xcolor Gray60
+	xcolor Gray45
+	xcolor SteelBlue
+	xcolor Sienna
+	xcolor Red
+	xcolor Cyan
+	xcolor Magenta
+	xcolor MediumSlateBlue
+	xcolor Yellow
+	xcolor Green
+	xcolor Gold
+	xcolor DarkOrchid
+	xcolor PaleGreen
+endtable
+
+colortable ContourMono
+	xcolor White
+	xcolor Black
+	xcolor White
+	xcolor Black
+	xcolor White
+	xcolor Black
+	xcolor White
+	xcolor Black
+	xcolor White
+endtable
+
+colortable AllWhite
+	xcolor White
+	xcolor White
+	xcolor White
+	xcolor White
+	xcolor White
+	xcolor White
+	xcolor White
+	xcolor White
+	xcolor White
+	xcolor White
+	xcolor White
+	xcolor White
+	xcolor White
+	xcolor White
+	xcolor White
+	xcolor White
+endtable
+
+colortable fivegray
+	xcolor gray10
+	xcolor gray30
+	xcolor gray50
+	xcolor gray70
+	xcolor gray90
+endtable
+
+colortable fivegrey
+	xcolor grey10
+	xcolor grey30
+	xcolor grey50
+	xcolor grey70
+	xcolor grey90
+endtable

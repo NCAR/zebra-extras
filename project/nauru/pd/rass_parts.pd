@@ -1,0 +1,24 @@
+GLOBAL
+	pd-name:	rass_parts
+rtv
+	trigger:	rass915
+	do-color-proc:	change_component_color
+	representation:	simple
+	platform:	rass915
+	icon:		iss-tdry
+	icon-background:	black
+	field-color:	magenta
+	icon-color:	magenta
+	axis-left:	false
+	axis-bottom:	false
+	axis-top:	true
+	y-field:	height
+! bottom axis:
+	x-field:	tv
+	axis-t-label:	temperature (deg C)
+	axis-t-tic-interval:	5.0
+	axis-t-grid-intensity:	0.0
+	axis-t-color:	magenta
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+	adj-axis-side: t

@@ -1,0 +1,232 @@
+!
+! All of the predefined display configurations live in this file.
+!
+!
+
+!
+! Executables.  Use the bin version unless GPDEBUG is defined.
+!
+if (getenv ("GPDEBUG") = "UNDEFINED")
+        set gp_exec (concat (c$bindir, "/gp"))
+else
+        if (getenv ("GPEXEC") = "UNDEFINED")
+                set gp_exec (concat (c$basedir, "/gp/gp"))
+        else
+                set gp_exec getenv("GPEXEC")
+        endif
+endif
+set clock_exec (concat (c$bindir, "/fccclock"))
+!
+! saber window
+!
+config saber
+	window 'a.out' 660 5 400 400 /Saber/bin/xsaber
+		description 'windsuml'
+		buttonmap 'general'
+		forcepd
+	endwindow
+	widget 'iconbar' 1072 10 70 207
+	window 'Clock' 920 800 220 25 '/zeb/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+	window 'Event logger' 10 800 900 95
+		nongraphic
+	endwindow
+endconfig
+
+
+!
+! xgdb window
+!
+config xgdb
+	window '/zeb/gp/gp' 660 5 400 400 /localbin/xgdb /zeb/gp/gp 
+		description 'vptu'
+		buttonmap 'general'
+		forcepd
+	endwindow
+	widget 'iconbar' 1072 10 70 207
+	window 'Clock' 920 800 220 25 '/zeb/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+	window 'Event logger' 10 800 900 95
+		nongraphic
+	endwindow
+endconfig
+
+
+!
+! vptu window
+!
+config vptu
+	window 'vptu' 660 5 400 400 #gp_exec #init_file  
+		description 'vptu'
+		buttonmap 'general'
+		forcepd
+	endwindow
+	widget 'iconbar' 1072 10 70 207
+	window 'Clock' 920 800 220 25 '/zeb/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+	window 'Event logger' 10 800 900 95
+		nongraphic
+	endwindow
+endconfig
+
+
+!
+! time_height window
+!
+config time_height
+	window 'time_height' 660 5 400 400 #gp_exec #init_file  
+		description 'time_height'
+		buttonmap 'general'
+		forcepd
+	endwindow
+	widget 'iconbar' 1072 10 70 207
+	window 'Clock' 920 800 220 25 '/zeb/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+	window 'Event logger' 10 800 900 95
+		nongraphic
+	endwindow
+endconfig
+
+
+!
+! GraphProc test window config and color table
+!
+config iss_init
+	widget 'iconbar' 1072 10 70 207
+	window 'Clock' 920 800 220 25 '/zeb/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+	window 'Event logger' 10 800 900 95
+		nongraphic
+	endwindow
+endconfig
+
+config omega_summary
+	widget 'iconbar' 1072 10 70 207
+	window 'Clock' 920 800 220 25 '/zeb/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+	window 'Event logger' 10 800 900 95
+		nongraphic
+	endwindow
+	window 'issgp1' 515 10 495 495 #gp_exec #init_file
+		description 'oskewt'
+		buttonmap 'general'
+		forcepd
+	endwindow
+	window 'issgp2' 10 10 495 495 #gp_exec #init_file
+		description 'omegaprof'
+		buttonmap 'general'
+		forcepd
+	endwindow
+	window 'issgp3' 10 510 1000 285 #gp_exec #init_file
+		description 'omegasum'
+		buttonmap 'general'
+		forcepd
+	endwindow
+endconfig
+
+config omega_skewt
+	widget 'iconbar' 1072 10 70 207
+	window 'Clock' 920 800 220 25 '/zeb/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+	window 'Event logger' 10 800 900 95
+		nongraphic
+	endwindow
+	window 'issgp1' 10 10 1000 785 #gp_exec #init_file
+		description 'oskewt'
+		buttonmap 'general'
+		forcepd
+	endwindow
+endconfig
+
+config surface
+	widget 'iconbar' 1072 10 70 207
+	window 'Clock' 920 800 220 25 '/zeb/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+	window 'Event logger' 10 800 900 95
+		nongraphic
+	endwindow
+	window 'issgp1' 10 10 1000 785 #gp_exec #init_file
+		description 'surface1'
+		buttonmap 'general'
+		forcepd
+	endwindow
+endconfig
+
+config omega_prof_rass
+	widget 'iconbar' 1072 10 70 207
+	window 'Clock' 920 800 220 25 '/zeb/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+	window 'Event logger' 10 800 900 95
+		nongraphic
+	endwindow
+	window 'issgp1' 10 10 1000 785 #gp_exec #init_file
+		description 'comboprof'
+		buttonmap 'general'
+		forcepd
+	endwindow
+endconfig
+
+config wind_summary_low
+	widget 'iconbar' 1072 10 70 207
+	window 'Clock' 920 800 220 25 '/zeb/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+	window 'Event logger' 10 800 900 95
+		nongraphic
+	endwindow
+	window 'issgp1' 10 10 1000 785 #gp_exec #init_file
+		description 'windsuml'
+		buttonmap 'general'
+		forcepd
+	endwindow
+endconfig
+
+config wind_summary_high
+	widget 'iconbar' 1072 10 70 207
+	window 'Clock' 920 800 220 25 '/zeb/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+	window 'Event logger' 10 800 900 95
+		nongraphic
+	endwindow
+	window 'issgp1' 10 10 1000 785 #gp_exec #init_file
+		description 'windsumh'
+		buttonmap 'general'
+		forcepd
+	endwindow
+endconfig
+
+
+config time_height
+	widget 'iconbar' 1072 10 70 207
+	window 'Clock' 920 800 220 25 '/zeb/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+	window 'Event logger' 10 800 900 95
+		nongraphic
+	endwindow
+	window 'time_height' 10 10 1000 785 #gp_exec #init_file
+		description 'time_height'
+		buttonmap 'general'
+		forcepd
+	endwindow
+endconfig
+
+!
+! Generic linked PD to display one window zoomed.
+!
+config zoom 1
+	window 'zoom' 5 5 1100 850 /zeb/bin/gp #init_file
+                buttonmap 'general'
+                linkpd 1
+	endwindow
+endconfig

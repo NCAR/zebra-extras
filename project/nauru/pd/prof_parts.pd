@@ -1,0 +1,96 @@
+GLOBAL
+	pd-name:	prof_parts
+	trigger:	prof_azcn5_h
+	plot-type:	xygraph
+hwdir
+	trigger:	prof_azcn5_h
+	do-color-proc:	change_component_color
+	representation:	simple
+	representation-style:	cross
+	platform:	prof_azcn5_h
+	icon:		iss-wdir
+	icon-background:	black
+	field-color:	yellow
+	icon-color:	yellow
+	axis-left:	false
+	axis-bottom:	false
+	axis-top:	true
+	y-field:	height
+! bottom axis:
+	x-field:	wdir
+	axis-t-label:	wind direction (degrees)
+	axis-t-tic-interval:	5.0
+	axis-t-grid-intensity:	0.0
+	axis-t-color:	yellow
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+	adj-axis-side: t
+hwspd
+	trigger:	prof_azcn5_h
+	do-color-proc:	change_component_color
+	representation:	simple
+	representation-style:	cross
+	platform:	prof_azcn5_h
+	icon:		iss-wspd
+	icon-background:	black
+	field-color:	green
+	icon-color:	green
+	axis-left:	false
+	axis-bottom:	false
+	axis-top:	true
+	y-field:	height
+! bottom axis:
+	x-field:	wspd
+	axis-t-label:	wind speed (m/s)
+	axis-t-tic-interval:	5.0
+	axis-t-grid-intensity:	0.0
+	axis-t-color:	green
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+	adj-axis-side: t
+lwdir
+	trigger:	prof_azcn5_l
+	do-color-proc:	change_component_color
+	representation:	simple
+	representation-style:	cross
+	platform:	prof_azcn5_l
+	icon:		iss-wdir
+	icon-background:	black
+	field-color:	orange
+	icon-color:	orange
+	axis-left:	false
+	axis-bottom:	false
+	axis-top:	true
+	y-field:	height
+! bottom axis:
+	x-field:	wdir
+	axis-t-label:	wind direction (degrees)
+	axis-t-tic-interval:	5.0
+	axis-t-grid-intensity:	0.0
+	axis-t-color:	orange
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+	adj-axis-side: t
+lwspd
+	trigger:	prof_azcn5_l
+	do-color-proc:	change_component_color
+	representation:	simple
+	representation-style:	cross
+	platform:	prof_azcn5_l
+	icon:		iss-wspd
+	icon-background:	black
+	field-color:	cyan
+	icon-color:	cyan
+	axis-left:	false
+	axis-bottom:	false
+	axis-top:	true
+	y-field:	height
+! bottom axis:
+	x-field:	wspd
+	axis-t-label:	wind speed (m/s)
+	axis-t-tic-interval:	5.0
+	axis-t-grid-intensity:	0.0
+	axis-t-color:	cyan
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+	adj-axis-side: t

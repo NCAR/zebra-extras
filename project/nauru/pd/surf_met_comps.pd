@@ -1,0 +1,189 @@
+GLOBAL
+	pd-name:	surf_met_comps
+	plot-type:	xygraph
+wspd
+	trigger:	surface_met
+	do-color-proc:	change_component_color
+	representation:	simple
+	platform:	surface_met
+	icon:		iss-wspd
+	field-color:	Cyan
+	axis-l-color:	Cyan
+	icon-color:	Cyan
+	icon-background:black
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+	x-field:	time
+	y-field:	wspd
+	axis-l-tic-interval:	2.0
+	axis-bottom:	false
+	axis-l-label:	wind speed (m/s)
+rh
+	representation:	simple
+	trigger:	surface_met
+	do-color-proc:	change_component_color
+	platform:	surface_met
+	icon:		iss-rh
+	field-color:	Red
+	axis-l-color:	Red
+	icon-color:	Red
+	icon-background:black
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+	x-field:	time
+	y-field:	rh
+	axis-bottom:	false
+	axis-l-tic-interval:	20.0
+	axis-l-label:	relative humidity (%)
+tdry
+	representation:	simple
+	trigger:	surface_met
+	do-color-proc:	change_component_color
+	platform:	surface_met
+	icon:		iss-tdry
+	field-color:	Magenta
+	axis-l-color:	Magenta
+	icon-color:	Magenta
+	icon-background:black
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+	x-field:	time
+	y-field:	tdry
+	axis-bottom:	false
+	axis-l-tic-interval:	5.0
+	axis-l-label:	temperature (deg C)
+wdir
+	trigger:	surface_met
+	do-color-proc:	change_component_color
+	representation:	simple
+	platform:	surface_met
+	icon:		iss-wdir
+	field-color:	Yellow
+	axis-l-color:	Yellow
+	icon-color:	Yellow
+	icon-background:black
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+	x-field:	time
+	y-field:	wdir
+	axis-l-tic-interval:	45.0
+	axis-bottom:	false
+	axis-l-label:	wind direction (deg)
+pres
+	trigger:	surface_met
+	do-color-proc:	change_component_color
+	representation:	simple
+	platform:	surface_met
+	icon:		iss-pres
+	field-color:	Green
+	axis-l-color:	Green
+	icon-color:	Green
+	icon-background:black
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+	x-field:	time
+	y-field:	pres
+	axis-l-tic-interval:	5.0
+	axis-bottom:	false
+	axis-l-label:	pressure (mb)
+soltot
+	trigger:	surface_met
+	do-color-proc:	change_component_color
+	representation:	simple
+	platform:	surface_met
+	icon:		iss-totrad
+	field-color:	Gold
+	axis-l-color:	Gold
+	icon-color:	Gold
+	icon-background:black
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+	x-field:	time
+	y-field:	sol
+	axis-l-tic-interval:	100.0
+	axis-bottom:	false
+	axis-l-label:	Total Incoming Visible (W/m^2)
+soldiff
+	trigger:	surface_met
+	do-color-proc:	change_component_color
+	representation:	simple
+	platform:	surface_met
+	icon:		iss-difrad
+	field-color:	DarkOrchid
+	axis-l-color:	DarkOrchid
+	icon-color:	DarkOrchid
+	icon-background:black
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+	x-field:	time
+	y-field:	soldiff
+	axis-l-tic-interval:	100.0
+	axis-bottom:	false
+	axis-l-label:	Diffuse Incoming Visible (W/m^2)
+netrad
+	trigger:	surface_met
+	do-color-proc:	change_component_color
+	representation:	simple
+	platform:	surface_met
+	icon:		iss-netrad
+	field-color:	PaleGreen
+	axis-l-color:	PaleGreen
+	icon-color:	PaleGreen
+	icon-background:black
+	x-field:	time
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+	y-field:	netrad
+	axis-l-tic-interval:	100.0
+	axis-bottom:	false
+	axis-l-label:	Net Radiation (W/m^2)
+batt
+	trigger:	surface_met
+	do-color-proc:	change_component_color
+	representation:	simple
+	platform:	surface_met
+	icon:		iss-batt
+	field-color:	Gray60
+	axis-l-color:	Gray60
+	icon-color:	Gray60
+	icon-background:black
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+	x-field:	time
+	y-field:	batt
+	axis-l-tic-interval:	0.2
+	axis-bottom:	false
+	axis-l-label:	Battery Voltage (V)
+tbox
+	trigger:	surface_met
+	do-color-proc:	change_component_color
+	representation:	simple
+	platform:	surface_met
+	icon:		iss-tbox
+	field-color:	SteelBlue
+	axis-l-color:	SteelBlue
+	icon-color:	SteelBlue
+	icon-background:black
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+	x-field:	time
+	y-field:	tbox
+	axis-l-tic-interval:	5.0
+	axis-bottom:	false
+	axis-l-label:	Box Temperature (deg C)
+rain
+	trigger:	surface_met
+	do-color-proc:	change_component_color
+	representation:	simple
+	platform:	surface_met
+	icon:		iss-rain
+	field-color:	MediumSlateBlue
+	axis-l-color:	MediumSlateBlue
+	icon-color:	MediumSlateBlue
+	icon-background:black
+	icon-right-menu:	DataAvailable
+	x-field:	time
+	y-field:	rain
+	axis-l-tic-interval:	2.0
+	axis-bottom:	false
+	axis-l-label:	rainfall (mm)

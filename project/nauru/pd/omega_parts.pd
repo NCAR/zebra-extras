@@ -1,0 +1,177 @@
+GLOBAL
+	pd-name:	omega_parts
+otdry
+	trigger:	prof_azcn5_l
+	do-color-proc:	change_component_color
+	representation:	simple
+	representation-style:	cross
+	platform:	prof_azcn5_l
+	icon:		iss-tdry
+	icon-background:	black
+	field-color:	cyan
+	icon-color:	cyan
+	axis-left:	false
+	y-field:	alt
+! bottom axis:
+	x-field:	tdry
+	axis-b-label:	temperature (deg C)
+	axis-b-tic-interval:	5.0
+	axis-b-grid-intensity:	0.0
+	axis-b-color:	cyan
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+	adj-axis-side: b
+owspd
+	trigger:	prof_azcn5_l
+	do-color-proc:	change_component_color
+	representation:	simple
+	representation-style:	cross
+	platform:	prof_azcn5_l
+	icon:		iss-wspd
+	icon-color:	red
+	icon-background:	black
+	field-color:	red
+	axis-bottom:	false
+	axis-left:	false
+	y-field:	alt
+! top axis:
+	x-field:	wspd
+	axis-top:	true
+	axis-t-tic-interval:	5.0
+	axis-t-label:	wind speed (m/s)
+	axis-t-grid-intensity: 0.0
+	axis-t-color:	red
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+owdir
+	trigger:	prof_azcn5_l
+	do-color-proc:	change_component_color
+	representation:	simple
+	representation-style:	cross
+	platform:	prof_azcn5_l
+	icon:		iss-wdir
+	icon-color:	white
+	icon-background:	black
+	field-color:	white
+	axis-left:	false
+	y-field:	alt
+! top axis:
+	x-field:	wdir
+	axis-bottom:	false
+	axis-top:	true
+	axis-t-tic-interval:	5.0
+	axis-t-label:	wind direction (deg)
+	axis-t-grid-intensity: 0.0
+	axis-t-color:	white
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+odp
+	trigger:	prof_azcn5_l
+	do-color-proc:	change_component_color
+	representation:	simple
+	representation-style:	cross
+	platform:	prof_azcn5_l
+	icon:		iss-tdp
+	icon-color:	green
+	icon-background:	black
+	field-color:	green
+	axis-left:	false
+	y-field:	alt
+! top axis:
+	x-field:	dp
+	axis-bottom:	false
+	axis-top:	true
+	axis-t-tic-interval:	5.0
+	axis-t-label:	dewpoint temperature (deg C)
+	axis-t-grid-intensity: 0.0
+	axis-t-color:	green
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+orh
+	trigger:	prof_azcn5_l
+	do-color-proc:	change_component_color
+	representation:	simple
+	representation-style:	cross
+	platform:	prof_azcn5_l
+	icon:		iss-rh
+	icon-color:	magenta
+	icon-background:	black
+	field-color:	magenta
+	axis-left:	false
+	y-field:	alt
+! top axis:
+	x-field:	rh
+	axis-bottom:	false
+	axis-top:	true
+	axis-t-tic-interval:	5.0
+	axis-t-label:	relative humidity (%)
+	axis-t-grid-intensity: 0.0
+	axis-t-color:	magenta
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+opres
+	trigger:	prof_azcn5_l
+	do-color-proc:	change_component_color
+	representation:	simple
+	representation-style:	cross
+	platform:	prof_azcn5_l
+	icon:		iss-pres
+	icon-color:	hotpink
+	icon-background:	black
+	field-color:	hotpink
+	axis-left:	false
+	y-field:	alt
+! top axis:
+	x-field:	pres
+	axis-bottom:	false
+	axis-top:	true
+	axis-t-tic-interval:	5.0
+	axis-t-label:	pressure (mb)
+	axis-t-grid-intensity: 0.0
+	axis-t-color:	hotpink
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+ou_wind
+	trigger:	prof_azcn5_l
+	do-color-proc:	change_component_color
+	representation:	simple
+	representation-style:	cross
+	platform:	prof_azcn5_l
+	icon:		iss-uwind
+	icon-color:	orange
+	icon-background:	black
+	field-color:	orange
+	axis-left:	false
+	y-field:	alt
+! top axis:
+	x-field:	u_wind
+	axis-bottom:	false
+	axis-top:	true
+	axis-t-tic-interval:	5.0
+	axis-t-label:	u_wind (m/s)
+	axis-t-grid-intensity: 0.0
+	axis-t-color:	orange
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple
+ov_wind
+	trigger:	prof_azcn5_l
+	do-color-proc:	change_component_color
+	representation:	simple
+	representation-style:	cross
+	platform:	prof_azcn5_l
+	icon:		iss-vwind
+	icon-color:	yellow
+	icon-background:	black
+	field-color:	yellow
+	axis-left:	false
+	y-field:	alt
+! top axis:
+	x-field:	v_wind
+	axis-bottom:	false
+	axis-top:	true
+	axis-t-tic-interval:	5.0
+	axis-t-label:	u_wind (m/s)
+	axis-t-grid-intensity: 0.0
+	axis-t-color:	yellow
+	icon-right-menu:	DataAvailable
+	icon-left-menu:	xy-simple

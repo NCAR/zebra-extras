@@ -1,0 +1,10 @@
+!
+! The file for display manager button maps.
+!
+buttonmap general
+	dm	t	'popup time'
+	dm	z	'zoom #dm$button_window'
+	local	m	'popup movie'
+	local	r	'movie run'
+	local	s	'movie stop'
+endmap

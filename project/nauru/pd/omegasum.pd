@@ -1,0 +1,36 @@
+GLOBAL
+	pd-name:	omegasum
+	plot-mode:	real-time
+	plot-type:	xygraph
+	axis-bottom-space:	40
+	axis-left-space:	40
+	xy-series-span:		720m
+	xy-data-mode:		series
+	xy-scale-y-mode:	manual
+	xy-scale-x-mode:	autoscale
+	xy-axis-b-tic-interval:	60m
+	xy-axis-l-tic-interval:	0.5
+	xy-axis-b-font-scale:	0.035
+	xy-axis-l-font-scale:	0.035
+	global-y-limit-proc:	adj_y_minmax
+	global-series-span-proc: adj_series_span
+	global-icon-left-menu: iss-global-util
+	global-icon-middle-menu: iss-global-winds
+	ta-scale:	0.04
+	sa-scale:	0.035
+	component-list:	OmegaSum
+	xy-adj-axis-side: b
+	trigger:	omega
+OmegaSum
+	representation:	wind
+	platform:	omega
+	icon:		sounding
+	icon-color:	green
+	x-field:	time
+	y-field:	alt
+	axis-l-color:	green
+	axis-l-label:	Alt (km>msl)
+	axis-b-label:	time
+	adj-axis-side: l
+	icon-left-menu:	time-height-winds
+	icon-right-menu:	DataAvailable

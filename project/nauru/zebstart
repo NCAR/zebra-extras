@@ -1,0 +1,56 @@
+#!/bin/csh
+# 
+# Start up the Zeb system.
+#
+# Do everything possible to insure that we start clean.
+#
+	setenv ZEBHOME 
+	setenv XAPPLRESDIR ${ZEBHOME}/zeb/lib/resources
+	setenv PATH ${PATH}:${ZEBHOME}/zeb/bin
+	setenv HOST `hostname`
+	zebstop
+	rm -f /tmp/fcc.socket
+	sleep 1
+	set nonomatch; rm -f ${ZEBHOME}/zeb/tmp/*
+#
+# The message system.  Nothing else runs without it.
+#
+	echo -n 'Starting MESSAGE...'
+	message & 
+	sleep 1
+#
+# Wait until message is truly ready.  
+#
+	mstatus > /dev/null
+#
+# The event logger.
+#
+	echo -n 'Starting the event logger...'
+	EventLogger &
+	sleep 1
+#
+# Start the timer.
+#
+	echo -n 'Starting the timer...'
+	timer &
+#
+# Data store processes.
+#
+	echo -n '...and the data store daemon...'
+	dsDaemon ds.config &
+	sleep 1
+#
+# Pseudo-Real Time Mode
+#
+#	setttime 910802 223000
+#	prt_Notify &
+#	sleep 1
+#
+# Start up in the right directory.
+#
+	cd ${ZEBHOME}/zeb/nauru
+#
+# Start the display manager.
+#
+	setenv DEFAULT_CONFIG omega_summary
+	dm dm.config

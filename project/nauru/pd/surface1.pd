@@ -1,0 +1,55 @@
+GLOBAL
+	pd-name:		surface1
+	plot-mode:		real-time
+	plot-type:		xygraph
+	ta-scale:		0.03
+	xy-data-mode:		series
+	xy-series-span:		720m
+	xy-axis-l-font-scale:	0.018
+	xy-axis-b-font-scale:	0.018
+	xy-axis-b-tic-interval:	60m
+	global-icon-left-menu:  iss-global-util
+	global-icon-middle-menu:	surface-field-menu
+	xy-adj-scale-dim:	y
+	xy-adj-axis-side:	l
+	platform:		prof_azcn5_l
+!
+! List of components that may be toggled on this plot
+!
+	wspd-pd:	surf_met_comps
+	wspd-comp:	wspd
+	wdir-pd:	surf_met_comps
+	wdir-comp:	wdir
+	rh-pd:		surf_met_comps
+	rh-comp:	rh
+	pres-pd:	surf_met_comps
+	pres-comp:	pres
+	tdry-pd:	surf_met_comps
+	tdry-comp:	tdry
+	soltot-pd:	surf_met_comps
+	soltot-comp:	soltot
+	soldiff-pd:	surf_met_comps
+	soldiff-comp:	soldiff
+	netrad-pd:	surf_met_comps
+	netrad-comp:	netrad
+	rain-pd:	surf_met_comps
+	rain-comp:	rain
+	batt-pd:	surf_met_comps
+	batt-comp:	batt
+	tbox-pd:	surf_met_comps
+	tbox-comp:	tbox
+	component-list:	timeScale
+	trigger:	1m
+!
+! first component just gives us the bottom axis
+!
+timeScale
+	representation:	simple
+	platform:	prof_azcn5_l
+	x-field:	time
+	y-field:	nothing
+	icon:		none
+	axis-b-tic-interval:	60m
+	axis-left:	false
+	axis-bottom:	true
+	axis-b-label:	time

@@ -1,0 +1,23 @@
+GLOBAL
+	pd-name:	time_height
+	plot-type:	xygraph
+	trigger:	30s
+	plot-mode:	real-time
+915Contourh
+	icon-left-menu:	time-height-contour
+	icon-middle-menu:	high-contour-data
+	icon-right-menu: DataAvailable
+	menu-platform:	prof_azcn5_l,prof_azcn5_h
+	representation:	contour
+	trigger:	prof_azcn5_l
+	platform:	prof_azcn5_l
+	icon:		iss-contour
+	icon-color:	green
+	icon-background: black
+	x-field:	time
+	y-field:	wdir
+	z-field:	wspd
+	axis-bottom:	false
+	axis-left:	false
+	axis-right:	false
+	axis-top:	false
