@@ -1,4 +1,6 @@
 !
+! $Id: ds.config.cpp,v 1.2 1995-04-07 17:07:57 granger Exp $
+!
 ! Data store configuration file.
 !
 ! Platform parameters:
@@ -796,7 +798,7 @@ endclass
 ! same files as the volume platforms.  Hence the copyparent attribute.
 !
 class GRIBSurface
-	organization	scalar
+	organization	nspace
 	filetype	grib_sfc
 	instancedir	copyparent
 	model
