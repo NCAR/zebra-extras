@@ -1,0 +1,19 @@
+! $Id: fabl.pd,v 1.1 1998-03-25 23:33:18 granger Exp $
+!
+! Project-specific parameters which get dropped into the defaults database
+!
+
+global
+	pd-name:	fabl
+
+defaults
+!
+! Origin 
+!
+	origin-lat:			37
+	origin-lon:			-98
+	origin-alt:			0.3
+
+locations
+
+	parkfalls:			37.0 -98.0 0.3

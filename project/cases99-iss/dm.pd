@@ -13,13 +13,13 @@ pddir pd
 ! Build the defaults database.  We want fest, class, and NWS soundings
 ! locations.
 !
-pddrop lake_ice locations defaults defaults
+pddrop fabl locations defaults defaults
 
 !
 ! And of course we need our project-specific defaults, which may override
 ! some of the library parameter settings.
 !
-pddrop lake_ice defaults defaults defaults
+pddrop fabl defaults defaults defaults
 
 ! Use ZEB_CACHEDIR for cache files if defined, otherwise use a cache
 ! directory under the project directory.

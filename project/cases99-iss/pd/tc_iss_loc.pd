@@ -1,0 +1,23 @@
+!
+! Location component oriented around ISS stations, which can be displayed
+! in almost any format you can think of.
+!
+global
+	pd-name:	tc_iss_loc
+tc_iss_loc
+	platform:	kapinga,kavieng,manus,nauru,exp3,sci1
+	representation:	overlay
+	field:		location
+	color:		white
+	label-size:	14
+	icon:		iss-loc
+	icon-left-menu:		minimal-cap-left-menu
+	icon-right-menu:	location-options
+	location-time:		observation
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-right-menu:	location-options
+	posicon-middle-menu:	iss-to-other
+	label:		platform
+	active-icon:	true
+	time-label:	true
+	require:	location, iss-cap

@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.3 1997-12-16 22:38:28 granger Exp $
+! $Id: IconBar,v 1.4 1998-03-25 23:33:00 granger Exp $
 !
 ! All the definitions required to make the iconbar work.
 !
@@ -35,14 +35,11 @@ define widget iconbar menubar " "
 	menu tools bitmap tools-big
 		title 'Tools'
 		line
-		entry 'Project Icon Bar' 'popup iconbar'
-		entry 'Dismiss Tool Bar' 'popdown toolbar'
 		entry 'Time Control Tool...' 'popup time'
 		entry 'Printing Tool...' 'popup hardcopy'
 		entry 'Configuration Tool...' 'popup ConfigEdit'
-		entry 'XTerm Shell Tool' 'shell \
-  "xterm -T ZebraShell -bg grey90 -fg purple -fn 8x13bold -e zstart -shell &"'
-		submenu 'Data Listings' dslistings
+		entry 'List ISS Platforms' \
+		   'shell "dsdwidget -a -t ISS\ Platforms iss &"'
 		entry 'Data Store Management' 'shell "dsmanage &"'
 		line
 		entry 'Begin new configuration...' 'popup newconfig'
@@ -55,25 +52,15 @@ define widget iconbar menubar " "
 		entry 'Save this configuration as...' 'popup SaveConfig'
 		entry 'Restore configuration' 'cfg-restore'
 		line
-		entry 'Event Logger' 'shell "EventLogger -w &"'
-		line
 		entry 'Shutdown Zebra' 'shutdown'
 	endmenu
 
 	menu configs bitmap configs
 		title 'Display configurations'
 		line
-		entry 'Montague (ISS 1)' 'display iss1' (dm$config = 'iss1')
-		entry 'Sheboygan (ISS 2)' 'display iss2' (dm$config = 'iss2')
-		entry 'Greenville (ISS 3)' 'display iss3' (dm$config = 'iss3')
-		entry 'Soundings' 'display soundings' (dm$config = 'soundings')
-		line
+		entry 'Park Falls (ISS 1)' 'display iss1' (dm$config = 'iss1')
 		entry 'Lineplot (ISS 1)' 'display lineplot-iss1' \
 			(dm$config = 'lineplot-iss1')
-		entry 'Lineplot (ISS 2)' 'display lineplot-iss2' \
-			(dm$config = 'lineplot-iss2')
-		entry 'Lineplot (ISS 3)' 'display lineplot-iss3' \
-			(dm$config = 'lineplot-iss3')
 		line
 		entry 'Empty screen' 'display empty' (dm$config = 'empty')
 	endmenu
@@ -81,55 +68,29 @@ define widget iconbar menubar " "
 	menu surface bitmap surface
 	     	title 'Surface observations'
 		line
-		entry 'ISS Surface Stations' \
-      'putc3 p_station platform #isssurf active-icon false icon iss-iss-small'
-		line
-		entry 'Montague(1) Surface Met' \
+		entry 'Park Falls(1) Surface Met' \
 			'PutScalar iss1/surface_met tdry'
-		entry 'Sheboygan(2) Surface Met' \
-			'PutScalar iss2/surface_met tdry'
-		entry 'Greenville(3) Surface Met' \
-			'PutScalar iss3/surface_met tdry'
 	endmenu
 
 	menu sounding bitmap sounding
 		title 'Soundings'
 		line
-		entry 'Montague(1) CLASS' 'PutScalar iss1/class tdry'
-		entry 'Sheboygan(2) CLASS' 'PutScalar iss2/class tdry'
-		entry 'Greenville(3) CLASS' 'PutScalar iss3/class tdry'
-		line
-		entry 'Timmins, Ont (tim)' 'PutScalar tim tdry'
-		entry 'Beattyville, Quebec (bea)' 'PutScalar bea tdry'
-		entry 'Algonquin, Ont (alg)' 'PutScalar alg tdry'
-		entry 'Belleterre, Ont (bel)' 'PutScalar bel tdry'
-		entry 'Owen Sound, Ont (own, mobile)' 'PutScalar own tdry'
-		entry 'Sudbury, Ont (sud)' 'PutScalar sud tdry'
+		entry 'Park Falls(1) CLASS' 'PutScalar iss1/class tdry'
 	endmenu
 
 	menu rass bitmap iss-rass
 		title 'RASS'
 		line
-		entry 'Montague(1) RASS' 'PutScalar iss1/rass915 tv'
-		entry 'Sheboygan(2) RASS' 'PutScalar iss2/rass915 tv'
-		entry 'Greenville(3) RASS' 'PutScalar iss3/rass915 tv'
+		entry 'Park Falls(1) RASS' 'PutScalar iss1/rass915 tv'
 	endmenu
 
 	menu prof bitmap iss-prof
 		title 'Profilers'
 		line
-		entry 'Montague(1) Profiler (High)' \
+		entry 'Park Falls(1) Profiler (High)' \
 			'PutScalar iss1/prof915h wind'
-		entry 'Montague(1) Profiler (Low)' \
+		entry 'Park Falls(1) Profiler (Low)' \
 			'PutScalar iss1/prof915l wind'
-		entry 'Sheboygan(2) Profiler (High)' \
-			'PutScalar iss2/prof915h wind'
-		entry 'Sheboygan(2) Profiler (Low)' \
-			'PutScalar iss2/prof915l wind'
-		entry 'Greenville(3) Profiler (High)' \
-			'PutScalar iss3/prof915h wind'
-		entry 'Greenville(3) Profiler (Low)' \
-			'PutScalar iss3/prof915l wind'
 	endmenu
 
 	menu 'overlays' bitmap overlays
@@ -154,16 +115,16 @@ enddef
 ! Location variables for long stuff.  DO NOT PUT SPACES IN THESE STRINGS or
 ! unpleasant things will happen to you.
 !
-set ISSes 'iss1,iss2,iss3,iss4'
-set isssurf 'iss1/surface_met,iss2/surface_met,iss3/surface_met'
-set SndLocs 'iss1/class,iss2/class,iss3/class,tim,bea,bel,sud,own,alg'
-set RASSLocs 'iss1/rass,iss2/rass,iss3/rass'
+set ISSes 'iss1'
+set isssurf 'iss1/surface_met'
+set SndLocs 'iss1/class'
+set RASSLocs 'iss1/rass'
 
 !
 ! Profilers.  Don't bother with both high and low, since they tend to have
-! similar locations.
+! similar locations. :)
 !
-set ProfLocs 'iss1/prof915l,iss2/prof915l,iss3/prof915l'
+set ProfLocs 'iss1/prof915l'
 
 !
 ! Add an iss location overlay if one isn't already there.
