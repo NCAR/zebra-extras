@@ -3,8 +3,8 @@
 prototype fallback 'Default' gp 'gp.init'
 
 config radaronly
-	widget 'iconbar' 6 29 81 394
-	graphic 'x' 98 9 728 762 'Default'
+	widget 'iconbar' 6 29 81 444
+	graphic 'x' 98 23 728 762 'Default'
 		description 'radaronly-x'
 		buttonmap 'big'
 		forcepd
@@ -13,8 +13,8 @@ endconfig
 
 beginpd 'radaronly-x'
 global
-   parameter altitude                  '9.1296'
-   parameter altitude-label            '9.1 deg'
+   parameter altitude                  '3.9990'
+   parameter altitude-label            '4.0 deg'
    parameter pd-name                   'radaronly-x'
    parameter plot-hold                 'false'
    parameter plot-mode                 'real-time'
@@ -57,12 +57,12 @@ component p_polar
    parameter out-of-range-color        'none'
    parameter platform                  'spol'
    parameter ppi-angle                 '9.1296'
-   parameter radar-scan                'ppi'
+   parameter radar-scan                'sur'
    parameter radar-space               'true'
    parameter representation            'polar'
    parameter require                   'radar, raster, spol'
    parameter scale-mode                'manual'
-   parameter sur-angle                 '4.9988'
+   parameter sur-angle                 '3.9990'
    parameter trigger                   'spol'
    parameter trigger-global            'true'
    parameter vr-center                 '0'

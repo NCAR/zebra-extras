@@ -1,0 +1,7 @@
+! Auto-saved display configuration.
+
+
+config empty
+	widget 'iconbar' 800 50 468 70
+endconfig
+
