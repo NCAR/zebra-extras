@@ -12,6 +12,11 @@
 # the settings for the program for the IR and the visible data,
 # respectively.
 #
+
+#
+# We need libc-2.1.x for mdv2netCDF, so use the compatibility library dir
+#
+setenv LD_LIBRARY_PATH /usr/i386-glibc21-linux/lib
 ~burghart/BAMEX/mdv2netCDF \
 	-params /usr/local/zebra/project/bamex/scripts/mdv2netCDF.bamex_IR >& \
 	/tmp/mdv2netCDF_bamex_IR.log &
