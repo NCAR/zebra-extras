@@ -1,0 +1,24 @@
+!
+! Colors to index the SSMI satellite surface types
+!
+! 	0	land
+! 	1	vegetal-cover
+! 	2	not used
+!	3	permanent sea ice
+!	4	possible sea ice
+!	5	water
+!	6	coast
+!	7	out of bounds
+!
+colortable SurfaceType
+	xcolor Brown
+	xcolor Green
+	xcolor Green
+	xcolor White
+	xcolor Gray50
+	xcolor Blue
+	xcolor Orange
+endtable
+
+
+

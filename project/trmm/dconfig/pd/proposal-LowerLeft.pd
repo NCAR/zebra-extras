@@ -1,0 +1,23 @@
+global
+	left-endpoint:	-50.167,62.244
+	pd-name:	proposal-LowerLeft
+	plot-mode:	history
+	plot-time:	9-Feb-88,18:00:00
+	plot-type:	xsect
+	right-endpoint:	87.891,-128.849
+ddop_xsect
+	color-table:	hotcold
+	dz-center:	32
+	dz-nsteps:	17
+	dz-step:	4
+	field:		dz
+	grid-method:	bilinear
+	icon:		radar_grid
+	icon-middle-menu:	ddop-middle
+	icon-right-menu:	contour-right
+	out-of-range-color:	grey70
+	platform:	radar
+	representation:	filled-contour
+	vt-center:	0
+	vt-step:	2
+	require:	contour

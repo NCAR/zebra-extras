@@ -1,0 +1,23 @@
+global
+	left-endpoint:	-66.326,66.382
+	pd-name:	three-UpperRight
+	plot-mode:	history
+	plot-time:	8-Feb-88,18:30:00
+	plot-type:	xsect
+	right-endpoint:	56.851,-107.559
+ddop_xsect
+	color-table:	hotcold
+	dz-center:	32
+	dz-nsteps:	17
+	dz-step:	4
+	field:		dz
+	grid-method:	bilinear
+	icon:		radar_grid
+	icon-middle-menu:	ddop-middle
+	icon-right-menu:	contour-right
+	out-of-range-color:	grey70
+	platform:	radar
+	representation:	filled-contour
+	vt-center:	0
+	vt-step:	2
+	require:	contour

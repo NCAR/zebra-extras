@@ -1,0 +1,24 @@
+GLOBAL
+	comment:	Generic raingauge contour
+	pd-name:	c_rain_contour
+c_rain_contour
+	platform:	raingauge
+	representation:	contour
+	field:		rainr
+	color-mono:	true
+	color-table:	gcook16
+	color:		cyan
+	label-blanking:	false
+	icon-middle-menu:	color-tables
+	icon-right-menu:	contour-right
+	scale-mode:	auto
+	trigger-global:	true
+	trigger:	raingauge
+	grid-method:	barnes
+	x-points:	35
+	y-points:	20
+	radius:		1.5
+	max-fill:	2.0
+	icon:		rain
+	require:	contour, color-tables
+

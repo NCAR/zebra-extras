@@ -1,0 +1,34 @@
+global
+	axis-bottom-space:	50
+	axis-left-space:	10
+	axis-right-space:	100
+	axis-top-space:		0
+	icon-middle-menu:	global-xy-addraingauge
+	pd-name:	xytimegraph-UpperLeft
+	plot-mode:	history
+	plot-time:	18-Feb-88,18:01:00
+	plot-type:	xygraph
+	ta-scale:	0.03
+	xy-adj-axis-side:	l
+	xy-adj-scale-dim:	y
+	xy-axis-b-font-scale:	0.02
+	xy-axis-l-font-scale:	0.02
+	xy-axis-r-font-scale:	0.02
+	xy-axis-t-font-scale:	0.02
+	xy-data-mode:		series
+	xy-scale-x-mode:	autoscale
+	xy-scale-y-mode:	autoscale
+	xy-series-span:		720m
+scale
+	axis-bottom:	true
+	axis-left:	false
+	axis-right:	false
+	axis-top:	false
+	representation:	simple
+	representation-style:	point
+	do-side-annotation:	false
+	field-color:	black
+	icon:		none
+	platform:	raingauge/ann
+	x-field:	time
+	y-field:	nothing

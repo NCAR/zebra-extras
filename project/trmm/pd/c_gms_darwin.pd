@@ -1,0 +1,11 @@
+GLOBAL
+	comment:	GMS Darwin-scale data
+	pd-name:	c_gms_darwin
+c_gms_darwin
+	platform:	gms_darwin
+	field:		ir
+	representation:	raster
+	color-table:	16gray
+	icon:		satellite-gms
+	icon-middle-menu:	gms-middle
+	icon-right-menu:	DataAvailable

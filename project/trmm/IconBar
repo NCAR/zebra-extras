@@ -1,0 +1,278 @@
+!
+! All the definitions required to make the iconbar work.
+!
+
+!
+! The right way to do this....
+!
+set ui$bitmap_directory concat(c$libdir, "/icons")
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	noheader
+	location 100 100
+	!
+	! help menu
+	!
+	menu help bitmap iconbar-help
+		title 'Zeb Help Access'
+		line
+		entry 'Introduction' 'help'
+		entry 'On-line Topics' 'help tablecontents'
+		entry 'Guide to Documentation' 'help documentation'
+		entry 'Shutting Down' 'help shutdown'
+	endmenu
+	!
+	! the global menu
+	!
+	menu global bitmap global
+		title 'Zeb control options'
+		line
+		entry 'Cross-Section Configuration' \
+			'display xsect' (dm$config = "xsect")
+		entry 'Three Window' \
+			'display three' (dm$config = "three")
+		entry 'Time Series Plot' \
+			'display xytimegraph' (dm$config = "xytimegraph")
+		entry 'Empty Configuration' \
+			'display empty' (dm$config = "empty")
+		line
+		entry 'Time Widget'	'popup time'
+		entry 'Hardcopy Widget' 'popup hardcopy'
+		entry 'Configuration Editing Widget' 'popup ConfigEdit'
+		entry 'Data Store Display Widget' 'shell "dsdwidget &"'
+		entry 'Data Store Management Widget' 'shell "dsmanage &"'
+		line
+		entry 'Open Windows Mode' 'ToggleTBSpace' (tbspace > 0)
+		line
+		entry 'Shut Down Zeb System' 'shutdown'
+	endmenu
+	menu radar bitmap radar
+		title 'Radar Data'
+		line
+		entry 'Velocity' 'PutBCompField c_ddop vt false'
+		entry 'Reflectivity' 'PutBCompField c_ddop dz false'
+	endmenu
+	menu mesonet bitmap rain
+		title 'Rain Rate'
+		line
+		entry 'Line Contours' \
+			'putc1 c_rain_contour representation contour'
+		entry 'Filled Contours' \
+			'putc1 c_rain_contour representation filled-contour'
+	endmenu
+	menu satellite bitmap satellite
+		title 'Satellite Data'
+		line
+		entry 'GMS Darwin-scale IR' \
+			'PutBCompField c_gms_darwin ir false'
+		entry 'GMS Darwin-scale vis' \
+			'PutBCompField c_gms_darwin vis false'
+		entry 'GMS Australia-scale IR' \
+			'PutBCompField c_gms_aus ir false'
+		entry 'GMS Australia-scale vis' \
+			'PutBCompField c_gms_aus vis false'
+		submenu 'SSMI Temperatures' ssmi_menu
+	endmenu
+	menu 'overlays' bitmap overlays
+		title 'Static Overlays'
+		line
+		submenu 'Grids and Range Rings' GridsAndRings
+		submenu 'Locations' LocMenu
+		entry 'Map' 'putc1 p_map platform trmm'
+		entry 'Spotlight' 'put_component c_spotlight'
+		line
+		entry 'Window Bounds' 'put_wbounds p_wbounds'
+	endmenu
+enddef
+
+
+!
+! SSMI satellite data menu
+!
+
+define widget ssmi_menu intmenu 'SSMI channel temperatures'
+	title 'SSMI Channels'
+	line
+	entry '19 GHz v-pol' 'PutBCompField c_ssmi ta19v false'
+	entry '19 GHz h-pol' 'PutBCompField c_ssmi ta19h false'
+	entry '22 GHz v-pol' 'PutBCompField c_ssmi ta22v false'
+	entry '37 GHz v-pol' 'PutBCompField c_ssmi ta37v false'
+	entry '37 GHz h-pol' 'PutBCompField c_ssmi ta37h false'
+	entry '85 GHz v-pol' 'PutBCompField c_ssmi ta85v false'
+	entry '85 GHz h-pol' 'PutBCompField c_ssmi ta85h false'
+endmenu
+
+!
+! Location submenu.
+!
+local rain_sites 'ann,bah,bat,bel,ber,car,chp,dum,gap,gom,gup,hum,kol,lab'
+local rain_sites concat(rain_sites, ',lit,man,mil,mbu,ops,pic,pst,sbo,wol')
+
+define widget LocMenu intmenu 'Location menu'
+	title 'Static locations'
+	line
+	entry 'Raingauges' \
+		'putc3 p_loc icon rt-loc platform #rain_sites color tan'
+	entry 'Radar' \
+		'putc3 p_loc icon radar-loc platform radar color white'
+	entry 'Sonde Site' \
+		'putc3 p_loc icon sounding-loc platform sonde_94120 color red'
+endmenu
+
+!
+! Submenu for grids and range rings.
+!
+define widget GridsAndRings intmenu 'grid and rings and nifty stuff'
+	title 'Grids, rings, etc.'
+	line
+	entry 'Radar Range Rings' 'putc1 p_rings platform radar'
+	entry 'X-Y Grid (km)' 'put_component p_kmgrid'
+	entry 'Lat/Lon Grid' 'put_component p_llgrid'
+endmenu
+
+
+!
+! The simple case: add a component to a window with no changes.
+!
+procedure put_component name string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+!
+! If this component is already present in the window, remove it.  Otherwise
+! put it in.
+!
+	if (pd_defined (target_win, name, "platform"))
+		message 'Already there'
+		remove #target_win #name
+	else
+		add #name #name #target_win
+	endif
+endprocedure
+
+
+!
+! Add a component to a window, changing the field name.
+!
+procedure PutCompField comp string field string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+!
+! Send the stuff over.
+!
+	parameter #comp #comp "field" #field
+	add #comp #comp #target_win
+endprocedure
+
+
+!
+! Add a component to a window, changing the field name.  This version puts
+! the component at the bottom of the stack.
+!
+procedure PutBCompField comp string field string radarspace string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+!
+! If the component is already in the window, just change the field.
+!
+	if (pd_defined (target_win, comp, "platform"))
+		parameter #target_win #comp "field" #field
+!
+! Otherwise change the field *in DM* to avoid making the GP draw twice,
+! then send it over.
+!
+	else
+		parameter #comp #comp "field" #field
+		add #comp #comp #target_win 1
+	!
+	!  Take care of the radar-space parameter.
+	!
+		parameter #target_win "global" "radar-space" #radarspace
+	endif
+endprocedure
+
+
+!
+! Put in window bounds.
+!
+procedure put_wbounds comp string
+!
+! Get the window we want to see.
+!
+	set wbounds_win "none"
+	pickwin wbounds_win
+	if (wbounds_win = "none")
+		beep
+		return
+	endif
+!
+! And now the place where it goes.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")
+		beep
+		return
+	endif
+!
+! Fix up the component and ship it over.
+!
+	parameter #comp #comp platform #wbounds_win
+	add #comp #comp #target_win
+endprocedure
+
+
+!
+! Add a component to a window, changing an arbitrary parameter.
+!
+procedure PutCompX comp string param string value string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+
+	parameter #comp #comp #param #value
+	add #comp #comp #target_win
+endprocedure
+
+!
+! Decrease the height of the window so that it looks nice with the
+! OpenWindows top bar
+!
+procedure ToggleTBSpace
+	if (tbspace = 0)
+		set tbspace 25
+	else
+		set tbspace 0
+	endif
+endprocedure

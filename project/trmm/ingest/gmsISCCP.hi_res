@@ -1,0 +1,5 @@
+limits -17.5 126 -7.5 136
+set platform "gms_darwin"
+set originLat -12.4572
+set kmResolution 10
+set source "/dev/nexa1"

@@ -1,0 +1,17 @@
+config proposal
+	widget 'iconbar' 5 10 72 470
+	window 'UpperLeft' 85 5 550 650 gp gp.init
+		description 'proposal-UpperLeft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'UpperRight' 650 5 550 650 gp gp.init
+		description 'proposal-UpperRight'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'LowerLeft' 85 670 1000 330 gp gp.init
+		description 'proposal-LowerLeft'
+		buttonmap 'default'
+	endwindow
+endconfig

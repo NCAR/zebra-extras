@@ -1,0 +1,93 @@
+!
+! The file for display manager button maps.
+!
+
+
+buttonmap basic
+	local	mb-left 'drawbox pushcoord'
+	local	m	'popup movie'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	b	'popcoords'
+	local	h	'help'
+endmap
+
+
+
+buttonmap big
+	local	mb-s-left	'drawbox pushcoord'
+	local	mb-left		'getposition'
+	local	mb-middle	ChangeXSect
+	local	mb-s-middle	'userannot'
+	local	mb-right	'toggle_main'
+	local	F1 	'toggle_main'
+	local	a	'popup annotate'
+	local	b	'popcoords'
+	local	f	'toggle_satellite'
+	local	g	'popup position'
+	local 	h	'help'
+	local	i	'popup insert'
+	local	l	'popup LineWidth'
+	local	m	'popup movie'
+	local	p	'polyline spotlight'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	t	'popup overlay'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	u	'altstep 1'
+	local	d	'altstep -1'
+	local	Left	'DoZoom -2500 3250 -2100 700'
+	local	F31	'DoZoom -1000 700 -500 200'
+	local	Right	'DoZoom -150 150 -150 150'
+	local	F29	'altstep 99'
+	local	F35	'altstep -99'
+	local 	F31	'toggle_main'
+	local	F5	'parameter global altitude 0.5'
+	local	F2	'parameter global altitude 2.0'
+endmap
+
+
+
+buttonmap sounding
+	local	mb-left 'drawbox pushcoord'
+	local	b	'popcoords'
+	local	m	'popup movie'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	u	'altstep 1'
+	local	d	'altstep -1'
+	local	r	'movie run'
+	local	s	'movie stop'
+	dm	c	'toggle_snd'
+	local	h	'help'
+endmap
+
+
+
+buttonmap default
+	local	mb-s-left	'drawbox pushcoord'
+	local	mb-left		'getposition'
+	local	mb-middle	ChangeXSect
+	local	mb-right	'toggle_main'
+	local	F1 	'toggle_main'
+	local	b	'popcoords'
+	local	f	'toggle_satellite'
+	local	g	'popup position'
+	local	m	'popup movie'
+	local	p	'polyline spotlight'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	t	'popup overlay'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	u	'altstep 1'
+	local	d	'altstep -1'
+	local	Left	'DoZoom -2500 3250 -2100 700'
+	local	F31	'DoZoom -1000 700 -500 200'
+	local	Right	'DoZoom -150 150 -150 150'
+	local	F29	'altstep 99'
+	local	F35	'altstep -99'
+	local 	h	'help'
+endmap
+

@@ -1,0 +1,62 @@
+#!/bin/csh -f
+# 
+# Start up the FCC system.
+#
+# $Id: ssmistart,v 1.1.1.1 1995-01-20 05:23:00 granger Exp $
+#
+
+#
+# Figure out where we are.
+#
+	set topdir=$0
+	set topdir=$topdir:h
+	if ( ! -d $topdir ) then	# in dir already
+		set topdir=`pwd`
+	endif
+	cd $topdir
+	set topdir=$cwd			# make sure we have abs. path
+	setenv ZEB_PROJECT $topdir
+#
+#
+# Do everything possible to insure that we start clean.
+#
+	setenv XAPPLRESDIR /zeb/lib/resources
+	setenv PATH ${PATH}:/zeb/bin
+	setenv ZEB_SOCKET /tmp/zeb.socket.ssmi
+
+	zebstop
+	sleep 1
+	rm -f $ZEB_SOCKET
+	set nonomatch; rm -f /zeb/tmp/*
+#
+# The message system.  Nothing else runs without it.
+#
+	echo -n 'Starting MESSAGE...'
+	setenv HOST `hostname`
+	message & 
+	sleep 1
+#
+# Wait until message is truly ready.  
+#
+	mstatus > /dev/null
+#
+# Data store processes.
+#
+	echo -n 'Starting the event logger...'
+	EventLogger &
+	sleep 1
+#
+# Other basic utilities needed by the system.
+#
+	echo -n 'Starting the timer...'
+	timer &
+	echo -n '...and the data store daemon...'
+	dsDaemon /zeb/trmm/ds.config &
+#	prt_Notify &
+#	cd /zeb/trmm
+#        setenv DEFAULT_CONFIG xsect
+#	setenv INITIAL_TIME 8-Feb-1988,18:30:00
+#	dm dm.config
+
+
+

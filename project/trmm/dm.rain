@@ -1,0 +1,33 @@
+!
+! Code for dealing with raingauge active areas.
+!
+
+!
+! Make a window display a given platform.  This is back-invoked from gp.
+!
+procedure RainAddStation station string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = 'none')
+		beep
+		return
+	endif
+!
+! Add the station to the window, making sure it's an xygraph window
+!
+	local ptype PDParam(target_win, 'global', 'plot-type')
+	if (ptype <> 'xygraph')
+		message 'Huh?  Funky plot type #' ptype
+		beep
+		return
+	endif
+
+	local real_station concat("raingauge/", station)
+	parameter c_xy_rain c_xy_rain platform #real_station
+	add c_xy_rain c_xy_rain #target_win
+endprocedure
+
+

@@ -1,0 +1,16 @@
+GLOBAL
+	pd-name:	c_ddop
+c_ddop
+	altitude-control:	true
+	trigger-global:		true
+	color-mono:		cyan
+	color-table:		gcook16
+	field:			dz
+	icon:			radar_grid
+	icon-middle-menu:	ddop-middle
+	icon-right-menu:	contour-right
+	label-blanking:		false
+	platform:		radar
+	representation:		raster
+	trigger:		radar
+	require:		contour, radar

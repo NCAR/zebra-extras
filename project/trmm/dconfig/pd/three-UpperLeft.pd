@@ -1,0 +1,129 @@
+global
+	altitude:	3.00
+	altitude-control:	c_ddop
+	comment:	Big window post-processing plot description.
+	frame-rate:	5
+	frame-skip:	3
+	icon-middle-menu:	DataAvailable
+	kluge-force-update:	kluge
+	movie-end-time:	now
+	movie-minutes:	96
+	movie-mode:	False
+	pd-name:	three-UpperLeft
+	plot-mode:	history
+	plot-time:	8-Feb-88,18:30:00
+	plot-type:	CAP
+	radar-space:	false
+	trigger:	radar
+	x-max:	150
+	x-min:	-150
+	y-max:	150
+	y-min:	-150
+c_gms_aus
+	color-table:	ir_gray
+	disable:	false
+	field:	ir
+	icon:	satellite-gms
+	icon-middle-menu:	gms-middle
+	icon-right-menu:	DataAvailable
+	ir-center:	312.0
+	ir-step:	14
+	platform:	gms_aus
+	representation:	raster
+c_gms_darwin
+	color-table:	ir_gray
+	disable:	true
+	field:	ir
+	icon:	satellite-gms
+	icon-middle-menu:	gms-middle
+	icon-right-menu:	DataAvailable
+	platform:	gms_darwin
+	representation:	raster
+c_ssmi
+	color-table:	SurfaceType
+	disable:	true
+	field:	ta37v
+	icon:	satellite-ssmi
+	icon-middle-menu:	ssmi-middle
+	icon-right-menu:	DataAvailable
+	platform:	ssmi
+	representation:	raster
+c_ddop_fillcont
+	altitude-control:	true
+	color:		cyan
+	color-table:	hotcold
+	disable:	false
+	dz-center:	32.0
+	dz-nsteps:	17
+	dz-step:	4
+	field:		dz
+	icon:		radar_grid
+	icon-middle-menu:	radar-middle
+	icon-right-menu:	contour-right
+	label-blanking:	false
+	line-width:	2
+	out-of-range-color:	grey70
+	platform:	radar
+	representation:	raster
+	trigger:	radar
+	trigger-global:	true
+	vt-center:	0
+	vt-nsteps:	17
+	vt-step:	2
+	require:	contour
+c_rings
+	azimuth-interval:	30
+	color:	white
+	disable:	true
+	field:	range-rings
+	icon:	rings
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-right
+	platform:	radar
+	representation:	overlay
+	ring-interval:	20
+	require:	rings
+c_wbounds
+	color:	blue
+	disable:	false
+	field:	wbounds
+	icon:	wbounds
+	icon-middle-menu:	simple-color
+	line-width:	2
+	platform:	xsect
+	representation:	overlay
+c_ssmi_contour
+	color:	cyan
+	color-mono:	true
+	color-table:	16gray
+	field:	ta37v
+	icon:	satellite-ssmi-contour
+	icon-middle-menu:	ssmi-middle
+	icon-right-menu:	DataAvailable
+	platform:	ssmi
+	representation:	contour
+c_map
+	color:	khaki
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	2
+	platform:	trmm
+	representation:	overlay
+c_sounding_loc
+	platform:	ann,bah,bat,bel,ber,car,chp,dum,gap,gom,gup,hum,kol,lab,lit,man,mil,mbu,ops,pic,pst,sbo,wol
+	representation:	overlay
+	field:		location
+	color:		yellow
+	icon:		sounding-loc
+	icon-left-menu:		minimal-cap-left-menu
+	posicon-left-menu:	active-rain-send
+	icon-right-menu:	location-options
+	posicon-right-menu:	location-options
+	label:		platform
+	label-size:	0.03
+	active-icon:	true
+	label-size:	12
+	sa-scale:	0.03
+	require:	location, simple-color, active-rain

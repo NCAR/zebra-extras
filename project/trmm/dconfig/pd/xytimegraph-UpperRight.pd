@@ -1,0 +1,35 @@
+global
+	pd-name:	xytimegraph-UpperRight
+	plot-mode:	history
+	plot-time:	18-Feb-88,18:01:00
+	plot-type:	CAP
+	ta-scale:	0.03
+	x-max:	120
+	x-min:	-110
+	y-max:	120
+	y-min:	-110
+c_map
+	color:	khaki
+	field:	map
+	icon:	map
+	icon-left-menu:		minimal-cap-left-menu
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	platform:	trmm
+	representation:	overlay
+	require:	simple-color
+c_sounding_loc
+	platform:	ann,bah,bat,bel,ber,car,chp,dum,gap,gom,gup,hum,kol,lab,lit,man,mil,mbu,ops,pic,pst,sbo,wol
+	representation:	overlay
+	field:		location
+	color:		yellow
+	icon:		sounding-loc
+	icon-left-menu:		minimal-cap-left-menu
+	posicon-left-menu:	active-rain-send
+	icon-right-menu:	location-options
+	posicon-right-menu:	location-options
+	label:		platform
+	active-icon:	true
+	label-size:	12
+	sa-scale:	0.03
+	require:	location, simple-color, active-rain

@@ -1,0 +1,347 @@
+!
+! The TRMM graphics process initialization file.
+!
+
+!
+! Our various path variables.
+!
+set modules_dir concat(c$basedir, "/project/trmm/modules,")
+set RequirePath concat(modules_dir,RequirePath)
+
+set map_dir concat(c$basedir, "/project/trmm/maps,")
+set MapPath concat(map_dir,MapPath)
+
+!
+! Change the origin of a cartesian grid
+!
+define widget kmgrid-origins intmenu 'km grid origins'
+	title 'Grid Origin'
+	line
+	entry 'Radar'	'parameter #icon_component origin radar'
+	entry 'ANN'	'parameter #icon_component origin ann'
+	entry 'BAH'	'parameter #icon_component origin bah'
+	entry 'BAT'	'parameter #icon_component origin bat'
+	entry 'BEL'	'parameter #icon_component origin bel'
+	entry 'BER'	'parameter #icon_component origin ber'
+	entry 'CAR'	'parameter #icon_component origin car'
+	entry 'CHP'	'parameter #icon_component origin chp'
+	entry 'DUM'	'parameter #icon_component origin dum'
+	entry 'GAP'	'parameter #icon_component origin gap'
+	entry 'GOM'	'parameter #icon_component origin gom'
+	entry 'GUP'	'parameter #icon_component origin gup'
+	entry 'HUM'	'parameter #icon_component origin hum'
+	entry 'KOL'	'parameter #icon_component origin kol'
+	entry 'LAB'	'parameter #icon_component origin lab'
+	entry 'LIT'	'parameter #icon_component origin lit'
+	entry 'MAN'	'parameter #icon_component origin man'
+	entry 'MIL'	'parameter #icon_component origin mil'
+	entry 'MBU'	'parameter #icon_component origin mbu'
+	entry 'OPS'	'parameter #icon_component origin ops'
+	entry 'PIC'	'parameter #icon_component origin pic'
+	entry 'PST'	'parameter #icon_component origin pst'
+	entry 'SBO'	'parameter #icon_component origin sbo'
+	entry 'WOL'	'parameter #icon_component origin wol'
+endmenu
+
+
+!
+! Change the origin for range rings
+!
+define widget rings-origin intmenu 'range ring origins'
+	title 'Range Ring Origin'
+	line
+	entry 'Radar'	'parameter #icon_component platform radar'
+endmenu
+
+
+!
+! Middle button menu for c_ddop component
+!
+require color-table
+
+define widget ddop-middle intmenu 'ddop middle'
+	title 'Radar Field'
+	line
+	entry 'Reflectivity' 'param #icon_component field dz' \
+		(PDParam (icon_component, 'field') = 'dz')
+	entry 'Velocity' 'param #icon_component field vt' \
+		(PDParam (icon_component, 'field') = 'vt')
+	line
+	submenu 'Color Table' Color-tables
+endmenu
+
+!
+! Middle button menu for c_gms_aus and c_gms_darwin components
+!
+require color-table
+
+define widget gms-middle intmenu 'GMS field menu'
+	title 'GMS'
+	line
+	entry 'Visible' 'param #icon_component field vis' \
+		(PDParam (icon_component, "field") = "vis")
+	entry 'Infrared' 'param #icon_component field ir' \
+		(PDParam (icon_component, "field") = "ir")
+	line
+	submenu 'Color Table' Color-tables
+endmenu
+
+!
+! Middle button menu for c_ssmi component
+!
+define widget ssmi-color-tables intmenu 'ctbl'
+	title 'SSMI Color tables'
+	line
+	entry 'SSMI surface type' 'CTSet SurfaceType' \
+		(PDParam(icon_component, 'color-table') = 'SurfaceType')
+	entry 'Black and white stepped' 'CTSet 16gray' \
+		(PDParam(icon_component, 'color-table') = '16gray')
+	entry 'Black and white log' 'CTSet newgray' \
+		(PDParam(icon_component, 'color-table') = 'newgray')
+	entry 'scook table' 'CTSet scook' \
+		(PDParam(icon_component, 'color-table') = 'scook')
+	entry 'Hot and cold' 'CTSet hotcold' \
+		(PDParam (icon_component, 'color-table') = 'hotcold')
+	entry 'Wild color table' 'CTSet wild' \
+		(PDParam (icon_component, 'color-table') = 'wild')
+	entry 'Rainbow' 'CTSet Rainbow' \
+		(PDParam (icon_component, 'color-table') = 'Rainbow')
+endmenu
+
+define widget ssmi-middle intmenu 'SSMI field menu'
+	title 'SSMI'
+	line
+	entry '19 GHz V-pol' 'param #icon_component field ta19v' \
+		(pd_param(icon_component, "field", "string") = "ta19v")
+	entry '19 GHz H-pol' 'param #icon_component field ta19h' \
+		(pd_param(icon_component, "field", "string") = "ta19h")
+	entry '22 GHz V-pol' 'param #icon_component field ta22v' \
+		(pd_param(icon_component, "field", "string") = "ta22v")
+	entry '37 GHz V-pol' 'param #icon_component field ta37v' \
+		(pd_param(icon_component, "field", "string") = "ta37v")
+	entry '37 GHz H-pol' 'param #icon_component field ta37h' \
+		(pd_param(icon_component, "field", "string") = "ta37h")
+	entry '85 GHz V-pol' 'param #icon_component field ta85v' \
+		(pd_param(icon_component, "field", "string") = "ta85v")
+	entry '85 GHz H-pol' 'param #icon_component field ta85h' \
+		(pd_param(icon_component, "field", "string") = "ta85h")
+	entry 'Surface type' 'param #icon_component field sfcidx' \
+		(pd_param(icon_component, "field", "string") = "sfcidx")
+	line
+	submenu 'Color Table' ssmi-color-tables
+endmenu
+
+
+
+!
+! Change the endpoints for an associated (presumably cross-section) window.
+! The parameter command is a kluge to force ourself to update, in case we're
+! displaying the limits of the cross-section window.
+!
+procedure ChangeXSect
+	drawline sendendpoints
+	parameter global kluge-force-update kluge
+endprocedure
+
+
+!
+! DefaultDataAvail: executed out of the DataAvailable menu to switch to the 
+! given platform and time, in history mode.
+!
+
+procedure DefaultDataAvail platform string when string
+!
+! Switch to the given platform; however, let's check to see that we are
+! not already on that one -- we can avoid frame cache invalidations that
+! way.
+!
+	if (pd_param (icon_component, "platform", "string") <> platform)
+		parameter #icon_component platform #platform
+	endif
+!
+! Now drop into history mode and display this time.
+!
+	parameter global plot-mode history
+	parameter global plot-time #when
+endprocedure
+
+
+!
+! The Skew-t Adjust Limits submenu
+!
+define widget adjust-skewt-limits intmenu 'Adjust Limits'
+	title 'Adjust Limits'
+	line
+	entry 'Pressure' 'i_adjust pres-limit-proc'
+	entry 'Temperature' 'i_adjust temp-limit-proc'
+endmenu
+
+!
+! The Skew-t left button menu.
+!
+define widget skewt-left intmenu 'Skewt left'
+	title 'Overlay Operations'
+	line
+	submenu 'Adjust Limits' 'adjust-skewt-limits'
+	entry 'Choose sounding sites' 'popup SoundingSites'
+	line
+	entry 'Raise to top' 'move #icon_component 0'
+	entry 'Move to bottom' 'move #icon_component 1'
+	entry 'Remove' 'i_remove_component'
+endmenu
+
+
+!
+! The pressure minval maxval adjuster for skew-t plots.
+!
+procedure adj_pres_minmax comp string
+	local rep pd_param(comp, "representation", "string")
+	local minval pd_paramsearch(comp, "pres-minval", rep, "string")
+	local maxval pd_paramsearch(comp, "pres-maxval", rep, "string")
+	activate doublefloat #comp "pres-minval" "Pressure Minval: " #minval \
+		"pres-maxval" "Pressure Maxval: " #maxval
+endprocedure
+
+!
+! The temperature minval maxval adjuster for skew-t plots.
+!
+procedure adj_temp_minmax comp string
+	local rep pd_param(comp, "representation", "string")
+	local minval pd_paramsearch(comp, "temp-minval", rep, "string")
+	local maxval pd_paramsearch(comp, "temp-maxval", rep, "string")
+	activate doublefloat #comp "temp-minval" "Temperature Minval: " \
+		#minval "temp-maxval" "Temperature Maxval: " #maxval
+endprocedure
+
+
+!
+! Left button menu for the global component.
+!
+define widget global-left intmenu 'Global left menu'
+	title 'Global Options'
+	line
+	entry 'Scale back to big picture' 'DoZoom -2500 3250 -2100 700'
+	line
+	entry 'Popup Overlay Times Window' 'popup overlay'
+	entry 'Popup Movie Controller' 'popup movie'
+	entry 'Popup position readout widget' 'popup position'
+	submenu 'Movies' movie-control
+endmenu
+
+
+!
+! Movie control menu.
+!
+define widget movie-control intmenu 'movie control'
+	title 'Movie Control'
+	line
+	entry 'Popup Movie Controller' 'popup movie'
+	entry 'Run Movie' 'movie run'
+	entry 'Stop Movie' 'movie stop'
+endmenu
+
+
+!
+! The Global Adjust Limits submenu
+!
+define widget adjust_global_limits intmenu "Adjust Global Limits"
+	entry 'X Limits' 'i_adjust_global x-limit-proc'
+	entry 'Y Limits' 'i_adjust_global y-limit-proc'
+endmenu
+
+!
+! Adjust the limits on the global component.
+!
+procedure i_adjust_global procparam string
+	local proc pd_paramsearch(icon_component,procparam,"global","string")
+	if (proc <> "(Undefined)")
+		#proc 
+	else
+		dm "beep"
+	endif
+endprocedure
+
+
+!
+! Adjust the limits on a component.
+!
+procedure i_adjust procparam string
+	local rep pd_param(icon_component, "representation", "string")
+	local proc pd_paramsearch(icon_component, procparam, rep, "string")
+	if (proc <> "(Undefined)")
+		#proc #icon_component
+	else
+		dm "beep"
+	endif
+endprocedure
+
+
+!
+! Remove a component.
+!
+procedure i_remove_component
+	dm concat4("remove ", ourname, " ", icon_component)
+endprocedure
+
+
+!
+! Add a raingauge station to an xy plot
+!
+define widget global-xy-addraingauge intmenu 'Add Raingauge Station'
+	title 'Add Raingauge Station'
+	line
+	entry 'ann - Annaburroo' 'add_xy_rain raingauge/ann'
+	entry 'bah - Bathurst Island' 'add_xy_rain raingauge/bah'
+	entry 'bat - Batchelor' 'add_xy_rain raingauge/bat'
+	entry 'bel - Belleville Park' 'add_xy_rain raingauge/bel'
+	entry 'ber - Berrimah' 'add_xy_rain raingauge/ber'
+	entry 'car - Charles Point' 'add_xy_rain raingauge/car'
+	entry 'chp - Channel Point' 'add_xy_rain raingauge/chp'
+	entry 'dum - Dum In Mirrie' 'add_xy_rain raingauge/dum'
+	entry 'gap - Garden Point' 'add_xy_rain raingauge/gap'
+	entry 'gom - Goodall Mine' 'add_xy_rain raingauge/gom'
+	entry 'gup - Gunn Point Prison' 'add_xy_rain raingauge/gup'
+	entry 'hum - Humpty Doo Navy' 'add_xy_rain raingauge/hum'
+	entry 'kol - Koolpinyah' 'add_xy_rain raingauge/kol'
+	entry 'lab - La Belle' 'add_xy_rain raingauge/lab'
+	entry 'lit - Litchfield' 'add_xy_rain raingauge/lit'
+	entry 'man - Mandorah Jetty' 'add_xy_rain raingauge/man'
+	entry 'mil - McMinns Lagoon' 'add_xy_rain raingauge/mil'
+	entry 'mbu - Mt. Bundey' 'add_xy_rain raingauge/mbu'
+	entry 'ops - Old Point Stuart' 'add_xy_rain raingauge/ops'
+	entry 'pic - Pickertaramoor' 'add_xy_rain raingauge/pic'
+	entry 'pst - Point Stuart Abbs.' 'add_xy_rain raingauge/pst'
+	entry 'sbo - Snake Bay Old' 'add_xy_rain raingauge/sbo'
+	entry 'wol - Woolner' 'add_xy_rain raingauge/wol'
+endmenu
+
+!
+! Add rain from the given platform to an xy plot
+!
+procedure add_xy_rain platform string
+	dm concat("parameter c_xy_rain c_xy_rain platform ", platform)
+	dm concat("add c_xy_rain c_xy_rain ", ourname)
+endprocedure
+
+!
+! The xy-wind time interval adjuster
+!
+procedure adj_xy_time comp string
+	local time pd_param("global", "xy-series-span", "string")
+	activate singlestring "global" "xy-series-span" "Time Interval: " #time
+endprocedure
+
+!
+! Color tweaker for xy plot components
+!
+procedure xy-color color string
+	parameter #icon_component icon-color #color
+	parameter #icon_component field-color #color
+	parameter #icon_component axis-r-color #color
+endprocedure
+
+!
+! Get our field definitions.
+!
+set FieldsFile concat3(c$libdir, "/", "FieldDefs")
+read #FieldsFile

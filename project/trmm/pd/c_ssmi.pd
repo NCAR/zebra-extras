@@ -1,0 +1,12 @@
+GLOBAL
+	comment:	SSMI satellite data
+	pd-name:	c_ssmi
+c_ssmi
+	platform:	ssmi
+	field:		ta85v
+	representation:	raster
+	color-table:	16gray
+	icon:		satellite-ssmi
+	icon-middle-menu:	ssmi-middle
+	icon-right-menu:	DataAvailable
+	scale-mode:	auto

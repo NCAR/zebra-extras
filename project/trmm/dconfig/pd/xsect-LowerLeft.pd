@@ -1,0 +1,23 @@
+global
+	left-endpoint:	-8.200,161.560
+	pd-name:	xsect-LowerLeft
+	plot-mode:	history
+	plot-time:	6-Feb-88,16:40:00
+	plot-type:	xsect
+	right-endpoint:	57.011,-140.168
+ddop_xsect
+	color-table:	cook32
+	dz-center:	32
+	dz-nsteps:	17
+	dz-step:	4
+	field:		dz
+	grid-method:	bilinear
+	icon:		radar_grid
+	icon-middle-menu:	ddop-middle
+	icon-right-menu:	contour-right
+	out-of-range-color:	grey70
+	platform:	radar
+	representation:	filled-contour
+	vt-center:	0
+	vt-step:	2
+	require:	contour

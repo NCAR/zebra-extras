@@ -1,0 +1,27 @@
+GLOBAL
+	comment:	Display time series raingauge data on an xy graph.
+	pd-name:	c_xy_rain
+c_xy_rain
+	representation: simple
+	color-tweaker:	xy-color
+	platform:	raingauge/ann
+	x-field:        time
+	y-field:        rainr
+	icon:           generic
+	field-color:    green
+	icon-color:     green
+	axis-left:	false
+	axis-top:	false
+	axis-bottom:	false
+	axis-right:	true
+	scale-y-mode:	manual
+	scale-y-min:	-1.0
+	scale-y-max:	100.0
+	axis-r-label:	mm/hour
+	axis-r-grid-intensity:  0.0
+	axis-r-color:   green
+	adj-axis-side:  r
+	time-limit-proc:	adj_xy_time
+	icon-middle-menu:	simple-color
+	icon-right-menu:        xytrace-right
+	require:	xytrace, simple-color

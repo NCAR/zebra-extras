@@ -1,0 +1,19 @@
+! Auto-saved display configuration.
+config three
+	widget 'iconbar' 7 611 119 284
+	window 'UpperLeft' 6 2 640 608 gp gp.init
+		description 'three-UpperLeft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'UpperRight' 639 2 512 608 gp gp.init
+		description 'three-UpperRight'
+		buttonmap 'default'
+		forcepd
+	endwindow
+	window 'LowerLeft' 128 603 1020 293 gp gp.init
+		description 'three-LowerLeft'
+		buttonmap 'basic'
+		forcepd
+	endwindow
+endconfig

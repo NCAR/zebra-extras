@@ -1,0 +1,65 @@
+global
+	altitude:	1.50
+	altitude-control:	c_ddop
+	frame-rate:	5
+	frame-skip:	180
+	icon-middle-menu:	DataAvailable
+	menu-platform:	radar
+	movie-end-time:	now
+	movie-minutes:	2880
+	movie-mode:	False
+	pd-name:	proposal-UpperLeft
+	plot-mode:	history
+	plot-time:	9-Feb-88,18:00:00
+	plot-type:	CAP
+	radar-space:	false
+	trigger:	cp4
+	x-max:	2617.7258
+	x-min:	-1977.7061
+	y-max:	-3993.7244
+	y-min:	974.6160
+c_gms_aus
+	color-table:	ir_gray
+	disable:	false
+	field:	ir
+	icon:	satellite-gms
+	icon-middle-menu:	gms-middle
+	icon-right-menu:	DataAvailable
+	menu-platform:	gms_aus
+	platform:	gms_aus
+	representation:	raster
+c_map
+	color:	khaki
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	2
+	platform:	trmm
+	representation:	overlay
+	require:	simple-color
+c_ssmi
+	color:	cyan
+	color-mono:	false
+	color-table:	revrainbow
+	disable:	false
+	do-labels:	false
+	field:	ta37v
+	icon:	satellite-ssmi
+	icon-middle-menu:	ssmi-middle
+	icon-right-menu:	DataAvailable
+	line-width:	2
+	menu-platform:	ssmi
+	platform:	ssmi
+	representation:	contour
+	ta85v-center:	210.0
+	ta85v-step:	15
+c_wbounds
+	color:	black
+	field:	wbounds
+	icon:	wbounds
+	icon-middle-menu:	simple-color
+	line-width:	2
+	platform:	UpperRight
+	representation:	overlay
+	require:	simple-color

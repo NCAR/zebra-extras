@@ -1,0 +1,14 @@
+!
+! Support for active raingauge locations.
+!
+
+define widget active-rain-send intmenu 'x'
+	title 'Raingauge Menu'
+	line
+	entry 'Display in other window' 'send-rain'
+endmenu
+
+procedure send-rain
+	local dmcmd quote(concat('RainAddStation ', icon_platform))
+	dm #dmcmd
+endprocedure

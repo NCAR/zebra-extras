@@ -1,0 +1,11 @@
+GLOBAL
+	comment:	GMS Australia-scale data
+	pd-name:	c_gms_aus
+c_gms_aus
+	platform:	gms_aus
+	field:		ir
+	representation:	raster
+	color-table:	16gray
+	icon:		satellite-gms
+	icon-middle-menu:	gms-middle
+	icon-right-menu:	DataAvailable

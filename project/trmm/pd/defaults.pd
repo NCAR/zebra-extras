@@ -1,0 +1,376 @@
+!
+! This file contains the default values for all plot description parameters.
+!
+defaults
+	pd-name:			defaults
+!
+! Post processing mode parameters.
+!
+	post-proc-mode:			true
+	pp-dm-time-adjust:		15m
+!
+! Various menus for the icons in the plot windows.
+!
+	icon-left-menu:			standard-cap-left-menu
+	global-icon-left-menu:		global-left
+	ddop-icon-left-menu:		ddop-left
+!
+! Age limits for changing icon color.
+!
+	icon-age-foreground:		pink
+	icon-age-background:		red
+	radar-icon-age-limit:		10m
+!
+! Origin at the radar site
+!
+	origin-lat:			-12.4572
+	origin-lon:			130.9253
+	origin-alt:			0.0
+	ops-ctr-location:	-12.4572 130.9253 0.0000
+!
+! The default, big picture zoom locations.
+!
+	x-min:				-150
+	x-max:				150
+	y-min:				-150
+	y-max:				150
+!
+! Radar location
+!
+	radar-location:	-12.4572 130.9253 0.000
+!
+!Raingauge locations
+!
+	ann-location:	-12.9142 131.6743 0.000
+	bat-location:	-13.0517 131.0217 0.000
+	bah-location:	-11.7761 130.6147 0.000
+	bel-location:	-12.7597 130.8817 0.000
+	ber-location:	-12.4572 130.9253 0.000
+	chp-location:	-13.1665 130.1185 0.000
+	car-location:	-12.4160 130.6246 0.000
+	dum-location:	-12.6415 130.3773 0.000
+	gap-location:	-11.3988 130.4198 0.000
+	gom-location:	-13.2119 131.3715 0.000
+	gup-location:	-12.2431 131.0419 0.000
+	hum-location:	-12.6082 131.2894 0.000
+	kol-location:	-12.3921 131.1741 0.000
+	lab-location:	-13.1127 130.4893 0.000
+	lit-location:	-13.4338 130.4800 0.000
+	man-location:	-12.4431 130.7603 0.000
+	mil-location:	-12.5400 131.0782 0.000
+	mbu-location:	-13.2295 131.1372 0.000
+	ops-location:	-12.3510 131.8110 0.000
+	pic-location:	-11.7671 130.8759 0.000
+	pst-location:	-12.5851 131.7522 0.000
+	sbo-location:	-11.4287 130.6627 0.000
+	pic-location:	-11.7671 130.8759 0.000
+	pst-location:	-12.5851 131.7522 0.000
+	sbo-location:	-11.4287 130.6627 0.000
+	wol-location:	-12.3743 131.4614 0.000
+!
+	file-path:	/tmp
+!
+! The maximum number of frames to be stored in the file.
+!
+	max-frames:	20
+!
+! Possible origins for the position widget.
+!
+	pos-origin:	radar
+!
+! Some movie pregeneration fields.
+!
+	radar-movie-pregenerate:	dz,vt
+!
+! Commands to be executed out of the DataAvailable menu.
+!
+	data-available-command:		DefaultDataAvail
+!
+! The icons to use in the windows, qualified by platform name.
+!
+	global-icon:			global
+	radar-icon:			radar
+	icon-color:			yellow
+	icon-background:		midnight blue
+	disabled-icon-color:		gray90
+	disabled-icon-background:	gray40
+!
+! User insertable data platforms for the insert widget.
+!
+	user-insert-platforms:	boundary,spotlight,nowcast,loc-test
+!
+! User insertable platforms that have subplatforms (used by insert widget).
+!
+	nowcast-sub:		true
+!
+! Maximum number of subplatforms (used by insert widget).
+!
+	nowcast-max-sub-plat:	3
+!
+! Attribute lists.
+!
+	spotlight-attributes:	junk,test,nothing
+!
+! Position icon menus.
+!
+	posicon-left-menu:	posleft
+!
+! Range limits for Florida.  Don't try these with a colorado project.
+!
+	u_wind-range-min:		-25
+	u_wind-range-max:		25
+	v_wind-range-min:		-25
+	v_wind-range-max:		25
+	dp-range-min:			10
+	dp-range-max:			45
+	tdry-range-min:			10
+	tdry-range-max:			45
+	pres-range-max:			1040
+	pres-range-min:			950
+	cpres-range-max:		1040
+	cpres-range-min:		950
+	raina15-range-min:		0.0
+	raina15-range-max:		50.0
+	raina60-range-min:		0.0
+	raina60-range-max:		50.0
+!
+! Long descriptions of fields, in the absence of a real fields module.
+!
+	vt-desc:			Radar velocity
+	dz-desc:			Radar reflectivity
+	alt-desc:			altitude
+	rh-desc:			relative humidity
+	rhum-desc:			relative humidity
+	mr-desc:			mixing ratio
+	cpres0-desc:			altitude-corrected pressure
+	raina15-desc:			15-minute rain accum.
+	raina60-desc:			60-minute rain accum.
+	fstrength-desc:			Electric field strength
+	visr-desc:			Visible satellite
+	aaa-desc:			Infra-Red satellite
+	vis-desc:			New Visible satellite
+	ir-desc:			New Infra-Red satellite
+!
+! What RBand uses to draw the box/line.  Don't mess with it.
+!
+	xorvalue:			63
+	xor-line-width:			3
+!
+! field-annotation-format to specify an alternative printf format for
+! track side annotation.
+!
+	alt-annotation-format:		%.3f
+!
+! Some stuff to make the demos look nicer.
+!
+	movie-end-time:			now
+	movie-minutes:			60
+	frame-rate:			 5
+	frame-skip:			10
+	ta-color-match:			true
+!
+! Where cross sections are done.
+!
+	xsect-window:			xsect
+	xsect-component:		global
+!
+! Grid parameters.
+!
+	grid-tic-width:			5
+	grid-solid:			false
+	grid-color:			gray40
+	grid-icon-middle-menu:		simple-color
+	grid-icon-right-menu:		grid_spacing
+	grid-icon:			grid
+!
+! Plotting limits.
+!
+! Representation -> Contour.
+!
+	contour-ta37v-center:	270
+	contour-ta37v-step:		20
+	contour-wspd-center:		5
+	contour-wspd-step:		1
+	contour-wdir-center:		180
+	contour-wdir-step:		10
+	contour-fstrength-center:	500
+	contour-fstrength-step:		100
+	contour-raina15-center:		8
+	contour-raina15-step:		1
+	contour-raina60-center:		8
+	contour-raina60-step:		1
+	contour-pres-center:		1013
+	contour-pres-step:		1
+	contour-cpres0-center:		1013
+	contour-cpres0-step:		1
+	contour-rh-center:		65
+	contour-rh-step:		5
+	contour-dp-center:		25
+	contour-dp-step:		1
+	contour-tdry-center:		30
+	contour-tdry-step:		1
+	contour-ept-center:		345
+	contour-ept-step:		3
+	contour-mr-center:		20
+	contour-mr-step:		1
+	contour-dz-center:		30
+	contour-dz-step:		5
+	contour-vt-center:		0
+	contour-vt-step:		5
+	contour-pt-center:		305
+	contour-pt-step:		1
+	contour-w_wind-center:		0
+	contour-w_wind-step:		1
+	contour-div-center:		0
+	contour-div-step:		2
+!
+! Representation -> Track.
+!
+!	track-rh-center:		45
+!	track-rh-step:			2
+!	track-wir-center:		0
+!	track-wir-step:			1
+	track-ept-center:		345
+	track-ept-step:			3
+	track-palt-center:		600
+	track-palt-step:		50
+	track-alt-center:		600
+	track-alt-step:		50
+	track-tvir-center:		300
+	track-tvir-step:		3
+	track-mr-center:		15
+	track-mr-step:			1
+	track-dp-center:		25
+	track-dp-step:			1
+	track-tdry-center:		25
+	track-tdry-step:		1
+	track-w_wind-center:		0
+	track-w_wind-step:		1
+	track-pt-center:		310
+	track-pt-step:			1
+!
+! Representation -> Skewt.
+!
+	skewt-pres-minval:		100
+	skewt-pres-maxval:		1050
+	skewt-temp-minval:		-20
+	skewt-temp-maxval:		45
+!
+!Representation -> Raster.
+!
+	raster-dz-center:	32
+	raster-dz-step:		4
+	raster-dz-nsteps:	17
+	raster-vt-center:	0
+	raster-vt-step:		2
+	raster-vt-nsteps:	17
+	raster-visr-center:		128
+	raster-visr-step:		16
+	raster-visr-nsteps:		17
+	raster-aaa-center:		8192
+	raster-aaa-step:		1024
+	raster-aaa-nsteps:		17
+	raster-vis-center:		128
+	raster-vis-step:		16
+	raster-vis-nsteps:		17
+	raster-ir-center:		312
+	raster-ir-step:			16
+	raster-ir-nsteps:	       	17
+	raster-ir-highlight:		204
+	raster-ir-highlight-range:	8
+	raster-ir-highlight-color:	red
+	raster-ta19v-center:		240
+	raster-ta19v-step:		8
+	raster-ta19v-nsteps:	       	17
+	raster-ta19h-center:		240
+	raster-ta19h-step:		8
+	raster-ta19h-nsteps:	       	17
+	raster-ta22v-center:		240
+	raster-ta22v-step:		8
+	raster-ta22v-nsteps:	       	17
+	raster-ta37v-center:		240
+	raster-ta37v-step:		8
+	raster-ta37v-nsteps:	       	17
+	raster-ta37h-center:		240
+	raster-ta37h-step:		8
+	raster-ta37h-nsteps:	       	17
+	raster-ta85v-center:		240
+	raster-ta85v-step:		8
+	raster-ta85v-nsteps:	       	17
+	raster-ta85h-center:		240
+	raster-ta85h-step:		8
+	raster-ta85h-nsteps:	       	17
+	raster-sfcidx-center:		3
+	raster-sfcidx-step:		1
+	raster-sfcidx-nsteps:	       	8
+!
+! Representation -> Time series.
+!
+	tseries-wspd-center:    10
+	tseries-wspd-step:      2
+	tseries-palt-center:	600
+	tseries-palt-step:	50
+	tseries-w_wind-center:	0
+	tseries-w_wind-step:	1
+	tseries-wdir-center:    180
+	tseries-wdir-step:      20
+	tseries-rh-center:      50
+	tseries-rh-step:        15
+	tseries-pres-center:    1020
+	tseries-pres-step:      5
+	tseries-cpres0-center:  120
+	tseries-cpres0-step:    5
+	tseries-ept-center:     355
+	tseries-ept-step:       10
+	tseries-mr-center:      20
+	tseries-mr-step:        3
+	tseries-tdry-center:    30
+	tseries-tdry-step:      3
+	tseries-pt-center:      305
+	tseries-pt-step:        5
+	tseries-dp-center:      26
+	tseries-dp-step:        3
+	tseries-raina15-center: 3
+	tseries-raina15-step:   1
+	tseries-raina60-center: 6
+	tseries-raina60-step:   2
+!
+! Other.
+!
+	winds-arrow-scale:		20
+	winds-representation:		vector
+	winds-arrow-color:		green
+	Xarrow-color:			purple
+!
+! If all else fails, these should prevent things from dying altogether.
+!
+	contour-center:			0
+	contour-step:			25
+	track-center:			10
+	track-step:			10
+	pres-minval:			900
+	pres-maxval:			1100
+	rh-minval:			20
+	rh-maxval:			40
+	dp-minval:			0
+	dp-maxval:			20
+	tdry-minval:			-10
+	tdry-maxval:			10
+!
+! Adjust limit procedures.
+!
+	track-arrow-limit-proc:		adj_arrow_scale
+	track-time-limit-proc:		adj_time_period
+	track-centstep-limit-proc:	adj_center_step
+	raster-highrange-limit-proc:	adj_highlight_range
+	raster-centstep-limit-proc:	adj_center_step
+	raster-limit-proc:		adj_center_step
+	vector-limit-proc:		adj_arrow_scale
+	contour-limit-proc:		adj_center_step
+	filled-contour-limit-proc:	adj_fill_centstep
+	line-contour-limit-proc:	adj_line_centstep
+	skewt-pres-limit-proc:		adj_pres_minmax
+	skewt-temp-limit-proc:		adj_temp_minmax
+	global-x-limit-proc:		adj_x_minmax
+	global-y-limit-proc:		adj_y_minmax
+	lightning-limit-proc:		adj_time_step

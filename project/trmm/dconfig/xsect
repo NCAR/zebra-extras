@@ -1,0 +1,12 @@
+config xsect
+	widget 'iconbar' 23 14 72 451
+	window 'UpperLeft' 100 1 884 612 gp gp.init
+		description 'xsect-UpperLeft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'LowerLeft' 99 574 1052 325 gp gp.init
+		description 'xsect-LowerLeft'
+		buttonmap 'default'
+	endwindow
+endconfig
