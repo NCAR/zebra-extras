@@ -15,12 +15,15 @@
  * through use or modification of this software.  UCAR does not provide 
  * maintenance or updates for its software.
  */
-MFVERSION="$Id: Imakefile,v 1.1.1.1 1997-03-25 21:06:34 granger Exp $"
+MFVERSION="$Id: Imakefile,v 1.2 1997-03-26 17:58:56 granger Exp $"
 
 LIBS = $(DFALIBS) $(LIBZEB) $(LIBRDSS) $(XLIBS)
 SYSLIBS = $(LIBREGEXP) $(LIBMATH)
 
-DISTFILES = Imakefile DigitalWind.c
+SRCS = DigitalWind.c
+DISTFILES = Imakefile $(SRCS)
+
+AllTarget(DigitalWind)
 
 NormalProgramTarget(DigitalWind, DigitalWind.o, $(DEPLIBS), $(LIBS), \
 		    $(SYSLIBS))
