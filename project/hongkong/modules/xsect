@@ -1,0 +1,197 @@
+! XSect module
+
+!
+! Cross-section field menu (can't really be extended until we have field
+! derivation)
+!
+define widget xsect-field-menu intmenu 'Field control popup'
+	title 'Field Selection'
+	line
+	entry 'Potential Temperature' 'param #icon_component field pt'\
+	   (PDParam(icon_component, "field") = "pt")
+	entry 'Equivalent Potential Temperature'\
+	   'param #icon_component field theta_e'\
+	   (PDParam(icon_component, "field") = "theta_e")
+	entry 'Mixing Ratio' 'param #icon_component field mr'\
+	   (PDParam(icon_component, "field") = "mr")
+	entry 'Wind Speed' 'param #icon_component field wspd'\
+	   (PDParam(icon_component, "field") = "wspd")
+	entry 'Wind Direction' 'param #icon_component field wdir'\
+	   (PDParam(icon_component, "field") = "wdir")
+	entry 'Relative Humidity' 'param #icon_component field rh'\
+	   (PDParam(icon_component, "field") = "rh")
+	entry 'Dewpoint Temperature' 'param #icon_component field dp'\
+	   (PDParam(icon_component, "field") = "dp")
+	entry 'Raw Pressure' 'param #icon_component field pres'\
+	   (PDParam(icon_component, "field") = "pres")
+	entry 'Temperature' 'param #icon_component field tdry'\
+	   (PDParam(icon_component, "field") = "tdry")
+endmenu
+
+!
+! Left button menu for xsections
+!
+define widget xsect-left intmenu 'Xsect left menu'
+	title 'Options'
+	line
+	entry 'Adjust field limits' 'xsect-adjust-limits'
+	entry 'Set allowable time difference' 'xsect-time-diff'
+	entry 'Overlay times...' 'popup overlay'
+endmenu
+
+procedure xsect-adjust-limits
+	local field PDParam(icon_component,"field")
+	local param1 concat(field,"-center")
+	local param2 concat(field,"-step")
+	local init1 PDSearch(icon_component,param1,"contour")
+	local init2 PDSearch(icon_component,param2,"contour")
+	activate doublefloat #icon_component \
+		#param1 "Center: " #init1 \
+		#param2 "Step: " #init2
+endprocedure
+
+procedure xsect-time-diff
+	local diff PDParam(icon_component,"max-time-diff")
+	activate singleint #icon_component \
+		"max-time-diff" "Allowable time difference (mins):" #diff
+endprocedure
+
+!
+! A bunch of stuff for dealing with cross sections.
+!
+define widget xsect-right intmenu 'Cross-section right menu'
+	title 'Cross-section Parameters'
+	line
+	entry 'Help' 'help Cross-section'
+	entry 'Select Platforms' 'popup xs-platform'
+	line
+	entry 'Toggle altitude/pressure' 'ToggleBoolean "by-altitude"'
+	entry 'Toggle contour labels' 'ToggleBoolean "do-labels"'
+	line
+	entry 'Zig-Zag Cross-section' \
+		'parameter #icon_component "zig-zag" "true"' \
+		(PDParam (icon_component,"zig-zag") = "true")
+	entry 'Planar Cross-section' \
+		'parameter #icon_component "zig-zag" "false"' \
+		(PDParam (icon_component,"zig-zag") = "false")		
+	line
+	entry 'Line contour' \
+		'parameter #icon_component representation line-contour' \
+		(PDParam(icon_component,"representation") = "line-contour")
+	entry 'Filled contour' \
+		'parameter #icon_component representation filled-contour' \
+		(PDParam(icon_component,"representation") = "filled-contour")
+endmenu
+
+!
+! Menu for cross-sections of balloon soundings over model data
+! (put "require: contour,simple-color" into your PD if you use this...)
+!
+define widget xsect-model-balloon intmenu 'Balloon cross-section'
+	title 'Balloon Cross-section'
+	line
+	entry 'Help' 'help Cross-section'
+	entry 'Select Platforms' 'popup xs-platform'
+	submenu 'Contour Parameters' 'contour-right'
+endmenu
+
+!
+! Cross-section platform entry
+!
+define widget xs-platform form 'Upper air platforms'
+	noheader
+	popup xsp_popup
+	label cross 'Cross-section Platform Selection'
+	label comp 'component' color gray95 width 1
+	newline
+	label l1 'Platforms:'
+	blank plat ' ' command 'xsp_enter' width 300
+	newline
+	button help 'Help' command 'help xsectplatform'
+	button current 'Get Current' command 'xsp_getcurrent'
+	button clear 'Clear' command 'xsp_clear' 
+	button apply 'Apply' command 'xsp_enter'
+	button dismiss 'Dismiss' color red command 'popdown #ui$form'
+	newline
+	button ro_hk_sdg 'ro_hk_sdg' command 'xsp_toggle ro_hk_sdg'
+	button iss/class 'iss/class' command 'xsp_toggle iss/class'
+	button chenzhou_sdg 'chenzhou_sdg' command 'xsp_toggle chenzhou_sdg'
+	button shantou_sdg 'shantou_sdg' command 'xsp_toggle shantou_sdg'
+	button wuzhou_sdg 'wuzhou_sdg' command 'xsp_toggle wuzhou_sdg'
+	button xisha_sdg 'xisha_sdg' command 'xsp_toggle xisha_sdg'
+	button ganzhou_sdg 'ganzhou_sdg' command 'xsp_toggle ganzhou_sdg'
+enddef
+
+!
+! Initialize an upper-air platform widget
+!
+procedure xsp_popup
+	formtext #ui$form comp #icon_component
+	local current PDParam(icon_component, 'platform')
+	if (current = '')
+		formtext #ui$form plat ''
+	else
+		formtext #ui$form plat #current
+	endif
+endprocedure
+
+!
+! Actually put this platform list into the plot component
+!
+procedure xsp_enter
+	local plat getftext(ui$form,'plat')
+	local comp getftext(ui$form,'comp')
+	if (plat = '')
+		parameter #comp 'platform' ''
+	else
+		parameter #comp 'platform' #plat
+	endif
+endprocedure
+
+!
+! Get the current platform list from the plot component
+!
+procedure xsp_getcurrent
+	local comp getftext(ui$form,'comp')
+	local current PDParam(comp, 'platform')
+	if (current = '')
+		formtext #ui$form plat ''
+	else
+		formtext #ui$form plat #current
+	endif
+endprocedure
+
+!
+! Clear the list
+!
+procedure xsp_clear
+	formtext #ui$form plat ''
+endprocedure
+
+!
+! Toggle the presence of a given upper-air platform.
+!
+procedure xsp_toggle platform string
+	local oldlist getftext(ui$form,'plat')
+	local pos ListPosition(platform, oldlist)
+!
+! See if it's already there.  If so, we remove.
+!
+	if (pos > -1)
+	    local newlist RmElement(oldlist, pos)
+!
+! Otherwise we just add it.
+!
+	else
+	    if (oldlist <> '')
+		local newlist concat3(oldlist,',',platform)
+	    else
+		local newlist #platform
+	    endif
+	endif
+!
+! Update the widget
+!
+	formtext #ui$form plat #newlist
+endprocedure
+

@@ -1,0 +1,23 @@
+!
+! Cross-section settings for contouring soundings
+!
+GLOBAL
+	pd-name:	xsect-template
+	plot-mode:	real-time
+	plot-type:	xsect
+	trigger:	5m
+	left-endpoint:	-100, -100
+	right-endpoint:	100, 100
+xsect
+	representation:	line-contour
+	platform:	ro_hk_sdg,chenzhou_sdg,shantou_sdg,wuzhou_sdg,xisha_sdg,ganzhou_sdg
+	field:		pt
+	pt-center:	-10
+	pt-step:	10
+	grid-method:	hdweight
+	color-table:	Rainbow
+	icon:		xsect
+	icon-left-menu:		xsect-left
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	xsect-right
+	require:	xsect, contour, simple-color

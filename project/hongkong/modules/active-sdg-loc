@@ -1,0 +1,14 @@
+!
+! Support for active sounding locations.
+!
+
+define widget active-sdg-send intmenu 'x'
+	title 'Sounding Site Options'
+	line
+	entry 'Display this site in skewt window' 'send-sounding'
+endmenu
+
+procedure send-sounding
+	local dmcmd quote(concat('TweakSounding ', icon_platform))
+	dm #dmcmd
+endprocedure

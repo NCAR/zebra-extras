@@ -1,0 +1,21 @@
+!
+! Location component oriented around ISS stations, which can be displayed
+! in almost any format you can think of.
+!
+global
+	pd-name:	p_sdg_loc
+p_sdg_loc
+	platform:	SOMETHING
+	representation:	overlay
+	field:		location
+	color:		white
+	label-size:	12
+	icon:		sounding-loc
+	icon-left-menu:		minimal-cap-left-menu
+	icon-right-menu:	location-options
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-right-menu:	location-options
+	posicon-middle-menu:	active-sdg-send
+	label:		platform
+	active-icon:	true
+	require:	location, active-sdg-loc
