@@ -10,23 +10,17 @@
 # Rass are disabled for CASES99, and for now we're only interested in 
 # low-mode profiler data.
 
+# As of 0z 10/13, the ISS1 profiler data started coming as high mode, so
+# change the platform trigger but keep the "product" name the same
+# (prof915l), which is also the display config window to plot (for
+# which the platform has also been changed to prof915h).
+
 iss1/class		yes	iss1 class
-iss1/prof915l		no	iss1 prof915l
+iss1/prof915h		no	iss1 prof915l
 #iss1/rass915		no	iss1 rass
 iss1/surface_met	no	iss1 surfmet surfwind surfrad
-
-iss2/class		yes	iss2 class
-iss2/prof915l		no	iss2 prof915l
-#iss2/rass915		no	iss2 rass
-iss2/surface_met	no	iss2 surfmet surfwind surfrad
 
 iss3/class		yes	iss3 class
 iss3/prof915l		no	iss3 prof915l
 #iss3/rass915		no	iss3 rass
 iss3/surface_met	no	iss3 surfmet surfwind surfrad
-
-iss4/class		yes	iss4 class
-iss4/prof915l		no	iss4 prof915l
-#iss4/rass915		no	iss4 rass
-iss4/surface_met	no	iss4 surfmet surfwind surfrad
-
