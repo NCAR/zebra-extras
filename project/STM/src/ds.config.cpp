@@ -1,3 +1,4 @@
+! $Id: ds.config.cpp,v 1.5 1995-09-09 17:20:17 granger Exp $
 !
 ! Data store configuration file.
 !
@@ -34,7 +35,11 @@
 !
 ! Path to the data directory.
 !
-set datadir concat(getenv("DATAHOME"), "/SDS/platforms")
+if (getenv("DATAHOME") <> "UNDEFINED")
+	set datadir concat(getenv("DATAHOME"), "/SDS/platforms")
+else
+	set datadir "/scr/narnia/arm/data/sgp/platforms"
+endif
 
 ! Set to write cache files upon a normal exit, 
 ! and trust those cache files when starting
@@ -42,6 +47,10 @@ set datadir concat(getenv("DATAHOME"), "/SDS/platforms")
 set CacheOnExit true
 set LDirConst true
 set LFileConst true
+
+! Create local data directories only as needed
+! 
+set DelayDataDirs true
 
 ! No remote data directories to speak of
 !
@@ -842,24 +851,37 @@ platform NULLplatform
 	daysplit
 endplatform
 
-
-!	Platforms that are not part of Zeb
+!=========================================================================
+! Satellite
 !
-! sgpavhrrX1.b1
-! sgpgoesvisX1.b1
+! All satellite images are regular grids in HDF from the SeaSpace converter
+!
+class Satellite
+	directory	satellite
+	instancedir	subdirclass
+	inheritdir	copy
+	organization	2dgrid
+	filetype	hdf
+endclass
 
+class SatelliteOverlay Satellite
+	organization	image
+endclass
+
+instance Satellite g7ir8merc g7irmerc g7radir8merc g7radirmerc g7vismerc
+instance Satellite n9avhrrmerc n9avhrrradmerc
+instance Satellite sgpgoes8X1.a1 sgpgoes8visX1.a1
+
+!
+! Overlay images, which all have only byte fields
+!
+instance SatelliteOverlay avhrr_sgp.state_lines avhrr_sgp.lat_lon
+instance SatelliteOverlay goes_ir_sgp.state_lines goes_ir_sgp.lat_lon
+instance SatelliteOverlay goes_vis_sgp.state_lines goes_vis_sgp.lat_lon
 
 !=====================================================================
 ! UAV platforms
 !=====================================================================
-
-class GOES
-	organization	image
-	filetype	raster
-	maxsamples	10
-endclass
-
-instance GOES sgpgoesvis.tmp sgpgoesir.tmp
 
 !
 ! NGM model
