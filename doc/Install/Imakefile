@@ -1,21 +1,24 @@
 XCOMM
 XCOMM Install documentation Imakefile
 XCOMM
-XCOMM $Id: Imakefile,v 1.1 1996-02-19 21:26:48 granger Exp $
+XCOMM $Id: Imakefile,v 1.2 1996-02-21 01:16:57 granger Exp $
 XCOMM
 
 BOOK = Install
+BOOKFILE = $(BOOK).book
 TITLE = "The Zebra Installation Manual"
 AUTHOR = "granger@ncar.ucar.edu"
 
-CHAPTERS = install-title.fm install.fm mach-appndx.fm smry-appndx.fm
-
 INDEX = $(BOOK)IX.doc
 TOC = $(BOOK)TOC.doc
+CHAPTERS = $(TOC) install-title.fm install.fm mach-appndx.fm smry-appndx.fm \
+	$(INDEX)
 
-DISTFILES = $(BOOK).book $(CHAPTERS) $(INDEX) $(TOC) Imakefile
+DISTFILES = $(BOOKFILE) $(CHAPTERS) Imakefile
 
 #include <Docs.rules>
+
+CompleteBookTarget($(BOOK),$(CHAPTERS),$(AUTHOR))
 
 DistfilesTarget($(DISTFILES))
 

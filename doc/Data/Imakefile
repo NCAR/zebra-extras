@@ -1,22 +1,24 @@
 XCOMM
 XCOMM Data Management guide Imakefile
 XCOMM
-XCOMM $Id: Imakefile,v 1.1 1996-02-19 21:26:46 granger Exp $
+XCOMM $Id: Imakefile,v 1.2 1996-02-21 01:16:47 granger Exp $
 XCOMM
 
 BOOK = Data
 TITLE = "The Zebra Data Management Guide"
 AUTHOR = "granger@ncar.ucar.edu"
 
-CHAPTERS = Title.fm dd_intro.fm utilities.fm modules.fm compile.fm \
-	   netCDF.fm RasterFile.fm MapFormat.fm
-
 INDEX = $(BOOK)IX.doc
 TOC = $(BOOK)TOC.doc
 
-DISTFILES = $(BOOK).book $(CHAPTERS) $(INDEX) $(TOC) Imakefile
+CHAPTERS = Title.fm dd_intro.fm utilities.fm modules.fm compile.fm \
+	   netCDF.fm RasterFile.fm MapFormat.fm $(TOC) $(INDEX)
+
+DISTFILES = $(BOOK).book $(CHAPTERS) Imakefile
 
 #include <Docs.rules>
+
+CompleteBookTarget($(BOOK),$(CHAPTERS),$(AUTHOR))
 
 DistfilesTarget($(DISTFILES))
 

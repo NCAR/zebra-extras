@@ -1,21 +1,23 @@
 XCOMM
 XCOMM Developer's Guide Imakefile
 XCOMM
-XCOMM $Id: Imakefile,v 1.1 1996-02-19 21:26:47 granger Exp $
+XCOMM $Id: Imakefile,v 1.2 1996-02-21 01:16:53 granger Exp $
 XCOMM
 
 BOOK = Developer
 TITLE = "The Zebra Developer's Guide"
 AUTHOR = "granger@ncar.ucar.edu"
 
-CHAPTERS = title.fm targets.fm customized.fm imake.fm
-
 INDEX = $(BOOK)IX.doc
 TOC = $(BOOK)TOC.doc
 
-DISTFILES = $(BOOK).book $(CHAPTERS) $(INDEX) $(TOC) Imakefile
+CHAPTERS = title.fm targets.fm customized.fm imake.fm $(TOC) $(INDEX)
+
+DISTFILES = $(BOOK).book $(CHAPTERS) Imakefile
 
 #include <Docs.rules>
+
+CompleteBookTarget($(BOOK),$(CHAPTERS),$(AUTHOR))
 
 DistfilesTarget($(DISTFILES))
 
