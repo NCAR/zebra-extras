@@ -1,0 +1,62 @@
+! Auto-saved display configuration.
+
+prototype fallback 'Default' gp 'gp.init'
+
+config radar
+	widget 'iconbar' 1075 10 80 550
+	graphic 'radar' 200 78 536 522 'Default'
+		description 'radar-radar'
+		buttonmap 'big'
+		forcepd
+	endgraphic
+endconfig
+
+beginpd 'radar-radar'
+global
+   parameter altitude-label            ''
+   parameter pd-name                   'radar-radar'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '13-Jul-96,2:10:00'
+   parameter plot-type                 'CAP'
+   parameter proj-topannot-left-menu   'projection'
+component p_radar
+   parameter altitude-control          'true'
+   parameter color-table               'wild_new'
+   parameter every-sweep               'true'
+   parameter field                     'kac'
+   parameter icon                      'radar'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'radar-middle'
+   parameter icon-right-menu           'DataAvailable'
+   parameter kac-center                '2.6000'
+   parameter kac-step                  '0.2000'
+   parameter limit-proc                'raster-limit-proc'
+   parameter platform                  'precip'
+   parameter representation            'raster'
+   parameter require                   'radar, raster'
+   parameter scale-mode                'auto'
+component p_map
+   parameter color                     'yellow'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'default'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_llgrid
+   parameter color                     'cyan'
+   parameter field                     'grid'
+   parameter icon                      'grid'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-right-menu           'llgrid-right'
+   parameter lat-lon                   'true'
+   parameter line-width                '0'
+   parameter platform                  'irrelevant'
+   parameter representation            'overlay'
+   parameter require                   'grid, simple-color'
+   parameter x-spacing                 '60'
+   parameter y-spacing                 '60'
+endpd
+

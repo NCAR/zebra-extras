@@ -1,0 +1,71 @@
+! Auto-saved display configuration.
+
+prototype fallback 'Default' gp 'gp.init'
+
+config jim
+	widget 'iconbar' 10 10 80 400
+	graphic 'pre' 104 26 748 840 'Default'
+		description 'jim-pre'
+		buttonmap 'big'
+		forcepd
+	endgraphic
+endconfig
+
+beginpd 'jim-pre'
+global
+   parameter altitude                  '0.4999'
+   parameter altitude-label            '0.5 deg'
+   parameter pd-name                   'jim-pre'
+   parameter plot-hold                 'false'
+   parameter plot-mode                 'real-time'
+   parameter plot-time                 'now'
+   parameter plot-type                 'CAP'
+   parameter proj-topannot-left-menu   'projection'
+   parameter radar-space               'true'
+   parameter x-max                     '173.72'
+   parameter x-min                     '-68.86'
+   parameter y-max                     '143.19'
+   parameter y-min                     '-136.21'
+component c_precip
+   parameter color-table               'scook'
+   parameter every-sweep               'true'
+   parameter field                     'hac'
+   parameter hac-center                '100'
+   parameter hac-nsteps                '10'
+   parameter hac-step                  '20'
+   parameter icon                      'iss-rain-small'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'precip-middle'
+   parameter icon-right-menu           'DataAvailable'
+   parameter limit-proc                'raster-limit-proc'
+   parameter platform                  'precip.storm'
+   parameter radar-scan                'sur'
+   parameter representation            'raster'
+   parameter require                   'radar, raster, precip'
+   parameter scale-mode                'manual'
+   parameter sur-angle                 '0.4999'
+   parameter trigger                   'platform'
+   parameter trigger-global            'true'
+component p_map
+   parameter color                     'yellow'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'default'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_map.0
+   parameter color                     'cyan'
+   parameter field                     'map'
+   parameter icon                      'walnut'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '2'
+   parameter platform                  'walnut'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+endpd
+

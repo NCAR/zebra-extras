@@ -1,0 +1,52 @@
+! Auto-saved display configuration.
+
+prototype fallback 'Default' gp 'gp.init'
+
+config precip
+	widget 'iconbar' 1076 29 80 549
+	graphic 'precip' 80 97 732 723 'Default'
+		description 'precip-precip'
+		buttonmap 'big'
+		forcepd
+	endgraphic
+endconfig
+
+beginpd 'precip-precip'
+global
+   parameter altitude-label            ''
+   parameter pd-name                   'precip-precip'
+   parameter plot-mode                 'history'
+   parameter plot-time                 'now'
+   parameter plot-type                 'CAP'
+   parameter proj-topannot-left-menu   'projection'
+   parameter x-max                     '208.7515'
+   parameter x-min                     '-166.5602'
+   parameter y-max                     '182.2250'
+   parameter y-min                     '-187.3882'
+component c_precip
+   parameter color-table               'wild_new'
+   parameter every-sweep               'true'
+   parameter field                     'zac'
+   parameter icon                      'iss-rain-small'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'radar-middle'
+   parameter icon-right-menu           'DataAvailable'
+   parameter limit-proc                'raster-limit-proc'
+   parameter platform                  'precip.basic'
+   parameter representation            'raster'
+   parameter require                   'radar, raster'
+   parameter scale-mode                'auto'
+   parameter zac-center                '30.0000'
+   parameter zac-step                  '3.0000'
+component p_map
+   parameter color                     'yellow'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'default'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+endpd
+

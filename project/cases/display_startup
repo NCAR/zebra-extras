@@ -1,0 +1,38 @@
+#!/bin/csh -f
+#
+# The display startup script run as the "shell" process.  When this thing
+# runs, the data store is running, but not much else.
+#
+setenv SPOL_TOP /spol
+cd $ZEB_PROJDIR
+
+#
+# Hang out for a couple of seconds while the data store daemon does its
+# thing.
+#
+sleep 5
+#
+# Run the rasterizer processes.
+#
+$SPOL_TOP/bin/Rasterizer $ZEB_PROJDIR/SPol.config &
+$SPOL_TOP/bin/Rasterizer $ZEB_PROJDIR/basic.config &
+$SPOL_TOP/bin/Rasterizer $ZEB_PROJDIR/hourly.config &
+$SPOL_TOP/bin/Rasterizer $ZEB_PROJDIR/storm.config &
+$SPOL_TOP/bin/Rasterizer $ZEB_PROJDIR/long.config &
+# other ones here
+
+#
+# We'll want a lastdata window.
+#
+LastData lastdata.config -g =250x120-5+780 &
+
+#
+# The archiver
+#
+#Archiver -f /dev/nst0 -interval 60 >& /dev/null &
+
+#
+# Finish it up with the display manager, in its own window.
+#
+setenv DEFAULT_CONFIG radaronly
+xterm -T DisplayManager -e $ZEB_TOPDIR/bin//dm dm.config &

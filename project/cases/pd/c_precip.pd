@@ -1,0 +1,20 @@
+!
+! Generic precipitation component, based on p_radar.
+!
+global
+	pd-name:	c_precip
+c_precip
+	platform:	precip.basic
+	field:		zac
+	representation:	raster
+	icon:		iss-rain-small
+	color-table:	wild_new
+	every-sweep:	true
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	precip-middle
+	icon-right-menu:	DataAvailable
+	scale-mode:	auto
+	limit-proc:	raster-limit-proc
+	require:	radar, raster, precip
+	trigger:	platform
+	trigger-global:	true

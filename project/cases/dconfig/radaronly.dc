@@ -1,0 +1,50 @@
+! Auto-saved display configuration.
+
+prototype fallback 'Default' gp 'gp.init'
+
+config radaronly
+	widget 'iconbar' 790 26 80 346
+	graphic 'bigradar' 11 29 764 742 'Default'
+		description 'radaronly-bigradar'
+		buttonmap 'big'
+		forcepd
+	endgraphic
+endconfig
+
+beginpd 'radaronly-bigradar'
+global
+   parameter altitude                  '3.3508'
+   parameter altitude-label            '3.4 deg'
+   parameter pd-name                   'radaronly-bigradar'
+   parameter plot-mode                 'real-time'
+   parameter plot-time                 'now'
+   parameter plot-type                 'CAP'
+   parameter proj-topannot-left-menu   'projection'
+   parameter radar-space               'true'
+component p_radar
+   parameter altitude-control          'true'
+   parameter color-table               'wild_new'
+   parameter every-sweep               'true'
+   parameter field                     'reflectivity'
+   parameter icon                      'radar'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'spol-middle'
+   parameter icon-right-menu           'DataAvailable'
+   parameter limit-proc                'raster-limit-proc'
+   parameter platform                  'spol'
+   parameter representation            'raster'
+   parameter require                   'radar, raster, spol'
+   parameter trigger                   'spol'
+   parameter trigger-global            'true'
+component p_map
+   parameter color                     'yellow'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'default'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+endpd
+

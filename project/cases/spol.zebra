@@ -1,0 +1,8 @@
+#
+# This is the .zebra file used in the S-Pol "display" account.  Here we
+# tweak things to run our way -- in particular, setting ZEB_SHELL to run
+# our startup script.
+#
+setenv PYTHONPATH /spol/lib
+setenv ZEB_SHELL '/spol/bin/display_startup'
+setenv ZEB_EVENTLOGGER 'EventLogger -w'

@@ -1,0 +1,112 @@
+!
+! Support for display of the precipitation products.
+!
+define widget precip-middle intmenu 'x'
+	title 'Precipitation product options'
+	line
+	submenu 'Fields' 'precip-fields'
+	submenu 'Representation' 'precip-representation'
+	submenu 'Accumulation time' 'precip-time'
+	submenu 'Color tables' Color-tables
+endmenu
+
+
+
+
+define widget precip-fields intmenu 'x'
+	title 'Precipitition fields'
+	line
+	entry 'Z-r precip accumulation' 'param #icon_component field zac' \
+		(PDParam (icon_component, 'field') = 'zac')
+	entry 'KDP precip accumulation' 'param #icon_component field kac' \
+		(PDParam (icon_component, 'field') = 'kac')
+	entry 'ZDR precip accumulation' 'param #icon_component field dac' \
+		(PDParam (icon_component, 'field') = 'dac')
+	entry 'Hybrid precip accumulation' 'param #icon_component field hac' \
+		(PDParam (icon_component, 'field') = 'hac')
+	entry 'NSSL KDP precip accumulation' 'param #icon_component field nac' \
+		(PDParam (icon_component, 'field') = 'nac')
+endmenu
+
+
+
+define widget precip-representation intmenu 'x'
+	title 'Precipitation product representation'
+	line
+	entry 'Raster representation' \
+		'param #icon_component representation raster' \
+		(PDParam (icon_component, 'representation') = 'raster')
+	line
+	entry 'Contour representation' \
+		'param #icon_component representation contour' \
+		(PDParam (icon_component, 'representation') = 'contour')
+	entry 'Filled contour representation' \
+		'param #icon_component representation filled-contour' \
+		(PDParam (icon_component, 'representation') = 'filled-contour')
+	submenu 'Contour parameters' 'precip-contour'
+endmenu
+
+
+require contour
+require simple-color
+
+define widget precip-contour intmenu 'x'
+	title 'Precip contour options'
+	line
+	submenu 'Label options' 'contour-label-options'
+	entry 'Color-coded contours' 'ToggleBoolean color-mono' \
+		(PDParam(icon_component,'color-mono') <> 'true')
+	submenu '(Monochrome) contour color' 'simple-color'
+	submenu 'Line width' linewidth
+endmenu
+
+
+
+define widget precip-time intmenu 'x'
+	title 'Precipitation accumulation time'
+	line
+	entry 'Basic precip product' \
+		'param #icon_component platform precip.basic' \
+		(PDParam (icon_component, 'platform') = 'precip.basic')
+	entry 'Hourly accumulation' \
+		'param #icon_component platform precip.hourly' \
+		(PDParam (icon_component, 'platform') = 'precip.hourly')
+	entry 'Per-storm accumulation' \
+		'param #icon_component platform precip.storm' \
+		(PDParam (icon_component, 'platform') = 'precip.storm')
+	entry 'Long (custom) accumulation' \
+		'param #icon_component platform precip.long' \
+		(PDParam (icon_component, 'platform') = 'precip.long')
+endmenu
+
+
+
+!
+! Set the field.  This guy is intended to be called out of a button
+! map, and thus has no icon_component attached.  So we have to dig
+! around a bit.
+!
+procedure PrecipSetField field string
+	if (pd_defined ('c_precip', 'field'))
+		parameter c_precip field #field
+	elseif (pd_defined ('c_precipcont', 'field'))
+		parameter c_precipcont field #field
+	else
+		dm 'beep'
+	endif
+endprocedure
+
+!
+! Set the platform.  This guy is intended to be called out of a button
+! map, and thus has no icon_component attached.  So we have to dig
+! arout a bit.
+!
+procedure PrecipSetPlat plat string
+	if (pd_defined ('c_precip', 'platform'))
+		parameter c_precip platform #plat
+	elseif (pd_defined ('c_precipcont', 'platform'))
+		parameter c_precipcont platform #plat
+	else
+		dm 'beep'
+	endif
+endprocedure

@@ -1,0 +1,20 @@
+!
+! Parameters to read in S-Pol UF data
+!
+set x_resolution 900
+set y_resolution 900
+set x_radar 450
+set y_radar 450
+set gmt_offset 5
+set platform "spol"
+set minimum_sweep 25
+set pixels_per_km 3
+set ui$pager_mode false
+set nframes 1
+source file /dt/burghart/test2.tape
+field 'accum' offset 0 min 0 max 255
+!field 'velocity' offset 1 min -30 max 30
+!field 'swidth' offset 2 min -20 max 20
+set niceness -5
+set azimuth_fill 0.8
+consumer ds_consumer spol

@@ -1,0 +1,14 @@
+#! /bin/csh
+
+mstatus >& /dev/null
+if ($status != 0) exit 0
+mstatus | grep Archiver >& /dev/null
+if ($status) then
+	/zebra/bin/Archiver -mode tape -f /dev/nst0 -interval 30 -z no -b 64 \
+			-database /spol/project/DumpDataBase >& /dev/null &
+	exit 0
+else
+	echo 'Archiver already running\!'
+	exit 1
+endif
+

@@ -1,0 +1,263 @@
+!
+! This file contains the default values for some plot description parameters.
+!
+defaults
+	pd-name:			defaults
+!
+! Project origin
+!
+	origin-lat:			37.675
+	origin-lon:			-97.5525
+	origin-alt:			440
+!
+! The default, big picture zoom locations for constant altitude plots.  These
+! values are in km w.r.t. the origin above.  Make 'em smaller for smaller scale
+! projects and bigger for bigger scale projects...
+!
+	x-min:				-300
+	x-max:				300
+	y-min:				-300
+	y-max:				300
+!
+! Icons to use for various platforms.  The icons themselves can be created
+! using the X Window "bitmap" utility, and saved in the <project>/icons 
+! directory.  In general, it is good to have a separate icon for each platform.
+! Example:
+!
+!	cp2-icon:		cp2
+!	goes-icon:		goes
+!
+	null-icon:		null
+!
+! Age limits for data (i.e., when to make the icon red)
+! Although we set a default of 15 minutes, a separate value is generally 
+! used for each platform.  Example:
+!
+	icon-age-limit:		12h
+	spol-icon-age-limit:	2m
+!	cp2-icon-age-limit:	2m
+!	goes-icon-age-limit:	120m
+!
+	history-color:		green
+!
+! Will you be using tracks of mobile platforms?  If so, it can be useful
+! to assign a special color to each one.
+!
+! Example:
+!	electra-color:		orange
+!	kingair-color:		cyan
+!
+	null-color:		white
+!
+! Add named locations to your heart's delight.  
+! Form: 
+!	<sitename>-location:	<lat> <lon> <alt>
+!
+	boulder-location:	40.0 -105.3 1600.0
+	spol-location:		37.675 -97.5525 440
+!
+! bistatic sites
+!
+	North-location:		37.767 -97.173 0
+	Central-location:	37.521 -97.233 0
+	South-location:		37.261 -97.101 0
+!
+! sfc stations
+!
+	pam1-location:		37.591 -96.652 0
+	pam2-location:		37.552 -96.555 0
+	pam3-location:		37.490 -97.032 0
+	pam4-location:		37.593 -96.952 0
+	pam5-location:		37.5035 -97.140 0
+	pam6-location:		37.272 -97.009 0
+	pam7-location:		37.444 -97.000 0
+	pam8-location:		37.401 -96.947 0
+	cu-location:		37.734 -97.183 0
+	noaa-location:		37.464 -96.812 0
+	arm-location:		37.842 -97.020 0
+!
+! profiler(?) locations
+!
+	pro_a-location:		37.625 -96.5371 0
+	pro_b-location:		37.2743 -97.095 0
+	pro_c-location:		37.8421 -97.1873 0
+!
+! Other locations from Ed Brandes
+!
+	nexrad-location:	37.65389 -97.44278 0
+	osu01-location:		37.68929 -97.14268 0
+	osu02-location:		37.84966 -97.18731 0
+	osu03-location:		37.62676 -96.53831 0
+	osu04-location:		37.27348 -97.09535 0
+	osu05-location:		37.98511 -97.07225 0
+	osu06-location:		37.98575 -97.11583 0
+	osu07-location:		37.98565 -97.13409 0
+	osu08-location:		37.98448 -97.19317 0
+	osu09-location:		37.92680 -97.28121 0
+	osu10-location:		37.91282 -97.22595 0
+	osu11-location:		37.91270 -97.20749 0
+	osu12-location:		37.91270 -97.18880 0
+	osu13-location:		37.91259 -97.09749 0
+	osu14-location:		37.91246 -97.06026 0
+	osu15-location:		37.94107 -96.99394 0
+	osu16-location:		37.84332 -97.02073 0
+	osu17-location:		38.02826 -97.04161 0
+	osu18-location:		37.82538 -97.08081 0
+	osu19-location:		37.82519 -97.09912 0
+	osu20-location:		37.83937 -97.03897 0
+	osu21-location:		37.86177 -96.96888 0
+	osu22-location:		38.02902 -97.08330 0
+	osu23-location:		38.02862 -97.06060 0
+	osu24-location:		37.99887 -97.01481 0
+	osu25-location:		37.89719 -97.05103 0
+	osu26-location:		38.05677 -96.91374 0
+	osu27-location:		38.05691 -96.93203 0
+	osu28-location:		38.05719 -96.95012 0
+	osu29-location:		38.05697 -96.99180 0
+	osu30-location:		38.11633 -97.13446 0
+	osu31-location:		38.09506 -97.15288 0
+	osu32-location:		38.10237 -97.19088 0
+	osu33-location:		38.10207 -97.24648 0
+	atlk1-location:		37.43778 -96.76722 0
+	agtk1-location:		37.67806 -96.97278 0
+	bumk1-location:		37.65528 -96.53500 0
+	cdwk1-location:		37.03361 -97.61578 0
+	cbdk1-location:		37.31806 -96.66472 0
+	cssk1-location:		38.05250 -96.63722 0
+	elbk1-location:		38.05278 -97.12694 0
+	eldk1-location:		37.81806 -96.84417 0
+	oxfk1-location:		37.27778 -97.16250 0
+	peck1-location:		37.47694 -97.36750 0
+	prtk1-location:		37.17278 -97.50361 0
+	potk1-location:		37.91167 -97.04972 0
+	rock1-location:		37.44028 -97.00750 0
+	rosk1-location:		37.81417 -96.61917 0
+	swkk1-location:		37.91500 -97.43778 0
+	smbk1-location:		37.53444 -96.86472 0
+	wnfk1-location:		37.23917 -96.95778 0
+	atlk2-location:		37.43389 -96.77111 0
+	agak1-location:		37.67056 -96.98000 0
+	bumk2-location:		37.65556 -96.53500 0
+	cssk2-location:		38.02694 -96.63944 0
+	edek1-location:		37.81694 -96.83917 0
+	edrk1-location:		37.84639 -96.82222 0
+	towk1-location:		37.79583 -97.01250 0
+	wfdk1-location:		37.22417 -96.99444 0
+	bmanl-location:		37.62733 -96.53867 0
+	oxanl-location:		37.27350 -97.09583 0
+	smanl-location:		37.52130 -96.85522 0
+	wwanl-location:		37.85017 -97.18750 0
+	mri01-location:		37.59067 -96.65167 0  
+	mri02-location:		37.55183 -96.55517 0
+	mri03-location:		37.49000 -97.03167 0
+	mri04-location:		37.59317 -96.95200 0
+	mri05-location:		37.50350 -97.13967 0
+	mri06-location:		37.27167 -97.00933 0
+	mri07-location:		37.44417 -96.99950 0
+	mri08-location:		37.40067 -96.94667 0
+	eti02-location:		37.55183 -96.55517 0
+	eti06-location:		37.27167 -97.00933 0
+	noaa-location:		37.46392 -96.81220 0
+!
+! Origins for the get position widget.
+!
+	pos-origin:	boulder
+!
+! UNLESS YOU NEED TO TWEAK ONE OR MORE OF THE "SAFE" DEFAULTS BELOW, YOU'RE
+! DONE!
+!
+!****************************************************************************
+! 
+! The parameters below are pretty safe defaults and can almost always be left
+! as they are.  Leave them alone unless you know what you're doing!
+!
+
+!
+! Adjust limit procedures.
+!
+	track-arrow-limit-proc:		adj_arrow_scale
+	track-time-limit-proc:		adj_time_period
+	track-centstep-limit-proc:	adj_center_step
+	raster-highrange-limit-proc:	adj_highlight_range
+	raster-centstep-limit-proc:	adj_center_step
+	raster-limit-proc:		adj_center_step
+	vector-limit-proc:		adj_arrow_scale
+	contour-limit-proc:		adj_center_step
+	filled-contour-limit-proc:	adj_center_step
+	contour-limit-proc:		adj_center_step
+	filled-contour-centstep-limit-proc:	adj_center_step
+	contour-centstep-limit-proc:	adj_center_step
+	skewt-pres-limit-proc:		adj_pres_minmax
+	skewt-temp-limit-proc:		adj_temp_minmax
+	global-x-limit-proc:		adj_x_minmax
+	global-y-limit-proc:		adj_y_minmax
+	lightning-limit-proc:		adj_time_step
+!
+! Leave a little space on the left hand side for axis information
+!
+	axis-left-space:	30
+!
+! Where to put the frame cache files and the maximum number of frames
+! to store in the cache.  This machine has a fair amount of memory, so
+! set time-frames up everywhere to use it up.
+!
+	file-path:	/zebu/dt/fcache
+	max-frames:	30
+	time-frames:	2
+!
+! Command to be executed out of the DataAvailable menu.
+! Show all samples and not just observations for spol.
+! The Radar commands are in the 'radar' module, so we're assuming
+! that module was loaded by the component.
+!
+	data-available-command:		DefaultDataAvail
+	spol-data-available-command:	RadarDataAvailable
+	spol-data-available-times:	samples
+	spol-real-time-hook:		RadarRealTime
+!
+! Generic icon stuff
+!
+	global-icon:			global
+	icon-color:			yellow
+	icon-background:		midnight blue
+	disabled-icon-color:		gray90
+	disabled-icon-background:	gray40
+	icon-age-foreground:		pink
+	icon-age-background:		red
+!
+! Various menus for the icons in the plot windows.
+!
+	icon-left-menu:			standard-cap-left-menu
+	global-icon-left-menu:		global-left
+	global-icon-right-menu:		globaltopannot
+!
+! Default to matched top annotation colors where allowed.
+!
+	ta-color-match:			true
+!
+! Post processing mode parameters.
+!
+	post-proc-mode:			false
+	pp-dm-time-adjust:		65m
+!
+! What RBand uses to draw the box/line.  Don't mess with it.
+!
+	xorvalue:			63
+	xor-line-width:			3
+!
+! Where cross sections are done.
+!
+	xsect-window:			all
+	xsect-component:		global
+!
+! Default plot limits.
+!
+	raster-velocity-center:		0
+	raster-velocity-nsteps:		17
+	raster-velocity-step:		3
+	raster-zdr-center:		0
+	raster-zdr-nsteps:		17
+	raster-zdr-step:		2
+	raster-reflectivity-center:	30
+	raster-reflectivity-nsteps:	11
+	raster-reflectivity-step:	7

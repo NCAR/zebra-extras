@@ -1,0 +1,216 @@
+!
+! The file for display manager button maps.
+!
+!
+!
+
+!
+! Basic, vanilla stuff.
+!
+buttonmap basic
+	local	mb-s-left 'drawbox pushcoord'
+	local	mb-s-right 'require ctrmove; ctrmove'
+	local	m	'popup movie'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	b	'popcoords'
+	local	h	'help'
+endmap
+
+!
+! Buttons for radar type windows, with radar toggling, xsect control, and
+! so on.
+!
+buttonmap radar
+	local	mb-s-left 'drawbox pushcoord'
+	local	mb-s-right 'require ctrmove; ctrmove'
+	local	mb-middle 'ChangeXSect'
+	local	mb-s-middle 'AllXSect'
+	local	mb-right 'toggle_radar'
+	local	F1 	'toggle_radar'
+	local	b	'popcoords'
+	local	g	'popup position'
+	local	m	'popup movie'
+	local	p	'polyline l_spotlight'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	t	'popup overlay'
+	local	F29	'altstep 99'
+	local	F35	'altstep -99'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	u	'altstep 1'
+	local	d	'altstep -1'
+	local	h	'help'
+endmap
+
+
+!
+! Buttons for XY plots
+!
+buttonmap xyplot
+	local	mb-s-left	'drawbox zoom'
+	local	b	'unzoom'
+	local	m	'popup movie'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	t	'popup overlay'
+	local	h	'help'
+endmap
+
+
+
+buttonmap test
+	local	mb-left 'drawbox pushcoord'
+	local	mb-s-right 'require ctrmove; ctrmove'
+	local	m	'popup movie'
+	local	F29	'altstep 99'
+	local	F35	'altstep -99'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	u	'altstep 1'
+	local	d	'altstep -1'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	b	'popcoords'
+	local	p	'polyline cp3'
+	local	h	'help'
+endmap
+
+
+buttonmap big
+	local	mb-s-left 'drawbox pushcoord'
+	local	mb-s-right 'require ctrmove; ctrmove'
+	local	mb-left	'getposition'
+	local	mb-middle 'ChangeXSect'
+	local	mb-right 'require spol; toggle_main'
+!	local	F1 	'require spol; toggle_main'
+!
+! Function keys for spol fields now.
+!
+	local	F1	'parameter p_radar field reflectivity'
+	local	F2	'parameter p_radar field velocity'
+	local	F3	'parameter p_radar field zdr'
+	local	F4	'parameter p_radar field ldr'
+	local	F5	'parameter p_radar field swidth'
+	local	F6	'parameter p_radar field phidp'
+	local	F7	'parameter p_radar field rhohv'
+	local	F8	'parameter p_radar field ncp'
+	local	F9	'parameter p_radar field dl'
+	local	F10	'parameter p_radar field dm'
+	local	F11	'parameter p_radar field hdr'
+	local	F12	'parameter p_radar field ckdp'
+!
+! straight numeric for precip fields and plats.
+!
+	local	1	'precipsetfield zac'
+	local	2	'precipsetfield kac'
+	local	3	'precipsetfield dac'
+	local	4	'precipsetfield hac'
+	local	7	'precipsetplat precip.basic'
+	local	8	'precipsetplat precip.hourly'
+	local	9	'precipsetplat precip.storm'
+	local	0	'precipsetplat precip.long'
+!	local	a	'popup acwidget'
+	local	b	'popcoords'
+	local	f	'toggle_satellite'
+	local	g	'popup position'
+	local	m	'popup movie'
+!	local	p	'polyline l_spotlight'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	t	'popup overlay'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	u	'altstep 1'
+	local	d	'altstep -1'
+	local	Left	'DoZoom -3500 1500 -1500 3000'
+	local	F31	'DoZoom -1427 873 -89 1613'
+	local	Right	'DoZoom -1500 100 0 1500'
+	local	F29	'altstep 99'
+	local	F35	'altstep -99'
+	local	Next	'altstep -99'
+	local	Prior	'altstep 99'
+	local 	h	'help'
+	local	l	'popup LineWidth'
+	local	z	'popup model'
+endmap
+
+
+buttonmap sattest
+	local	mb-s-left 'drawbox pushcoord'
+	local	mb-s-right 'require ctrmove; ctrmove'
+	local	mb-left	'getposition'
+	local	mb-middle 'ChangeXSect'
+	local	mb-right 'toggle_sat'
+	local	F1 	'toggle_main'
+!	local	a	'popup acwidget'
+	local	b	'popcoords'
+	local	f	'toggle_satellite'
+	local	g	'popup position'
+	local	m	'popup movie'
+	local	p	'polyline l_spotlight'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	t	'popup overlay'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	u	'altstep 1'
+	local	d	'altstep -1'
+	local	Left	'DoZoom -1000 700 -500 200'
+	local	F31	'DoZoom -100 600 -500 200'
+	local	Right	'DoZoom -150 150 -150 150'
+	local	F29	'altstep 99'
+	local	F35	'altstep -99'
+	local 	h	'help'
+	local	l	'popup LineWidth'
+endmap
+
+
+buttonmap optimizer
+	local	mb-s-left 'drawbox pushcoord'
+	local	mb-middle 'ChangeXSect'
+	local	mb-right 'toggle_radar'
+	local	F1 	'toggle_radar'
+!	local	a	'popup acwidget'
+	local	b	'popcoords'
+	local	m	'popup movie'
+	local	p	'polyline l_boundary'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	t	'popup overlay'
+	local	F29	'altstep 99'
+	local	F35	'altstep -99'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	u	'altstep 1'
+	local	d	'altstep -1'
+	local	Left	'DoZoom -1000 700 -500 200'
+	local	F31	'DoZoom -100 600 -500 200'
+	local	Right	'DoZoom -150 150 -150 150'
+	local	h	'help'
+endmap
+
+
+buttonmap sounding
+	local	mb-s-left 'drawbox zoom'
+	local	mb-left 'drawbox pushcoord'
+	local	b	'popcoords'
+	local	m	'popup movie'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	u	'altstep 1'
+	local	d	'altstep -1'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	t	'popup overlay'
+	dm	c	'toggle_snd'
+	local	h	'help'
+endmap
+
+buttonmap aircraft
+!	menu mb-left 'airfield'
+	local	m	'popup movie'
+	local	h	'help'
+endmap
+

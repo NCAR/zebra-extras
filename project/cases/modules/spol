@@ -1,0 +1,98 @@
+!
+! $Id: spol,v 1.1 1998-02-03 22:07:08 burghart Exp $
+!
+
+require radar
+
+!
+! Simple radar support stuff
+!
+procedure toggle_main
+        local fld PDParam("p_radar", "field")
+        if (fld = "reflectivity")
+                param p_radar field velocity
+!                param p_radar color-table ncarvel
+        else
+                param p_radar field reflectivity
+!                param p_radar color-table ncarrefl
+        endif
+endprocedure
+
+
+
+
+
+!
+! Support for the p_radar PD component.
+!
+
+define widget spol-middle intmenu 'radar middle'
+	title 'Radar options'
+	line
+	entry 'Surveillance Scans' 'scan_mode sur' \
+		(PDParam (icon_component, "radar-mode") = "sur")
+	entry 'RHI Scans' 'scan_mode rhi' \
+		(PDParam (icon_component, "radar-mode") = "rhi")
+	entry 'PPI Scans' 'scan_mode ppi' \
+		(PDParam (icon_component, "radar-mode") = "ppi")
+	entry 'Any Scan' 'scan_mode any' \
+		(PDParam (icon_component, "radar-mode") = "any")
+	line
+	entry 'Hold angle mode' 'ToggleBoolean every-sweep' \
+		(PDParam (icon_component, "every-sweep") = "false")
+	line
+	entry 'Highlighting...' 'popup highlight'
+	submenu 'Fields' 'spol-fields'
+	submenu 'Representation' 'spol-rep'
+	submenu 'Color tables' Color-tables
+endmenu
+
+
+
+
+define widget spol-fields intmenu 'x'
+	title 'SPol fields'
+	line
+	entry 'Reflectivity' 'param #icon_component field reflectivity' \
+		(PDParam (icon_component, 'field') = 'reflectivity')
+	entry 'Velocity' 'param #icon_component field velocity' \
+		(PDParam (icon_component, 'field') = 'velocity')
+	entry 'Log power' 'parameter #icon_component field dm' \
+		(PDParam (icon_component, 'field') = 'dm')
+	entry 'Differential reflectivity' 'param #icon_component field zdr' \
+		(PDParam (icon_component, 'field') = 'zdr')
+	entry 'LDR' 'param #icon_component field ldr' \
+		(PDParam (icon_component, 'field') = 'ldr')
+	entry 'Spectral width' 'param #icon_component field swidth' \
+		(PDParam (icon_component, 'field') = 'swidth')
+	entry 'Phi DP' 'param #icon_component field phidp' \
+		(PDParam (icon_component, 'field') = 'phidp')
+	entry 'Rho HV' 'param #icon_component field rhohv' \
+		(PDParam (icon_component, 'field') = 'rhohv')
+	entry 'NCP' 'param #icon_component field ncp' \
+		(PDParam (icon_component, 'field') = 'ncp')
+	entry 'DL' 'param #icon_component field dl' \
+		(PDParam (icon_component, 'field') = 'dl')
+	entry 'CSU KDP' 'param #icon_component field ckdp' \
+		(PDParam (icon_component, 'field') = 'ckdp')
+	entry 'HDR' 'param #icon_component field hdr' \
+		(PDParam (icon_component, 'field') = 'hdr')
+	line
+	entry 'Pop up field chooser widget' 'popup FChooser'
+endmenu
+
+
+
+
+define widget spol-rep intmenu 'x'
+	line
+	entry 'Raster representation' \
+		'param #icon_component representation raster'
+	entry 'Contour representation' \
+		'param #icon_component representation contour'
+	entry 'Filled contour representation' \
+		'param #icon_component representation filled-contour'
+endmenu
+
+
+require color-table

@@ -1,0 +1,138 @@
+! Auto-saved display configuration.
+
+prototype fallback 'Default' gp 'gp.init'
+prototype fallback 'Default' gp 'gp.init'
+prototype fallback 'Default' gp 'gp.init'
+
+config radar2win
+	widget 'iconbar' 5 878 340 67
+	graphic 'bigradar' 5 22 896 829 'Default'
+		description 'radar2win-bigradar'
+		buttonmap 'big'
+		forcepd
+	endgraphic
+	graphic 'smallradar' 918 22 676 601 'Default'
+		description 'radar2win-smallradar'
+		buttonmap 'big'
+		forcepd
+	endgraphic
+	graphic 'precip1' 915 650 680 513 'Default'
+		description 'radar2win-precip1'
+		buttonmap 'big'
+		forcepd
+	endgraphic
+endconfig
+
+beginpd 'radar2win-bigradar'
+global
+   parameter altitude                  '3.3508'
+   parameter altitude-label            '3.4 deg'
+   parameter pd-name                   'radar2win-bigradar'
+   parameter plot-mode                 'real-time'
+   parameter plot-time                 'now'
+   parameter plot-type                 'CAP'
+   parameter proj-topannot-left-menu   'projection'
+   parameter radar-space               'true'
+component p_radar
+   parameter altitude-control          'true'
+   parameter color-table               'wild_new'
+   parameter every-sweep               'false'
+   parameter field                     'reflectivity'
+   parameter icon                      'radar'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'spol-middle'
+   parameter icon-right-menu           'DataAvailable'
+   parameter limit-proc                'raster-limit-proc'
+   parameter platform                  'spol'
+   parameter representation            'raster'
+   parameter require                   'radar, raster, spol'
+   parameter trigger                   'spol'
+   parameter trigger-global            'true'
+component p_map
+   parameter color                     'gray40'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'default'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+endpd
+
+beginpd 'radar2win-smallradar'
+global
+   parameter altitude                  '3.3508'
+   parameter altitude-label            '3.4 deg'
+   parameter pd-name                   'radar2win-smallradar'
+   parameter plot-mode                 'real-time'
+   parameter plot-time                 'now'
+   parameter plot-type                 'CAP'
+   parameter proj-topannot-left-menu   'projection'
+   parameter radar-space               'true'
+component p_radar
+   parameter altitude-control          'true'
+   parameter color-table               'wild_new'
+   parameter every-sweep               'true'
+   parameter field                     'reflectivity'
+   parameter icon                      'radar'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'spol-middle'
+   parameter icon-right-menu           'DataAvailable'
+   parameter limit-proc                'raster-limit-proc'
+   parameter platform                  'spol'
+   parameter representation            'raster'
+   parameter require                   'radar, raster, spol'
+   parameter trigger                   'spol'
+   parameter trigger-global            'true'
+component p_map
+   parameter color                     'gray50'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'default'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+endpd
+
+beginpd 'radar2win-precip1'
+global
+   parameter altitude                  '0.4999'
+   parameter altitude-label            '0.5 deg'
+   parameter pd-name                   'radar2win-precip1'
+   parameter plot-mode                 'real-time'
+   parameter plot-time                 'now'
+   parameter plot-type                 'CAP'
+   parameter proj-topannot-left-menu   'projection'
+   parameter radar-space               'true'
+component c_precip
+   parameter color-table               'wild_new'
+   parameter every-sweep               'true'
+   parameter field                     'kac'
+   parameter icon                      'iss-rain-small'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'precip-middle'
+   parameter icon-right-menu           'DataAvailable'
+   parameter kac-center                '8.4000'
+   parameter kac-step                  '0.7000'
+   parameter limit-proc                'raster-limit-proc'
+   parameter platform                  'precip.basic'
+   parameter representation            'raster'
+   parameter require                   'radar, raster, precip'
+   parameter scale-mode                'auto'
+   parameter trigger                   'platform'
+   parameter trigger-global            'true'
+component p_map
+   parameter color                     'gray40'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'default'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+endpd
+
