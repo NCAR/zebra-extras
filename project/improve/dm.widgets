@@ -1,11 +1,24 @@
 !
 ! Various DM widgets of interest.
-! $Id: dm.widgets,v 1.2 2000-12-14 00:39:20 granger Exp $
+! $Id: dm.widgets,v 1.3 2000-12-20 23:55:33 granger Exp $
 !
 
-!
-! If you're going to have time series plots, you need TSNewField...
-!
+define widget north_south_menu intmenu 'platforms'
+	title 'North-South'
+	line
+	entry 'North' 'formtext #ui$form northsouth North'
+	entry 'South' 'formtext #ui$form northsouth South'
+endmenu
+
+define widget east_west_menu intmenu 'platforms'
+	title 'East-West'
+	line
+	entry 'East' 'formtext #ui$form eastwest East'
+	entry 'West' 'formtext #ui$form eastwest West'
+endmenu
+
+set lwidth '80'
+
 define widget enter form "Entry widget"
 	noheader
 !
@@ -16,21 +29,35 @@ define widget enter form "Entry widget"
 	label space ' ' width 100
 	button exit 'Zap' color red command 'popdown #ui$form'
 	newline
+	label linfo 'Enter decimal degrees plus decimal minutes.'
+	newline
 !
 ! Positions here.
 !
 	label l_lat 'Lat:'
-	blank lat_deg '-9' width 40
-	blank lat_min '-25' width 40
+	blank lat_deg '40' width #lwidth
+	label ldeg 'deg'
+	blank lat_min '0' width #lwidth
+	label lmin 'min'
+	pulldown northsouth North menu north_south_menu
+
+	newline
 	label l_lon 'Lon:'
-	blank lon_deg '159' width 40
-	blank lon_min '58' width 40
+	blank lon_deg '100' width #lwidth
+	label ldeg2 'deg'
+	blank lon_min '0' width #lwidth
+	label lmin2 'min'
+	pulldown eastwest West menu east_west_menu
+
+	newline
 	label l_alt 'Alt(km):'
-	blank alt '0.0' width 60
+	blank alt '0.0' width #lwidth
 	newline
 !
 ! Let them put in a time.
 !
+	label info 'Enter time as "dd-Mon-yyyy,hh:mm[:ss]" or as "now"'
+	newline
 	label l_time 'Time:'
 	blank time 'now' width 200
 	newline
@@ -209,10 +236,37 @@ procedure DoEnter overwrite bool
 	local lon_deg getftext(ui$form,'lon_deg')
 	local lat_min getftext(ui$form,'lat_min')
 	local lon_min getftext(ui$form,'lon_min')
+	local eastwest getftext(ui$form,'eastwest')
+	local northsouth getftext(ui$form,'northsouth')
 	local alt getftext(ui$form,'alt')
+
+	local dlon_deg #lon_deg
+	local dlon_min #lon_min
+	local dlat_deg #lat_deg
+	local dlat_min #lat_min
+!
+! the enter command will actually adjust the minutes sign to match the
+! degrees for us, but do it here just to be thorough...
+!
+	if (eastwest = 'West' and dlon_deg > 0)
+		local dlon_deg (0 - dlon_deg)
+	endif
+	if (eastwest = 'West' and dlon_min > 0)
+		local dlon_min (0 - dlon_min)
+	endif
+	if (northsouth = 'South' and dlat_deg > 0)
+		local dlat_deg (0 - dlat_deg)
+	endif
+	if (northsouth = 'South' and dlat_min > 0)
+		local dlat_min (0 - dlat_min)
+	endif
 ! 
 ! Do the entry.
 !
+	local lon_deg string(dlon_deg)
+	local lon_min string(dlon_min)
+	local lat_deg string(dlat_deg)
+	local lat_min string(dlat_min)
 	if (overwrite)
 		enter #plat #lat_deg #lat_min #lon_deg #lon_min #alt
 	else
