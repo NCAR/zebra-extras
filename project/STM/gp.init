@@ -11,9 +11,17 @@ set RequirePath concat('modules,',RequirePath)
 require 'simple-color'
 require 'global'
 
+procedure ChangeXSect
+        drawline sendendpoints
+
+        local ptype PDParam('global', 'plot-type')
+        parameter global plot-type #ptype
+endprocedure
+
 !
 ! Get our field definitions.
 !
+require xsect-ctl
 set DefFile (concat (concat (c$libdir, "/"), "FieldDefs"))
 read #DefFile
 
