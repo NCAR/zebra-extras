@@ -37,7 +37,8 @@ procedure init-config-menu
 
 	local menufile concat(DmModPath,"/ConfigMenu")
 	local args concat3(ConfigDir," ",menufile)
-	shell concat3(DmModPath,"/makecfgmenu ",args)
+	local args concat3(DmModPath,"/makecfgmenu ",args)
+	shell concat("perl ",args)
 	local delayread 'read'
 	#delayread #menufile
 
