@@ -35,7 +35,7 @@
 # include <message.h>
 # include <DataStore.h>
 
-int	Interval = 3;	/* update interval in seconds */
+int	Interval = 1;	/* update interval in seconds */
 int	StatPeriod = 60;	/* statistics period in seconds */
 XtAppContext	Appc;
 PlatformId	Pid;
@@ -52,8 +52,8 @@ String FallbackResources[] =
     "*font: -*-helvetica-medium-r-normal--24-*-*-*-*-*-*-*",
     "*wspd.font: -*-helvetica-medium-r-normal--40-*-*-*-*-*-*-*",
     "*wdir.font: -*-helvetica-medium-r-normal--40-*-*-*-*-*-*-*",
-    "*wspdMin.foreground: gray60",
-    "*wspdMax.foreground: gray60",
+    "*wspdMin.foreground: gray40",
+    "*wspdMax.foreground: gray40",
     "*wspdMin.internalHeight: 10",
     "*wspdMax.internalHeight: 10",
     "*wsUnits.internalHeight: 10",
@@ -238,6 +238,11 @@ Update (XtPointer client_data, XtIntervalId *timer)
     wd = dc ? dc_GetScalar (dc, npts-1, wdfld) : badval;
 
     /*
+     * Done with the DataChunk
+     */
+    dc_DestroyDC (dc);
+
+    /*
      * Put the values into the display
      */
     if (ws == badval)
@@ -307,5 +312,5 @@ msg_handler (struct message *msg)
 static void
 XZebraHandler (XtPointer client_data, int *source, XtInputId *id)
 {
-    msg_DispatchQueued ();
+    msg_incoming (*source);
 }
