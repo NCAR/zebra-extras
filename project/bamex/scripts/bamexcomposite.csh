@@ -68,7 +68,7 @@ if ($wrotefile) then
 	echo "created $ncfilename"
 else
 	echo "Failed to create $ncfilename"
-	echo "$0 failed to write $ncfilename" | mail -s "$0" burghart
+	echo "$0 failed to write $ncfilename" | mail -s "$0" burghart snorman
 	exit 1
 endif
 
