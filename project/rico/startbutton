@@ -46,6 +46,10 @@ class Main (Frame):
 	self.buttonRPG = Button (self, text = 'Click here to halt RPG',
 			      command = self.killRPG)
         self.buttonRPG.pack (side = 'top')
+	self.buttonCache = Button (self,
+                                   text = 'Manage Zebra cache files',
+                                   command = self.regenerateCache)
+        self.buttonCache.pack (side = 'top')
 
 
     def doit (self):
@@ -60,8 +64,11 @@ class Main (Frame):
 	sys.exit (0)
 
     def killRPG(self):
-        cmd = "killall rpg_rain rpg_pid dist_products.py "
+        cmd = "killall rpg_rain rpg_pid runCpSwpVar runCpSwpVar.py dist_products dist_products.py "
         os.system(cmd)
+
+    def regenerateCache(self):
+        os.system("xterm -e ssh raid1 /net/ops/zebra/scripts/regenerateCache")
 
 
 win = Main ()
