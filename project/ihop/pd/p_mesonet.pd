@@ -17,7 +17,7 @@ p_mesonet
 	field-select-command:	p_toggle_quadrant
 	icon-field-menu-extras:	station|Station Identification,[T_d][degC]|dewpoint
 	icon-right-menu:	p-station-right
-	annot-field-menu-extras:	station|Station Identification,[T_d][degC]|dewpoint,[w][g/kg]|mr,none
+	annot-field-menu-extras:	station|Station Identification,[T_d][degC]|dewpoint,[w][gram/kg]|mixing ratio,none
 	annot-left-menu:	FieldMenu
 	annot-middle-menu:	FieldMenu
 	arrow-scale:		0.01
