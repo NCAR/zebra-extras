@@ -2,6 +2,8 @@
 ! Set modules path.
 !
     set requirepath concat("./modules,",requirepath)
+    set mappath concat("./maps,",mappath)
+
 !
 ! The raster left button menu.
 !
