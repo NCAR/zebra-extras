@@ -14,10 +14,17 @@ define widget radar-middle intmenu 'radar middle'
                 (PDParam (icon_component, 'field') = 'creflectivity')
 	entry 'Velocity' 'param #icon_component field velocity' \
 		(PDParam (icon_component, 'field') = 'velocity')
-	entry 'Surveillance only mode' 'toggle_sur' \
-		(PDParam (icon_component, "filter-attribute") = "sur")
-	entry 'Single fixed angle mode' 'ToggleBoolean every-sweep' \
+	line
+	entry 'Fixed angle mode' 'ToggleBoolean every-sweep' \
 		(PDParam (icon_component, "every-sweep") = "false")
+	entry 'Fixed volume mode' 'ToggleBoolean every-volume' \
+		(PDParam (icon_component, "every-volume") = "false")
+	entry 'Data available: per-scan' \
+		'param #icon_component data-available-times samples' \
+		(PDParam (icon_component, 'data-available-times') = 'samples')
+	entry 'Data available: per-file' \
+		'param #icon_component data-available-times obs' \
+		(PDParam (icon_component, 'data-available-times') <> 'samples')
 	line
 	entry 'Raster representation' \
 		'param #icon_component representation raster'
@@ -29,17 +36,8 @@ define widget radar-middle intmenu 'radar middle'
 	submenu 'Color tables' Color-tables
 endmenu
 
-procedure toggle_sur
-	set param concat(PDParam(icon_component,'platform'), '-filter-attribute')
-	if (PDParam ("global", param) = "sur")
-		param global #param "radar"
-	else
-		param global #param "sur"
-	endif
-endprocedure
-
 procedure RadarDataAvailable platform string when string
-	param #icon_component every-sweep false
+	param #icon_component every-sweep true
 	DefaultDataAvail #platform #when
 endprocedure
 
