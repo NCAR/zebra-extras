@@ -206,7 +206,7 @@ defaults
 ! Where to put the frame cache files and the maximum number of frames
 ! to store in the cache.
 !
-	file-path:	/scr/data/zebra_fcache
+	file-path:	/data/zebra/zebra_fcache
 	max-frames:	100
 	time-frames:	3
 !

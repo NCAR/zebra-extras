@@ -18,4 +18,5 @@ p_goes
 	require:	raster
 	scale-mode:	auto
 	trigger:	platform
+	trigger-global:	true
 	limit-proc:	raster-limit-proc
