@@ -1,0 +1,32 @@
+#! /bin/sh
+#
+# $Id: makelinks,v 1.1 1997-03-26 17:58:21 granger Exp $
+#
+# Make some file links required in this project directory tree
+#
+
+exec <<EOTABLE
+maps/default.map juneau.map
+icons/raw_runway_east runway_east
+icons/raw_runway_mid runway_mid
+icons/raw_runway_west runway_west
+icons/sheep_mtn_x sheep_mtn
+icons/eagle_crest_x eagle_crest
+EOTABLE
+
+while read target src; do
+
+	: echo "$target --> $src"
+	if [ -h $target ]; then
+		: echo "Link $target exists."
+	else
+		if [ -f $target ]; then
+			echo "File $target in the way!"
+		else
+			(set -x; ln -s $src $target)
+		fi
+	fi
+
+done
+
+
