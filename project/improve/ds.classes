@@ -21,10 +21,11 @@ endclass
 !
 ! mobile scalar netCDF (e.g., aircraft)
 !
-class NCMobileScalar
-	organization	scalar
-	filetype	netcdf
+! with enough samples for 12 hours of 1-second data
+!
+class NCMobileScalar NCScalar
 	mobile
+	maxsamples	12*3600
 endclass
 
 !
