@@ -96,6 +96,8 @@ define widget iconbar menubar " "
 		line
 		entry 'WSI Nowrad composite' \
 			'PutCompX c_nowrad platform nowrad'
+		entry 'NEXRAD level 3 composite' 'putc0 p_composite'
+		entry 'KFDR' 'putc2 p_polar platform kfdr field dz'
 	endmenu
 	menu surface bitmap surface
 	     	title 'Surface observations'
@@ -120,6 +122,7 @@ define widget iconbar menubar " "
 			'putc2 p_map platform states icon state_map'
 		entry 'County Boundaries' \
 			'putc2 p_map platform counties icon county_map'
+		entry 'Radar locations' 'putc0 p_radar_locs'
 		submenu 'VORs By State' 'VORS-by-state'
 		entry 'X-Y Grid (km)' \
 			'putc3 p_kmgrid x-spacing 50 y-spacing 50 color cyan'

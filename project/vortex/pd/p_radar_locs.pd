@@ -1,0 +1,16 @@
+global
+	pd-name:	p_radar_locs
+p_radar_locs
+	platform:	KAMA,KBOX,KCYS,KDAX,KDDC,KDYX,KEAX,KFDR,KFTG,KFWS,KGLD,KICT,KINX,KLBB,KLOT,KLSX,KLZK,KMUX,KPBZ,KPUX,KSGF,KTLX,KTWX
+	representation:	overlay
+	field:		location
+	color:		white
+	icon-left-menu:		minimal-cap-left-menu
+	posicon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	posicon-right-menu:	location-options
+	label:		platform
+	active-icon:	false
+	require:	location
+	label-size:	10
+	icon:		radar-loc

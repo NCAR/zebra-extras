@@ -1,0 +1,49 @@
+! Platform classes for vortex
+
+!
+! nspace netCDF class
+!
+class NCGrid
+	organization	nspace
+	filetype	netcdf
+endclass
+
+class Satellite
+      	organization	image
+	filetype	raster
+	maxsamples	1
+endclass
+
+class ACTrack
+	organization	scalar
+	filetype	netcdf
+	mobile
+	maxsample	1000
+endclass
+
+class Sounding
+      	organization	scalar
+	filetype	netcdf
+	maxsamples	5000
+	mobile
+endclass
+
+class GRIBModel
+	filetype	grib
+	organization	nspace
+	model
+endclass
+
+class GriddedRadar
+      	filetype        netcdf
+        organization    3dgrid
+        mobile
+endclass
+
+!
+! DORADE sweepfile
+!
+class Sweepfile
+	organization	polar
+	filetype	sweepfile
+endclass
