@@ -1,18 +1,15 @@
 !
 ! Various DM widgets of interest.
-! $Id: dm.widgets,v 1.1.1.1 2002-03-22 22:31:36 burghart Exp $
+! $Id: dm.widgets,v 1.2 2002-05-24 20:40:46 burghart Exp $
 !
 
-!
-! If you're going to have time series plots, you need TSNewField...
-!
 define widget enter form "Entry widget"
 	noheader
 !
 ! The platform selection line.
 !
 	label l_plat "Platform:"
-	pulldown platform 'chasevan' menu 'plats' width 100
+	pulldown platform 'center-point' menu 'plats' width 100
 	label space ' ' width 100
 	button exit 'Zap' color red command 'popdown #ui$form'
 	newline
@@ -20,11 +17,11 @@ define widget enter form "Entry widget"
 ! Positions here.
 !
 	label l_lat 'Lat:'
-	blank lat_deg '-9' width 40
-	blank lat_min '-25' width 40
+	blank lat_deg '36' width 40
+	blank lat_min '0' width 40
 	label l_lon 'Lon:'
-	blank lon_deg '159' width 40
-	blank lon_min '58' width 40
+	blank lon_deg '-100' width 40
+	blank lon_min '0' width 40
 	label l_alt 'Alt:'
 	blank alt '0.0' width 60
 	newline
@@ -32,7 +29,7 @@ define widget enter form "Entry widget"
 ! Let them put in a time.
 !
 	label l_time 'Time:'
-	blank time 'now' width 200
+	blank time 'today' width 200
 	newline
 !
 ! Options.
@@ -224,7 +221,7 @@ endprocedure
 define widget plats intmenu 'platforms'
 	title 'Platforms'
 	line
-	entry 'CSU Chase van' 'formtext #ui$form platform chasevan'
+	entry 'center point' 'formtext #ui$form platform center-point'
 endmenu
 
 

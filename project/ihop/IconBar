@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.13 2002-05-21 17:23:17 burghart Exp $
+! $Id: IconBar,v 1.14 2002-05-24 20:40:46 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -174,7 +174,9 @@ define widget iconbar menubar " "
 		entry 'Radar range rings' 'putc1 p_rings platform spol'
 		entry 'Radar locations' 'do_radar_locs'
 		entry 'Radar composite boundary' \
-			'putc3 p_map platform composite_bounds icon rectangle color cyan4'
+    'putc3 p_map platform composite_bounds icon rectangle color cyan4'
+		entry 'Center point' \
+    'putc3 p_loc platform center-point trigger platform trigger-global true'
 		line
 		entry 'AERI sites' 'putc0 p_aeri'
 		entry 'ISFF sites' 'putc0 p_isff_sites'
