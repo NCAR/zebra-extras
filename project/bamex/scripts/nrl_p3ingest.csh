@@ -1,14 +1,13 @@
-#!/bin/csh
+#!/bin/csh -f
 #
 # Run ACtracker.Consumer to ingest nrl_p3 data from port 25001, and
 # run a Zebra platform directory watcher to keep the datastore
 # updated.
 #
-set echo
 cd /code/burghart/ACtracker
 
 set logfile = "/tmp/nrl_p3ingest.log"
-echo "$0 started `date`" >> $logfile
+echo "$0 started `date`" >>& $logfile
 
 set path = (/code/burghart/java/bin /usr/local/zebra/bin $path)
 
@@ -25,9 +24,9 @@ at "now + 1 minute" <<EOF
 EOF
 
 #
-# Run the ingestor
+# Run the ingestor (repeating incoming packets to bamex-gate)
 #
 setenv CLASSPATH \
 	"java/jars/ACtracker.jar:java/jars/getopt.jar:java/jars/netcdf2.jar"
 java ACtracker.Consumer -p 25001 -n $datadir/nrl_p3 -t 60 \
-    -r hallertau.atd.ucar.edu:25001 >>& $logfile
+    -r bmxgate.cust.qwest.net:25001 >>& $logfile
