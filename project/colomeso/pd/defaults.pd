@@ -63,6 +63,12 @@ defaults
 !
 	pos-origin:	boulder
 !
+! Activate the time label in all windows.  The active-time module must
+! be required by gp.init, until we can put requires in the defaults.
+!
+	time-annot-active:	true
+	time-topannot-left-menu:	global-time-left-menu
+!
 ! UNLESS YOU NEED TO TWEAK ONE OR MORE OF THE "SAFE" DEFAULTS BELOW, YOU'RE
 ! DONE!
 !
