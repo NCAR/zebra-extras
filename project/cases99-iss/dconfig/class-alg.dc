@@ -1,0 +1,62 @@
+! ================
+! WARNING: Auto-generated display configuration!
+!
+! This display was generated from the template class-template, and probably
+! will be again, so any changes made in this file will be forgotten.
+! Permanent changes for all the basic iss configurations should be
+! made in class-template, then run tmake to re-generate this display config.
+! ================
+! Auto-saved display configuration.
+
+prototype fallback 'Graphic' gp 'gp.init'
+
+config class-alg
+	widget 'iconbar' 1081 19 74 477
+	graphic 'class' 329 72 528 656 'Graphic'
+		description 'class-alg-skewt'
+		buttonmap 'sounding'
+		forcepd
+	endgraphic
+endconfig
+
+beginpd 'class-alg-skewt'
+global
+   parameter add-data-command          'sk-add-data'
+   parameter add-data-mode             'overlay-mode'
+   parameter altitude-label            ''
+   parameter axis-bottom-space         '0'
+   parameter axis-left-space           '0'
+   parameter axis-top-space            '0'
+   parameter icon-space                '40'
+   parameter movie-mode                'False'
+   parameter pd-name                   'class-template-skewt'
+   parameter plot-mode                 'real-time'
+   parameter plot-time                 '4-Feb-70,13:12:40'
+   parameter plot-type                 'skewt'
+   parameter require                   'simple-color, active-time'
+   parameter sa-space                  '0'
+   parameter ta-scale                  '20'
+   parameter ta-space                  '0.05'
+   parameter time-annot-active         'true'
+   parameter time-topannot-left-menu   'global-time-left-menu'
+component skewt
+   parameter annot-time                'true'
+   parameter color-table               'Skew-t'
+   parameter data-skip                 '1'
+   parameter do-feet                   'false'
+   parameter icon                      'sounding'
+   parameter icon-left-menu            'skewt-left'
+   parameter icon-middle-menu          'DataAvailable'
+   parameter icon-right-menu           'skewt-right'
+   parameter overlay-mode              'true'
+   parameter platform                  'alg'
+   parameter representation            'skewt'
+   parameter require                   'skewt'
+   parameter skprivate-thermo-npts     '34'
+   parameter skprivate-wind-npts       '34'
+   parameter top-annot-active          'true'
+   parameter topannot-left-menu        'skewt-topannot'
+   parameter topannot-right-menu       'skewt-topannot-offsets'
+   parameter trigger                   'platform'
+endpd
+
