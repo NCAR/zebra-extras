@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.21 2002-12-31 20:47:22 granger Exp $
+! $Id: IconBar,v 1.22 2003-07-28 21:46:33 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -84,6 +84,8 @@ define widget iconbar menubar " "
 		      	(dm$config = 'rad-pre-pd')
 		entry 'Two radar windows + precip' 'display radar2win' \
 			(dm$config = 'radar2win')
+		entry 'Plan view + cross-section' 'display xsect' \
+			(dm$config = 'xsect')
 		line
 		entry 'crystal1' 'display crystal1' (dm$config = 'crystal1')
 		entry 'crystal2' 'display crystal2' (dm$config = 'crystal2')
@@ -118,6 +120,7 @@ define widget iconbar menubar " "
 		line
 		entry 'S-Pol' 'putc2 p_polar platform spol field dbz'
 		entry 'S-Pol (Norman)' 'putc0 p_polar-norman'
+		entry 'Gridded S-Pol' 'putc0 p_gridded_radar'
 		entry 'Particle types' 'putc0 p_pdesc'
 		entry 'Particle types (Norman)' 'putc1 p_pdesc platform spol'
 		entry 'Precip' 'putc1 c_precip platform precip.basic'
