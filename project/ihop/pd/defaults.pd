@@ -115,6 +115,9 @@ defaults
 	vr-center:		0
 	vr-nsteps:		14
 	vr-step:		4
+	vt-center:		0
+	vt-nsteps:		14
+	vt-step:		4
 	zdr-center:		0
 	zdr-nsteps:		17
 	zdr-step:		1
