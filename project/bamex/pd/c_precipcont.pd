@@ -1,0 +1,25 @@
+!
+! Generic precipitation component, based on p_radar.
+!
+global
+	pd-name:	c_precipcont
+c_precipcont
+	altitude-control: true
+	color:		green
+	platform:	precip.basic
+	do-labels:	false
+	field:		zac
+	representation:	contour
+	icon:		iss-rain-small
+	color-table:	Rainbow
+	every-sweep:	true
+	every-volume:	true
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	precip-middle
+	icon-right-menu:	contour-right
+	scale-mode:	manual
+	line-width:	2
+	limit-proc:	raster-limit-proc
+	require:	radar, raster, precip, contour
+	trigger:	platform
+	trigger-global:	true

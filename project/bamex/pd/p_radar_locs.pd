@@ -1,0 +1,16 @@
+global
+	pd-name:	p_radar_locs
+p_radar_locs
+	platform:	KABR,KAMA,KAPX,KARX,KBIS,KBMX,KCLE,KDDC,KDGX,KDLH,KDMX,KDTX,KDVN,KDYX,KEAX,KFDR,KFFC,KFSD,KFWS,KGLD,KGRB,KGRR,KGSP,KGWX,KHPX,KHTX,KICT,KILN,KILX,KIND,KINX,KIWX,KJGX,KJKL,KLBB,KLNX,KLOT,KLSX,KLVX,KLZK,KMAF,KMBX,KMKX,KMPX,KMQT,KMRX,KMVX,KMXX,KNQA,KOAX,KOHX,KPAH,KRLX,KSGF,KSHV,KSRX,KTLX,KTWX,KUDX,KUEX,KVNX,KVWX
+	representation:	overlay
+	field:		location
+	color:		white
+	icon-left-menu:		minimal-cap-left-menu
+	posicon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	posicon-right-menu:	location-options
+	label:		platform
+	active-icon:	false
+	require:	location
+	label-size:	10
+	icon:		radar-loc

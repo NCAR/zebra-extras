@@ -1,0 +1,9 @@
+colortable Simple5
+	xcolor Pink
+	xcolor CadetBlue
+	xcolor SpringGreen
+	xcolor Yellow
+! light yellow
+!	0.98    0.98    0.5  
+	xcolor FireBrick
+endtable

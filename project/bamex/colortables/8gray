@@ -1,0 +1,16 @@
+colortable 8gray
+	xcolor black
+!	0.143 0.143 0.143
+	xcolor gray20
+!	0.286 0.286 0.286
+	xcolor gray30
+!	0.429 0.429 0.429
+	xcolor gray40
+!	0.571 0.571 0.571
+	xcolor gray60
+!	0.714 0.714 0.714
+	xcolor gray70
+!	0.857 0.857 0.857
+	xcolor gray80
+	xcolor white
+endtable

@@ -1,0 +1,23 @@
+!
+! Component to display radar data from volumes of gridded sweeps of
+! Nexrad level 2 data.
+!
+global
+	pd-name:	p_nexrad_l2
+p_nexrad_l2
+	platform:	PLATFORM_HERE
+	field:		DZ
+	altitude-control:	true
+	representation:	raster
+	color-table:	wild_new
+	icon:		ICON_HERE
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	raster-right
+	out-of-range-color:	none
+	radar-space:	false
+	require:	raster
+	scale-mode:	manual
+	trigger:	platform
+	trigger-global:	true
+	limit-proc:	raster-limit-proc
