@@ -1,0 +1,14 @@
+
+! Place a sonde platform into a window, adjusting p_track in case we're
+! begin placed into a CAP plot and restoring it after the put
+! 
+procedure PutSonde sonde string field string
+	parameter p_track p_track position-icon sounding-small
+	parameter p_track p_track icon sounding-small
+	parameter p_track p_track time-period observation
+	PutScalar #sonde #field
+	parameter p_track p_track position-icon littleplane
+	parameter p_track p_track icon littleplane
+	parameter p_track p_track time-period 60m
+endprocedure
+
