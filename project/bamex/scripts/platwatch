@@ -7,7 +7,7 @@
 # the "p3" platform, you should be executing a copy this script 
 # named "platwatch.p3".
 #
-setenv PATH "/code/burghart/zebra/bin:$PATH"
+setenv PATH "/usr/local/zebra/bin:$PATH"
 
 if ($#argv != 2) then
     echo "Usage: $0 <dir> <frequency>"
