@@ -55,7 +55,7 @@ define widget iconbar menubar " "
 		entry 'Cloud Display' 'pconfig clouds' (dm$config = 'clouds')
 		submenu 'Radiation Display (by facility)' 'rad_by_facility'
 		submenu 'Surface Meterology Display (by facility)' 'surf_by_facility'
-		submenu 'SIROS Facilities' 'siros_by_facility'
+		submenu 'SIROS Optical Displays' 'siros_by_facility'
 		line
 		entry 'Time Widget'	'popup time'
 		entry 'Hardcopy Widget' 'popup hardcopy'
@@ -262,8 +262,8 @@ endprocedure
 !
 procedure siros-display platform string
 
-	siros-set-platforms 'siros-tseries' #platform
-	siros-set-platforms 'siros-optical' #platform
+	siros-set-platforms 'siros-UpperLeft' #platform
+	siros-set-platforms 'siros-UpperRight' #platform
 	display siros
 
 endprocedure
