@@ -251,7 +251,7 @@ defaults
 ! 
 	n-center:		270
 	n-nsteps:		12
-	n-step:			5
+	n-step:			-5
 	delta_n-center:		0
 	delta_n-nsteps:		14
 	delta_n-step:		1
