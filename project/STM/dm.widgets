@@ -5,19 +5,15 @@
 ! Stuff for window creation.
 !
 define widget cw_wintypes intmenu 'Coare version'
-       title 'Window types'
-       line
-       entry 'Constant Altitude Plot' 'cw_type "Constant altitude"'
-       entry 'Time-series' 'cw_type "Time series"'
-       entry 'Skew-t' 'cw_type "Skew-t"'
-;       entry 'Wind profile' 'cw_type "Wind profile"'
-	entry 'Time-height profile' 'cw_type "Time-height profile"'
-       entry 'RASS virtual temperature profile' 'cw_type "RASS profile"'
-       entry 'Location Map' 'cw_type "Location Map"'
-       entry 'Line Plot' 'cw_type "Line Plot"'
-       entry 'Depth profile (CTD)' 'cw_type "Depth profile"'
-       entry 'Time/depth CTD profile' 'cw_type "Time/depth profile"'
-       entry 'Time/depth contour plot' 'cw_type "Time/depth contour"'
+	title 'Window types'
+	line
+	entry 'Constant Altitude Plot' 'cw_type "Constant altitude"'
+	entry 'Time-series' 'cw_type "Time series"'
+	entry 'Skew-t' 'cw_type "Skew-t"'
+!	entry 'Wind profile' 'cw_type "Wind profile"'
+!	entry 'Time-height profile' 'cw_type "Time-height profile"'
+!	entry 'RASS virtual temperature profile' 'cw_type "RASS profile"'
+	entry 'Location Map' 'cw_type "Location Map"'
 endmenu
 
 procedure ProjectNewWindow type string
