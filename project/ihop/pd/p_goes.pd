@@ -1,0 +1,19 @@
+!
+! GOES component
+!
+global
+	pd-name:	p_goes
+p_goes
+	platform:	goes
+	field:		albedo
+	altitude-control:	false
+	representation:	raster
+	color-table:	grey64
+	icon:		satellite
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	raster-right
+	out-of-range-color:	none
+	require:	raster
+	scale-mode:	auto
+	limit-proc:	raster-limit-proc
