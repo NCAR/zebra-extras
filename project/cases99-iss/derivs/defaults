@@ -1,8 +1,8 @@
-/* $Id: defaults,v 1.2 1998-01-20 07:02:11 granger Exp $ */
+/* $Id: defaults,v 1.3 1998-03-25 23:25:53 granger Exp $ */
 
 [T][degC][Temperature] = tdry;
 [P][hPa][Pressure] = pres;
 [rh][%][Relative humidity] = rh;
 
-mr[w][g/kg][Mixing ratio] = [w];
+[altitude][km above MSL][altitude] = alt;
 
