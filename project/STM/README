@@ -1,0 +1,46 @@
+$Id: README,v 1.1 1997-02-04 01:36:40 granger Exp $
+
+This is the README file for the ARM STM/UAV Zebra project configuration.
+
+This Zebra project uses the C preprocessor to generate several
+configuration files based on a few parameters which specify the type of
+project to be installed.  For example, the project can be setup to default
+to either real-time or postprocessing, and the platforms to be defined as
+either the set of UAV platforms, SGP platforms, or both.
+
+The ./src directory contains the source files for the C preprocessor.
+Those files are processed with cpp then installed over any existing file
+in the other project directories.
+
+DO NOT EDIT the files in this directory, or in any subdirectory other than
+./src.  If you want to change a file, first check to see whether that file
+exists in the ./src directory with a .cpp extension.  If not, then you can
+edit the file; otherwise edit the file in ./src.
+
+INSTALLATION:
+
+Change to the ./src directory and edit config.h.  The config.h file
+contains a few parameters which must be specified to generate the rest of
+the configuration.  The config.h.dist file is just a copy of config.h as it
+was distributed.  If necessary config.h can always be reset by overwriting
+it with config.h.dist.
+
+	% cd src
+	% vi config.h
+
+Once config.h has been edited, create the Makefile using the zmkmf script
+in the bin directory of the zebra distribution.  For example, if the
+bin directory is in /apps/zebra/bin:
+
+	% /apps/zebra/bin/zmkmf
+
+Then build and install the configuration files:
+
+	% make install
+
+The configuration directory is now ready to use.  Move back to the
+parent directory and run zstart:
+
+	% cd ..
+	% /apps/zebra/bin/zstart .
+
