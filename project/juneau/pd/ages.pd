@@ -1,0 +1,59 @@
+!
+! A plot description with components for icon and data aging defaults using
+! different limits.  One of these components should be dropped into the
+! defaults pd in dm.config when starting a display manager session.
+!
+global
+	pd-name:	ages
+
+! The real-time, most restricitive limits
+! 
+realtime
+!
+! Age limits for data (i.e., when to make the icon red)
+! Although we set a default of 15 minutes, a separate value is generally 
+! used for each platform.  Example:
+!
+!	icon-age-limit:		15m
+!	cp2-icon-age-limit:	2m
+!	goes-icon-age-limit:	120m
+!
+	icon-age-limit:		120s
+!
+! Vaisala stations give us data every minute
+!
+	sheep_mount-icon-age-limit:	200s
+	sheep_mount_x-icon-age-limit:	200s
+	eagle_crest-icon-age-limit:	200s
+	eagle_crest_x-icon-age-limit:	200s
+!
+! Handar stations give us 2 minute data
+!
+	fedb-icon-age-limit:		3m
+	fedb_x-icon-age-limit:		3m
+	baf1-icon-age-limit:		3m
+	baf1_x-icon-age-limit:		3m
+!
+! Set limit-data-age to true, so we don't get excessively old data displayed
+! on CAP plots.
+!
+	limit-data-age:		true
+
+
+! Age limits to use when sync'ing data over a long distance.
+!
+syncdata
+!
+	icon-age-limit:		30m
+!
+! Set limit-data-age to true, so we don't get excessively old data displayed
+! on CAP plots.
+!
+	limit-data-age:		true
+
+! Icon age limits but no limit on data age
+!
+none
+!
+	icon-age-limit:		30m
+	limit-data-age:		false

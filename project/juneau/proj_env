@@ -1,2 +1,3 @@
+if (! $?ZEB_PROJDIR) setenv ZEB_PROJDIR "$projdir"
 if (! $?DATA_DIR) setenv DATA_DIR /data/juneau
 if (! $?DEFAULT_CONFIG) setenv DEFAULT_CONFIG all

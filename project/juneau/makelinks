@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# $Id: makelinks,v 1.3 1997-03-31 16:43:13 granger Exp $
+# $Id: makelinks,v 1.4 1997-04-02 22:15:25 granger Exp $
 #
 # Make some file links required in this project directory tree
 #
@@ -16,6 +16,8 @@ icons/eagle_crest_x eagle_crest
 airport .
 jadmin .
 juneau .
+syncdata .
+realtime .
 default .
 EOTABLE
 
