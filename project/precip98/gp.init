@@ -1,0 +1,8 @@
+!
+! gp init file for fastex
+!
+
+set RequirePath concat('./modules,',RequirePath)
+set MapPath concat('./maps,','MapPath')
+set DefFile "FieldDefs"
+read FieldDefs

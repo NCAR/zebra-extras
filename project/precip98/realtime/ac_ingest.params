@@ -1,0 +1,25 @@
+set black_box "/dev/modem"
+set dial_out "atdt 723-4198"
+set baud_rate 2400
+set our_aircraft ""
+
+!
+! Tracking radar location
+!
+set radar_lat 28.0842
+set radar_lon -80.7980
+
+!
+! Unit values for the data from the tracking radar, in nautical miles 
+! and degrees
+!
+set range_res 0.0625
+set azimuth_res 0.0875
+
+!
+! Range of position values we'll accept
+!
+set lat_min 22.0
+set lat_max 34.0
+set lon_min -85.0
+set lon_max -75.0

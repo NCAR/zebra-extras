@@ -1,0 +1,61 @@
+! Auto-saved display configuration.
+
+prototype fallback 'Default' gp 'gp.init'
+
+config basic
+	widget 'iconbar' 1076 28 80 550
+	graphic 'x' 8 63 724 653 'Default'
+		description 'basic-x'
+		buttonmap 'big'
+		forcepd
+	endgraphic
+endconfig
+
+beginpd 'basic-x'
+global
+   parameter altitude                  '1.4502'
+   parameter altitude-label            '1.5 deg'
+   parameter pd-name                   'basic-x'
+   parameter plot-hold                 'false'
+   parameter plot-mode                 'real-time'
+   parameter plot-time                 'now'
+   parameter plot-type                 'CAP'
+   parameter proj-topannot-left-menu   'projection'
+   parameter radar-space               'true'
+   parameter x-max                     '297.08'
+   parameter x-min                     '-298.82'
+   parameter y-max                     '279.71'
+   parameter y-min                     '-273.75'
+component p_radar
+   parameter altitude-control          'true'
+   parameter color-table               'wild_new'
+   parameter every-sweep               'true'
+   parameter field                     'reflectivity'
+   parameter icon                      'radar'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'spol-middle'
+   parameter icon-right-menu           'DataAvailable'
+   parameter limit-proc                'raster-limit-proc'
+   parameter platform                  'spol'
+   parameter reflectivity-center       '20'
+   parameter reflectivity-nsteps       '11'
+   parameter reflectivity-step         '6'
+   parameter representation            'raster'
+   parameter require                   'radar, raster, spol'
+   parameter scale-mode                'manual'
+   parameter swidth-center             '6.0000'
+   parameter swidth-step               '0.5000'
+   parameter trigger                   'spol'
+   parameter trigger-global            'true'
+component p_map
+   parameter color                     'yellow'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'default'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+endpd
+

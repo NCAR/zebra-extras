@@ -1,0 +1,278 @@
+!
+! This file contains the default values for some plot description parameters.
+!
+! $Id: defaults.pd,v 1.1 1998-10-01 15:12:49 corbet Exp $
+!
+defaults
+	pd-name:			defaults
+!
+! Project origin
+!
+	origin-lat:			27.88944
+	origin-lon:			-80.74555
+	origin-alt:			3
+!
+! The default, big picture zoom locations for constant altitude plots.  These
+! values are in km w.r.t. the origin above.  Make 'em smaller for smaller scale
+! projects and bigger for bigger scale projects...
+!
+	x-min:				-300
+	x-max:				300
+	y-min:				-300
+	y-max:				300
+!
+! Icons to use for various platforms.  The icons themselves can be created
+! using the X Window "bitmap" utility, and saved in the <project>/icons 
+! directory.  In general, it is good to have a separate icon for each platform.
+! Example:
+!
+!	cp2-icon:		cp2
+!	goes-icon:		goes
+!
+	null-icon:		null
+!
+! Age limits for data (i.e., when to make the icon red)
+! Although we set a default of 15 minutes, a separate value is generally 
+! used for each platform.  Example:
+!
+	boundary-age-limit:	4h
+	icon-age-limit:		12h
+	swf-icon-age-limit:	90d
+	stj-icon-age-limit:	90d
+	sfj-icon-age-limit:	90d
+	ksc-icon-age-limit:	90d
+	cluster-icon-age-limit:	90d
+	spol-icon-age-limit:	5m
+!
+	history-color:		green
+!
+! Will you be using tracks of mobile platforms?  If so, it can be useful
+! to assign a special color to each one.
+!
+! Example:
+!	electra-color:		orange
+!	kingair-color:		cyan
+!
+	null-color:		white
+!
+! Add named locations to your heart's delight.  
+! Form: 
+!	<sitename>-location:	<lat> <lon> <alt>
+!
+	boulder-location:	40.0 -105.3 1600.0
+	spol-location:		27.88944 -80.74555 3
+!
+! bistatic sites
+!
+!	North-location:		37.767 -97.173 0
+!	Central-location:	37.521 -97.233 0
+!	South-location:		37.261 -97.101 0
+!
+! Origins for the get position widget.
+!
+	pos-origin:	spol
+!
+! Default grid size ratio for gridding of polar data.
+!
+	grid-size-ratio:	5
+!
+! UNLESS YOU NEED TO TWEAK ONE OR MORE OF THE "SAFE" DEFAULTS BELOW, YOU'RE
+! DONE!
+!
+!****************************************************************************
+! 
+! The parameters below are pretty safe defaults and can almost always be left
+! as they are.  Leave them alone unless you know what you're doing!
+!
+
+!
+! Adjust limit procedures.
+!
+	track-arrow-limit-proc:		adj_arrow_scale
+	track-time-limit-proc:		adj_time_period
+	track-centstep-limit-proc:	adj_center_step
+	raster-highrange-limit-proc:	adj_highlight_range
+	raster-centstep-limit-proc:	adj_center_step
+	raster-limit-proc:		adj_center_step
+	vector-limit-proc:		adj_arrow_scale
+	contour-limit-proc:		adj_center_step
+	filled-contour-limit-proc:	adj_center_step
+	contour-limit-proc:		adj_center_step
+	filled-contour-centstep-limit-proc:	adj_center_step
+	contour-centstep-limit-proc:	adj_center_step
+	skewt-pres-limit-proc:		adj_pres_minmax
+	skewt-temp-limit-proc:		adj_temp_minmax
+	global-x-limit-proc:		adj_x_minmax
+	global-y-limit-proc:		adj_y_minmax
+	lightning-limit-proc:		adj_time_step
+!
+! Leave a little space on the left hand side for axis information
+!
+	axis-left-space:	30
+!
+! Where to put the frame cache files and the maximum number of frames
+! to store in the cache.  This machine has a fair amount of memory, so
+! set time-frames up everywhere to use it up.
+!
+	file-path:	/data/fcache
+	max-frames:	100
+	time-frames:	3
+!
+! Command to be executed out of the DataAvailable menu.
+! Show all samples and not just observations for spol.
+! The Radar commands are in the 'radar' module, so we're assuming
+! that module was loaded by the component.
+!
+	data-available-command:		DefaultDataAvail
+	spol-data-available-command:	RadarDataAvailable
+	spol-data-available-times:	samples
+	spol-real-time-hook:		RadarRealTime
+!
+! Generic icon stuff
+!
+	global-icon:			global
+	icon-color:			yellow
+	icon-background:		midnight blue
+	disabled-icon-color:		gray90
+	disabled-icon-background:	gray40
+	icon-age-foreground:		pink
+	icon-age-background:		red
+!
+! Various menus for the icons in the plot windows.
+!
+	icon-left-menu:			standard-cap-left-menu
+	global-icon-left-menu:		global-left
+	global-icon-right-menu:		globaltopannot
+!
+! Default to matched top annotation colors where allowed.
+!
+	ta-color-match:			true
+!
+! Post processing mode parameters.
+!
+	post-proc-mode:			false
+	pp-dm-time-adjust:		65m
+!
+! What RBand uses to draw the box/line.  Don't mess with it.
+!
+	xorvalue:			63
+	xor-line-width:			3
+!
+! Where cross sections are done.
+!
+	xsect-window:			all
+	xsect-component:		global
+!
+! Default plot limits.
+!
+	vr-center:		0
+	vr-nsteps:		14
+	vr-step:		2
+	zdr-center:		0
+	zdr-nsteps:		17
+	zdr-step:		1
+	dbz-center:		25
+	dbz-nsteps:		16
+	dbz-step:		5
+	ldr-center:		-17
+	ldr-nsteps:		17
+	ldr-step:		2
+	sw-center:		5
+	sw-nsteps:		10
+	sw-step:		1
+	dm-center:		-90
+	dm-step:		6
+	dm-nsteps:		11
+	phidp-center:		10
+	phidp-step:		2
+	phidp-nsteps:		10
+	rhohv-center:		0.5
+	rhohv-step:		0.1
+	rhohv-nsteps:		12
+	ncp-center:		0.5
+	ncp-step:		0.1
+	ncp-nsteps:		10
+	ckdp-center:		1
+	ckdp-step:		0.2
+	ckdp-nsteps:		10
+	nkdp-center:		9
+	nkdp-step:		1
+	nkdp-nsteps:		18
+	hdr-center:		-20
+	hdr-nsteps:		10
+	hdr-step:		8
+!
+! Various rainfall accumulation fields.
+!
+	zac-center:		60
+	zac-nsteps:		12
+	zac-step:		10
+	hac-center:		60
+	hac-nsteps:		12
+	hac-step:		10
+	kac-center:		60
+	kac-nsteps:		12
+	kac-step:		10
+	dac-center:		60
+	dac-nsteps:		12
+	dac-step:		10
+	nac-center:		60
+	nac-nsteps:		12
+	nac-step:		10
+!
+! Particle desc, in case it gets plotted with a numeric scale.
+!
+	pd-center:		9
+	pd-step:		1
+	pd-nsteps:		18
+!
+! Legend info for pd
+!
+	pd-side-annot-style:	legend
+	pd-legend-map:		1,Cloud,2,Drizzle,3,LightRain,4,ModRain,5,HeavyRain,6,Hail,7,RainHailMix,8,GrplSmHail,9,GrplRain,10,DrySnow,11,WetSnow,12,Ice,13,IrregIce,14,SprCoolDrop,15,insects,16,birds,17,clutter
+
+	movie-end-time:		now
+!
+! locations
+!
+	bob-location:		27.7266 -80.7760 0
+
+	c_101-location:            28.1311   -81.0206  0
+	c_102-location:            28.1240   -81.0170  0
+	c_103-location:            28.1254   -81.0263  0
+	c_104-location:             28.1272   -81.0404 0
+	c_105-location:             28.1230   -81.0595 0
+	c_106-location:            28.1125   -81.0583 0
+	c_107-location:            28.1108   -81.0389 0
+	c_108-location:             28.0931   -81.0619 0
+	c_108b-location:            28.0970   -81.0592 0
+	c_108c-location:            28.0935   -81.0565 0
+	c_109-location:             28.0984   -81.0409 0
+	c_110-location:            28.0951   -81.0217 0
+	c_111-location:            28.1121   -81.0209 0
+	c_112-location:             28.1121   -81.0006 0
+	c_113-location:             28.1297   -80.9986 0
+	c_114-location:             28.1149   -81.0083 0
+	c_115-location:             28.1082   -81.0069 0
+	c_116-location:             28.1156   -81.0761 0
+
+	ksc_02-location:	28.6875 -79.2803 0
+	ksc_05-location:	28.6581 -79.3005 0
+	ksc_07-location:	28.6421 -79.2522 0
+	ksc_08-location:	28.6386 -79.3773 0
+	ksc_11-location:	28.6057 -79.3260 0
+	ksc_14-location:	28.5782 -79.3912 0
+	ksc_16-location:	28.5750 -79.4267 0
+	ksc_17-location:	28.5617 -79.3297 0
+	ksc_18-location:	28.5549 -79.2977 0
+	ksc_20-location:	28.5416 -79.3554 0
+	ksc_22-location:	28.5066 -79.3062 0
+	ksc_23-location:	28.4640 -79.3456 0
+	ksc_25-location:	28.4247 -79.3361 0
+	ksc_26-location:	28.5493 -79.4329 0
+	ksc_27-location:	28.5030 -79.4417 0
+	ksc_28-location:	28.4602 -79.4726 0
+	ksc_29-location:	28.4625 -79.4163 0
+	ksc_33-location:	28.4153 -79.3940 0
+	ksc_35-location:	28.2552 -79.3770 0
+	ksc_68-location:	28.6241 -79.3135 0

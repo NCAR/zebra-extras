@@ -1,0 +1,6 @@
+#!/bin/tcsh
+#
+# Set up environment for SPOL operations.
+#
+if (! $?DEFAULT_CONFIG) setenv DEFAULT_CONFIG empty
+
