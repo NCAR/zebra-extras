@@ -1,5 +1,5 @@
 !
-! $Id: defaults.pd,v 1.5 1995-09-14 02:27:38 granger Exp $
+! $Id: defaults.pd,v 1.6 1995-09-28 13:46:20 granger Exp $
 !
 ! Defaults for defaults.  Older projects will override this 
 ! description completely, while others can use it as a foundation and
@@ -25,8 +25,14 @@ defaults
 !
 	icon-left-menu:			standard-cap-left-menu
 	global-icon-left-menu:		global-left
+	global-icon-middle-menu:	global-layout
 	global-icon-right-menu:		globaltopannot
-
+!
+! Activate the time label in all windows.  The active-time module must
+! be required by gp.init, until we can put requires in the defaults.
+!
+	time-annot-active:	true
+	time-topannot-left-menu:	global-time-left-menu
 !
 ! Age limits for changing icon color.
 !
@@ -51,6 +57,7 @@ defaults
 	frame-rate:			 5
 	frame-skip:			60
 	ta-color-match:			true
+	ta-show-name:			true	! Show window name at top
 
 !
 ! for now, let's put the origin at the ops center.  The coords are taken
@@ -67,6 +74,34 @@ defaults
 	x-max:				75
 	y-min:				-150
 	y-max:				150
+
+!
+! Layout sizing factors.
+!
+	cap-axis-bottom-space:	30	! leave room for grid labels
+	cap-axis-left-space:	30
+	cap-axis-top-space:	0
+	cap-axis-right-space:	5	! Separate legend from plots
+
+	xygraph-axis-bottom-space:	25
+	xygraph-axis-left-space:	50
+	xygraph-axis-top-space:		0
+	xygraph-axis-right-space:	0
+
+	! Skewt's turn most things off since they plot directly to
+	! the data region
+	!
+	skewt-sa-space:			0
+	skewt-axis-left-space:		0
+	skewt-axis-top-space:		0
+	skewt-axis-bottom-space:	0
+
+	! Defaults for everything else
+	!
+	axis-bottom-space:	30
+	axis-left-space:	30
+	axis-top-space:		0
+	axis-right-space:	5
 !
 ! The icons to use in the windows, qualified by platform name.
 !
@@ -749,10 +784,3 @@ defaults
 	pt-scale-y-max:		500.0
 	ept-scale-y-min:	0.0
 	ept-scale-y-max:	500.0
-!
-! Layout sizing factors.
-!
-	axis-bottom-space:	25
-	axis-left-space:	50
-	axis-top-space:		0
-	axis-right-space:	0
