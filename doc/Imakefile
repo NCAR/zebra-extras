@@ -16,15 +16,17 @@
  * through use or modification of this software.  UCAR does not provide 
  * maintenance or updates for its software.
  */
-MFVERSION="$Id: Imakefile,v 1.1 1996-02-19 21:24:53 granger Exp $"
+MFVERSION="$Id: Imakefile,v 1.2 1996-02-21 01:15:02 granger Exp $"
 
 #define IHaveSubdirs
 #define PassCDebugFlags
 
-SUBDIRS = Release Install AdvUsers Intro DataDude Realtime \
-	  Library DataStore Developer
+#include <Docs.rules>
 
-DISTFILES = Imakefile
+SUBDIRS = Release Install AdvUsers Intro DataDude Realtime \
+	  Library DataStore Developer Overview Graphics
+
+DISTFILES = Imakefile README
 DISTSUBDIRS = $(SUBDIRS)
 
 MakeSubdirs($(SUBDIRS))
@@ -39,4 +41,7 @@ NamedTargetSubdirs(install.ps,$(SUBDIRS),"installing postscript",/**/,install.ps
 
 NamedTargetSubdirs(html,$(SUBDIRS),"making html",/**/,html)
 NamedTargetSubdirs(install.html,$(SUBDIRS),"installing html",/**/,install.html)
+
+InstallNonExec(README,$(POSTSCRIPTDIR))
+
 
