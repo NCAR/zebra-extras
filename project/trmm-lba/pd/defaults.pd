@@ -1,7 +1,7 @@
 !
 ! This file contains the default values for some plot description parameters.
 !
-! $Id: defaults.pd,v 1.1 2002-10-17 21:29:28 burghart Exp $
+! $Id: defaults.pd,v 1.2 2002-10-17 23:01:05 burghart Exp $
 !
 defaults
 	pd-name:			defaults
@@ -165,6 +165,9 @@ defaults
 !
 ! Default plot limits.
 !
+	goes-vis-center:	50
+	goes-vis-nsteps:	10
+	goes-vis-step:		10
 	vr-center:		0
 	vr-nsteps:		14
 	vr-step:		2
