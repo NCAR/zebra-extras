@@ -21,11 +21,11 @@ procedure lineplot-add plat string field string win string
 !
 ! What we do depends a lot on what sort of data is coming in.
 !
-	if (substring (plat, 'prof/') or realplatform (concat ('prof/', plat)))
+	if (substring (plat, 'prof') or realplatform (concat ('prof/', plat)))
 		th-cadd c_wind #plat #win
-	elseif (substring(plat,'sounding/') or realplatform(concat('sounding/',plat)))
+	elseif (substring(plat,'class') or realplatform(concat('sounding/',plat)))
 		th-cadd c_sound #plat #win
-	elseif (substring(plat,'rass/') or realplatform(concat('rass/',plat)))
+	elseif (substring(plat,'rass') or realplatform(concat('rass/',plat)))
 	        th-cadd c_rass #plat #win
 	else
 		beep	! cant do it
