@@ -130,7 +130,7 @@ component p_loc
    parameter icon-right-menu           'location-options'
    parameter label                     'platform'
    parameter label-size                '12'
-   parameter platform                  'spol,katx,krtx'
+   parameter platform                  'spol'
    parameter posicon-left-menu         'minimal-cap-left-menu'
    parameter posicon-right-menu        'location-options'
    parameter representation            'overlay'
