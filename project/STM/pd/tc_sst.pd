@@ -1,0 +1,24 @@
+!
+! CU SST stuff.
+global
+	pd-name:		tc_sst
+tc_sst
+	platform:		sst/10day
+	representation:		raster
+	raster-center:			29
+	raster-step:			1
+	raster-nsteps:			7
+	icon:			iss-tdry
+	field:			sst
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+!	field-select-command:	ContourFieldSelect
+!	field-menu-extras:	mono|Monochrome contours
+	icon-right-menu:	contour-right
+	require:		contour, simple-color
+	scale-mode:		auto
+	color-table:		Contour
+	color:			cyan
+	do-labels:		true
+	label-blanking:		false
+	limit-proc:		contour-putup-adj

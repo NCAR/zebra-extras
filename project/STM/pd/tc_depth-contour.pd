@@ -1,0 +1,26 @@
+global
+	pd-name:	tc_depth-contour
+tc_depth-contour
+	axis-b-label:	time
+	axis-l-color:	white
+	axis-left:	true
+	color-table:	gcook16
+	data-skip:	0
+	do-side-annotation:	true
+	field-color:	green
+	field-select-command:	td_ChangeField
+	icon:	iss-contour
+	icon-color:	green
+	icon-left-menu:		medium-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	DataAvailable
+	limit-proc:		depcont-adjust
+	platform:	SOMETHING
+	representation:	contour
+	representation-style:	fill
+	require:	timedepth, depthcontour
+	x-field:	time
+	y-field:	depth
+	z-field:	temperature
+	z-justify:	base
+	z-scale:	0.01

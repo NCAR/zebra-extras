@@ -1,0 +1,21 @@
+global
+	pd-name:	cap-template
+	plot-mode:	history
+	plot-time:	25-Jun-93,1:00:00
+	plot-type:	CAP
+	x-max:	460
+	x-min:	-470
+	y-max:	250
+	y-min:	-510
+p_map.0
+	color:	tan
+	field:	map
+	icon:	map
+	icon-left-menu:	minimal-cap-left-menu
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	0
+	platform:	state_lines
+	representation:	overlay
+	require:	simple-color
+
