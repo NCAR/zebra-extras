@@ -1,14 +1,14 @@
 #!/usr/local/bin/perl
 #
-# $Id: ingest_pump_house,v 1.1 1996-01-31 22:26:48 granger Exp $
+# $Id: ingest_pump_house,v 1.2 1996-02-02 19:57:58 granger Exp $
 
-$platform = "pumphouse";
+$platform = "shalowan";
 $data_ingest = "/zeb/data_ingest";
 $ingest_dir = "$data_ingest/$platform";
 $archive_dir = "$data_ingest/archive/$platform";
 @subplats = ('profl', 'profm', 'profh', 'rass');
 $forever = 1;
-# $Debug = 1;
+$Debug = 0;
 
 sub System
 {
