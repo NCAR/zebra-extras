@@ -1,5 +1,5 @@
 !
-! $Id: arm_defaults.pd,v 1.3 1995-09-28 13:44:29 granger Exp $
+! $Id: arm_defaults.pd,v 1.4 1997-04-11 15:23:22 granger Exp $
 !
 ! This plot description contains parameter defaults for the ARM project.
 ! The 'defaults' component needs to be dropped into the library defaults
@@ -88,41 +88,43 @@ defaults
 	CF-location:		36.604 -97.465 0	! Lamont CF1
 	C1-location:		36.604 -97.465 0	! Also EF13
 	C2-location:		36.6 -97.6 0		! Also EF14
-
-	E1-location:		38.35 -99.55 0		! Larned
-	E2-location:		38.35 -97.25 0		! Hillsboro
-	E3-location:		38.2 -95.6 0		! Le Roy
-	E4-location:		37.952 -98.329 0	! Plevna
-	E5-location:		38.1 -97.5 0		! Hesston
-	E6-location:		37.9 -97.0 0		! Towanda
-	E7-location:		37.4 -96.0 0		! Elk Falls
-	E8-location:		37.332 -99.308 0	! Coldwater
-	E9-location:		37.132 -97.266 0	! Ashton
-	E10-location:		37.05 -95.75 0		! Tyro
-	E11-location:		36.92 -98.3 0		! Byron
-	E12-location:		36.84 -96.43 0		! Pawhuska
-	E13-location:		36.604 -97.465 0	! Lamont CF1
-	E14-location:		36.6 97.6 0		! Lamont CF2
+! updated 2/10/97 from tdbscan "*location" command on dev10
+	E1-location:		38.202 -99.316 0	! Larned
+	E2-location:		38.306 -97.301 0	! Hillsboro
+	E3-location:		38.201 -95.597 0	! Le Roy
+	E4-location:		37.953 -98.329 0	! Plevna
+	E5-location:		38.114 -97.513 0	! Hesston
+	E6-location:		37.842 -97.020 0	! Towanda
+	E7-location:		37.383 -96.180 0	! Elk Falls
+	E8-location:		37.333 -99.309 0	! Coldwater
+	E9-location:		37.133 -97.266 0	! Ashton
+	E10-location:		37.068 -95.788 0	! Tyro
+	E11-location:		36.881 -98.285 0	! Byron
+	E12-location:		36.841 -96.427 0	! Pawhuska
+	E13-location:		36.605 -97.485 0	! Lamont CF1
+	E14-location:		36.606 97.488 0		! Lamont CF2
 	E15-location:		36.431 -98.284 0	! Ringwood
-	E16-location:		36.20 -99.30 0		! Vici
+	E16-location:		36.061 -99.134 0	! Vici
 	E17-location:		0 0 0			! not specified
-	E18-location:		35.80 -95.78 0		! Morris
-	E19-location:		35.5 -98.0 0		! El Reno
-	E20-location:		35.565 -96.987 0	! Meeker
-	E21-location:		35.55 -96.05 0		! Okmulgee
-	E22-location:		35.35 -99.0 0		! Cordell
-	E23-location:		36.20 -98.45 0		! Ft Cobb
-	E24-location:		34.9 -98.25 0		! Cyril
-	E25-location:		36.604 -97.485 0	! Cement (Chickasha)
+	E18-location:		35.687 -95.856 0	! Morris
+	E19-location:		35.549 -98.020 0	! El Reno
+	E20-location:		35.564 -96.988 0	! Meeker
+	E21-location:		35.615 -96.065 0	! Okmulgee
+	E22-location:		35.354 -98.977 0	! Cordell
+	E23-location:		36.153 -98.461 0	! Ft Cobb
+	E24-location:		34.883 -98.205 0	! Cyril
+	E25-location:		35.245 -96.736 0	! Cement (Chickasha)
+	E26-location:		34.957 -98.076 0	! ?? added by SLH
+	E27-location:		34.961 -97.961 0	! ?? added by SLH
 !
 ! Don't know all the boundary locations yet.
 !
-	B1-location:		38.3 -97.3 447
+	B1-location:		38.305 -97.301 447
 !	B2-location:		
 !	B3-location:
-	B4-location:		36.07 -99.2 622
-	B5-location:		35.68 -95.85 217
-	B6-location:		34.97 -97.42 344
+	B4-location:		36.071 -99.204 622
+	B5-location:		35.688 -95.856 217
+	B6-location:		34.969 -97.415 344
 !
 ! Misc road/river/railroad location labels
 ! Taken from UDF2 configuration by Sean T. Moore
