@@ -39,8 +39,10 @@ defaults
 	spol-data-age-limit:	20m
 	radar_composite-icon-age-limit:	30m
 	radar_composite-data-age-limit:	30m
-	goes-icon-age-limit:	60m
-	goes-data-age-limit:	90m
+	goes_1km-icon-age-limit:	45m
+	goes_1km-data-age-limit:	90m
+	goes_4km-icon-age-limit:	45m
+	goes_4km-data-age-limit:	90m
 	elev-icon-age-limit:	20000d
 	topo-icon-age-limit:	20000d
 !
