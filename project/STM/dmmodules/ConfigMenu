@@ -2,6 +2,4 @@
 define widget saved-config-menu intmenu 'saved configurations'
 	title 'Saved Configurations'
 	line
-	entry 'ebbr-tseries' 'display ebbr-tseries' (dm$config = 'ebbr-tseries')
-	entry 'working' 'display working' (dm$config = 'working')
 endmenu
