@@ -1,0 +1,23 @@
+XCOMM
+XCOMM Overview document Imakefile
+XCOMM
+XCOMM $Id: Imakefile,v 1.1 1996-03-06 21:01:11 granger Exp $
+XCOMM
+
+BOOK = Overview
+BOOKFILE = $(BOOK).book
+TITLE = "A Superficial Overview of Zebra"
+AUTHOR = "corbet@ncar.ucar.edu"
+
+CHAPTERS = overview.fm
+
+DISTFILES = $(BOOKFILE) $(CHAPTERS) Imakefile
+
+#include <Docs.rules>
+
+BookToPostscriptTarget($(BOOK),$(CHAPTERS))
+
+InstallPostscriptDoc($(BOOK).ps)
+
+DistfilesTarget($(DISTFILES))
+

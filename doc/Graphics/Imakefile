@@ -1,0 +1,16 @@
+XCOMM
+XCOMM Graphics process document Imakefile
+XCOMM
+XCOMM $Id: Imakefile,v 1.1 1996-03-06 21:02:37 granger Exp $
+XCOMM
+
+DISTFILES = Event.tex Plotting.tex Structure.tex XYGraph.tex \
+	    framecache.tex gp.tex modules.PS gp.PS gp-index.PS Imakefile
+
+#include <Docs.rules>
+
+InstallPostscriptDoc(gp.PS)
+InstallPostscriptDoc(gp-index.PS)
+
+DistfilesTarget($(DISTFILES))
+
