@@ -15,7 +15,7 @@
  * through use or modification of this software.  UCAR does not provide 
  * maintenance or updates for its software.
  */
-MFVERSION="$Id: Makefile.cpp,v 1.1 1992-07-03 18:35:03 granger Exp $"
+MFVERSION="$Id: Makefile.cpp,v 1.2 1993-03-24 22:56:50 granger Exp $"
 MFDESC="$Desc: Makefile.cpp for RAP data products and storm tracks ingestors$"
 
 # include "../../../include/config.h"
@@ -27,7 +27,7 @@ MFDESC="$Desc: Makefile.cpp for RAP data products and storm tracks ingestors$"
 CC = CCompiler
 /* 
  * DO NOT COMPILE WITH -O WITH GCC!!!  THERE IS A BUG IN GCC -O WHICH 
- * WHICH WILL CRASH PDB_INGEST!!!
+ * WHICH CRASHES PDB_INGEST!!!
  */
 CCOPTIONS = -g
 CFLAGS = $(CCOPTIONS) IncludeDirs -I../include
@@ -36,13 +36,15 @@ LIBTOOL2 = ../lib/libtool2.a
 LIBS = $(LIBTOOLS) $(LIBTOOL2) ZebLibrary MiscLibs XLibraries CDFLibrary
 # endif
 
+LIBC_MP = /usr/local/src/mprof/libc_mp.a
+
 GCCLIB = "/usr/local/lib/gcc-lib/sparc-sun-sunos4.1.2/2.2/libgcc.a"
 
 TESTOBJS = get_x_def.o free.o str_parse.o 
 
-OBJS = ingest.o pdblib.o pdbstime.o handlers.o err2el.o
+OBJS = ingest.o pdblib.o pdbutils.o handlers.o err2el.o
 
-TSOBJS = tstracks.o ingest.o pdbstime.o err2el.o ts.o
+TSOBJS = tstracks.o ingest.o pdbutils.o shapes.o err2el.o ts.o
 
 PRGS = pdbget pdbecho pdbtest pdb_ingest pdbping
 
