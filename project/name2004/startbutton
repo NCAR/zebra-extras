@@ -42,7 +42,11 @@ class Main (Frame):
 	self.label.pack (side = 'top')
 	self.button = Button (self, text = 'Click here to start system',
 			      command = self.doit)
-	self.button.pack (side = 'top')
+        self.button.pack (side = 'top')
+	self.buttonRPG = Button (self, text = 'Click here to halt RPG',
+			      command = self.killRPG)
+        self.buttonRPG.pack (side = 'top')
+
 
     def doit (self):
 	self.button['text'] = '...Zebra starting now...'
@@ -54,6 +58,10 @@ class Main (Frame):
 	self.logfile.close()
 	os.system ('/net/ops/zebra/startup >> ' + self.logname + ' 2>&1')
 	sys.exit (0)
+
+    def killRPG(self):
+        cmd = "killall rpg_rain rpg_pid dist_products.py "
+        os.system(cmd)
 
 
 win = Main ()
