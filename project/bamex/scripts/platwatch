@@ -7,7 +7,12 @@
 # the "p3" platform, you should be executing a copy this script 
 # named "platwatch.p3".
 #
-setenv PATH "/usr/local/zebra/bin:$PATH"
+if (! $?ZEB_TOPDIR) then
+    echo "ZEB_TOPDIR must be set!"
+    exit 1
+endif
+
+setenv PATH "$ZEB_TOPDIR/bin:$PATH"
 
 if ($#argv != 2) then
     echo "Usage: $0 <dir> <frequency>"
