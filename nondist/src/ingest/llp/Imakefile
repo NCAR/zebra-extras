@@ -15,7 +15,7 @@
  * through use or modification of this software.  UCAR does not provide 
  * maintenance or updates for its software.
  */
-MFVERSION="$Id: Imakefile,v 1.2 1993-07-01 20:15:29 granger Exp $"
+MFVERSION="$Id: Imakefile,v 1.3 1994-01-21 11:49:21 granger Exp $"
 
 LIBS = $(LIBZEB) $(LIBRDSS) $(LIBNETCDF)
 
@@ -25,19 +25,11 @@ OBJS = llp_ingest.o
 DISTFILES = Imakefile $(SRCS) llp_ingest.h llp_ingest.params llp_ingest.state \
 	    test.params
 
-/*---------------------------------------------------------------------*/
-#if BuildLLPIngest && BuildIngest
-
 NormalProgramTarget(llp_ingest,$(OBJS),$(DEPLIBS),$(LIBS) $(XLIBS),$(SYSLIBS))
 
 UILoadFileTarget(llp_ingest.lf,llp_ingest.state)
 
 LintTarget()
 DependTarget()
-/*---------------------------------------------------------------------*/
-#else
-OmitBuildRules(llp_ingest)
-#endif
 
 DistfilesTarget($(DISTFILES))
-

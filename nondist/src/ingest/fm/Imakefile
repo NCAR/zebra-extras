@@ -15,7 +15,7 @@
  * through use or modification of this software.  UCAR does not provide 
  * maintenance or updates for its software.
  */
-MFVERSION="$Id: Imakefile,v 1.2 1993-07-01 20:15:18 granger Exp $"
+MFVERSION="$Id: Imakefile,v 1.3 1994-01-21 11:49:11 granger Exp $"
 
 LIBS = $(LIBZEB) $(LIBRDSS) $(LIBNETCDF)
 
@@ -24,17 +24,10 @@ OBJS = fm_ingest.o
 
 DISTFILES = Imakefile fm_ingest.c
 
-/*---------------------------------------------------------------------*/
-#if BuildIngest && BuildFMIngest
-
 NormalProgramTarget(fm_ingest,$(OBJS),$(DEPLIBS),$(LIBS),$(SYSLIBS))
 
 DependTarget()
 LintTarget()
-/*---------------------------------------------------------------------*/
-#else
-OmitBuildRules(FM ingest)
-#endif
 
 DistfilesTarget($(DISTFILES))
 
