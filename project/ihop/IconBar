@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.5 2002-05-05 18:15:35 burghart Exp $
+! $Id: IconBar,v 1.6 2002-05-14 15:40:44 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -71,6 +71,8 @@ define widget iconbar menubar " "
 		line
 		entry 'Single-window basic radar' 'display radaronly' \
 			(dm$config = 'radaronly')
+		entry 'Satellite and radar' 'display sat_and_radar' \
+			(dm$config = 'sat_and_radar')
 		entry 'Four precip windows' 'display megaprecip' \
 			(dm$config = 'megaprecip')
 		entry 'Radar + precip + particle types' 'display rad-pre-pd' \
