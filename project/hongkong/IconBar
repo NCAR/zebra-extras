@@ -5,7 +5,7 @@
 !
 ! The right way to do this....
 !
-set ui$bitmap_directory concat(c$libdir, "/icons")
+set ui$bitmap_directory concat(c$projdir, "/icons")
 
 ! No spaces in these lines!
 !
@@ -72,6 +72,7 @@ define widget iconbar menubar " "
 		entry 'Save this configuration' 'cfgsave #dm$config'
 		entry 'Save this configuration as...' 'popup SaveConfig'
 		entry 'Remove this configuration' 'cfg-remove'
+		entry 'Restore to original' 'cfg-restore'
 		line
 		entry 'Configuration Widget' 'popup ConfigEdit'
 		entry 'Help' 'help editdconfig'
@@ -119,6 +120,11 @@ define widget iconbar menubar " "
 	endmenu
 	menu 'soundings' bitmap sounding
 		title 'Sounding Stations'
+		line
+		entry 'ISS Waglan Location' \
+			'putc1 p_iss_loc platform iss/class'
+		entry 'Sounding Locations' \
+			'putc1 p_sdg_loc platform #sounding_sites'
 	endmenu
 	menu 'overlays' bitmap overlays
 		title 'Overlays'
@@ -126,6 +132,7 @@ define widget iconbar menubar " "
 		submenu 'Maps' Maps
 		submenu 'Locations' Locations
 		submenu 'Grids and Range Rings' GridsAndRings
+		entry 'Window Bounds' 'send-wbounds'
 	endmenu
 enddef
 
@@ -150,10 +157,14 @@ endmenu
 ! Point to a window and delete it
 !
 procedure point-and-shoot
-	set victim '--'
+	set victim 'none'
 	pickwin victim
-	message "Killing #" victim
-	kill #victim
+	if (victim <> 'none')
+		message "Killing #" victim
+		kill #victim
+	else
+		beep
+	endif
 endprocedure
 
 !
@@ -175,6 +186,18 @@ procedure cfg-remove
 
 endprocedure
 
+
+!
+! Restore configuration to its last saved state.  This amounts to
+! switching to the empty configuration and back to the current one.
+!
+procedure cfg-restore
+	local original dm$config
+
+	display empty
+	display #original
+endprocedure
+
 !
 ! Submenu for window templates.  The object here is to add a window
 ! from a list of common plot types with generic plot descriptions
@@ -190,6 +213,8 @@ define widget windows intmenu 'window templates'
 	entry 'Skew-t plot' \
 		'create-window skewt skewt-template sounding'
 	entry 'Wind profile' 'create-window wind wind-template xyplot'
+	entry 'Vertical cross-section' \
+		'create-window xsect xsect-template default'
 	entry 'Radar plot' 'create-window radar radar-template radar'
 	entry 'Real-time clock' 'create-clock'
 endmenu
@@ -215,6 +240,39 @@ procedure create-clock
 	set default_exec "gp"
 endprocedure
 
+
+define widget select-source form 'wbounds-src-message'
+	noheader
+	newline
+	label msg \
+	   'Select the window whose bounds you wish plotted' color "red" \
+	   font "*-fixed-*--24-*"
+enddef	
+
+define widget select-dest form 'wbounds-dest-message'
+	noheader
+	newline
+	label msg \
+	 'Select the constant-altitude plot where the bounds will be drawn' \
+	 color "red" font "*-fixed-*--24-*"
+enddef	
+
+! Prompt the user to choose two windows, the first window will be
+! the window whose bounds are desired, and the second will the window
+! where the bounds will be placed
+!
+procedure send-wbounds
+	local dest 'none'
+	local src 'none'
+
+	message 'Select the window whose bounds you wish plotted' color "red" \
+	pickwin src
+	if (src = 'none')
+		return
+	endif
+	message 'Select the constant-altitude plot where the bounds will be drawn' \
+	putc1 p_wbounds platform #src
+endprocedure
 
 !
 ! Submenu for maps
@@ -278,7 +336,7 @@ define widget Locations intmenu 'LANTEX location overlays'
 	line
 	entry 'Ops Center, HKUST' \
 		'putc2 p_loc icon ops-ctr platform ops-ctr'
-	entry 'ISS on Waglan' \
+	entry 'ISS Waglan Location' \
 		'putc1 p_iss_loc platform iss/class'
 	entry 'Lantau Profiler' \
 		'putc1 p_iss_loc platform lantau/profiler'
@@ -286,8 +344,8 @@ define widget Locations intmenu 'LANTEX location overlays'
 		'putc2 p_loc icon radar-loc platform lidar'
 	entry 'RO Radar' \
 		'putc2 p_loc icon radar-loc platform ro_radar'
-	entry 'Sounding sites' \
-		'putc2 p_loc icon sounding-loc platform #sounding_sites'
+	entry 'Sounding Locations' \
+		'putc1 p_sdg_loc platform #sounding_sites'
 	entry 'AWS locations' \
 		'putc2 p_loc icon pam-loc platform #lantau_aws_sites'
 endmenu
