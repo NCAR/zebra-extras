@@ -59,11 +59,18 @@ foreach dir (/scr/js1/ldm/nexrad3/*)
     end
 end
 
-/code/burghart/nidstools/nidscomposite -o $ncfilename \
-    -103 32 -82 49 0.01 $time `cat $flist`
+~burghart/BAMEX/nidscomposite -o $ncfilename -103 32 -82 49 0.01 \
+	$time `cat $flist`
+@ wrotefile = ($status == 0)
 rm -f $flist
 
-echo "created $ncfilename"
+if ($wrotefile) then
+	echo "created $ncfilename"
+else
+	echo "Failed to create $ncfilename"
+	echo "$0 failed to write $ncfilename" | mail -s "$0" burghart
+	exit 1
+endif
 
 echo -n "   copying to bamex-gate..."
 scp -Cp $ncfilename 67.128.247.125:/data/bamex/radar_composite
