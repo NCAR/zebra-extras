@@ -1,5 +1,5 @@
 #!/bin/csh -f
-# $Id: proj_startup,v 1.2 1994-12-12 20:49:17 burghart Exp $
+# $Id: proj_startup,v 1.3 1996-02-06 22:22:55 corbet Exp $
 #
 # The fest-specific project startup file.  I expect to be sourced from 
 # the "startzeb" script.
@@ -101,29 +101,30 @@ get_iop:
 # Set the data directory
 #
 	if ($iop == 6 || $iop == 7) then
-		set cddatadir=$cddir/data/iop6_7
+	   	set iopname=6_7
 	else if ($iop == 13 || $iop == 14) then
-		set cddatadir=$cddir/data/iop13_14
+	     	set iopname=13_14
 	else
-		set cddatadir=$cddir/data/iop$iop
+		set iopname=$iop
 	endif
+	set cddatadir=$cddir/data/iop$iopname
 #
-# Look for a cache file for the remote data, whether model or observational.
+# Figure out where the cache files will be.
 #
-#	if ( -f $cddatadir/$iop/cache.iop$iop ) then
-#		setenv REM_UNIFIED_CACHE $cddatadir/$iop/cache.iop$iop
-#		echo 'Remote cache file is' $REM_UNIFIED_CACHE
-#	else
-#		echo 'No cache file'
-#	endif
+	set systype = `uname`
+	if ( $systype == Linux ) then
+		set cachedir=lcache
+	else
+		set cachedir=cache
+	endif
 #
 # Look for a cache file for observational data.
 #
-	if ( $modelcd && -f cache/modelcache.iop$iop ) then
-		setenv REM_UNIFIED_CACHE cache/modelcache.iop$iop
+	if ( $modelcd && -f ${cachedir}/modelcache.iop$iopname ) then
+		setenv REM_UNIFIED_CACHE ${cachedir}/modelcache.iop$iopname
 		echo 'Remote data cache file is' $REM_UNIFIED_CACHE
-	else if ( ! $modelcd && -f cache/cache.iop$iop ) then
-		setenv REM_UNIFIED_CACHE cache/cache.iop$iop
+	else if ( ! $modelcd && -f ${cachedir}/cache.iop$iopname ) then
+		setenv REM_UNIFIED_CACHE ${cachedir}/cache.iop$iopname
 		echo 'Remote data cache file is' $REM_UNIFIED_CACHE
 	else
 		echo 'No cache file'
