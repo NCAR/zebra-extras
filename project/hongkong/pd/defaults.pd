@@ -65,10 +65,10 @@ defaults
 !
 	clk-location:  		22.3224 113.9420 0.0100	# Chep Lap Kok
 	lidar-location:		22.3224 113.9420 0.0100	# Chep Lap Kok
+	ro_radar-location:	20.06 111.73 3.00
 !
-! Still need the ro_radar, Lantau profiler
+! Still need the Lantau profiler
 !
-!	ro_radar-location:
 !	lantau/profiler-location:
 !
 	waglan-location:		22.1 114.18 0.321
