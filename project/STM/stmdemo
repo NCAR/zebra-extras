@@ -1,0 +1,3 @@
+#!/bin/csh
+setenv INITIAL_TIME 25-jun-93
+zstart /demo/stm
