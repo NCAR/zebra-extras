@@ -1,0 +1,13 @@
+!
+! The rivers
+!
+global
+	pd-name:		oklahoma_rivers
+oklahoma_rivers
+	platform:	oklahoma_rivers
+	representation:	overlay
+	field:		map
+	color:		cyan
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	icon:		rivers

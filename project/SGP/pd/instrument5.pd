@@ -1,0 +1,33 @@
+GLOBAL
+	pd-name:					instrument5
+	plot-mode:					real-time
+	plot-type:					xygraph
+	trigger:					9m
+	axis-bottom-space:			55
+	axis-right-space:			10
+	axis-left-space:			60
+	axis-top-space:				0
+	icon-space:					5
+	xy-series-span:				12h
+	xy-data-mode:				series
+	xy-scale-x-mode:			autoscale
+	xy-scale-y-mode:			autoscale
+	xy-axis-l-font-scale:		0.04
+	xy-axis-b-font-scale:		0.04
+	xy-axis-b-tic-interval:		1h
+	ta-scale:					0.02
+	sa-scale:					0.03
+	representation:				simple
+instrument5
+	representation-style:		xmark
+	platform:					Dsgp1twr21xC1.a1,Dsgp1twr21xC1.a1,Dsgp1twr21xC1.a1,Dsgp1twr21xC1.a1,Dsgp1twr21xC1.a1
+	icon:						global
+	icon-color:					green
+	x-field:					time,time,time,time,time
+	y-field:					temp,temp,temp,temp,temp
+	field-color:				cyan,red,blue,pink,orange
+	!axis-l-color:				gray40
+	!axis-b-color:				gray40
+	axis-l-label:				Left Label
+	axis-b-label:				time
+	do-side-annotation:			true

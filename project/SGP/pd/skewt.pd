@@ -1,0 +1,16 @@
+GLOBAL
+	pd-name:		skewt
+	plot-mode:		real-time
+	plot-type:		skewt
+	trigger:		DsgpsondeC1.a1
+skewt.pd
+	representation:	skewt
+	platform:		DsgpsondeC1.a1
+	color-table:	Skew-t
+	icon-color:		orange
+	icon-left-menu:	skewt-left
+	icon-middle-menu:	DataAvailable
+	icon-right-menu:	feet-km
+	menu-platform:	sonde1
+	icon:			sounding
+	color:			white

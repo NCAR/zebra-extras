@@ -1,0 +1,13 @@
+!
+! The state lines
+!
+global
+	pd-name:		state_lines
+state_lines
+	platform:	state_lines
+	representation:	overlay
+	field:		map
+	color:		tan
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	icon:		map

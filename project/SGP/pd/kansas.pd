@@ -1,0 +1,60 @@
+GLOBAL
+	comment:	Big window post-processing plot description.
+	pd-name:	kansas
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	mesonet
+	!contour-color-table:	contour
+	!raster-color-table:	wild_new
+	!raster-velocity-center:	0.0
+	!raster-velocity-step:	3.0
+	!radar-space:	true
+	time-frames:	2
+	altitude:	-1
+	x-min:		-400.0
+	x-max:		400.0
+	y-min:		-400.0
+	y-max:		400.0
+	origin-lat:	36.5000
+	origin-lon:	-97.30
+	icon-middle-menu:	DataAvailable
+ok_bounds
+	platform:	ok_bounds
+	representation:	overlay
+	field:		map
+	color:		green
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	icon:		sgp
+oklahoma_rivers
+	platform:	oklahoma_rivers
+	representation:	overlay
+	field:		map
+	color:		cyan
+	linewidth:	2
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	icon:		rivers
+state_lines
+	platform:	state_lines
+	representation:	overlay
+	field:		map
+	color:		tan
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	icon:		map
+c_station_plot
+	platform:       mesonet
+	representation: vector
+	u-field:        u_wind
+	v-field:        v_wind
+	grid:			false
+	line-width:		2
+	arrow-scale:    0.01
+	quadrants:		tdry,dp
+	arrow-color:	red
+	quad-color:		yellow
+	icon-middle-menu:       meso-winds-mid
+	icon-right-menu:        meso-station-options
+	icon:           meso_stations
+	limit-proc:     adj_arrow_scale

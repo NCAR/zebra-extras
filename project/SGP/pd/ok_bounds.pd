@@ -1,0 +1,12 @@
+! The boundaries for the Southern Great Plains site
+!
+global
+	pd-name:		ok_bounds
+ok_bounds
+	platform:	ok_bounds
+	representation:	overlay
+	field:		map
+	color:		green
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	icon:		sgp

@@ -1,0 +1,143 @@
+!
+! This file contains the default values for all plot description parameters.
+!
+defaults
+	pd-name:			defaults
+!
+! Post processing mode parameters.
+!
+	post-proc-mode:			false	
+	pp-dm-time-adjust:		15m
+!
+! Various menus for the icons in the plot windows.
+!
+	icon-right-menu:			rightmenu
+	icon-middle-menu:			DataAvailable
+!	global-icon-left-menu:		global-left
+!	global-icon-right-menu:		annot-color
+!	mesonet-icon-right-menu:	line-contour-options
+!
+! Age limits for changing icon color.
+!
+	icon-age-foreground:		pink
+	icon-age-background:		red
+!	mesonet-icon-age-limit:		10m
+!
+! for now, let's put the origin at the ops center.  The coords are taken
+! from Chris's "wsr" coords, on the assumtion that wsr means the nexrad
+! radar.
+!
+	origin-lat:			 36.61
+	origin-lon:			-97.48
+	origin-alt:			315.0
+	ops-ctr-location:	36.61 -97.48 0.315
+!
+! The default, big picture zoom locations.
+!
+	x-min:				-225
+	x-max:				75
+	y-min:				-150
+	y-max:				150
+
+!
+! Where to put the frame cache files.
+!
+!	file-path:	/tmp
+!
+! The maximum number of frames to be stored in the file.
+!
+!	max-frames:	20
+
+!
+! Commands to be executed out of the DataAvailable menu.
+!
+	data-available-command:		DefaultDataAvail
+
+!
+! The icons to use in the windows, qualified by platform name.
+!
+!	global-icon:			global
+!	sfgpmfrsrnet.a0-icon:	mfrsr
+!	sfgpmfrsrnet.a1-icon:	mfrsr
+!	sfgpmfrsrnet.b1-icon:	mfrsr
+!	mesonet-icon:			mesonet
+
+	icon-color:			yellow
+	icon-background:		midnight blue
+	disabled-icon-color:		gray90
+	disabled-icon-background:	gray40
+
+!
+! What RBand uses to draw the box/line.  Don't mess with it.
+!
+	xorvalue:			63
+	xor-line-width:			3
+!
+! Some stuff to make the demos look nicer.
+!
+	movie-end-time:			now
+	movie-minutes:			60
+	frame-rate:			 5
+	frame-skip:			10
+	ta-color-match:			true
+!
+! Where cross sections are done.
+!
+	xsect-window:			xsect
+	xsect-component:		global
+!
+! Grid parameters.
+!
+	grid-tic-width:			5
+	grid-solid:			false
+	grid-color:			gray40
+	grid-icon-middle-menu:		simple-color
+	grid-icon-right-menu:		grid_spacing
+	grid-icon:			grid
+
+	axes-on-top:		false
+!
+! Plotting limits.
+!
+
+!
+! Representation -> Skewt.
+!
+	skewt-pres-minval:		100
+	skewt-pres-maxval:		1050
+	skewt-temp-minval:		-20
+	skewt-temp-maxval:		45
+!
+! Other.
+!
+	winds/arrow-scale:		20
+	winds-representation:		vector
+	winds/arrow-color:		green
+	Xarrow-color:			purple
+!
+! If all else fails, these should prevent things from dying altogether.
+!
+	contour-center:			0
+	contour-step:			25
+	track-center:			10
+	track-step:			10
+	pres-minval:			900
+	pres-maxval:			1100
+	rh-minval:			20
+	rh-maxval:			40
+	dp-minval:			0
+	dp-maxval:			20
+	tdry-minval:			-10
+	tdry-maxval:			10
+!
+! Adjust limit procedures.
+!
+	vector-limit-proc:		adj_arrow_scale
+	contour-limit-proc:		adj_center_step
+	filled-contour-limit-proc:	adj_fill_centstep
+	line-contour-limit-proc:	adj_line_centstep
+	skewt-pres-limit-proc:		adj_pres_minmax
+	skewt-temp-limit-proc:		adj_temp_minmax
+	global-x-limit-proc:		adj_x_minmax
+	global-y-limit-proc:		adj_y_minmax
+

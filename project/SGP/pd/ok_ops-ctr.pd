@@ -1,0 +1,13 @@
+!
+! Put in the ops center location.
+!
+global
+	pd-name:	ok_ops-ctr
+ok_ops-ctr
+	platform:	ops-ctr
+	representation:	overlay
+	field:		location
+	color:		green
+	icon-middle-menu: simple-color
+	icon:		ops-ctr
+	label:		none

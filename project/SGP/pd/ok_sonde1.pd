@@ -1,0 +1,10 @@
+GLOBAL
+	pd-name:	ok_sonde1
+	comment:	sounding location
+ok_sonde1
+	platform:	sonde1
+	representation:	overlay
+	field:		location
+	color:		white
+	icon-middle-menu:	simple-color
+	icon:		sounding-loc

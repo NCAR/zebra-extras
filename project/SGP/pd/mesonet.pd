@@ -1,0 +1,49 @@
+!
+! Mesonet window.
+!
+GLOBAL
+	pd-name:	mesonet
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	mesonet
+c_meso_winds
+	platform:	mesonet
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.01
+	color:		red
+	icon-right-menu:	meso-winds-options
+	icon:		meso_winds
+	limit-proc:	adj_arrow_scale
+c_roads
+	platform:	cape_roads
+	representation:	overlay
+	field:		map
+	color:		blue
+	icon-middle-menu:	simple-color
+	icon:		roads
+	icon-right-menu:	linewidth
+c_radar_loc
+	platform:	cp2, cp3, cp4, nmt, fl2c, und, mit
+	representation:	overlay
+	field:		location
+	color:		white
+	icon-middle-menu:	simple-color
+	icon:		radar-loc
+c_map
+	platform:	cape
+	representation:	overlay
+	field:		map
+	color:		yellow
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	icon:		map
+c_ops-ctr
+	platform:	ops-ctr
+	representation:	overlay
+	field:		location
+	color:		green
+	icon-middle-menu: simple-color
+	icon:		ops-ctr
+	label:		none
