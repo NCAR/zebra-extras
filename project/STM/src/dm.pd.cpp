@@ -209,4 +209,14 @@ pddrop p_wpdn p_wpdn p_wpdn_winds p_wpdn_winds
 pdlift p_contour p_contour p_wpdn_contour
 pddrop p_wpdn p_wpdn p_wpdn_contour p_wpdn_contour
 
+!
+! Customize the library raster pd for HDF satellite images and overlays
+!
+pdlift p_raster p_raster p_satellite
+parameter p_satellite p_satellite require "raster, satellite"
+parameter p_satellite p_satellite icon-middle-menu satellite-middle
+
+pdlift p_satellite p_satellite p_satoverlay
+parameter p_satoverlay p_satoverlay color-table "green_overlay"
+parameter p_satoverlay p_satoverlay icon-middle-menu satellite-overlay-middle
 
