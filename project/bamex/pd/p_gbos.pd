@@ -4,7 +4,7 @@
 global
 	pd-name:	p_gbos
 p_gbos
-	platform:	gbos
+	platform:	mips,mglass1,mglass2
 	representation:	overlay
 	field:		location
 	color:		green
