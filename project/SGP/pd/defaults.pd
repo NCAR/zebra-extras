@@ -1,6 +1,10 @@
 !
 ! This file contains the default values for all plot description parameters.
 !
+! NOTE: This file should contain NO blank lines!  If a line does not BEGIN
+! with a '!', then it MUST begin with either a component name ('defaults')
+! or a TAB!
+!
 defaults
 	pd-name:			defaults
 !
@@ -11,8 +15,8 @@ defaults
 !
 ! Various menus for the icons in the plot windows.
 !
-	icon-right-menu:			rightmenu
-	icon-middle-menu:			DataAvailable
+	icon-right-menu:		rightmenu
+	icon-middle-menu:		DataAvailable
 !	global-icon-left-menu:		global-left
 !	global-icon-right-menu:		annot-color
 !	mesonet-icon-right-menu:	line-contour-options
@@ -38,7 +42,6 @@ defaults
 	x-max:				75
 	y-min:				-150
 	y-max:				150
-
 !
 ! Where to put the frame cache files.
 !
@@ -47,12 +50,10 @@ defaults
 ! The maximum number of frames to be stored in the file.
 !
 !	max-frames:	20
-
 !
 ! Commands to be executed out of the DataAvailable menu.
 !
 	data-available-command:		DefaultDataAvail
-
 !
 ! The icons to use in the windows, qualified by platform name.
 !
@@ -61,12 +62,11 @@ defaults
 !	sfgpmfrsrnet.a1-icon:	mfrsr
 !	sfgpmfrsrnet.b1-icon:	mfrsr
 !	mesonet-icon:			mesonet
-
+!
 	icon-color:			yellow
 	icon-background:		midnight blue
 	disabled-icon-color:		gray90
 	disabled-icon-background:	gray40
-
 !
 ! What RBand uses to draw the box/line.  Don't mess with it.
 !
@@ -94,12 +94,11 @@ defaults
 	grid-icon-middle-menu:		simple-color
 	grid-icon-right-menu:		grid_spacing
 	grid-icon:			grid
-
+!
 	axes-on-top:		false
 !
 ! Plotting limits.
 !
-
 !
 ! Representation -> Skewt.
 !
@@ -107,6 +106,7 @@ defaults
 	skewt-pres-maxval:		1050
 	skewt-temp-minval:		-20
 	skewt-temp-maxval:		45
+	skewt-data-skip:		5
 !
 ! Other.
 !
@@ -138,6 +138,6 @@ defaults
 	line-contour-limit-proc:	adj_line_centstep
 	skewt-pres-limit-proc:		adj_pres_minmax
 	skewt-temp-limit-proc:		adj_temp_minmax
+	skewt-data-skip-limit-proc:		adj_skewt_data_skip
 	global-x-limit-proc:		adj_x_minmax
 	global-y-limit-proc:		adj_y_minmax
-
