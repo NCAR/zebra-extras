@@ -1,0 +1,13 @@
+/*
+ * $Id: Imakefile,v 1.1 1997-03-26 17:57:31 granger Exp $
+ */
+
+#define IHaveSub
+#define IHaveSubdirs
+#define PassCDebugFlags 'CDEBUGFLAGS=$(CDEBUGFLAGS)'
+
+SUBDIRS = DigitalWind ingest/ESI_Ingest ingest/FakeData ingest/HandarDer \
+	  ingest/QLI50_Ingest ingest/VaisalaDer
+
+MakeSubdirs($(SUBDIRS))
+DependSubdirs($(SUBDIRS))
