@@ -1,7 +1,3 @@
-!
-! gp init file for fastex
-!
-
 set RequirePath concat('./modules,',RequirePath)
 set MapPath concat('./maps,','MapPath')
 
@@ -10,8 +6,6 @@ define widget rings-origins intmenu 'x'
 	line
 	entry 'S-Pol' 'parameter #icon_component platform spol' \
 		(PDParam (icon_component, 'platform') = 'spol')
-	entry 'CHILL' 'parameter #icon_component platform chill' \
-		(PDParam (icon_component, 'platform') = 'chill')
-	entry 'KGLD' 'parameter #icon_component platform kgld' \
-		(PDParam (icon_component, 'platform') = 'kgld')
+	entry 'OKC' 'parameter #icon_component platform okc' \
+		(PDParam (icon_component, 'platform') = 'okc')
 endmenu
