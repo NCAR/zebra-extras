@@ -1,0 +1,46 @@
+XCOMM $Id: Imakefile,v 1.1 1995-09-10 14:48:08 granger Exp $
+
+PROGRAMS = ds.config IconBar dm.config dm.pd \
+	   cf-active-loc ef-active-loc bf-active-loc
+
+CPPSRCS = ds.config.cpp IconBar.cpp dm.config.cpp dm.pd.cpp
+
+DISTFILES = Imakefile $(CPPSRCS)
+
+DEFDATADIR = /apps/data/sgp/platforms
+PROJECT = UAV
+
+DEFINES = -DPROJECT=$(PROJECT) -D$(PROJECT) -DDEFDATADIR=$(DEFDATADIR)
+
+PROJDIR = ..
+MODULEDIR = $(PROJDIR)/modules
+DESTDIR = /* we know we don't want to prepend anything to the install dir */
+
+all:: $(PROGRAMS)
+
+CppScriptTarget(ds.config,ds.config.cpp,$(DEFINES),/*$(ICONFIGFILES)*/)
+InstallNamedProg(ds.config,ds.config,$(PROJDIR))
+
+CppScriptTarget(dm.config,dm.config.cpp,$(DEFINES),/*$(ICONFIGFILES)*/)
+InstallNamedProg(dm.config,dm.config,$(PROJDIR))
+
+CppScriptTarget(IconBar,IconBar.cpp,$(DEFINES),/*$(ICONFIGFILES)*/)
+InstallNamedProg(IconBar,IconBar,$(PROJDIR))
+
+CppScriptTarget(dm.pd,dm.pd.cpp,$(DEFINES),/*$(ICONFIGFILES)*/)
+InstallNamedProg(dm.pd,dm.pd,$(PROJDIR))
+
+CppScriptTarget(cf-active-loc,cf-active-loc.cpp,$(DEFINES),/*$(ICONFIGFILES)*/)
+InstallNamedProg(cf-active-loc,cf-active-loc,$(MODULEDIR))
+
+CppScriptTarget(bf-active-loc,bf-active-loc.cpp,$(DEFINES),/*$(ICONFIGFILES)*/)
+InstallNamedProg(bf-active-loc,bf-active-loc,$(MODULEDIR))
+
+CppScriptTarget(ef-active-loc,ef-active-loc.cpp,$(DEFINES),/*$(ICONFIGFILES)*/)
+InstallNamedProg(ef-active-loc,ef-active-loc,$(MODULEDIR))
+
+depend::
+
+install.man::
+
+DistfilesTarget($(DISTFILES))
