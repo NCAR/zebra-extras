@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.22 2003-07-28 21:46:33 burghart Exp $
+! $Id: IconBar,v 1.23 2003-07-31 19:06:38 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -84,7 +84,7 @@ define widget iconbar menubar " "
 		      	(dm$config = 'rad-pre-pd')
 		entry 'Two radar windows + precip' 'display radar2win' \
 			(dm$config = 'radar2win')
-		entry 'Plan view + cross-section' 'display xsect' \
+		entry 'Cross-section' 'display xsect' \
 			(dm$config = 'xsect')
 		line
 		entry 'crystal1' 'display crystal1' (dm$config = 'crystal1')
