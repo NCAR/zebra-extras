@@ -15,7 +15,7 @@
  * through use or modification of this software.  UCAR does not provide 
  * maintenance or updates for its software.
  */
-MFVERSION="$Id: Makefile.cpp,v 1.3 1991-10-24 22:49:29 corbet Exp $"
+MFVERSION="$Id: Makefile.cpp,v 1.4 1992-04-30 15:43:26 granger Exp $"
 
 # include "../../include/config.h"
 
@@ -24,8 +24,9 @@ MFVERSION="$Id: Makefile.cpp,v 1.3 1991-10-24 22:49:29 corbet Exp $"
  * Sun options
  */
 CC=CCompiler
-CFLAGS= CCOptions -I$(FCCINC) -I$(RDSSINC)
-LIBS=ZebLibrary -lnetcdf -lrdss -lXaw -lXmu -lXt -lXext -lX11 -ltermcap -lm
+CFLAGS= CCOptions IncludeDirs
+LIBS=ZebLibrary CDFLibrary MiscLibs
+XLIBS=XLibraries
 # endif
 
 OBJS = llp_ingest.o
@@ -39,7 +40,7 @@ install:	llp_ingest llp_ingest.lf
 include:
 
 llp_ingest:	$(OBJS)
-	$(CC) $(CFLAGS) -o llp_ingest $(OBJS) $(LIBS)
+	$(CC) $(CFLAGS) -o llp_ingest $(OBJS) $(LIBS) $(XLIBS)
 
 llp_ingest.lf: llp_ingest.state
 	uic < make-lf

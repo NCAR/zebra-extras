@@ -23,8 +23,8 @@
  * Sun options
  */
 CC=CCompiler
-CFLAGS=CCOptions -I$(FCCINC) -I$(RDSSINC)
-LIBS= ZebLibrary -lnetcdf -lrdss -lXaw -lXmu -lXt -lXext -lX11 -ltermcap -lm
+CFLAGS=CCOptions IncludeDirs
+LIBS= ZebLibrary CDFLibrary MiscLibs
 # endif
 
 
