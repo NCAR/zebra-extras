@@ -1,0 +1,29 @@
+! Auto-saved display configuration.
+config printsounding
+	widget 'iconbar' 1073 9 71 466
+	window 'skewt' 339 5 656 771 gp gp.init
+		description 'printsounding-skewt'
+		buttonmap 'default'
+		forcepd
+	endwindow
+endconfig
+
+beginpd 'printsounding-skewt'
+global
+   parameter altitude-label            ''
+   parameter pd-name                   'printsounding-skewt'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '15-Dec-92,20:00:00'
+   parameter plot-type                 'skewt'
+   parameter trigger                   'manus/omega'
+component skewt
+   parameter color-table               'Skew-t'
+   parameter icon                      'sounding'
+   parameter icon-left-menu            'skewt-left'
+   parameter icon-middle-menu          'DataAvailable'
+   parameter icon-right-menu           'feet-km'
+   parameter menu-platform             'kapinga/omega, manus/omega, nauru/omega, kavieng/omega, sci1/omega, exp3/omega'
+   parameter platform                  'manus/omega'
+   parameter representation            'skewt'
+endpd
+

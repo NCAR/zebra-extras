@@ -1,0 +1,70 @@
+global
+	altitude:	0.0
+	comment:	Big window post-processing plot description.
+	icon-middle-menu:	DataAvailable
+	menu-platform:	cep
+	pd-name:	segues
+	plot-mode:	history
+	plot-time:	1-Jan-93,00:00:00
+	plot-type:	CAP
+	time-frames:	2
+	trigger:	cep
+	origin-lat:	-30.0
+	origin-lon:	100.0
+	x-max:	9000
+	x-min:	0
+	y-max:	5000
+	y-min:	0
+c_grid
+	color:		cyan
+	field:		grid
+	icon:		grid
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	platform:	coare
+	representation:	overlay
+	lat-lon:	true
+	x-spacing:	500m0s
+	y-spacing:	500m0s
+c_map
+	color:	white
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	platform:	coare
+	representation:	overlay
+c_ifa-map
+	color:	red
+	field:	map
+	icon:	ifa
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	platform:	coare-ifa
+	representation:	overlay
+c_cep
+	platform:	cep
+	field:		u_wind
+	contour-u_wind-center:	0
+	contour-u_wind-step:	2
+	color-table:	Contour
+	icon:	cep
+	representation:		contour
+	x-points:	110
+	y-points:	60
+	icon-middle-menu:	toga-middle
+	icon-right-menu:	contour-options
+c_noaa42
+	time-period:	observation
+	platform:	noaa42
+	icon:	n42rf
+	position-icon:	littleplane
+	field:		ps
+	representation:	track
+	color:	green
+	color-table:	tseries
+	track-ps-center:	0.0
+	track-ps-step:		0.5
+	icon-left-menu:		track-left
+	icon-middle-menu:	track-color
+	icon-right-menu:	linewidth

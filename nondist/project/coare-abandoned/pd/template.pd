@@ -1,0 +1,13 @@
+GLOBAL
+	pd-name:	template
+	plot-type:	CAP
+	plot-mode:	real-time
+	trigger:	10m
+map
+	platform:	coare
+	representation:	overlay
+	field:		map
+	color:		yellow
+	line-width:	1
+	icon-middle-menu:	simple-color
+	icon:		map

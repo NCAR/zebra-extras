@@ -1,0 +1,12 @@
+!
+! ISS locations.
+!
+global
+	pd-name:	c_iss_loc
+c_iss_loc
+	platform:		kap, nauru, manus, kav, sci1, exp3, xia
+	representation:		overlay
+	field:			location
+	color:			white
+	icon-middle-menu:	simple-color
+	icon:			radar-loc

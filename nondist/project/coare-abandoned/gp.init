@@ -1,0 +1,484 @@
+!
+! The toga/coare graphics process initialization file.
+!
+
+! Our various path variables.
+!
+set RequirePath concat('./modules,',RequirePath)
+set MapPath concat('./maps,','MapPath')
+
+!
+! Change the origin of an cartesian grid.
+!
+define widget kmgrid-origins intmenu 'cart grid origin'
+	title 'Cartesian grid origin'
+	line
+	entry 'Honiara' 'parameter #icon_component origin ops-ctr'
+	entry 'IMET' 'parameter #icon_component origin imet'
+	entry 'Willis Island' 'paramter #icon_component origin willis-island'
+	submenu 'Ships' ship_cg_origin_menu
+	submenu 'Aircraft' aircraft_cg_origin_menu
+endmenu
+
+define widget ship_cg_origin_menu intmenu 'cartesian grid ship origins'
+	title 'Ship Platforms'
+	line
+	entry 'Vickers' 'parameter #icon_component origin vickers' \
+		(pd_param (icon_component, "origin", "string") = 'vickers')
+	entry 'Xiang5' 'parameter #icon_component origin xiang5' \
+		(pd_param (icon_component, "origin", "string") = 'xiang5')
+	entry 'Kexue 1' 'parameter #icon_component origin kexue1' \
+		(pd_param (icon_component, "origin", "string") = 'kexue1')
+	entry 'Shiyan 3' 'parameter #icon_component origin shiyan3' \
+		(pd_param (icon_component, "origin", "string") = 'shiyan3')
+	entry 'Wecoma' 'parameter #icon_component origin wecoma' \
+		(pd_param (icon_component, "origin", "string") = 'wecoma')
+	entry 'Moana Wave' 'parameter #icon_component origin moana' \
+		(pd_param (icon_component, "origin", "string") = 'moana')
+	entry 'Le Noroit' 'parameter #icon_component origin noroit' \
+		(pd_param (icon_component, "origin", "string") = 'noroit')
+	entry 'Franklin' 'parameter #icon_component origin franklin' \
+		(pd_param (icon_component, "origin", "string") = 'franklin')
+	entry 'Alis' 'parameter #icon_component origin alis' \
+		(pd_param (icon_component, "origin", "string") = 'alis')
+	entry 'Hakuho-Maru' 'parameter #icon_component origin hakuho' \
+		(pd_param (icon_component, "origin", "string") = 'hakuho')
+	entry 'Keifu-Maru' 'parameter #icon_component origin keifu' \
+		(pd_param (icon_component, "origin", "string") = 'keifu')
+	entry 'Natsushima' 'parameter #icon_component origin natsu' \
+		(pd_param (icon_component, "origin", "string") = 'natsu')
+	entry 'Kaiyo' 'parameter #icon_component origin kaiyo' \
+		(pd_param (icon_component, "origin", "string") = 'kaiyo')
+	entry 'Malaita' 'parameter #icon_component origin malaita' \
+		(pd_param (icon_component, "origin", "string") = 'malaita')
+endmenu
+
+
+define widget aircraft_cg_origin_menu intmenu 'cartesian grid aircraft origins'
+	title 'Aircraft Platforms'
+	line
+	entry 'n308d (DAP data)' 'parameter #icon_component origin n308d_dap' \
+		(pd_param (icon_component, "origin", "string") = 'n308d_dap')
+	entry 'n42rf (slow tape)' 'parameter #icon_component origin n42rf_st' \
+		(pd_param (icon_component, "origin", "string") = 'n42rf_st')
+	entry 'n43rf (slow tape)' 'parameter #icon_component origin n43rf_st' \
+		(pd_param (icon_component, "origin", "string") = 'n43rf_st')
+endmenu
+
+
+!
+! Zoom to to preset x and y ranges.
+!
+procedure DoZoom xmin string xmax string ymin string ymax string
+	parameter global x-min #xmin
+	parameter global x-max #xmax
+	parameter global y-min #ymin
+	parameter global y-max #ymax
+endprocedure
+
+
+
+!
+! Data available command for ISS stuff.  The only real purpose for this,
+! in addition to what DefaultDataAvail provides, is to set the global trigger
+! to match our platform.
+!
+procedure ISSDataAvailable platform string when string
+	if (pd_param ("global", "trigger", "string") <> platform)
+		parameter global trigger #platform
+	endif
+	DefaultDataAvail #platform #when
+endprocedure
+
+
+!
+! Omega sonde fields.
+!
+define widget omegafield intmenu 'omegafield'
+	title "Omega Sonde Fields"
+	line
+	entry 'Pressure'		'omega_fldset pres'
+	entry 'Temperature'		'omega_fldset temp'
+	entry 'Relative Humidity'	'omega_fldset rh'
+	entry 'U wind component'	'omega_fldset u_wind'
+	entry 'V wind component'	'omega_fldset v_wind'
+	entry 'Dewpoint'		'omega_fldset dp'
+	entry 'Wind speed'		'omega_fldset wspd'
+endmenu
+
+procedure omega_fldset name string
+	parameter #icon_component x-field #name
+endprocedure
+
+
+!
+! The raster left button menu.
+!
+define widget raster-left intmenu 'Raster Left'
+	title 'Overlay Operations'
+	line
+	submenu 'Adjust Limits' 'adjust-raster-limits'
+	entry 'Spatial offset options' 'require offsets; popup offsets'
+	line
+	entry 'Raise to top' 'move #icon_component 0'
+	entry 'Move to bottom' 'move #icon_component 1'
+	entry 'Disable/reenable' 'ToggleBoolean "disable"'
+	entry 'Remove' 'i_remove_component'
+endmenu
+
+!
+! The Raster Plot Adjust Limits submenu
+!
+define widget adjust-raster-limits intmenu 'Adjust Limits'
+	title 'Adjust Limits'
+	line
+	entry 'Center/Step' 'require ctr-step; popup center-step'
+	entry 'Highlight/Range' 'require raster; popup highlight'
+endmenu
+
+
+
+
+
+
+define widget p3radar-middle intmenu 'Radar field menu'
+	title 'P3 composite radar'
+	line
+	entry 'black & white color table'\
+		 'param #icon_component color-table 16gray' \
+		(pd_param (icon_component,"color-table","string") = "16gray")
+	entry 'scook color table' 'param #icon_component color-table scook' \
+		(pd_param (icon_component,"color-table","string") = "scook")
+	entry 'contour' 'param #icon_component color-table contour' \
+		(pd_param (icon_component,"color-table","string") = "contour")
+	entry 'hotcold' 'param #icon_component color-table hotcold' \
+		(pd_param (icon_component,"color-table","string") = "hotcold")
+	entry 'wild' 'param #icon_component color-table wild' \
+		(pd_param (icon_component,"color-table","string") = "wild")
+	entry 'wild_new' 'param #icon_component color-table wild_new' \
+		(pd_param (icon_component,"color-table","string") = "wild_new")
+	line
+	entry 'Raster representation' \
+		'param #icon_component representation raster'
+	entry 'Contour representation' \
+		'param #icon_component representation contour'
+	entry 'Filled contour representation' \
+		'param #icon_component representation filled-contour'
+	line
+	submenu 'Contour Width' LineWidth
+endmenu
+
+
+
+
+
+!
+! Left button menu for the global component.
+!
+define widget global-left intmenu 'Global left menu'
+	title 'Global Options'
+	line
+	entry 'Scale back to big picture' 'DoZoom -3500 1500 -1500 3000'
+	line
+	entry 'Popup Overlay Times Window' 'popup overlay'
+	entry 'Popup Movie Controller' 'popup movie'
+	entry 'Popup position readout widget' 'popup position'
+	entry 'Popup image file generator' 'popup imagecrank'
+	submenu 'Movies' movie-control
+endmenu
+
+!
+! Movie control menu.
+!
+define widget movie-control intmenu 'movie control'
+	title 'Movie Control'
+	line
+	entry 'Popup Movie Controller' 'popup movie'
+	entry 'Run Movie' 'movie run'
+	entry 'Stop Movie' 'movie stop'
+endmenu
+
+
+!
+! The Global Adjust Limits submenu
+!
+define widget adjust_global_limits intmenu "Adjust Global Limits"
+	entry 'X Limits' 'i_adjust_global x-limit-proc'
+	entry 'Y Limits' 'i_adjust_global y-limit-proc'
+endmenu
+
+
+
+define widget ship_rr_origin_menu intmenu 'ship origin for range rings'
+	title 'Ship Platforms'
+	line
+	entry 'Vickers' 'parameter #icon_component platform vickers' \
+		(pd_param (icon_component, "platform", "string") = 'vickers')
+	entry 'Xiang5' 'parameter #icon_component platform xiang5' \
+		(pd_param (icon_component, "platform", "string") = 'xiang5')
+	entry 'Kexue 1' 'parameter #icon_component platform kexue1' \
+		(pd_param (icon_component, "platform", "string") = 'kexue1')
+	entry 'Shiyan 3' 'parameter #icon_component platform shiyan3' \
+		(pd_param (icon_component, "platform", "string") = 'shiyan3')
+	entry 'Wecoma' 'parameter #icon_component platform wecoma' \
+		(pd_param (icon_component, "platform", "string") = 'wecoma')
+	entry 'Moana Wave' 'parameter #icon_component platform moana' \
+		(pd_param (icon_component, "platform", "string") = 'moana')
+	entry 'Le Noroit' 'parameter #icon_component platform noroit' \
+		(pd_param (icon_component, "platform", "string") = 'noroit')
+	entry 'Franklin' 'parameter #icon_component platform franklin' \
+		(pd_param (icon_component, "platform", "string") = 'franklin')
+	entry 'Alis' 'parameter #icon_component platform alis' \
+		(pd_param (icon_component, "platform", "string") = 'alis')
+	entry 'Hakuho-Maru' 'parameter #icon_component platform hakuho' \
+		(pd_param (icon_component, "platform", "string") = 'hakuho')
+	entry 'Keifu-Maru' 'parameter #icon_component platform keifu' \
+		(pd_param (icon_component, "platform", "string") = 'keifu')
+	entry 'Natsushima' 'parameter #icon_component platform natsu' \
+		(pd_param (icon_component, "platform", "string") = 'natsu')
+	entry 'Kaiyo' 'parameter #icon_component platform kaiyo' \
+		(pd_param (icon_component, "platform", "string") = 'kaiyo')
+	entry 'Malaita' 'parameter #icon_component platform malaita' \
+		(pd_param (icon_component, "platform", "string") = 'malaita')
+endmenu
+
+
+define widget aircraft_rr_origin_menu intmenu 'range ring aircraft origins'
+	title 'Aircraft Platforms'
+	line
+	entry 'n308d (DAP data)' 'parameter #icon_component platform n308d_dap' \
+		(pd_param (icon_component, "platform", "string") = 'n308d_dap')
+	entry 'n308d (manual)' 'parameter #icon_component platform n308d' \
+		(pd_param (icon_component, "platform", "string") = 'n308d')
+	entry 'n42rf (slow tape)' 'parameter #icon_component platform n42rf_st' \
+		(pd_param (icon_component, "platform", "string") = 'n42rf_st')
+	entry 'n42rf (manual)' 'parameter #icon_component platform n42rf' \
+		(pd_param (icon_component, "platform", "string") = 'n42rf')
+	entry 'n43rf (slow tape)' 'parameter #icon_component platform n43rf_st' \
+		(pd_param (icon_component, "platform", "string") = 'n43rf_st')
+	entry 'n43rf (manual)' 'parameter #icon_component platform n43rf' \
+		(pd_param (icon_component, "platform", "string") = 'n43rf')
+	entry 'DC-8 (manual)' 'parameter #icon_component platform dc8' \
+		(pd_param (icon_component, "platform", "string") = 'dc8')
+	entry 'ER-2 (manual)' 'parameter #icon_component platform er2' \
+		(pd_param (icon_component, "platform", "string") = 'er2')
+	entry '340-A (manual)' 'parameter #icon_component platform 340a' \
+		(pd_param (icon_component, "platform", "string") = '340a')
+	entry 'C-130 (manual)' 'parameter #icon_component platform c130' \
+		(pd_param (icon_component, "platform", "string") = 'c130')
+endmenu
+
+!
+! Adjustments to range rings.
+!
+define widget rings-menu intmenu 'rings adjustment'
+	title 'Range ring parameters'
+	line
+	entry 'Honiara Origin' 'parameter #icon_component platform ops-ctr' \
+		(pd_param (icon_component, "platform", "string") = 'ops-ctr')
+	entry 'IMET Origin' 'parameter #icon_component platform imet' \
+		(pd_param (icon_component, "platform", "string") = 'imet')
+	entry 'Willis Island' 'parameter #icon_component platform willis-island'\
+		(pd_param (icon_component, "platform", "string") = 'willis-island')
+	submenu 'Ship Origins' ship_rr_origin_menu
+	submenu 'Aircraft Origins' aircraft_rr_origin_menu
+	line
+	entry '10 km rings' 'parameter #icon_component ring-interval 10' \
+		(pd_param (icon_component, "ring-interval", "string") = '10')
+	entry '20 km rings' 'parameter #icon_component ring-interval 20' \
+		(pd_param (icon_component, "ring-interval", "string") = '20')
+	entry '30 km rings' 'parameter #icon_component ring-interval 30' \
+		(pd_param (icon_component, "ring-interval", "string") = '30')
+	entry '40 km rings' 'parameter #icon_component ring-interval 40' \
+		(pd_param (icon_component, "ring-interval", "string") = '40')
+	line
+	entry '10 degree lines' \
+		'parameter #icon_component azimuth-interval 10' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '10')
+	entry '30 degree lines' \
+		'parameter #icon_component azimuth-interval 30' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '30')
+	entry '45 degree lines' \
+		'parameter #icon_component azimuth-interval 45' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '45')
+	entry '90 degree lines' \
+		'parameter #icon_component azimuth-interval 90' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '90')
+	line
+	submenu 'Line Width' linewidth
+endmenu
+
+
+
+
+
+
+define widget side-annot-scale intmenu 'Side annotation'
+	title 'Annotation Size'
+	line
+	entry 'Small' 'do_side_annot_size 0.02' \
+		(pd_param(icon_component, "sa-scale", "string") = "0.02")
+	entry 'Medium' 'do_side_annot_size 0.025' \
+		(pd_param(icon_component, "sa-scale", "string") = "0.025")
+	entry 'Large' 'do_side_annot_size 0.03' \
+		(pd_param(icon_component, "sa-scale", "string") = "0.03")
+endmenu
+
+
+!
+! Remove a component.
+!
+procedure i_remove_component
+	local dm_cmd concat("remove ",ourname)
+	dm concat(concat (dm_cmd, " "), icon_component)
+endprocedure
+
+
+!
+! Adjust the limits on the global component.
+!
+procedure i_adjust_global procparam string
+	local proc pd_paramsearch(icon_component,procparam,"global","string")
+	if (proc <> "(Undefined)")
+		#proc 
+	else
+		dm "beep"
+	endif
+endprocedure
+
+!
+! Adjust the limits on a component.
+!
+procedure i_adjust procparam string
+	local rep pd_param(icon_component, "representation", "string")
+	local proc pd_paramsearch(icon_component, procparam, rep, "string")
+	if (proc <> "(Undefined)")
+		#proc #icon_component
+	else
+		dm "beep"
+	endif
+endprocedure
+
+!
+! The pressure minval maxval adjuster.
+!
+procedure adj_pres_minmax comp string
+	local rep pd_param(comp, "representation", "string")
+	local minval pd_paramsearch(comp, "pres-minval", rep, "string")
+	local maxval pd_paramsearch(comp, "pres-maxval", rep, "string")
+	activate doublefloat #comp "pres-minval" "Pressure Minval: " #minval \
+		"pres-maxval" "Pressure Maxval: " #maxval
+endprocedure
+
+!
+! The temperature minval maxval adjuster.
+!
+procedure adj_temp_minmax comp string
+	local rep pd_param(comp, "representation", "string")
+	local minval pd_paramsearch(comp, "temp-minval", rep, "string")
+	local maxval pd_paramsearch(comp, "temp-maxval", rep, "string")
+	activate doublefloat #comp "temp-minval" "Temperature Minval: " \
+		#minval "temp-maxval" "Temperature Maxval: " #maxval
+endprocedure
+
+
+!
+! The highlight range adjuster.
+!
+procedure adj_highlight_range comp string
+	local field pd_param(comp, "field", "string")
+	local repr pd_param(comp, "representation", "string")
+	local high_param concat(field, "-highlight")
+	local highlight pd_paramsearch(comp, high_param, repr, "string")
+	local range_param concat(field, "-highlight-range")
+	local range pd_paramsearch(comp, range_param, repr, "string")
+	activate doublefloat #comp #high_param "Highlight: " #highlight \
+		#range_param "Range: " #range
+endprocedure
+
+!
+! The x-spacing y-spacing adjuster.
+!
+procedure adj_xy_spacing comp string
+	local x pd_param(comp, "x-spacing", "string")
+	local y pd_param(comp, "y-spacing", "string")
+	activate doublefloat #comp "x-spacing" "X-Spacing: " #x \
+		"y-spacing" "Y-Spacing: " #y
+endprocedure
+
+!
+! The x min max adjuster.
+!
+procedure adj_x_minmax 
+	local xmin pd_paramsearch("global", "x-min", "", "string")
+	local xmax pd_paramsearch("global", "x-max", "", "string")
+	activate doublefloat "global" "x-min" "X Min: " #xmin \
+		"x-max" "X Max: " #xmax
+endprocedure
+
+!
+! The y min max adjuster.
+!
+procedure adj_y_minmax 
+	local ymin pd_paramsearch("global", "y-min", "", "string")
+	local ymax pd_paramsearch("global", "y-max", "", "string")
+	activate doublefloat "global" "y-min" "Y Min: " #ymin \
+		"y-max" "Y Max: " #ymax
+endprocedure
+
+!
+! The arrow scale adjuster.
+!
+procedure adj_arrow_scale comp string
+	local current pd_param(icon_component, "arrow-scale", "string")
+	activate singlefloat #comp 'arrow-scale' "Arrow Scale: " #current
+endprocedure
+
+
+!
+! GMS satellite control.
+!
+procedure gms_resolution which string
+	if (which = "high")
+		local plat 'gms'
+	else
+		local plat 'gms-big'
+	endif
+	parameter #icon_component platform #plat
+	parameter #icon_component field ir
+	parameter global trigger #plat
+endprocedure
+
+procedure gms_visible plat string
+	parameter #icon_component platform #plat
+	parameter #icon_component field vis
+	parameter global trigger #plat
+endprocedure
+
+!
+! Move to center around a click without changing zoom.
+!
+procedure CtrMove
+	local xmin pd_paramsearch('global','x-min','x','float')
+	local xmax pd_paramsearch('global','x-max','x','float')
+	local ymin pd_paramsearch('global','y-min','x','float')
+	local ymax pd_paramsearch('global','y-max','x','float')
+	local xshift (buttonx - (xmax + xmin)/2)
+	local yshift (buttony - (ymax + ymin)/2)
+	local newv string(xmin + xshift)
+	parameter global x-min #newv
+	local newv string(xmax + xshift)
+	parameter global x-max #newv
+	local newv string(ymin + yshift)
+	parameter global y-min #newv
+	local newv string(ymax + yshift)
+	parameter global y-max #newv
+endprocedure
+
+
+
+!
+! Get our field definitions.
+!
+set DefFile (concat (concat (c$libdir, "/"), "FieldDefs"))
+read #DefFile

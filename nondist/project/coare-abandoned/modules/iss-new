@@ -1,0 +1,288 @@
+define widget high-contour-data intmenu 'Contour Field'
+        title 'Contour Field'
+        line
+        entry '915 Profiler Wind Speed' 'set_contour_z_field kapinga/prof915h wspd' \
+        (pd_param(icon_component,"z-field","string") = "wspd")
+        entry '915 Profiler Wind Direction' 'set_contour_z_field kapinga/prof915h wdir' \
+        (pd_param(icon_component,"z-field","string") = "wdir")
+        entry '915 Profiler Signal-Noise 1' 'set_contour_z_field kapinga/prof915h snr1' \
+        (pd_param(icon_component,"z-field","string") = "snr1")
+        entry '915 Profiler Signal-Noise 2' 'set_contour_z_field kapinga/prof915h snr2' \
+        (pd_param(icon_component,"z-field","string") = "snr2")
+        entry '915 Profiler Signal-Noise W' 'set_contour_z_field kapinga/prof915h snrw' \
+        (pd_param(icon_component,"z-field","string") = "snrw")
+        entry '915 Profiler U Wind Component' 'set_contour_z_field kapinga/prof915h u_wind' \
+        (pd_param(icon_component,"z-field","string") = "u_comp")
+        entry '915 Profiler V Wind Component' 'set_contour_z_field kapinga/prof915h v_wind' \
+        (pd_param(icon_component,"z-field","string") = "v_comp")
+        entry '915 RASS Virtual Temperature' 'set_contour_z_field kapinga/rass915 v_temp' \
+        (pd_param(icon_component,"z-field","string")="v_temp")
+endmenu
+
+procedure myset_zfield zfld string
+        parameter #icon_component z-field #zfld
+endprocedure
+
+procedure myset_xfield xfld string
+	parameter #icon_component scale-x-mode autoscale
+        parameter #icon_component x-field #xfld
+        parameter #icon_component axis-t-label #xfld
+endprocedure
+
+procedure set_contour_z_field plat string zfld string
+        parameter #icon_component platform #plat
+        parameter #icon_component z-field #zfld
+endprocedure
+
+procedure set_contour_interval
+        local int pd_paramsearch(icon_component,"z-step","xy-contour","string")
+        activate singlefloat #icon_component "z-step"  "Contour Interval: " #int
+endprocedure
+
+procedure set_height_interval
+        local hint pd_paramsearch("heightscale","tic-interval","axis-r","string")
+	activate singlefloat heightscale "axis-r-tic-interval" "Tic Interval: " #hint
+endprocedure
+
+procedure set_altitude_interval
+        local aint pd_paramsearch("altscale","tic-interval","axis-l","string")
+	activate singlefloat altscale "axis-l-tic-interval" "Tic Interval: " #aint
+endprocedure
+
+procedure set_contour_grid dim string
+    if ( dim = "x" )
+        local res pd_paramsearch(icon_component,"x-grid","xy-contour","string")
+        activate singleint #icon_component "x-grid"  "X grid count: " #res
+    else
+        local res pd_paramsearch(icon_component,"y-grid","xy-contour","string")
+        activate singleint #icon_component "y-grid"  "Y grid count: " #res
+    endif
+endprocedure
+
+! Adjust the limits on the global component.
+!
+procedure i_adjust_global procparam string
+        local proc pd_paramsearch(icon_component, procparam, "global", "string")
+	message 'procparam = #, icon_component = #, proc = #' procparam icon_component proc
+        if (proc <> "(Undefined)")
+	    activate singlestring #icon_component #procparam  "Time span: " #proc
+!                #proc
+        else
+                dm "beep"
+        endif
+endprocedure
+
+define widget adjust-height intmenu 'Adjust Vertical Submenu'
+        title 'Scale Height'
+        line
+        entry '0- 1000 m/agl' 'adjust_height_scale set 0.0 1000.0'
+        entry '0- 2000 m/agl' 'adjust_height_scale set 0.0 2000.0'
+        entry '0- 3000 m/agl' 'adjust_height_scale set 0.0 3000.0'
+        entry '0- 4000 m/agl' 'adjust_height_scale set 0.0 4000.0'
+        entry '0- 5000 m/agl' 'adjust_height_scale set 0.0 5000.0'
+        entry '0- 6000 m/agl' 'adjust_height_scale set 0.0 6000.0'
+        entry '0- 7000 m/agl' 'adjust_height_scale set 0.0 7000.0'
+        entry '0- 8000 m/agl' 'adjust_height_scale set 0.0 8000.0'
+        entry '0- 9000 m/agl' 'adjust_height_scale set 0.0 9000.0'
+        entry '0-10000 m/agl' 'adjust_height_scale set 0.0 10000.0'
+        entry '0-15000 m/agl' 'adjust_height_scale set 0.0 15000.0'
+        entry '0-20000 m/agl' 'adjust_height_scale set 0.0 20000.0'
+        entry 'Manual Adjust...' 'adjust_height_scale get global m/agl'
+endmenu
+
+procedure adjust_height_scale how string proc1 string proc2 string
+!        local alt pd_paramsearch(icon_component, "iss-site-alt", "", "float")
+        if (how = "set")
+            parameter global height-scale-y-min #proc1
+            parameter global height-scale-y-max #proc2
+        else
+            local min pd_param("global", "height-scale-y-min", "string")
+            local max pd_param("global", "height-scale-y-max", "string")
+            activate doublefloat "global" "height-scale-y-min" "Y Min: " #min \
+                "height-scale-y-max" "Y Max: " #max
+        endif
+        local min pd_param("global", "height-scale-y-min", "float")
+        local max pd_param("global", "height-scale-y-max", "float")
+        local minO string((alt) + (min / 1000))
+        local maxO string((alt) + (max / 1000))
+        parameter global alt-scale-y-min #minO
+        parameter global alt-scale-y-max #maxO
+endprocedure
+
+procedure toggle_component sourcepdname string compname string
+! sourcepd - the name of the plot-description to look for the component to be
+!            added.
+! comp - the component name to add or remove
+!
+        local clist pd_param("global", "component-list","string" )
+        if (sourcepdname = "absolute")
+            local comp concat(compname,"")
+        else
+            local comp pd_param("global",compname,"string")
+        endif
+        local sourcepd pd_param("global",sourcepdname,"string")
+        if ( comp = "(Undefined)" )
+            message 'Undefined toggle component'
+            dm "beep"
+        else
+!
+! If it is already there, then remove it.
+!
+            if ( substring( clist, comp) )
+                local dm_cmd concat("remove ",ourname)
+                dm concat(dm_cmd, concat(" ",comp))
+                local newcomps substr_remove(clist, comp)
+            else
+                dm concat(concat("add ",sourcepd),concat(concat(" ",comp),concat(" ",ourname)))
+                local newcomps concat( clist, concat(",",comp))
+            endif
+!
+! Store the new component list
+! Note: the dm "add" commands somehow screws up the gp "parameter" command
+!       so that the component-list is not updated in gp's Pd symbol table
+!       so, use the dm "parameter" command to make sure...
+!
+            dm concat(concat("parameter ",ourname), concat (" global component-list ", newcomps))
+        endif
+endprocedure
+
+procedure add_component sourcepdname string compname string
+! sourcepd - the name of the plot-description to look for the component to be
+!            added.
+! comp - the component name to add or remove
+!
+        local clist pd_param("global", "component-list","string" )
+        if (sourcepdname = "absolute")
+            local comp concat(compname,"")
+        else
+            local comp pd_param("global",compname,"string")
+        endif
+        local sourcepd pd_param("global",sourcepdname,"string")
+        if ( comp = "(Undefined)" )
+            message 'Undefined toggle component'
+            dm "beep"
+        else
+!
+! If it is already there, then remove it.
+!
+!            if ( substring( clist, comp) )
+!                local dm_cmd concat("remove ",ourname)
+!                dm concat(dm_cmd, concat(" ",comp))
+!                local newcomps substr_remove(clist, comp)
+!            else
+                dm concat(concat("add ",sourcepd),concat(concat(" ",comp),concat(" ",ourname)))
+                local newcomps concat( clist, concat(",",comp))
+!            endif
+!
+! Store the new component list
+! Note: the dm "add" commands somehow screws up the gp "parameter" command
+!       so that the component-list is not updated in gp's Pd symbol table
+!       so, use the dm "parameter" command to make sure...
+!
+            dm concat(concat("parameter ",ourname), concat (" global component-list ", newcomps))
+        endif
+endprocedure
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! fixing up the button menus
+
+!
+! Middle icon menu for gms data.
+!
+define widget colortables intmenu 'color tables'
+	title 'color tables'
+	line
+	entry 'black & white color table'\
+		 'param #icon_component color-table 16gray' \
+		(pd_param (icon_component,"color-table","string") = "16gray")
+	entry 'black & white + red color table'\
+		 'param #icon_component color-table ir_gray' \
+		(pd_param (icon_component,"color-table","string") = "ir_gray")
+	entry 'black & white "log" color table'\
+		 'param #icon_component color-table newgray' \
+		(pd_param ("global","color-table","string") = "newgray")
+	entry 'scook color table' 'param #icon_component color-table scook' \
+		(pd_param (icon_component,"color-table","string") = "scook")
+	entry 'cook16' 'param #icon_component color-table cook16' \
+		(pd_param (icon_component,"color-table","string") = "cook16")
+	entry 'cook32' 'param #icon_component color-table cook32' \
+		(pd_param (icon_component,"color-table","string") = "cook32")
+	entry 'hotcold' 'param #icon_component color-table hotcold' \
+		(pd_param (icon_component,"color-table","string") = "hotcold")
+	entry 'wild' 'param #icon_component color-table wild' \
+		(pd_param (icon_component,"color-table","string") = "wild")
+	entry 'wild_new' 'param #icon_component color-table wild_new' \
+		(pd_param (icon_component,"color-table","string") = "wild_new")
+	entry 'AllWhite' 'param #icon_component color-table AllWhite' \
+		(pd_param (icon_component,"color-table","string") = "AllWhite")
+        entry 'Winds' 'param #icon_component color-table Winds' \
+                (pd_param (icon_component,"color-table","string") = "Winds")
+        entry 'Contour' 'param #icon_component color-table Contour' \
+                (pd_param (icon_component,"color-table","string") = "Contour")
+endmenu
+
+define widget minimal-cap-left-menu intmenu "leftmenu"
+        title 'Overlay Operations'
+        line
+        entry 'Raise to top' 'move #icon_component 0'
+        entry 'Move to bottom' 'move #icon_component 1'
+        entry 'Disable/reenable' 'ToggleBoolean "disable"' \
+                (PDParam(icon_component,"disable") = "true")
+        entry 'Remove' 'i_remove_component'
+        line
+        entry 'Disable axes' 'disable_axes'
+        entry 'Enable axes' 'enable_axes'
+endmenu
+define widget cap-left-menu_time_height_contour intmenu "leftmenu"
+        title 'Overlay Operations'
+        line
+        entry 'Raise to top' 'move #icon_component 0'
+        entry 'Move to bottom' 'move #icon_component 1'
+        entry 'Disable/reenable' 'ToggleBoolean "disable"' \
+                (PDParam(icon_component,"disable") = "true")
+        entry 'Remove' 'i_remove_component'
+        line
+        entry 'Disable axes' 'disable_axes'
+        entry 'Enable axes' 'enable_axes'
+        line
+	entry 'Filled/line contour representation' 'toggle_rep'
+        entry 'Set X-Grid Resolution' 'set_contour_grid x'
+        entry 'Set Y-Grid Resolution' 'set_contour_grid y'
+        entry 'Set Contour Interval' 'set_contour_interval'
+	line
+	submenu 'Select Color Table' colortables 
+endmenu
+
+procedure toggle_rep
+	local current PDParam(icon_component,'representation-style')
+	if (substring(current,'line'))
+		parameter #icon_component representation-style filled
+  	else
+		parameter #icon_component representation-style line
+	endif
+endprocedure
+
+procedure enable_axes 
+        parameter #icon_component axis-bottom true 
+        parameter #icon_component axis-left true 
+endprocedure
+
+procedure disable_axes 
+        parameter #icon_component axis-bottom false 
+        parameter #icon_component axis-left false 
+endprocedure
+
+define widget iss-global-xygraph intmenu 'Global xygraph middle menu'
+        title 'XYGraph'
+        line
+        entry 'Set Height Tic Interval...' 'set_height_interval'
+        entry 'Set Altitude Tic Interval...' 'set_altitude_interval'
+        submenu 'Adjust Vertical Scale' adjust-height
+        line
+        entry 'Additional Sounding' 'add_component sound-pd sound-comp' \
+        (substring(pd_param("global","component-list","string"),pd_param(icon_component,"sound-comp","string")))
+        entry 'Additional Wind Profiler' 'add_component wind-pd wind-comp' \
+        (substring(pd_param("global","component-list","string"),pd_param(icon_component,"wind-comp","string")))
+        entry 'Additional Rass' 'add_component rass-pd rass-comp' \
+        (substring(pd_param("global","component-list","string"),pd_param(icon_component,"rass-comp","string")))
+endmenu
+

@@ -1,0 +1,18 @@
+!
+! SSMI satellite raster component
+!
+GLOBAL
+	comment:	SSMI satellite images
+	pd-name:	c_ssmi
+c_ssmi
+	platform:	ssmi
+	field:		ta85v
+	representation:	raster
+	color-table:	16gray
+	icon:		satellite-ssmi
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	ssmi-middle
+	icon-right-menu:	raster-right
+	require:	raster, ssmi
+	scale-mode:	auto
+	limit-proc:	raster-limit-proc

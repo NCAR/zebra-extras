@@ -1,0 +1,15 @@
+#!/bin/csh
+#
+# Fire up a lurking zeb which runs a centralized daemon and not much else.
+#
+setenv DATA_DIR /net/tcw/data/zeb
+
+setenv ZEB_SOCKET /tmp/lurk_daemon.socket
+rm -f $ZEB_SOCKET
+
+/zeb/bin/message -i &
+sleep 2
+/zeb/bin/EventLogger -n -f /tmp/lurk_daemon.log &
+sleep 1
+/zeb/bin/timer &
+exec /zeb/bin/dsDaemon /net/tcw/zeb/ds.config

@@ -1,0 +1,18 @@
+global
+	pd-name:	tc_ctdloc
+tc_ctdloc
+	platform:	SOMETHING
+	representation:	overlay
+	field:		location
+	color:		cyan
+	icon-left-menu:		minimal-cap-left-menu
+	posicon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	posicon-right-menu:	location-options
+	posicon-middle-menu:	ctdloc-shipout
+	label:		platform
+	time-label:	true
+	active-icon:	true
+	require:	location, ctdloc
+	label-size:	10
+	icon:		boat

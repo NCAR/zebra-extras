@@ -1,0 +1,32 @@
+global
+	pd-name: sound
+	plot-type: xygraph
+sound
+	adj-axis-side: t
+	axis-bottom: false
+	axis-left: false
+	axis-t-color: white
+	axis-t-grid-intensity: 0.0
+	axis-t-label: pres
+	axis-t-tic-interval: 1.0
+	axis-top: true
+	data-mode:      snapshot
+	do-color-proc: change_component_color
+	field-color: white
+	field-select-command: myset_xfield
+	icon: sounding
+	icon-background: black
+	icon-color: white
+	icon-left-menu: xy-simple
+	icon-middle-menu: FieldMenu
+	icon-right-menu: DataAvailable
+	platform: sounding/kapinga
+	representation: simple
+	representation-style: line
+	scale-x-mode:   autoscale
+	scale-y-mode:   manual
+	trigger: sound
+	x-field: pres
+	y-field: alt
+endpd
+

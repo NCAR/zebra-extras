@@ -1,0 +1,26 @@
+!
+! Generic aircraft track with data component.
+!
+GLOBAL
+	pd-name:	c_dap
+c_dap
+	representation:	track
+	platform:	n308d_dap
+	trigger:	platform
+	time-period:	2h
+	show-position:	true
+	position-icon:	littleplane
+	icon:		littleplane
+	sa-scale:	0.025
+	color-table:	Rainbow
+	field:		wspd
+	line-width:	3
+	icon-left-menu:		track-left
+	icon-middle-menu:	electra-field	
+	icon-right-menu:	air-right
+	arrow:		true
+	u_field:	u_wind
+	v_field:	v_wind
+	data-skip:	5
+	arrow-interval:	1m
+	arrow-color:	cyan

@@ -1,0 +1,56 @@
+global
+	pd-name:	tc_depth-trace
+depth-grid
+	annot-left-menu:	xy-an-left
+	annot-middle-menu:	FieldMenu
+	annot-right-menu:	simple-color
+	axis-b-color:	yellow
+	axis-bottom:	true
+	axis-left:	true
+	axis-right:	false
+	axis-top:	false
+	color-tweaker:	xytrace-color
+	data-mode:	snapshot
+	field-color:	yellow
+	field-select-command:	depthtrace-field
+	icon:	tseries
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	xytrace-right
+	platform:	SOMETHING
+	representation:	simple
+	representation-style:	line
+	require:	xytrace, simple-color, depthtrace
+	sa-scale:	12
+	x-field:	temperature
+	y-field:	depth
+	x-annot-active:	true
+	y-annot-active:	true
+	xfield-middle-menu:	FieldMenu
+	yfield-middle-menu:	FieldMenu
+depth-grid-1
+	annot-left-menu:	xy-an-left
+	annot-middle-menu:	FieldMenu
+	annot-right-menu:	simple-color
+	axis-bottom:	false
+	axis-left:	false
+	axis-right:	false
+	axis-t-color:	cyan
+	axis-top:	true
+	color-tweaker:	xytrace-color
+	data-mode:	snapshot
+	field-color:	cyan
+	field-select-command:	depthtrace-field
+	icon:	tseries
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	xytrace-right
+	platform:	SOMETHING
+	representation:	simple
+	representation-style:	line
+	require:	xytrace, simple-color, depthtrace
+	sa-scale:	12
+	x-annot-active:	true
+	y-annot-active:	true
+	x-field:	salinity
+	y-field:	depth
+	xfield-middle-menu:	FieldMenu
+	yfield-middle-menu:	FieldMenu

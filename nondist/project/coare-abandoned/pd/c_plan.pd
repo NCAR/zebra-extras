@@ -1,0 +1,13 @@
+GLOBAL
+	pd-name:	c_plan
+	plot-type:	CAP
+	plot-mode:	real-time
+	trigger:	10m
+c_plan
+	platform:	plan
+	representation:	overlay
+	field:		map
+	color:		yellow
+	line-width:	1
+	icon-middle-menu:	simple-color
+	icon:		pencil

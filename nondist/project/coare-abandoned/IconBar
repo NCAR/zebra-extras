@@ -1,0 +1,557 @@
+!
+! All the definitions required to make the iconbar work.
+!
+!
+! The right way to do this.... Put project-specific and DM icons
+! in the /icons directory.  If only we could add directories to the
+! UI icon path...
+!
+set ui$bitmap_directory concat(c$projdir, "/icons")
+
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	!
+	! All this stuff tells the system to put it, unadorned by headers and
+	! title bars, where we want it.  DM does "override" by itself now,
+	! since this iconbar appears in the display config, so we don't
+	! bother with it here.
+	!
+	noheader
+	! size 230 80
+	location 100 100
+	! vertical
+	! override
+	!
+	! Now we can define the menus themselves.
+	!
+	menu help bitmap iconbar-help
+		title 'Zeb Help Access'
+		line
+		entry 'Introduction' 'help'
+		entry 'On-line Topics' 'help tablecontents'
+		entry 'Guide to Documentation' 'help documentation'
+		entry 'Shutting Down' 'help shutdown'
+	endmenu
+	menu global bitmap global
+		title 'Zeb control options'
+		line
+		entry 'Wide-screen satellite' 'display wide' \
+			(dm$config = 'wide')
+		entry 'Satellite + sounding' 'display satsound' \
+			(dm$config = 'satsound')
+		entry 'Satellite + sounding + wind profile' \
+			'display sat-sound-prof' (dm$config = 'sat-sound-prof')
+		entry 'ISS surface time series' 'display iss-tseries' \
+			(dm$config = 'iss-tseries')
+		entry 'Large-scale TAO array' 'display tao' (dm$config = 'tao')
+		entry 'CTD display' 'display ctd' (dm$config = 'ctd')
+		!!! Added by mindy
+		submenu 'Rass' rass-display
+		submenu 'Wind' wind-display
+		entry 'Rass + Wind Profiler' 'display wind-rass-prof' \
+			(dm$config = 'wind-rass-prof')
+		entry 'XYGraph' 'display xygraph' (dm$config = 'xygraph')
+		!!!
+		entry 'Empty' 'display empty' (dm$config = 'empty')
+		line
+		entry 'Time Widget'	'popup time'
+		entry 'Print Display Widget' 'popup hardcopy'
+		entry 'Configuration editing widget' 'popup ConfigEdit'
+		entry 'Data Store display widget' 'shell "dsdwidget &"'
+		entry 'Data Store management widget' 'shell "dsmanage &"'
+		line
+		entry 'Shut down Zeb system' 'shutdown'
+	endmenu
+!	menu global bitmap configs
+!		title 'Configuration Options'
+!		line
+!		entry 'Begin new configuration...' 'popup newconfig'
+!		line
+!!		submenu 'Popup new window' 'windows'
+!		entry 'Kill window by cursor' 'point-and-shoot'
+!		line
+!		entry 'Add window by name...' 'popup NewWindow'
+!		entry 'Kill window by name...' 'popup ZorchWindow'
+!		line
+!		entry 'Save this configuration' 'cfgsave #dm$config'
+!		entry 'Save this configuration as...' 'popup SaveConfig'
+!		entry 'Remove this configuration' 'cfg-remove'
+!		entry 'Restore to original' 'cfg-restore'
+!		line
+!		entry 'Configuration Widget' 'popup ConfigEdit'
+!		entry 'Help' 'help editdconfig'
+!	endmenu
+!	menu global bitmap tools
+!		title 'Zeb Tools and Widgets'
+!		line
+!		entry 'Time Widget'	'popup time'
+!		entry 'Data Widget' 'shell "dsdwidget &"'
+!		entry 'Print Widget'	'popup hardcopy'
+!		line
+!		entry 'DataStore Manager' 'shell "dsmanage &"'
+!		entry 'Process Monitor' 'shell "zmon zmon.config &"'
+!		entry 'LastData Monitor' 'shell "LastData LastData.config &"'
+!	endmenu
+	menu satellite bitmap satellite
+		title 'Satellite Data'
+		line
+		entry 'GMS IR (Honiara/MCIDAS)' \
+			'putc2 c_gms field ir radarspace true'
+		entry 'GMS IR (Flament)' 'putc1 c_gms platform flament_ir'
+		line
+		entry 'ERS-1 winds' 'putc1 c_satwinds platform ers1'
+		line
+		submenu 'SSMI F-8 Temperatures' ssmi2_menu
+		submenu 'SSMI F-10 Temperatures' ssmi4_menu
+		submenu 'SSMI F-11 Temperatures' ssmi5_menu
+	endmenu
+	menu aircraft bitmap aircraft
+		title 'Aircraft'
+		line
+		entry 'NOAA N42RF fuselage radar composite' \
+				'putc1 c_belly platform n42rf_lf'
+		entry 'NOAA N43RF fuselage radar composite' \
+				'putc1 c_belly platform n43rf_lf'
+		line
+		entry 'N42RF track' 'PutScalar n42rf_st alt'
+		entry 'N43RF track' 'PutScalar n43rf_st alt'
+		entry 'Electra DAP Data' 'PutScalar n308d_dap alt'
+		entry 'DC8 track' 'PutScalar nasa_dc8 alt'
+		entry 'ER2 track' 'PutScalar nasa_er2 alt'
+	endmenu
+	menu boats bitmap bigboat
+		title 'Ocean Platforms'
+		line
+		entry 'Boat Locations' \
+		       'putc3 p_loc platform #Boats icon microboat color blue'
+		submenu 'CTD data' ctdmenu
+		line
+		entry 'TAO station plot' 'putc2 p_station platform tao quad1 tdry'
+		entry 'TAO wind vectors' 'sendout c_tao_winds pick'
+		submenu 'TAO line contours' taoline
+		submenu 'TAO filled contours' taofilled
+	endmenu
+	menu surface bitmap surface
+	     	title 'Surface observations'
+		line
+		entry 'ISS Surface data' \
+		      'putc2 p_station platform #isssurf icon iss-iss-small'
+		entry 'TAO station plot' 'putc2 p_station platform tao quad1 tdry'
+		entry 'TAO wind vectors' 'sendout c_tao_winds pick'
+		submenu 'TAO line contours' taoline
+		submenu 'TAO filled contours' taofilled
+	endmenu
+	menu model bitmap 3dgrid
+		title 'Gridded datasets'
+		line
+		entry 'NMC MRF synoptic winds' \
+		   'putc3 p_model_winds platform nmc-analysis color orange icon nmc-an-winds'
+		entry 'NMC MRF contours' \
+		   'putc3 p_contour platform nmc-analysis icon nmc-analysis field t'
+		line
+		entry 'FNOC Ocean parameters' \
+		'putc3 p_contour platform fnoc.ocean icon fnoc.ocean field sst'
+		entry 'FNOC Sea-level pressure analysis' \
+			'putc3 p_contour platform fnoc.slp icon fnoc field slp'
+		entry 'FNOC Synoptic winds' \
+	        'putc3 p_model_winds platform fnoc.syn icon fnoc.winds color blue'
+	endmenu
+	menu 'overlays' bitmap overlays
+		title 'Static Overlays'
+		line
+		entry 'Island Map' 'putc1 p_map platform coare'
+		entry 'IFA Boundary' \
+		      'putc3 p_map platform coare-ifa color brown icon ifa'
+		line
+		entry 'Ops Center location' \
+			'putc2 p_loc platform ops-ctr icon ops-ctr'
+		entry 'ISS Stations' 'putc1 p_iss_loc platform #ISSes'
+		entry 'Imet Location' 'putc2 p_loc platform imet icon diamond'
+! soundings need work
+		entry 'Sounding station locations' \
+		      'putc2 p_active_loc platform #SndLocs icon sounding-small'
+		entry 'Willis Island Radar' \
+			'putc2 p_loc platform willis-island icon diamond'
+		entry 'Ports and Airports' \
+		       'putc3 p_loc platform #Ports icon town color blue'
+		line
+		entry 'X-Y Grid (km)' \
+			'putc3 p_kmgrid x-spacing 300 y-spacing 300 color cyan'
+		entry 'Lat/Lon Grid' \
+			'putc3 p_llgrid x-spacing 300 y-spacing 300 color cyan'
+		entry 'One-hour flight rings' 'sendout c_rings pick'
+	endmenu
+enddef
+
+!!! added by mindy
+define widget rass-display intmenu 'rass display'
+        title 'rass display'
+        line
+	entry '1 window' 'display rassprof' (dm$config = 'rassprof')
+	entry '2 windows' 'display rassprof2' (dm$config = 'rassprof2')
+	entry '3 windows' 'display rassprof3' (dm$config = 'rassprof3')
+endmenu
+define widget wind-display intmenu 'wind display'
+        title 'wind display'
+        line
+	entry '1 window' 'display windprof' (dm$config = 'windprof')
+	entry '2 windows' 'display windprof2' (dm$config = 'windprof2')
+	entry '3 windows' 'display windprof3' (dm$config = 'windprof3')
+endmenu
+!!! 
+
+
+!
+! Location variables for long stuff.  DO NOT PUT SPACES IN THESE STRINGS or
+! unpleasant things will happen to you.
+!
+set Boats 'vickers,xiang5,kexue1,shiyan3,wecoma,moana,noroit,franklin,alis,hakuho,keifu,natsu,kaiyo,malaita'
+set ISSes 'kapinga,nauru,manus,kavieng,sci1,exp3'
+set isssurf 'kapinga/surf,nauru/surf,manus/surf,kavieng/surf,sci1/surf,exp3/surf'
+set Ports 'honiara-ap,tsv-ap,rabaul,guam,brisbane-ap'
+set Rawin 'ponape,misima,honiara'
+set CTD 'nat_ctd,vickers_ctd,wecoma_ctd,moana_ctd,alis_ctd,malaita_ctd'
+
+set SndLocs1 'chuuk,darwin,gove,guam,sounding/kapinga,sounding/kavieng,'
+set SndLocs2 'hongkong,hakuho_maru,korror,sounding/manus,sounding/nauru,'
+set SndLocs3 'sounding/sci1,sounding/exp3,moana_wave,kwajalein,l2d2,majuro,'
+set SndLocs4 'misima,pohnpei,santacruz'
+set SndLocs concat4(SndLocs1,SndLocs2,SndLocs3,SndLocs4)
+
+define widget P3Analysis intmenu 'analysis data'
+	title 'P3 Analysis'
+	line
+	entry 'N42RF Analysis' \
+		'putc1 c_belly_analysis platform n42rf_comp'
+	entry 'N43RF Analysis' \
+		'putc1 c_belly_analysis platform n43rf_comp'
+	entry 'N42RF Analysis - Wind Vectors' \
+		'putc1 c_belly_wind platform n42rf_comp'
+	entry 'N43RF Analysis - Wind Vectors' \
+		'putc1 c_belly_wind platform n43rf_comp'
+endmenu
+
+define widget P3SlowTape intmenu 'slow tape data'
+	title 'P3 Slow Tape data'
+	line
+	entry 'N42RF' 'putc2 p_simple_track platform n42rf_st color green'
+	entry 'N43RF' 'putc1 p_simple_track platform n43rf_st'
+endmenu
+
+!
+! The various maps.
+!
+define widget Maps intmenu 'Maps'
+	title 'Map overlays'
+	line
+	entry 'Island map' 'sendout c_island pick'
+	entry 'IFA boundary' 'sendout c_ifa pick'
+endmenu
+
+
+!
+! SSMI satellite data menus
+!
+define widget ssmi2_menu intmenu 'SSMI channel temperatures'
+	title 'SSMI F-8 Channels'
+	line
+	entry '19 GHz v-pol' 'putssmi2 ta19v'
+	entry '19 GHz h-pol' 'putssmi2 ta19h'
+	entry '22 GHz v-pol' 'putssmi2 ta22v'
+	entry '37 GHz v-pol' 'putssmi2 ta37v'
+	entry '37 GHz h-pol' 'putssmi2 ta37h'
+	entry '85 GHz v-pol' 'putssmi2 ta85v'
+	entry '85 GHz h-pol' 'putssmi2 ta85h'
+endmenu
+
+define widget ssmi4_menu intmenu 'SSMI channel temperatures'
+	title 'SSMI F-10 Channels'
+	line
+	entry '19 GHz v-pol' 'putssmi4 ta19v'
+	entry '19 GHz h-pol' 'putssmi4 ta19h'
+	entry '22 GHz v-pol' 'putssmi4 ta22v'
+	entry '37 GHz v-pol' 'putssmi4 ta37v'
+	entry '37 GHz h-pol' 'putssmi4 ta37h'
+	entry '85 GHz v-pol' 'putssmi4 ta85v'
+	entry '85 GHz h-pol' 'putssmi4 ta85h'
+endmenu
+
+define widget ssmi5_menu intmenu 'SSMI channel temperatures'
+	title 'SSMI F-11 Channels'
+	line
+	entry '19 GHz v-pol' 'putssmi5 ta19v'
+	entry '19 GHz h-pol' 'putssmi5 ta19h'
+	entry '22 GHz v-pol' 'putssmi5 ta22v'
+	entry '37 GHz v-pol' 'putssmi5 ta37v'
+	entry '37 GHz h-pol' 'putssmi5 ta37h'
+	entry '85 GHz v-pol' 'putssmi5 ta85v'
+	entry '85 GHz h-pol' 'putssmi5 ta85h'
+endmenu
+
+procedure putssmi2 fld string
+	putc3 c_ssmi platform ssmi_s2 field #fld icon ssmi-f8
+endprocedure
+
+procedure putssmi4 fld string
+	putc3 c_ssmi platform ssmi_s4 field #fld icon ssmi-f10
+endprocedure
+
+procedure putssmi5 fld string
+	putc3 c_ssmi platform ssmi_s5 field #fld icon ssmi-f11
+endprocedure
+
+!
+! Submenu for grids and range rings.
+!
+define widget GridsAndRings intmenu 'grid and rings and nifty stuff'
+	title 'Grids, rings, etc.'
+	line
+!	submenu 'Radar Range Rings' RadarRings
+!	line
+!	submenu 'VOR/DME Range Rings' VORRings 
+!	line
+	entry 'X-Y Grid (km)' \
+		'sendout p_kmgrid pick'
+	entry 'Lat/Lon Grid ' \
+		'sendout p_llgrid pick'
+endmenu
+
+!
+! VOR/DME range ring menu.
+!
+define widget VORRings intmenu 'VOR range rings'
+	title 'VOR/DME Range Rings'
+	line
+	entry 'STJ range rings' 'putc1 c_vor platform vor-stj'
+	entry 'MKC range rings' 'putc1 c_vor platform vor-mkc'
+	entry 'PWE range rings' 'putc1 c_vor platform vor-pwe'
+	entry 'TOP range rings' 'putc1 c_vor platform vor-top'
+	entry 'DUC range rings' 'putc1 c_vor platform vor-duc'
+	entry 'IRW range rings' 'putc1 c_vor platform vor-irw'
+	entry 'HBR range rings' 'putc1 c_vor platform vor-hbr'
+	entry 'IFI range rings' 'putc1 c_vor platform vor-ifi'
+	entry 'IRK range rings' 'putc1 c_vor platform vor-irk'
+	entry 'DSM range rings' 'putc1 c_vor platform vor-dsm'
+	entry 'FSM range rings' 'putc1 c_vor platform vor-fsm'	
+	entry 'Other VOR (keyboard entry)' 'popup vor-origin'
+endmenu
+
+
+!
+! Contour menus.
+!
+define widget taoline intmenu 'x'
+	title 'TAO line contour data'
+	line
+	entry 'Ambient temperature' 'putc1 c_tao_contour field tdry'
+	entry 'Sea surface temperature' 'putc1 c_tao_contour field sst'
+	entry 'Relative humidity' 'putc1 c_tao_contour field rh'
+endmenu
+
+define widget taofilled intmenu 'x'
+	title 'TAO filled contour data'
+	line
+	entry 'Ambient temperature' 'putc1 c_tao_fcontour field tdry'
+	entry 'Sea surface temperature' 'putc1 c_tao_fcontour field sst'
+	entry 'Relative humidity' 'putc1 c_tao_fcontour field rh'
+endmenu
+
+
+!
+! Put in window bounds.
+!
+procedure put_wbounds comp string
+!
+! Get the window we want to see.
+!
+	set wbounds_win "none"
+	pickwin wbounds_win
+	if (wbounds_win = "none")
+		beep
+		return
+	endif
+!
+! And now the place where it goes.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")
+		beep
+		return
+	endif
+!
+! Fix up the component and ship it over.
+!
+	parameter #comp #comp platform #wbounds_win
+	add #comp #comp #target_win
+endprocedure
+
+
+!
+! pconfig -- switch between the various 'picture' configs.
+!
+procedure pconfig config string
+!
+! Switch over to the new config.
+!
+	display #config
+!
+! Figure out what we're doing with window boxes.
+!
+!	if (config = 'picture' or config = 'picturex')
+!		parameter big wbox disable false
+!	elseif (config = 'pictures')
+!		parameter big wbox disable true
+!	endif
+endprocedure
+
+
+procedure vor_origin_enter
+!
+! Get some parameters
+!
+        local comp getftext(ui$form,'comp')
+        local origin getftext(ui$form,'origin')
+	local originname concat(origin, '-location')
+        local loc pd_param('defaults', 'defaults', originname, "string")
+!
+! Give them a chance without "vor-"
+!
+        if (loc = '(Undefined)')
+                local origin concat('vor-', origin)
+		local originname concat(origin, '-location')
+                local loc pd_param('defaults', 'defaults', originname, "string")
+        endif
+!
+! Make sure we know about this location.
+!
+        if (loc = '(Undefined)')
+                local complaint quote(concat3('Location ',origin,' unknown'))
+                formtext #ui$form gripe #complaint
+                return
+        endif
+!
+! Looks cool -- let's do it.
+!
+	formtext #ui$form gripe 'Please select window'
+	putc1 'c_vordef' 'platform' #origin
+	popdown #ui$form
+endprocedure
+
+
+
+!
+! Throw a new platform into a depth-trace window
+!
+procedure tweak-depth-plat platform string field string win string
+	parameter #win global plot-hold true
+!
+! See if the depth grid components are there; if not, throw them on.
+!
+	if (not pd_defined (win, 'depth-grid', 'platform'))
+		add tc_depth-trace depth-grid #win 0
+		add tc_depth-trace depth-grid-1 #win 0
+	endif
+!
+! Throw in the new platform.
+!
+	local ourcomp 'depth-grid'
+	local plats pd_param(win, ourcomp, 'platform', 'string')
+	if (plats = 'SOMETHING')
+		local plats platform
+	else
+		local plats quote(concat3(plats, ',', platform))
+	endif
+	parameter #win #ourcomp platform #plats
+	local clrs pd_param(win,ourcomp,'field-color','string')
+	local fcolor NthColor('xygraph', nvalue(win,ourcomp,'platform')- 1)
+	local clrs quote(concat3(clrs, ',', fcolor))
+	parameter #win #ourcomp field-color #clrs
+
+	local ourcomp 'depth-grid-1'
+	local plats pd_param(win, ourcomp, 'platform', 'string')
+	if (plats = 'SOMETHING')
+		local plats platform
+	else
+		local plats quote(concat3(plats, ',', platform))
+	endif
+	parameter #win #ourcomp platform #plats
+	local clrs pd_param(win,ourcomp,'field-color','string')
+	local fcolor NthColor('xygraph', 2*nvalue(win,ourcomp,'platform')- 1)
+	local clrs quote(concat3(clrs, ',', fcolor))
+	parameter #win #ourcomp field-color #clrs
+
+	parameter #win global plot-hold false
+endprocedure
+
+
+read IconBar.tools
+
+
+!
+! Throw a new platform into a depth-trace window
+!
+procedure new-time-depth platform string field string win string
+	parameter #win global plot-hold true
+!
+! See if the depth profile component is there; if not, throw it on.
+!
+	if (not pd_defined (win, 'tc_timedepth', 'platform'))
+		add tc_timedepth tc_timedepth #win 0
+	endif
+!
+! Throw in the new platform.
+!
+	local ourcomp 'tc_timedepth'
+	local plats pd_param(win, ourcomp, 'platform', 'string')
+	if (plats = 'SOMETHING')
+		local plats platform
+	else
+		local plats quote(concat3(plats, ',', platform))
+	endif
+	parameter #win #ourcomp platform #plats
+	local clrs pd_param(win,ourcomp,'field-color','string')
+	local fcolor NthColor('xygraph', nvalue(win,ourcomp,'platform')- 1)
+	local clrs quote(concat3(clrs, ',', fcolor))
+	parameter #win #ourcomp field-color #clrs
+	parameter #win global plot-hold false
+endprocedure
+
+
+
+!
+! Tweak things for a depth contour window
+!
+procedure new-depth-contour platform string field string win string
+	parameter #win global plot-hold true
+!
+! See if the depth profile component is there; if not, throw it on.
+!
+	if (not pd_defined (win, 'tc_depth-contour', 'platform'))
+		add tc_depth-contour tc_depth-contour #win 0
+	endif
+!
+! Throw in the new platform.
+!
+	parameter #win tc_depth-contour platform #platform
+	parameter #win global plot-hold false
+endprocedure
+
+
+!
+! Menu for CTD stuff
+!
+define widget ctdmenu intmenu 'x'
+	title 'CTD data'
+	line
+	entry 'CTD data locations' 'putc1 tc_ctdloc platform #CTD'
+	line
+	entry 'Alis CTD data' 'PutScalar alis_ctd x'
+	entry 'Malaita CTD data' 'PutScalar malaita_ctd x'
+	entry 'Moana Wave CTD data' 'PutScalar moana_ctd x'
+	entry 'Natsushima CTD data' 'PutScalar nat_ctd x'
+	entry 'Vickers CTD data' 'PutScalar vickers_ctd x'
+	entry 'Wecoma CTD data' 'PutScalar wecoma_ctd x'
+endmenu

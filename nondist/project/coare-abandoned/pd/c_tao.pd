@@ -1,0 +1,23 @@
+GLOBAL
+	comment:	Generic TAO PD component
+	pd-name:	c_tao
+c_tao
+	platform:	tao
+	representation:	contour
+	field:		sst
+	contour-sst-center:	29
+	contour-sst-step:	0.3
+	sst-range-min:	20
+	sst-range-max:	40
+	ta-range-min:	0
+	ta-range-max:	50
+	rh-range-min:	0
+	rh-range-max:	100
+	color-mono:	true
+	color:		cyan
+	label-blanking:	false
+	color-table:	cook16_bk
+	icon-middle-menu:	tao-middle
+	icon:		buoy
+	trigger-global:	true
+	trigger:	tao

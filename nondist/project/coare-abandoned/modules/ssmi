@@ -1,0 +1,50 @@
+!
+! Menus and such for SSMI raster components
+!
+
+!
+! Middle button menu for c_ssmi component
+!
+define widget ssmi-color-tables intmenu 'ctbl'
+	title 'SSMI Color tables'
+	line
+!	entry 'SSMI surface type' 'CTSet SurfaceType' \
+!		(PDParam(icon_component, 'color-table') = 'SurfaceType')
+	entry 'Black and white stepped' 'CTSet 16gray' \
+		(PDParam(icon_component, 'color-table') = '16gray')
+	entry 'Black and white log' 'CTSet newgray' \
+		(PDParam(icon_component, 'color-table') = 'newgray')
+	entry 'scook table' 'CTSet scook' \
+		(PDParam(icon_component, 'color-table') = 'scook')
+	entry 'Hot and cold' 'CTSet hotcold' \
+		(PDParam (icon_component, 'color-table') = 'hotcold')
+	entry 'Wild color table' 'CTSet wild' \
+		(PDParam (icon_component, 'color-table') = 'wild')
+	entry 'Rainbow' 'CTSet Rainbow' \
+		(PDParam (icon_component, 'color-table') = 'Rainbow')
+endmenu
+
+define widget ssmi-middle intmenu 'SSMI field menu'
+	title 'SSMI Antenna Temperatures (K)'
+	line
+	entry '19 GHz V-pol' 'param #icon_component field ta19v' \
+		(pd_param(icon_component, "field", "string") = "ta19v")
+	entry '19 GHz H-pol' 'param #icon_component field ta19h' \
+		(pd_param(icon_component, "field", "string") = "ta19h")
+	entry '22 GHz V-pol' 'param #icon_component field ta22v' \
+		(pd_param(icon_component, "field", "string") = "ta22v")
+	entry '37 GHz V-pol' 'param #icon_component field ta37v' \
+		(pd_param(icon_component, "field", "string") = "ta37v")
+	entry '37 GHz H-pol' 'param #icon_component field ta37h' \
+		(pd_param(icon_component, "field", "string") = "ta37h")
+	entry '85 GHz V-pol' 'param #icon_component field ta85v' \
+		(pd_param(icon_component, "field", "string") = "ta85v")
+	entry '85 GHz H-pol' 'param #icon_component field ta85h' \
+		(pd_param(icon_component, "field", "string") = "ta85h")
+!	entry 'Surface type' 'param #icon_component field sfcidx' \
+!		(pd_param(icon_component, "field", "string") = "sfcidx")
+!	line
+!	submenu 'Color Table' ssmi-color-tables
+endmenu
+
+

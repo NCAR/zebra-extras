@@ -1,0 +1,8 @@
+#!/bin/csh -f
+#
+setenv DATA_DIR /net/tcw/data/zeb
+#setenv ZEB_DSDAEMON /bin/true
+setenv DS_DAEMON_HOST ploor
+setenv INITIAL_TIME 15-dec-92,20
+setenv DEFAULT_CONFIG empty
+startzeb /net/tcw/zeb

@@ -1,0 +1,45 @@
+!
+! All of the predefined display configurations live in this file.
+!
+
+!
+! Figure out configuration directories.
+!
+if (getenv ("ZEB_CONFIGS") <> "UNDEFINED")
+   	set ConfigDir getenv("ZEB_CONFIGS")
+else
+  	set ConfigDir concat(getenv ("HOME"), "/.zeb_configs")
+endif
+set configpath concat3(ConfigDir, ',', "/net/tcw/zeb/dconfig")
+
+!set ConfigDir "/net/tcw/zeb/dconfig"
+set ConfigPD "/net/tcw/zeb/dconfig/pd"
+pddir #ConfigPD
+
+!
+! The initialization file.
+!
+set init_file (concat (c$basedir, "/project/coare/gp.init"))
+
+!
+set default_exec 'gp'
+set default_arg1 'gp.init'
+set gp_exec default_exec
+
+set clock_exec (concat (c$bindir, "/fccclock"))
+
+!
+! Generic linked PD to display one window zoomed.
+!
+config zoom 1
+	window 'humungo' 5 5 1100 850 #gp_exec #init_file
+		buttonmap 'big'
+		linkpd 1
+	endwindow
+endconfig
+!
+! An empty config just to clear out the screen.
+!
+config empty
+	widget 'iconbar' 1070 5 70 450
+endconfig

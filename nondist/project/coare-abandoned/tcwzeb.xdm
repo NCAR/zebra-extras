@@ -1,0 +1,14 @@
+#!/bin/csh -f
+#
+# Just like tcwzeb.normal, but fire off the display manager in an
+# xterm
+#
+setenv DATA_DIR /net/tcw/data/zeb
+setenv INITIAL_TIME 15-dec-92,20
+setenv DEFAULT_CONFIG empty
+#setenv ZEB_DM 'xterm +ls -ut -e /zeb/bin/dm'
+setenv ZEB_EVENTLOGGER '/zeb/bin/EventLogger -j 600 -w'
+setenv PRESERVE_ZEB yes
+setenv XAPPLRESDIR /zeb/lib/resources
+
+xterm +ls -ut

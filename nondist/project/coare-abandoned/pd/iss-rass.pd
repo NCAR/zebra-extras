@@ -1,0 +1,49 @@
+GLOBAL
+	pd-name:	rassprof
+	plot-mode:	real-time
+	plot-type:	xygraph
+	axis-bottom-space:	100
+	axis-top-space:		100
+	axis-left-space:	100
+	sa-scale:		0.020
+	xy-series-span:		12h
+	xy-data-mode:		series
+	xy-scale-y-mode:	manual
+	xy-scale-x-mode:	autoscale
+	xy-axis-b-tic-interval:	2h
+	xy-axis-l-tic-interval:	500.0
+	xy-axis-r-tic-interval: 0.5
+	xy-axis-l-font-scale:	0.020
+	xy-axis-r-font-scale:	0.020
+	xy-axis-b-font-scale:	0.020
+	xy-axis-t-font-scale:	0.015
+	height-scale-y-max:	1500.0
+	alt-scale-y-max:	1.5
+	global-series-span-proc: adj_series_span
+	global-icon-left-menu: iss-global-util
+	global-icon-middle-menu: iss-global-winds
+	component-list:	rassprofs
+	xy-adj-axis-side: b
+	trigger:	30m
+rassprof
+	icon-left-menu:	xy-obs
+	icon-right-menu:	DataAvailable
+	adj-axis-side: l
+	representation:	obs
+	trigger:	rass915
+	platform:	rass915
+	max-platform:	5
+	icon:		iss-tdry
+	icon-color:	green
+	field-color:	green
+	icon-background: black
+	y-field:	height
+	z-field:	tv
+	x-field:	time
+	z-scale:	0.01
+	z-justify:	base
+	data-skip:	0
+	axis-l-color:	green
+	axis-b-label:	time
+	axis-l-label:	915 RASS Altitude (m agl)
+

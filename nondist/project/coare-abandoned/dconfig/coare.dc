@@ -1,0 +1,101 @@
+! Auto-saved display configuration.
+config coare
+	window 'big' 5 5 600 600 gp gp.init
+		description 'coare-big'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 7 710 250 30 fccclock
+		description 'coare-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 5 620 511 69
+endconfig
+
+beginpd 'coare-big'
+global
+   parameter altitude-label            '?'
+   parameter frame-rate                '5'
+   parameter frame-skip                '60'
+   parameter movie-end-time            'now'
+   parameter movie-minutes             '240'
+   parameter movie-mode                'False'
+   parameter pd-name                   'coare-big'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '15-Dec-92,20:00:00'
+   parameter plot-type                 'CAP'
+   parameter radar-space               'true'
+   parameter time-frames               '1'
+   parameter trigger                   'gms'
+   parameter x-max                     '1416.6666'
+   parameter x-min                     '-1697.9167'
+   parameter y-max                     '-226.3595'
+   parameter y-min                     '1733.9635'
+component c_gms
+   parameter altitude                  '0.0'
+   parameter color-table               'ir_gray'
+   parameter field                     'ir'
+   parameter icon                      'satellite'
+   parameter icon-left-menu            'raster-left'
+   parameter icon-middle-menu          'gms-middle'
+   parameter icon-right-menu           'DataAvailable'
+   parameter ir-center                 '280.0'
+   parameter ir-highlight              '205'
+   parameter ir-highlight-color        'red'
+   parameter ir-highlight-range        '6.0'
+   parameter ir-step                   '12'
+   parameter platform                  'gms'
+   parameter representation            'raster'
+component c_cart_grid
+   parameter color                     'cyan'
+   parameter field                     'grid'
+   parameter lat-lon                   'true'
+   parameter platform                  'grid'
+   parameter representation            'overlay'
+   parameter x-spacing                 '300'
+   parameter y-spacing                 '300'
+component c_iss_loc
+   parameter color                     'white'
+   parameter field                     'location'
+   parameter icon                      'radar-loc'
+   parameter icon-middle-menu          'simple-color'
+   parameter platform                  'kap, nauru, manus, kav, kexue, shiyan, xia'
+   parameter representation            'overlay'
+component c_ifa
+   parameter color                     'brown'
+   parameter field                     'map'
+   parameter icon                      'ifa'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '2'
+   parameter platform                  'coare-ifa'
+   parameter representation            'overlay'
+component c_island
+   parameter color                     'yellow'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '1'
+   parameter platform                  'coare'
+   parameter representation            'overlay'
+component c_boat
+   parameter color                     'orange'
+   parameter field                     'location'
+   parameter icon                      'microboat'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'labelcontrol'
+   parameter label                     'none'
+   parameter platform                  'vickers,xiang5,kexue1,shiyan3,wecoma,moana,noroit,franklin,alis,hakuho,keifu,natsu,kaiyo,malaita'
+   parameter representation            'overlay'
+endpd
+
+beginpd 'coare-Clock'
+global
+   parameter pd-name                   'coare-Clock'
+component clock
+   parameter background                'white'
+   parameter foreground                'black'
+   parameter xfont                     '-*-new century schoolbook-bold-r-*-*-25-*-*-*-*-*-*-*'
+endpd
+

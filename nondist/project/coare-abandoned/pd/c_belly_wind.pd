@@ -1,0 +1,15 @@
+GLOBAL
+	pd-name:	c_belly_wind
+	plot-mode:	real-time
+	plot-type:	CAP
+c_belly_wind
+	platform:	n42rf_comp
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.005
+	color:		white
+	icon-middle-menu:	simple-color
+	icon-right-menu:	ddop-winds
+	icon:		ddop_vector
+	degrade:	3

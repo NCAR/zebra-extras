@@ -1,0 +1,13 @@
+GLOBAL
+	pd-name:	grid_xsect
+	plot-type:	xsect
+	trigger:	5m
+	left-endpoint:	0,0
+	right-endpoint: 200,200
+c_xsect
+	representation:	raster
+	platform:	n42rf_comp
+	field:		maxdz
+	grid-method:	bilinear
+	color-table:	scook
+	icon:		xsect

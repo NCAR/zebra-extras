@@ -1,0 +1,30 @@
+!
+! Support for satellite winds.
+!
+require simple-color
+
+define widget satwinds-right intmenu 'satwinds right menu'
+      	title 'Satellite winds options'
+	line
+	submenu 'Color' simple-color
+	submenu 'Arrow thinning' sw-degrade
+endmenu
+
+
+define widget sw-degrade intmenu 'x'
+	title 'Arrow thinning'
+	line
+	entry 'Display all arrows' 'swdegrade 1' \
+	      	(PDParam (icon_component, 'degrade') = '1')
+	entry ' every other arrow' 'swdegrade 2' \
+	      	(PDParam (icon_component, 'degrade') = '2')
+	entry ' every third arrow' 'swdegrade 3' \
+	      	(PDParam (icon_component, 'degrade') = '3')
+	entry ' every fourth arrow' 'swdegrade 4' \
+	      	(PDParam (icon_component, 'degrade') = '4')
+endmenu
+
+
+procedure swdegrade dv string
+	parameter #icon_component degrade #dv
+endprocedure

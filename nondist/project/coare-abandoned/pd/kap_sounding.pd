@@ -1,0 +1,14 @@
+GLOBAL
+	pd-name:	kap_sounding
+	plot-mode:	real-time
+	plot-type:	skewt
+	trigger:	10h
+skewt
+	representation:	skewt
+	platform:	kapinga/omega
+	color-table:	Skew-t
+	icon-left-menu:	skewt-left
+	icon-middle-menu:	DataAvailable
+	icon-right-menu:	feet-km
+	menu-platform:	kapinga/omega, manus/omega, nauru/omega
+	icon:		sounding

@@ -1,0 +1,15 @@
+!
+! P3 belly radar composite images.
+!
+GLOBAL
+	pd-name:	c_belly_analysis
+c_belly_analysis
+	platform:	n42rf_comp
+	field:		reflectivity
+	representation:	raster
+	color-table:	scook
+	label-blanking:	false
+	icon-middle-menu:	p3analysis-middle
+	trigger-global:	true
+	icon-right-menu:	DataAvailable
+	menu-platform:	n42rf_comp,n43rf_comp

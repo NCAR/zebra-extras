@@ -1,0 +1,41 @@
+GLOBAL
+	pd-name:	ctd
+	plot-mode:	history
+	plot-time:	4-feb-93,12
+	plot-type:	xygraph
+	axis-bottom-space:	40
+	axis-top-space:		20
+	axis-left-space:	70
+	axis-right-space:	70
+	xy-series-span:		720m
+	xy-data-mode:		series
+	xy-scale-y-mode:	autoscale
+	xy-scale-x-mode:	autoscale
+	xy-axis-b-tic-interval:	60m
+	xy-axis-l-tic-interval:	500.0
+	xy-axis-r-tic-interval: 0.5
+	xy-axis-l-font-scale:	0.035
+	xy-axis-r-font-scale:	12
+	xy-axis-b-font-scale:	0.035
+	xy-axis-t-font-scale:	0.035
+!
+! List of components that may be overlayed on this plot.
+!
+	xy-adj-axis-side: b
+ctd
+	icon-right-menu:	DataAvailable
+	adj-axis-side: l
+	representation:	obs
+	platform:	nat_ctd
+	icon:		iss-tdry
+	icon-color:	green
+	field-color:	green
+	y-field:	depth
+	z-field:	temperature
+	x-field:	time
+	z-scale:	0.01
+	z-justify:	base
+	data-skip:	0
+	axis-l-color:	green
+	axis-b-label:	time
+
