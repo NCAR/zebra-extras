@@ -1,28 +1,28 @@
 ! Auto-saved display configuration.
 
-prototype fallback Graphic gp gp.init
-prototype fallback Graphic gp gp.init
-prototype fallback Graphic gp gp.init
-prototype fallback Graphic gp gp.init
+prototype fallback 'Graphic' gp 'gp.init'
+prototype fallback 'Graphic' gp 'gp.init'
+prototype fallback 'Graphic' gp 'gp.init'
+prototype fallback 'Graphic' gp 'gp.init'
 
 config uav-track
 	widget 'iconbar' 24 642 339 116
-	graphic 'cap' 24 45 556 539 Graphic
+	graphic 'cap' 24 45 556 539 'Graphic'
 		description 'uav-track-cap'
 		buttonmap 'big'
 		forcepd
 	endgraphic
-	graphic 'tseries' 591 45 552 538 Graphic
+	graphic 'tseries' 591 45 552 538 'Graphic'
 		description 'uav-track-tseries'
 		buttonmap 'xyplot'
 		forcepd
 	endgraphic
-	graphic 'tseries1' 374 618 772 276 Graphic
+	graphic 'tseries1' 374 618 772 276 'Graphic'
 		description 'uav-track-tseries1'
 		buttonmap 'xyplot'
 		forcepd
 	endgraphic
-	graphic 'tseries2' 224 453 260 179 Graphic
+	graphic 'tseries2' 224 453 260 179 'Graphic'
 		description 'uav-track-tseries2'
 		buttonmap 'xyplot'
 		forcepd
@@ -229,7 +229,7 @@ component p_xytrace
    parameter scale-y-mode              'autoscale'
    parameter time-annot                'true'
    parameter x-field                   'time'
-   parameter xyprivate-data-begin      '20-Apr-94,17:40:50'
+   parameter xyprivate-data-begin      '20-Apr-94,17:40:51'
    parameter xyprivate-data-end        '20-Apr-94,18:40:50'
    parameter xyprivate-x-max           '20-Apr-94,18:42:20'
    parameter xyprivate-x-min           '20-Apr-94,17:40:50'
@@ -262,7 +262,7 @@ component p_xytrace.0
    parameter sa-scale                  '12'
    parameter time-annot                'true'
    parameter x-field                   'time'
-   parameter xyprivate-data-begin      '20-Apr-94,17:40:50'
+   parameter xyprivate-data-begin      '20-Apr-94,17:40:51'
    parameter xyprivate-data-end        '20-Apr-94,18:40:50'
    parameter xyprivate-x-max           '20-Apr-94,18:42:20'
    parameter xyprivate-x-min           '20-Apr-94,17:40:50'
@@ -348,7 +348,7 @@ component p_xytrace
    parameter scale-y-mode              'autoscale'
    parameter time-annot                'true'
    parameter x-field                   'time'
-   parameter xyprivate-data-begin      '20-Apr-94,17:40:50'
+   parameter xyprivate-data-begin      '20-Apr-94,17:40:51'
    parameter xyprivate-data-end        '20-Apr-94,18:40:50'
    parameter xyprivate-x-max           '20-Apr-94,18:42:20'
    parameter xyprivate-x-min           '20-Apr-94,17:40:50'
@@ -382,7 +382,7 @@ component p_xytrace.0
    parameter scale-y-mode              'autoscale'
    parameter time-annot                'true'
    parameter x-field                   'time'
-   parameter xyprivate-data-begin      '20-Apr-94,17:40:50'
+   parameter xyprivate-data-begin      '20-Apr-94,17:40:51'
    parameter xyprivate-data-end        '20-Apr-94,18:40:50'
    parameter xyprivate-x-max           '20-Apr-94,18:42:20'
    parameter xyprivate-x-min           '20-Apr-94,17:40:50'
@@ -401,13 +401,15 @@ global
    parameter altitude-scale-y-min      '0.0'
    parameter axis-bottom-space         '30'
    parameter axis-left-space           '50'
-   parameter axis-right-space          '50'
-   parameter axis-top-space            '30'
+   parameter axis-right-space          '0.025'
+   parameter axis-top-space            '0'
    parameter pd-name                   'uav-track-tseries2'
    parameter plot-hold                 'false'
    parameter plot-mode                 'history'
    parameter plot-time                 '20-Apr-94,18:40:50'
    parameter plot-type                 'xygraph'
+   parameter sa-space                  '0'
+   parameter ta-space                  '0'
    parameter xy-axis-b-font-scale      '10'
    parameter xy-axis-l-font-scale      '10'
    parameter xy-axis-r-font-scale      '12'
@@ -462,13 +464,13 @@ component p_xytrace
    parameter scale-y-mode              'autoscale'
    parameter time-annot                'true'
    parameter x-field                   'time'
-   parameter xyprivate-data-begin      '20-Apr-94,17:40:50'
+   parameter xyprivate-data-begin      '20-Apr-94,17:40:51'
    parameter xyprivate-data-end        '20-Apr-94,18:40:50'
    parameter xyprivate-x-max           '20-Apr-94,18:42:20'
    parameter xyprivate-x-min           '20-Apr-94,17:40:50'
    parameter xyprivate-x-type          't'
-   parameter xyprivate-y-max           '5.4420'
-   parameter xyprivate-y-min           '1.7160'
+   parameter xyprivate-y-max           '5.4403'
+   parameter xyprivate-y-min           '1.7161'
    parameter xyprivate-y-type          'f'
    parameter y-field                   'altitude'
 endpd
