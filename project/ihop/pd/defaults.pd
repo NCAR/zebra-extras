@@ -95,8 +95,10 @@ defaults
 	icon-age-limit:		15m
 	spol-icon-age-limit:	20m
 	spol-data-age-limit:	20m
+	refract_storm-icon-age-limit:	20m
+	refract_storm-data-age-limit:	40m
 	radar_composite-icon-age-limit:	30m
-	radar_composite-data-age-limit:	30m
+	radar_composite-data-age-limit:	45m
 	goes_1km-icon-age-limit:	45m
 	goes_1km-data-age-limit:	90m
 	goes_4km-icon-age-limit:	45m
