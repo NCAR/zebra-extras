@@ -30,7 +30,7 @@ rasspigtails
 	 adj-axis-side            :  l
 	 axis-b-label             :  time
 	 axis-l-color             :  green
-	 axis-l-label             :  915 RASS Altitude (m agl)
+	 axis-l-label             :  915 RASS Altitude (km AGL)
 	 data-skip                :  0
 	 field-select-command     :  myset_zfield
 	 icon                     :  iss-tdry

@@ -47,4 +47,4 @@ GLOBAL
 	data-skip:	0
 	axis-l-color:	green
 	axis-b-label:	time
-	axis-l-label:	915 Profiler Altitude (m agl)
+	axis-l-label:	915 Profiler Altitude (km AGL)

@@ -45,5 +45,5 @@ rassprof
 	data-skip:	0
 	axis-l-color:	green
 	axis-b-label:	time
-	axis-l-label:	915 RASS Altitude (m agl)
+	axis-l-label:	915 RASS Altitude (km AGL)
 

@@ -27,7 +27,7 @@ windbarbs
 	  	 axis-b-label:              time
 	  	 axis-b-tic-interval:       7200s
 	  	 axis-l-color:              green
-	  	 axis-l-label:              915 Profiler Altitude (m agl)
+	  	 axis-l-label:              915 Profiler Altitude (km AGL)
 	  	 axis-t-tic-interval:       7200s
 	  	 barb-scale:                20
 	  	 data-skip:                 0

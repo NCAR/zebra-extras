@@ -153,7 +153,7 @@ component 915profh
    parameter axis-b-label              'time'
    parameter axis-b-tic-interval       '7200s'
    parameter axis-l-color              'green'
-   parameter axis-l-label              '915 Profiler Altitude (m agl)'
+   parameter axis-l-label              '915 Profiler Altitude (km AGL)'
    parameter axis-t-tic-interval       '7200s'
    parameter barb-scale                '20'
    parameter data-begin-time           '15-Dec-92,7:47:28'

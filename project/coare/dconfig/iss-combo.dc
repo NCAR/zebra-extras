@@ -307,7 +307,7 @@ component rasspigtails
    parameter adj-axis-side             'l'
    parameter axis-b-label              'time'
    parameter axis-l-color              'green'
-   parameter axis-l-label              '915 RASS Altitude (m agl)'
+   parameter axis-l-label              '915 RASS Altitude (km AGL)'
    parameter data-skip                 '0'
    parameter field-color               'green'
    parameter field-select-command      'myset_zfield'
