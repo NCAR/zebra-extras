@@ -5,12 +5,12 @@ config Lantau_AWS
 		buttonmap 'big'
 		forcepd
 	endwindow
-	window 'timeseries' 5000 5000 430 697 gp gp.init
+	window 'timeseries' 713 137 430 697 gp gp.init
 		description 'Lantau_AWS-timeseries'
 		buttonmap 'default'
 		forcepd
 	endwindow
-	window 'Clock' 878 526 250 30 fccclock
+	window 'Clock' 878 863 250 30 fccclock
 		description 'Lantau_AWS-Clock'
 		buttonmap 'default'
 	endwindow

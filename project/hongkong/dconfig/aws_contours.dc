@@ -5,12 +5,12 @@ config aws_contours
 		buttonmap 'big'
 		forcepd
 	endwindow
-	window 'timeseries' 5000 5000 430 697 gp gp.init
+	window 'timeseries' 712 131 430 697 gp gp.init
 		description 'aws_contours-timeseries'
 		buttonmap 'default'
 		forcepd
 	endwindow
-	window 'Clock' 878 526 250 30 fccclock
+	window 'Clock' 878 863 250 30 fccclock
 		description 'aws_contours-Clock'
 		buttonmap 'default'
 	endwindow

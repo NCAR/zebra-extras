@@ -1,34 +1,38 @@
 ! Auto-saved display configuration.
 config timeseries
-	window 'timeseries' 518 25 628 830 gp gp.init
+	window 'timeseries' 5 110 980 787 gp gp.init
 		description 'timeseries-timeseries'
 		buttonmap 'default'
 		forcepd
 	endwindow
-	window 'small' 4 120 504 495 gp gp.init
+	window 'small' 639 7 504 495 gp gp.init
 		description 'timeseries-small'
 		buttonmap 'big'
 		forcepd
 	endwindow
-	window 'Clock' 259 646 250 30 fccclock
+	window 'Clock' 5 77 250 30 fccclock
 		description 'timeseries-Clock'
 		buttonmap 'default'
 	endwindow
-	widget 'iconbar' 4 25 502 62
+	widget 'iconbar' 4 10 502 62
 endconfig
 
 beginpd 'timeseries-timeseries'
 global
-   parameter altitude                  '0.0000'
+   parameter altitude-label            '?'
    parameter pd-name                   'timeseries-timeseries'
    parameter plot-mode                 'real-time'
    parameter plot-time                 '2-aug-1991,22:18:00'
    parameter plot-type                 'tseries'
+   parameter rh-center                 '50'
+   parameter rh-step                   '10'
    parameter sa-scale                  '0.08'
    parameter ta-scale                  '0.035'
    parameter tdry-center               '10'
    parameter tdry-step                 '10'
    parameter trigger                   'aws'
+   parameter wspd_max-center           '5'
+   parameter wspd_max-step             '1'
 component tseries
    parameter axis-color                'gray60'
    parameter color-table               'tseries'
@@ -46,15 +50,18 @@ component tseries
    parameter nstep                     '11'
    parameter nstep-limit-proc          'adj_num_step'
    parameter num-stations              '47'
-   parameter platform                  'aws/RO,aws/CCH,aws/LFS'
+   parameter platform                  'aws/RO,aws/CLK'
    parameter representation            'tseries'
+   parameter require                   'lx-tseries'
+   parameter rh-center                 '50'
+   parameter rh-step                   '10'
    parameter right-limit-proc          'adj_right_centstep'
-   parameter sa-scale                  '0.025'
+   parameter sa-scale                  '0.02'
    parameter ta-scale                  '0.07'
-   parameter tdry-center               '10'
-   parameter tdry-step                 '10'
-   parameter time-interval             '10m'
+   parameter time-interval             '24h'
    parameter time-limit-proc           'adj_time_int'
+   parameter wspd_max-center           '5'
+   parameter wspd_max-step             '1'
 endpd
 
 beginpd 'timeseries-small'

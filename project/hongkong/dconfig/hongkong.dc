@@ -1,20 +1,20 @@
 ! Auto-saved display configuration.
 config hongkong
-	window 'big' 43 39 800 845 gp gp.init
+	window 'big' 9 30 800 845 gp gp.init
 		description 'hongkong-big'
 		buttonmap 'big'
 		forcepd
 	endwindow
-	window 'sounding1' 534 194 612 657 gp gp.init
+	window 'sounding1' 532 192 612 657 gp gp.init
 		description 'hongkong-sounding1'
 		buttonmap 'default'
 		forcepd
 	endwindow
-	window 'Clock' 891 856 253 36 fccclock
+	window 'Clock' 818 856 250 35 fccclock
 		description 'hongkong-Clock'
 		buttonmap 'default'
 	endwindow
-	widget 'iconbar' 680 28 510 68
+	widget 'iconbar' 628 30 510 68
 endconfig
 
 beginpd 'hongkong-big'
