@@ -1,0 +1,48 @@
+! Auto-saved display configuration.
+
+prototype fallback 'Default' gp 'gp.init'
+
+config default
+	widget 'iconbar' 1080 15 80 550
+	graphic 'main' 51 57 568 469 'Default'
+		description 'default-main'
+		buttonmap 'big'
+		forcepd
+	endgraphic
+endconfig
+
+beginpd 'default-main'
+global
+   parameter altitude-label            ''
+   parameter pd-name                   'default-main'
+   parameter plot-mode                 'history'
+   parameter plot-time                 'now'
+   parameter plot-type                 'CAP'
+   parameter proj-topannot-left-menu   'projection'
+   parameter projection                'lcpolar'
+component p_map
+   parameter color                     'yellow'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'default'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_llgrid
+   parameter color                     'cyan'
+   parameter field                     'grid'
+   parameter icon                      'grid'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-right-menu           'llgrid-right'
+   parameter lat-lon                   'true'
+   parameter line-width                '0'
+   parameter platform                  'irrelevant'
+   parameter representation            'overlay'
+   parameter require                   'grid, simple-color'
+   parameter solid                     'true'
+   parameter x-spacing                 '300'
+   parameter y-spacing                 '300'
+endpd
+

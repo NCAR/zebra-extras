@@ -1,0 +1,25 @@
+!
+! Dropsonde tracks.  This is just a tweaked version of p_active_loc
+!
+global
+	pd-name:	dropsonde-track
+dropsonde-track
+	platform:	SOMETHING
+	representation:	overlay
+	field:		location
+	color:		green
+	label-size:	10
+	location-time:	observation
+	icon:		radar-loc
+	icon-left-menu:		minimal-cap-left-menu
+	icon-right-menu:	location-options
+!	posicon-left-menu:	minimal-cap-left-menu
+	posicon-right-menu:	location-options
+	posicon-middle-menu:	al-send-other-window
+	posicon-left-menu:	al-send-other-window
+	label:		platform
+	active-icon:	true
+	require:	location,active-loc
+	time-period:	8h
+	time-label:	true
+	forward-time-period:	1h
