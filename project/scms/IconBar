@@ -90,9 +90,9 @@ define widget iconbar menubar " "
 		title 'GOES'
 		line
 		entry 'Vis (1 km)' \
-			'putc2 p_raster platform goes_vis icon goes_1km'
+		   'putc3 p_raster platform goes_vis field vis icon goes_1km'
 		entry 'Other Fields (4km)' \
-			'putc p_raster platform goes_other icon goes_4km'
+		   'putc3 p_raster platform goes_other field ir1 icon goes_4km'
 	endmenu
 	menu 'overlays' bitmap overlays
 		title 'Static Overlays'
