@@ -1,0 +1,12 @@
+SRCS = ace-sounding.c
+OBJS = ace-sounding.o
+
+LIBS = $(DFALIBS) $(ZLIBS) $(XLIBS)
+SYSLIBS = $(LIBMATH) $(LIBTERMCAP) $(LIBREGEXP)
+
+DISTFILES = $(SRCS) Imakefile
+
+CompleteProgramTarget(ace-sounding, $(OBJS), $(DEPLIBS), $(LIBS), $(SYSLIBS))
+DistfilesTarget($(DISTFILES))
+DependTarget()
+LintTarget()

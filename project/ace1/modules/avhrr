@@ -1,0 +1,55 @@
+
+!
+! Middle icon menu for satellite images.
+!
+define widget satellite-middle intmenu 'Satellite'
+	title 'Satellite Images'
+	line
+	entry 'GOES-7 Visible' \
+	   'ChangeSatellite g7vismerc vas_visible'
+	entry 'GOES-7 Channel 5 brightness' \
+	   'ChangeSatellite g7irmerc vas_ir5'
+	entry 'GOES-7 Channel 8 brightness' \
+	   'ChangeSatellite g7ir8merc vas_ir8'
+	entry 'GOES-7 Channel 12 brightness' \
+	   'ChangeSatellite g7irmerc vas_ir12'
+	entry 'GOES-7 Channel 5 radiances' \
+	   'ChangeSatellite g7radirmerc vas_ir5'
+	entry 'GOES-7 Channel 8 radiances' \
+	   'ChangeSatellite g7radir8merc vas_ir8'
+	entry 'GOES-7 Channel 12 radiances' \
+	   'ChangeSatellite g7radirmerc vas_ir12'
+	line
+	entry 'NOAA-9 AVHRR Albedo and Brightness' \
+	   'ChangeSatellite n9avhrrmerc avhrr_ch1'
+	entry 'NOAA-9 AVHRR Radiances' \
+	   'ChangeSatellite n9avhrrradmerc avhrr_ch3'
+endmenu
+
+procedure ChangeSatellite platform string field string
+	parameter #icon_component field #field
+	parameter #icon_component platform #platform
+endprocedure
+
+define widget satellite-overlay-middle intmenu 'Satellite overlays'
+	title 'Satellite Overlay'
+	line
+	entry 'AVHRR State Lines' \
+	   'ChangeSatellite avhrr_sgp.state_lines state_line'
+	entry 'AVHRR Lat-Lon Grid' \
+	   'ChangeSatellite avhrr_sgp.lat_lon lat_lon_grid'
+	entry 'GOES IR State Lines' \
+	   'ChangeSatellite goes_ir_sgp.state_lines state_line'
+	entry 'GOES IR Lat-Lon Grid' \
+	   'ChangeSatellite goes_ir_sgp.lat_lon lat_lon_grid'
+	entry 'GOES VIS State Lines' \
+	   'ChangeSatellite goes_vis_sgp.state_lines state_line'
+	entry 'GOES VIS Lat-Lon Grid' \
+	   'ChangeSatellite goes_vis_sgp.lat_lon lat_lon_grid'
+	line
+	entry 'Green overlay' \
+	   'parameter #icon_component color-table green_overlay'
+	entry 'White overlay' \
+	   'parameter #icon_component color-table white_overlay'
+endmenu
+

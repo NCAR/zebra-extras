@@ -1,0 +1,6 @@
+#! /bin/csh
+setenv DATA_DIR /data/ace1
+setenv ACEGR_PATH /localbin/xmgr
+#setenv DS_DAEMON_HOST tasace
+setenv ZEB_PROJDIR /zeb/project/ace1
+

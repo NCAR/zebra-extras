@@ -1,0 +1,29 @@
+global
+	altitude-label:	
+	pd-name:	histogram-template
+	plot-mode:	history
+	plot-time:	5-Dec-95,10:56:15
+	plot-type:	histogram
+	sa-space:	0.1
+	ta-show-name:	true
+	ta-space:	40
+barchart
+	annotate-counts:	true
+	badvalue-bin:	false
+	bins:	150,200,2000,4000,5000,6000,7000,8000,9000
+	color-table:	tseries
+	count-grid:	true
+	count-max:	394
+	count-min:	0
+	disable:	false
+	field:	CN3010, CN3025, CN3760, CNTS
+	icon:	barchart
+	icon-right-menu:	historight
+	limit-proc:	histo-limits
+	platform:	c130
+	representation:	barchart
+	require:	histogram, simple-color
+	scale-mode:	auto
+	time-period:	10m
+	zero-anchor:	true
+

@@ -1,0 +1,4 @@
+set platform "gms"
+set kmResolution 8
+limits -55 120 -25 180
+set originLat -42.9

@@ -1,0 +1,18 @@
+!
+! Various widgets of interest.
+!
+!
+! Allow a few more window types than the default menu
+!
+define widget cw_wintypes intmenu 'ACE-1 WinTypes'
+	title 'Window types'
+	line
+	entry 'Constant Altitude Plot' 'cw_type "Constant altitude"'
+	entry 'Time-series' 'cw_type "Time series"'
+	entry 'Wind profile' 'cw_type "Wind profile"'
+	entry 'Skew-t' 'cw_type "Skew-t"'
+	entry 'Time-height profile' 'cw_type "Time-height profile"'
+	entry 'RASS virtual temperature profile' 'cw_type "RASS profile"'
+	entry 'Line Plot' 'cw_type "Line Plot"'
+endmenu
+

@@ -1,0 +1,125 @@
+#!/bin/csh
+set nonomatch
+unset noclobber
+
+set proj_dir = "/zeb/project/ace1"
+set proj_rtdir = "/zeb/project/ace1/realtime"
+set area_dir = "/mcidas/data"
+
+#
+# Start a Zebra data store
+#
+setenv ZEB_SOCKET /tmp/zebra_$$
+setenv HOST `uname -n`
+
+cd $proj_dir
+/zeb/bin/message
+sh << _EOF_
+	/zeb/bin/EventLogger -n -m epi -f /tmp/zebra_$$.log &
+	sleep 2
+	/zeb/bin/timer &
+	sleep 2
+	/zeb/bin/dsDaemon ds.config 1>/dev/null 2>&1 &
+_EOF_
+
+#
+# Find all area files newer than the last ones we ingested
+#
+cd $area_dir
+
+echo > /tmp/newsatfiles
+
+@ nflds = 3
+foreach file ( AREA7[017]* )
+	find $file -newer $proj_rtdir/gms/last.$file -print >> /tmp/newsatfiles
+end
+
+#
+# Get an areadump of each and sort it, leaving the list in /tmp/sareas
+#
+echo > /tmp/areas
+foreach newfile (`cat /tmp/newsatfiles`)
+	areadump $newfile >> /tmp/areas
+end
+rm -f /tmp/newsatfiles
+
+cat /tmp/areas | sort > /tmp/sareas
+rm -f /tmp/areas
+
+#
+# Go through /tmp/sareas and ingest in multiples that match by time: 
+# ir (7000 series areas), wv (7100 series), and vis (7700 series)
+#
+@ nareas = `wc -l /tmp/sareas | cut -c1-8`
+@ which = 1
+
+while ($which < $nareas)
+#
+# Get the time of the next area, and count how many areas share 
+# that time
+#
+	set tstring = `tail +${which}l /tmp/sareas | head -1 | cut -f1 -d" "`
+	@ nmatch = `fgrep $tstring /tmp/sareas | wc -l | cut -c1-8`
+#
+# Next area = current area + the number that match
+#
+	@ which += $nmatch
+#
+# Bail out if we didn't get a full set
+#
+	if ($nmatch != $nflds) continue
+#
+# Get the area files, and make links to them.  We'll accept a lone IR file,
+# but not a lone vis file.
+#
+	set irfile = `fgrep $tstring /tmp/sareas | fgrep AREA70 | cut -c22-29`
+	if ($irfile == "") continue;
+	ln -s $area_dir/$irfile /tmp/ir_area.$$
+	touch $proj_rtdir/gms/last.$irfile
+
+	set wvfile = `fgrep $tstring /tmp/sareas | fgrep AREA71 | cut -c22-29`
+	@ have_wv = 0
+	if ($wvfile != "") @ have_wv = 1
+	if ($have_wv) then
+		ln -s $area_dir/$wvfile /tmp/wv_area.$$
+		touch $proj_rtdir/gms/last.$wvfile
+	endif
+
+	set visfile = `fgrep $tstring /tmp/sareas | fgrep AREA77 | cut -c22-29`
+	@ have_vis = 0
+	if ($visfile != "") @ have_vis = 1
+	if ($have_vis) then
+		ln -s $area_dir/$visfile /tmp/vis_area.$$
+		touch $proj_rtdir/gms/last.$visfile
+	endif
+
+	echo "set platform 'gms'"	>  /tmp/gms$$.params
+	echo "set kmResolution 8"	>> /tmp/gms$$.params
+	echo "limits -65 120 -35 180"	>> /tmp/gms$$.params
+	echo "set originLat -42.9"	>> /tmp/gms$$.params
+	echo "file /tmp/ir_area.$$ ir1"	>> /tmp/gms$$.params
+	if ($have_wv)	echo "file /tmp/wv_area.$$ wv"	>> /tmp/gms$$.params
+	if ($have_vis)	echo "file /tmp/vis_area.$$ vis" >> /tmp/gms$$.params
+
+	sleep 2
+
+	/zeb/bin/GMSIngest /tmp/gms$$.params
+
+	rm -f /tmp/ir_area.$$
+	if ($have_wv) rm -f /tmp/wv_area.$$
+	if ($have_vis) rm -f /tmp/vis_area.$$
+
+	rm -f /tmp/gms$$.params
+end
+
+rm -f /tmp/sareas
+
+zstop >& /dev/null
+
+rm -f /tmp/zebra_$$.log
+
+#
+# Now do a dsrescan if somebody's running Zebra here right now
+#
+unsetenv ZEB_SOCKET
+if ({ /zeb/bin/mstatus }) /zeb/bin/dsrescan -all >& /dev/null

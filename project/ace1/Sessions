@@ -1,0 +1,10 @@
+#
+# Simple session addresses for message manager
+# zstart starts message manager with -internet option when it
+# sees this file in the project directory
+#
+
+tasace		tasace		3343
+echidna		echidna		3343
+roo		roo		3343
+

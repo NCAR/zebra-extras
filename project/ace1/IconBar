@@ -1,0 +1,209 @@
+! $Id: IconBar,v 1.1.1.1 1996-01-04 01:02:27 granger Exp $
+!
+! ACE-1 IconBar
+!
+
+set ui$bitmap_directory concat(c$libdir, "/icons")
+
+define widget iconbar menubar " "
+	noheader
+	!
+	! Define the menus
+	!
+	menu help bitmap iconbar-help
+		title 'Zeb Help Access'
+		line
+		entry 'Introduction' 'help intro'
+		entry 'On-line topics' 'help index'
+		entry 'Starting Zebra' 'help start'
+		entry 'Shutting down' 'help shut-down'
+		entry 'Keys and mouse buttons' 'help keys'
+		entry 'The icon bar' 'help iconbar'
+		entry 'Editing display configurations' 'help editing-configs'
+		line
+		entry 'Horizontal plots' 'help horizontal-plots'
+		entry 'Skew-t plots' 'help skewt'
+		entry 'XYGraph plots' 'help xy-graphs'
+		entry 'Cross-section plots' 'help cross-section'
+	endmenu
+	menu tools bitmap tools-big
+		title 'Tools'
+		line
+		entry 'Time widget'	'popup time'
+		entry 'Make a print' 'popup hardcopy'
+		entry 'Enter locations' 'require plats; popup enter'
+		line
+		entry 'Add display window' 'popup newwindow'
+		entry 'Delete display window' 'popup zorchwindow'
+		entry 'Save current configuration' 'popup saveconfig'
+		line
+		entry 'Data store contents' 'shell "dsdwidget &"'
+		entry 'Data store management' 'shell "dsmanage &"'
+		line
+		entry 'Shut down Zebra' 'shutdown'
+	endmenu
+!
+! Display configs
+!
+	menu configs bitmap configs
+		title 'Display configurations'
+		line
+		entry 'Trajectories' 'display one_window' \
+			(dm$config = 'one_window')
+		entry 'NOAA-14 AVHRR' 'display avhrr' \
+			(dm$config = 'avhrr')
+		entry 'C-130 time series track' 'display c130' \
+			(dm$config = 'c130')
+		entry 'ISS combined display' 'display iss-combo' \
+			(dm$config = 'iss-combo')
+		entry 'ISS-4 surface and sonde' 'display iss4-cap' \
+			(dm$config = 'iss4-cap')
+		entry 'ISS RASS' 'display iss-rass' \
+			(dm$config = 'iss-rass')
+		entry 'ISS Profiler' 'display iss-prof915h' \
+			(dm$config = 'iss-prof915h')
+		entry 'Histogram' 'display histogram' \
+			(dm$config = 'histogram')
+		line
+		entry 'Empty screen' 'display empty' (dm$config = 'empty')
+	endmenu
+!
+! Satellite data
+!
+	menu satellite bitmap satellite
+		title 'Satellite Data'
+		line
+		entry 'GMS Visible' 'putc2 p_raster platform gms field vis'
+		entry 'GMS IR' 'putc2 p_raster platform gms field ir'
+		entry 'GMS Water Vapor' 'putc2 p_raster platform gms field wv'
+		line
+		entry 'AVHRR n14r channel 1' \
+		   'putc2 p_raster platform n14r field avhrr_ch1'
+		entry 'AVHRR n14r channel 3' \
+		   'putc2 p_raster platform n14r field avhrr_ch3'
+		entry 'AVHRR n14r4 channel 1' \
+		   'putc2 p_raster platform n14r4 field avhrr_ch1'
+		entry 'AVHRR n14rB channel 1' \
+		   'putc2 p_raster platform n14rB field avhrr_ch1'
+	endmenu
+!
+! Trajectory models and tracking balloons
+!
+	menu trajmodels bitmap trajectory
+		title 'Trajectories'
+		line
+		entry 'BoM' 'PutTrajectory bom0.5km 5 pink'
+		entry 'U. of Hawaii' 'PutTrajectory uh0.5km 7 orange'
+		line
+		entry 'Balloon location' \
+   'putc3 p_simple_track platform balloon icon sounding time-period 24h'
+	endmenu
+!
+! Aircraft tracks and time series
+!
+	menu aircraft bitmap aircraft
+		title 'C-130'
+		line
+		entry 'Horizontal track' 'putc1 p_track platform c130'
+		entry 'Scalar time series' 'PutScalar c130 dpt'
+	endmenu
+!
+! ISS platforms and plots
+!
+	menu iss bitmap iss-iss
+		title 'ISS Platforms'
+		line
+		entry 'ISS Surface data' \
+		   'putc2 p_station platform surface_met icon iss-iss-small'
+		entry 'ISS Stations' 'putc0 iss_locs'
+		line
+		entry 'ISS-1 Sounding track' \
+			'putc1 p_sondetrack platform "iss1/class"'
+		entry 'ISS-4 Sounding track' \
+			'putc1 p_sondetrack platform "iss4/class"'
+	endmenu
+!
+! Boat tracks and locations
+!
+	menu 'boats' bitmap bigboat
+		title 'Boat Locations'
+		line
+		entry 'R/V Discovery ISS-1 track' \
+	'putc3 p_simple_track platform "iss1/track" icon boat time-period 24h'
+		entry 'R/V Southern Surveyor track' \
+	'putc3 p_simple_track platform surveyor icon boat time-period 24h'
+		line
+		entry 'Discovery location' \
+			'putc2 p_loc platform "iss1/track" icon boat'
+		entry 'Surveyor location' \
+			'putc2 p_loc platform "surveyor" icon boat'
+	endmenu
+!
+! Maps, locations and other informational overlays
+!
+	menu 'overlays' bitmap overlays
+		title 'Static Overlays'
+		line
+		entry 'Default map' 'putc2 p_map platform default icon map'
+		entry 'Lat/Lon grid' \
+			'putc3 p_llgrid x-spacing 60 y-spacing 60 color gray50'
+		entry 'X-Y grid (km)' \
+			'putc3 p_kmgrid x-spacing 100 y-spacing 100 color cyan'
+		entry 'Sounding station locations' \
+			'require SendLocs; SendLocs sounding'
+		entry 'Range rings' \
+			'putc2 p_rings platform hobart ring-interval 100'
+		entry 'Window Bounds' put_wbounds p_wbounds
+		entry 'Hobart' 'putc2 p_loc platform hobart color yellow'
+	endmenu
+enddef
+
+
+!
+! Put in window bounds.
+!
+procedure put_wbounds comp string
+!
+! Get the window we want to see.
+!
+	set wbounds_win "none"
+	pickwin wbounds_win
+	if (wbounds_win = "none")
+		beep
+		return
+	endif
+!
+! And now the place where it goes.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")
+		beep
+		return
+	endif
+!
+! Fix up the component and ship it over.
+!
+	parameter #comp #comp platform #wbounds_win
+	add #comp #comp #target_win
+endprocedure
+
+
+procedure PutTrajectory parent string nsubs int color string
+	local newplat ""
+	local i 1
+	while (i <= nsubs)
+		if (i <> 1) then
+			local newplat (concat (newplat,","))
+		endif
+		local newplat (concat4 (newplat, parent, "/", string (i)))
+		local i (i + 1)
+	endwhile
+	putc3 p_trajectory platform #newplat icon #parent color #color
+endprocedure
+
+
+set SndLocs 'iss1/class,iss4/class'
+set ISSes 'iss1,iss4'
+set isssurf 'iss1/surface_met,iss4/surface_met'
+

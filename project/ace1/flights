@@ -1,0 +1,69 @@
+<html>
+<h2>ACE-1 C-130 RESEARCH FLIGHTS</h2>
+<p>
+<pre>
+FLT     DEPARTURE (UTC)    ARRIVAL (UTC)     HRS    MISSION       REMARKS
+NO.    DATE  TIME  SITE   DATE  TIME  SITE          SCIENTIST
+---------------------------------------------------------------------------------------------
+
+R1   10/31  1625  BJC    11/01  0136  PANC   9:11   Huebert       Ferry to Alaska
+     
+R2   11/02  1907  PANC   11/03  0214  PANC   7:07   Huebert       Ice Flight (to 75N)
+
+R3   11/03  1824  PANC   11/04  0343  PHNL   9:19   Huebert       Ferry to Hawaii
+
+R4   11/05  1425  PHNL   11/05  2223  PHNL   7:58   Huebert       Kilauea Plume Evolution
+
+R5   11/06  1600  PHNL   11/07  0100  PHNL   9:00   Clarke        Radiative Closure
+
+R6   11/08  1655  PHNL   11/09  0122  PLCH   8:27   Lenschow      Ferry to Christmas I
+
+R7   11/09  1905  PLCH   11/10  0207  NSAP   7:02   Lenschow      Ferry to Western Samoa
+
+R8   11/10  2035  NSAP   11/11  0458  NZCH   8:23   Lenschow      Ferry to New Zealand
+
+R9   11/13  2003  NZCH   11/14  0427  NZCH   8:24   Lenschow      Southernmost Flight
+
+R10  11/15  2102  NZCH   11/16  0114  YMHB   4:12   Lenschow      Ferry to Tasmania
+
+R11  11/17  2250  YMHB   11/18  0732  YMHB   8:42   Huebert       Low Temp Sulfur branching
+
+R12  11/18  2230  YMHB   11/19  0619  YMHB   7:49   Lenschow      Statocumulus mission
+
+R13  11/23  0027  YMHB   11/23  0907  YMHB   8:40   Huebert       1st Lagrangian, Flt 1
+
+R14  11/23  2305  YMHB   11/24  0740  YMHB   8:35   Clarke        Cumulus outflow; Cape Grim
+                                                                   comparison; column closure
+
+R15  11/24  2257  YMHB   11/25  0749  YMHB   8:52   Lenschow      Discoverer intercomparison
+
+R16  11/26  2200  YMHB   11/27  0700  YMHB   9:00   Huebert       Macquarie I intercomparison
+
+R17  11/27  2301  YMHB   11/28  0823  YMHB   8:22   Clarke        Cu cloud particle
+                                                                   production
+
+R18  12/01  1536  YMHB   12/02  0007  YMHB   8:31   Lenschow/Wang 2nd Lagrangian, Flt 1
+
+R19  12/02  0229  YMHB   12/02  1112  YMHB   8:43   Huebert       2nd Lagrangian, Flt 2 
+
+R20  12/02  1532  YMHB   12/02  2350  YMHB   8:18   Wang          2nd Lagrangian, Flt 3
+
+R21  12/04  1533  YMHB   12/05  0022  YMHB   8:49   Wang          Sunrise photochemistry
+                                                                  in clear air
+
+R22  12/05  XXXX  YMHB   12/06  XXXX  YMHB   X:XX   Huebert             
+
+R23  12/XX  XXXX  YMHB   12/XX  XXXX  YMHB   X:XX   Clarke
+
+R24  12/08  1929  YMHB   12/09  0437  YMHB   9:08   Huebert       3rd Lagrangian, Flt 2
+
+R25  12/XX  XXXX  YMHB   12/XX  XXXX  YMHB   X:XX   Clarke
+
+R26  12/XX  XXXX  YMHB   12/XX  XXXX  YMHB   X:XX   Huebert       Cumulus detrainment
+                                                                  Cape Grim comparison
+
+R27  12/10  XXXX  YMHB   12/11  XXXX  YMHB   X:XX   Clarke
+
+---------------------------------------------------------------------------------------------
+</pre>
+</html>

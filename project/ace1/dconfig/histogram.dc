@@ -1,0 +1,45 @@
+! Auto-saved display configuration.
+
+prototype fallback 'Default' gp 'gp.init'
+
+config histogram
+	widget 'iconbar' 1060 8 84 482
+	graphic 'histo' 18 8 944 675 'Default'
+		description 'histogram-histo'
+		buttonmap 'radar'
+		forcepd
+	endgraphic
+endconfig
+
+beginpd 'histogram-histo'
+global
+   parameter altitude-label            ''
+   parameter pd-name                   'histogram-histo'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '5-Dec-95,10:56:15'
+   parameter plot-type                 'histogram'
+   parameter sa-space                  '0.1'
+   parameter ta-show-name              'true'
+   parameter ta-space                  '40'
+component barchart
+   parameter annotate-counts           'true'
+   parameter badvalue-bin              'false'
+   parameter bins                      '150,200,2000,4000,5000,6000,7000,8000,9000'
+   parameter color-table               'tseries'
+   parameter count-grid                'true'
+   parameter count-max                 '394'
+   parameter count-min                 '0'
+   parameter disable                   'false'
+   parameter field                     'CN3010, CN3025, CN3760, CNTS'
+   parameter icon                      'barchart'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'historight'
+   parameter limit-proc                'histo-limits'
+   parameter platform                  'c130'
+   parameter representation            'barchart'
+   parameter require                   'histogram, simple-color'
+   parameter scale-mode                'auto'
+   parameter time-period               '10m'
+   parameter zero-anchor               'true'
+endpd
+

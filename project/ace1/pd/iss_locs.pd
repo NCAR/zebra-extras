@@ -1,0 +1,23 @@
+!
+! Location component oriented around ISS stations, which can be displayed
+! in almost any format you can think of.
+!
+global
+	pd-name:	iss_locs
+iss_locs
+	platform:	iss1/class,iss4/class
+	representation:	overlay
+	field:		location
+	color:		white
+	label-size:	14
+	icon:		iss-loc
+	icon-left-menu:		minimal-cap-left-menu
+	icon-right-menu:	location-options
+	location-time:		observation
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-right-menu:	location-options
+	posicon-middle-menu:	iss-to-other
+	label:		platform
+	active-icon:	true
+	time-label:	true
+	require:	location, iss-cap

@@ -1,0 +1,173 @@
+! $Id: gp.init,v 1.1.1.1 1996-01-04 01:02:28 granger Exp $
+!
+! The ACE-1 graphics process initialization file.
+!
+
+! Our various path variables.
+!
+set RequirePath concat('./modules,',RequirePath)
+set MapPath concat('./maps,',MapPath)
+set IconPath concat('./icons,',IconPath)
+
+!
+! We just gotta have this one...
+!
+require simple-color
+require active-time
+
+!
+! Override default grid menus and supply grid origin menus
+!
+
+define widget kmgrid-origins intmenu 'cart grid origin'
+	title 'Cartesian grid origin'
+	line
+	entry 'Hobart' 'parameter #icon_component origin hobart'
+	submenu 'Ships' ship_cg_origin_menu
+	submenu 'Aircraft' aircraft_cg_origin_menu
+endmenu
+
+define widget kmgrid-spacing intmenu 'kmgrid-spacing'
+	title 'Grid spacing'
+	line
+	entry '100 km lines' 'GridSpacing 100' \
+		(PDParam(icon_component,'x-spacing') = '100')
+	entry '200 km lines' 'GridSpacing 200' \
+		(PDParam(icon_component,'x-spacing') = '200')
+	entry '500 km lines' 'GridSpacing 500' \
+		(PDParam(icon_component,'x-spacing') = '500')
+	entry '1000 km lines' 'GridSpacing 1000' \
+		(PDParam(icon_component,'x-spacing') = '1000')
+endmenu
+
+define widget llgrid-spacing intmenu 'llgrid-spacing'
+	title 'Grid spacing'
+	line
+	entry '1/2 degree lines' 'GridSpacing 30' \
+		(PDParam(icon_component,'x-spacing') = '30')
+	entry '1 degree lines' 'GridSpacing 60' \
+		(PDParam(icon_component,'x-spacing') = '60')
+	entry '5 degree lines' 'GridSpacing 300' \
+		(PDParam(icon_component,'x-spacing') = '300')
+	entry '10 degree lines' 'GridSpacing 600' \
+		(PDParam(icon_component,'x-spacing') = '600')
+endmenu
+
+define widget ship_cg_origin_menu intmenu 'cartesian grid ship origins'
+	title 'Ship Platforms'
+	line
+	entry 'Discoverer' 'parameter #icon_component origin discoverer' \
+		(pd_param (icon_component, "origin", "string") = 'discoverer')
+endmenu
+
+
+define widget aircraft_cg_origin_menu intmenu 'cartesian grid aircraft origins'
+	title 'Aircraft Platforms'
+	line
+	entry 'N308D (DAP data)' 'parameter #icon_component origin n308d_dap' \
+		(pd_param (icon_component, "origin", "string") = 'n308d_dap')
+endmenu
+
+
+define widget ship_rr_origin_menu intmenu 'ship origin for range rings'
+	title 'Ship Platforms'
+	line
+	entry 'Discoverer' 'parameter #icon_component platform discoverer' \
+	    (pd_param (icon_component, "platform", "string") = 'discoverer')
+endmenu
+
+!
+! Override the range ring default menu and supply range ring origin menu
+!
+define widget rings-right intmenu 'x'
+	title 'Range ring options'
+	line
+	entry '50 km rings' 'parameter #icon_component ring-interval 50' \
+		(PDParam (icon_component, "ring-interval") = '50')
+	entry '100 km rings' 'parameter #icon_component ring-interval 100' \
+		(PDParam (icon_component, "ring-interval") = '100')
+	entry '200 km rings' 'parameter #icon_component ring-interval 200' \
+		(PDParam (icon_component, "ring-interval") = '200')
+	entry '500 km rings' 'parameter #icon_component ring-interval 500' \
+		(PDParam (icon_component, "ring-interval") = '500')
+	line
+	entry '10 degree lines' \
+		'parameter #icon_component azimuth-interval 10' \
+		(PDParam (icon_component, "azimuth-interval") = '10')
+	entry '30 degree lines' \
+		'parameter #icon_component azimuth-interval 30' \
+		(PDParam (icon_component, "azimuth-interval") = '30')
+	entry '45 degree lines' \
+		'parameter #icon_component azimuth-interval 45' \
+		(PDParam (icon_component, "azimuth-interval") = '45')
+	entry '90 degree lines' \
+		'parameter #icon_component azimuth-interval 90' \
+		(PDParam (icon_component, "azimuth-interval") = '90')
+	line
+	entry 'Draw labels' 'ToggleBoolean do-labels' \
+	    (PDSearch (icon_component, "do-labels", "range-ring") <> "false")
+	line
+	submenu 'Ring color' 'simple-color'
+	submenu 'Line width' 'LineWidth'
+	submenu 'Label size' 'RingsLabelSize'
+endmenu
+
+
+define widget rings-origins intmenu 'rings origins'
+	title 'Range rings origin'
+	line
+	entry 'Hobart' 'parameter #icon_component origin hobart'
+	submenu 'Ships' ship_rr_origin_menu
+	submenu 'Aircraft' aircraft_rr_origin_menu
+endmenu
+
+define widget aircraft_rr_origin_menu intmenu 'range ring aircraft origins'
+	title 'Aircraft Platforms'
+	line
+	entry 'n308d (DAP data)' \
+		'parameter #icon_component platform n308d_dap' \
+		(pd_param (icon_component, "platform", "string") = 'n308d_dap')
+endmenu
+
+!
+! Menus for trajectories
+!
+define widget trajectory_middle intmenu 'traj'
+	title 'Trajectory Options'
+	line
+	entry 'BoM 0.5 km' 'NewTraj bom0.5km 5' \
+		(substring (PDParam (icon_component, "platform"), "bom0.5km"))
+	entry 'BoM 1.5 km' 'NewTraj bom1.5km 5' \
+		(substring (PDParam (icon_component, "platform"), "bom1.5km"))
+	entry 'BoM 3.0 km' 'NewTraj bom3.0km 5' \
+		(substring (PDParam (icon_component, "platform"), "bom3.0km"))
+	entry 'U.H. 0.5 km' 'NewTraj uh0.5km 7' \
+		(substring (PDParam (icon_component, "platform"), "uh0.5km/"))
+	entry 'U.H. 1.5 km' 'NewTraj uh1.5km 7' \
+		(substring (PDParam (icon_component, "platform"), "uh1.5km/"))
+	entry 'U.H. 3.0 km' 'NewTraj uh3.0km 7' \
+		(substring (PDParam (icon_component, "platform"), "uh3.0km/"))
+!	line
+!	submenu 'Color-code Field' FieldMenu
+endmenu
+
+procedure NewTraj parent string nsubs int
+	local newplat ""
+	local i 1
+	while (i <= nsubs)
+		if (i <> 1) then
+			local newplat (concat (newplat,","))
+		endif
+		local newplat (concat4 (newplat, parent, "/", string (i)))
+		local i (i + 1)
+	endwhile
+	parameter #icon_component platform #newplat
+	parameter #icon_component icon #parent
+endprocedure
+
+!
+! Get our field definitions.
+!
+set DefFile "FieldDefs"
+read #DefFile
+

@@ -1,0 +1,7 @@
+set platform 'gms'
+set kmResolution 8
+limits -65 120 -35 180
+set originLat -42.9
+file /tmp/wv_area wv
+file /tmp/ir_area ir1
+file /tmp/vis_area vis

@@ -1,0 +1,12 @@
+#!/bin/csh
+#
+if ($#argv != 1) then
+	echo Usage: $0 <yymmdd.hh>
+	exit 1
+endif
+
+cd /data/traj_gif
+
+xwd | xwdtopnm > /tmp/image.pnm
+convert /tmp/image.pnm ./$1.BoM.gif
+rm /tmp/image.pnm

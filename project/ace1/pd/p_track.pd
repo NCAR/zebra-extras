@@ -1,0 +1,41 @@
+!
+! The "gnarly-track" component, with arrows, color-coding, and the
+! ginsu knife too.
+!
+global
+	pd-name:	p_track
+p_track
+	representation:	track
+	platform:	SOMETHING
+	time-period:	60m
+	trigger:	platform
+	color:		brown
+	line-width:	3
+	field:		alt
+	color-table:	Contour
+	arrow:		true
+	arrow-interval:	3m
+	x-field:	u_wind
+	y-field:	v_wind
+	arrow-scale:	0.005
+	arrow-color:	brown
+	sa-scale:	0.025
+	show-position:	true
+	scale-mode:	auto
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	field-menu-extras:	mono|Monochrome track (no field)
+	field-select-command:	track-field-select
+	icon-right-menu:	track-right
+	icon:		littleplane
+	require:	simple-color, track
+	limit-proc:	gnarly-track-adjust
+	annot-time:	false
+	annot-time-interval:	10m
+	annot-time-color:	red
+	annot-time-scale:	10
+	active-icon:	true
+!	posicon-middle-menu:	FieldMenu
+	posicon-left-menu:	standard-cap-left-menu
+	posicon-middle-menu:	tr-simple-send
+	posicon-right-menu:	track-right

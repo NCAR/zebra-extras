@@ -1,0 +1,42 @@
+GLOBAL
+	pd-name:	p_trajectory
+p_trajectory
+	active-icon:	true
+	annot-time:	true
+	annot-time-color:	white
+	annot-time-interval:	12h
+	annot-time-scale:	10
+	arrow:	false
+	arrow-color:	(Undefined)
+	arrow-interval:	(Undefined)
+	arrow-scale:	(Undefined)
+	color:	pink
+	color-table:	Contour
+	disable:	false
+	do-position-arrow:	true
+	f_pres-center:	900
+	f_pres-step:	25
+	field:	f_pres
+	field-menu-extras:	mono|Monochrome track (no field)
+	field-select-command:	track-field-select
+	forecast_offset-center: 36
+	forecast_offset-step:	8
+	icon:	bom0.5km
+	icon-left-menu: standard-cap-left-menu
+	icon-middle-menu:	trajectory_middle
+	icon-right-menu:	track-right
+	limit-proc:	gnarly-track-adjust
+	line-width:	3
+	platform:	bom0.5km/1,bom0.5km/2,bom0.5km/3,bom0.5km/4,bom0.5km/5
+	posicon-left-menu:	standard-cap-left-menu
+	posicon-middle-menu:	tr-simple-send
+	posicon-right-menu:	track-right
+	representation:	track
+	require:	simple-color, track
+	sa-scale:	0.025
+	scale-mode:	manual
+	show-position:	true
+	time-period:	1h
+	trigger:	platform
+	x-field:	(Undefined)
+	y-field:	(Undefined)

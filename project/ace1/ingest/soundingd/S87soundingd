@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# Start up three daemons to wait for ACE1 sounding data on ports 1100, 1101,
+# and 1102
+#
+case "$1" in
+'start')
+	echo " ACE1 sounding reader daemons" >/dev/console
+
+	cd /data/incoming/sounding
+
+	/zeb/project/ace1/ingest/soundingd/soundingd 1100 \
+		1>/tmp/soundingd.1100.log 2>&1 &
+
+	/zeb/project/ace1/ingest/soundingd/soundingd 1101 \
+		1>/tmp/soundingd.1101.log 2>&1 &
+
+	/zeb/project/ace1/ingest/soundingd/soundingd 1102 \
+		1>/tmp/soundingd.1102.log 2>&1 &
+	;;
+
+'stop')
+	;;
+esac

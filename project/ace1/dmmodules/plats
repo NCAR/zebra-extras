@@ -1,0 +1,14 @@
+!
+! Define the platform menu required by the position entry widget
+! The only platform to define is the ship R/V Discoverer
+!
+
+define widget plats intmenu "mobile plats"
+	title "Mobile Platforms"
+	line
+	entry "R/V Discoverer" "formtext #ui$form platform discoverer"
+	entry "R/V Southern Surveyor" "formtext #ui$form platform surveyor"
+	entry "Tracking balloon" "formtext #ui$form platform balloon"
+endmenu
+
+

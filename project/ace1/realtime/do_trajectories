@@ -1,0 +1,50 @@
+#!/bin/csh
+
+onintr finished
+set nonomatch
+
+setenv ZEB_SOCKET /tmp/zeb.trajectories
+setenv DATA_DIR /data/ace1
+setenv HOST `uname -n`
+
+/zeb/bin/message
+
+sh << _EOF_
+	/zeb/bin/EventLogger -n -m epi -f /tmp/zeb.trajectories.log &
+	sleep 2
+	/zeb/bin/timer &
+	sleep 2
+	/zeb/bin/dsDaemon /zeb/project/ace1/ds.config 1>/dev/null 2>&1 &
+_EOF_
+
+cd /data/incoming
+
+foreach file (ep_4ucar_*)
+	if ($file == 'ep_4ucar_*') break
+	sleep 5		# in case the file isn't all here yet...
+	/zeb/project/ace1/ingest/TrajIngest/TrajIngest bom $file
+	mv $file traj_prev/
+end
+
+foreach file (*F+*[0-9].ep)
+	if ($file == '*F+*[0-9].ep') break
+	sleep 5		# in case the file isn't all here yet...
+	/zeb/project/ace1/ingest/TrajIngest/TrajIngest uh $file
+	mv $file traj_prev/
+end
+
+foreach file (*B+*[0-9].ep)
+	if ($file == '*B+*[0-9].ep') break
+	sleep 5		# in case the file isn't all here yet...
+	/zeb/project/ace1/ingest/TrajIngest/TrajIngest uh_b $file
+	mv $file traj_prev/
+end
+
+finished:
+zstop >& /dev/null
+
+#
+# Now do a dsrescan if somebody's running Zebra here right now
+#
+unsetenv ZEB_SOCKET
+if ({ /zeb/bin/mstatus }) /zeb/bin/dsrescan -all >& /dev/null

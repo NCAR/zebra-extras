@@ -1,0 +1,63 @@
+!
+! Support for active ISS locations.
+!
+
+define widget iss-to-other intmenu 'other'
+	title 'Display in other window'
+	line
+	entry 'CLASS sounding' 'iss-shipout "class"'
+	entry 'Wind profile (high)' 'iss-shipout "prof915h"'
+	entry 'Wind profile (low)' 'iss-shipout "prof915l"'
+	entry 'RASS' 'iss-shipout "rass915"'
+	entry 'Surface measurements' 'iss-shipout "surface_met"'
+endmenu
+
+
+!
+! The function which actually gets this data around.
+!
+procedure iss-shipout suffix string
+	local site icon_platform
+	! Remove any existing suffix from the site name
+	if (substring(site,"iss1"))
+		local site "iss1"
+	else
+		local site "iss4"
+	endif
+	if (suffix <> 'none')
+		local fullplat concat3(site, "/", suffix)
+	else
+		local fullplat site
+	endif
+	local dmcmd quote(concat3 ('PutScalar ', fullplat, ' tdry'))
+	dm #dmcmd
+endprocedure
+
+
+define widget send-iss intmenu 'iss sender'
+	title 'Add Data to Other Window'
+	line
+	entry 'RASS data' 'iss-rass'
+	entry 'Sonde data' 'iss-sonde'
+	entry 'Profiler data' 'iss-profiler'
+endmenu
+
+
+!
+! Stuff called out of the above
+!
+procedure iss-rass
+	local dmcmd quote(concat3('rass-add rass/', icon_platform, '_r'))
+	dm #dmcmd
+endprocedure
+
+procedure iss-sonde
+	local dmcmd quote(concat('sounding-add sounding/', icon_platform))
+	dm #dmcmd
+endprocedure
+
+procedure iss-profiler
+	local dmcmd quote(concat('profiler-add prof/', icon_platform))
+	dm #dmcmd
+endprocedure
+
