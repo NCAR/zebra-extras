@@ -1,7 +1,7 @@
 XCOMM !/bin/csh -f
 XCOMM
 XCOMM Environment variable settings specific to ARM
-XCOMM $Id: proj_env.cpp,v 1.4 1997-06-24 17:19:26 granger Exp $
+XCOMM $Id: proj_env.cpp,v 1.5 1997-08-19 21:56:54 granger Exp $
 
 #include "config.h"
 
@@ -10,14 +10,14 @@ echo "Reading proj_env"
 setenv HOST `uname -n`
 if ( ! $?DISPLAY ) then
 	setenv DISPLAY localhost:0
-	echo "Setting DISPLAY to localhost:0"
 else
 	set display=`echo $DISPLAY | sed -e 's/:.*//'`
+	set screen=`echo $DISPLAY | sed -e 's/^.*://'`
 	if ( x$display == x || x$display == x$HOST ) then
-		setenv DISPLAY localhost:0
-		echo "Setting DISPLAY to localhost:0"
+		setenv DISPLAY localhost:$screen
 	endif
 endif
+echo "DISPLAY set to $DISPLAY"
 
 XCOMM Simple configuration settings used by zstart
 set dm="dm -single "
