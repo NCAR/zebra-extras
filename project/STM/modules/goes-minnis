@@ -138,18 +138,18 @@ endmenu
 
 
 procedure minnis-field field string
-	parameter icon_component "field" #field
-	parameter icon_component "dimensions" ''
+	parameter #icon_component "field" #field
+	parameter #icon_component "dimensions" ''
 endprocedure
 
 procedure minnis-field-view field string
-	parameter icon_component "field" #field
-	parameter icon_component "dimensions" 'view=0'
+	parameter #icon_component "field" #field
+	parameter #icon_component "dimensions" 'view=0'
 endprocedure
 
 procedure minnis-field-level field string
-	parameter icon_component "field" #field
-	parameter icon_component "dimensions" 'level=0'
+	parameter #icon_component "field" #field
+	parameter #icon_component "dimensions" 'level=0'
 endprocedure
 
 
