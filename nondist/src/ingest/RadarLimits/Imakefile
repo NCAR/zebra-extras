@@ -15,7 +15,7 @@
  * through use or modification of this software.  UCAR does not provide 
  * maintenance or updates for its software.
  */
-MFVERSION="$Id: Imakefile,v 1.1 1992-08-20 13:28:55 granger Exp $"
+MFVERSION="$Id: Imakefile,v 1.2 1993-07-01 20:14:57 granger Exp $"
 
 LIBS = $(LIBZEB) $(LIBRDSS) $(LIBNETCDF) $(XLIBS)
 
@@ -23,6 +23,9 @@ SRCS = RadarLimits.c
 OBJS = RadarLimits.o
 
 DISTFILES = $(SRCS) Imakefile RadarLimits.ad
+
+/*-----------------------------------------------------------------------*/
+#if BuildRadarLimits && BuildIngest
 
 NormalProgramTargetNoInstall(RadarLimits,$(OBJS),$(DEPLIBS), \
 		$(XLIBS),$(SYSLIBS))
@@ -32,8 +35,11 @@ InstallProgramWithFlags(RadarLimits,$(BINDIR),-s)
 InstallAppDefaults(RadarLimits)
 
 DependTarget()
-
 LintTarget()
+/*-----------------------------------------------------------------------*/
+#else
+OmitBuildRules(RadarLimits)
+#endif
 
 DistfilesTarget($(DISTFILES))
 

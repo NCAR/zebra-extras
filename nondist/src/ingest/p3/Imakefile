@@ -15,7 +15,7 @@
  * through use or modification of this software.  UCAR does not provide 
  * maintenance or updates for its software.
  */
-MFVERSION="$Id: Imakefile,v 1.1 1992-08-20 13:29:03 granger Exp $"
+MFVERSION="$Id: Imakefile,v 1.2 1993-07-01 20:15:40 granger Exp $"
 
 LIBS = $(LIBZEB) $(LIBRDSS) $(LIBNETCDF)
 
@@ -24,13 +24,19 @@ OBJS = p3_ingest.o
 
 DISTFILES = Imakefile $(SRCS) 
 
+/*---------------------------------------------------------------------*/
+#if BuildIngest && BuildP3Ingest
+
 NormalProgramTargetNoInstall(p3_ingest,$(OBJS),$(DEPLIBS),$(LIBS),$(SYSLIBS))
 
 InstallProgramWithFlags(p3_ingest,$(BINDIR),-s)
 
 DependTarget()
-
 LintTarget()
+/*---------------------------------------------------------------------*/
+#else
+OmitBuildRules(P3 phone ingest)
+#endif
 
 DistfilesTarget($(DISTFILES))
 
