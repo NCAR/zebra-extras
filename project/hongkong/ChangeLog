@@ -160,20 +160,3 @@ Wed Apr 20 12:08:17 1994  Gary Granger  (lantex@owsu1)
 	* Moved new.bin, new.lib, bin_4, bin, lib, local_lib, and local_bin
 	  underneath /zeb/backup.  After enough testing, these can all
 	  be deleted.
-
--------------------------------------------------------------------------
-Notes for future reference: 
-
-It would be nice to separate the display menu in the iconbar into a
-separate file which could be changed automatically as new displays are
-saved.  Users could have the option of adding recently-saved
-configurations to the iconbar menu.
-
-When installing a read-only source tree (as is created by tarfile: target
-under stout:/zeb), the install target fails in src/etc/icons if the icon
-files have been installed once before, because the existing installed
-files do not have write permission.  Changing to 'install' works, and
-doing a 'rm $(LIBDIR)/icons/[a-z]*' is probably not a good idea.  Maybe do
-'foreach icon ([a-z]*); rm -f $(LIBDIR)/icons/$icon; cp $icon
-$(LIBDIR)/icons; end'.
-
