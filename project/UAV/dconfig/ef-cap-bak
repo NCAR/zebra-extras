@@ -1,0 +1,19 @@
+! Auto-saved display configuration.
+config ef-cap-bak
+	window 'big' 1 -20 614 442 gp gp.init
+		description 'ef-cap-bak-big'
+		buttonmap 'oklahoma.cap'
+		forcepd
+	endwindow
+	widget 'iconbar' 613 307 349 94
+	window 'tseries' 3 397 590 508 gp gp.init
+		description 'ef-cap-bak-tseries'
+		buttonmap 'xyplot'
+		forcepd
+	endwindow
+	window 'tseries2' 589 398 566 506 gp gp.init
+		description 'ef-cap-bak-tseries2'
+		buttonmap 'xyplot'
+		forcepd
+	endwindow
+endconfig

@@ -1,0 +1,24 @@
+
+define widget smosfields intmenu 'SMOS time series fields'
+	title 'SMOS Fields'
+	line
+	entry 'Ambient Temperature'  'SetSMOSFieldInterval tdry 5.0'
+	entry 'Vapor Pressure' 'SetSMOSFieldInterval vap_pres 0.02'
+	entry 'Barometric Pressure' 'SetSMOSFieldInterval bar_pres .10'
+	entry 'Relative Humidy' 'SetSMOSFieldInterval rh 10.0'
+	entry 'Wind Speed' 'SetSMOSFieldInterval wspd 1.0'
+	entry 'Wind Direction' 'SetSMOSFieldInterval wdir 30.0'
+	entry 'Snow Depth' 'SetSMOSFieldInterval snow 1.0'
+	entry 'Precipitation Total' 'SetSMOSFieldInterval precip 1.0'
+
+endmenu
+
+procedure SetSMOSFieldInterval field string interval string
+	parameter #icon_component y-field #field
+	if (icon_component = 'l_xytrace')
+		parameter #icon_component axis-l-tic-interval #interval
+	else
+		parameter #icon_component axis-r-tic-interval #interval
+	endif
+endprocedure
+

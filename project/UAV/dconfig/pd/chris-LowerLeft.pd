@@ -1,0 +1,42 @@
+global
+	left-endpoint:	371.598,-1349.073
+	pd-name:	chris-LowerLeft
+	plot-hold:	false
+	plot-mode:	history
+	plot-time:	1-Feb-92,00:01
+	plot-type:	xsect
+	right-endpoint:	1971.011,-1300.035
+	ta-scale:	12
+	trigger:	5m
+	z-max:	18
+	z-min:	0
+xsect
+	by-altitude:	true
+	color:	cyan
+	color-mono:	false
+	color-table:	RedBlue
+	field:	tdry
+	grid-method:	bilinear
+	icon:	grid
+	icon-middle-menu:	xsect-field-menu
+	icon-right-menu:	xsect-right
+	platform:	eta
+	representation:	filled-contour
+	tdry-center:	-28
+	tdry-step:	8
+xsect0
+	by-altitude:	true
+	color:	green
+	color-mono:	true
+	color-table:	Rainbow
+	do-labels:	false
+	field:	v_wind
+	grid-method:	bilinear
+	icon:	grid
+	icon-middle-menu:	xsect-field-menu
+	icon-right-menu:	xsect-right
+	line-width:	2
+	platform:	eta
+	representation:	contour
+	v_wind-center:	0.0
+	v_wind-step:	10.0

@@ -1,0 +1,14 @@
+! Auto-saved display configuration.
+config rad_tseries
+	widget 'iconbar' 1 5 333 96
+	window 'UpperLeft' 3 95 598 805 gp gp.init
+		description 'rad_tseries-UpperLeft'
+		buttonmap 'xyplot'
+		forcepd
+	endwindow
+	window 'UpperRight' 599 95 530 712 gp gp.init
+		description 'rad_tseries-UpperRight'
+		buttonmap 'xyplot'
+		forcepd
+	endwindow
+endconfig

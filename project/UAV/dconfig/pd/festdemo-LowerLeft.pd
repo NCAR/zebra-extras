@@ -1,0 +1,36 @@
+global
+	altitude:	1.3953
+	comment:	Display CP4 data.
+	left-endpoint:	-2255.733,-2642.181
+	pd-name:	festdemo-LowerLeft
+	plot-mode:	history
+	plot-time:	4-Mar-92,21:00:00
+	plot-type:	CAP
+	radar-space:	true
+	right-endpoint:	-2021.753,-2934.718
+	time-frames:	2
+	trigger:	cp4
+	x-max:	117.7291
+	x-min:	-111.9391
+	y-max:	-122.1998
+	y-min:	107.9371
+c_radar
+	color-table:	wild_new
+	disable:	false
+	every-sweep:	true
+	field:	reflectivity
+	icon:	cp4
+	icon-middle-menu:	radar-middle
+	icon-right-menu:	DataAvailable
+	platform:	cp4
+	representation:	raster
+c_rings
+	azimuth-interval:	30
+	color:	white
+	field:	range-rings
+	icon:	rings
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-menu
+	platform:	cp4
+	representation:	overlay
+	ring-interval:	20

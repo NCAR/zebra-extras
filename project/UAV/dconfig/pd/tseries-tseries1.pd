@@ -1,0 +1,28 @@
+global
+	pd-name:	tseries-tseries1
+	plot-mode:	real-time
+	plot-type:	tseries
+	trigger:	mesonet
+tseries
+	axis-color:	gray60
+	color-table:	tseries
+	data-skip:	0
+	dskip-limit-proc:	adj_data_skip
+	field:	tdry
+	flip-time:	false
+	icon:	tseries
+	icon-left-menu:	tseries-left
+	icon-middle-menu:	tseries-middle
+	icon-right-menu:	tseries-right
+	left-limit-proc:	adj_left_centstep
+	line-width:	3
+	max-field:	2
+	nstep:	7
+	nstep-limit-proc:	adj_num_step
+	num-stations:	47
+	platform:	mesonet/1,mesonet/2
+	representation:	tseries
+	right-limit-proc:	adj_right_centstep
+	sa-scale:	0.03
+	time-interval:	24h
+	time-limit-proc:	adj_time_int

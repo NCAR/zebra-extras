@@ -1,0 +1,26 @@
+global
+	left-endpoint:	198.061,724.309
+	pd-name:	xsect-LowerLeft
+	plot-mode:	history
+	plot-time:	4-Mar-92,21:00:00
+	plot-type:	xsect
+	right-endpoint:	306.095,807.182
+	trigger:	5m
+xsect
+	by-altitude:	false
+	color:	cyan
+	color-mono:	true
+	color-table:	cook32
+	ept-center:	280.0
+	ept-step:	10
+	field:	pt
+	icon:	xsect
+	icon-middle-menu:	xsect-field-menu
+	icon-right-menu:	xsect-right
+	platform:	ssep,soun,sakz,stop,soma,sslb
+	pt-center:	300.0
+	pt-step:	4
+	representation:	contour
+	wspd-center:	50
+	wspd-step:	10
+	zig-zag:	true

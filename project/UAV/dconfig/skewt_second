@@ -1,0 +1,8 @@
+! Auto-saved display configuration.
+config skewt_second
+	widget 'iconbar' 1066 -20 80 491
+	window 'UpperLeft' 200 200 410 406 gp gp.init
+		description 'skewt_second-UpperLeft'
+		buttonmap 'sounding'
+	endwindow
+endconfig

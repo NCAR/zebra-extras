@@ -1,0 +1,6 @@
+GLOBAL
+	pd-name:	whiteclock
+clock
+	xfont:		-*-new century schoolbook-bold-r-*-*-25-*-*-*-*-*-*-*
+	foreground:	black
+	background:	white

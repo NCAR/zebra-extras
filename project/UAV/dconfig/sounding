@@ -1,0 +1,10 @@
+! Auto-saved display configuration.
+config sounding
+	widget 'iconbar' 7 652 131 95
+	window 'UpperLeft' 6 15 620 662 gp gp.init
+		description 'sounding-UpperLeft'
+		buttonmap 'oklahoma.cap'
+		forcepd
+	endwindow
+endconfig
+

@@ -1,0 +1,56 @@
+global
+	altitude:	0.0000
+	comment:	Big window post-processing plot description.
+	frame-rate:	2
+	frame-skip:	60
+	icon-middle-menu:	DataAvailable
+	menu-platform:	cp4
+	movie-end-time:	now
+	movie-minutes:	1440
+	pd-name:	sgp-cap-UpperLeft
+	plot-mode:	history
+	plot-time:	now
+	plot-type:	CAP
+	post-proc-mode:	true
+	time-frames:	2
+	x-max:	391.8750
+	x-min:	-468.7500
+	y-max:	-388.4191
+	y-min:	395.0844
+c_map
+	color:	tan
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	platform:	state_lines
+	representation:	overlay
+p_ef_loc
+	active-icon:	true
+	color:	green
+	field:	location
+	icon:	radar-loc
+	icon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:	platform
+	label-size:	12
+	platform:	E1,E2,E3,E4,E5,E6,E7,E8,E9,E10,E11,E12,C1,C2,E15,E16,E17,E18,E19,E20,E21,E22,E23,E24,E25
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-middle-menu:	ef-iss
+	posicon-right-menu:	location-options
+	representation:	overlay
+	require:	location, ef-cap
+c_cf_loc
+	active-icon:	true
+	color:	HotPink
+	field:	location
+	icon:	ops-ctr
+	icon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:	none
+	label-size:	12
+	platform:	cf
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-right-menu:	location-options
+	representation:	overlay
+	require:	location

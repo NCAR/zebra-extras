@@ -1,0 +1,17 @@
+! Auto-saved display configuration.
+config chris
+	window 'UpperLeft' 10 10 800 527 /zeb/chris/gp/gp gp.init
+		description 'chris-UpperLeft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'LowerLeft' 12 572 800 286 /zeb/chris/gp/gp gp.init
+		description 'chris-LowerLeft'
+		buttonmap 'default'
+		forcepd
+	endwindow
+	widget 'iconbar' 830 19 80 460
+	window 'Event logger' 870 772 270 125 graphproc
+		nongraphic
+	endwindow
+endconfig

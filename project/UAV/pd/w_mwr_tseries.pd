@@ -1,0 +1,74 @@
+global
+	axis-bottom-space:	30
+	axis-left-space:	50
+	axis-right-space:	50
+	axis-top-space:	30
+	pd-name:	w_mwr_tseries
+	plot-mode:	real-time
+	trigger:	platform
+	platform:	DsgpmwrlosC1.a1
+	plot-time:	now
+	plot-type:	xygraph
+	xy-axis-b-font-scale:	10
+	xy-axis-l-font-scale:	10
+	xy-axis-r-font-scale:	10
+	xy-axis-t-font-scale:	10
+	xy-data-mode:	series
+	xy-series-span:	720m
+xy-grid
+	axis-b-label:	Time
+	axis-b-tic-interval:	7200s
+	axis-l-tic-interval:	2000.0000
+	axis-left:	false
+	field-color:	red
+	do-side-annotation:	true
+	icon:	none
+	platform:	DsgpmwrlosC1.a1
+	representation:	simple
+	representation-style:	line
+	x-field:	nothing
+	y-field:	nothing
+p_xytrace
+	annot-left-menu:	xy-an-left
+	annot-middle-menu:	FieldMenu
+	annot-right-menu:	simple-color
+	axis-b-tic-interval:	7200s
+	axis-bottom:	false
+	axis-l-grid-intensity:	0.7
+	axis-l-tic-interval:	1.0000
+	axis-left:	true
+	color-tweaker:	xytrace-color
+	field-color:	rgb:ffff/00/00,rgb:ffff/a5a5/00
+	field-select-command:	xytrace-field
+	icon:	tseries
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	xytrace-right
+	limit-proc:	xytrace-adjust
+	platform:	DsgpmwrlosC1.a1
+	representation:	simple
+	representation-style:	line
+	require:	xytrace, simple-color
+	x-field:	time
+	y-field:	ir_temp
+q_xytrace
+	annot-left-menu:	xy-an-left
+	annot-middle-menu:	FieldMenu
+	annot-right-menu:	simple-color
+	axis-b-tic-interval:	7200s
+	axis-bottom:	false
+	axis-l-grid-intensity:	0.7
+	axis-l-tic-interval:	1.0000
+	axis-left:	true
+	color-tweaker:	xytrace-color
+	field-color:	rgb:ffff/00/00,rgb:ffff/a5a5/00
+	field-select-command:	xytrace-field
+	icon:	tseries
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	xytrace-right
+	limit-proc:	xytrace-adjust
+	platform:	DsgpsirosE13.a1
+	representation:	simple
+	representation-style:	line
+	require:	xytrace, simple-color
+	x-field:	time
+	y-field:	up_long_hemisp

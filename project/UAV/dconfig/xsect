@@ -1,0 +1,22 @@
+! Auto-saved display configuration.
+config xsect
+	window 'UpperRight' 512 7 640 469 gp gp.init
+		description 'xsect-UpperRight'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'UpperLeft' 5 65 500 412 gp gp.init
+		description 'xsect-UpperLeft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'LowerLeft' 6 476 844 421 gp gp.init
+		description 'xsect-LowerLeft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	widget 'iconbar' 5 5 460 70
+	window 'Event logger' 510 750 640 150 graphproc
+		nongraphic
+	endwindow
+endconfig

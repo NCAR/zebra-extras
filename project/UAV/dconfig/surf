@@ -1,0 +1,17 @@
+! Auto-saved display configuration.
+config surf
+	window 'UpperLeft' 5 3 824 442 gp gp.init
+		description 'surf-UpperLeft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	widget 'iconbar' 835 8 80 460
+	window 'Event logger' 870 772 270 125 graphproc
+		nongraphic
+	endwindow
+	window 'LowerLeft' 7 449 820 448 gp gp.init
+		description 'surf-LowerLeft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig

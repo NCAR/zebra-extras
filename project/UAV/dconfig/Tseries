@@ -1,0 +1,14 @@
+! Auto-saved display configuration.
+config Tseries
+	widget 'iconbar' 1 450 299 93
+	window 'UpperLeft' -1 -21 558 470 gp gp.init
+		description 'Tseries-UpperLeft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'UpperRight' 557 -20 422 469 gp gp.init
+		description 'Tseries-UpperRight'
+		buttonmap 'default'
+		forcepd
+	endwindow
+endconfig

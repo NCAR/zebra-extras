@@ -1,0 +1,9 @@
+! Auto-saved display configuration.
+config surface_met
+	widget 'iconbar' 0 0 490 163
+	window 'w_smos_tseries' 1 102 630 529 gp gp.init
+		description 'surface_met-w_smos_tseries'
+		buttonmap 'xyplot'
+		forcepd
+	endwindow
+endconfig

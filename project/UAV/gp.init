@@ -1,0 +1,24 @@
+!
+! The (much reduced) runtime gp.init.
+!
+
+!
+! Pull in the compiled widget definitions.
+!
+set loadfile "gp.lf"
+load #loadfile
+
+set RequirePath concat('modules,',RequirePath)
+
+!
+! Set project origin
+!
+set origin_lat 39.71
+set origin_lon -95.53
+
+!
+! Get our field definitions.
+!
+set DefFile (concat (concat (c$libdir, "/"), "FieldDefs"))
+read #DefFile
+

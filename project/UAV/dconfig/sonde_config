@@ -1,0 +1,19 @@
+! Auto-saved display configuration.
+config sonde_config
+	widget 'iconbar' -4 806 428 100
+	window 'UpperLeft' 0 220 666 587 gp gp.init
+		description 'sonde_config-UpperLeft'
+		buttonmap 'sounding'
+		forcepd
+	endwindow
+	window 'w_sonde_tseries' 556 17 646 506 gp gp.init
+		description 'sonde_config-w_sonde_tseries'
+		buttonmap 'xyplot'
+		forcepd
+	endwindow
+	window 'w_sonde_wind' 554 507 638 414 gp gp.init
+		description 'sonde_config-w_sonde_wind'
+		buttonmap 'sounding'
+		forcepd
+	endwindow
+endconfig

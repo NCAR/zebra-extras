@@ -1,0 +1,22 @@
+global
+	pd-name:	sonde_config-UpperLeft
+	plot-mode:	history
+	plot-time:	2-Feb-94,20:41:00
+	plot-type:	skewt
+	trigger:	platform
+	x-max:	0.9693
+	x-min:	0.8765
+	y-max:	0.3546
+	y-min:	0.4393
+skewt
+	color-table:	Skew-t
+	icon:	sounding
+	icon-left-menu:	skewt-left
+	icon-middle-menu:	DataAvailable
+	icon-right-menu:	feet-km
+	menu-platform:	sgpsondeC1.a1
+	platform:	sgpsondeC1.a1
+	representation:	skewt
+	require:	skewt
+	skprivate-thermo-npts:	2629
+	skprivate-wind-npts:	2629

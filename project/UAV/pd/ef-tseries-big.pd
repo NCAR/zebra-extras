@@ -1,0 +1,53 @@
+global
+	frame-rate:	5
+	frame-skip:	60
+	movie-end-time:	16-dec-92,0
+	movie-minutes:	660
+	movie-mode:	False
+	pd-name:	ef-tseries-big
+	plot-mode:	history
+	plot-time:	16-Dec-92,0:00:00
+	plot-type:	CAP
+	radar-space:	true
+	time-frames:	12
+	trigger:	gms
+	x-max:	1219.1265
+	x-min:	-1679.9928
+	y-max:	1834.3967
+	y-min:	-242.9527
+state_lines
+	platform:	state_lines
+	representation:	overlay
+	field:		map
+	color:		tan
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	icon:		map
+p_llgrid
+	color:	cyan
+	field:	grid
+	icon:	grid
+	icon-left-menu:	standard-cap-left-menu
+	icon-right-menu:	llgrid-right
+	lat-lon:	true
+	line-width:	0
+	platform:	irrelevant
+	representation:	overlay
+	require:	grid, simple-color
+	x-spacing:	300
+	y-spacing:	300
+p_ef_locs
+	active-icon:	true
+	color:	green
+	field:	location
+	icon:	radar-loc
+	icon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:	platform
+	label-size:	12
+	platform:	E1,E2,E3,E4,E5,E6,E7,E8,E9,E10,E11,E12,C1,C2,E15,E16,E17,E18,E19,E20,E21,E22,E23,E24,E25
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-middle-menu:	send-ef
+	posicon-right-menu:	location-options
+	representation:	overlay
+	require:	location, ef-cap

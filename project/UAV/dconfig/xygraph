@@ -1,0 +1,14 @@
+config xygraph
+	window 'Event logger' 10 800 900 95
+		nongraphic
+	endwindow
+	window 'UpperLeft' 10 10 1000 785 gp gp.init 
+		description 'xygraph-UpperLeft'
+		buttonmap 'basic'
+		forcepd
+	endwindow
+!	window 'Clock' 920 800 220 25 'fccclock'
+!		description 'whiteclock'
+!	endwindow
+	widget 'iconbar' 1016 10 80 460
+endconfig

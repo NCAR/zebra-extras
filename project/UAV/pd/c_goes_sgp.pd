@@ -1,0 +1,21 @@
+GLOBAL
+	comment:	Satellite data
+	pd-name:	c_goes_sgp
+	plot-type:	CAP
+	plot-mode:	real-time
+	trigger:	sgpgoesvis.tmp
+	radar-space:	false
+	time-frames:	2
+	altitude:	0
+	icon-middle-menu:	DataAvailable
+	menu-platform:	sgpgoesvis.tmp
+c_goes_sgp
+	platform:	sgpgoesvis.tmp
+	field:		vis
+	representation:	raster
+	color-table:	16gray
+	icon:		satellite
+	icon-middle-menu:	goes-middle
+	altitude:	0.0
+	icon-right-menu:	DataAvailable
+	menu-platform:		sgpgoesvis.tmp

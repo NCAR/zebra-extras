@@ -1,0 +1,57 @@
+GLOBAL
+	alt-scale-y-min:	0.0
+	alt-scale-y-max:	18.0
+	height-scale-y-min:	0
+	height-scale-y-max:	18000.0
+	pd-name:	xygraph-altitude
+	plot-mode:	real-time
+	plot-type:	xygraph
+	trigger:	30m
+	xy-data-mode:		series
+	xy-scale-y-mode:	manual
+	xy-scale-x-mode:	autoscale
+	xy-axis-b-font-scale:	0.020
+	xy-axis-l-font-scale:	0.020
+	xy-axis-r-font-scale:	0.020
+	xy-axis-t-font-scale:	0.020
+	axis-top-space:		120
+	axis-bottom-space:	120
+	axis-left-space:	50
+	axis-right-space:	70
+	ta-scale:		0.03
+	xy-adj-scale-dim:	x
+	xy-adj-axis-side:	t
+	icon-middle-menu:	global-fields-menu
+	xy-series-span:		720m
+!
+! left axis:
+!
+altScale
+	representation:	simple
+	representation-style:	cross
+	x-field:	nothing
+	field-color:	black
+	platform:	prof_azcn5_l
+	axis-bottom:	false
+	y-field:	alt
+	axis-l-label:	altitude (kmsl)
+	axis-l-tic-interval:	1.0
+	axis-l-grid-intensity:	0.0
+	do-side-annotation:	false
+!
+! right axis:
+!
+heightScale
+	representation:	simple
+	representation-style:	cross
+	x-field:	nothing
+	field-color:	black
+	platform:	prof_azcn5_l
+	axis-bottom:	false
+	axis-left:	false
+	y-field:	height
+	axis-r-label:	height (m > ground)
+	axis-r-tic-interval:	500.0
+	axis-r-grid-intensity:	0.0
+	axis-right:	true
+	do-side-annotation:	false

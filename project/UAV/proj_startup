@@ -1,0 +1,14 @@
+#!/bin/csh
+#
+# The ARM project startup file, to be run out of "startzeb".  Nothing too
+# special here.
+#
+
+#
+# Provide a reasonable default config and that's it.
+#
+if ( ! $?DEFAULT_CONFIG ) setenv DEFAULT_CONFIG sounding
+
+# Provide some settings for print.widget
+setenv ZEB_XWD2PS_PATH $ZEB_TOPDIR/bin/xwd2ps
+

@@ -1,0 +1,5 @@
+
+Still need a map files named 'rivers' and another named 'roads',
+containing the obvious information.  These are used by the
+c_map_roads and c_map_rivers component descriptions.
+

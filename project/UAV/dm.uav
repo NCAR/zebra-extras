@@ -1,0 +1,62 @@
+!
+! Display manager configuration file.
+!
+!
+! Load in our plot descriptions.
+!
+!if (getenv ("NO_DM_TIME") <> "yes")
+!	message 'Popping up time control window....'
+!	popup time
+!endif
+!message 'Loading:'
+!message '     ...plot descriptions...'
+
+set libpddir concat(c$libdir,'/pd')
+pddir #libpddir
+pddir pd
+
+!
+! Add our color table directory to the path.
+!
+set CTablePath concat('colortables,',CTablePath)
+
+!
+! The graphics process initialization file.
+!
+set init_file "gp.init"
+if (getenv("CONFIGHOME") <> "UNDEFINED")
+	set init_file concat(getenv("CONFIGHOME"), "/gp.init")
+endif
+
+!
+! Most of the interesting stuff is in other files -- if you looked here,
+! you lose!
+!
+!message '     ...button maps...'
+read ButtonMaps
+!message '     ...display configurations ...'
+read DisplayConfigs
+!message '     ...color tables...'
+read ColorTables
+!message '     ...the icon bar...'
+read IconBar
+!message 'ready!'
+
+read dm.ef	! Active area menus and procedures for EFs
+
+!
+! When and how long to sleep when creating windows.
+! OpenWindows => 1,5	X => 4,1
+set sleepafter	1
+set sleepfor	5
+
+!
+! Come up with an interesting display.
+!
+set filepath concat(getenv("ZEB_TOPDIR"), "/tmp")
+parameter defaults defaults file-path #filepath
+set config getenv("DEFAULT_CONFIG")
+if (config = "UNDEFINED")
+	set config "empty"
+endif
+display #config

@@ -1,0 +1,18 @@
+global
+	pd-name:	sounding-UpperLeft
+	plot-mode:	history
+	plot-time:	25-nov-1993,19:35:00
+	plot-type:	skewt
+skewt
+	color-table:	Skew-t
+	do-feet:	false
+	icon:	sounding
+	icon-left-menu:	skewt-left
+	icon-middle-menu:	DataAvailable
+	icon-right-menu:	feet-km
+	menu-platform:	sgpsondeC1.a1
+	platform:	sgpsondeC1.a1
+	pres-maxval:	1050.0
+	pres-minval:	100.0
+	representation:	skewt
+	require:	skewt

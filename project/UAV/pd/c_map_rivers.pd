@@ -1,0 +1,14 @@
+!
+! Rivers
+!
+global
+	pd-name:		c_map_rivers
+c_map_rivers
+	platform:	rivers
+	representation:	overlay
+	field:		map
+	color:		blue
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	icon:		rivers
+	require:	simple-color

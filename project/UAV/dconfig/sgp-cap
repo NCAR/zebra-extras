@@ -1,0 +1,16 @@
+! Auto-saved display configuration.
+config sgp-cap
+	widget 'iconbar' 0 711 142 97
+	window 'UpperLeft' 0 41 630 693 gp gp.init
+		description 'sgp-cap-UpperLeft'
+		buttonmap 'oklahoma.cap'
+		forcepd
+	endwindow
+!	window 'Clock' 5 710 250 30 fccclock
+!		description 'whiteclock'
+!		buttonmap 'default'
+!	endwindow
+	window 'EventLogger' 3 0 655 140 gp
+		nongraphic
+	endwindow
+endconfig

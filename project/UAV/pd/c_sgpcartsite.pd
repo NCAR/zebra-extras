@@ -1,0 +1,10 @@
+global
+	pd-name:	c_sgpcartsite
+c_sgpcartsite
+	platform:	CF
+	representation:	overlay
+	field:		location
+	color:		green
+	icon-middle-menu: simple-color
+	icon:		ops-ctr
+	label:		none

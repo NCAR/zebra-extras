@@ -1,0 +1,15 @@
+GLOBAL
+	pd-name:	w_skewt
+	plot-mode:	real-time
+	plot-type:	skewt
+	trigger:	platform
+skewt
+	representation:	skewt
+	platform:	sgpsondeC1.a1
+	color-table:	Skew-t
+	icon-left-menu:	skewt-left
+	icon-middle-menu:	DataAvailable
+	icon-right-menu:	feet-km
+	menu-platform:	sgpsondeC1.a1
+	icon:		sounding
+	require:	skewt

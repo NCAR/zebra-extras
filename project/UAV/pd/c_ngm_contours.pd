@@ -1,0 +1,22 @@
+GLOBAL
+	comment:	NGM line contours
+	pd-name:	c_ngm_contours
+c_ngm_contours
+	platform:	sgpngm250X1.c1
+	representation:	contour
+	field:		temperature
+	color-mono:	true
+	color:		cyan
+	label-blanking:	false
+	color-table:	cook16_bk
+	icon-middle-menu:	surface-middle
+	icon-right-menu:	contour-options
+	icon-left-menu:	meso-left-options
+	trigger-global:	true
+	trigger:	mesonet
+	grid-method:		barnes
+	x-points:	35
+	y-points:	20
+	radius:		1.5
+	max-fill:	2.0
+	icon:		chill_grid

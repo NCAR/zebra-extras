@@ -1,0 +1,20 @@
+!
+! Support for active Extended Facility locations.
+!
+
+define widget send-ef intmenu 'ef instrument sender'
+	title 'Display EF Instrument in other window'
+	line
+	entry 'SMOS 30-minute' 'ef-select sgp30smos'
+	entry 'SIROS ' 'ef-select Dsgpsiros'
+endmenu
+
+
+!
+! Stuff called out of the above
+!
+procedure ef-select instrument string
+	local dmcmd quote(concat4('TweakEF ', icon_platform, ' ', instrument))
+	dm #dmcmd
+endprocedure
+

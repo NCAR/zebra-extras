@@ -1,0 +1,14 @@
+! Auto-saved display configuration.
+config clouds
+	widget 'iconbar' 0 809 378 91
+	window 'w_cloud_tseries' -3 195 722 614 gp gp.init
+		description 'clouds-w_cloud_tseries'
+		buttonmap 'xyplot'
+		forcepd
+	endwindow
+	window 'w_blc_tseries' 672 192 480 552 gp gp.init
+		description 'clouds-w_blc_tseries'
+		buttonmap 'xyplot'
+		forcepd
+	endwindow
+endconfig

@@ -1,0 +1,20 @@
+! Auto-saved display configuration.
+config ef-tseries
+	window 'big' 5 5 604 411 gp gp.init
+		description 'ef-tseries-big'
+		buttonmap 'oklahoma.cap'
+		forcepd
+	endwindow
+	widget 'iconbar' 617 332 339 63
+	window 'tseries' 7 422 580 477 gp gp.init
+		description 'ef-tseries-tseries'
+		buttonmap 'xyplot'
+		forcepd
+	endwindow
+	window 'tseries2' 593 423 556 475 gp gp.init
+		description 'ef-tseries-tseries2'
+		buttonmap 'xyplot'
+		forcepd
+	endwindow
+endconfig
+

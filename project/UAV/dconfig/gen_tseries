@@ -1,0 +1,14 @@
+! Auto-saved display configuration.
+config gen_tseries
+	widget 'iconbar' 1058 -70 100 553
+	window 'UpperLeft' 20 15 510 506 gp gp.init
+		description 'gen_tseries-UpperLeft'
+		buttonmap 'xyplot'
+		forcepd
+	endwindow
+	window 'UpperRight' 532 14 410 406 gp gp.init
+		description 'gen_tseries-UpperRight'
+		buttonmap 'xyplot'
+		forcepd
+	endwindow
+endconfig

@@ -1,0 +1,24 @@
+!
+! Support for active Central Facility locations.
+!
+
+define widget send-cf intmenu 'cf instrument sender'
+	title 'Display CF Instrument in other window'
+	line
+!	entry 'SMOS 30-minute' 'cf-select sgp30smos' E13
+!	entry 'SIROS ' 'cf-select Dsgpsiros'		 E13
+	entry 'SONDE ' 'cf-select sgpsonde'
+	entry 'MWRLOS ' 'cf-select Dsgpmwrlos'
+!	entry '915RWPTEMP ' 'cf-select Dsgp915rwptemp'
+!	entry '915RWPWIND ' 'cf-select Dsgp915rwpwind'
+endmenu
+
+
+!
+! Stuff called out of the above
+!
+procedure cf-select instrument string
+	local dmcmd quote(concat4('TweakCF ', icon_platform, ' ', instrument))
+	dm #dmcmd
+endprocedure
+

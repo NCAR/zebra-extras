@@ -1,0 +1,69 @@
+global
+	altitude:	3.00
+	comment:	Big window post-processing plot description.
+	icon-middle-menu:	DataAvailable
+	menu-platform:	cp4
+	pd-name:	chris-UpperLeft
+	plot-mode:	history
+	plot-time:	1-Feb-92,00:01
+	plot-type:	CAP
+	radar-space:	false
+	ta-scale:	12
+	time-frames:	2
+	x-max:	3285.8655
+	x-min:	-2994.0376
+	y-max:	-2248.0173
+	y-min:	2329.3616
+c_eta
+	color-table:	redblue
+	disable:	false
+	field:	tdry
+	icon:	grid
+	icon-left-menu:	left-station
+	icon-middle-menu:	surface-winds-mid
+	icon-right-menu:	meso-winds-options
+	limit-proc:	adj_arrow_scale
+	platform:	eta
+	representation:	filled-contour
+	tdry-center:	-28
+	tdry-step:	8
+c_map
+	color:	white
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	2
+	platform:	stormfest
+	representation:	overlay
+c_eta0
+	arrow-scale:	0.002
+	color:	yellow
+	degrade:	2
+	icon:	grid
+	icon-left-menu:	left-station
+	icon-middle-menu:	surface-winds-mid
+	icon-right-menu:	meso-winds-options
+	label-blanking:	true
+	limit-proc:	adj_arrow_scale
+	line-width:	2
+	platform:	eta
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+c_cart_grid
+	color:	cyan
+	field:	grid
+	lat-lon:	true
+	platform:	grid
+	representation:	overlay
+	x-spacing:	300
+	y-spacing:	300
+c_wbounds
+	color:	cyan
+	field:	wbounds
+	icon:	wbounds
+	icon-middle-menu:	simple-color
+	line-width:	2
+	platform:	LowerLeft
+	representation:	overlay

@@ -1,0 +1,34 @@
+global
+	axis-bottom-space:	30
+	axis-left-space:	50
+	axis-right-space:	50
+	axis-top-space:	30
+	pd-name:	Satellite-tseries
+	platform:	sgp30smosE13.a1
+	plot-hold:	false
+	plot-mode:	history
+	plot-time:	2-Feb-94,20:41:00
+	plot-type:	xygraph
+	ta-scale:	.037
+	trigger:	platform
+	xy-axis-b-font-scale:	10
+	xy-axis-l-font-scale:	10
+	xy-axis-r-font-scale:	10
+	xy-axis-t-font-scale:	10
+	xy-data-mode:	series
+	xy-series-span:	720m
+xy-grid
+	axis-b-label:	Time
+	axis-bottom:	true
+	axis-left:	false
+	axis-right:	false
+	axis-top:	false
+	do-side-annotation:	false
+	field-color:	red
+	icon:	none
+	platform:	sgp30smosE13.a1
+	representation:	simple
+	representation-style:	line
+	require:	smos, siros, sonde, mwr
+	x-field:	time
+	y-field:	nothing

@@ -1,0 +1,9 @@
+! Auto-saved display configuration.
+config surface_met_E9
+	widget 'iconbar' 0 0 511 101
+	window 'w_smos_tseries_E9' 0 95 650 541 gp gp.init
+		description 'surface_met_E9-w_smos_tseries_E9'
+		buttonmap 'xyplot'
+		forcepd
+	endwindow
+endconfig

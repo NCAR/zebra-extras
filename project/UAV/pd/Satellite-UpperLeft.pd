@@ -1,0 +1,68 @@
+global
+	altitude:	0
+	comment:	Satellite test
+	icon-middle-menu:	DataAvailable
+	menu-platform:	sgpgoesvis.tmp
+	pd-name:	Satellite-UpperLeft
+	platform:	sgpgoesvis.tmp
+	plot-mode:	real-time
+	plot-time:	8-Feb-94,22:00:00
+	plot-type:	CAP
+	ta-scale:	.03
+	time-frames:	2
+	trigger:	platform
+	x-max:	440.9472
+	x-min:	-334.0206
+	y-max:	-319.6305
+	y-min:	340.2719
+c_goes
+	altitude:	0.0
+	color-table:	16gray
+	field:	vis
+	icon:	satellite
+	icon-middle-menu:	goes-middle
+	icon-right-menu:	DataAvailable
+	menu-platform:	goes
+	platform:	sgpgoesvis.tmp
+	representation:	raster
+c_map
+	color:	yellow
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	platform:	state_lines
+	representation:	overlay
+c_locns_cf
+	active-icon:	true
+	color:	HotPink
+	disable:	false
+	field:	location
+	icon:	ops-ctr
+	icon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:	none
+	label-size:	12
+	platform:	cf
+	posicon:	ops-ctr
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-middle-menu:	send-cf
+	posicon-right-menu:	location-options
+	representation:	overlay
+	require:	location, cf-cap
+c_locns_ef
+	active-icon:	true
+	color:	green
+	field:	location
+	icon:	littlecircle
+	icon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:	platform
+	label-size:	12
+	platform:	E9,E13,E15
+	posicon:	littlecircle
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-middle-menu:	send-ef
+	posicon-right-menu:	location-options
+	representation:	overlay
+	require:	location, ef-cap

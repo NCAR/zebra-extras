@@ -1,0 +1,34 @@
+global
+	comment:	Extended Facility E15 siros component
+	pd-name:	c_E15_siros
+c_E15_siros
+	platform:	DsgpsirosE15.a1
+	annot-left-menu:	xy-an-left
+	annot-middle-menu:	sirosfields
+	annot-right-menu:	simple-color
+	axis-b-tic-interval:	7200s
+	axis-bottom:	false
+	axis-l-tic-interval:	50.0000
+	axis-left:	false
+	axis-r-color:	yellow
+	axis-r-grid-intensity:	0.5
+	axis-r-tic-interval:	50.00
+	axis-right:	true
+	axis-t-tic-interval:	7200s
+	axis-top:	false
+	color-tweaker:	xytrace-color
+	do-side-annotation:	true
+	field-color:	yellow
+	field-select-command:	xytrace-field
+	icon:	tseries
+	icon-color:	yellow
+	icon-middle-menu:	sirosfields
+	icon-right-menu:	xytrace-right
+	limit-proc:	xytrace-adjust
+	platform:	DsgpsirosE13.a1
+	representation:	simple
+	representation-style:	line
+	require:	xytrace,	simple-color, siros
+	x-field:	time
+	y-field:	short_direct_normal
+

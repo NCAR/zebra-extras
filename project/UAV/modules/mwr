@@ -1,0 +1,18 @@
+
+define widget mwrfields intmenu 'MWR time series fields'
+	title 'MWR Fields'
+	line
+	entry 'IR Brightness Temperature'  'SetMWRFieldInterval ir_temp 5.0'
+	entry 'Total Water Vapor along LOS path' 'SetMWRFieldInterval vap 0.02'
+	entry 'Total Liquid Vapor along LOS path' 'SetMWRFieldInterval liq 0.02'
+endmenu
+
+procedure SetMWRFieldInterval field string interval string
+	parameter #icon_component y-field #field
+	if (icon_component = 'l_xytrace')
+		parameter #icon_component axis-l-tic-interval #interval
+	else
+		parameter #icon_component axis-r-tic-interval #interval
+	endif
+endprocedure
+

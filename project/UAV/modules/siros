@@ -1,0 +1,27 @@
+
+define widget sirosfields intmenu 'SIROS time series fields'
+	title 'SIROS Fields'
+	line
+	entry '10m Upwelling Longwave Hemispheric' \
+		'SetFieldInterval up_long_hemisp 1.0'
+	entry '10m Upwelling Shortwave Hemispheric' \
+		'SetFieldInterval up_short_hemisp 1.0'
+	entry 'Downwelling Longwave Diffuse Hemispheric' \
+		'SetFieldInterval down_long_diffuse_hemisp 10.0'
+	entry 'Downwelling Shortwave Hemispheric' \
+		'SetFieldInterval down_short_hemisp 50.0'
+	entry 'Shortwave Direct Normal' \
+		'SetFieldInterval short_direct_normal 50.0'
+	entry 'Downwelling Shortwave Diffuse Hemispheric' \
+		'SetFieldInterval down_short_diffuse_hemisp 1.0'
+endmenu
+
+procedure SetFieldInterval field string interval string
+	parameter #icon_component y-field #field
+	if (icon_component = 'l_xytrace')
+		parameter #icon_component axis-l-tic-interval #interval
+	else
+		parameter #icon_component axis-r-tic-interval #interval
+	endif
+endprocedure
+

@@ -1,0 +1,76 @@
+global
+	altitude:	0.0000
+	comment:	Big window post-processing plot description.
+	cp4-filter-attribute:	sur
+	icon-middle-menu:	DataAvailable
+	menu-platform:	cp4
+	pd-name:	big-big
+	plot-mode:	real-time
+	plot-type:	CAP
+	radar-space:	true
+	raster-velocity-center:	0.0
+	raster-velocity-step:	3.0
+	time-frames:	2
+	trigger:	cp4
+	x-max:	700
+	x-min:	-1000
+	y-max:	200
+	y-min:	-500
+c_nowrad_f
+	altitude:	0.0
+	color-table:	wild_new
+	field:	intensity
+	icon:	nowrad
+	icon-right-menu:	DataAvailable
+	menu-platform:	nowrad
+	platform:	nowrad
+	representation:	raster
+	trigger:	nowrad
+	trigger-global:	true
+c_nowrad
+	altitude:	0.0
+	color-table:	wild_new
+	field:	intensity
+	icon:	nowrad
+	icon-right-menu:	DataAvailable
+	menu-platform:	nowrad
+	platform:	nowrad
+	representation:	raster
+	trigger:	nowrad
+	trigger-global:	true
+c_map
+	color:	gray60
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	platform:	stormfest
+	representation:	overlay
+c_station_plot
+	arrow-scale:	0.01
+	color:	white
+	grid:	false
+	icon:	meso_stations
+	icon-middle-menu:	meso-winds-mid
+	icon-right-menu:	meso-station-options
+	limit-proc:	adj_arrow_scale
+	platform:	mesonet
+	representation:	vector
+	trigger:	mesonet
+	trigger-global:	true
+	u-field:	u_wind
+	v-field:	v_wind
+c_radar_loc
+	color:	khaki
+	field:	location
+	icon:	radar-loc
+	icon-middle-menu:	simple-color
+	platform:	cp3, cp4, mhr, okc, fdr, cim, hot, chill, osk
+	representation:	overlay
+c_sounding_loc
+	color:	tan
+	field:	location
+	icon:	sounding-loc
+	icon-middle-menu:	simple-color
+	platform:	slb,iow,ear,3v1,hys,62k,akz,irk,cou,stl,hen,guy
+	representation:	overlay

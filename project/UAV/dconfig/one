@@ -1,0 +1,12 @@
+! Auto-saved display configuration.
+config one
+	window 'UpperLeft' 10 10 778 826 gp gp.init
+		description 'one-UpperLeft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	widget 'iconbar' 816 -16 90 491
+	window 'Event logger' 870 772 270 125 graphproc
+		nongraphic
+	endwindow
+endconfig
