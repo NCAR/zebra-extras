@@ -1,0 +1,73 @@
+#!/bin/csh
+#
+# Find images in the temporary image tree, ftp them to the JOSS catalog,
+# and move them into the permanent space locally
+#
+set tmpdir = /scr/data/auto_images/tmp
+
+#
+# Step through (Zebra window name / JOSS catalog field name) pairs
+#
+foreach pair ("dbz Reflectivity" "velocity Velocity" \
+	      "refractivity Refractivity_big" "composite Composite")
+    #
+    # remap the pair as an array, then split out the window name
+    # and the field name to use for the JOSS field catalog
+    #
+    set pair = ($pair)
+    set window = $pair[1]
+    set jossfield = $pair[2]
+    
+    #
+    # Look for images in the temp directory that match our window name.
+    # The sleep assures that all of the images are complete by the time
+    # we start moving them.
+    #
+    foreach img (`find $tmpdir -name "*${window}.png" -print; sleep 5`)
+	#
+	# Generate JOSS image names from our image names.
+	#
+	# Our filenames look like:
+	#
+	#	auto.<YYYYMMDDhhmm>.<window>.png
+	#
+	# and the JOSS names need to be:
+	#
+	#	research.S-Pol.<YYYYMMDDhhmm>.<JOSS_field>.png
+	#	
+	set ourname = $img:t
+
+	set jossfile = $ourname
+	set jossfile = `echo $jossfile | sed "s/auto/research.S-Pol/g"`
+	set jossfile = `echo $jossfile | sed "s/$window/$jossfield/g"`
+
+	#
+	# ftp the image to JOSS
+	#
+	set destimg = "pub/incoming/catalog/ihop/$jossfile"
+
+	set ftpcmdfile = "/tmp/ftp.${!}.cmds"
+
+	unalias rm
+	rm -f $ftpcmdfile
+
+	echo "user anonymous ftp_put@atd.ucar.edu"	>  $ftpcmdfile
+	echo "put $img $destimg"			>> $ftpcmdfile
+	echo "quit"					>> $ftpcmdfile
+
+	# echo "$img -> $destimg" >> /tmp/move_images.log
+	ftp -n ftp.joss.ucar.edu < $ftpcmdfile >>& /tmp/move_images.log
+
+	if ($status == 0) then
+	    #
+	    # move the image to the permanent directory
+	    #
+	    set perm_img = `echo $img | sed 's/tmp//g'`
+	    mkdir -p $perm_img:h
+	    mv -f $img $perm_img
+	endif
+
+	rm -f $ftpcmdfile
+
+    end
+end

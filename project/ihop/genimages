@@ -1,0 +1,18 @@
+#!/bin/csh
+setenv BATCH_IMAGE_SPOOL /scr/data/auto_images/tmp
+setenv DS_DAEMON_HOST display1
+setenv ZEB_PROJDIR ihop
+setenv PATH /usr/X11R6/bin:$PATH  # to get Xvfb when we're started from cron
+
+if ($# == 0) then
+    //
+    // By default, use 30 minutes ago as the plot time.  This allows
+    // enough time for most "real-time" data to be available for the plot
+    // time
+    //
+    set plottime = `date -u +"%d-%b-%Y,%H:%M" -d "30 minutes ago"`
+else
+    set plottime = $1
+endif
+
+zplotbatch $plottime auto dbz velocity refractivity composite >& /tmp/${0:t}.log
