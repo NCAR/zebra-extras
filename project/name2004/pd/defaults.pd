@@ -18,6 +18,10 @@ defaults
 !
 	NOAA_profiler-location:	24.28043    -107.16448    27
 !
+! Mexican ship Altair
+!
+	altair-location:	23.5        -108.0        0
+!
 ! Icons to use for various platforms.  The icons themselves can be created
 ! using the X Window "bitmap" utility, and saved in the <project>/icons 
 ! directory.  In general, it is good to have a separate icon for each platform.
