@@ -25,3 +25,61 @@ procedure SetFieldInterval field string interval string
 	endif
 endprocedure
 
+
+!
+! Change the platform parameter of all of the components in this
+! plot description.  The components are expected to belong to a specific
+! set of names.  For each component name which exists, that component's
+! platform parameter is changed.
+!
+procedure siros-set-platforms platform string
+
+	foreach comp global l_xytrace r_xytrace c_hemisp c_channel0 \
+			c_channel1 c_channel2 c_channel3 c_channel4 \
+			c_channel5 c_channel6 xy-grid xy_grid
+		if (pd_defined (comp, 'platform') = true)
+			parameter #comp "platform" #platform
+		endif
+	endfor
+endprocedure
+
+
+!
+! For changing the platform within a SIROS xy plot
+!
+define widget siros-platforms intmenu 'SIROS platforms'
+	title 'SIROS Facilities'
+	line
+	entry 'Central Facility (also E13, Lamont)' \
+			'siros-set-platforms "DsgpsirosE13.a1"' 
+	entry 'Extended Facility E9 (also Ashton)' \
+			'siros-set-platforms "DsgpsirosE9.a1"' 
+	entry 'Extended Facility E15 (also Ringwood)' \
+			'siros-set-platforms "DsgpsirosE15.a1"' 
+endmenu
+
+
+!
+! Menu for the types of optical plot in a siros xy graph.
+! Essentially replace the existing pd with the new one.
+!
+define widget siros-optical-plots intmenu 'types of optical plots'
+	title 'Optical Depth Plots'	
+	line
+	entry 'Time Series' 'siros-newpd "siros-optical"'
+!	entry 'Contour' 'siros-newpd "siros-optical-contour"'
+!	entry 'Profiles' 'siros-newpd "siros-optical-profiles"'
+endmenu
+
+
+!
+! Change to a new plot description in a siros optical plot, and carry
+! over the current platform as well
+!
+procedure siros-newpd pd string
+	local plat PDParam("global","platform")
+
+	siros-set-platforms #pd #plat
+	dm concat3("newpd ", ourname, pd)
+
+endprocedure
