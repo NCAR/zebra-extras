@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.7 1999-03-01 23:47:07 granger Exp $
+! $Id: IconBar,v 1.8 1999-10-08 20:36:38 granger Exp $
 !
 ! All the definitions required to make the iconbar work.
 !
@@ -81,18 +81,12 @@ define widget iconbar menubar " "
 	menu configs bitmap configs
 		title 'Display configurations'
 		line
-		entry 'Park Falls (ISS 1)' 'display iss1' (dm$config = 'iss1')
+		entry 'Eldorado (ISS 1)' 'display iss1' (dm$config = 'iss1')
 		entry 'Lineplot (ISS 1)' 'display lineplot-iss1' \
 			(dm$config = 'lineplot-iss1')
-		entry 'Oak Ridge (ISS 2)' 'display iss2' (dm$config = 'iss2')
-		entry 'Lineplot (ISS 2)' 'display lineplot-iss2' \
-			(dm$config = 'lineplot-iss2')
-!		entry 'Park Falls 99 (ISS 3)' 'display iss3' (dm$config = 'iss3')
-!		entry 'Lineplot (ISS 3)' 'display lineplot-iss3' \
-!			(dm$config = 'lineplot-iss3')
-		entry 'Park Falls 99 (ISS 4)' 'display iss4' (dm$config = 'iss4')
-		entry 'Lineplot (ISS 4)' 'display lineplot-iss4' \
-			(dm$config = 'lineplot-iss4')
+		entry 'Smileybird (ISS 3)' 'display iss3' (dm$config = 'iss3')
+		entry 'Lineplot (ISS 3)' 'display lineplot-iss3' \
+			(dm$config = 'lineplot-iss3')
 		line
 		entry 'Empty screen' 'display empty' (dm$config = 'empty')
 	endmenu
@@ -100,29 +94,37 @@ define widget iconbar menubar " "
 	menu surface bitmap surface
 	     	title 'Surface observations'
 		line
-		entry 'Park Falls(1) Surface Met' \
+		entry 'ISS 1 Surface Met' \
 			'PutScalar iss1/surface_met tdry'
+		entry 'ISS 3 Surface Met' \
+			'PutScalar iss3/surface_met tdry'
 	endmenu
 
 	menu sounding bitmap sounding
 		title 'Soundings'
 		line
-		entry 'Park Falls(1) CLASS' 'PutScalar iss1/class tdry'
+		entry 'ISS 1 GLASS' 'PutScalar iss1/class tdry'
+		entry 'ISS 3 GLASS' 'PutScalar iss3/class tdry'
 	endmenu
 
 	menu rass bitmap iss-rass
 		title 'RASS'
 		line
-		entry 'Park Falls(1) RASS' 'PutScalar iss1/rass915 tv'
+		entry 'ISS 1 RASS' 'PutScalar iss1/rass915 tv'
+		entry 'ISS 3 RASS' 'PutScalar iss3/rass915 tv'
 	endmenu
 
 	menu prof bitmap iss-prof
 		title 'Profilers'
 		line
-		entry 'Park Falls(1) Profiler (High)' \
+		entry 'ISS 1 Profiler (High)' \
 			'PutScalar iss1/prof915h wind'
-		entry 'Park Falls(1) Profiler (Low)' \
+		entry 'ISS 1 Profiler (Low)' \
 			'PutScalar iss1/prof915l wind'
+		entry 'ISS 3 Profiler (High)' \
+			'PutScalar iss3/prof915h wind'
+		entry 'ISS 3 Profiler (Low)' \
+			'PutScalar iss3/prof915l wind'
 	endmenu
 
 	menu 'overlays' bitmap overlays
@@ -147,16 +149,16 @@ enddef
 ! Location variables for long stuff.  DO NOT PUT SPACES IN THESE STRINGS or
 ! unpleasant things will happen to you.
 !
-set ISSes 'iss1'
-set isssurf 'iss1/surface_met'
-set SndLocs 'iss1/class'
-set RASSLocs 'iss1/rass'
+set ISSes 'iss1,iss3'
+set isssurf 'iss1/surface_met,iss3/surface_met'
+set SndLocs 'iss1/class,iss3/class'
+set RASSLocs 'iss1/rass,iss3/rass'
 
 !
 ! Profilers.  Don't bother with both high and low, since they tend to have
 ! similar locations. :)
 !
-set ProfLocs 'iss1/prof915l'
+set ProfLocs 'iss1/prof915l,iss3/prof915l'
 
 !
 ! Add an iss location overlay if one isn't already there.
