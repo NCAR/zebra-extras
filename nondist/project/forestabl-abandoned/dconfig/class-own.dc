@@ -29,7 +29,7 @@ global
    parameter axis-top-space            '0'
    parameter icon-space                '40'
    parameter movie-mode                'False'
-   parameter pd-name                   'class-template-skewt'
+   parameter pd-name                   'class-own-skewt'
    parameter plot-mode                 'real-time'
    parameter plot-time                 '4-Feb-70,13:12:40'
    parameter plot-type                 'skewt'
