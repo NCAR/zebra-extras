@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# $Id: batch-plot,v 1.2 1997-06-02 22:51:14 granger Exp $
+# $Id: batch-plot,v 1.3 1997-08-19 21:55:28 granger Exp $
 #
 # Start a display manager session with a virtual X server and dump
 # images of its plots.
@@ -24,8 +24,14 @@ project=/apps/zebra/project
 # Special path.  xvfb and other utilities are in /home/granger/bin
 PATH=$ztop/bin:/home/granger/bin:$PATH
 
+# Only used when file paths are not what were compiled into Xvfb
+owl="/usr/openwin/lib/X11"
+owf="$owl/fonts"
+fp="-fp $owf/misc,$owf/Speedo,$owf/Type1,$owf/75dpi,$owf/100dpi"
+co="-co $owl/rgb"
+
 # Path to Xvfb
-xvfb=Xvfb
+xvfb="Xvfb $fp $co"
 
 # Display connection to use for virtual X server
 display=":9"
@@ -80,11 +86,6 @@ PRESERVE_ZEB=1; export PRESERVE_ZEB
 # ZEB_DM=$ztop/bin/dm; export ZEB_DM
 
 # Start our private, virtual X display
-
-#Needed when file paths are not what were compiled into Xvfb
-#set owl=/usr/openwin/lib/X11
-#set owf=$owl/fonts
-#set fp="$owf/misc,$owf/Speedo,$owf/Type1,$owf/75dpi,$owf/100dpi"
 
 $xvfb $display &
 x=$!
