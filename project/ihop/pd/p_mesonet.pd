@@ -5,6 +5,7 @@ global
 	pd-name:	p_mesonet
 p_mesonet
 	platform:	mesonet_15
+	altitude-control:	false
 	representation:	station
 	u-field:	u_wind
 	v-field:	v_wind
