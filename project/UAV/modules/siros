@@ -13,7 +13,7 @@ define widget sirosfields intmenu 'SIROS time series fields'
 	entry 'Shortwave Direct Normal' \
 		'SetFieldInterval short_direct_normal 50.0'
 	entry 'Downwelling Shortwave Diffuse Hemispheric' \
-		'SetFieldInterval down_short_diffuse_hemisp 1.0'
+		'SetFieldInterval down_short_diffuse_hemisp 20.0'
 endmenu
 
 procedure SetFieldInterval field string interval string

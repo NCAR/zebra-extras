@@ -5,9 +5,18 @@
 define widget goes-middle intmenu 'GOES field menu'
 	title 'GOES Fields'
 	line
-	entry 'Visible' 'param #icon_component field vis' \
+!	entry 'Visible' 'param #icon_component field vis' \
+!		(pd_param(icon_component, "field", "string") = "vis")
+	entry 'Visible' 'ChangeGoes vis sgpgoesvis.tmp'\
 		(pd_param(icon_component, "field", "string") = "vis")
 !	entry 'Infrared' 'param #icon_component field ir' \
 !		(pd_param(icon_component, "field", "string") = "ir")
+	entry 'Infrared' 'ChangeGoes ir sgpgoesir.tmp'\
+		(pd_param(icon_component, "field", "string") = "ir")
 endmenu
 
+procedure ChangeGoes goestype string goesplat string
+	parameter #icon_component field #goestype
+    param #icon_component field #goestype
+	parameter #icon_component platform #goesplat
+endprocedure
