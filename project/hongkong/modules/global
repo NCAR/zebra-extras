@@ -15,9 +15,10 @@ define widget global-left intmenu 'Global left menu'
 	submenu 'Adjust Global Limits' 'adjust_global_limits'
 	submenu 'Data Times Platforms' 'data-platforms'
 	entry 'Enlarge Window' 'dm "zoom #dm$button_window"'
-	entry 'Overlay Times' 'popup overlay'
-	entry 'Movie Controller' 'popup movie'
-	entry 'Position Readout' 'popup position'
+	entry 'Overlay Times...' 'popup overlay'
+	entry 'Movie Controller...' 'popup movie'
+	entry 'Crank Images...' 'popup imagecrank'
+	entry 'Position Readout...' 'popup position'
 	entry 'Show Bounds in other Window' 'show-bounds'
 	submenu 'Movies' movie-control
 endmenu
