@@ -17,4 +17,5 @@ p_composite
 	radar-space:	false
 	require:	raster
 	scale-mode:	manual
+	trigger:	platform
 	limit-proc:	raster-limit-proc

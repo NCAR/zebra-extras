@@ -17,4 +17,5 @@ p_goes
 	radar-space:	false
 	require:	raster
 	scale-mode:	auto
+	trigger:	platform
 	limit-proc:	raster-limit-proc
