@@ -19,9 +19,8 @@ define widget cf-send-menu intmenu 'cf instrument sender'
 	submenu '915-MHz RASS' 'rass-915-menu'
 	submenu 'BSRN' 'bsrn-menu'
 	submenu 'MFR' 'mfr-menu'
-	entry 'SIROS' 'cf-select Dsgpsiros'
-	entry 'SONDE' 'cf-select sgpsonde'
-	entry 'MWRLOS' 'cf-select sgpmwrlos'
+	entry 'SONDE (a1)' 'cf-select sgpsonde .a1 pres'
+	entry 'MWRLOS (a1)' 'cf-select sgpmwrlos .a1 vap'
 	line
 	submenu 'E13 Instruments' ef-send-menu	
 endmenu
@@ -102,6 +101,10 @@ endmenu
 !
 procedure cf-select instrument string level string field string
 
+!
+! For now just force the 'icon_platform' to C1
+!
+	set icon_platform 'C1'
 	local platform concat3(instrument,icon_platform,level)
 	local dmcmd quote(concat4('PutScalar ', platform, ' ', field))
 	dm #dmcmd

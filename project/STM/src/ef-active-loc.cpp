@@ -10,7 +10,7 @@ define widget ef-send-menu intmenu 'ef instrument sender'
 	line
 	submenu 'SMOS Platforms' 'ef-smos-menu'
 	submenu 'EBBR Platforms' 'ef-ebbr-menu'
-	entry 'SIROS Platforms' 'beep'
+	entry 'SIROS (a1)' 'ef-select Dsgpsiros .a1 hemisp_broadband'
 endmenu
 
 define widget ef-smos-menu intmenu 'ef smos platforms'
@@ -40,6 +40,8 @@ procedure ef-select instrument string level string field string
 ! we are actually platform E13.
 !
 	if (icon_platform = 'CF')
+		set icon_platform 'E13'
+	elseif (icon_platform = 'C1')
 		set icon_platform 'E13'
 	endif
 	local platform concat3(instrument,icon_platform,level)
