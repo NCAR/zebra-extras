@@ -115,6 +115,7 @@ buttonmap big
 	local	f	'toggle_satellite'
 	local	g	'popup position'
 	local	m	'popup movie'
+	local	i	'popup insert'
 	local	o	'polyline boundary'
 !	local	p	'polyline l_spotlight'
 	local	r	'movie run'

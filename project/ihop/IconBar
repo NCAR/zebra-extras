@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.20 2002-12-23 22:24:39 burghart Exp $
+! $Id: IconBar,v 1.21 2002-12-31 20:47:22 granger Exp $
 !
 ! Generic IconBar template
 !
@@ -193,7 +193,18 @@ define widget iconbar menubar " "
 		entry 'Extra NCAR surface sites' 'putc0 p_ncarsfc_sites'
 		entry 'NWS sites' 'putc0 p_nws'
 		line
-		entry 'User boundary' 'putc1 p_boundary platform boundary'
+!		entry 'User boundary' 'putc1 p_boundary platform boundary'
+                entry 'Boundary 1' \
+               'putc2 p_boundary platform jim1 color yellow'
+                entry 'Boundary 2' \
+               'putc2 p_boundary platform jim2 color green'
+                entry 'Boundary 3' \
+               'putc2 p_boundary platform jim3 color red'
+                entry 'Boundary 4' \
+               'putc2 p_boundary platform jim4 color blue'
+                entry 'Boundary 5' \
+               'putc2 p_boundary platform jim5 color cyan'
+		line
 		entry 'Window Bounds' 'put_wbounds p_wbounds'
 	endmenu
 enddef

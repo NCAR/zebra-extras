@@ -70,6 +70,10 @@ defaults
 	SHV-location:		32.46	-93.78	0
 	TOP-location:		39.07	-95.62	0
 !
+! Platforms usable in the "insert" widget.
+!
+        user-insert-platforms:   jim1,jim2,jim3,jim4,jim5
+!
 ! Icons to use for various platforms.  The icons themselves can be created
 ! using the X Window "bitmap" utility, and saved in the <project>/icons 
 ! directory.  In general, it is good to have a separate icon for each platform.
