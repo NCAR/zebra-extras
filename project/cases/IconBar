@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.1 1998-02-03 22:04:41 burghart Exp $
+! $Id: IconBar,v 1.2 1998-05-19 17:03:48 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -114,6 +114,8 @@ define widget iconbar menubar " "
 			'putc3 p_map platform road icon roadmap color green'
 		entry 'Walnut Creek watershed map' \
 			'putc3 p_map platform walnut icon walnut color cyan'
+		entry 'Towanda watershed map' \
+			'putc3 p_map platform towanda icon towanda color cyan'
 		line
 		entry 'Radar location' \
 			'putc2 p_loc platform spol icon radar-loc'
