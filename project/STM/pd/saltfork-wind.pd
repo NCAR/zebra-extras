@@ -6,7 +6,7 @@ global
 	axis-left-space:	60
 	axis-right-space:	20
 	height-scale-y-max:	5000
-	pd-name:	wind-template
+	pd-name:	saltfork-wind
 	platform:	saltfork_h
 	plot-mode:	history
 	plot-time:	25-jun-1993,18:11:16
