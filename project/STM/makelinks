@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# $Id: makelinks,v 1.1 1997-06-02 22:55:12 granger Exp $
+# $Id: makelinks,v 1.2 1999-04-13 21:51:37 granger Exp $
 #
 # Make some file links required in this project directory tree
 #
@@ -8,6 +8,8 @@
 exec <<EOTABLE
 maps/default.map sgp.map
 SGP .
+dmmodules/cf-active-loc modules/cf-active-loc
+dmmodules/ef-active-loc modules/ef-active-loc
 EOTABLE
 
 while read target src; do
