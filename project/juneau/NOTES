@@ -33,3 +33,25 @@ rass-template and wind-template library plot descriptions.  Edited the
 window pd's, changing the platforms and a few other parameters.  Saved the
 configuration as dconfig/profiler.dc.
 
+Added test in dm.config for 'jadmin' project, which is just a link to
+'juneau' project directory.  It chooses the gp init file and iconbar and
+other settings according to whether we're running the restricted,
+operational configuration or the administration configuration.  It would be
+nice, though, if we could leave the iconbar size unspecified in display
+configurations so that it can choose a default size.  All we really need
+for the icon bar is a location and an orientation (h or v).  The size
+should be whatever fits.
+
+The restricted gp.init pre-empts the modules and icons paths with the
+respective directories under ./restricted.  So far only the global icon is
+overridden, with a copy of the 'tiny' bitmap.  Likewise the admin gp.init
+prepends the admin paths, but those don't actually contain anything extra
+at the moment.
+
+dm.config loads the IconBar in either ./admin or ./restricted, depending on
+the value of the Admin variable.  The correct gp.init argument is picked by
+setting the Default and Graphic process prototypes in DisplayConfigs.  Note
+that those definitions take precedence over the 'fallback' prototypes in
+the .dc files.
+
+
