@@ -1,24 +1,78 @@
 !
-! The (much reduced) runtime gp.init.
+! The runtime gp.init.
 !
-
-!
-! Pull in the compiled widget definitions.
-!
-set loadfile "gp.lf"
-load #loadfile
 
 set RequirePath concat('modules,',RequirePath)
-
-!
-! Set project origin
-!
-set origin_lat 39.71
-set origin_lon -95.53
 
 !
 ! Get our field definitions.
 !
 set DefFile (concat (concat (c$libdir, "/"), "FieldDefs"))
 read #DefFile
+
+!
+! Middle icon menu for goes data.
+!
+define widget goes-middle intmenu 'GOES field menu'
+	title 'GOES Fields'
+	line
+	entry 'Visible' 'param #icon_component field vis' \
+		(pd_param(icon_component, "field", "string") = "vis")
+!	entry 'Infrared' 'param #icon_component field ir' \
+!		(pd_param(icon_component, "field", "string") = "ir")
+endmenu
+
+!
+! Left button menu for the global component.
+!
+define widget global-left intmenu 'Global left menu'
+	title 'Global Options'
+	line
+	submenu 'Adjust Global Limits' 'adjust_global_limits'
+	entry 'Reset window' 'dm "ResetWindow"'
+	entry 'Popup Overlay Times Window' 'popup overlay'
+	entry 'Popup Movie Controller' 'popup movie'
+	submenu 'Set Scale' 'ScaleMenu'
+endmenu
+
+!
+! Scales.
+!
+define widget ScaleMenu intmenu 'scales'
+	title 'Scales'
+	line
+	entry 'Central Facility' 'DoZoom -100 100 -100 100'
+	entry 'Oklahoma Scale' 'DoZoom -470 460 -510 250'
+	entry 'Midwest Scale' 'DoZoom -800 700 -500 200'
+endmenu
+
+!
+! The Global Adjust Limits submenu
+!
+define widget adjust_global_limits intmenu "Adjust Global Limits"
+	entry 'X Limits' 'i_adjust_global x-limit-proc'
+	entry 'Y Limits' 'i_adjust_global y-limit-proc'
+endmenu
+
+!
+! Left button menu for xsections
+!
+
+define widget xsect-left intmenu 'Xsect left menu'
+	title 'Options'
+	line
+!	entry 'Zoom Window' 'dm "zoom #dm$button_window"'
+	entry 'Popup Overlay Times Window' 'popup overlay'
+endmenu
+
+!
+! Movie control menu.
+!
+define widget movie-control intmenu 'movie control'
+	title 'Movie Control'
+	line
+	entry 'Popup Movie Controller' 'popup movie'
+	entry 'Run Movie' 'movie run'
+	entry 'Stop Movie' 'movie stop'
+endmenu
 
