@@ -7,8 +7,15 @@
 !
 if (getenv ("ZEB_CONFIGS") <> "UNDEFINED")
    	set ConfigDir getenv("ZEB_CONFIGS")
+	set ConfigPath concat(ConfigDir,",dconfig")
 else
-  	set ConfigDir concat(getenv ("HOME"), "/.zeb_configs")
+	set home getenv("HOME")
+	if (home <> "UNDEFINED")
+	  	set ConfigDir concat(home, "/.zeb_configs")
+		set ConfigPath concat(ConfigDir,",dconfig")
+	else
+		set ConfigDir "dconfig"
+	endif
 endif
 
 !
