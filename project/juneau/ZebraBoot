@@ -10,17 +10,21 @@ switch ($1)
     case start:
 	setenv DATA_DIR /data/juneau
 	eval $ZEB_TOPDIR/bin/message -internet
-	$ZEB_TOPDIR/bin/EventLogger -n -f /tmp/Zebra &
-	$ZEB_TOPDIR/bin/EventLogger -w &
+	$ZEB_TOPDIR/bin/EventLogger -m epi -n -f /tmp/Zebra &
 	$ZEB_TOPDIR/bin/timer &
 	$ZEB_TOPDIR/bin/dsDaemon ds.config &
 
+	sleep 5
+
 	/usr/local/bin/ser_ingest -milos \
 	    -p eagle_crest -lat 58.2586 -lon -134.5339 -alt 1.0 \
-	    -p sheep_mtn -lat 58.2919 -lon -134.2875 -alt 1.2 \
+	    -p sheep_mount -lat 58.2919 -lon -134.2875 -alt 1.2 \
 	    -d /dev/ttyC0 \
 	    -f wspd_max_k -f wspd_min_k -f wspd_k -f wspd_sdev_k \
 	    -f wdir_mag -f wdir_sdev &
+
+	./ingest/ESI_Ingest/ESI_Ingest /dev/ttyC1 /dev/ttyC2 /dev/ttyC3 &
+
 	#
 	# "Added value" field derivation for Vaisala and Handar data
 	#
