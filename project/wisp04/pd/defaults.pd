@@ -183,6 +183,29 @@ defaults
 	nkdp-center:		9
 	nkdp-step:		1
 	nkdp-nsteps:		18
+
+	z_hh_k-center:		25
+	z_hh_k-nsteps:		16
+	z_hh_k-step:		5
+	ldr_vh_k-center:	-17
+	ldr_vh_k-nsteps:	17
+	ldr_vh_k-step:		2
+	ncp_hh_k-center:	0.5
+	ncp_hh_k-step:		0.1
+	ncp_hh_k-nsteps:	10
+	p_hh_k-center:		-90
+	p_hh_k-step:		6
+	p_hh_k-nsteps:		11
+	p_vh_k-center:		-90
+	p_vh_k-step:		6
+	p_vh_k-nsteps:		11
+	v_hh_k-center:		0
+	v_hh_k-nsteps:		10
+	v_hh_k-step:		0.4
+	sw_hh_k-center:		5
+	sw_hh_k-nsteps:		10
+	sw_hh_k-step:		1
+
 	hdr-center:		-20
 	hdr-nsteps:		10
 	hdr-step:		8
