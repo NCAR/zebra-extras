@@ -9,7 +9,7 @@ p_refract_storm
 	field:		dbz
 	every-volume:	true
 	representation:	polar
-	icon:		radar
+	icon:		refract
 	color-table:	wild_new
 	every-sweep:	true
 	icon-left-menu:		standard-cap-left-menu
