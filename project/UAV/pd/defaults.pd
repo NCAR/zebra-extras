@@ -68,6 +68,7 @@ defaults
 ! Facility locations, taken from rough map estimates.  Note that the
 ! altitudes are unknown.
 !
+	UAV-location:		36.74969 -97.348 0	! Blackwell Tonkawa airport
 	CF-location:		36.604 -97.465 0	! Lamont CF1
 	C1-location:		36.604 -97.465 0	! Also EF13
 	C2-location:		36.6 -97.6 0		! Also EF14
