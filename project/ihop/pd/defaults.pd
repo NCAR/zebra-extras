@@ -249,12 +249,12 @@ defaults
 !
 ! Refractivity fields
 ! 
-	N-center:		250
-	N-nsteps:		12
-	N-step:			3
-	DELTA_N-center:		0
-	DELTA_N-nsteps:		13
-	DELTA_N-step:		1
+	n-center:		270
+	n-nsteps:		12
+	n-step:			5
+	delta_n-center:		0
+	delta_n-nsteps:		14
+	delta_n-step:		1
 
 !
 ! Start with movies ending "now"
