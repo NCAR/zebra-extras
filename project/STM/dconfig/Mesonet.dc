@@ -1,10 +1,10 @@
 ! Auto-saved display configuration.
 
-prototype fallback Graphic gp gp.init
+prototype fallback 'Graphic' gp 'gp.init'
 
 config Mesonet
 	widget 'iconbar' 7 724 616 65
-	graphic 'UpperLeft' 7 35 790 653 Graphic
+	graphic 'UpperLeft' 7 35 790 653 'Graphic'
 		description 'Mesonet-UpperLeft'
 		buttonmap 'big'
 		forcepd
@@ -15,13 +15,13 @@ beginpd 'Mesonet-UpperLeft'
 global
    parameter altitude                  '1000.00'
    parameter altitude-label            'Alt: 1000 mb'
-   parameter comment                   'NGM CAP'
+   parameter comment                   'NWS surface mesonet'
    parameter forecast-offset           '0h'
    parameter icon-middle-menu          'DataAvailable'
    parameter pd-name                   'Mesonet-UpperLeft'
-   parameter platform                  'sgpsfchrlyX1.a1'
+   parameter platform                  'sgpnwssurfX1.a1'
    parameter plot-mode                 'history'
-   parameter plot-time                 '15-Apr-94,18:20:00'
+   parameter plot-time                 '9-Sep-95,6:17:32'
    parameter plot-type                 'CAP'
    parameter ta-scale                  '.04'
    parameter time-frames               '2'
@@ -33,8 +33,8 @@ global
 component p_fcontour
    parameter color                     'cyan'
    parameter color-table               'Contour'
-   parameter cpres0-center             '-4000.0000'
-   parameter cpres0-step               '2000.0000'
+   parameter cpres0-center             '18.4000'
+   parameter cpres0-step               '0.4000'
    parameter do-labels                 'true'
    parameter field                     'cpres0'
    parameter icon                      'grid_hourly'
@@ -43,7 +43,7 @@ component p_fcontour
    parameter icon-right-menu           'contour-right'
    parameter label-blanking            'false'
    parameter limit-proc                'contour-putup-adj'
-   parameter platform                  'sgpsfchrlyX1.a1'
+   parameter platform                  'sgpnwssurfX1.a1'
    parameter representation            'filled-contour'
    parameter require                   'contour, simple-color, surface'
    parameter scale-mode                'auto'
@@ -96,7 +96,7 @@ component p_irg_winds
    parameter icon-right-menu           'irg-winds-right'
    parameter limit-proc                'adj_arrow_scale'
    parameter max-fill                  '3.0'
-   parameter platform                  'sgpsfchrlyX1.a1'
+   parameter platform                  'sgpnwssurfX1.a1'
    parameter radius                    '2.0'
    parameter representation            'vector'
    parameter require                   'irg_winds, simple-color'
@@ -118,8 +118,9 @@ component p_station
    parameter icon-middle-menu          'nws-station-fields'
    parameter icon-right-menu           'p-station-right'
    parameter limit-proc                'adj_arrow_scale'
-   parameter platform                  'sgpsfchrlyX1.a1'
+   parameter platform                  'sgpnwssurfX1.a1'
    parameter posicon-middle-menu       'nws-station-fields'
+   parameter quad2                     'tdry'
    parameter quad4                     'none'
    parameter representation            'station'
    parameter require                   'station, simple-color, surface'
