@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.1.1.1 2002-03-22 22:31:36 burghart Exp $
+! $Id: IconBar,v 1.2 2002-04-20 21:51:31 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -106,7 +106,13 @@ define widget iconbar menubar " "
 		entry 'S-Pol' 'putc2 p_polar platform spol field dbz'
 		entry 'Particle types' 'putc0 p_pdesc'
 		entry 'Precip' 'putc1 c_precip platform precip.basic'
-		entry 'Binet winds' 'putc0 p_binet_winds'
+		entry 'Nexrad composite' 'putc0 p_composite'
+!		entry 'Binet winds' 'putc0 p_binet_winds'
+	endmenu
+	menu satellite bitmap satellite
+		title 'Satellite Data'
+		line
+		entry 'GOES' 'putc0 p_goes'
 	endmenu
 	menu aircraft bitmap aircraft
 		title 'Aircraft'
