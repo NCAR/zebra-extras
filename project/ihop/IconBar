@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.15 2002-05-31 00:51:32 burghart Exp $
+! $Id: IconBar,v 1.16 2002-05-31 00:53:57 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -148,6 +148,7 @@ define widget iconbar menubar " "
 		title 'Mesonet'
 		line
 		entry '15-minute mesonet' 'putc0 p_mesonet'
+	endmenu
 
 !
 ! Maps, locations and other informational overlays
