@@ -57,12 +57,12 @@ endprocedure
 ! The highlight range adjuster.
 !
 procedure adj_highlight_range comp string
-	local field pd_param(comp, "field", "string")
-	local repr pd_param(comp, "representation", "string")
+	local field PDParam(comp, "field")
+	local repr PDParam(comp, "representation")
 	local high_param concat(field, "-highlight")
-	local highlight pd_paramsearch(comp, high_param, repr, "string")
+	local highlight PDSearch(comp, high_param, repr)
 	local range_param concat(field, "-highlight-range")
-	local range pd_paramsearch(comp, range_param, repr, "string")
+	local range PDSearch(comp, range_param, repr)
 	activate doublefloat #comp #high_param "Highlight: " #highlight \
 		#range_param "Range: " #range
 endprocedure
@@ -71,12 +71,12 @@ endprocedure
 ! The center step adjuster.
 !
 procedure adj_center_step comp string
-	local field pd_param(comp, "field", "string")
-	local repr pd_param(comp, "representation", "string")
+	local field PDParam(comp, "field")
+	local repr PDParam(comp, "representation")
 	local center_param concat(field, "-center")
-	local center pd_paramsearch(comp, center_param, repr, "string")
+	local center PDSearch(comp, center_param, repr)
 	local step_param concat(field, "-step")
-	local step pd_paramsearch(comp, step_param, repr, "string")
+	local step PDSearch(comp, step_param, repr)
 	activate doublefloat #comp #center_param "Center: " #center \
 		#step_param "Step: " #step
 endprocedure
@@ -85,8 +85,8 @@ endprocedure
 ! The x-spacing y-spacing adjuster.
 !
 procedure adj_xy_spacing comp string
-	local x pd_param(comp, "x-spacing", "string")
-	local y pd_param(comp, "y-spacing", "string")
+	local x PDParam(comp, "x-spacing")
+	local y PDParam(comp, "y-spacing")
 	activate doublefloat #comp "x-spacing" "X-Spacing: " #x \
 		"y-spacing" "Y-Spacing: " #y
 endprocedure
@@ -109,9 +109,9 @@ define widget tseries-flip intmenu 'TSeries Flip Time'
 	title 'Flip Time'
 	line
 	entry 'On' 'do_flip_time true' \
-		(pd_param (icon_component, "flip-time", "string") = "true")
+		(PDParam (icon_component, "flip-time") = "true")
 	entry 'Off' 'do_flip_time false' \
-		(pd_param (icon_component, "flip-time", "string") = "false")
+		(PDParam (icon_component, "flip-time") = "false")
 endmenu
 
 define widget tseries-color intmenu 'TSeries Axis Color'
@@ -133,6 +133,17 @@ define widget tseries-color intmenu 'TSeries Axis Color'
 	entry 'violet' 'do_axis_color violet'
 endmenu
 
+define widget side-annot-scale intmenu 'Side annotation'
+	title 'Annotation Size'
+	line
+	entry 'Small' 'do_side_annot_size 0.02' \
+		(PDParam(icon_component, "sa-scale") = "0.02")
+	entry 'Medium' 'do_side_annot_size 0.025' \
+		(PDParam(icon_component, "sa-scale") = "0.025")
+	entry 'Large' 'do_side_annot_size 0.03' \
+		(PDParam(icon_component, "sa-scale") = "0.03")
+endmenu
+
 procedure do_axis_color value string
 	parameter #icon_component axis-color #value
 endprocedure
@@ -141,7 +152,6 @@ procedure do_flip_time value string
 	parameter #icon_component flip-time #value
 endprocedure
 
-
 !
 ! A bunch of stuff for dealing with time series platforms and fields.
 !
@@ -149,160 +159,160 @@ define widget tseries-middle intmenu 'TSeries Platforms/Fields'
 	title 'Time Series Options'
 	line
 	submenu 'Select Fields' 'tseries-surface-fields'
-	submenu 'Select Platforms' 'tseries-plat'
+	submenu 'Select Platforms' 'tseries-surface'
 endmenu
 
 define widget tseries-surface intmenu 'TSeries Surface'
 	title 'Select Surface Station'
 	line
 	entry 'AWS/LT1' 'toggle_plat aws/LT1' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/LT1"))
+        (ListPosition("aws/LT1",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/LT2' 'toggle_plat aws/LT2' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/LT2"))
+        (ListPosition("aws/LT2",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/LT3' 'toggle_plat aws/LT3' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/LT3"))
+        (ListPosition("aws/LT3",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/LT4' 'toggle_plat aws/LT4' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/LT4"))
+        (ListPosition("aws/LT4",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/LT5' 'toggle_plat aws/LT5' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/LT5"))
+        (ListPosition("aws/LT5",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/LT6' 'toggle_plat aws/LT6' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/LT6"))
+        (ListPosition("aws/LT6",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/CLK' 'toggle_plat aws/CLK' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/LT7"))
+        (ListPosition("aws/CLK",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/UST' 'toggle_plat aws/UST' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/UST"))
+        (ListPosition("aws/UST",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/RO' 'toggle_plat aws/RO' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/RO"))
+        (ListPosition("aws/RO",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/SHA' 'toggle_plat aws/SHA' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/SHA"))
+        (ListPosition("aws/SHA",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/HIT' 'toggle_plat aws/HIT' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/HIT"))
+        (ListPosition("aws/HIT",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/HMZ' 'toggle_plat aws/HMZ' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/HMZ"))
+        (ListPosition("aws/HMZ",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/LFS' 'toggle_plat aws/LFS' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/LFS"))
+        (ListPosition("aws/LFS",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/TKL' 'toggle_plat aws/TKL' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/TKL"))
+        (ListPosition("aws/TKL",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/CPH' 'toggle_plat aws/CPH' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/CPH"))
+        (ListPosition("aws/CPH",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/TUN' 'toggle_plat aws/TUN' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/TUN"))
+        (ListPosition("aws/TUN",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/TMS' 'toggle_plat aws/TMS' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/TMS"))
+        (ListPosition("aws/TMS",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/TC' 'toggle_plat aws/TC' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/TC"))
+        (ListPosition("aws/TC",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/SF' 'toggle_plat aws/SF' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/SF"))
+        (ListPosition("aws/SF",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/CSW' 'toggle_plat aws/CSW' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/CSW"))
+        (ListPosition("aws/CSW",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/HKS' 'toggle_plat aws/HKS' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/HKS"))
+        (ListPosition("aws/HKS",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/UW1' 'toggle_plat aws/UW1' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/UW1"))
+        (ListPosition("aws/UW1",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/GI' 'toggle_plat aws/GI' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/GI"))
+        (ListPosition("aws/GI",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/TPO' 'toggle_plat aws/TPO' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/TPO"))
+        (ListPosition("aws/TPO",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/JKB' 'toggle_plat aws/JKB' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/JKB"))
+        (ListPosition("aws/JKB",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/CCH' 'toggle_plat aws/CCH' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/CCH"))
+        (ListPosition("aws/CCH",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/CEN' 'toggle_plat aws/CEN' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/CEN"))
+        (ListPosition("aws/CEN",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/KP' 'toggle_plat aws/KP' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/KP"))
+        (ListPosition("aws/KP",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/SHL' 'toggle_plat aws/SHL' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/SHL"))
+        (ListPosition("aws/SHL",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/PLC' 'toggle_plat aws/PLC' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/PLC"))
+        (ListPosition("aws/PLC",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/KAT' 'toggle_plat aws/KAT' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/KAT"))
+        (ListPosition("aws/KAT",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/EPC' 'toggle_plat aws/EPC' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/EPC"))
+        (ListPosition("aws/EPC",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/SLW' 'toggle_plat aws/SLW' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/SLW"))
+        (ListPosition("aws/SLW",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/SKG' 'toggle_plat aws/SKG' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/SKG"))
+        (ListPosition("aws/SKG",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/WCN' 'toggle_plat aws/WCN' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/WCN"))
+        (ListPosition("aws/WCN",PDParam(icon_component,"platform")) > -1)
 	entry 'AWS/TAP' 'toggle_plat aws/TAP' \
-        (substring(pd_param(icon_component,"platform","string"),"aws/TAP"))
+        (ListPosition("aws/TAP",PDParam(icon_component,"platform")) > -1)
 endmenu
 
 define widget tseries-surface-fields intmenu 'TSeries Fields'
 	title 'Select Fields'
 	line
 	entry 'Station pressure' 'toggle_field pres' \
-	   (substring(pd_param(icon_component, "field", "string"),"pres"))
+	   (ListPosition("pres",PDParam(icon_component,"field")) > -1)
 	entry 'Station max pressure' 'toggle_field pres_max' \
-	   (substring(pd_param(icon_component, "field", "string"),"pres_max"))
+	   (ListPosition("pres_max",PDParam(icon_component,"field")) > -1)
 	entry 'Station min pressure' 'toggle_field pres_min' \
-	   (substring(pd_param(icon_component, "field", "string"),"pres_min"))
+	   (ListPosition("pres_min",PDParam(icon_component,"field")) > -1)
 	entry 'MSL Pressure' 'toggle_field cpres0' \
-	   (substring(pd_param(icon_component, "field", "string"),"cpres0"))
+	   (ListPosition("cpres0",PDParam(icon_component,"field")) > -1)
 	entry 'Temperature' 'toggle_field tdry' \
-	   (substring(pd_param(icon_component, "field", "string"),"tdry"))
+	   (ListPosition("tdry",PDParam(icon_component,"field")) > -1)
 	entry 'Wet bulb temp' 'toggle_field twet' \
-	   (substring(pd_param(icon_component, "field", "string"),"twet"))
+	   (ListPosition("twet",PDParam(icon_component,"field")) > -1)
 	entry 'Relative Humidity' 'toggle_field rh' \
-	   (substring(pd_param(icon_component, "field", "string"),"rh"))
+	   (ListPosition("rh",PDParam(icon_component,"field")) > -1)
 	entry 'Dew point' 'toggle_field dp' \
-	   (substring(pd_param(icon_component, "field", "string"),"dp"))
+	   (ListPosition("dp",PDParam(icon_component,"field")) > -1)
 	entry 'Mixing ratio' 'toggle_field mr' \
-	   (substring(pd_param(icon_component, "field", "string"),"mr"))
+	   (ListPosition("mr",PDParam(icon_component,"field")) > -1)
 	entry 'Potential temp' 'toggle_field pt' \
-	   (substring(pd_param(icon_component, "field", "string"),"pt"))
+	   (ListPosition("pt",PDParam(icon_component,"field")) > -1)
 	entry 'Equiv. pot. temp' 'toggle_field ept' \
-	   (substring(pd_param(icon_component, "field", "string"),"ept"))
+	   (ListPosition("ept",PDParam(icon_component,"field")) > -1)
 	entry 'Wind speed' 'toggle_field wspd' \
-	   (substring(pd_param(icon_component, "field", "string"),"wspd"))
+	   (ListPosition("wspd",PDParam(icon_component,"field")) > -1)
 	entry 'Wind speed max' 'toggle_field wspd_max' \
-	   (substring(pd_param(icon_component, "field", "string"),"wspd_max"))
+	   (ListPosition("wspd_max",PDParam(icon_component,"field")) > -1)
 	entry 'Wind speed min' 'toggle_field wspd_min' \
-	   (substring(pd_param(icon_component, "field", "string"),"wspd_min"))
+	   (ListPosition("wspd_min",PDParam(icon_component,"field")) > -1)
 	entry 'Wind speed sdev' 'toggle_field wspd_sdev' \
-	   (substring(pd_param(icon_component, "field", "string"),"wspd_sdev"))
+	   (ListPosition("wspd_sdev",PDParam(icon_component,"field")) > -1)
 	entry 'Wind dirn' 'toggle_field wdir' \
-	   (substring(pd_param(icon_component, "field", "string"),"wdir"))
+	   (ListPosition("wdir",PDParam(icon_component,"field")) > -1)
 	entry 'Wind dirn sdev' 'toggle_field wdir_sdev' \
-	   (substring(pd_param(icon_component, "field", "string"),"wdir_sdev"))
+	   (ListPosition("wdir_sdev",PDParam(icon_component,"field")) > -1)
 	entry '1 min rainfall' 'toggle_field raina01' \
-	   (substring(pd_param(icon_component, "field", "string"),"raina01"))
+	   (ListPosition("raina01",PDParam(icon_component,"field")) > -1)
 	entry 'Solar radiation' 'toggle_field solrad' \
-	   (substring(pd_param(icon_component, "field", "string"),"solrad"))
+	   (ListPosition("solrad",PDParam(icon_component,"field")) > -1)
 	entry 'Visibility' 'toggle_field vis' \
-	   (substring(pd_param(icon_component, "field", "string"),"vis"))
+	   (ListPosition("vis",PDParam(icon_component,"field")) > -1)
 endmenu
 
 define widget tseries-aircraft-fields intmenu 'TSeries Fields'
 	title 'Select Fields'
 	line
 	entry 'Wind Speed' 'toggle_field wspd' \
-	   (substring(pd_param(icon_component, "field", "string"),"wspd"))
+	   (ListPosition("wspd",PDParam(icon_component,"field")) > -1)
 	entry 'Wind Direction' 'toggle_field wdir' \
-	   (substring(pd_param(icon_component, "field", "string"),"wdir"))
+	   (ListPosition("wdir",PDParam(icon_component,"field")) > -1)
 endmenu
 
 !
 ! Toggle the presence of a given platform.
 !
 procedure toggle_plat platform string
-	local oldplat (pd_param (icon_component, "platform", "string"))
+	local oldlist PDParam(icon_component, "platform")
+	local pos ListPosition(platform,oldlist)
 !
 ! See if it's already there.  If so, we remove.
 !
-	if (substring (oldplat, platform))
-		local newplat substr_remove(oldplat, platform)
-
+	if (pos > -1)
+	    local newlist RmElement(oldlist,pos)
+!
 ! Otherwise we just add it.  If there is a maximum number of platforms,
 ! though, we have to enforce it.
 !
 	else
-	    local newplat (concat(oldplat, concat (",",platform)))
-	    local max pd_param(icon_component,"max-platform","string")
-	    if (max <> "(Undefined)")
+	    local newlist concat3(oldlist,",",platform)
+	    if (pd_defined (icon_component, "max-platform") = true)
 	    	local imax pd_param(icon_component,"max-platform","integer")
-		if (n_occur (newplat, ",") >= imax)
+		if (n_occur (newlist, ",") >= imax)
 			dm "beep"
 			return
 		endif
@@ -311,7 +321,7 @@ procedure toggle_plat platform string
 !
 ! Store the thing.
 !
-	param #icon_component platform #newplat
+	parameter #icon_component platform #newlist
 endprocedure
 
 
@@ -319,22 +329,22 @@ endprocedure
 ! Toggle the presence of a given field.
 !
 procedure toggle_field field string
-	local oldfld (pd_param (icon_component, "field", "string"))
+	local oldlist PDParam(icon_component, "field")
+	local pos ListPosition(field,oldlist)
 !
 ! See if it's already there.  If so, we remove.
 !
-	if (substring (oldfld, field))
-		local newfld substr_remove(oldfld, field)
+	if (pos > -1)
+	   local newlist RmElement(oldlist,pos)
 !
 ! Otherwise we just add it.  If there is a maximum number of fields,
 ! though, we have to enforce it.
 !
 	else
-	    local newfld (concat(oldfld, concat (",",field)))
-	    local max pd_param(icon_component,"max-field","string")
-	    if (max <> "(Undefined)")
+	    local newlist concat3(oldlist,",",field)
+	    if (pd_defined (icon_component, "max-field") = true)
 	    	local imax pd_param(icon_component,"max-field","integer")
-		if (n_occur (newfld, ",") >= imax)
+		if (n_occur (newlist, ",") >= imax)
 			dm "beep"
 			return
 		endif
@@ -343,44 +353,32 @@ procedure toggle_field field string
 !
 ! Store the thing.
 !
-	param #icon_component field #newfld
+	parameter #icon_component field #newlist
 endprocedure
 
 !
-! Toggle the presence of a given field for quadrants.
+! The tseries left button menu.
 !
-procedure toggle_quad field string
-	local oldfld (pd_param (icon_component, "quadrants", "string"))
+define widget tseries-left intmenu 'TSeries Left'
+	title 'Overlay Operations'
+	line
+	submenu 'Adjust Limits' 'adjust-tseries-limits'
+	line
+	entry 'Raise to top' 'move #icon_component 0'
+	entry 'Move to bottom' 'move #icon_component 1'
+	entry 'Remove' 'i_remove_component'
+endmenu
+
 !
-! See if it's already there.  If so, we remove.
+! The Time Series Adjust Limits submenu
 !
-	if (substring (oldfld, field))
-		local newfld substr_remove(oldfld, field)
-!
-! Otherwise we just add it.  If there is a maximum number of fields,
-! though, we have to enforce it.
-!
-	else
-	    if (oldfld <> "(Undefined)")
-	        local newfld (concat(oldfld, concat (",",field)))
-	    else
-		local newfld field
-	    endif
-	    local max pd_param(icon_component,"max-field","string")
-	    if (max <> "(Undefined)")
-	    	local imax pd_param(icon_component,"max-field","integer")
-		if (n_occur (newfld, ",") >= imax)
-			dm "beep"
-			return
-		endif
-	    endif
-	endif
-!
-! Store the thing.
-!
-	if (strlength (newfld) = 0)
-		local worked (pd_removeparam (icon_component, "quadrants"))
-	else
-		param #icon_component quadrants #newfld
-	endif
-endprocedure
+define widget adjust-tseries-limits intmenu 'Adjust Limits'
+	title 'Adjust Limits'
+	line
+	entry 'Time Interval' 'i_adjust time-limit-proc'
+	entry 'Left Axis' 'i_adjust left-limit-proc'
+	entry 'Right Axis' 'i_adjust right-limit-proc'
+	entry 'Number of Steps' 'i_adjust nstep-limit-proc'
+	entry 'Data Skip' 'i_adjust dskip-limit-proc'
+endmenu
+
