@@ -17,7 +17,7 @@ set plottime = `date -u +"%d-%b-%Y,%H:%M:00"`
 #
 # move the plot location to the current aircraft location
 #
-zstart -n -preserve -ds $ZEB_PROJDIR >& /dev/null
+zstart -n -preserve -ds $ZEB_PROJDIR >& $logfile
 
 dc_shiftloc --olat 38.54517 --olon -89.83517 --platform nrl_p3 \
 	--dc     $ZEB_PROJDIR/dconfig/p3_template.dc \
