@@ -1,0 +1,5 @@
+/zeb/data_ingest/ro_radar/data
+/zeb/data_ingest/ro_radar/control
+256 256 -256.0 -256.0 2.0 2.0 22.3594 114.2153 3.0
+1
+reflectivity -30.0 90.0

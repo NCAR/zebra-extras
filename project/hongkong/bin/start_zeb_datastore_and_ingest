@@ -1,0 +1,41 @@
+#! /bin/csh
+#
+# Begin the minimal set of realtime processes for keeping data
+# ingest going.  This is the script which gets run as user 'lantex'
+# from the rc.user script.  Two things are required: the Zeb
+# datastore and the Zeb ingest processes, and the polling scripts
+# which check for data files and ingest them as they appear.  The
+# polling scripts do not need Zeb running, and so they should continue
+# forever.  The Zeb ingest processes will die if the datastore crashes or
+# 'zebstop' is run.  They can be restarted with 'start_zeb_ingest'.
+
+# To start this script from rc.user, remember to execute the script
+# from a login shell as user lantex, since all of these scripts need
+# the lantex environment settings (such as ZEB_HOME).
+#
+# su - lantex -c "/zeb/project/hongkong/bin/start_zeb_datastore_and_ingest \
+#      >& /dev/console"
+#
+
+# This script can also be run from the command-line, but be aware
+# (i.e., 'beware') that it will kill *everything* first.
+#
+	if ($?ZEB_CONFIG == 1) then
+		source $ZEB_CONFIG
+	else
+		echo "No config file set in ZEB_CONFIG"
+		exit 1
+	endif
+
+	echo "starting realtime zeb for LANTEX"
+#
+# Start the datastore and the ingest processes.
+#
+	start_datastore
+#
+# Start the polling processes
+#
+	start_zeb_ingest_scripts
+#
+# Everything should now be running in the background
+#

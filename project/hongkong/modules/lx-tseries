@@ -1,0 +1,386 @@
+
+!
+! The time series left center step adjuster.
+!
+procedure adj_left_centstep comp string
+	activate timeseries #comp "left" "center" "Center: "  "step" "Step: " 
+endprocedure
+
+!
+! The time series right center step adjuster.
+!
+procedure adj_right_centstep comp string
+	activate timeseries #comp "right" "center" "Center: "  "step" "Step: " 
+endprocedure
+
+!
+! The time series time interval adjuster.
+!
+procedure adj_time_int comp string
+	local time pd_paramsearch(comp, "time-interval", "tseries", "string")
+	activate singlestring #comp "time-interval" "Time Interval: " #time
+endprocedure
+
+!
+! The lightning location time step adjuster.
+!
+procedure adj_time_step comp string
+	local time pd_paramsearch(comp, "time-step", "lightning", "string")
+	activate singlestring #comp "time-step" "Time Step: " #time
+endprocedure
+
+!
+! The track time period adjuster.
+!
+procedure adj_time_period comp string
+	local time pd_paramsearch(comp, "time-period", "track", "string")
+	activate singlestring #comp "time-period" "Time Period: " #time
+endprocedure
+
+!
+! The time series number of steps adjuster.
+!
+procedure adj_num_step comp string
+	local num pd_paramsearch(comp, "nstep", "tseries", "string")
+	activate singleint #comp "nstep" "Number of Steps: " #num
+endprocedure
+
+!
+! The time series data skip adjuster.
+!
+procedure adj_data_skip comp string
+	local dskip pd_paramsearch(comp, "data-skip", "tseries", "string")
+	activate singleint #comp "data-skip" "Data Skip: " #dskip
+endprocedure
+
+!
+! The highlight range adjuster.
+!
+procedure adj_highlight_range comp string
+	local field pd_param(comp, "field", "string")
+	local repr pd_param(comp, "representation", "string")
+	local high_param concat(field, "-highlight")
+	local highlight pd_paramsearch(comp, high_param, repr, "string")
+	local range_param concat(field, "-highlight-range")
+	local range pd_paramsearch(comp, range_param, repr, "string")
+	activate doublefloat #comp #high_param "Highlight: " #highlight \
+		#range_param "Range: " #range
+endprocedure
+
+!
+! The center step adjuster.
+!
+procedure adj_center_step comp string
+	local field pd_param(comp, "field", "string")
+	local repr pd_param(comp, "representation", "string")
+	local center_param concat(field, "-center")
+	local center pd_paramsearch(comp, center_param, repr, "string")
+	local step_param concat(field, "-step")
+	local step pd_paramsearch(comp, step_param, repr, "string")
+	activate doublefloat #comp #center_param "Center: " #center \
+		#step_param "Step: " #step
+endprocedure
+
+!
+! The x-spacing y-spacing adjuster.
+!
+procedure adj_xy_spacing comp string
+	local x pd_param(comp, "x-spacing", "string")
+	local y pd_param(comp, "y-spacing", "string")
+	activate doublefloat #comp "x-spacing" "X-Spacing: " #x \
+		"y-spacing" "Y-Spacing: " #y
+endprocedure
+
+!
+! Time series right button.
+!
+
+define widget tseries-right intmenu 'TSeries Right'
+	title 'Time Series Options'
+	line
+	submenu 'Axis Color' 'tseries-color'
+	line
+	submenu 'Flip Time' 'tseries-flip'
+	line
+	submenu 'Annotation Size' 'side-annot-scale'
+endmenu
+
+define widget tseries-flip intmenu 'TSeries Flip Time'
+	title 'Flip Time'
+	line
+	entry 'On' 'do_flip_time true' \
+		(pd_param (icon_component, "flip-time", "string") = "true")
+	entry 'Off' 'do_flip_time false' \
+		(pd_param (icon_component, "flip-time", "string") = "false")
+endmenu
+
+define widget tseries-color intmenu 'TSeries Axis Color'
+	title 'Axis Color'
+	line
+	entry 'white' 'do_axis_color white'
+	entry 'black' 'do_axis_color black'
+	entry 'lavender' 'do_axis_color lavender'
+	entry 'blue' 'do_axis_color blue'
+	entry 'cyan' 'do_axis_color cyan'
+	entry 'green' 'do_axis_color green'
+	entry 'khaki' 'do_axis_color khaki'
+	entry 'yellow' 'do_axis_color yellow'
+	entry 'tan' 'do_axis_color tan'
+	entry 'brown' 'do_axis_color brown'
+	entry 'orange' 'do_axis_color orange'
+	entry 'red' 'do_axis_color red'
+	entry 'pink' 'do_axis_color "HotPink"'
+	entry 'violet' 'do_axis_color violet'
+endmenu
+
+procedure do_axis_color value string
+	parameter #icon_component axis-color #value
+endprocedure
+
+procedure do_flip_time value string
+	parameter #icon_component flip-time #value
+endprocedure
+
+
+!
+! A bunch of stuff for dealing with time series platforms and fields.
+!
+define widget tseries-middle intmenu 'TSeries Platforms/Fields'
+	title 'Time Series Options'
+	line
+	submenu 'Select Fields' 'tseries-surface-fields'
+	submenu 'Select Platforms' 'tseries-plat'
+endmenu
+
+define widget tseries-surface intmenu 'TSeries Surface'
+	title 'Select Surface Station'
+	line
+	entry 'AWS/LT1' 'toggle_plat aws/LT1' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/LT1"))
+	entry 'AWS/LT2' 'toggle_plat aws/LT2' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/LT2"))
+	entry 'AWS/LT3' 'toggle_plat aws/LT3' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/LT3"))
+	entry 'AWS/LT4' 'toggle_plat aws/LT4' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/LT4"))
+	entry 'AWS/LT5' 'toggle_plat aws/LT5' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/LT5"))
+	entry 'AWS/LT6' 'toggle_plat aws/LT6' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/LT6"))
+	entry 'AWS/CLK' 'toggle_plat aws/CLK' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/LT7"))
+	entry 'AWS/UST' 'toggle_plat aws/UST' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/UST"))
+	entry 'AWS/RO' 'toggle_plat aws/RO' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/RO"))
+	entry 'AWS/SHA' 'toggle_plat aws/SHA' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/SHA"))
+	entry 'AWS/HIT' 'toggle_plat aws/HIT' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/HIT"))
+	entry 'AWS/HMZ' 'toggle_plat aws/HMZ' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/HMZ"))
+	entry 'AWS/LFS' 'toggle_plat aws/LFS' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/LFS"))
+	entry 'AWS/TKL' 'toggle_plat aws/TKL' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/TKL"))
+	entry 'AWS/CPH' 'toggle_plat aws/CPH' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/CPH"))
+	entry 'AWS/TUN' 'toggle_plat aws/TUN' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/TUN"))
+	entry 'AWS/TMS' 'toggle_plat aws/TMS' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/TMS"))
+	entry 'AWS/TC' 'toggle_plat aws/TC' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/TC"))
+	entry 'AWS/SF' 'toggle_plat aws/SF' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/SF"))
+	entry 'AWS/CSW' 'toggle_plat aws/CSW' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/CSW"))
+	entry 'AWS/HKS' 'toggle_plat aws/HKS' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/HKS"))
+	entry 'AWS/UW1' 'toggle_plat aws/UW1' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/UW1"))
+	entry 'AWS/GI' 'toggle_plat aws/GI' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/GI"))
+	entry 'AWS/TPO' 'toggle_plat aws/TPO' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/TPO"))
+	entry 'AWS/JKB' 'toggle_plat aws/JKB' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/JKB"))
+	entry 'AWS/CCH' 'toggle_plat aws/CCH' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/CCH"))
+	entry 'AWS/CEN' 'toggle_plat aws/CEN' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/CEN"))
+	entry 'AWS/KP' 'toggle_plat aws/KP' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/KP"))
+	entry 'AWS/SHL' 'toggle_plat aws/SHL' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/SHL"))
+	entry 'AWS/PLC' 'toggle_plat aws/PLC' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/PLC"))
+	entry 'AWS/KAT' 'toggle_plat aws/KAT' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/KAT"))
+	entry 'AWS/EPC' 'toggle_plat aws/EPC' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/EPC"))
+	entry 'AWS/SLW' 'toggle_plat aws/SLW' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/SLW"))
+	entry 'AWS/SKG' 'toggle_plat aws/SKG' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/SKG"))
+	entry 'AWS/WCN' 'toggle_plat aws/WCN' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/WCN"))
+	entry 'AWS/TAP' 'toggle_plat aws/TAP' \
+        (substring(pd_param(icon_component,"platform","string"),"aws/TAP"))
+endmenu
+
+define widget tseries-surface-fields intmenu 'TSeries Fields'
+	title 'Select Fields'
+	line
+	entry 'Station pressure' 'toggle_field pres' \
+	   (substring(pd_param(icon_component, "field", "string"),"pres"))
+	entry 'Station max pressure' 'toggle_field pres_max' \
+	   (substring(pd_param(icon_component, "field", "string"),"pres_max"))
+	entry 'Station min pressure' 'toggle_field pres_min' \
+	   (substring(pd_param(icon_component, "field", "string"),"pres_min"))
+	entry 'MSL Pressure' 'toggle_field cpres0' \
+	   (substring(pd_param(icon_component, "field", "string"),"cpres0"))
+	entry 'Temperature' 'toggle_field tdry' \
+	   (substring(pd_param(icon_component, "field", "string"),"tdry"))
+	entry 'Wet bulb temp' 'toggle_field twet' \
+	   (substring(pd_param(icon_component, "field", "string"),"twet"))
+	entry 'Relative Humidity' 'toggle_field rh' \
+	   (substring(pd_param(icon_component, "field", "string"),"rh"))
+	entry 'Dew point' 'toggle_field dp' \
+	   (substring(pd_param(icon_component, "field", "string"),"dp"))
+	entry 'Mixing ratio' 'toggle_field mr' \
+	   (substring(pd_param(icon_component, "field", "string"),"mr"))
+	entry 'Potential temp' 'toggle_field pt' \
+	   (substring(pd_param(icon_component, "field", "string"),"pt"))
+	entry 'Equiv. pot. temp' 'toggle_field ept' \
+	   (substring(pd_param(icon_component, "field", "string"),"ept"))
+	entry 'Wind speed' 'toggle_field wspd' \
+	   (substring(pd_param(icon_component, "field", "string"),"wspd"))
+	entry 'Wind speed max' 'toggle_field wspd_max' \
+	   (substring(pd_param(icon_component, "field", "string"),"wspd_max"))
+	entry 'Wind speed min' 'toggle_field wspd_min' \
+	   (substring(pd_param(icon_component, "field", "string"),"wspd_min"))
+	entry 'Wind speed sdev' 'toggle_field wspd_sdev' \
+	   (substring(pd_param(icon_component, "field", "string"),"wspd_sdev"))
+	entry 'Wind dirn' 'toggle_field wdir' \
+	   (substring(pd_param(icon_component, "field", "string"),"wdir"))
+	entry 'Wind dirn sdev' 'toggle_field wdir_sdev' \
+	   (substring(pd_param(icon_component, "field", "string"),"wdir_sdev"))
+	entry '1 min rainfall' 'toggle_field raina01' \
+	   (substring(pd_param(icon_component, "field", "string"),"raina01"))
+	entry 'Solar radiation' 'toggle_field solrad' \
+	   (substring(pd_param(icon_component, "field", "string"),"solrad"))
+	entry 'Visibility' 'toggle_field vis' \
+	   (substring(pd_param(icon_component, "field", "string"),"vis"))
+endmenu
+
+define widget tseries-aircraft-fields intmenu 'TSeries Fields'
+	title 'Select Fields'
+	line
+	entry 'Wind Speed' 'toggle_field wspd' \
+	   (substring(pd_param(icon_component, "field", "string"),"wspd"))
+	entry 'Wind Direction' 'toggle_field wdir' \
+	   (substring(pd_param(icon_component, "field", "string"),"wdir"))
+endmenu
+
+!
+! Toggle the presence of a given platform.
+!
+procedure toggle_plat platform string
+	local oldplat (pd_param (icon_component, "platform", "string"))
+!
+! See if it's already there.  If so, we remove.
+!
+	if (substring (oldplat, platform))
+		local newplat substr_remove(oldplat, platform)
+
+! Otherwise we just add it.  If there is a maximum number of platforms,
+! though, we have to enforce it.
+!
+	else
+	    local newplat (concat(oldplat, concat (",",platform)))
+	    local max pd_param(icon_component,"max-platform","string")
+	    if (max <> "(Undefined)")
+	    	local imax pd_param(icon_component,"max-platform","integer")
+		if (n_occur (newplat, ",") >= imax)
+			dm "beep"
+			return
+		endif
+	    endif
+	endif
+!
+! Store the thing.
+!
+	param #icon_component platform #newplat
+endprocedure
+
+
+!
+! Toggle the presence of a given field.
+!
+procedure toggle_field field string
+	local oldfld (pd_param (icon_component, "field", "string"))
+!
+! See if it's already there.  If so, we remove.
+!
+	if (substring (oldfld, field))
+		local newfld substr_remove(oldfld, field)
+!
+! Otherwise we just add it.  If there is a maximum number of fields,
+! though, we have to enforce it.
+!
+	else
+	    local newfld (concat(oldfld, concat (",",field)))
+	    local max pd_param(icon_component,"max-field","string")
+	    if (max <> "(Undefined)")
+	    	local imax pd_param(icon_component,"max-field","integer")
+		if (n_occur (newfld, ",") >= imax)
+			dm "beep"
+			return
+		endif
+	    endif
+	endif
+!
+! Store the thing.
+!
+	param #icon_component field #newfld
+endprocedure
+
+!
+! Toggle the presence of a given field for quadrants.
+!
+procedure toggle_quad field string
+	local oldfld (pd_param (icon_component, "quadrants", "string"))
+!
+! See if it's already there.  If so, we remove.
+!
+	if (substring (oldfld, field))
+		local newfld substr_remove(oldfld, field)
+!
+! Otherwise we just add it.  If there is a maximum number of fields,
+! though, we have to enforce it.
+!
+	else
+	    if (oldfld <> "(Undefined)")
+	        local newfld (concat(oldfld, concat (",",field)))
+	    else
+		local newfld field
+	    endif
+	    local max pd_param(icon_component,"max-field","string")
+	    if (max <> "(Undefined)")
+	    	local imax pd_param(icon_component,"max-field","integer")
+		if (n_occur (newfld, ",") >= imax)
+			dm "beep"
+			return
+		endif
+	    endif
+	endif
+!
+! Store the thing.
+!
+	if (strlength (newfld) = 0)
+		local worked (pd_removeparam (icon_component, "quadrants"))
+	else
+		param #icon_component quadrants #newfld
+	endif
+endprocedure

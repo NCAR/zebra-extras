@@ -1,0 +1,149 @@
+! Auto-saved display configuration.
+config hongkong
+	window 'big' 43 39 800 845 gp gp.init
+		description 'hongkong-big'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'sounding1' 534 194 612 657 gp gp.init
+		description 'hongkong-sounding1'
+		buttonmap 'default'
+		forcepd
+	endwindow
+	window 'Clock' 891 856 253 36 fccclock
+		description 'hongkong-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 680 28 510 68
+endconfig
+
+beginpd 'hongkong-big'
+global
+   parameter altitude-label            '?'
+   parameter arrow                     'true'
+   parameter arrow-color               'lavender'
+   parameter buttonmap                 'big'
+   parameter comment                   'Display the hong kong map.'
+   parameter pd-name                   'hongkong-big'
+   parameter plot-mode                 'real-time'
+   parameter plot-type                 'CAP'
+   parameter ta-color                  'khaki'
+   parameter ta-scale                  '24'
+   parameter trigger                   'aws'
+   parameter x-max                     '52.0360'
+   parameter x-min                     '-11.8845'
+   parameter y-max                     '-19.9050'
+   parameter y-min                     '27.3926'
+component c_lidar
+   parameter color-table               'Rainbow'
+   parameter every-sweep               'true'
+   parameter field                     'reflectivity'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'lidar-middle'
+   parameter icon-right-menu           'DataAvailable'
+   parameter platform                  'lidar'
+   parameter reflectivity-center       '30'
+   parameter reflectivity-step         '10'
+   parameter representation            'raster'
+   parameter require                   'radar, lidar'
+   parameter trigger                   'lidar'
+   parameter trigger-global            'true'
+component p_map.0
+   parameter color                     'blue'
+   parameter disable                   'false'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'hk_terrain'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_kmgrid
+   parameter disable                   'true'
+   parameter field                     'grid'
+   parameter icon                      'grid'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'kmgrid-origins'
+   parameter icon-right-menu           'kmgrid-right'
+   parameter lat-lon                   'false'
+   parameter line-width                '0'
+   parameter platform                  'irrelevant'
+   parameter representation            'overlay'
+   parameter require                   'grid, simple-color'
+   parameter x-spacing                 '10'
+   parameter y-spacing                 '10'
+component p_map
+   parameter color                     'yellow'
+   parameter disable                   'true'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter platform                  'asia_map'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_map.1
+   parameter color                     'gray40'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter platform                  'hk_contours'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_station
+   parameter active-icon               'true'
+   parameter annot-field-menu-extras   'station|Station Identification,none'
+   parameter annot-left-menu           'FieldMenu'
+   parameter annot-middle-menu         'FieldMenu'
+   parameter arrow-scale               '0.01'
+   parameter color                     'white'
+   parameter do-shape                  'true'
+   parameter field-select-command      'p_toggle_quadrant'
+   parameter icon-field-menu-extras    'station|Station Identification'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'FieldMenu'
+   parameter icon-right-menu           'p-station-right'
+   parameter limit-proc                'adj_arrow_scale'
+   parameter platform                  'aws'
+   parameter posicon-middle-menu       'FieldMenu'
+   parameter quad1                     'tdry'
+   parameter quad2                     'wspd_max'
+   parameter quad3                     'none'
+   parameter quad4                     'none'
+   parameter representation            'station'
+   parameter require                   'station, simple-color'
+   parameter u-field                   'u_wind'
+   parameter v-field                   'v_wind'
+endpd
+
+beginpd 'hongkong-sounding1'
+global
+   parameter pd-name                   'hongkong-sounding1'
+   parameter plot-mode                 'real-time'
+   parameter plot-time                 '3-mar-1994,00:00:01'
+   parameter plot-type                 'skewt'
+   parameter require                   'simple-color'
+   parameter trigger                   '10h'
+component skewt
+   parameter color-table               'Skew-t'
+   parameter icon                      'sounding'
+   parameter icon-left-menu            'skewt-left'
+   parameter icon-middle-menu          'DataAvailable'
+   parameter icon-right-menu           'feet-km'
+   parameter menu-platform             'ro_hk_sdg,chenzhou_sdg,ganzhou_sdg,wuzhou_sdg,guangzhou_sdg,shantou_sdg,xisha_sdg,taipei_sdg'
+   parameter platform                  'ro_hk_sdg'
+   parameter representation            'skewt'
+   parameter require                   'skewt'
+endpd
+
+beginpd 'hongkong-Clock'
+global
+   parameter pd-name                   'hongkong-Clock'
+component clock
+   parameter background                'white'
+   parameter foreground                'black'
+   parameter xfont                     '-*-new century schoolbook-bold-r-*-*-25-*-*-*-*-*-*-*'
+endpd
+

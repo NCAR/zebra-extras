@@ -1,0 +1,15 @@
+#!/bin/csh
+
+#
+# bring up zeb system window and start zeb in it
+#
+
+if ($?ZEB_CONFIG == 1) then
+	source $ZEB_CONFIG
+else
+	echo "No config file set in ZEB_CONFIG"
+	exit 1
+endif
+
+exec xterm -n zeb -g 80x20-0-0 -sb -sl 1000 -bg black -fg cyan \
+	 -e $ZEB_PROJECT/bin/zebstart

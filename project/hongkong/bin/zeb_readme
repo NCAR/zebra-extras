@@ -1,0 +1,15 @@
+#!/bin/csh
+
+#
+# bring up zeb system window and start zeb in it
+#
+
+if ($?ZEB_CONFIG == 1) then
+	source $ZEB_CONFIG
+else
+	echo "No config file set in ZEB_CONFIG"
+	exit 1
+endif
+
+exec xterm -title zeb_readme -g 80x40+200+200 -sb -sl 1000 -bg black -fg pink \
+	 -e $ZEB_PROJECT/bin/cat_readme

@@ -1,0 +1,44 @@
+#data_dir: /zeb/data_ingest/aws
+#history_file: /zeb/data_ingest/aws/history
+#max_retrieval_nmins(secs): 1440
+#max_valid_data_age(secs): 600
+#nstations: 36
+lt1 	CAMPBELL	113.8527  22.2460  15.0		Lantau - Tai O
+lt2 	CAMPBELL	113.9105  22.2596  751.0	Lantau - Nei Lak Shan
+lt3 	CAMPBELL	113.9527  22.2353  15.0		Lantau - Beach house
+lt4 	CAMPBELL	113.9391  22.2493  380.0	Lantau - Saddle
+lt5 	CAMPBELL	113.9391  22.2827  20.0		Lantau - Tung Chung
+lt6 	CAMPBELL	113.9618  22.2607  742.0	Lantau - Stone huts
+clk 	CAMPBELL	113.9420  22.3224  10.0		Chep Lap Kok
+ust 	CAMPBELL	114.2679  22.3279  100.0	HKUST
+RO  	RO		114.1719  22.3036  62.2		Royal Observatory
+SHA 	RO		114.2066  22.4047  8.0  	Sha Tin Racecourse
+HIT 	RO		114.1252  22.3399  57.7		Hong Kong Int Terminal
+HMZ 	RO		113.9566  21.8216  60.0		Huangmao Zhou
+LFS 	RO		113.9811  22.4705  35.5		Lau Fau Shan police stn
+TKL 	RO		114.1536  22.5305  13.5		Ta Kwu Ling Pig cntr
+CPH 	RO		114.1066  22.3500  136.0	Ching Pak house Estate
+TUN 	RO		113.9741  22.3922  68.1		Tuen Mun Govt offices
+TMS 	RO		114.1224  22.4125  968.6	Tai Mo Shan
+TC  	RO		114.2152  22.3594  587.5	Tate's Cairn
+SF  	RO		114.1661  22.2944  17.6		Star Ferry
+CSW 	RO		114.1513  22.3344  29.6		Cheung Sha Wan Market
+HKS 	RO		114.1708  22.2483  29.6		Hong Kong South
+UW1 	RO		114.3011  22.1827  56.0		Waglan Is 1
+GI  	RO		114.1102  22.2866  105.3	Green Is
+TPO 	RO		114.1805  22.4430  27.6		Tai Po Kau
+JKB 	RO		114.2541  22.3174  51.6		Junk Bay
+CCH 	RO		114.0241  22.2030  79.2		Cheung Chau
+CEN 	RO		114.1586  22.2855  17.4		Central (Star Ferry Pier)
+KP  	RO		114.1705  22.3130  78.3		Kings Park
+SHL 	RO		114.0836  22.3480  42.9		Shell Tsing Yi
+PLC 	RO		114.2349  22.4766  70.8		Tai Mei Tuk
+KAT 	RO		114.3019  22.5363  20.0		Kat O
+EPC 	RO		114.4258  22.5483  10.0		Ping Chau
+SLW 	RO		113.9044  22.2924  70.9		Sha Lo Wan
+SKG 	RO		114.2716  22.3772  31.2		Sai Kung (Tui Min Hoi)
+WCN 	RO		114.1711  22.2813  378.0	Central Plaza (Wan Chai)
+TAP 	RO		114.3580  22.4727  37.1		Tap Mun
+
+
+

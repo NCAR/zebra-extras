@@ -1,0 +1,16 @@
+GLOBAL
+	comment:	Display RO Radar analysis
+	pd-name:	c_ro_radar
+	plot-mode:	real-time
+	plot-type:	CAP
+c_ro_radar
+	icon:			radar
+	platform:		ro_radar
+	menu-platform:		ro_radar
+	representation:		contour
+	field:			reflectivity
+	color-table:		cidd_dbz
+	trigger-global:		true
+	trigger:		ro_radar
+	icon-middle-menu:	ro_radar-middle
+	icon-right-menu:	DataAvailable

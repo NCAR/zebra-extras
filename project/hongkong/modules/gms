@@ -1,0 +1,96 @@
+!
+! Support for GMS satellite image data.
+!
+
+!
+! Middle icon menu for gms data.
+!
+define widget gms-middle intmenu 'GMS field menu'
+	title 'GMS satellite'
+	line
+	entry 'High resolution' 'gms_resolution high' \
+		(pd_param(icon_component,"platform","string") = "gms")
+	entry 'Low resolution (wide area)' 'gms_resolution low' \
+		(pd_param(icon_component,"platform","string") = "gms-big")
+	entry 'Visible (2km Resolution)' 'gms_visible gms-2k' \
+		(pd_param(icon_component,"field","string") = "vis")
+	line
+!	entry 'Zeb IR Scale' 'zeb_gms_scale'
+	entry 'black & white color table'\
+		 'param #icon_component color-table 16gray' \
+		(pd_param (icon_component,"color-table","string") = "16gray")
+	entry 'black & white + red color table'\
+		 'param #icon_component color-table ir_gray' \
+		(pd_param (icon_component,"color-table","string") = "ir_gray")
+	entry 'black & white "log" color table'\
+		 'param #icon_component color-table newgray' \
+		(pd_param ("global","color-table","string") = "newgray")
+	entry 'scook color table' 'param #icon_component color-table scook' \
+		(pd_param (icon_component,"color-table","string") = "scook")
+	entry 'cook16' 'param #icon_component color-table cook16' \
+		(pd_param (icon_component,"color-table","string") = "cook16")
+	entry 'cook32' 'param #icon_component color-table cook32' \
+		(pd_param (icon_component,"color-table","string") = "cook32")
+	entry 'hotcold' 'param #icon_component color-table hotcold' \
+		(pd_param (icon_component,"color-table","string") = "hotcold")
+	entry 'wild' 'param #icon_component color-table wild' \
+		(pd_param (icon_component,"color-table","string") = "wild")
+	entry 'wild_new' 'param #icon_component color-table wild_new' \
+		(pd_param (icon_component,"color-table","string") = "wild_new")
+!	submenu 'Chen Color Tables' ChenColorTables
+	line
+	entry 'Raster representation' \
+		'param #icon_component representation raster'
+	entry 'Contour representation' \
+		'param #icon_component representation contour'
+	entry 'Filled contour representation' \
+		'param #icon_component representation filled-contour'
+	line
+	submenu 'Contour Width' LineWidth
+endmenu
+
+procedure zeb_gms_scale
+	param #icon_component ir-center 280
+	param #icon_component ir-step 12
+	param #icon_component ir-highlight 208
+endprocedure
+
+
+!
+! Stuff done for Shuyi.
+!
+
+procedure chen_gms_scale
+	param #icon_component ir-center 250
+	param #icon_component ir-step 7.5
+	param #icon_component ir-highlight 0
+endprocedure
+
+
+define widget ChenColorTables intmenu 'Shuyi Chen climatology palettes'
+	title 'Chen Color Tables'
+	line
+	entry 'Chen IR Scale' 'chen_gms_scale'
+	entry 'Black and White' \
+	 'param #icon_component color-table ChenBlackWhite' \
+	 (pd_param (icon_component,"color-table","string") = "ChenBlackWhite")
+	entry 'Grey to White' \
+	 'param #icon_component color-table ChenGreyWhite' \
+	 (pd_param (icon_component,"color-table","string") = "ChenGreyWhite")
+	entry 'Purple to Saturation'\
+	 'param #icon_component color-table ChenPtoSat' \
+	 (pd_param (icon_component,"color-table","string") = "ChenPtoSat")
+	entry 'Blue Sky' \
+	 'param #icon_component color-table ChenBlueSky' \
+	 (pd_param (icon_component,"color-table","string") = "ChenBlueSky")
+	entry 'Maroon to Red' \
+	 'param #icon_component color-table ChenMaroonRed' \
+	 (pd_param (icon_component,"color-table","string") = "ChenMaroonRed")
+	entry 'Blue to Red' \
+	 'param #icon_component color-table ChenBlueToRed' \
+	 (pd_param (icon_component,"color-table","string") = "ChenBlueToRed")
+	entry 'Green to Red' \
+	 'param #icon_component color-table ChenGreenToRed' \
+	 (pd_param (icon_component,"color-table","string") = "ChenGreenToRed")
+endmenu
+

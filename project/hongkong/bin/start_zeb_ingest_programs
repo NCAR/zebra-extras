@@ -1,0 +1,33 @@
+#!/bin/csh
+# 
+# Programs to ingest data into ZEB - these programs will die if the
+# ZEB datastore dies
+
+#
+# Get the config file for executable paths and all that
+#
+if ($?ZEB_CONFIG == 1) then
+	source $ZEB_CONFIG
+else
+	echo "No config file set in ZEB_CONFIG"
+	exit 1
+endif
+
+#
+# AWS data
+#
+
+# Version without realtime archiving for rap
+
+echo "   aws_ingest..."
+aws_ingest $ZEB_HOME/paramdir/aws.params aws &
+
+# Version WITH realtime archiving for rap
+
+#aws_ingest $ZEB_HOME/paramdir/aws.params aws archive &
+
+
+
+
+
+

@@ -1,0 +1,291 @@
+!
+! All the definitions required to make the iconbar work.
+!
+
+!
+! The right way to do this....
+!
+set ui$bitmap_directory concat(c$libdir, "/icons")
+
+! No spaces in these lines!
+!
+set sounding_sites "ro_hk_sdg,chenzhou_sdg,ganzhou_sdg,wuzhou_sdg,guangzhou_sdg,shantou_sdg,xisha_sdg,taipei_sdg"
+set lantau_aws_sites "LT1,LT2,LT3,LT4,LT5,LT6,CLK"
+
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	!
+	! All this stuff tells the system to put it, unadorned by headers and
+	! title bars, where we want it.  DM does "override" by itself now,
+	! since this iconbar appears in the display config, so we don't
+	! bother with it here.
+	!
+	noheader
+	! size 230 80
+	location 100 100
+	! vertical
+	! override
+	!
+	! Now we can define the menus themselves.
+	!
+	menu global bitmap global
+		title 'Display Configurations'
+		line
+		entry 'Empty' 'display empty' \
+			(dm$config = 'empty')
+		entry 'Hong Kong' 'display hongkong' \
+			(dm$config = 'hongkong')
+		entry 'Mesonet Contours' 'display aws_contours' \
+			(dm$config = 'lantau_mesonet')
+		entry 'Mesonet Winds' 'display aws_winds' \
+			(dm$config = 'lantau_winds')
+		entry 'Synoptic' 'display synoptic' \
+			(dm$config = 'synoptic')
+		entry 'Satellite' 'display satellite' \
+			(dm$config = 'satellite')
+		entry 'Time Series' 'display timeseries' \
+			(dm$config = 'timeseries')
+		entry 'Soundings' 'display soundings' \
+			(dm$config = 'soundings')
+		line
+		submenu 'Saved Configurations' saved-config-menu
+		submenu 'ISS Configurations' iss-display-menu
+		line
+		entry 'Quit Zeb Display' 'shutdown'
+	endmenu
+	menu global bitmap "/zeb/project/hongkong/icons/configs"
+		title 'Configuration Options'
+		line
+		entry 'Begin new configuration' 'popup newconfig'
+		line
+		submenu 'Popup new window' 'windows'
+		entry 'Kill window by cursor' 'point-and-shoot'
+		line
+		entry 'Add window by name' 'popup NewWindow'
+		entry 'Kill window by name' 'popup ZorchWindow'
+		line
+		entry 'Save configuration' 'popup SaveConfig'
+		entry 'Remove configuration' 'cfg-remove'
+		line
+		entry 'Configuration Widget' 'popup ConfigEdit'
+		entry 'Help' 'help editdconfig'
+	endmenu
+	menu global bitmap "/zeb/project/hongkong/icons/tools"
+		title 'Zeb Tools and Widgets'
+		line
+		entry 'Time Widget'	'popup time'
+		entry 'Data Widget' 'shell "dsdwidget &"'
+		entry 'Print Widget'	'popup hardcopy'
+		line
+		entry 'DataStore Manager' 'shell "dsmanage &"'
+		entry 'Process Monitor' 'shell "zmon zmon.config &"'
+		entry 'LastData Monitor' 'shell "LastData LastData.config &"'
+	endmenu
+	menu 'radar' bitmap radar_grid
+		title 'Lidar and Radar Data'
+		line
+		entry 'Lidar' 'sendout c_lidar pick'
+		entry 'RO Radar' 'sendout p_radar platform ro_radar'
+	endmenu
+	menu 'satellite' bitmap satellite
+		title 'Satellite Data'
+		line
+		entry 'Non-navigated visible image' \
+			'putc2 p_raster platform ro_sat field ir'
+	endmenu
+	menu mesonet bitmap mesonet
+		title 'AWS Stations'
+		line
+		entry 'Line Contours' 'putc1 p_contour platform aws'
+		entry 'Filled Contours' 'putc1 p_fcontour platform aws'
+		line
+		entry 'Wind Vectors' 'putc1 p_irg_winds platform aws'
+		line
+		entry 'Station Plot' 'putc1 p_station platform aws'
+	endmenu
+	menu 'aircraft' bitmap aircraft
+		title 'Aircraft Tracks'
+		line
+		entry 'Kingair Location Track' \
+			'putc1 p_simple_track platform kingair'
+		entry 'Kingair Data Track' \
+			'putc1 p_track platform kingair'
+	endmenu
+	menu 'soundings' bitmap sounding
+		title 'Sounding Stations'
+	endmenu
+	menu 'overlays' bitmap overlays
+		title 'Overlays'
+		line
+		submenu 'Maps' Maps
+		submenu 'Locations' Locations
+		submenu 'Grids and Range Rings' GridsAndRings
+	endmenu
+enddef
+
+
+define widget iss-display-menu intmenu 'ISS displays'
+
+	entry 'ISS sounding' 'display iss-sounding' \
+		(dm$config = 'iss-sounding')
+	entry 'ISS profiler' 'display iss-profiler' \
+		(dm$config = 'iss-profilerh')
+	entry 'ISS rass' 'display iss-rassprof' \
+		(dm$config = 'iss-rassprof')
+	entry 'ISS T, RH, WS, WD' 'display iss-surface1' \
+		(dm$config = 'iss-surface1')
+	entry 'ISS Radiation' 'display iss-surface2' \
+		(dm$config = 'iss-surface2')
+	entry 'ISS P, Rain' 'display iss-surface3' \
+		(dm$config = 'iss-surface3')
+endmenu
+
+!
+! Point to a window and delete it
+!
+procedure point-and-shoot
+	set victim '--'
+	pickwin victim
+	message "Killing #" victim
+	kill #victim
+endprocedure
+
+!
+! Remove configuration.  Looks for the current configuration in
+! ConfigDir and moves it to the ./removed directory
+!
+procedure cfg-remove
+
+	local file concat3(ConfigDir,"/",dm$config)
+	local dest concat3(" ./removed","/",dm$config)
+
+	message "#" concat3("mv -f ",file,dest)
+	shell concat3("mv -f ",file,dest)
+	local file concat(file,".dc")
+	local dest concat(dest,".dc")
+	message "#" concat3("mv -f ",file,dest)
+	shell concat3("mv -f ",file,dest)
+	display empty
+
+endprocedure
+
+!
+! Submenu for window templates.  The object here is to add a window
+! from a list of common plot types with generic plot descriptions
+! from a single menu entry.
+!
+define widget windows intmenu 'window templates'
+	title 'Popup Windows'
+	line
+	entry 'Constant altitude plot' \
+		'create-window cap cap-template big'
+	entry 'Time-series plot' \
+		'create-window tseries tseries-template xyplot'
+	entry 'Skew-t plot' \
+		'create-window skewt skewt-template sounding'
+	entry 'Wind profile' 'create-window wind wind-template xyplot'
+	entry 'Radar plot' 'create-window radar radar-template radar'
+	entry 'Real-time clock' 'create-clock'
+endmenu
+
+
+!
+! Use the name given for the window name.  If we can find a plot
+! description with this name, we assume a window exists and try
+! to create a unique name by adding a sequence number
+!
+procedure create-window name string pdname string bmap string
+
+	newwindow #name #pdname forcepd buttonmap #bmap
+
+endprocedure
+
+
+!
+! Change the default exec long enough to create a clock
+!
+procedure create-clock
+	set default_exec "fccclock"
+	newwindow Clock whiteclock buttonmap default
+	set default_exec "gp"
+endprocedure
+
+
+!
+! Submenu for maps
+!
+define widget Maps intmenu 'LANTEX digitized maps'
+	title 'Map Overlays'
+	line
+	entry 'Asia' 'putc1 p_map platform asia_map'
+	entry 'Terrain' 'putc1 p_map platform hk_terrain'
+	entry 'Contours' 'putc2 p_map platform hk_contours icon contours'
+	entry 'Roads' 'putc2 p_map platform hk_roads icon roads'
+	entry 'Lakes' 'putc2 p_map platform hk_lakes icon lakes'
+endmenu
+
+!====================================================================
+! Library PD tweaking:  Adjust some parameters of the plot descriptions
+! we'll be using from the library
+!
+! Window templates have been copied into the local pd dir and modified there
+!
+
+! For rings, require the project rings module to get the rings-origin
+! menu
+!
+parameter p_rings p_rings require 'rings, simple-color, lx-rings'
+parameter p_rings p_rings icon-middle-menu lx-rings-origins
+
+! Use the enhanced left menu for radar, and give it a default platform
+! while we're at it
+!
+parameter p_radar p_radar icon-left-menu lx-cap-left-menu
+parameter p_radar p_radar platform lidar
+
+!
+! For locations, modify the library location pd to use our project
+! module instead.  Also, all of the locations have the same timezone offset,
+! which is 8 hours (480 mins) ahead of GMT.  Putting it here prevents us
+! from putting in defaults qualified for every location platform.
+!
+parameter p_loc p_loc require lx-locations
+parameter p_loc p_loc timezone-offset 480
+
+!
+!=====================================================================
+
+!
+! Submenu for grids and range rings.
+!
+define widget GridsAndRings intmenu 'lat/lon, km grids and range ringes'
+	title 'Coordinate Grids'
+	line
+	entry 'X-Y Grid (km)' 'sendout p_kmgrid pick'
+	entry 'Lat/Lon Grid ' 'sendout p_llgrid pick'
+	line
+	entry 'LIDAR Range Rings' 'putc1 p_rings platform lidar'
+	entry 'Ops Center Range Rings' 'putc1 p_rings platform ops-ctr'
+endmenu
+
+define widget Locations intmenu 'LANTEX location overlays'
+	title 'Locations'
+	line
+	entry 'Ops Center, HKUST' \
+		'putc2 p_loc icon ops-ctr platform ops-ctr'
+	entry 'ISS on Waglan' \
+		'putc1 p_iss_loc platform iss/class'
+	entry 'Lantau Profiler' \
+		'putc1 p_iss_loc platform lantau/profiler'
+	entry 'LIDAR on CLK' \
+		'putc2 p_loc icon radar-loc platform lidar'
+	entry 'RO Radar' \
+		'putc2 p_loc icon radar-loc platform ro_radar'
+	entry 'Sounding sites' \
+		'putc2 p_loc icon sounding-loc platform #sounding_sites'
+	entry 'AWS locations' \
+		'putc2 p_loc icon pam-loc platform #lantau_aws_sites'
+endmenu
+

@@ -1,0 +1,66 @@
+! Auto-saved display configuration.
+config xygraph
+	window 'Event logger' 0 0 58984 61439 gp
+		nongraphic
+	endwindow
+	window 'UpperLeft' 6 128 724 689 gp gp.init
+		description 'xygraph-UpperLeft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 520 70 220 25 fccclock
+		description 'xygraph-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 6 26 504 70
+endconfig
+
+beginpd 'xygraph-UpperLeft'
+global
+   parameter axis-bottom-space         '120'
+   parameter axis-left-space           '50'
+   parameter axis-right-space          '70'
+   parameter axis-top-space            '120'
+   parameter height-scale-y-max        '18000.0'
+   parameter height-scale-y-min        '0'
+   parameter icon-middle-menu          'global-fields-menu'
+   parameter pd-name                   'xygraph-UpperLeft'
+   parameter plot-mode                 'real-time'
+   parameter plot-type                 'xygraph'
+   parameter ta-scale                  '0.03'
+   parameter trigger                   '30m'
+   parameter xy-adj-axis-side          't'
+   parameter xy-adj-scale-dim          'x'
+   parameter xy-axis-b-font-scale      '0.013'
+   parameter xy-axis-l-font-scale      '0.013'
+   parameter xy-axis-r-font-scale      '0.013'
+   parameter xy-axis-t-font-scale      '0.013'
+   parameter xy-data-mode              'series'
+   parameter xy-scale-x-mode           'autoscale'
+   parameter xy-scale-y-mode           'manual'
+   parameter xy-series-span            '720m'
+component heightscale
+   parameter axis-bottom               'false'
+   parameter axis-l-grid-intensity     '0.0'
+   parameter axis-l-label              'height (m > ground)'
+   parameter axis-l-tic-interval       '500.0'
+   parameter axis-left                 'true'
+   parameter axis-right                'false'
+   parameter do-side-annotation        'false'
+   parameter field-color               'black'
+   parameter platform                  'iss/prof915h'
+   parameter representation            'simple'
+   parameter representation-style      'cross'
+   parameter x-field                   'nothing'
+   parameter y-field                   'height'
+endpd
+
+beginpd 'xygraph-Clock'
+global
+   parameter pd-name                   'xygraph-Clock'
+component clock
+   parameter background                'white'
+   parameter foreground                'black'
+   parameter xfont                     '-*-new century schoolbook-bold-r-*-*-25-*-*-*-*-*-*-*'
+endpd
+

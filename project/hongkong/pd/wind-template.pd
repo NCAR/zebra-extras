@@ -1,0 +1,58 @@
+global
+	alt-scale-y-max:	7.0
+	altitude-label:	
+	axis-bottom-space:	30
+	axis-left-space:	60
+	axis-right-space:	20
+	height-scale-y-max:	4000
+	pd-name:	wind-template
+	plot-hold:	false
+	plot-mode:	history
+	plot-time:	4-may-1994,14:47:38
+	plot-type:	xygraph
+	sa-scale:	12
+	trigger:	30m
+	xy-adj-axis-side:	b
+	xy-axis-b-font-scale:	10
+	xy-axis-b-tic-interval:	60m
+	xy-axis-l-font-scale:	10
+	xy-axis-l-tic-interval:	1000.0
+	xy-axis-r-font-scale:	10
+	xy-axis-r-tic-interval:	0.5
+	xy-data-mode:	series
+	xy-scale-x-mode:	autoscale
+	xy-scale-y-mode:	manual
+	xy-series-span:	24h
+915prof
+	adj-axis-side:	l
+	axis-b-label:	time
+	axis-b-tic-interval:	7200s
+	axis-l-color:	green
+	axis-l-label:	915 Profiler Altitude (m agl)
+	axis-t-tic-interval:	7200s
+	barb-scale:	20
+	data-skip:	0
+	icon:	iss-prof
+	icon-background:	black
+	icon-color:	green
+	icon-left-menu:	lx-xywind-left-menu
+	icon-middle-menu:	DataAvailable
+	icon-right-menu:	lx-time-height-winds
+	menu-platform:	iss/prof915l,iss/prof915h
+	platform:	iss/prof915l
+	representation:	wind
+	representation-style:	vector
+	require:	ctr-step, xywind, lx-xywind
+	step:	2.5
+	trigger:	platform
+	vec-scale:	5
+	x-field:	time
+	xyprivate-data-begin:	3-May-94,14:47:38
+	xyprivate-data-end:	4-May-94,14:47:38
+	xyprivate-x-max:	4-May-94,15:23:38
+	xyprivate-x-min:	3-May-94,14:47:38
+	xyprivate-x-type:	t
+	xyprivate-y-max:	7000.0000
+	xyprivate-y-min:	0.0000
+	xyprivate-y-type:	f
+	y-field:	height

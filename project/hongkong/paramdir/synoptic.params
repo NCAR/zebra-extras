@@ -1,0 +1,8 @@
+/zeb/data_ingest/ro_synoptic/data
+/zeb/data_ingest/ro_synoptic/control
+65 100 0.0 65.0 1.0 1.0 22.3594	114.2153
+4
+pres 970.0 1040.0
+tdry -40.0 40.0
+rh 20.0 100.0
+500mb_ht 4000.0 8000.0

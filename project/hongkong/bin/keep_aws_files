@@ -1,0 +1,18 @@
+#!/bin/sh
+#	Procedure:	keep_aws_files
+#	Version:	1.0
+#	Date:		February 17, 1994
+#
+#	define the directory storing fresh data and that for archival
+#
+datadir="/zeb/data_ingest/aws"
+archivedir="/zeb/data_ingest/archive/aws/`date +%y%m%d`"
+#
+#	move the data files to the appropriate directory for further 
+#	data archival
+#
+if [ ! -d $archivedir ]
+then
+	mkdir $archivedir
+fi
+mv $datadir/*.dat $archivedir

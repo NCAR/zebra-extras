@@ -1,0 +1,25 @@
+#! /bin/csh
+#
+# Start Zeb-related ingest scripts - these will keep going even if the
+# datastore dies
+#
+
+echo "ZEB ingest scripts:"
+
+echo " 	 ro aws ingestor..."
+snuff ro_aws_ingest
+start_ro_aws_ingest &
+
+# new version (class_ingest, too) that copies bad files
+# to separate place 4/5/94 csm
+snuff ingest_realtime_soundings
+echo "	 soundings..."
+ingest_realtime_soundings &
+
+snuff ingest_realtime_radar
+echo "	 ro radar..."
+ingest_realtime_radar &
+
+snuff ingest_realtime_satellite
+echo "	 ro satellite..."
+ingest_realtime_satellite &

@@ -1,0 +1,109 @@
+#!/usr/local/bin/perl
+
+$project_dir = "/zeb/project/hongkong";
+$param_dir = "$project_dir/paramdir";
+$input_dir = "/zeb/data_ingest/soundings";
+$archive_topdir = "/zeb/data_ingest/archive/soundings";
+$error_topdir = "$input_dir/bad_files";
+$trans_file = "$param_dir/sounding_site.translation";
+
+$fields = "pres temp rh dp u_wind v_wind wspd wdir pt ept";
+
+$ABORT_PROBLEM = 8;
+$ZEB_PROBLEM = 1;
+$forever = 1;
+
+#
+# get file list
+#
+
+while (forever) {
+
+  #
+  # change to soundings data input directory
+  #
+
+  chdir $input_dir;
+  open(DIRLIST, "ls  2> /dev/null |");
+
+DIR:
+  while ($sounding_dir = <DIRLIST>) {
+
+    chdir $input_dir;
+    chop $sounding_dir;
+    next DIR unless -d $sounding_dir;
+
+    chdir $input_dir."/".$sounding_dir;
+    open(FILELIST, "ls *.class.$sounding_dir 2> /dev/null |");
+
+    #
+    # move through the file list
+    #
+
+    while ($class_file = <FILELIST>) {
+
+      chop($class_file);
+
+      #
+      # run the class ingest program
+      #
+
+      $cmd = "class_ingest -trans $trans_file -s $class_file $fields";
+      $retval = system($cmd);
+      $retval /= 256;
+      print "RETVAL:" , $retval, "\n";
+
+      if ($retval == 0) {
+
+        # successful ingest - move file to archive directory
+
+	$archive_dir = $archive_topdir."/".$sounding_dir;
+	if (!( -d $archive_dir )) {
+	  system("mkdir $archive_dir");
+	}
+        system("mv $class_file $archive_dir");
+#      printf (STDERR "ingest_realtime_sounding:\n");
+#      printf (STDERR "%s ingested successfully\n", $class_file);
+
+      } elsif ($retval == $ABORT_PROBLEM) {
+
+        # ingest problem with file - move file to error directory
+
+	$error_dir = $error_topdir."/".$sounding_dir;
+	if (!( -d $error_dir )) {
+	  system("mkdir $error_dir");
+	}
+
+        system ("mv $class_file $error_dir");
+	printf (STDERR "%s\n", $cmd);
+        printf (STDERR "ingest_realtime_sounding: ");
+        printf (STDERR "%s ingested error - file problem\n", $class_file);
+
+      } elsif ($retval == $ZEB_PROBLEM) {
+
+	printf (STDERR "%s\n", $cmd);
+        printf (STDERR "ingest_realtime_sounding:\n");
+        printf (STDERR "%s ingested error - ZEB PROBLEM\n", $class_file);
+       
+        # problem with ZEB - probably ZEB is not running
+        # do nothing so file will be there when ZEB starts
+
+      } else {
+
+	printf (STDERR "%s\n", $cmd);
+        printf (STDERR "ingest_realtime_sounding:\n");
+        printf (STDERR "%s ingested error - UNDEFINED PROBLEM\n", $class_file);
+       
+      } 
+
+      sleep (5);
+    }
+
+  }
+
+  sleep (60);
+
+}
+
+exit(0);
+

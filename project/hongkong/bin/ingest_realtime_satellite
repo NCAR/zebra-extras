@@ -1,0 +1,113 @@
+#!/usr/local/bin/perl
+
+$project_dir = "/zeb/project/hongkong";
+$param_dir = "$project_dir/paramdir";
+$input_dir = "/zeb/data_ingest/ro_sat";
+$archive_dir = "/zeb/data_ingest/archive/ro_sat";
+$error_dir = "$input_dir/bad_files";
+$param_file = "$param_dir/ro_satimage.params";
+$platform = "ro_sat";
+$overlay_file = "$input_dir/overlay.save";
+$FORMAT_PROBLEM = 8;
+$ZEB_PROBLEM = 9;
+$forever = 1;
+
+#
+# change to satellite data input directory
+#
+
+chdir $input_dir;
+
+#
+# get file list
+#
+
+while (forever) {
+
+  open(FILELIST, "ls *.imgy* 2> /dev/null |");
+
+  #
+  # move through the file list
+  #
+
+  while ($sat_file = <FILELIST>) {
+
+    chop($sat_file);
+
+    $old_size = -1;
+    $new_size = 0;
+    while ( $old_size < $new_size ) {
+	$old_size = $new_size;
+#	printf(STDERR "File: %s old %d",$sat_file,$old_size);
+	sleep 10;
+	$new_size = -s $sat_file;
+#	printf(STDERR " new %d\n",$new_size);
+    }
+
+    #
+    # uncompress the image if required
+    #
+
+    if ($sat_file =~ /\.Z/) {
+      chop($sat_file);
+      chop($sat_file);
+      system ("uncompress $sat_file");
+    }
+
+    #
+    # run the satellite image ingest program
+    #
+
+    $retval = system(
+	"ROSatImageIngest $param_file $sat_file $platform $overlay_file");
+    $retval /= 256;
+
+    if ($retval == 0) {
+
+      # successful ingest - compress and move file to archive directory
+      system("compress $sat_file");
+      $sat_file = $sat_file.".Z";
+      system("mv $sat_file $archive_dir");
+      printf (STDERR "ingest_realtime_satellite:\n");
+      printf (STDERR "%s ingested successfully\n", $sat_file);
+
+    } elsif ($retval == $FORMAT_PROBLEM) {
+
+      # ingest problem with file - move file to error directory
+
+      system ("mv $sat_file $error_dir");
+      printf (STDERR "ingest_realtime_satellite:\n");
+      printf (STDERR "%s ingested error - file problem\n", $sat_file);
+
+    } elsif ($retval == $ZEB_PROBLEM) {
+
+      printf (STDERR "ingest_realtime_satellite:\n");
+      printf (STDERR "%s ingested error - ZEB PROBLEM\n", $sat_file);
+       
+      # problem with ZEB - probably ZEB is not running
+      # do nothing so file will be there when ZEB starts
+
+    } elsif ($retval == $OVERLAY_PROBLEM) {
+
+      system ("mv $overlay_file $error_dir");
+      printf (STDERR "ingest_realtime_satellite:\n");
+      printf (STDERR "%s ingested error -  overlay problem\n", $overlay_file);
+      $overlay_file = "";
+
+    } else {
+
+      printf (STDERR "ingest_realtime_satellite:\n");
+      printf (STDERR "%s ingested error - UNDEFINED PROBLEM\n", $sat_file);
+       
+    } 
+
+    sleep (5);
+
+  }
+
+  sleep (60);
+
+}
+
+exit(0);
+

@@ -1,0 +1,17 @@
+GLOBAL
+	comment:	Display RO synoptic anlaysis
+	pd-name:	c_ro_synoptic
+	plot-mode:	real-time
+	plot-type:	CAP
+c_ro_synoptic
+	icon:			model
+	platform:		ro_synoptic
+	menu-platform:		ro_synoptic
+	representation:		contour
+	field:			pres
+!	scale_mode:		auto
+	color-table:		hotcold
+	trigger-global:		true
+	trigger:		ro_synoptic
+	icon-middle-menu:	ro_synoptic-middle
+	icon-right-menu:	DataAvailable

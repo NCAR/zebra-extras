@@ -1,0 +1,26 @@
+GLOBAL
+	comment:	Display profiler wind dir on an xy graph.
+	pd-name:	c_xy_prof
+	plot-mode:	real-time
+	plot-type:	xygraph
+c_xy_prof
+	do-color-proc:	change_component_color
+	representation:	simple
+	platform:	iss/prof915h
+	icon:		generic
+	field-color:	orange
+	icon-color:	orange
+	axis-left:	false
+	axis-right:	false
+	axis-bottom:	true
+	axis-top:	false
+	y-field:	height
+	x-field:	wdir
+	axis-b-label:	none	
+	axis-b-tic-interval:	5.0
+	axis-b-grid-intensity:	0.0
+	axis-b-color:	orange
+	adj-axis-side:	b
+	icon-right-menu:	xy-simple-menu
+	time-limit-proc:	adj_xy_time
+	icon-left-menu:		xytimegraph-left

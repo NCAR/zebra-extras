@@ -1,0 +1,55 @@
+#!/bin/csh
+# 
+# Start up the Zeb display system.  If a display manager is already running,
+# it gets killed and a new one is started.  If the datastore is not running
+# that gets started as well.
+#
+# Change to the project directory and get our environment from 
+# the Zeb config file.
+#
+	if ($?ZEB_CONFIG == 1) then
+		source $ZEB_CONFIG
+	else
+		echo "No config file set in ZEB_CONFIG"
+		exit 1
+	endif
+#
+# If this is just a display machine, then it doesn't hurt (and probably helps)
+# to run the start_datastore script, which will make sure the datastore
+# system is in place on this host (even if that means just starting message
+# and timer and leaving DS_DAEMON_HOST set correctly).
+#
+	if ($HOST != $ZEB_DATASTORE) then
+		echo "Restarting Zeb message system..."
+		start_datastore
+	else
+#
+# Otherwise, kill only any display manager that might already be running
+#
+		echo "Shutting down display manager..."
+		zrun Displaymgr "shutdown" >& /dev/null
+		sleep 2
+	endif
+#
+# Fill the color map with something other than black
+#
+	tweakcolor yellow
+#
+# If we're starting from scratch, go ahead and fire up an EventLogger.
+#
+	if ($HOST != $ZEB_DATASTORE) then
+		start_event_logger	
+	endif
+#
+# Note that we can only run the Archiver when we know we have a window
+# system.  This needs to change.
+#
+#
+# Finally, get a display going.  We might as well exec the display manager
+# rather than have the shell hanging around.
+#
+	if ($?ZEB_DM == 0) then
+		exec dm dm.config
+	else
+		exec $ZEB_DM dm.config
+	endif

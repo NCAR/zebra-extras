@@ -1,0 +1,19 @@
+GLOBAL
+	comment:	Display gridded lidar data.
+	pd-name:	c_lidar
+	plot-mode:	real-time
+	plot-type:	CAP
+c_lidar
+	platform:		lidar
+	field:			reflectivity
+	representation:		contour
+	reflectivity-step:	10
+	reflectivity-center:	30
+	color-table:		Rainbow
+	every-sweep:		true
+	icon-left-menu:		lx-cap-left-menu
+	icon-middle-menu:	lidar-middle
+	icon-right-menu:	DataAvailable
+	trigger-global:		true
+	trigger:		lidar
+	require:		radar, lidar

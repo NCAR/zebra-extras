@@ -1,0 +1,41 @@
+!
+! Auto display configurations
+!
+
+!
+! The dconfig dir and dconfig pd dir settings were moved to dm.config
+! so that they precede reading the IconBar
+!
+
+!
+! The ubiquitous whiteclock pd
+!
+beginpd
+global
+	parameter pd-name whiteclock
+component clock
+	parameter background white
+	parameter foreground black
+	parameter xfont '-*-new century schoolbook-bold-r-*-*-25-*-*-*-*-*-*-*'
+endpd
+
+
+! The only configs here are the empty one and the linked zoom one.
+! The empty one is here so that it can't be deleted from the saved
+! config directory by the user, as its needed for a last resorts.
+! The zoom is here because links are not handled correctly in saved
+! config files.
+
+config empty
+	widget 'iconbar' 6 27 68 471
+endconfig
+
+!
+! Generic linked PD to display one window zoomed.
+!
+config zoom 1
+	window 'humungo' 5 5 1100 850 gp gp.init
+		buttonmap 'big'
+		linkpd 1
+	endwindow
+endconfig

@@ -1,0 +1,8 @@
+#! /bin/csh
+#
+# Set permissions on AWS files
+#
+
+chown lantex /zeb/data_ingest/aws/*.dat
+chmod 666 /zeb/data_ingest/aws/*.dat
+

@@ -1,0 +1,23 @@
+!
+! Define the project-specific rings origin menu
+!
+
+define widget lx-rings-origins intmenu 'origins for range rings'
+	title 'Rnage Ring Origins'
+	line
+	entry 'LIDAR' 'parameter #icon_component platform lidar' \
+		(PDParam(icon_component,"platform") = 'lidar')
+	entry 'RO Radar' 'parameter #icon_component platform ro_radar' \
+		(PDParam(icon_component,"platform") = 'ro_radar')
+	entry 'RO Sounding Site' \
+		'parameter #icon_component platform ro_hk_sdg' \
+		(PDParam(icon_component,"platform") = 'ro_hk_sdg')
+	entry 'Waglan ISS' 'parameter #icon_component platform iss/class' \
+		(PDParam(icon_component,"platform") = 'iss/class')
+	entry 'Ops Center, HKUST' 'parameter #icon_component platform hkust' \
+		(PDParam(icon_component,"platform") = 'hkust')
+	entry 'Lantau Profiler' \
+		'parameter #icon_component platform lantau/profiler' \
+		(PDParam(icon_component,"platform") = 'lantau/profiler')
+endmenu
+

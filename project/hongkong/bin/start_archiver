@@ -1,0 +1,13 @@
+#!/bin/csh
+# 
+# Start up the Event Logger (when it has been killed)
+#
+	if ($?ZEB_CONFIG == 1) then
+		source $ZEB_CONFIG
+	else
+		echo "No config file set in ZEB_CONFIG"
+		exit 1
+	endif
+
+	echo -n '	starting data archiver...'
+	nice +15 exec Archiver -device /dev/nrst9 -start 20

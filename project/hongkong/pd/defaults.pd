@@ -1,0 +1,555 @@
+!
+! This file contains the default values for all plot description parameters.
+!
+defaults
+	pd-name:			defaults
+!
+! Post processing mode parameters.
+!
+	post-proc-mode:			false
+	pp-dm-time-adjust:		15m
+!
+! Various menus for the icons in the plot windows.
+!
+	icon-left-menu:			minimal-cap-left-menu
+	global-icon-left-menu:		global-left
+	global-icon-middle-menu:	DataAvailable
+	global-icon-right-menu:		globaltopannot
+!	aws-icon-right-menu:		line-contour-options
+!	lidar-icon-left-menu:		raster-left
+!	ro_radar-icon-left-menu:	raster-left
+!
+! Position icon default menus.
+!
+	posicon-left-menu:		minimal-cap-left-menu
+	posicon-middle-menu:		minimal-cap-left-menu
+	posicon-right-menu:		simple-color
+!
+! Age limits for changing icon color.
+!
+	icon-age-foreground:		pink
+	icon-age-background:		red
+	aws-icon-age-limit:		10m
+	lidar-icon-age-limit:		15m
+	ro_radar-icon-age-limit:	15m
+	ro_sat-icon-age-limit:		35m
+	iss/class-icon-age-limit:	60m
+	lantau/profiler-icon-age-limit:	30m
+!
+! Using the LIDAR (clk station) for the plot origin
+!
+	origin-lat:			22.3224
+	origin-lon:			113.9420
+	origin-alt:			0.0100
+!
+! The default, big picture zoom locations.
+!
+	x-min:				-35
+	x-max:				35
+	y-min:				-22
+	y-max:				28
+!
+!----------------------------------------------------------------
+! LOCATIONS
+!
+! Radar locations.
+!
+	tcairn-location: 	22.3594 114.2153 0.0
+!
+! HKUST, taken from the Campbell location
+!
+	hkust-location:		22.3279 114.2679 0.1000
+	ops-ctr-location: 	22.3279 114.2679 0.1000 # Same as HKUST
+!
+! LIDAR
+!
+	clk-location:  		22.3224 113.9420 0.0100	# Chep Lap Kok
+	lidar-location:		22.3224 113.9420 0.0100	# Chep Lap Kok
+!
+! Still need the ro_radar, Lantau profiler
+!
+!	ro_radar-location:
+!	lantau/profiler-location:
+!
+	waglan-location:		22.1 114.18 0.321
+	iss-location:			22.1 114.18 0.321
+	iss/class-location:		22.1 114.18 0.321
+	iss/profiler915l-location:	22.1 114.18 0.321
+	iss/profiler915h-location:	22.1 114.18 0.321
+	iss/surface_met-location:	22.1 114.18 0.321
+	iss/rass915-location:		22.1 114.18 0.321
+!
+! Sounding locations
+!
+	ro_hk_sdg-location:	22.3000 114.1667 0.0660	# HONG KONG RO
+	chenzhou_sdg-location:	25.8167 113.0167 0.1850	# CHEN-ZHOU
+	ganzhou_sdg-location:	25.8500 114.9333 0.1250	# GAN-ZHOU
+	wuzhou_sdg-location:	23.4833 111.3000 0.1200	# WU-ZHOU
+	guangzhou_sdg-location:	23.1333 113.3000 0.0070	# GUANG-ZHOU
+	shantou_sdg-location:	23.3500 116.6833 0.0030	# SHAN-TOU
+	xisha_sdg-location:	16.8333 112.3333 0.0050	# XI-SHA ISLAND
+!	taipei_sdg-location:
+!
+! AWS station locations --- These are all capitalized because the
+! subplatform names are capitalized.
+!
+	LT1-location:  	22.2479 113.8907 0.3000 # Lantau - intersection
+	LT2-location:  	22.2596 113.9105 0.7510 # Lantau - Nei Lak Shan
+	LT3-location:  	22.2353 113.9527 0.0150 # Lantau - Beach house
+	LT4-location:  	22.2493 113.9391 0.3800	# Lantau - Saddle
+	LT5-location:  	22.2827 113.9391 0.0200	# Lantau - Tung Chung
+	LT6-location:  	22.2607 113.9618 0.7420	# Lantau - Stone huts
+	CLK-location:  	22.3224 113.9420 0.0100	# Chep Lap Kok
+	UST-location:  	22.3279 114.2679 0.1000	# HKUST
+	RO-location:   	22.3036 114.1719 0.0622	# Royal Observatory
+	SHA-location:  	22.4047 114.2066 0.0080	# Sha Tin Racecourse
+	HIT-location:  	22.3399 114.1252 0.0577	# Hong Kong Int Terminal
+	HMZ-location:  	21.8216 113.9566 0.0600	# Huangmao Zhou
+	LFS-location:  	22.4705 113.9811 0.0355	# Lau Fau Shan police stn
+	TKL-location:  	22.5305 114.1536 0.0135	# Ta Kwu Ling Pig cntr
+	CPH-location:  	22.3500 114.1066 0.1360	# Ching Pak house Estate
+	TUN-location:  	22.3922 113.9741 0.0681	# Tuen Mun Govt offices
+	TMS-location:  	22.4125 114.1224 0.9686	# Tai Mo Shan
+	TC-location:   	22.3594 114.2152 0.5875	# Tate's Cairn
+	SF-location:   	22.2944 114.1661 0.0176	# Star Ferry
+	CSW-location:  	22.3344 114.1513 0.0296	# Cheung Sha Wan Market
+	HKS-location:  	22.2483 114.1708 0.0296	# Hong Kong South
+	UW1-location:  	22.1827 114.3011 0.0560	# Waglan Is 1
+	GI-location:   	22.2866 114.1102 0.1053	# Green Is
+	TPO-location:  	22.4430 114.1805 0.0276	# Tai Po Kau
+	JKB-location:  	22.3174 114.2541 0.0516	# Junk Bay
+	CCH-location:  	22.2030 114.0241 0.0792	# Cheung Chau
+	CEN-location:  	22.2855 114.1586 0.0174	# Central (Star Ferry Pier)
+	KP-location:   	22.3130 114.1705 0.0783	# Kings Park
+	SHL-location:  	22.3480 114.0836 0.0429	# Shell Tsing Yi
+	PLC-location:  	22.4766 114.2349 0.0708	# Tai Mei Tuk
+	KAT-location:  	22.5363 114.3019 0.0200	# Kat O
+	EPC-location:  	22.5483 114.4258 0.0100	# Ping Chau
+	SLW-location:  	22.2924 113.9044 0.0709	# Sha Lo Wan
+	SKG-location:  	22.3772 114.2716 0.0312	# Sai Kung (Tui Min Hoi)
+	WCN-location:  	22.2813 114.1711 0.3780	# Central Plaza (Wan Chai)
+	TAP-location:  	22.4727 114.3580 0.0371	# Tap Mun
+!
+! Where to put the frame cache files.
+!
+	file-path:	/zeb/cache
+!
+! The maximum number of frames to be stored in the file.
+!
+	max-frames:	20
+!
+! Possible origins for the position widget.
+!
+	pos-origin:	hkust, clk, waglan, ro_hk_sdg, chenzhou_sdg, ganzhou_sdg, wuzhou_sdg, guangzhou_sdg, shantou_sdg, xisha_sdg, taipei_sdg
+!
+! Commands to be executed out of the DataAvailable menu.
+!
+	data-available-command:		DefaultDataAvail
+!
+! The icons to use in the windows, qualified by platform name.
+!
+	global-icon:			global
+	ro_sat-icon:			satellite
+	ro_radar-icon:			radar_grid
+	lidar-icon:			lidar_grid
+	aws-icon:			mesonet
+	icon-color:			yellow
+	icon-background:		midnight blue
+	disabled-icon-color:		gray90
+	disabled-icon-background:	gray40
+!
+! User insertable data platforms for the insert widget.
+!
+	user-insert-platforms:	spotlight
+!
+! Range limits for Colorado
+!
+	u_wind-range-min:		-25
+	u_wind-range-max:		25
+	v_wind-range-min:		-25
+	v_wind-range-max:		25
+	dp-range-min:			0
+	dp-range-max:			30
+	tdry-range-min:			0
+	tdry-range-max:			45
+	pres-range-max:			1040
+	pres-range-min:			700
+	cpres-range-max:		1040
+	cpres-range-min:		700
+	raina15-range-min:		0.0
+	raina15-range-max:		50.0
+	raina60-range-min:		0.0
+	raina60-range-max:		50.0
+	reflectivity-range-min:		20.0
+	reflectivity-range-max:		90.0
+!
+! Long descriptions of fields, in the absence of a real fields module.
+!
+	velocity-desc:			Radar velocity
+	reflectivity-desc:		Radar reflectivity
+	alt-desc:			altitude
+	rh-desc:			relative humidity
+	rhum-desc:			relative humidity
+	mr-desc:			mixing ratio
+	cpres0-desc:			altitude-corrected pressure
+	raina15-desc:			15-minute rain accum.
+	raina60-desc:			60-minute rain accum.
+	fstrength-desc:			Electric field strength
+	vis-desc:			Visible satellite
+	ir-desc:			Infra-Red satellite
+!
+! What RBand uses to draw the box/line.  Don't mess with it.
+!
+	xorvalue:			63
+	xor-line-width:			3
+!
+! field-annotation-format to specify an alternative printf format for
+! track side annotation.
+!
+	alt-annotation-format:		%.3f
+!
+! Some stuff to make the demos look nicer.
+!
+	movie-end-time:			now
+	movie-minutes:			60
+	frame-rate:			 5
+	frame-skip:			10
+	ta-color-match:			true
+!
+! Where cross sections are done.
+!
+	xsect-window:			xsect
+	xsect-component:		global
+!
+! Grid parameters.
+!
+	grid-tic-width:			5
+	grid-solid:			false
+	grid-color:			gray40
+	grid-icon-middle-menu:		simple-color
+	grid-icon-right-menu:		grid_spacing
+	grid-icon:			grid
+!
+! Plotting limits.
+!
+! Representation -> Contour.
+!
+	contour-wspd-center:		5
+	contour-wspd-step:		1
+	contour-wdir-center:		180
+	contour-wdir-step:		10
+	contour-fstrength-center:	500
+	contour-fstrength-step:		100
+	contour-raina15-center:		8
+	contour-raina15-step:		1
+	contour-raina60-center:		8
+	contour-raina60-step:		1
+	contour-pres-center:		1013
+	contour-pres-step:		2
+	contour-cpres0-center:		1013
+	contour-cpres0-step:		1
+	contour-rh-center:		65
+	contour-rh-step:		5
+	contour-dp-center:		25
+	contour-dp-step:		1
+	contour-tdry-center:		30
+	contour-tdry-step:		2
+	contour-ept-center:		345
+	contour-ept-step:		3
+	contour-mr-center:		20
+	contour-mr-step:		1
+	contour-reflectivity-center:	30
+	contour-reflectivity-step:	25
+	contour-velocity-center:	0
+	contour-velocity-step:		4
+	contour-pt-center:		305
+	contour-pt-step:		1
+	contour-w_wind-center:		0
+	contour-w_wind-step:		1
+	contour-div-center:		0
+	contour-div-step:		2
+	contour-ref_cp3-center:		20
+	contour-ref_cp3-step:		5
+	contour-ref_cp4-center:		20
+	contour-ref_cp4-step:		5
+	contour-ref_mhr-center:		20
+	contour-ref_mhr-step:		5
+	contour-500mb_ht-center:	5000
+	contour-500mb_ht-step:		500
+	contour-500mb_ht-nsteps:	32
+!
+! Representation -> Raster.
+!
+	raster-wspd-center:		5
+	raster-wspd-step:		1
+	raster-wspd-nsteps:		32
+	raster-wdir-center:		180
+	raster-wdir-step:		10
+	raster-wdir-nsteps:		32
+	raster-fstrength-center:	500
+	raster-fstrength-step:		100
+	raster-fstrength-nsteps:	32
+	raster-raina15-center:		8
+	raster-raina15-step:		1
+	raster-raina15-nsteps:		32
+	raster-raina60-center:		8
+	raster-raina60-step:		1
+	raster-raina60-nsteps:		32
+	raster-pres-center:		1013
+	raster-pres-step:		2
+	raster-pres-nsteps:		32
+	raster-cpres0-center:		1013
+	raster-cpres0-step:		1
+	raster-cpres0-nsteps:		32
+	raster-rh-center:		65
+	raster-rh-step:			5
+	raster-rh-nsteps:		32
+	raster-dp-center:		25
+	raster-dp-step:			1
+	raster-dp-nsteps:		32
+	raster-tdry-center:		30
+	raster-tdry-step:		2
+	raster-tdry-nsteps:		32
+	raster-ept-center:		345
+	raster-ept-step:		3
+	raster-ept-nsteps:		32
+	raster-mr-center:		20
+	raster-mr-step:			1
+	raster-mr-nsteps:		32
+	raster-reflectivity-center:	30
+	raster-reflectivity-step:	25
+	raster-reflectivity-nsteps:	32
+	raster-velocity-center:		0
+	raster-velocity-step:		4
+	raster-velocity-nsteps:		32
+	raster-pt-center:		305
+	raster-pt-step:			1
+	raster-pt-nsteps:		32
+	raster-w_wind-center:		0
+	raster-w_wind-step:		1
+	raster-w_wind-nsteps:		32
+	raster-div-center:		0
+	raster-div-step:		2
+	raster-div-nsteps:		32
+	raster-ref_cp3-center:		20
+	raster-ref_cp3-step:		5
+	raster-ref_cp3-nsteps:		32
+	raster-ref_cp4-center:		20
+	raster-ref_cp4-step:		5
+	raster-ref_cp4-nsteps:		32
+	raster-ref_mhr-center:		20
+	raster-ref_mhr-step:		5
+	raster-ref_mhr-nsteps:		32
+	raster-500mb_ht-center:		5000
+	raster-500mb_ht-step:		500
+	raster-500mb_ht-nsteps:	 	32
+!
+! Representation -> Track.
+!
+!	track-rh-center:		45
+!	track-rh-step:			2
+!	track-wir-center:		0
+!	track-wir-step:			1
+	track-ept-center:		345
+	track-ept-step:			3
+	track-palt-center:		600
+	track-palt-step:		50
+	track-alt-center:		600
+	track-alt-step:		50
+	track-tvir-center:		300
+	track-tvir-step:		3
+	track-mr-center:		15
+	track-mr-step:			1
+	track-dp-center:		25
+	track-dp-step:			1
+	track-tdry-center:		25
+	track-tdry-step:		1
+	track-w_wind-center:		0
+	track-w_wind-step:		1
+	track-pt-center:		310
+	track-pt-step:			1
+!
+! Representation -> Skewt.
+!
+	skewt-pres-minval:		100
+	skewt-pres-maxval:		1050
+	skewt-temp-minval:		-20
+	skewt-temp-maxval:		45
+!
+!Representation -> Raster.
+!
+	raster-reflectivity-center:	30
+	raster-reflectivity-step:	8
+	raster-velocity-center:		0
+	raster-velocity-step:		5
+	raster-reflectivity-nsteps:	11
+	raster-velocity-nsteps:		11
+	raster-vis-center:		128
+	raster-vis-step:		16
+	raster-vis-nsteps:		17
+	raster-ir-center:		128
+	raster-ir-step:			16
+	raster-ir-nsteps:		17
+!
+! Representation -> Time series.
+!
+	tseries-wspd-center:    10
+	tseries-wspd-step:      2
+	tseries-palt-center:	600
+	tseries-palt-step:	50
+	tseries-w_wind-center:	0
+	tseries-w_wind-step:	1
+	tseries-wdir-center:    180
+	tseries-wdir-step:      20
+	tseries-rh-center:      50
+	tseries-rh-step:        15
+	tseries-pres-center:    1020
+	tseries-pres-step:      5
+	tseries-cpres0-center:  120
+	tseries-cpres0-step:    5
+	tseries-ept-center:     355
+	tseries-ept-step:       10
+	tseries-mr-center:      20
+	tseries-mr-step:        3
+	tseries-tdry-center:    30
+	tseries-tdry-step:      3
+	tseries-pt-center:      305
+	tseries-pt-step:        5
+	tseries-dp-center:      26
+	tseries-dp-step:        3
+	tseries-raina15-center: 3
+	tseries-raina15-step:   1
+	tseries-raina60-center: 6
+	tseries-raina60-step:   2
+!
+! Other.
+!
+	winds/arrow-scale:		20
+	winds-representation:		vector
+	winds/arrow-color:		green
+	Xarrow-color:			purple
+!
+! If all else fails, these should prevent things from dying altogether.
+!
+	contour-center:			0
+	contour-step:			25
+	track-center:			10
+	track-step:			10
+	pres-minval:			900
+	pres-maxval:			1100
+	rh-minval:			20
+	rh-maxval:			40
+	dp-minval:			0
+	dp-maxval:			20
+	tdry-minval:			-10
+	tdry-maxval:			10
+!
+! Adjust limit procedures.
+!
+	track-arrow-limit-proc:		adj_arrow_scale
+	track-time-limit-proc:		adj_time_period
+	track-centstep-limit-proc:	adj_center_step
+	raster-highrange-limit-proc:	adj_highlight_range
+	raster-centstep-limit-proc:	adj_center_step
+	raster-limit-proc:		adj_center_step
+	vector-limit-proc:		adj_arrow_scale
+	contour-limit-proc:		adj_center_step
+	filled-contour-limit-proc:	adj_fill_centstep
+	line-contour-limit-proc:	adj_line_centstep
+	skewt-pres-limit-proc:		adj_pres_minmax
+	skewt-temp-limit-proc:		adj_temp_minmax
+	global-x-limit-proc:		adj_x_minmax
+	global-y-limit-proc:		adj_y_minmax
+	xygraph-limit-proc:		adj_xy_time
+!
+! XY-Graph default parameters.
+!
+	do-color-proc:	change_ta_color
+!
+! XY-Simple defaults.
+!
+	xy-simple-representation-style:	line
+!
+! XY-Wind defaults.
+!
+	xy-wind-representation-style:	barb
+	xy-wind-coords:			compass
+	xy-wind-wdir-field:		wdir
+	xy-wind-wspd-field:		wspd
+	xy-wind-vec-scale:		5.0
+	xy-wind-barb-scale:		25
+	xy-wind-color-table:		Winds
+	xy-wind-data-skip:		5
+	xy-wind-step:			5.0
+	xy-wind-scale-speed:		25.0
+!
+! XY-Contour defaults.
+!
+	xy-contour-representation-style:	line
+	xy-contour-color-table:		Contour
+	xy-contour-x-grid:		25
+	xy-contour-y-grid:		25
+	xy-contour-z-step:		2.5
+	xy-contour-grid-method:		profile-linear
+	xy-contour-do-side-annotation:	false
+!
+! field specific XY defaults
+!
+! x scale min's and max's
+!
+	tdry-scale-x-min:	-80.0
+	tdry-scale-x-max:	20.0
+	dp-scale-x-min:		-80.0
+	dp-scale-x-max:		20.0
+	wspd-scale-x-min:	0.0
+	wspd-scale-x-max:	50.0
+	wdir-scale-x-min:	0.0
+	wdir-scale-x-max:	360.0
+	rh-scale-x-min:		0.0
+	rh-scale-x-max:		100.0
+	pres-scale-x-min:	50.0
+	pres-scale-x-max:	800.0
+	u_wind-scale-x-max:	20.0
+	u_wind-scale-x-min:	-20.0
+	v_wind-scale-x-max:	20.0
+	v_wind-scale-x-min:	-20.0
+	tv-scale-x-min:		-80.0
+	tv-scale-x-max:		20.0
+!
+! y scale min's and max's
+!
+	alt-scale-y-min:	0.0
+	alt-scale-y-max:	10.0
+	height-scale-y-min:	0.0
+	height-scale-y-max:	10000.0
+	wspd-scale-y-min:	0
+	wspd-scale-y-max:	10
+	rh-scale-y-min:		0
+	rh-scale-y-max:		100
+	rh-scale-y-min:		0
+	rh-scale-y-max:		100
+	tdry-scale-y-min:	10
+	tdry-scale-y-max:	35
+	wdir-scale-y-min:	0
+	wdir-scale-y-max:	360
+	pres-scale-y-min:	1020
+	pres-scale-y-max:	980
+	sol-scale-y-min:	-100
+	sol-scale-y-max:	1000
+	soldiff-scale-y-min:	0
+	soldiff-scale-y-max:	800
+	netrad-scale-y-min:	-100
+	netrad-scale-y-max:	1000
+	batt-scale-y-min:	12
+	batt-scale-y-max:	14
+	tbox-scale-y-min:	-10
+	tbox-scale-y-max:	30
+	rain-scale-y-min:	0
+	rain-scale-y-max:	10
+!
+! Layout sizing factors.
+!
+	axis-bottom-space:	25
+	axis-left-space:	50
+	axis-top-space:		0
+	axis-right-space:	0

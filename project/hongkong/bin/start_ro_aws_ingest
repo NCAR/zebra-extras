@@ -1,0 +1,33 @@
+#!/bin/sh
+#	Procedure:	start_ro_aws_ingest
+#	Version:	1.0
+#	Date:		February 17, 1994
+#
+#	define the working parameters
+#
+#
+roawsingest="/zeb/bin/ro_aws_ingest"
+tty="/dev/ttyz00"
+datadir="/zeb/data_ingest/aws"
+roawslog="/zeb/data_ingest/aws/roaws.log"
+#
+# kill ingest if running
+#
+#echo Killing process if it is already running
+snuff $roawsingest
+#
+#
+#	start up the ro_aws_ingest program and direct the outputs to
+#	the appropriate files
+#
+echo Starting $roawsingest
+if [ $# = 1 ]
+then
+echo	$roawsingest $tty $datadir $1 > $roawslog &
+#	$roawsingest $tty $datadir $1 > $roawslog &
+	$roawsingest $tty $datadir $1 &
+else
+echo	$roawsingest $tty $datadir &
+	$roawsingest $tty $datadir &
+fi
+

@@ -1,0 +1,38 @@
+
+require ctr-step
+require xywind
+
+define widget lx-xywind-left-menu intmenu "leftmenu"
+	title 'Overlay Operations'
+	line
+	submenu 'Data Platforms' 'data-platforms'
+	line
+	entry 'Raise to top' 'move #icon_component 0'
+	entry 'Move to bottom' 'move #icon_component 1'
+	entry 'Disable/reenable' 'ToggleBoolean "disable"' \
+		(PDParam(icon_component,"disable") = "true")
+	entry 'Remove' 'i_remove_component'
+endmenu
+
+
+define widget lx-time-height-winds intmenu 'Generic winds'
+	title 'Time-Height Winds'
+	line
+	entry 'Vector' 'adjust_representation_style vector' \
+		(PDParam (icon_component,"representation-style") = "vector")
+	entry 'Barb' 'adjust_representation_style barb' \
+		(PDParam (icon_component,"representation-style") = "barb")
+	line
+	entry 'Adjust color scale...' 'adj_profiler_step #icon_component'
+	entry 'Other plot parameters...' 'popup iss-params'
+endmenu
+
+
+!
+! Adjust the color step on profiler
+!
+procedure adj_profiler_step comp string
+	local step pd_paramsearch(comp, "step", "xywind", "string")
+	activate singleint #comp "step" "Color step: " #step
+endprocedure
+

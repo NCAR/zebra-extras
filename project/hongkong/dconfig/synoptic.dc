@@ -1,0 +1,72 @@
+! Auto-saved display configuration.
+config synoptic
+	window 'big' 4 25 850 870 gp gp.init
+		description 'synoptic-big'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 864 522 250 30 fccclock
+		description 'synoptic-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 864 25 68 466
+endconfig
+
+beginpd 'synoptic-big'
+global
+   parameter altitude                  '3.50'
+   parameter arrow                     'true'
+   parameter arrow-color               'lavender'
+   parameter buttonmap                 'big'
+   parameter comment                   'Display the RO synoptic analysis'
+   parameter pd-name                   'synoptic-big'
+   parameter plot-mode                 'real-time'
+   parameter plot-type                 'CAP'
+   parameter ta-color                  'white'
+   parameter ta-scale                  '0.03'
+   parameter trigger                   'ro_synoptic'
+   parameter x-max                     '4000.0000'
+   parameter x-min                     '-4000.0000'
+   parameter y-max                     '4000.7353'
+   parameter y-min                     '-4000.7353'
+component c_ro_synoptic
+   parameter color-table               'hotcold'
+   parameter field                     'pres'
+   parameter icon                      'model'
+   parameter icon-middle-menu          'ro_synoptic-middle'
+   parameter icon-right-menu           'DataAvailable'
+   parameter menu-platform             'ro_synoptic'
+   parameter platform                  'ro_synoptic'
+   parameter representation            'contour'
+   parameter trigger                   'ro_synoptic'
+   parameter trigger-global            'true'
+component c_asia_map
+   parameter color                     'white'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter platform                  'asia_map'
+   parameter representation            'overlay'
+component c_latlon_grid
+   parameter color                     'khaki'
+   parameter disable                   'true'
+   parameter field                     'grid'
+   parameter lat-lon                   'true'
+   parameter origin                    'ops-ctr'
+   parameter platform                  'grid'
+   parameter representation            'overlay'
+   parameter solid                     'true'
+   parameter x-spacing                 '300'
+   parameter y-spacing                 '300'
+endpd
+
+beginpd 'synoptic-Clock'
+global
+   parameter pd-name                   'synoptic-Clock'
+component clock
+   parameter background                'white'
+   parameter foreground                'black'
+   parameter xfont                     '-*-new century schoolbook-bold-r-*-*-25-*-*-*-*-*-*-*'
+endpd
+

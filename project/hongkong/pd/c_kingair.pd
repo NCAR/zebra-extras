@@ -1,0 +1,19 @@
+GLOBAL
+	pd-name:		c_kingair
+	plot-mode:		real-time
+	plot-type:		CAP
+	contour-color-table:	ContourMono
+c_kingair
+	representation:		track
+	platform:		kingair
+	time-period:		600s
+	trigger:		kingair
+	color:			white
+	show-position:		true
+	position-icon:		littleplane
+	sa-scale:		0.025
+	line-width:		3
+	icon-left-menu:		track-left
+	icon-middle-menu:	track-color
+	icon-right-menu:	linewidth
+	icon:			kingair

@@ -1,0 +1,35 @@
+STARTING AND RUNNING ZEB
+========================
+
+                           ** WARNING **
+
+  DO NOT RESTART THE DATA STORE UNLESS YOU HAVE READ THIS AND
+              UNDERSTAND WHAT YOU ARE DOING!!
+
+BASIC STARTUP
+-------------
+
+The script start_zeb_datastore_and_ingest starts up the data store and
+the ingest processes. This is run on bootup using rc.user. If something
+goes wrong it may be rerun from the openwin menu.
+
+The zeb datastore must be running at all times, along with the ingest
+processes. These are necessary to ensure that the incoming data is
+ingested, stored and archived.
+
+The archiver must be started up from the menu once the windowing system
+is up. In the Archiver window select 'Take tape'. The archiver uses
+/dev/nrst9, a high-density, no-rewind device. If the tape has been
+rewound and new tape should be inserted.
+
+The EventLogger should also be started up from the menu.
+
+DISPLAY
+-------
+
+The display may be started and killed without interfering with the
+data store and the ingest processes. The display is started from the
+openwin menu.
+
+NOTE: This message window will be removed after 3 minutes.
+

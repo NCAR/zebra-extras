@@ -1,0 +1,40 @@
+
+!
+! Middle icon menu for lidar data.
+!
+define widget lidar-middle intmenu 'Lidar field menu'
+	title 'Lidar'
+	line
+	entry 'Reflectivity' 'param #icon_component field reflectivity' \
+		(pd_param (icon_component,"field","string") = "reflectivity")
+	entry 'Velocity' 'param #icon_component field velocity' \
+		(pd_param (icon_component,"field","string") = "velocity")
+	line
+	entry 'CIDD Reflectivity Color Table'\
+		'param #icon_component color-table cidd_dbz'\
+		(pd_param (icon_component,"color-table","string") = "cidd_dbz")
+	entry 'CIDD Velocity Color Table'\
+		'param #icon_component color-table cidd_vel'\
+		(pd_param (icon_component,"color-table","string") = "cidd_vel")
+	entry 'Black & White Color Table'\
+		'param #icon_component color-table 16gray' \
+		(pd_param (icon_component,"color-table","string") = "16gray")
+	entry 'Smooth Cook Color Table' \
+		'param #icon_component color-table scook' \
+		(pd_param (icon_component,"color-table","string") = "scook")
+	entry 'Contour Color Table' 'param #icon_component color-table contour'\
+		(pd_param (icon_component,"color-table","string") = "contour")
+	entry 'New Wild Color Table' \
+		'param #icon_component color-table wild_new' \
+		(pd_param (icon_component,"color-table","string") = "wild_new")
+	line
+	entry 'Raster representation' \
+		'param #icon_component representation raster'
+	entry 'Contour representation' \
+		'param #icon_component representation contour'
+	entry 'Filled contour representation' \
+		'param #icon_component representation filled-contour'
+	line
+	submenu 'Contour Width' LineWidth
+endmenu
+

@@ -1,0 +1,13 @@
+!
+! Parameters to ingest lidar data from RAP's data server.
+!
+set host 'anteater.rap.ucar.edu'
+set port 43750
+set platform 'lidar'
+set frequency 120
+field 'reflectivity' 0
+field 'velocity' 1
+set levels 8
+set levelspacing .1
+set site_lat 22.3224
+set site_lon 113.9420

@@ -1,0 +1,19 @@
+#!/usr/local/bin/perl
+#
+# Extract locations from AWS parm file for defaults.pd
+#
+
+#
+# Read lines from the files on the command line
+#
+LINE:
+while (<ARGV>) 
+{
+	next LINE if /^\s*#/;
+	chop;
+	next LINE unless (($station, $lon, $lat, $alt, $comment) =
+      /^(\w+)\s+\b\w+\b\s+(\d+\.*\d+)\s+(\d+\.*\d+)\s+(\d+\.*\d+)\s+(.*)$/);
+	$station =~ tr/a-z/A-Z/;
+	printf STDOUT "\t%-15s\t%.4f %.4f %.4f\t# %s\n", 
+		$station."-location:", $lat, $lon, ($alt/1000.0), $comment;
+}

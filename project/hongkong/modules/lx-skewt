@@ -1,0 +1,30 @@
+
+!
+! Define a skewt-right menu which includes the data-platforms
+! menu defined in the data-avail module
+!
+
+require data-avail
+require skewt
+
+!
+! The Skew-t left button menu.
+!
+define widget lx-skewt-left intmenu 'Skewt left'
+	title 'Overlay Operations'
+	line
+	submenu 'Adjust Limits' 'adjust-skewt-limits'
+	submenu 'Data Platforms' 'data-platforms'
+	line
+	entry 'Raise to top' 'move #icon_component 0'
+	entry 'Move to bottom' 'move #icon_component 1'
+	entry 'Remove' 'i_remove_component'
+endmenu
+
+define widget lx-skewt-right intmenu 'right menu with data avail menu'
+	title 'Skewt Options'
+	line
+	submenu 'Available Platforms' 'data-platforms'
+	submenu 'Altitude units' 'feet-km'
+endmenu
+

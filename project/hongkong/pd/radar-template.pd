@@ -1,0 +1,28 @@
+global
+	pd-name:	radar-template
+	plot-mode:	real-time
+	plot-time:	now
+	plot-type:	CAP
+p_radar
+	platform:	lidar
+	field:		reflectivity
+	representation:	raster
+	icon:		cp4
+	color-table:	wild_new
+	every-sweep:	true
+	icon-left-menu:		lx-cap-left-menu
+	icon-middle-menu:	radar-middle
+	icon-right-menu:	DataAvailable
+	every-sweep:	true
+	scale-mode:	auto
+	require:	radar, lidar, ro_radar
+p_map
+	color:	yellow
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	0
+	platform:	hk_terrain
+	representation:	overlay
+	require:	simple-color

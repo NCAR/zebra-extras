@@ -1,0 +1,91 @@
+#!/usr/local/bin/perl
+
+$project_dir = "/zeb/project/hongkong";
+$param_dir = "$project_dir/paramdir";
+$input_dir = "/zeb/data_ingest/ro_radar";
+$archive_dir = "/zeb/data_ingest/archive/ro_radar";
+$error_dir = "$input_dir/bad_files";
+$param_file = "$param_dir/ro_radar.params";
+$platform = "ro_radar";
+$FORMAT_PROBLEM = 8;
+$ZEB_PROBLEM = 9;
+$forever = 1;
+
+#
+# change to radar data input directory
+#
+
+chdir $input_dir;
+
+#
+# get file list
+#
+
+while (forever) {
+
+  open(FILELIST, "ls *.h8 2> /dev/null |");
+
+  # 
+  # sleep to make sure that all files are completely transferred
+  #
+  
+  sleep(30);
+
+  #
+  # move through the file list
+  #
+
+  while ($radar_file = <FILELIST>) {
+
+    chop($radar_file);
+
+    #
+    # run the radar ingest program
+    #
+
+    $retval = system("RORadarIngest $param_file $radar_file $platform");
+    $retval /= 256;
+
+    if ($retval == 0) {
+
+      # successful ingest - move file to archive directory
+
+      system("compress $radar_file");
+      system("mv $radar_file.Z $archive_dir");
+#      printf (STDERR "ingest_realtime_radar:\n");
+#      printf (STDERR "%s ingested successfully\n", $radar_file);
+
+    } elsif ($retval == $FORMAT_PROBLEM) {
+
+      # ingest problem with file - move file to error directory
+
+      system ("mv $radar_file $error_dir");
+      printf (STDERR "ingest_realtime_radar:\n");
+      printf (STDERR "%s ingested error - file problem\n", $radar_file);
+
+    } elsif ($retval == $ZEB_PROBLEM) {
+
+      printf (STDERR "ingest_realtime_radar:\n");
+      printf (STDERR "%s ingested error - ZEB PROBLEM\n", $radar_file);
+       
+      # problem with ZEB - probably ZEB is not running
+      # do nothing so file will be there when ZEB starts
+
+    } else {
+
+      system ("mv $radar_file $error_dir");
+      printf (STDERR "ingest_realtime_radar:\n");
+      printf (STDERR "%s ingested error - UNDEFINED PROBLEM\n", $radar_file);
+       
+    } 
+
+    sleep (5);
+
+  }
+
+  sleep (60);
+
+}
+
+exit(0);
+

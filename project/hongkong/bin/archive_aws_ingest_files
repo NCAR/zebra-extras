@@ -1,0 +1,36 @@
+#! /bin/csh
+#	Procedure:      archive_aws_ingest_files
+#	Version:	1.0
+#	Date:	        March 12, 1994
+#
+#	define the directory storing fresh data and that for archival
+#
+set datadir="/zeb/data_ingest/aws"
+set archivedir="/zeb/data_ingest/archive/aws/`date +%y%m%d`"
+#
+#	move the data files to the appropriate directory for further 
+#	data archival
+#
+#	first copy the tail of each file to a tmp directory, then
+#	move the file, then mv the tail back in. This is because the
+#	ingest program requires some history
+#
+
+if (! -d $archivedir) then
+  mkdir $archivedir
+endif
+
+cd $datadir
+
+mkdir tmp
+
+foreach file (*.dat)
+tail -20 $file > tmp/$file
+mv $file $archivedir
+mv tmp/$file .
+end
+
+rm -r tmp
+
+
+

@@ -1,0 +1,18 @@
+#!/bin/csh
+# 
+# Start up the Event Logger (when it has been killed)
+#
+	if ($?ZEB_CONFIG == 1) then
+		source $ZEB_CONFIG
+	else
+		echo "No config file set in ZEB_CONFIG"
+		exit 1
+	endif
+
+	echo -n 'Starting the event logger...'
+	foreach n (4 3 2 1)
+		mv -f $ZEB_LOGFILE.$n $ZEB_LOGFILE.`expr $n + 1`
+	end
+	mv -f $ZEB_LOGFILE $ZEB_LOGFILE.1
+	EventLogger -f $ZEB_LOGFILE -w &
+	sleep 1

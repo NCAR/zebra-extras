@@ -1,0 +1,20 @@
+
+colortable cidd_vel
+	xcolor DeepPink1
+	xcolor maroon
+	xcolor darkorchid
+	xcolor blue
+	xcolor royalblue
+	xcolor deepskyblue
+	xcolor mediumspringgreen
+	xcolor forestgreen
+	xcolor gray
+	xcolor tan2
+	xcolor gold1
+	xcolor yellow
+	xcolor salmon1
+	xcolor tomato
+	xcolor brown1
+	xcolor red
+	xcolor firebrick
+endtable

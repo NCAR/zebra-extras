@@ -1,0 +1,72 @@
+#!/bin/csh
+# 
+# Start up the baseline Zeb system and DataStore components, including
+# ingestors.  Designed to run without a window display available.
+#
+# Change to our home directory and pull in our environment settings.
+#
+	if ($?ZEB_CONFIG == 1) then
+		source $ZEB_CONFIG
+	else
+		echo "No config file set in ZEB_CONFIG"
+		exit 1
+	endif
+#
+# Do everything possible to insure that we start clean.
+#
+	zebstop
+	sleep 10
+	if ($?ZEB_SOCKET == 1) then
+		rm -f $ZEB_SOCKET
+	else
+		rm -f /tmp/fcc.socket
+	endif
+#
+# The message system.  Nothing else runs without it.
+#
+	echo 'starting zeb datastore system:'
+	echo '   message...'
+	message & 
+#
+# Wait until message is truly ready.  The long wait and the mstatus loop
+# are necessary in case the message startup takes a while 'waiting for the
+# internet socket to clear...'
+#
+	set exitcode=1
+	while ($exitcode)
+		sleep 5
+		mstatus > /dev/null
+		set exitcode=$status
+	end
+#
+# The timer.
+#
+	echo '   Timer...'
+	timer &
+
+	if ($HOST == $ZEB_DATASTORE) then
+	   echo -n '   dsDaemon...'
+	   if ($?ZEB_DEBUG_DS == 1) then
+		xterm -n dsDaemon -e /usr/local/bin/gdb /zeb/bin/dsDaemon &
+	   else
+	   	dsDaemon ds.config &
+	   endif
+	   sleep 10
+	   dsdump -n >/dev/null
+	endif
+#
+# Ingest modules
+#
+	if ($HOST == $ZEB_INGEST) then
+	   echo 'data ingest modules: '
+	   start_zeb_ingest_programs
+#
+#	   echo 'data archiver...'
+#	   nice +15 Archiver -device /dev/nrst9 -start 20 &
+#	   LastData LastData.config &
+#	   zmon zmon.config &
+	endif
+#
+# That's it.  This script exits and Zeb is left running, only to be
+# stopped by a zebstop or a crash.
+#

@@ -1,0 +1,17 @@
+GLOBAL
+	comment:	Display RO Sat analysis
+	pd-name:	c_ro_sat
+c_ro_sat
+	icon:			satellite
+	platform:		ro_sat
+	representation:		raster
+	field:			ir
+	color-table:		16gray
+	trigger-global:		true
+	trigger:		platform
+	icon-middle-menu:	DataAvailable
+	icon-left-menu:		standard-cap-left-menu
+	icon-right-menu:	raster-right
+	require:		raster
+	scale-mode:		auto
+	limit-proc:		raster-limit-proc

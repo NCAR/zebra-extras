@@ -1,0 +1,125 @@
+Thu Apr 28 04:56:19 1994  Gary Granger  (lantex@owsu1)
+
+	* Installed the cutting-edge Zeb version, including platform
+	  classes and single-file configuration saves.
+
+	* Modified ds.config to use platform classes where useful.
+
+	* Cleaned out /zeb/data_store/hongkong/iss.  ISS soundings
+	  now called 'class' to match directory name being used.
+	  May require some configuration changes.
+
+	* Split zebstart into start_datastore and zebstart.
+	  start_datastore starts the message handler, timer, daemon,
+	  and the zeb ingest processes.  zebstart restarts only
+	  the display manager.  start_realtime runs start_datastore
+	  and start_zeb_aux_ingest.  The start_realtime script is run
+	  from /etc/rc.user at boot time.
+
+	* start_event_logger, zeb_window, and start_realtime all
+	  available on olwm menu.
+
+	* More configuration work.  Split global menus and procedures
+	  into modules/global and require'd it in gp.init.
+
+	* Installed RasterPlot.c fix for upside-down images.  
+	  Re-converted all of the ro_sat images.
+
+Fri Apr 22 00:49:59 1994  Gary Granger  (lantex@owsu1)
+
+	* Removed (or at least tried to) all dependencies on 
+	  LD_LIBRARY_PATH.  It is no longer set in .cshrc, and is 
+	  explicitly unset in zeb_window.  RDSS libraries were compiled
+	  without it, using gcc.  Zeb shouldn't need it, though it might
+	  not hurt for the whole tree to be re-compiled with the new 
+	  RDSS libraries and making sure LD_LIBRARY_PATH is unset.
+	  
+	* ROSatImageIngest.c, overlay.c: Image lines go from high
+	  latitudes to low latitudes, while image grid expected to go
+	  from low to high.  So I reversed the order scan lines are
+	  placed into the image data, and this has fixed the upside-down
+	  satellite images (must have been a bug before which showed
+	  the images right-side-up).  All of the image files archived in
+	  /zeb/data_ingest/archive/ro_sat were re-ingested with the
+	  new ingestor.
+
+	* Added exit codes to class_ingest and interpret those codes in
+	  ingest_realtime_soundings.perl.
+
+Thu Apr 21 21:33:30 1994  Gary Granger  (lantex@owsu1)
+
+	* ds.config: Commented out procedure cleanup since not used at
+	  the moment and there was no CleanUp procedure for it to call,
+	  which caused the daemon to crash two hours into execution.
+	  CleanupScan and DoTruncate procedures added, but not set-up
+	  for correct platforms or times, and it won't be used until
+	  procedure cleanup is un-commented.
+
+	* ds.config: Commented the lantau/prof platform, since it didn't
+	  have a data directory and hence kept causing warning messages.
+
+Thu Apr 21 12:55:05 1994  Gary Granger  (lantex@owsu1)
+
+	* The ping protocol seems to be very mixed-up.
+	  message.c: MTAP case moved *above* MT_PING so that pings which
+	  fall through don't fall into MT_TAP.  Accept both MT_PING and
+	  MT_CPING for pings to the message handler, since the handler 
+	  checks for its own name anyway.  
+	  zmon.c and msg_ping.c: Send MT_CPING in all cases, regardless
+	  of whether pinging a message client or the handler itself.  Zmon
+	  now accepts redundant host and process names in the config file,
+	  such as the config file written for this project in 
+	  /zeb/project/hongkong/zmon.config.
+
+	* '/' in platform names replaced with '-' to get cache file names.
+
+	* Fixed the Archiver: tar command line now limited to what fits
+	  into the command line buffer
+
+	* ConfigVars.c: tries Basedir/project/ZEB_PROJECT first, and if no
+	  access tries Basedir/ZEB_PROJECT, and finally resorts to "." if
+	  necessary.  Changed zebstart to set ZEB_PROJECT to "hongkong".
+	  The project directory is used by Archiver to locate the
+	  DumpedFiles file.
+
+	* Ingest source directories copied to new Zeb source tree, cleaned
+	  out, Imakefile's updated, and programs recompiled and re-installed.
+	  Now possible to build and install all of the ingest programs used
+	  for the hongkong project by doing 'make install' in /zeb/src/ingest.
+
+
+Wed Apr 20 12:08:17 1994  Gary Granger  (lantex@owsu1)
+
+	* netcdf library and include files installed under /zeb/netcdf
+
+	* EventLogger now starts up in window manager mode and by default
+	  saves log messages to the file $ZEBHOME/zeb.logfile (both
+	  zebstart and start_eventlogger changed).
+
+	* FORTRAN SC2.0.1 found in /usr/local/lang-2.0/SC2.0.1.
+
+	* X found in /usr/local/x11r5/{lib,include}
+
+	* Zeb source on stout tagged TAG_LANTEX_940420, tarred, and
+	  ftp'ed to owsu1.
+
+	* Moved new.bin, new.lib, bin_4, bin, lib, local_lib, and local_bin
+	  underneath /zeb/backup.  After enough testing, these can all
+	  be deleted.
+
+-------------------------------------------------------------------------
+Notes for future reference: 
+
+It would be nice to separate the display menu in the iconbar into a
+separate file which could be changed automatically as new displays are
+saved.  Users could have the option of adding recently-saved
+configurations to the iconbar menu.
+
+When installing a read-only source tree (as is created by tarfile: target
+under stout:/zeb), the install target fails in src/etc/icons if the icon
+files have been installed once before, because the existing installed
+files do not have write permission.  Changing to 'install' works, and
+doing a 'rm $(LIBDIR)/icons/[a-z]*' is probably not a good idea.  Maybe do
+'foreach icon ([a-z]*); rm -f $(LIBDIR)/icons/$icon; cp $icon
+$(LIBDIR)/icons; end'.
+

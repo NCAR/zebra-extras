@@ -1,0 +1,15 @@
+global
+	pd-name:	skewt-template
+	plot-mode:	real-time
+	plot-time:	now
+	plot-type:	skewt
+skewt
+	color-table:	Skew-t
+	icon:	sounding
+	icon-left-menu:		lx-skewt-left
+	icon-middle-menu:	DataAvailable
+	icon-right-menu:	feet-km
+	platform:	iss/class
+	representation:	skewt
+	trigger:	platform
+	require:	skewt, lx-skewt

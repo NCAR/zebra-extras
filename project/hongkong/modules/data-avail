@@ -1,0 +1,60 @@
+
+!
+! No spaces in these lines!
+!
+set sounding_sites "ro_hk_sdg,chenzhou_sdg,ganzhou_sdg,wuzhou_sdg,guangzhou_sdg,shantou_sdg,xisha_sdg,taipei_sdg"
+
+!
+! The menu for modifying the menu-platform list
+!
+define widget data-platforms intmenu 'data available platform lists'
+	title 'Change Data Platforms'
+	line
+	entry 'Reset List' \
+		'set result pd_removeparam(icon_component, "menu-platform")'
+	line
+	entry 'Set to all soundings' \
+   'parameter #icon_component "menu-platform" #sounding_sites' \
+   (ListPosition("chenzhou_sdg", PDParam(icon_component,"menu-platform")) > -1)
+	line
+	entry 'Add AWS mesonet' \
+   'parameter #icon_component "menu-platform" aws' \
+   (ListPosition("aws", PDParam(icon_component,"menu-platform")) > -1)
+	entry 'Add RO Hong Kong' 'addplatlist ro_hk_sdg' \
+   (ListPosition("ro_hk_sdg", PDParam(icon_component,"menu-platform")) > -1)
+	entry 'Add ISS CLASS' 'addplatlist iss/class' \
+   (ListPosition("iss/class", PDParam(icon_component,"menu-platform")) > -1)
+	line
+	entry 'Add ISS 915 profiler (high)' 'addplatlist iss/prof915h' \
+   (ListPosition("iss/prof915h", PDParam(icon_component,"menu-platform")) > -1)
+	entry 'Add ISS 915 profiler (low)' 'addplatlist iss/prof915l' \
+   (ListPosition("iss/prof915l", PDParam(icon_component,"menu-platform")) > -1)
+	entry 'Add Lantau profiler' 'addplatlist lantau/prof' \
+   (ListPosition("lantau/prof",PDParam(icon_component,"menu-platform")) > -1)
+	line
+	entry 'Add RO Radar' 'addplatlist ro_radar' \
+   (ListPosition("ro_radar", PDParam(icon_component,"menu-platform")) > -1)
+	entry 'Add LIDAR' 'addplatlist lidar' \
+   (ListPosition("lidar", PDParam(icon_component,"menu-platform")) > -1)
+	entry 'Add RO Satellite' 'addplatlist ro_sat' \
+   (ListPosition("ro_sat", PDParam(icon_component,"menu-platform")) > -1)
+endmenu
+
+
+procedure addplatlist plat string
+
+	if (pd_defined (icon_component, "menu-platform") = true)
+		local list PDParam(icon_component, "menu-platform")
+		local pos ListPosition(plat, list)
+		if (pos > -1)
+			local newlist RmElement(list, pos)
+		else
+			local newlist concat3(list,",",plat)
+		endif
+		parameter #icon_component "menu-platform" #newlist
+	else
+		parameter #icon_component "menu-platform" #plat
+	endif
+
+endprocedure
+	
