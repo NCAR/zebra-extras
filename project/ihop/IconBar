@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.10 2002-05-19 16:41:32 burghart Exp $
+! $Id: IconBar,v 1.11 2002-05-20 21:55:45 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -50,6 +50,7 @@ define widget iconbar menubar " "
 		line
 		entry 'Data store contents' 'shell "dsdwidget &"'
 		entry 'Data store management' 'shell "dsmanage &"'
+		entry 'Event logger' 'shell "EventLogger -w &"'
 		line
 		entry 'Save Screen Image' 'shell "grabpng &"'
 		entry 'Print Screen Image' 'shell "printWin &"'
