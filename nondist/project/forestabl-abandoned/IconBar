@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.6 1999-02-11 23:56:33 granger Exp $
+! $Id: IconBar,v 1.7 1999-03-01 23:47:07 granger Exp $
 !
 ! All the definitions required to make the iconbar work.
 !
@@ -87,9 +87,12 @@ define widget iconbar menubar " "
 		entry 'Oak Ridge (ISS 2)' 'display iss2' (dm$config = 'iss2')
 		entry 'Lineplot (ISS 2)' 'display lineplot-iss2' \
 			(dm$config = 'lineplot-iss2')
-		entry 'Park Falls 99 (ISS 3)' 'display iss3' (dm$config = 'iss3')
-		entry 'Lineplot (ISS 3)' 'display lineplot-iss3' \
-			(dm$config = 'lineplot-iss3')
+!		entry 'Park Falls 99 (ISS 3)' 'display iss3' (dm$config = 'iss3')
+!		entry 'Lineplot (ISS 3)' 'display lineplot-iss3' \
+!			(dm$config = 'lineplot-iss3')
+		entry 'Park Falls 99 (ISS 4)' 'display iss4' (dm$config = 'iss4')
+		entry 'Lineplot (ISS 4)' 'display lineplot-iss4' \
+			(dm$config = 'lineplot-iss4')
 		line
 		entry 'Empty screen' 'display empty' (dm$config = 'empty')
 	endmenu
