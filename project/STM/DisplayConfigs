@@ -44,5 +44,5 @@ endconfig
 !
 ! The zoom procedure
 !
-require "zoom"
+read "dmmodules/zoom"
 
