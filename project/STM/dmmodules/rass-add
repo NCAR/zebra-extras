@@ -5,11 +5,11 @@ procedure rass-add platform string field string window string
 !
 ! Actually check things?
 !
-	if (not substring (platform, 'sonde') and not substring (platform, "rwptemp"))
-		message 'This is not a sonde or rass temperature platform!'
-		beep
-		return
-	endif
+!	if (not substring (platform, 'sonde') and not substring (platform, "rwptemp"))
+!		message 'This is not a sonde or rass temperature platform!'
+!		beep
+!		return
+!	endif
 !
 ! OK, throw it in to all components in the window.
 !
