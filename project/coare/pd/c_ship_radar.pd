@@ -1,0 +1,38 @@
+GLOBAL
+	pd-name:	c_ship_radar
+	comment:	Display shipborne data.
+	plot-mode:	real-time
+	plot-type:	CAP
+	radar-space:	true
+	time-frames:	2
+	altitude:	-1
+	x-min:		-150
+	x-max:		150
+	y-min:		-150
+	y-max:		150
+c_ship_radar
+	platform:	toga_rad
+	field:		reflectivity
+	representation:	raster
+	icon:		radar
+	altitude-control:	true
+	color-table:	wild_new
+	icon-middle-menu:	radar-middle
+	trigger-global:	true
+	trigger:		toga_rad
+	icon-right-menu:	DataAvailable
+	require:	radar
+	radar-space:	true
+	contour-reflectivity-center:	30
+	contour-reflectivity-step:	8
+	scale-mode:			auto
+c_rings
+	platform:	toga_rad
+	representation:	overlay
+	field:		range-rings
+	color:		white
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-c_belly_analysis.pdmenu
+	icon:		rings
+	ring-interval:	20
+	azimuth-interval:	30

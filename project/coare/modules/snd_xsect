@@ -1,0 +1,147 @@
+!
+! Sounding cross-section platform entry
+!
+require simple-color
+require contour
+
+define widget snd_xs_platform form 'Sounding platforms'
+	noheader
+	popup snd_xs_popup
+	label cross 'Sounding Cross-section Platform Selection'
+	label comp 'component' color gray95 width 1
+	newline
+	label l1 'Platforms:'
+	blank plat ' ' command 'snd_xs_enter' width 600
+	newline
+!	button help 'Help' command 'help xsectplatform'
+!	button help 'List' command 'dm "help intro fest_soundings"'
+	button current 'Get Current' command 'snd_xs_getcurrent'
+	button clear 'Clear' command 'snd_xs_clear' 
+	button apply 'Apply' command 'snd_xs_enter'
+	button dismiss 'Dismiss' color red command 'popdown #ui$form'
+	newline
+	button s00 'chuuk'	command 'snd_xs_toggle sounding/chuuk'
+	button s01 'darwin'	command 'snd_xs_toggle sounding/darwin'
+	button s02 'dc8a'	command 'snd_xs_toggle sounding/dc8a'
+	button s03 'dc8b'	command 'snd_xs_toggle sounding/dc8b'
+	button s04 'exp3'	command 'snd_xs_toggle sounding/exp3'
+	button s05 'gove'	command 'snd_xs_toggle sounding/gove'
+	button s06 'guam'	command 'snd_xs_toggle sounding/guam'
+	button s07 'hongkong'	command 'snd_xs_toggle sounding/hongkong'
+	button s08 'hakuho_maru' command 'snd_xs_toggle sounding/hakuho_maru'
+	button s09 'kapinga'	command 'snd_xs_toggle sounding/kapinga'
+	button s10 'kavieng'	command 'snd_xs_toggle sounding/kavieng'
+	button s11 'korror'	command 'snd_xs_toggle sounding/korror'
+	newline
+	button s12 'kwajalein'	command 'snd_xs_toggle sounding/kwajalein'
+	button s13 'majuro'	command 'snd_xs_toggle sounding/majuro'
+	button s14 'manus'	command 'snd_xs_toggle sounding/manus'
+	button s15 'misima'	command 'snd_xs_toggle sounding/misima'
+	button s16 'moana_wave'	command 'snd_xs_toggle sounding/moana_wave'
+	button s17 'natsu'	command 'snd_xs_toggle sounding/natsu'
+	button s18 'nauru'	command 'snd_xs_toggle sounding/nauru'
+	button s19 'p3a'	command 'snd_xs_toggle sounding/p3a'
+	button s20 'p3b'	command 'snd_xs_toggle sounding/p3b'
+	button s21 'pohnpei'	command 'snd_xs_toggle sounding/pohnpei'
+	button s22 'santacruz'	command 'snd_xs_toggle sounding/santacruz'
+	newline
+	button s23 'sci1'	command 'snd_xs_toggle sounding/sci1'
+	button s24 'ship5'	command 'snd_xs_toggle sounding/ship5'
+	button s25 'singapore'	command 'snd_xs_toggle sounding/singapore'
+	button s26 'thursday'	command 'snd_xs_toggle sounding/thursday'
+	button s27 'yap'	command 'snd_xs_toggle sounding/yap'
+enddef
+
+!
+! Initialize a zig-zag cross-section platform widget
+!
+procedure snd_xs_popup
+	formtext #ui$form comp #icon_component
+	local current pd_param('global', 'platform', 'string')
+	if (current = '')
+		formtext #ui$form plat ''
+	else
+		formtext #ui$form plat #current
+	endif
+endprocedure
+
+!
+! Actually put this platform list into the plot component
+!
+procedure snd_xs_enter
+	local plat getftext(ui$form,'plat')
+	local comp getftext(ui$form,'comp')
+	if (plat = '')
+		parameter #comp 'platform' ''
+		parameter global 'platform' ''
+	else
+		parameter global 'platform' #plat
+		parameter #comp 'platform' #plat
+	endif
+endprocedure
+
+!
+! Get the current platform list from the plot component
+!
+procedure snd_xs_getcurrent
+	local comp getftext(ui$form,'comp')
+	local current pd_param(comp, 'platform', 'string')
+	if (current = '')
+		formtext #ui$form plat ''
+	else
+		formtext #ui$form plat #current
+	endif
+endprocedure
+
+!
+! Clear the list
+!
+procedure snd_xs_clear
+	formtext #ui$form plat ''
+endprocedure
+
+!
+! Toggle the presence of a given upper-air platform.
+!
+procedure snd_xs_toggle platform string
+	local oldplat getftext(ui$form,'plat')
+!
+! See if it's already there.  If so, we remove.
+!
+	if (substring (oldplat, platform))
+		local newplat substr_remove(oldplat, platform)
+!
+! Otherwise we just add it.
+!
+	else
+	    if (oldplat = '')
+		local newplat platform
+	    else
+		local newplat concat3(oldplat,',',platform)
+	    endif
+	endif
+!
+! Update the widget
+!
+	if (newplat = '')
+		formtext #ui$form plat ''
+	else
+		formtext #ui$form plat #newplat
+	endif
+endprocedure
+
+!
+! The right button for sounding cross-section data.
+!
+define widget snd_xsect-right intmenu 'Snd right'
+	title 'Sounding contour plot options'
+	line
+	entry 'Select Platforms' 'popup snd_xs_platform'
+	submenu 'Contour type' 'contour-types'
+	submenu 'Label options' 'contour-label-options'
+	entry 'Color-coded contours' 'ToggleBoolean color-mono' \
+		(PDParam(icon_component,'color-mono') <> 'true')
+	submenu 'Contour color (when mono)' 'simple-color'
+	submenu 'Line width' linewidth
+endmenu
+

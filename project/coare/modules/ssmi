@@ -1,0 +1,97 @@
+!
+! Menus and such for SSMI raster components
+!
+
+!
+! Require CTSet function
+!
+require color-table
+
+!
+! Middle button menu for c_ssmi component
+!
+define widget ssmi-color-tables intmenu 'ctbl'
+	title 'SSMI Color tables'
+	line
+!	entry 'SSMI surface type' 'CTSet SurfaceType' \
+!		(PDParam(icon_component, 'color-table') = 'SurfaceType')
+	entry 'Black and white stepped' 'CTSet 16gray' \
+		(PDParam(icon_component, 'color-table') = '16gray')
+	entry 'Black and white log' 'CTSet newgray' \
+		(PDParam(icon_component, 'color-table') = 'newgray')
+	entry 'scook table' 'CTSet scook' \
+		(PDParam(icon_component, 'color-table') = 'scook')
+	entry 'Hot and cold' 'CTSet hotcold' \
+		(PDParam (icon_component, 'color-table') = 'hotcold')
+	entry 'Wild color table' 'CTSet wild' \
+		(PDParam (icon_component, 'color-table') = 'wild')
+	entry 'Rainbow' 'CTSet Rainbow' \
+		(PDParam (icon_component, 'color-table') = 'Rainbow')
+endmenu
+
+define widget ssmi-middle intmenu 'SSMI field menu'
+	title 'Antenna Temperatures (K)'
+	line
+	entry '19 GHz V-pol' 'ssmi_field ta19v' \
+		(PDParam (icon_component, "field") = "ta19v")
+	entry '19 GHz H-pol' 'ssmi_field ta19h' \
+		(PDParam (icon_component, "field") = "ta19h")
+	entry '22 GHz V-pol' 'ssmi_field ta22v' \
+		(PDParam (icon_component, "field") = "ta22v")
+	entry '37 GHz V-pol' 'ssmi_field ta37v' \
+		(PDParam (icon_component, "field") = "ta37v")
+	entry '37 GHz H-pol' 'ssmi_field ta37h' \
+		(PDParam (icon_component, "field") = "ta37h")
+	entry '85 GHz V-pol' 'ssmi_field ta85v' \
+		(PDParam (icon_component, "field") = "ta85v")
+	entry '85 GHz H-pol' 'ssmi_field ta85h' \
+		(PDParam (icon_component, "field") = "ta85h")
+	line
+	entry 'Brightness Temperatures (K)' 'dm beep'
+	line
+	entry '19 GHz V-pol' 'ssmi_field tb19v' \
+		(PDParam (icon_component, "field") = "tb19v")
+	entry '19 GHz H-pol' 'ssmi_field tb19h' \
+		(PDParam (icon_component, "field") = "tb19h")
+	entry '22 GHz V-pol' 'ssmi_field tb22v' \
+		(PDParam (icon_component, "field") = "tb22v")
+	entry '37 GHz V-pol' 'ssmi_field tb37v' \
+		(PDParam (icon_component, "field") = "tb37v")
+	entry '37 GHz H-pol' 'ssmi_field tb37h' \
+		(PDParam (icon_component, "field") = "tb37h")
+	entry '85 GHz V-pol' 'ssmi_field tb85v' \
+		(PDParam (icon_component, "field") = "tb85v")
+	entry '85 GHz H-pol' 'ssmi_field tb85h' \
+		(PDParam (icon_component, "field") = "tb85h")
+	line
+	entry 'Rainfall rate (mm/hr)' 'ssmi_field rr' \
+		(PDParam (icon_component, "field") = "rr")
+!	line
+!	entry 'Surface type' 'param #icon_component field sfcidx' \
+!		(PDPparam (icon_component, "field") = "sfcidx")
+!	line
+!	submenu 'Color Table' ssmi-color-tables
+endmenu
+
+
+procedure ssmi_field fld string
+	local plat PDParam(icon_component,"platform")
+	local ta_list 'ta19v,ta19h,ta22v,ta37v,ta37h,ta85v,ta85h'
+	if (plat = 'ssmi_s2_tb')
+		local plat 'ssmi_s2'
+	elseif (plat = 'ssmi_s4_tb')
+		local plat 'ssmi_s4'
+	elseif (plat = 'ssmi_s5_tb')
+		local plat 'ssmi_s5'
+	endif
+	if (ListPosition(fld,ta_list) < 0)
+		local plat concat(plat,"_tb")
+		param #icon_component platform #plat
+		param #icon_component field #fld
+	else
+		param #icon_component platform #plat
+		param #icon_component field #fld
+	endif
+endprocedure
+
+

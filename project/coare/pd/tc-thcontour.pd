@@ -1,0 +1,21 @@
+global
+	pd-name:		tc-thcontour
+tc-thcontour
+	axis-bottom:               false
+	axis-left:                 false
+	color-table:		   Contour
+	disable:                   false
+	do-side-annotation:        true
+	field-select-command:      th-coare-fselect
+	icon:                      iss-contour
+	icon-left-menu:            medium-cap-left-menu
+	icon-middle-menu:          FieldMenu
+	icon-right-menu:           contour-right
+	limit-proc:		   thc-climits
+	platform:                  null
+	representation:            contour
+	require:                   contour, time-height
+	trigger:                   null
+	x-field:                   time
+	y-field:                   wheight
+	z-field:                   w_wind

@@ -1,0 +1,97 @@
+global
+	 pd-name:                    location-template
+	 plot-mode:                  history 
+	 plot-time:                  15-Dec-92,20:00:00 
+	 plot-type:                  CAP 
+p_map
+	 color:                      yellow 
+	 field:                      map 
+	 icon:                       map 
+	 icon-left-menu:             minimal-cap-left-menu 
+	 icon-middle-menu:           simple-color 
+	 icon-right-menu:            linewidth 
+	 line-width:                 0 
+	 platform:                   coare 
+	 representation:             overlay 
+	 require:                    simple-color 
+p_llgrid
+	 color:                      tan 
+	 field:                      grid 
+	 icon:                       grid 
+	 icon-left-menu:             minimal-cap-left-menu 
+	 icon-right-menu:            llgrid-right 
+	 lat-lon:                    true 
+	 line-width:                 0 
+	 platform:                   irrelevant 
+	 representation:             overlay 
+	 require:                    grid, simple-color 
+	 x-spacing:                  300 
+	 y-spacing:                  300 
+p_active_loc
+	 active-icon:                true 
+	 color:                      green 
+	 field:                      location 
+	 icon:                       sounding-small 
+	 icon-left-menu:             minimal-cap-left-menu 
+	 icon-right-menu:            location-options 
+	 label:                      platform 
+	 label-size:                 10 
+	 location-time:              observation 
+	 platform:                   chuuk,darwin,gove,guam,hongkong,hakuho_maru,korror,moana_wave,kwajalein,majuro,misima,pohnpei,santacruz,singapore,yap,natsu,dc8a,dc8b,p3a,p3b 
+	 posicon-left-menu:          al-send-other-window 
+	 posicon-middle-menu:        al-send-other-window 
+	 posicon-right-menu:         location-options 
+	 representation:             overlay 
+	 require:                    location,active-loc 
+	 time-label:                 false 
+p_iss_loc
+	 active-icon:                true 
+	 color:                      white 
+	 field:                      location 
+	 icon:                       iss-loc 
+	 icon-left-menu:             minimal-cap-left-menu 
+	 icon-right-menu:            location-options 
+	 label:                      platform 
+	 label-size:                 10 
+	 location-time:              observation 
+	 platform:                   kapinga,kavieng,manus,nauru,exp3,sci1 
+	 posicon-left-menu:          minimal-cap-left-menu 
+	 posicon-middle-menu:        iss-to-other 
+	 posicon-right-menu:         location-options 
+	 representation:             overlay 
+	 require:                    location, iss-cap 
+	 time-label:                 false 
+p_active_loc.0
+	 active-icon:                true 
+	 color:                      cyan 
+	 field:                      location 
+	 icon:                       prof-sm 
+	 icon-left-menu:             minimal-cap-left-menu 
+	 icon-right-menu:            location-options 
+	 label:                      platform 
+	 label-size:                 10 
+	 location-time:              point 
+	 platform:                   moana_h,chris,biak 
+	 posicon-left-menu:          al-send-other-window 
+	 posicon-middle-menu:        al-send-other-window 
+	 posicon-right-menu:         location-options 
+	 representation:             overlay 
+	 require:                    location,active-loc 
+	 time-label:                 false 
+p_active_loc.1
+	 active-icon:                true 
+	 color:                      HotPink 
+	 field:                      location 
+	 icon:                       rass-sm 
+	 icon-left-menu:             minimal-cap-left-menu 
+	 icon-right-menu:            location-options 
+	 label:                      platform 
+	 label-size:                 10 
+	 location-time:              point 
+	 platform:                   moana_r 
+	 posicon-left-menu:          al-send-other-window 
+	 posicon-middle-menu:        al-send-other-window 
+	 posicon-right-menu:         location-options 
+	 representation:             overlay 
+	 require:                    location,active-loc 
+	 time-label:                 false 

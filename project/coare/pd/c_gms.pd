@@ -1,0 +1,22 @@
+GLOBAL
+	pd-name:	c_gms
+c_gms
+	altitude:	0.0
+	platform:	gms
+	field:		ir
+	representation:	raster
+	color-table:	ir_gray
+	raster-color-table:	ir_gray
+	contour-color-table:	Contour
+	filled-contour-color-table:	Contour
+	icon:		satellite
+	icon-left-menu:		raster-left
+	icon-middle-menu:	gms-middle
+	icon-right-menu:	DataAvailable
+	ir-center:	280.0
+	ir-highlight:	205
+	ir-highlight-color:	red
+	ir-highlight-range:	6.0
+	ir-step:	12
+	require:	gms
+	scale-mode:	manual

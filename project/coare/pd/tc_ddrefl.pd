@@ -1,0 +1,20 @@
+global
+	pd-name:		tc_ddrefl
+tc_ddrefl
+	color:                     cyan
+	color-table:               gcook16
+	do-labels:                 true
+	field:                     reflectivity
+	icon:                      ddop
+	icon-left-menu:            standard-cap-left-menu
+	icon-middle-menu:          FieldMenu
+	icon-right-menu:           dd-contour-right
+	label-blanking:            false
+	limit-proc:                contour-putup-adj
+	line-width:                3
+	platform:                  jorgensen
+	reflectivity-center:       30
+	reflectivity-step:         6.0000
+	representation:            contour
+	require:                   contour, simple-color, ddop
+	scale-mode:                manual

@@ -1,0 +1,29 @@
+!
+! Component intended for the addition of RASS traces.
+!
+global
+	pd-name:	c_rasstrace
+c_rasstrace
+	adj-axis-side:	l
+	axis-bottom:	false
+	axis-left:	false
+	field-color:	red
+	field-select-command:	select-zfield
+	icon:	iss-tdry
+	icon-left-menu:	minimal-cap-left-menu
+	icon-middle-menu:	FieldMenu
+!	icon-right-menu:	DataAvailable
+	annot-left-menu:	minimal-cap-left-menu
+	annot-middle-menu:	FieldMenu
+	annot-right-menu:	simple-color
+	platform:	kapinga_r
+	representation:	obs
+	require:	select-zfield, simple-color
+	time-annot:	false
+	x-field:	time
+	y-field:	height
+	z-field:	vt
+	zfield-middle-menu:	FieldMenu
+	z-annot-active:		true
+	z-justify:	base
+	z-scale:	0.01

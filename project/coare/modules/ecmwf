@@ -1,0 +1,4 @@
+!
+! Ugliness.
+!
+dm 'shell "hackmsg /data/tc-workshop/zeb/ecmwf.msg .ecmwf"'

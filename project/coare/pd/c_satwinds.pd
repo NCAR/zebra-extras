@@ -1,0 +1,18 @@
+!
+! Satellite winds component, kind of intended for ERS-1 and other, similar
+! things that come along.
+!
+global
+	pd-name:	c_satwinds
+c_satwinds
+	platform:	SOMETHING
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.005
+	color:		green
+	degrade:	2
+	icon:		ers1
+	icon-middle-menu:	DataAvailable
+	icon-right-menu:	satwinds-right
+	require:	satwinds

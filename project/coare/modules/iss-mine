@@ -1,0 +1,45 @@
+!
+! Support for active ISS locations.
+!
+
+define widget send-iss intmenu 'iss sender'
+        title 'ISS Display'
+        line
+        entry 'Display station in other window' 'iss-select'
+endmenu
+
+
+define widget mysend-iss intmenu 'iss sender'
+	title 'ISS Display'
+	line
+	entry 'Display station in other window' 'iss-select'
+	entry 'Display station in all windows' 'myiss-select'
+endmenu
+
+define widget minesend-iss intmenu 'iss sender'
+	title 'ISS Display'
+	line
+	entry 'Display station in other window' 'mine-iss-select'
+endmenu
+
+
+!
+! Stuff called out of the above
+!
+procedure iss-select
+	local dmcmd quote(concat('NewTweakISS ', icon_platform))
+	dm #dmcmd
+endprocedure
+!
+! Stuff called out of the above
+!
+procedure myiss-select
+	local dmcmd quote(concat('MyTweakISS ', icon_platform))
+	dm #dmcmd
+endprocedure
+
+procedure mine-iss-select
+	local dmcmd quote(concat('MineTweakISS ', icon_platform))
+	dm #dmcmd
+endprocedure
+

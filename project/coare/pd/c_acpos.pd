@@ -1,0 +1,19 @@
+!
+! Generic aircraft track component.
+!
+GLOBAL
+	pd-name:	c_acpos
+c_acpos
+	representation:	track
+	platform:	n43rf
+	trigger:	n43rf	
+!	trigger-global:	true
+	time-period:	2h
+	show-position:	true
+	position-icon:	littleplane
+	icon:		littleplane
+	sa-scale:	0.025
+	line-width:	3
+	icon-left-menu:		track-left
+	icon-middle-menu:	track-color
+	icon-right-menu:	linewidth

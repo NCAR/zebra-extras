@@ -1,0 +1,22 @@
+global
+	pd-name:		tc-sndwinds
+tc-sndwinds
+	axis-bottom:		false
+	axis-left:		false
+	axis-t-tic-interval:	7200s
+	barb-scale:		10
+	color-mono:		true
+	color:			cyan
+	data-skip:		0
+	icon:			iss-prof
+	icon-left-menu:		minimal-cap-left-menu
+	icon-middle-menu:	time-height-winds
+	icon-right-menu:	DataAvailable
+	platform:		null
+	representation:		wind
+	representation-style:	barb
+	require:		xywind
+	trigger:		platform
+	vec-scale:		2
+	x-field:		time
+	y-field:		alt

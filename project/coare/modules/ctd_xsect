@@ -1,0 +1,125 @@
+!
+! CTD cross-section platform entry
+!
+require simple-color
+require contour
+
+define widget ctd-platform form 'CTD platforms'
+	noheader
+	popup ctd_xs_popup
+	label cross 'CTD Cross-section Platform Selection'
+	label comp 'component' color gray95 width 1
+	newline
+	label l1 'Platforms:'
+	blank plat ' ' command 'ctd_xs_enter' width 300
+	newline
+!	button help 'Help' command 'help xsectplatform'
+!	button help 'List' command 'dm "help intro fest_soundings"'
+	button current 'Get Current' command 'ctd_xs_getcurrent'
+	button clear 'Clear' command 'ctd_xs_clear' 
+	button apply 'Apply' command 'ctd_xs_enter'
+	button dismiss 'Dismiss' color red command 'popdown #ui$form'
+	newline
+	button nat	'nat'		command 'ctd_xs_toggle nat_ctd'
+	button vickers	'vickers'	command 'ctd_xs_toggle vickers_ctd'
+	button wecoma	'wecoma'	command 'ctd_xs_toggle wecoma_ctd'
+	button moana	'moana'		command 'ctd_xs_toggle moana_ctd'
+	button alis	'alis'		command 'ctd_xs_toggle alis_ctd'
+	button malaita	'malaita'	command 'ctd_xs_toggle malaita_ctd'
+	button noroit	'noroit'	command 'ctd_xs_toggle noroit_ctd'
+	button kexue	'kexue'		command 'ctd_xs_toggle kexue_ctd'
+enddef
+
+!
+! Initialize a zig-zag cross-section platform widget
+!
+procedure ctd_xs_popup
+	formtext #ui$form comp #icon_component
+	local current pd_param('global', 'platform', 'string')
+	if (current = '')
+		formtext #ui$form plat ''
+	else
+		formtext #ui$form plat #current
+	endif
+endprocedure
+
+!
+! Actually put this platform list into the plot component
+!
+procedure ctd_xs_enter
+	local plat getftext(ui$form,'plat')
+	local comp getftext(ui$form,'comp')
+	if (plat = '')
+		parameter #comp 'platform' ''
+		parameter global 'platform' ''
+	else
+		parameter global 'platform' #plat
+		parameter #comp 'platform' #plat
+	endif
+endprocedure
+
+!
+! Get the current platform list from the plot component
+!
+procedure ctd_xs_getcurrent
+	local comp getftext(ui$form,'comp')
+	local current pd_param(comp, 'platform', 'string')
+	if (current = '')
+		formtext #ui$form plat ''
+	else
+		formtext #ui$form plat #current
+	endif
+endprocedure
+
+!
+! Clear the list
+!
+procedure ctd_xs_clear
+	formtext #ui$form plat ''
+endprocedure
+
+!
+! Toggle the presence of a given upper-air platform.
+!
+procedure ctd_xs_toggle platform string
+	local oldplat getftext(ui$form,'plat')
+!
+! See if it's already there.  If so, we remove.
+!
+	if (substring (oldplat, platform))
+		local newplat substr_remove(oldplat, platform)
+!
+! Otherwise we just add it.
+!
+	else
+	    if (oldplat = '')
+		local newplat platform
+	    else
+		local newplat concat3(oldplat,',',platform)
+	    endif
+	endif
+!
+! Update the widget
+!
+	if (newplat = '')
+		formtext #ui$form plat ''
+	else
+		formtext #ui$form plat #newplat
+	endif
+endprocedure
+
+!
+! The right button CTD cross-section data.
+!
+define widget ctd-right intmenu 'CTD right'
+	title 'CTD contour plot options'
+	line
+	entry 'Select Platforms' 'popup ctd-platform'
+	submenu 'Contour type' 'contour-types'
+	submenu 'Label options' 'contour-label-options'
+	entry 'Color-coded contours' 'ToggleBoolean color-mono' \
+		(PDParam(icon_component,'color-mono') <> 'true')
+	submenu 'Contour color (when mono)' 'simple-color'
+	submenu 'Line width' linewidth
+endmenu
+

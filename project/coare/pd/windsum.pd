@@ -1,0 +1,50 @@
+GLOBAL
+	pd-name:	windsum
+	plot-mode:	real-time
+	plot-type:	xygraph
+	axis-bottom-space:	60
+	axis-left-space:	70
+	axis-right-space:	70
+	xy-series-span:		720m
+	xy-data-mode:		series
+	xy-scale-y-mode:	manual
+	xy-scale-x-mode:	autoscale
+	xy-axis-b-tic-interval:	60m
+	xy-axis-l-tic-interval:	1000.0
+	xy-axis-r-tic-interval: 0.5
+	xy-axis-l-font-scale:	0.018
+	xy-axis-r-font-scale:	0.018
+	xy-axis-b-font-scale:	0.018
+	height-scale-y-max:	7000.0
+	alt-scale-y-max:	7.0
+	global-series-span-proc: adj_series_span
+	global-icon-left-menu: iss-global-util
+	global-icon-middle-menu: iss-global-winds
+!
+! List of components that may be overlayed on this plot.
+!
+	contour-pd:	time_height
+	contour-comp:	915Contourh
+	woverlay-pd:	time_height
+	woverlay-comp:	omegawind
+	component-list:	915profh
+	xy-adj-axis-side: b
+	trigger:	30m
+915profh
+	icon-middle-menu:	time-height-winds
+	icon-right-menu:	DataAvailable
+	menu-platform:	kapinga/915profh, manus/915profh, nauru/915profh
+	adj-axis-side: l
+	representation:	wind
+	trigger:	kapinga/prof915h
+	platform:	kapinga/prof915h
+	max-platform:	5
+	icon:		iss-prof
+	icon-color:	green
+	icon-background: black
+	x-field:	time
+	y-field:	height
+	data-skip:	0
+	axis-l-color:	green
+	axis-b-label:	time
+	axis-l-label:	915 Profiler Altitude (m agl)

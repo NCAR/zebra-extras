@@ -1,0 +1,20 @@
+global
+	pd-name:		tc_ddwinds
+tc_ddwinds
+	arrow-scale:			0.002
+	color:                     yellow
+	color-table:               gcook16
+	degrade:		   2
+	do-labels:                 true
+	icon:                      ddop_vector
+	icon-left-menu:            standard-cap-left-menu
+	icon-right-menu:           dd-winds-right
+	limit-proc:                contour-putup-adj
+	line-width:                1
+	platform:                  jorgensen
+	reflectivity-center:       30
+	reflectivity-step:         6.0000
+	representation:            vector
+	require:                   contour, simple-color, ddop
+	u-field:		   u_wind
+	v-field:		   v_wind

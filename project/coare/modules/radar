@@ -1,0 +1,31 @@
+!
+! Support for the p_radar PD component.
+!
+! Similar to the "standard" version but with surv/sector stuff gone,
+! better contour support.
+!
+
+define widget radar-middle intmenu 'radar middle'
+	title 'Radar options'
+	line
+	entry 'Raster representation' \
+		'param #icon_component representation raster'
+	entry 'Contour representation' \
+		'param #icon_component representation contour'
+	entry 'Filled contour representation' \
+		'param #icon_component representation filled-contour'
+	line
+	submenu 'Color tables' Color-tables
+endmenu
+
+require color-table
+
+
+procedure toggle_sur
+	set param concat(PDParam(icon_component,'platform'), '-filter-attribute')
+	if (PDParam ("global", param) = "sur")
+		param global #param "radar"
+	else
+		param global #param "sur"
+	endif
+endprocedure
