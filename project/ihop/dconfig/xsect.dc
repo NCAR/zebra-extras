@@ -1,0 +1,88 @@
+! Auto-saved display configuration.
+
+prototype fallback 'Default' gp 'gp.init'
+prototype fallback 'Default' gp 'gp.init'
+
+config xsect
+	widget 'iconbar' 23 23 72 451
+	graphic 'UpperLeft' 100 23 624 612 'Default'
+		description 'xsect-UpperLeft'
+		buttonmap 'big'
+		forcepd
+	endgraphic
+	graphic 'LowerLeft' 99 663 1052 325 'Default'
+		description 'xsect-LowerLeft'
+		buttonmap 'default'
+	endgraphic
+endconfig
+
+beginpd 'xsect-UpperLeft'
+global
+   parameter altitude                  '1.50'
+   parameter altitude-control          'c_ddop'
+   parameter altitude-label            ''
+   parameter frame-rate                '5'
+   parameter frame-skip                '180'
+   parameter icon-middle-menu          'DataAvailable'
+   parameter movie-end-time            'now'
+   parameter movie-minutes             '2880'
+   parameter movie-mode                'False'
+   parameter pd-name                   'xsect-UpperLeft'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '6-Feb-88,16:40:00'
+   parameter plot-type                 'CAP'
+   parameter proj-topannot-left-menu   'projection'
+   parameter radar-space               'false'
+   parameter trigger                   'radar'
+   parameter x-max                     '165.5391'
+   parameter x-min                     '-164.2678'
+   parameter xsect-window              'LowerLeft'
+   parameter y-max                     '159.9086'
+   parameter y-min                     '-169.7845'
+component c_wbounds
+   parameter color                     'blue'
+   parameter disable                   'false'
+   parameter field                     'wbounds'
+   parameter icon                      'wbounds'
+   parameter icon-middle-menu          'simple-color'
+   parameter line-width                '2'
+   parameter platform                  'LowerLeft'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_map
+   parameter color                     'yellow3'
+   parameter field                     'map'
+   parameter icon                      'state'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'state'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_rings
+   parameter azimuth-interval          '30'
+   parameter color                     'white'
+   parameter field                     'range-rings'
+   parameter icon                      'rings'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-middle-menu          'rings-origins'
+   parameter icon-right-menu           'rings-right'
+   parameter platform                  'spol'
+   parameter representation            'overlay'
+   parameter require                   'rings, simple-color'
+   parameter ring-interval             '20'
+endpd
+
+beginpd 'xsect-LowerLeft'
+global
+   parameter altitude-label            ''
+   parameter left-endpoint             '-71.662,-110.696'
+   parameter pd-name                   'xsect-LowerLeft'
+   parameter plot-hold                 'false'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '6-Feb-88,16:40:00'
+   parameter plot-type                 'xsect'
+   parameter right-endpoint            '-41.122,56.649'
+endpd
+
