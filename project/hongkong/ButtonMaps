@@ -1,3 +1,5 @@
+! $Id: ButtonMaps,v 1.3 1994-06-21 17:13:41 granger Exp $
+
 !
 ! The file for display manager button maps.
 !
@@ -11,6 +13,7 @@ buttonmap big
 	local	b	'popcoords'
 	local	f	'toggle_satellite'
 	local	g	'popup position'
+	local	i	'popup imagecrank'
 	local	p	'popup position'
 	local	m	'popup movie'
 !	local	p	'polyline l_spotlight'
@@ -53,6 +56,7 @@ buttonmap radar
 	local	F1 	'toggle_radar'
 	local	b	'popcoords'
 	local	g	'popup position'
+	local	i	'popup imagecrank'
 	local	m	'popup movie'
 	local	r	'movie run'
 	local	s	'movie stop'
@@ -77,6 +81,7 @@ buttonmap default
 	local	b	'popcoords'
 	local	f	'toggle_satellite'
 	local	g	'popup position'
+	local	i	'popup imagecrank'
 	local	m	'popup movie'
 	local	p	'polyline l_spotlight'
 	local	r	'movie run'
@@ -110,6 +115,7 @@ buttonmap sounding
 	local	d	'altstep -1'
 	local	r	'movie run'
 	local	s	'movie stop'
+	local	i	'popup imagecrank'
 	dm	c	'toggle_snd'
 	local	h	'help'
 endmap
@@ -124,6 +130,7 @@ buttonmap xyplot
 	local	r	'movie run'
 	local	s	'movie stop'
 	local	t	'popup overlay'
+	local	i	'popup imagecrank'
 	local	h	'help'
 endmap
 
