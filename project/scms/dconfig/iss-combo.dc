@@ -88,6 +88,7 @@ global
    parameter wheight-scale-y-min       '0'
    parameter wspd-scale-z-center       '15.0000'
    parameter wspd-scale-z-step         '3.0000'
+   parameter x-field                   'time'
    parameter xy-adj-axis-side          'b'
    parameter xy-axis-b-font-scale      '10'
    parameter xy-axis-l-font-scale      '10'
@@ -98,6 +99,7 @@ global
    parameter xy-scale-x-mode           'autoscale'
    parameter xy-scale-y-mode           'manual'
    parameter xy-series-span            '12h'
+   parameter y-field                   'height'
 component th-grid
    parameter axis-b-label              'time'
    parameter axis-bottom               'true'
@@ -110,7 +112,6 @@ component th-grid
    parameter icon-right-menu           'simple-color'
    parameter platform                  'null'
    parameter representation            'simple'
-   parameter x-field                   'time'
    parameter xyprivate-data-begin      '25-Jul-95,3:22:20'
    parameter xyprivate-data-end        '1-Jan-70,0:00:00'
    parameter xyprivate-x-max           '25-Jul-95,15:40:20'
@@ -119,7 +120,6 @@ component th-grid
    parameter xyprivate-y-max           '5000.0000'
    parameter xyprivate-y-min           '0.0000'
    parameter xyprivate-y-type          'f'
-   parameter y-field                   'height'
 component tc-thcontour
    parameter axis-bottom               'false'
    parameter axis-left                 'false'
@@ -136,7 +136,6 @@ component tc-thcontour
    parameter representation            'contour'
    parameter require                   'contour, time-height'
    parameter trigger                   'null'
-   parameter x-field                   'time'
    parameter xyprivate-data-begin      '21-Jul-95,5:25:34'
    parameter xyprivate-data-end        '21-Jul-95,17:25:34'
    parameter xyprivate-x-max           '21-Jul-95,17:43:34'
@@ -145,7 +144,6 @@ component tc-thcontour
    parameter xyprivate-y-max           '5000.0000'
    parameter xyprivate-y-min           '0.0000'
    parameter xyprivate-y-type          'f'
-   parameter y-field                   'height'
    parameter z-field                   'wspd'
 component tc-thwinds
    parameter axis-bottom               'false'
@@ -168,7 +166,6 @@ component tc-thwinds
    parameter step                      '5'
    parameter trigger                   'platform'
    parameter vec-scale                 '2'
-   parameter x-field                   'time'
    parameter xyprivate-data-begin      '25-Jul-95,3:22:20'
    parameter xyprivate-data-end        '25-Jul-95,15:22:20'
    parameter xyprivate-x-max           '25-Jul-95,15:40:20'
@@ -177,7 +174,6 @@ component tc-thwinds
    parameter xyprivate-y-max           '5000.0000'
    parameter xyprivate-y-min           '0.0000'
    parameter xyprivate-y-type          'f'
-   parameter y-field                   'height'
 endpd
 
 beginpd 'iss-combo-w3'
@@ -201,6 +197,7 @@ global
    parameter trigger                   '30m'
    parameter tv-scale-z-center         '21.0000'
    parameter tv-scale-z-step           '3.0000'
+   parameter x-field                   'time'
    parameter xy-adj-axis-side          'b'
    parameter xy-axis-b-font-scale      '0.020'
    parameter xy-axis-l-font-scale      '0.020'
@@ -212,6 +209,7 @@ global
    parameter xy-scale-x-mode           'autoscale'
    parameter xy-scale-y-mode           'manual'
    parameter xy-series-span            '6h'
+   parameter y-field                   'height'
 component rasspigtails
    parameter adj-axis-side             'l'
    parameter axis-b-label              'time'
@@ -231,7 +229,6 @@ component rasspigtails
    parameter representation-style      'line'
    parameter step                      '5'
    parameter trigger                   'platform'
-   parameter x-field                   'time'
    parameter xyprivate-data-begin      '25-Jul-95,9:22:35'
    parameter xyprivate-data-end        '25-Jul-95,15:22:35'
    parameter xyprivate-x-max           '25-Jul-95,15:31:35'
@@ -240,7 +237,6 @@ component rasspigtails
    parameter xyprivate-y-max           '2000.0000'
    parameter xyprivate-y-min           '0.0000'
    parameter xyprivate-y-type          'f'
-   parameter y-field                   'height'
    parameter z-field                   'tv'
    parameter z-justify                 'base'
    parameter z-scale                   '0.01'
@@ -260,7 +256,6 @@ component rasscontour
    parameter representation-style      'line'
    parameter require                   'xywind'
    parameter trigger                   'platform'
-   parameter x-field                   'time'
    parameter xyprivate-data-begin      '21-Jul-95,5:32:32'
    parameter xyprivate-data-end        '21-Jul-95,17:32:32'
    parameter xyprivate-x-max           '21-Jul-95,17:50:32'
@@ -269,7 +264,6 @@ component rasscontour
    parameter xyprivate-y-max           '1500.0000'
    parameter xyprivate-y-min           '0.0000'
    parameter xyprivate-y-type          'f'
-   parameter y-field                   'height'
    parameter z-field                   'tv'
 endpd
 
