@@ -290,52 +290,52 @@ endmenu
 
 define widget sonde1 intmenu 'SONDE CF'
 	title 'Balloon Borne Sounding System Data'
+	line
 	entry 'Sonde CF A1: pres,tdry,dp,rh'\
 		'put_4parameters "DsgpsondeC1.a1" "pres" "tdry" "dp" "rh"'
 	entry 'Sonde CF A1: wspd, deg, u_wind, v_wind'\
 		'put_4parameters "DsgpsondeC1.a1" "wspd" "deg" "u_wind" "v_wind"'
 	entry 'Sonde CF A1: alt, wstat, asc'\
 		'put_3parameters "DsgpsondeC1.a1" "alt" "wstat" "asc"'
-	line
 	entry 'Sonde CF A1: Skew-T Plot'\
          'parameter sounding skewt platform "DsgpsondeC1.a1"; display sounding'
 endmenu
 
 define widget sonde81 intmenu 'SONDE B1'
 	title 'Balloon Borne Sounding System Data'
+	line
 	entry 'Sonde B1 A1: pres,tdry,dp,rh'\
 		'put_4parameters "DsgpsondeB1.a1" "pres" "tdry" "dp" "rh"'
 	entry 'Sonde B1 A1: wspd, deg, u_wind, v_wind'\
 		'put_4parameters "DsgpsondeB1.a1" "wspd" "deg" "u_wind" "v_wind"'
 	entry 'Sonde B1 A1: alt, wstat, asc'\
 		'put_3parameters "DsgpsondeB1.a1" "alt" "wstat" "asc"'
-	line
 	entry 'Sonde B1 A1: Skew-T Plot'\
          'parameter sounding skewt platform "DsgpsondeB1.a1"; display sounding'
 endmenu
 
 define widget sonde84 intmenu 'SONDE B4'
 	title 'Balloon Borne Sounding System Data'
+	line
 	entry 'Sonde B4 A1: pres,tdry,dp,rh'\
 		'put_4parameters "DsgpsondeB4.a1" "pres" "tdry" "dp" "rh"'
 	entry 'Sonde B4 A1: wspd, deg, u_wind, v_wind'\
 		'put_4parameters "DsgpsondeB4.a1" "wspd" "deg" "u_wind" "v_wind"'
 	entry 'Sonde B4 A1: alt, wstat, asc'\
 		'put_3parameters "DsgpsondeB4.a1" "alt" "wstat" "asc"'
-	line
 	entry 'Sonde B4 A1: Skew-T Plot'\
          'parameter sounding skewt platform "DsgpsondeB4.a1"; display sounding'
 endmenu
 
 define widget sonde85 intmenu 'SONDE B5'
 	title 'Balloon Borne Sounding System Data'
+	line
 	entry 'Sonde B5 A1: pres,tdry,dp,rh'\
 		'put_4parameters "DsgpsondeB5.a1" "pres" "tdry" "dp" "rh"'
 	entry 'Sonde B5 A1: wspd, deg, u_wind, v_wind'\
 		'put_4parameters "DsgpsondeB5.a1" "wspd" "deg" "u_wind" "v_wind"'
 	entry 'Sonde B5 A1: alt, wstat, asc'\
 		'put_3parameters "DsgpsondeB5.a1" "alt" "wstat" "asc"'
-	line
 	entry 'Sonde B5 A1: Skew-T Plot'\
          'parameter sounding skewt platform "DsgpsondeB5.a1"; display sounding'
 endmenu
