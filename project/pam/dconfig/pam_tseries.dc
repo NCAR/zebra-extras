@@ -20,8 +20,7 @@ global
    parameter axis-right-space          '50'
    parameter axis-top-space            '30'
    parameter pd-name                   'pam_tseries-tseries1'
-   parameter plot-mode                 'history'
-   parameter plot-time                 '6-Aug-95,22:27:00'
+   parameter plot-mode                 'real-time'
    parameter plot-type                 'xygraph'
    parameter xy-axis-b-font-scale      '10'
    parameter xy-axis-l-font-scale      '10'
@@ -31,7 +30,6 @@ global
    parameter xy-series-span            '720m'
 component xy-grid
    parameter axis-b-label              'Time'
-   parameter axis-b-tic-interval       '0'
    parameter axis-bottom               'true'
    parameter axis-left                 'false'
    parameter axis-right                'false'
