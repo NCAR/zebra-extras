@@ -7,8 +7,9 @@ class SoundingLevel
 	composite
 endclass
 
-instance SoundingLevel 400mb_snd 450mb_snd 500mb_snd 600mb_snd 650mb_snd
-instance SoundingLevel 700mb_snd 750mb_snd 850mb_snd 900mb_snd 950mb_snd
+instance SoundingLevel 400mb_snd 450mb_snd 500mb_snd 550mb_snd 600mb_snd
+instance SoundingLevel 650mb_snd 700mb_snd 750mb_snd 800mb_snd 850mb_snd
+instance SoundingLevel 900mb_snd 950mb_snd
 
 subplatform 400mb_snd	ambon biak chuuk darwin davao dc8a dc8b exp3 funafuti
 subplatform 400mb_snd	gove guam hakuho_maru hongkong honiara kanton kapinga
@@ -33,6 +34,14 @@ subplatform 500mb_snd	laoag legaspi mactan madang majuro manus menado misima
 subplatform 500mb_snd	moana_wave n308d_s n42rf_s n43rf_s natsu nauru p3a p3b
 subplatform 500mb_snd	padang pohnpei ujungp vickers santacruz sci1 ship5
 subplatform 500mb_snd	singapore tarawa thursday whoibuoy yap
+
+subplatform 550mb_snd	ambon biak chuuk darwin davao dc8a dc8b exp3 funafuti
+subplatform 550mb_snd	gove guam hakuho_maru hongkong honiara kanton kapinga
+subplatform 550mb_snd	kavieng keifu_maru korror kota kuching kupang kwajalein
+subplatform 550mb_snd	laoag legaspi mactan madang majuro manus menado misima
+subplatform 550mb_snd	moana_wave n308d_s n42rf_s n43rf_s natsu nauru p3a p3b
+subplatform 550mb_snd	padang pohnpei ujungp vickers santacruz sci1 ship5
+subplatform 550mb_snd	singapore tarawa thursday whoibuoy yap
 
 subplatform 600mb_snd	ambon biak chuuk darwin davao dc8a dc8b exp3 funafuti
 subplatform 600mb_snd	gove guam hakuho_maru hongkong honiara kanton kapinga
@@ -65,6 +74,14 @@ subplatform 750mb_snd	laoag legaspi mactan madang majuro manus menado misima
 subplatform 750mb_snd	moana_wave n308d_s n42rf_s n43rf_s natsu nauru p3a p3b
 subplatform 750mb_snd	padang pohnpei ujungp vickers santacruz sci1 ship5
 subplatform 750mb_snd	singapore tarawa thursday whoibuoy yap
+
+subplatform 800mb_snd	ambon biak chuuk darwin davao dc8a dc8b exp3 funafuti
+subplatform 800mb_snd	gove guam hakuho_maru hongkong honiara kanton kapinga
+subplatform 800mb_snd	kavieng keifu_maru korror kota kuching kupang kwajalein
+subplatform 800mb_snd	laoag legaspi mactan madang majuro manus menado misima
+subplatform 800mb_snd	moana_wave n308d_s n42rf_s n43rf_s natsu nauru p3a p3b
+subplatform 800mb_snd	padang pohnpei ujungp vickers santacruz sci1 ship5
+subplatform 800mb_snd	singapore tarawa thursday whoibuoy yap
 
 subplatform 850mb_snd	ambon biak chuuk darwin davao dc8a dc8b exp3 funafuti
 subplatform 850mb_snd	gove guam hakuho_maru hongkong honiara kanton kapinga
