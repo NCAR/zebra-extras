@@ -109,6 +109,8 @@ defaults
 	dc8-data-age-limit:	120m
 	mesonet_15-icon-age-limit:	60m
 	mesonet_15-data-age-limit:	90m
+	ok_mesonet-icon-age-limit:	10m
+	ok_mesonet-data-age-limit:	20m
 	elev-icon-age-limit:	20000d
 	topo-icon-age-limit:	20000d
 !

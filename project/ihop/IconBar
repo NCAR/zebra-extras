@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.17 2002-12-18 16:33:06 burghart Exp $
+! $Id: IconBar,v 1.18 2002-12-20 20:58:58 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -149,7 +149,10 @@ define widget iconbar menubar " "
 	menu mesonet bitmap mesonet
 		title 'Mesonet'
 		line
-		entry '15-minute mesonet' 'putc0 p_mesonet'
+		entry '15-minute mesonet' \
+			'putc2 p_mesonet platform mesonet_15 icon mesonet'
+		entry 'Oklahoma mesonet' \
+			'putc2 p_mesonet platform ok_mesonet icon ok_mesonet'
 	endmenu
 
 !

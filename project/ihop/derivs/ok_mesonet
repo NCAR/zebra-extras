@@ -1,0 +1,5 @@
+[rh][percent] = RELH;
+[P][hPa] = PRES;
+[T][degC] = TAIR;
+wdir[][degrees] = WDIR;
+wspd[][m/s] = WSPD;
