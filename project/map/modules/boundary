@@ -1,0 +1,17 @@
+! Copied from Optimizer module to add a menu entry for entering boundaries
+!
+
+define widget boundary-right-menu intmenu 'boundary menu'
+	title 'Boundary'
+	line
+	submenu 'Line Width' 'linewidth'
+	entry 'Enter boundary' 'enter_boundary'
+endmenu
+
+
+procedure enter_boundary
+	local plat pdparam(icon_component,"platform")
+	polyline #plat
+endprocedure
+
+

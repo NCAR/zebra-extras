@@ -1,0 +1,61 @@
+!
+! Real-time particle stuff for MAP
+!
+
+require spol
+
+define widget particle-middle intmenu 'x'
+	title 'Particle discrimination'
+	line
+	entry 'NCAR particle types' 'partfield pd particle' \
+		(PDParam (icon_component, 'field') = 'pd')
+	entry 'UW particle types' 'partfield wpd uwparticle' \
+		(PDParam (icon_component, 'field') = 'wpd')
+	entry 'Reflectivity' 'partfield dbz carbone17' \
+		(PDParam (icon_component, 'field') = 'dbz')
+!	line
+!	entry 'Hold angle mode' 'ToggleBoolean every-sweep' \
+!		(PDParam (icon_component, "every-sweep") = "false")
+endmenu
+
+
+!
+! Switch fields, and handle the details of color tables too
+!
+procedure partfield field string ctable string
+	local f PDParam(icon_component, 'field')
+	if (f = field)
+		return
+	endif
+
+	parameter #icon_component field #field
+	parameter #icon_component color-table #ctable
+endprocedure
+
+procedure toggle_main 
+   if (pd_defined ("p_pdesc", "field"))
+      if (pd_param ("p_pdesc", "field", "string") = "DBZ")
+                parameter p_pdesc scale-mode "manual"
+                parameter p_pdesc radialvelocity-center "0"
+                parameter p_pdesc radialvelocity-nsteps "11"
+                parameter p_pdesc radialvelocity-step "3"
+                parameter p_pdesc color-table "carbone17"
+                parameter p_pdesc field "VR"
+      elseif (pd_param ("p_pdesc", "field", "string") = "VR")
+                parameter p_pdesc scale-mode "manual"
+                parameter p_pdesc maxdz-center "15"
+                parameter p_pdesc maxdz-nsteps "11"
+                parameter p_pdesc maxdz-step "5"
+                parameter p_pdesc color-table "carbone17"
+                parameter p_pdesc field "VR"
+      elseif (pd_param ("p_pdesc", "field", "string") = "wpd")
+		parameter p_pdesc color-table "particle"
+		parameter p_pdesc field "pd"
+      elseif (pd_param ("p_pdesc", "field", "string") = "pd")
+                parameter p_pdesc color-table "uwparticle"
+                parameter p_pdesc field "wpd"
+      endif
+   endif
+endprocedure
+
+

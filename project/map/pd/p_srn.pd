@@ -1,0 +1,16 @@
+global
+	pd-name:	p_srn
+p_srn
+	azimuth-interval:	10
+	color:	white
+	do-labels:	false
+	field:	range-rings
+	icon:	rings
+	icon-left-menu:	minimal-cap-left-menu
+	icon-middle-menu:	rings-origins
+	icon-right-menu:	rings-right
+	platform:	SRN
+	representation:	overlay
+	require:	rings, simple-color
+	ring-interval:	18
+

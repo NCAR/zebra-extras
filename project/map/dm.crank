@@ -1,0 +1,173 @@
+! An attempt to graft the gp imagecrank widget into dm to do the
+! same for all windows at once
+
+!
+! Time loop cranking
+!
+define widget timecrank form 'Time cranker'
+	noheader
+	popup 'tc-popup'
+
+	label title 'Batch time looping'
+	newline
+
+	label l1 'Begin time:' width 100
+	blank begin 'now' width 150
+	newline
+
+	label l2 'End time:' width 100
+	blank end 'now' width 150
+	newline
+
+	label l3 'Step:' width 100
+	blank step '60' width 80
+	pulldown units 'minutes' menu tc-units
+	newline
+
+	label l5 'Command:' width 100
+	blank command ' ' width 200
+	newline
+
+	label l6 'Sleep:' 
+	blank sleep '30 ' width 50
+
+	button doit 'Run' command 'tc-run'
+	button zap 'Dismiss' command 'popdown #ui$form' color red
+	button abort 'Abort' command 'tc-abort' color red
+	label gripe ' ' color red width 400
+enddef
+
+
+set timecrank-default-command "xwd "
+
+procedure tc-popup
+	local f ui$form
+
+	formtext #f command #timecrank-default-command
+	!formtext #f begin 'now'
+	!formtext #f end 'now'
+	formtext #f gripe ''
+endprocedure
+
+
+
+define widget tc-units intmenu 'units'
+	title 'Time step units'
+	line
+	entry 'Seconds' 'formtext #ui$form units "seconds"'
+	entry 'Minutes' 'formtext #ui$form units "minutes"'
+	entry 'Hours' 'formtext #ui$form units "hours"'
+	entry 'Days' 'formtext #ui$form units "days"'
+endmenu
+
+
+
+procedure tc-loop sleep string pt string et string step string units string command string
+
+	if (ICAbort)
+	!	formtext #f gripe 'Aborted -- hit "Generate" to resume'
+		message "Imagecrank aborted."
+		! But don't prohibit further calls to tc-loop by others
+		set ICAbort false
+		return
+	endif
+
+	! For some reason float parameters get truncate or something
+	! and we can't pass enough accuracy to step time in fractions
+	! of days.  So we have to pass the date and increment
+	! information as strings and delay evaluation until now.
+
+	if (units = 'seconds')
+		local incr concat3('(',step,'/(3600*24.0))')
+	elseif (units = 'minutes')
+		local incr concat3('(',step,'/(60*24.0))')
+	elseif (units = 'hours')
+		local incr concat3('(',step,'/24.0)')
+	else
+		local incr step
+	endif
+	local dincr #incr
+	local dpt #pt
+	local det #et
+
+	! We need to be able to respond to our windows while they're
+	! being dumped, so we can't just hang on a shell process.
+	! Instead, run it in the background in a subshell which then
+	! wakes us up again.  We're using the system as our queue in
+	! place of the graphics process' queue in its imagecrank code.
+	! We still need to guess how long before our windows are 
+	! finished updating their time before letting the command run.
+
+	if (dpt <= det)
+		local ptime string(dpt)
+		history all #ptime
+		! The first message gets us a newline after any zstep output
+		message ""
+		message "Setting time to #" ptime
+
+		local dnext (dpt + dincr)
+		local cmd concat3("zstep ",c$msgname," ")
+		local cmd concat3(cmd," ",sleep)
+		local cmd concat3(cmd," ",string(dnext))
+		local cmd concat3(cmd," ",et)
+		local cmd concat3(cmd," ",step)
+		local cmd concat3(cmd," ",units)
+		local cmd concat3(cmd," ",command)
+		set amp ' &'
+		local cmd concat(cmd,amp)
+		! message "#" cmd
+		local qcmd quote(cmd)
+		shell #qcmd
+	else
+	! We should add a callback parameter which can update the 
+	! widget (our "view") as the process progresses.
+	!	formtext #f gripe 'Done.'
+		message "Imagecrank done."
+	endif
+
+endprocedure
+
+
+procedure tc-abort
+	set ICAbort true
+endprocedure
+
+
+!
+! The actual entry point with all of our needed parameters,
+! intended to be run from the widget or through zrun.
+!
+procedure tc-generate sleep string pt string et string incr string units string cmd string
+
+	set ICAbort false
+	set ui$pager_mode false
+	local c quote(cmd)
+	tc-loop #sleep #pt #et #incr #units #c
+
+endprocedure
+
+!
+! Collect our parameters and get started
+!
+procedure tc-run 
+	local f ui$form
+
+	local cmd getftext(f,'command')
+	local pt getftext(f,'begin')
+	local et getftext(f,'end')
+	local step getftext(f,'step')
+	local units getftext(f,'units')
+	local sleep getftext(f,'sleep')
+
+	local c quote(cmd)
+	tc-generate #sleep #pt #et #step #units #c
+endprocedure
+
+
+procedure timecrank-popup cmd string
+
+	set timecrank-default-command quote(cmd)
+	popup timecrank
+
+endprocedure
+

@@ -1,0 +1,14 @@
+colortable uwparticle
+	0	0	0	! 0, nothing
+	0	0	0	! 1, nothing
+	0	0	0	! 2, nothing
+	1.000	0.590	0.000	! 3, Ambiguous
+	0.805   0.469   0.043   ! 4, Rain
+	1.000   0.187   0.187	! 5, AttenR|Grp
+	0.984	0.984	0.184	! 6, Hail
+	0.145	0.981	0.148	! 7, Hail|Rain
+	0.105	0.778	0.031	! 8, Graupel
+	0.000	0.574	0.000	! 9, Grp|Rain
+	0.305	0.875	1.000	! 10, Snow
+	0.387   0.582   0.941	! 11, SprcoolRain
+endtable

@@ -1,0 +1,27 @@
+!
+! Generic particle descrimination component
+!
+global
+	pd-name:	p_pdesc
+p_pdesc
+	altitude-control: true
+	color:		green
+	platform:	spol_raw
+	do-labels:	false
+	field:		pd
+	grid-size-ratio: 5
+	representation:	polar
+	icon:		particle
+	color-table:	particle
+	every-sweep:	true
+	every-volume:	true
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	particle-middle
+	icon-right-menu:	DataAvailable
+	scale-mode:	manual
+	sa-scale:	12
+	line-width:	2
+	limit-proc:	raster-limit-proc
+	require:	radar, raster, particle, contour
+	trigger:	platform
+	trigger-global:	true

@@ -1,0 +1,23 @@
+!
+! This file contains the default values for some plot description parameters.
+!
+age-limits
+	pd-name:			age-limits
+!
+! Age limits for data (i.e., when to make the icon red)
+! Although we set a default of 15 minutes, a separate value is generally 
+! used for each platform.  Example:
+!
+	icon-age-limit:		20m
+	map_elev-icon-age-limit:	20000d
+	map_topo-icon-age-limit:	20000d
+
+! Set data age limits:
+!
+	limit-data-age:		true
+	data-age-limit:		60m
+	map_elev-data-age-limit:	20000d
+	map_topo-data-age-limit:	20000d
+
+
+

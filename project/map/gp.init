@@ -1,0 +1,41 @@
+!
+! Look for gp modules under the project directory before we go off to
+! the main Zebra library
+!
+require rings
+require active-time
+
+!
+! In the given component, toggle between the two given fields.  This
+! procedure is innocuous if the component does not exist or does not
+! have a "field" parameter.
+!
+procedure do_field_toggle comp string fld0 string fld1 string
+    if (pd_defined (comp, "field"))
+	if (PDParam (comp, "field") = fld0)
+	    parameter #comp field #fld1
+	else
+	    parameter #comp field #fld0
+	endif
+    endif
+endprocedure
+
+
+!
+! Define toggle_main for toggling radar fields:
+!
+procedure toggle_main
+    !
+    ! toggle between maxdz and radialvelocity for p_raster component
+    !
+    do_field_toggle p_raster maxdz radialvelocity
+    !
+    ! and toggle between dbz and vr for p_radar and p_polar components
+    !
+    foreach comp p_radar p_polar
+	do_field_toggle #comp dz vr
+    endfor
+endprocedure
+
+
+

@@ -1,0 +1,241 @@
+! $Id: IconBar,v 1.1 1999-11-19 20:03:17 burghart Exp $
+!
+! Generic IconBar template
+!
+
+set ui$bitmap_directory concat(c$libdir, "/icons")
+
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	noheader
+	!
+	! Define the menus
+	!
+	menu help bitmap iconbar-help
+		title 'Zeb Help Access'
+		line
+		entry 'Introduction' 'help intro'
+		entry 'On-line topics' 'help index'
+		entry 'Starting Zebra' 'help start'
+		entry 'Shutting down' 'help shut-down'
+		entry 'Keys and mouse buttons' 'help keys'
+		entry 'The icon bar' 'help iconbar'
+		entry 'Editing display configurations' 'help editing-configs'
+		line
+		entry 'Horizontal plots' 'help horizontal-plots'
+		entry 'Skew-t plots' 'help skewt'
+		entry 'XYGraph plots' 'help xy-graphs'
+		entry 'Cross-section plots' 'help cross-section'
+	endmenu
+	menu tools bitmap tools-big
+		title 'Tools'
+		line
+		entry 'Time widget'	'popup time'
+		entry 'Make a print' 'popup hardcopy'
+		entry 'Time looping' 'show_timecrank'
+		line
+		entry 'Add display window' 'popup newwindow'
+		entry 'Delete display window' 'popup zorchwindow'
+		entry 'Save current configuration' 'popup saveconfig'
+		line
+		entry 'Data store contents' 'shell "dsdwidget &"'
+		entry 'Data store management' 'shell "dsmanage &"'
+		line
+		entry 'Shut down Zebra' 'shutdown'
+	endmenu
+!
+! The project display configurations are added in this menu
+!
+	menu configs bitmap configs
+		title 'Display configurations'
+		line
+	!
+	! Example:
+	!	entry 'Wide-screen satellite' 'display wide' \
+	!		(dm$config = 'wide')
+	!
+		line
+		entry 'empty screen' 'display empty' (dm$config = 'empty')
+		entry 'radar_xsect' 'display radar-xsect' \
+			(dm$config = 'radar-xsect')
+	endmenu
+!
+! General platform/data menus here
+!
+! Example:
+!	menu satellite bitmap satellite
+!		title 'Satellite Data'
+!		line
+!		entry 'GOES Visible' 'putc2 c_goes platform goes field vis'
+!		entry 'GOES IR' 'putc2 c_goes platform goes field ir'
+!		line
+!	endmenu
+	menu radar bitmap radar
+		title 'Radar Data'
+		line
+		entry 'S-Pol' 'putc3 p_polar platform spol field dz icon spol'
+		entry 'gridded S-Pol' 'PutRadar spol_grid'
+		entry 'Monte Lema' 'PutRadar mt_lema'
+		entry 'Ronsard' 'PutRadar ronsard'
+		line
+		entry 'Fossalon' \
+		  'putc3 p_raster platform fossalon icon fossalon field dz'
+		entry 'San Pietro' \
+		  'putc3 p_raster platform san_pietro icon san_pietro field dz'
+		entry 'Teolo' \
+		  'putc3 p_raster platform teolo icon teolo field dz'
+		line
+		entry 'P-3 Lower Fuselage' \
+		  'putc3 p_raster platform n42rf_lf icon n42rf_lf field dz'
+		line
+		entry 'Particle types' 'putc0 p_pdesc'
+		entry 'Multi-Doppler Fields' 'putc0 p_pdopp'
+		entry 'Multi-Doppler Vectors' 'putc0 p_pdoppv'
+	endmenu
+	menu aircraft bitmap aircraft
+		title 'Aircraft'
+		line
+		entry 'N308D' \
+		  'putc3 p_track platform n308d icon n308d color white'
+		entry 'N42RF' \
+		  'putc3 p_track platform n42rf icon n42rf color yellow'
+		entry 'ARAT' \
+		  'putc3 p_track platform arat icon arat color pink'
+		entry 'Merlin' \
+		  'putc3 p_track platform merlin icon merlin color cyan'
+		line
+		entry 'N308D Flight Plan' \
+	  'putc3 p_boundary platform n308d_plan icon n308d color grey90'
+		entry 'N42RF Flight Plan' \
+	  'putc3 p_boundary platform n42rf_plan icon n42rf color yellow3'
+		entry 'ARAT Flight Plan' \
+	  'putc3 p_boundary platform arat_plan icon arat color pink3'
+		entry 'Merlin Flight Plan' \
+	  'putc3 p_boundary platform merlin_plan icon merlin color cyan3'
+	endmenu
+!
+! Maps, locations and other informational overlays
+!
+	menu 'overlays' bitmap overlays
+		title 'Static Overlays'
+		line
+		entry 'Default map' 'putc2 p_map platform default icon map'
+		entry 'Country borders' \
+			'putc3 p_map platform borders icon borders color red'
+		entry 'Rivers and lakes' \
+			'putc3 p_map platform rivers icon rivers color cyan3'
+		entry 'Malpensa control area' \
+			'putc3 p_map platform malpensa icon malpensa color black'
+		line
+		entry 'X-Y Grid (km)' \
+			'putc3 p_kmgrid x-spacing 100 y-spacing 100 color cyan'
+		entry 'Lat/Lon Grid' \
+			'putc3 p_llgrid x-spacing 60 y-spacing 60 color cyan'
+		line
+		entry '2-D topo (for plan views)' 'putc0 p_elev'
+		entry '3-D topo (for cross-sections)' 'putc0 p_topo'
+		line
+		entry 'Radar range rings' 'putc1 p_rings platform spol'
+		entry 'Radar locations' 'do_radar_locs'
+		entry 'Window Bounds' 'put_wbounds p_wbounds'
+		entry 'VOR locations' \
+		      'putc1 p_loc platform TZO,RON,SRN,TOP,VIL,GEN,CHI'
+		entry 'VOR SRN range rings' 'putc1 p_srn platform SRN'
+	endmenu
+enddef
+
+
+!
+! Put in window bounds.
+!
+procedure put_wbounds comp string
+!
+! Get the window we want to see.
+!
+	set wbounds_win "none"
+	pickwin wbounds_win
+	if (wbounds_win = "none")
+		beep
+		return
+	endif
+!
+! And now the place where it goes.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")
+		beep
+		return
+	endif
+!
+! Fix up the component and ship it over.
+!
+	parameter #comp #comp platform #wbounds_win
+	add #comp #comp #target_win
+endprocedure
+
+
+read dm.crank
+
+procedure show_timecrank
+
+	if (dm$config = "auto")
+	   timecrank-popup "zwd rc 0"
+	elseif (dm$config = "radar-xsect")
+	   timecrank-popup "zwd rx 0"
+	elseif (dm$config = "multi-doppler")
+	   timecrank-popup "zwd md 0"
+	elseif (dm$config = "particle-type")
+	   timecrank-popup "zwd pt 0"
+	elseif (dm$config = "complete")
+	   timecrank-popup "zwd complete 0"
+	else
+	   timecrank-popup "zwd "
+	endif	
+
+endprocedure
+
+
+!
+! Add radar locations
+!
+procedure do_radar_locs
+	local radars "mt_lema,ronsard,spol,bric,fossalon,montagnana,pisa,san_pietro,spino,teolo"
+	putc2 p_loc active-icon false platform #radars
+endprocedure
+
+
+!
+! Put radar data in a CAP or xsect window
+!
+procedure PutRadar platform string
+    !
+    ! Start by finding a window.
+    !
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+
+	local ptype PDParam(target_win,'global','plot-type')
+    !
+    ! Choose the appropriate pd component template based on the plot type
+    !
+	if (ptype = "xsect")
+		local comp "p_fcontour"
+		parameter #comp #comp grid-method bilinear
+	else
+		local comp "p_raster"
+	endif
+    !
+    ! Tweak it up and send it out
+    !
+	parameter #comp #comp platform #platform
+	parameter #comp #comp icon #platform
+	parameter #comp #comp field maxdz
+	sendout #comp #target_win
+endprocedure

@@ -1,0 +1,19 @@
+!
+! raster component for map_elev data
+!
+global
+	pd-name:	p_elev
+p_elev
+	platform:	map_elev
+	field:		elev
+	representation:	raster
+	altitude-control:	false
+	color-table:	Alpine
+	icon:		topo
+	icon-right-menu:	raster-right
+	require:	raster
+	scale-mode:	manual
+	elev-center:	2.0001
+	elev-step:	0.5
+	elev-nsteps:	8
+	limit-proc:	raster-limit-proc

@@ -1,0 +1,115 @@
+!
+! Range rings support.
+!
+
+!
+! Origins menu used by the zebra/lib/gplib/rings plot component
+!
+define widget rings-origins intmenu "range ring origins"
+	title "Range ring origins"
+	line
+	entry 'S-Pol' 'parameter #icon_component platform spol' \
+		(PDParam (icon_component, "platform") = "spol")
+	entry 'Ronsard' 'parameter #icon_component platform ronsard' \
+		(PDParam (icon_component, "platform") = "ronsard")
+	line
+	entry 'Bric della Croce' 'parameter #icon_component platform bric' \
+		(PDParam (icon_component, "platform") = "bric")
+	entry 'Fossalon' 'parameter #icon_component platform fossalon' \
+		(PDParam (icon_component, "platform") = "fossalon")
+	entry 'Montagnana' 'parameter #icon_component platform montagnana' \
+		(PDParam (icon_component, "platform") = "montagnana")
+	entry 'Monte Lema' 'parameter #icon_component platform mt_lema' \
+		(PDParam (icon_component, "platform") = "mt_lema")
+	entry 'Pisa' 'parameter #icon_component platform pisa' \
+		(PDParam (icon_component, "platform") = "pisa")
+	entry 'San Pietro' 'parameter #icon_component platform san_pietro' \
+		(PDParam (icon_component, "platform") = "san_pietro")
+	entry "Spino d'Adda" 'parameter #icon_component platform spino' \
+		(PDParam (icon_component, "platform") = "spino")
+	entry 'Teolo' 'parameter #icon_component platform teolo' \
+		(PDParam (icon_component, "platform") = "teolo")
+	line
+	entry 'SRN VOR' 'parameter #icon_component platform SRN' \
+		(PDParam (icon_component, "platform") = "SRN")
+	entry 'RON VOR' 'parameter #icon_component platform RON' \
+		(PDParam (icon_component, "platform") = "RON")
+	entry 'TZO VOR' 'parameter #icon_component platform TZO' \
+		(PDParam (icon_component, "platform") = "TZO")
+	entry 'TOP VOR' 'parameter #icon_component platform TOP' \
+		(PDParam (icon_component, "platform") = "TOP")
+	entry 'VIL VOR' 'parameter #icon_component platform VIL' \
+		(PDParam (icon_component, "platform") = "VIL")
+	entry 'GEN VOR' 'parameter #icon_component platform GEN' \
+		(PDParam (icon_component, "platform") = "GEN")
+	entry 'CHI VOR' 'parameter #icon_component platform CHI' \
+		(PDParam (icon_component, "platform") = "CHI")
+
+endmenu
+
+
+
+define widget rings-right intmenu 'x'
+	title 'Range ring options'
+	line
+	entry '10 km rings' 'parameter #icon_component ring-interval 10' \
+		(PDParam (icon_component, "ring-interval") = '10')
+	entry '20 km rings' 'parameter #icon_component ring-interval 20' \
+		(PDParam (icon_component, "ring-interval") = '20')
+	entry '30 km rings' 'parameter #icon_component ring-interval 30' \
+		(PDParam (icon_component, "ring-interval") = '30')
+	entry '40 km rings' 'parameter #icon_component ring-interval 40' \
+		(PDParam (icon_component, "ring-interval") = '40')
+	line
+	entry '10 NM rings' 'parameter #icon_component ring-interval 18' \
+		(PDParam (icon_component, "ring-interval") = '18')
+	entry '20 NM rings' 'parameter #icon_component ring-interval 36' \
+		(PDParam (icon_component, "ring-interval") = '36')
+	line
+	entry '10 degree lines' \
+		'parameter #icon_component azimuth-interval 10' \
+		(PDParam (icon_component, "azimuth-interval") = '10')
+	entry '30 degree lines' \
+		'parameter #icon_component azimuth-interval 30' \
+		(PDParam (icon_component, "azimuth-interval") = '30')
+	entry '45 degree lines' \
+		'parameter #icon_component azimuth-interval 45' \
+		(PDParam (icon_component, "azimuth-interval") = '45')
+	entry '90 degree lines' \
+		'parameter #icon_component azimuth-interval 90' \
+		(PDParam (icon_component, "azimuth-interval") = '90')
+	line
+	entry 'Draw labels' 'ToggleBoolean do-labels' \
+	    (PDSearch (icon_component, "do-labels", "range-ring") <> "false")
+	line
+	submenu 'Ring color' 'simple-color'
+	submenu 'Line width' 'LineWidth'
+	submenu 'Label size' 'RingsLabelSize'
+	submenu 'Ring count' 'RingCount'
+endmenu
+
+define widget RingsLabelSize intmenu 'Label size'
+	title 'Label Size'
+	line
+	entry 'small' 'parameter #icon_component label-size 10' \
+		(PDParam(icon_component, "label-size") = "10")
+	entry 'medium' 'parameter #icon_component label-size 20' \
+		(PDParam(icon_component, "label-size") = "20")
+	entry 'large' 'parameter #icon_component label-size 30' \
+		(PDParam(icon_component, "label-size") = "30")
+endmenu
+
+define widget RingCount intmenu 'ring count'
+	title 'Number of rings'
+	line
+	entry '4' 'parameter #icon_component num-rings 4' \
+		(PDParam(icon_component, "num-rings") = "4")
+	entry '8' 'parameter #icon_component num-rings 8' \
+		(PDParam(icon_component, "num-rings") = "8" or PDParam(icon_component, "num-rings") = "(Undefined)")
+	entry '12' 'parameter #icon_component num-rings 12' \
+		(PDParam(icon_component, "num-rings") = "12")
+	entry '16' 'parameter #icon_component num-rings 16' \
+		(PDParam(icon_component, "num-rings") = "16")
+	entry '20' 'parameter #icon_component num-rings 20' \
+		(PDParam(icon_component, "num-rings") = "20")
+endmenu

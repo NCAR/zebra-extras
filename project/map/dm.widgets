@@ -1,0 +1,33 @@
+!
+! Various local DM widgets and functions
+!
+
+!
+! Platform list used by dm's position entry widget
+!
+define widget plats intmenu 'platform list'
+	title 'Choose Platform'
+	line
+	entry 'N308D' 'formtext #ui$form platform n308d'
+	entry 'N42RF'	'formtext #ui$form platform n42rf'
+	entry 'N43RF'	'formtext #ui$form platform n43rf'
+	entry 'ARAT'	'formtext #ui$form platform arat'
+	entry 'Merlin'	'formtext #ui$form platform merlin'
+endmenu
+
+!
+! Window type support (ties in with existing DM "new window" mechanism)
+!
+define widget cw_wintypes intmenu 'Default version'
+	title 'Window types'
+	line
+	entry 'Constant Altitude Plot' 'cw_type "Constant altitude"'
+	entry 'Vertical Cross Section' 'cw_type "Cross section"'
+endmenu
+
+procedure ProjectNewWindow wtype string
+        if (wtype = 'Cross section')
+                set nw_pd 'xsect-template'
+                set nw_bmap 'big'
+	endif
+endprocedure

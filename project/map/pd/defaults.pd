@@ -1,0 +1,216 @@
+!
+! This file contains the default values for some plot description parameters.
+!
+defaults
+	pd-name:			defaults
+!
+! Project origin
+!
+	origin-lat:		45.71667
+	origin-lon:		8.73333
+	origin-alt:		280
+!
+! The default, big picture zoom locations for constant altitude plots.  These
+! values are in km w.r.t. the origin above.  Make 'em smaller for smaller scale
+! projects and bigger for bigger scale projects...
+!
+	x-min:			-500
+	x-max:			500
+	y-min:			-500
+	y-max:			500
+
+	time-annot-active:	true
+	time-topannot-left-menu: global-time-left-menu
+!
+! Icons to use for various platforms.  The icons themselves can be created
+! using the X Window "bitmap" utility, and saved in the <project>/icons 
+! directory.  In general, it is good to have a separate icon for each platform.
+! Example:
+!
+!	cp2-icon:		cp2
+!	goes-icon:		goes
+!
+	spol-icon:		radar_spol
+	ronsard-icon:		radar_rons
+	mt_lema-icon:		radar_lema
+	null-icon:		null
+!
+! Age limits for data (i.e., when to make the icon red)
+! Although we set a default of 15 minutes, a separate value is generally 
+! used for each platform.  Example:
+!
+!	icon-age-limit:		15m
+!	cp2-icon-age-limit:	2m
+!	goes-icon-age-limit:	120m
+!
+	icon-age-limit:		20m
+	map_elev-icon-age-limit:	20000d
+	map_topo-icon-age-limit:	20000d
+
+! Set data age limits:
+!
+	limit-data-age:		true
+	data-age-limit:		60m
+	map_elev-data-age-limit:	20000d
+	map_topo-data-age-limit:	20000d
+!
+! Will you be using tracks of mobile platforms?  If so, it can be useful
+! to assign a special color to each one.
+!
+! Example:
+!	electra-color:		orange
+!	kingair-color:		cyan
+!
+	null-color:		white
+!
+! Add named locations to your heart's delight.  
+! Form: 
+!	<sitename>-location:	<lat> <lon> <alt>
+!
+	spol-location:		45.71667 8.73333  280
+	mt_lema-location:	46.04179 8.83436 1625
+	ronsard-location:	45.460   8.517    155
+	bric-location:		45.0344  7.73306  727
+!	fossalon-location:	45.8000 13.46667   25
+	fossalon-location:	45.72666 13.47750  25
+!	teolo-location:		45.3628 11.6733   472
+	teolo-location:		45.36278 11.67362 472
+	pisa-location:		43.683  10.383     30
+	spino-location:		45.400   9.500     80
+!	san_pietro-location:	44.6547 11.62361   11
+	san_pietro-location:	44.65778 11.62778  11
+	montagnana-location:	43.683  11.3        0 ! (approximate)
+	milano-location:	45.43    9.28     103 ! Milano-Linate
+        kmrr-location:          46.17    8.75     380 
+        ethz-location:          45.970   7.965   1307 ! ETHZ Mobile VPR	
+	opra-location:		46.17    8.75     370 ! (approximate)
+  	dow1-location:          46.017   8.273      0 ! (approximate)
+        dow2-location:          46.20    8.90       0 ! Magadino (approximate)
+        dow3-location:          46.300   9.00       0 ! Lodrino (approximate)
+	RON-TVOR-DME-location:	45.8297 13.4800     0 ! (unknown altitude)
+	TZO-TVOR-DME-location:  45.5583  9.5083	    0 ! (unknown altitude)
+	SRN-VOR-DME-location:	45.6450  9.0219	    0 ! (unknown altitude)
+	TOP-VOR-DME-location:   44.9247	 7.8619     0 ! (unknown altitude)
+	VIL-VOR-location:	45.4072 10.9067     0 ! (unknown altitude)
+	GEN-VOR-DME-location:	44.4236  9.0825	    0 ! (unknown altitude)
+	CHI-VOR-DME-location:	45.0706 12.2817     0 ! (unknown altitude)
+	RON-location:	45.8297 13.4800     0 ! (unknown altitude)
+	TZO-location:  45.5583  9.5083	    0 ! (unknown altitude)
+	SRN-location:	45.6450  9.0219	    0 ! (unknown altitude)
+	TOP-location:   44.9247	 7.8619     0 ! (unknown altitude)
+	VIL-location:	45.4072 10.9067     0 ! (unknown altitude)
+	GEN-location:	44.4236  9.0825	    0 ! (unknown altitude)
+	CHI-location:	45.0706 12.2817     0 ! (unknown altitude)
+!
+! Particle type stuff
+!
+	pd-center:		9
+	pd-step:		1
+	pd-nsteps:		18
+        pd-side-annot-style:    legend
+        pd-legend-map:          1,Cloud,2,Drizzle,3,LightRain,4,ModRain,5,HeavyRain,6,Hail,7,RainHailMix,8,GrplSmHail,9,GrplRain,10,DrySnow,11,WetSnow,12,Ice,13,IrregIce,14,SprCoolDrop,15,insects,16,birds,17,clutter
+
+	wpd-center:		6
+	wpd-step:		1
+	wpd-nsteps:		12
+	wpd-side-annot-style:	legend
+	wpd-legend-map:	1,,2,,3,Ambiguous,4,Rain,5,AttenR/Grp,6,Hail,7,Hail+Rain,8,Graupel,9,Grp+Rain,10,Snow,11,SprcoolRain
+
+	dbz-center:		15
+	dbz-step:		5
+	dbz-nsteps:		11
+	dbz-side-annot-style:	colorbar
+	dz-center:		15
+	dz-step:		5
+	dz-nsteps:		11
+	dz-side-annot-style:	colorbar
+	vr-center:		0
+	vr-step:		5
+	vr-nsteps:		17
+	vr-side-annot-style:	colorbar
+!
+! Default origin for the get position widget.
+!
+	getpos-default-origin:	spol
+!
+! UNLESS YOU NEED TO TWEAK ONE OR MORE OF THE "SAFE" DEFAULTS BELOW, YOU'RE
+! DONE!
+!
+!****************************************************************************
+! 
+! The parameters below are pretty safe defaults and can almost always be left
+! as they are.  Leave them alone unless you know what you're doing!
+!
+
+!
+! Adjust limit procedures.
+!
+	track-arrow-limit-proc:		adj_arrow_scale
+	track-time-limit-proc:		adj_time_period
+	track-centstep-limit-proc:	adj_center_step
+	raster-highrange-limit-proc:	adj_highlight_range
+	raster-centstep-limit-proc:	adj_center_step
+	raster-limit-proc:		adj_center_step
+	vector-limit-proc:		adj_arrow_scale
+	contour-limit-proc:		adj_center_step
+	filled-contour-limit-proc:	adj_center_step
+	contour-limit-proc:		adj_center_step
+	filled-contour-centstep-limit-proc:	adj_center_step
+	contour-centstep-limit-proc:	adj_center_step
+	skewt-pres-limit-proc:		adj_pres_minmax
+	skewt-temp-limit-proc:		adj_temp_minmax
+	global-x-limit-proc:		adj_x_minmax
+	global-y-limit-proc:		adj_y_minmax
+	lightning-limit-proc:		adj_time_step
+!
+! Leave a little space on the left hand side for axis information
+!
+	axis-left-space:	30
+!
+! Where to put the frame cache files and the maximum number of frames
+! to store in the cache.
+!
+	file-path:	/tmp
+	max-frames:	30
+!
+! Command to be executed out of the DataAvailable menu.
+!
+	data-available-command:		DefaultDataAvail
+!
+! Generic icon stuff
+!
+	global-icon:			global
+	icon-color:			yellow
+	icon-background:		midnight blue
+	disabled-icon-color:		gray90
+	disabled-icon-background:	gray40
+	icon-age-foreground:		pink
+	icon-age-background:		red
+!
+! Various menus for the icons in the plot windows.
+!
+	icon-left-menu:			standard-cap-left-menu
+	global-icon-left-menu:		global-left
+	global-icon-right-menu:		globaltopannot
+!
+! Default to matched top annotation colors where allowed.
+!
+	ta-color-match:			true
+!
+! Post processing mode parameters.
+!
+	post-proc-mode:			true
+	pp-dm-time-adjust:		65m
+!
+! What RBand uses to draw the box/line.  Don't mess with it.
+!
+	xorvalue:			16777215
+	xor-line-width:			3
+!
+! Where cross sections are done.
+!
+	xsect-window:			all
+	xsect-component:		global
+
+
+

@@ -1,0 +1,45 @@
+!
+! Generic particle descrimination component
+!
+global
+	pd-name:	p_pdoppv
+p_pdoppv
+   altitude-control:         true
+   arrow-scale:              0.003
+   color:                    royalblue
+   color-table:              carbone17
+   degrade:                  3
+   field:                    Ref
+   icon:                     mdoppv
+   icon-left-menu:           standard-cap-left-menu
+   icon-right-menu:          rg-winds-right
+   limit-proc:               adj_arrow_scale
+   maxdz-center:             -99999.0000
+   maxdz-step:               1.0000
+   out-of-range-color:       none
+   platform:                 mdopp
+   qpr-center:               2.0
+   qpr-nsteps:               17
+   qpr-step:                 .25
+   ref-center:               30
+   ref-nsteps:               17
+   ref-step:                 4
+   representation:           vector
+   require:                  winds, simple-color
+   scale-mode:               manual
+   trigger:                  platform
+   trigger-global:           true
+   u-center:                 0
+   u-field:                  U
+   u-nsteps:                 17
+   u-step:                   3
+   v-center:                 0
+   v-field:                  V
+   v-nsteps:                 17
+   v-step:                   3
+   vp-center:                -7.2000
+   vp-nsteps:                17
+   vp-step:                  0.4000
+   w-center:                 0
+   w-nsteps:                 17
+   w-step:                   .5

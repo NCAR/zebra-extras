@@ -1,0 +1,17 @@
+global
+	pd-name:	p_boundary
+p_boundary
+	color:	yellow
+	closed-boundary:	false
+	field:	boundary
+	icon:	boundary
+	icon-left-menu:	minimal-cap-left-menu
+	icon-middle-menu:	simple-color
+	icon-right-menu:	boundary-right-menu
+	line-width:	1
+	platform:	BOUNDARYPLATNAME
+	representation:	overlay
+	require:	simple-color, boundary
+	trigger:	platform
+	trigger-global:	true
+ 

@@ -1,0 +1,60 @@
+!
+! Datastore platform class definitions
+!
+
+!
+! nspace netCDF
+!
+class NCGrid
+	organization	nspace
+	filetype	netcdf
+endclass
+
+class NC3DGrid
+	organization	3dgrid
+	filetype	netcdf
+endclass
+
+!
+! scalar netCDF
+!
+class NCScalar
+	organization	scalar
+	filetype	netcdf
+endclass
+
+!
+! mobile scalar netCDF (e.g., aircraft)
+!
+class NCMobileScalar
+	organization	scalar
+	filetype	netcdf
+	mobile
+	daysplit
+endclass
+
+!
+! DORADE sweepfile
+!
+class Sweepfile
+	organization	polar
+	filetype	sweepfile
+endclass
+
+
+! For flight plans and such
+!
+class Boundary
+	organization outline
+	filetype boundary
+endclass
+
+!
+! Mobile platform images
+!
+class MobileImage
+	organization	image
+	filetype	raster
+	mobile
+	maxsample	1
+endclass
