@@ -8,3 +8,5 @@ setenv DATAHOME		/apps/data
 setenv CONFIGHOME	/apps/development/UAV
 setenv BINHOME		$ZEB_TOPDIR/bin
 
+set path=($BINHOME $path)
+
