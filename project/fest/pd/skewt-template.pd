@@ -1,0 +1,17 @@
+global
+	altitude-label:	
+	pd-name:	skewt-template
+	plot-mode:	history
+	plot-time:	10-Mar-92,12:00:00
+	plot-type:	skewt
+	trigger:	1m
+skewt
+	color-table:	Skew-t
+	icon:	sounding
+	icon-left-menu:	skewt-left
+	icon-middle-menu:	DataAvailable
+	icon-right-menu:	feet-km
+	menu-platform:	sslb,siow,sear,s3v1,shys,s62k,sakz,sirk,scou,sstl,shen,sguy
+	platform:	sslb
+	representation:	skewt
+
