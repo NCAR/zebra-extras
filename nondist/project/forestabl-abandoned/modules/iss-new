@@ -109,14 +109,14 @@ procedure adjust_height_scale how string proc1 string proc2 string
         parameter global alt-scale-y-max #maxO
 endprocedure
 
-procedure toggle_component sourcepdname string compname string
+procedure old_toggle_component sourcepdname string compname string
 ! sourcepd - the name of the plot-description to look for the component to be
 !            added.
 ! comp - the component name to add or remove
 !
         local clist pd_param("global", "component-list","string" )
         if (sourcepdname = "absolute")
-            local comp concat(compname,"")
+            local comp compname
         else
             local comp pd_param("global",compname,"string")
         endif
@@ -146,7 +146,15 @@ procedure toggle_component sourcepdname string compname string
         endif
 endprocedure
 
-procedure add_component sourcepdname string compname string
+procedure toggle_component sourcepdname string compname string
+
+	! Just remove the component
+	i_remove_component
+
+endprocedure
+
+
+procedure old_add_component sourcepdname string compname string
 ! sourcepd - the name of the plot-description to look for the component to be
 !            added.
 ! comp - the component name to add or remove
@@ -182,12 +190,23 @@ procedure add_component sourcepdname string compname string
             dm concat(concat("parameter ",ourname), concat (" global component-list ", newcomps))
         endif
 endprocedure
+
+
+procedure add_component platform string field string
+
+	! Tell dm to add this platform and field component to ourself,
+	! letting any add-data-command in our pd take precedence
+	!
+	dm ShipScalar #platform #field #ourname
+
+endprocedure
+
+
+
+
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! fixing up the button menus
 
-!
-! Middle icon menu for gms data.
-!
 define widget colortables intmenu 'color tables'
 	title 'color tables'
 	line
@@ -277,13 +296,6 @@ define widget iss-global-xygraph intmenu 'Global xygraph middle menu'
         entry 'Set Height Tic Interval...' 'set_height_interval'
         entry 'Set Altitude Tic Interval...' 'set_altitude_interval'
         submenu 'Adjust Vertical Scale' adjust-height
-        line
-        entry 'Additional Sounding' 'add_component sound-pd sound-comp' \
-        (substring(pd_param("global","component-list","string"),pd_param(icon_component,"sound-comp","string")))
-        entry 'Additional Wind Profiler' 'add_component wind-pd wind-comp' \
-        (substring(pd_param("global","component-list","string"),pd_param(icon_component,"wind-comp","string")))
-        entry 'Additional Rass' 'add_component rass-pd rass-comp' \
-        (substring(pd_param("global","component-list","string"),pd_param(icon_component,"rass-comp","string")))
 endmenu
 
 !
