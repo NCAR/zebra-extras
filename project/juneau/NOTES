@@ -54,4 +54,8 @@ setting the Default and Graphic process prototypes in DisplayConfigs.  Note
 that those definitions take precedence over the 'fallback' prototypes in
 the .dc files.
 
+Tag_NWS_Test_970327:
+
+	The version used for NWS testing on jnu_term and jnu_wind on the
+	morning of 27 Mar 1997.
 
