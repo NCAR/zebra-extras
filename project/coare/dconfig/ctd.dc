@@ -49,7 +49,7 @@ component c_gms
    parameter icon-left-menu            'raster-left'
    parameter icon-middle-menu          'gms-middle'
    parameter icon-right-menu           'DataAvailable'
-   parameter ir-center                 '280.0'
+   parameter ir-center                 '286.0'
    parameter ir-highlight              '205'
    parameter ir-highlight-color        'red'
    parameter ir-highlight-range        '6.0'

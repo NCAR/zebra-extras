@@ -1,21 +1,26 @@
 ! Auto-saved display configuration.
+
+prototype fallback Default gp gp.init
+prototype fallback Default gp gp.init
+prototype fallback Default gp gp.init
+
 config ssp
-	widget 'iconbar' 678 562 289 117
-	window 'big' 1 2 672 485 gp gp.init
+	widget 'iconbar' 678 583 289 117
+	graphic 'big' 3 29 672 485 'Default'
 		description 'ssp-big'
 		buttonmap 'big'
 		forcepd
-	endwindow
-	window 'w1' 678 2 472 537 gp gp.init
+	endgraphic
+	graphic 'w1' 678 20 472 537 'Default'
 		description 'ssp-w1'
 		buttonmap 'sounding'
 		forcepd
-	endwindow
-	window 'w2' 1 514 672 360 gp gp.init
+	endgraphic
+	graphic 'w2' 2 539 672 360 'Default'
 		description 'ssp-w2'
 		buttonmap 'xyplot'
 		forcepd
-	endwindow
+	endgraphic
 endconfig
 
 beginpd 'ssp-big'
@@ -41,7 +46,7 @@ component c_gms
    parameter icon-left-menu            'raster-left'
    parameter icon-middle-menu          'gms-middle'
    parameter icon-right-menu           'DataAvailable'
-   parameter ir-center                 '280.0'
+   parameter ir-center                 '286.0'
    parameter ir-highlight              '205'
    parameter ir-highlight-color        'red'
    parameter ir-highlight-range        '6.0'
@@ -83,9 +88,9 @@ component p_active_loc
    parameter icon-left-menu            'minimal-cap-left-menu'
    parameter icon-right-menu           'location-options'
    parameter label                     'platform'
-   parameter label-size                '11'
+   parameter label-size                '10'
    parameter location-time             'observation'
-   parameter platform                  'chuuk,darwin,gove,guam,hongkong,hakuho_maru,korror,moana_wave,kwajalein,majuro,misima,pohnpei,santacruz,singapore,yap,natsu,dc8a,dc8b,p3a,p3b'
+   parameter platform                  'chuuk,darwin,gove,guam,ambon,davao,sounding/honiara,kanton,hongkong,hakuho_maru,korror,keifu_maru,kota,kuching,kupang,moana_wave,kwajalein,majuro,laoag,legaspi,mactan,madang,ship5,misima,pohnpei,santacruz,singapore,yap,natsu,dc8a,dc8b,p3a,p3b,menado,padang,ujungp,sounding/vickers,sounding/biak,thursday'
    parameter posicon-left-menu         'al-send-other-window'
    parameter posicon-middle-menu       'al-send-other-window'
    parameter posicon-right-menu        'location-options'
@@ -150,8 +155,8 @@ component skewt
    parameter platform                  'sounding/kapinga'
    parameter representation            'skewt'
    parameter require                   'skewt'
-   parameter skprivate-thermo-npts     '198'
-   parameter skprivate-wind-npts       '198'
+   parameter skprivate-thermo-npts     '705'
+   parameter skprivate-wind-npts       '705'
    parameter top-annot-active          'true'
    parameter topannot-left-menu        'skewt-topannot'
    parameter trigger                   'platform'

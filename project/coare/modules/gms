@@ -8,11 +8,14 @@
 define widget gms-middle intmenu 'GMS field menu'
 	title 'GMS satellite options'
 	line
-        entry 'Honiara Wide Area MCIDAS dataset' 'gms_plat gms-big' \
-                (PDParam(icon_component,"platform") = "gms-big")
-	entry 'Honiara MCIDAS dataset' 'gms_plat gms' \
+! GMS -big has been replaced by McIdas GMS data
+!        entry 'Honiara Wide Area MCIDAS dataset' 'gms_plat gms-big' \
+!                (PDParam(icon_component,"platform") = "gms-big")
+!	entry 'Honiara MCIDAS dataset' 'gms_plat gms' \
+!		(PDParam(icon_component,"platform") = "gms")
+	entry 'GMS IR (MCIDAS)' 'gms_plat gms' \
 		(PDParam(icon_component,"platform") = "gms")
-	entry 'Flament dataset' 'gms_plat flament_ir' \
+	entry 'GMS IR (Flament)' 'gms_plat flament_ir' \
 		(PDParam(icon_component,"platform") = "flament_ir")
 	line
 	entry 'black & white; red highlight < 208 K color table'\

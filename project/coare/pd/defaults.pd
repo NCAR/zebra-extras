@@ -36,6 +36,8 @@ defaults
 	n43rf_lf-icon-age-limit:	60m
 	n42rf_st-icon-age-limit:	15m
 	n43rf_st-icon-age-limit:	15m
+	uci-n42rf-icon-age-limit:	15m
+	uci-n43rf-icon-age-limit:	15m
 	n308d-icon-age-limit:		15m
 	nasa_dc8-icon-age-limit:	15m
 	nasa_er2-icon-age-limit:	15m
@@ -264,6 +266,9 @@ defaults
 !
 !Representation -> Raster.
 !
+	raster-sst-center:		30
+	raster-sst-step:		1
+	raster-sst-nsteps:		17
 	raster-reflectivity-center:	30
 	raster-reflectivity-step:	8
 	raster-maxdz-center:		30

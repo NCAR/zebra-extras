@@ -1,29 +1,34 @@
 ! Auto-saved display configuration.
+
+prototype fallback Default gp gp.init
+prototype fallback Default gp gp.init
+prototype fallback 'Event logger' graphproc
+prototype fallback Default gp gp.init
+prototype fallback Default gp gp.init
+
 config snd_xsect
-	window 'w1' 4 383 788 497 gp gp.init
+	graphic 'w1' 3 403 788 497 'Default'
 		description 'snd_xsect-w1'
 		buttonmap 'default'
 		forcepd
-	endwindow
-	window 'big' 4 2 784 357 gp gp.init
+	endgraphic
+	graphic 'big' 2 21 784 357 'Default'
 		description 'snd_xsect-big'
 		buttonmap 'big'
 		forcepd
-	endwindow
-	widget 'iconbar' 789 1 350 117
-	window 'Event logger' 625 600 600 150 graphproc
-		nongraphic
-	endwindow
-	window 'w2' 797 146 356 354 gp gp.init
+	endgraphic
+	widget 'iconbar' 794 25 350 117
+	process 'Event logger' 625 600 600 150 'Event logger'
+	graphic 'w2' 792 167 356 354 'Default'
 		description 'snd_xsect-w2'
 		buttonmap 'sounding'
 		forcepd
-	endwindow
-	window 'w3' 796 525 356 353 gp gp.init
+	endgraphic
+	graphic 'w3' 792 545 356 353 'Default'
 		description 'snd_xsect-w3'
 		buttonmap 'sounding'
 		forcepd
-	endwindow
+	endgraphic
 endconfig
 
 beginpd 'snd_xsect-w1'
@@ -104,7 +109,7 @@ component c_gms
    parameter icon-left-menu            'raster-left'
    parameter icon-middle-menu          'gms-middle'
    parameter icon-right-menu           'DataAvailable'
-   parameter ir-center                 '280.0'
+   parameter ir-center                 '286.0'
    parameter ir-highlight              '205'
    parameter ir-highlight-color        'red'
    parameter ir-highlight-range        '6.0'
@@ -132,23 +137,6 @@ component p_map.0
    parameter platform                  'coare-ifa'
    parameter representation            'overlay'
    parameter require                   'simple-color'
-component p_active_loc
-   parameter active-icon               'true'
-   parameter color                     'green'
-   parameter field                     'location'
-   parameter icon                      'sounding-small'
-   parameter icon-left-menu            'minimal-cap-left-menu'
-   parameter icon-right-menu           'location-options'
-   parameter label                     'platform'
-   parameter label-size                '10'
-   parameter location-time             'observation'
-   parameter platform                  'chuuk,darwin,gove,guam,hongkong,hakuho_maru,korror,moana_wave,kwajalein,majuro,misima,pohnpei,santacruz,singapore,yap,natsu,dc8a,dc8b,p3a,p3b'
-   parameter posicon-left-menu         'al-send-other-window'
-   parameter posicon-middle-menu       'al-send-other-window'
-   parameter posicon-right-menu        'location-options'
-   parameter representation            'overlay'
-   parameter require                   'location,active-loc'
-   parameter time-label                'true'
 component p_iss_loc
    parameter active-icon               'true'
    parameter color                     'white'
@@ -165,6 +153,23 @@ component p_iss_loc
    parameter posicon-right-menu        'location-options'
    parameter representation            'overlay'
    parameter require                   'location, iss-cap'
+   parameter time-label                'true'
+component p_active_loc
+   parameter active-icon               'true'
+   parameter color                     'green'
+   parameter field                     'location'
+   parameter icon                      'sounding-small'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-right-menu           'location-options'
+   parameter label                     'platform'
+   parameter label-size                '10'
+   parameter location-time             'observation'
+   parameter platform                  'chuuk,darwin,gove,guam,ambon,davao,sounding/honiara,kanton,hongkong,hakuho_maru,korror,keifu_maru,kota,kuching,kupang,moana_wave,kwajalein,majuro,laoag,legaspi,mactan,madang,ship5,misima,pohnpei,santacruz,singapore,yap,natsu,dc8a,dc8b,p3a,p3b,menado,padang,ujungp,sounding/vickers,sounding/biak,thursday'
+   parameter posicon-left-menu         'al-send-other-window'
+   parameter posicon-middle-menu       'al-send-other-window'
+   parameter posicon-right-menu        'location-options'
+   parameter representation            'overlay'
+   parameter require                   'location,active-loc'
    parameter time-label                'true'
 endpd
 
@@ -189,8 +194,8 @@ component skewt
    parameter platform                  'manus,kavieng'
    parameter representation            'skewt'
    parameter require                   'skewt'
-   parameter skprivate-thermo-npts     '190'
-   parameter skprivate-wind-npts       '190'
+   parameter skprivate-thermo-npts     '372'
+   parameter skprivate-wind-npts       '372'
    parameter top-annot-active          'true'
    parameter topannot-left-menu        'skewt-topannot'
    parameter trigger                   'platform'
@@ -217,8 +222,8 @@ component skewt
    parameter platform                  'sci1'
    parameter representation            'skewt'
    parameter require                   'skewt'
-   parameter skprivate-thermo-npts     '188'
-   parameter skprivate-wind-npts       '188'
+   parameter skprivate-thermo-npts     '406'
+   parameter skprivate-wind-npts       '406'
    parameter top-annot-active          'true'
    parameter topannot-left-menu        'skewt-topannot'
    parameter trigger                   'platform'

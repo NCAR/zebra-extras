@@ -1,26 +1,32 @@
 ! Auto-saved display configuration.
+
+prototype fallback Default gp gp.init
+prototype fallback Default gp gp.init
+prototype fallback Default gp gp.init
+prototype fallback Default gp gp.init
+
 config skewt
-	window 'big' 2 1 704 444 gp gp.init
+	graphic 'big' 6 24 704 444 'Default'
 		description 'skewt-big'
 		buttonmap 'big'
 		forcepd
-	endwindow
-	widget 'iconbar' 4 472 235 165
-	window 'w1' 713 2 436 443 gp gp.init
+	endgraphic
+	widget 'iconbar' 50 496 235 165
+	graphic 'w1' 713 24 436 443 'Default'
 		description 'skewt-w1'
 		buttonmap 'sounding'
 		forcepd
-	endwindow
-	window 'w2' 717 469 428 406 gp gp.init
+	endgraphic
+	graphic 'w2' 721 493 428 406 'Default'
 		description 'skewt-w2'
 		buttonmap 'sounding'
 		forcepd
-	endwindow
-	window 'w3' 281 470 428 404 gp gp.init
+	endgraphic
+	graphic 'w3' 290 493 428 404 'Default'
 		description 'skewt-w3'
 		buttonmap 'sounding'
 		forcepd
-	endwindow
+	endgraphic
 endconfig
 
 beginpd 'skewt-big'
@@ -35,14 +41,14 @@ global
    parameter pd-name                   'skewt-big'
    parameter plot-hold                 'false'
    parameter plot-mode                 'history'
-   parameter plot-time                 '10-Feb-93,22:00:00'
+   parameter plot-time                 '10-Jan-93,0:00:00'
    parameter plot-type                 'CAP'
    parameter radar-space               'false'
    parameter trigger                   'gms'
-   parameter x-max                     '976.51'
-   parameter x-min                     '-2366.84'
-   parameter y-max                     '2870.67'
-   parameter y-min                     '-549.88'
+   parameter x-max                     '1848.6638'
+   parameter x-min                     '-6632.1533'
+   parameter y-max                     '4126.4048'
+   parameter y-min                     '-904.8438'
 component c_gms.0
    parameter altitude                  '0.0'
    parameter color-table               'ir_gray'
@@ -54,7 +60,7 @@ component c_gms.0
    parameter icon-left-menu            'raster-left'
    parameter icon-middle-menu          'gms-middle'
    parameter icon-right-menu           'DataAvailable'
-   parameter ir-center                 '280.0'
+   parameter ir-center                 '286.0'
    parameter ir-highlight              '205'
    parameter ir-highlight-color        'red'
    parameter ir-highlight-range        '6.0'
@@ -99,6 +105,23 @@ component p_map.0
    parameter platform                  'coare'
    parameter representation            'overlay'
    parameter require                   'simple-color'
+component p_iss_loc
+   parameter active-icon               'true'
+   parameter color                     'white'
+   parameter field                     'location'
+   parameter icon                      'iss-loc'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-right-menu           'location-options'
+   parameter label                     'platform'
+   parameter label-size                '10'
+   parameter location-time             'observation'
+   parameter platform                  'kapinga,kavieng,manus,nauru,exp3,sci1'
+   parameter posicon-left-menu         'minimal-cap-left-menu'
+   parameter posicon-middle-menu       'iss-to-other'
+   parameter posicon-right-menu        'location-options'
+   parameter representation            'overlay'
+   parameter require                   'location, iss-cap'
+   parameter time-label                'true'
 component p_active_loc
    parameter active-icon               'true'
    parameter color                     'green'
@@ -109,29 +132,12 @@ component p_active_loc
    parameter label                     'platform'
    parameter label-size                '10'
    parameter location-time             'observation'
-   parameter platform                  'chuuk,darwin,gove,guam,hongkong,hakuho_maru,korror,moana_wave,kwajalein,majuro,misima,pohnpei,santacruz,singapore,yap,natsu,dc8a,dc8b,p3a,p3b'
+   parameter platform                  'chuuk,darwin,gove,guam,ambon,davao,sounding/honiara,kanton,hongkong,hakuho_maru,korror,keifu_maru,kota,kuching,kupang,moana_wave,kwajalein,majuro,laoag,legaspi,mactan,madang,ship5,misima,pohnpei,santacruz,singapore,yap,natsu,dc8a,dc8b,p3a,p3b,menado,padang,ujungp,sounding/vickers,sounding/biak,thursday'
    parameter posicon-left-menu         'al-send-other-window'
    parameter posicon-middle-menu       'al-send-other-window'
    parameter posicon-right-menu        'location-options'
    parameter representation            'overlay'
    parameter require                   'location,active-loc'
-   parameter time-label                'true'
-component p_iss_loc
-   parameter active-icon               'true'
-   parameter color                     'white'
-   parameter field                     'location'
-   parameter icon                      'iss-loc'
-   parameter icon-left-menu            'minimal-cap-left-menu'
-   parameter icon-right-menu           'location-options'
-   parameter label                     'platform'
-   parameter label-size                '14'
-   parameter location-time             'observation'
-   parameter platform                  'kapinga,kavieng,manus,nauru,exp3,sci1'
-   parameter posicon-left-menu         'minimal-cap-left-menu'
-   parameter posicon-middle-menu       'iss-to-other'
-   parameter posicon-right-menu        'location-options'
-   parameter representation            'overlay'
-   parameter require                   'location, iss-cap'
    parameter time-label                'true'
 endpd
 
@@ -142,7 +148,7 @@ global
    parameter altitude-label            ''
    parameter pd-name                   'skewt-w1'
    parameter plot-mode                 'history'
-   parameter plot-time                 '10-Feb-93,22:00:00'
+   parameter plot-time                 '10-Jan-93,0:00:00'
    parameter plot-type                 'skewt'
    parameter require                   'simple-color'
 component skewt
@@ -153,11 +159,11 @@ component skewt
    parameter icon-middle-menu          'DataAvailable'
    parameter icon-right-menu           'skewt-right'
    parameter overlay-mode              'true'
-   parameter platform                  'sounding/kapinga,sounding/kavieng,sounding/manus'
+   parameter platform                  'sounding/honiara,ambon,kwajalein'
    parameter representation            'skewt'
    parameter require                   'skewt'
-   parameter skprivate-thermo-npts     '190'
-   parameter skprivate-wind-npts       '190'
+   parameter skprivate-thermo-npts     '125'
+   parameter skprivate-wind-npts       '125'
    parameter top-annot-active          'true'
    parameter topannot-left-menu        'skewt-topannot'
    parameter trigger                   'platform'
@@ -170,7 +176,7 @@ global
    parameter altitude-label            ''
    parameter pd-name                   'skewt-w2'
    parameter plot-mode                 'history'
-   parameter plot-time                 '10-Feb-93,22:00:00'
+   parameter plot-time                 '10-Jan-93,0:00:00'
    parameter plot-type                 'skewt'
    parameter require                   'simple-color'
 component skewt
@@ -181,11 +187,11 @@ component skewt
    parameter icon-middle-menu          'DataAvailable'
    parameter icon-right-menu           'skewt-right'
    parameter overlay-mode              'true'
-   parameter platform                  'sci1'
+   parameter platform                  'laoag,mactan,davao'
    parameter representation            'skewt'
    parameter require                   'skewt'
-   parameter skprivate-thermo-npts     '188'
-   parameter skprivate-wind-npts       '188'
+   parameter skprivate-thermo-npts     '51'
+   parameter skprivate-wind-npts       '51'
    parameter top-annot-active          'true'
    parameter topannot-left-menu        'skewt-topannot'
    parameter trigger                   'platform'
@@ -198,7 +204,7 @@ global
    parameter altitude-label            ''
    parameter pd-name                   'skewt-w3'
    parameter plot-mode                 'history'
-   parameter plot-time                 '10-Feb-93,22:00:00'
+   parameter plot-time                 '10-Jan-93,0:00:00'
    parameter plot-type                 'skewt'
    parameter require                   'simple-color'
 component skewt
@@ -209,11 +215,11 @@ component skewt
    parameter icon-middle-menu          'DataAvailable'
    parameter icon-right-menu           'skewt-right'
    parameter overlay-mode              'true'
-   parameter platform                  'dc8a,dc8b'
+   parameter platform                  'padang,kuching,kota'
    parameter representation            'skewt'
    parameter require                   'skewt'
-   parameter skprivate-thermo-npts     '151'
-   parameter skprivate-wind-npts       '151'
+   parameter skprivate-thermo-npts     '28'
+   parameter skprivate-wind-npts       '28'
    parameter top-annot-active          'true'
    parameter topannot-left-menu        'skewt-topannot'
    parameter trigger                   'platform'
