@@ -1,6 +1,6 @@
 !
 ! Various DM widgets of interest.
-! $Id: dm.widgets,v 1.1 2000-08-29 21:59:12 burghart Exp $
+! $Id: dm.widgets,v 1.2 2000-12-14 00:39:20 granger Exp $
 !
 
 !
@@ -12,7 +12,7 @@ define widget enter form "Entry widget"
 ! The platform selection line.
 !
 	label l_plat "Platform:"
-	pulldown platform 'chasevan' menu 'plats' width 100
+	pulldown platform 'convairmanual' menu 'plats' width 100
 	label space ' ' width 100
 	button exit 'Zap' color red command 'popdown #ui$form'
 	newline
@@ -25,7 +25,7 @@ define widget enter form "Entry widget"
 	label l_lon 'Lon:'
 	blank lon_deg '159' width 40
 	blank lon_min '58' width 40
-	label l_alt 'Alt:'
+	label l_alt 'Alt(km):'
 	blank alt '0.0' width 60
 	newline
 !
@@ -224,7 +224,7 @@ endprocedure
 define widget plats intmenu 'platforms'
 	title 'Platforms'
 	line
-	entry 'CSU Chase van' 'formtext #ui$form platform chasevan'
+	entry 'UW Convair-580' 'formtext #ui$form platform convairmanual'
 endmenu
 
 
