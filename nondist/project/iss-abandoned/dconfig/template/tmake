@@ -1,27 +1,29 @@
 #! /usr/local/bin/perl5
 #
 # Make target display configs from the given template
-# $Id: tmake,v 1.3 1999-02-11 23:10:21 granger Exp $
+# $Id: tmake,v 1.4 1999-02-11 23:37:23 granger Exp $
 
 if ($#ARGV < 2)
 {
-    print "Usage: $0 <template> <qualifier> <platform> [platform ...]\n";
-    print "Example: $0 iss-batch '' iss1 iss2 iss3\n";
-    print "Example: $0 lineplot-template 'lineplot-' iss1 iss2 iss3\n";
-    print "Example: $0 class-template 'class-' bel bea alg tim own sud\n";
+    print "Usage: $0 <prefix> <template> <platform> [platform ...]\n";
+    print "Example: $0 '' iss-batch iss1 iss2 iss3\n";
+    print "Example: $0 'lineplot-' template iss1 iss2 iss3\n";
+    print "Example: $0 'class-' template bel bea alg tim own sud\n";
     exit 1;
 }
 
+$prefix = shift;
 $template = shift;
+# Add the template string to the replacement regexp before adding the 
+# config name prefix
+$regexp = '(' . join ('|',@ARGV) . '|' . "$template" . ')';
+$template = "$prefix" . "$template" ;
 if (! -f "$template.dc" )
 {
     print "No such template: $template.dc\n";
     exit 1;
 }
 
-$qual= shift;
-
-$regexp = '(' . join ('|',@ARGV) . '|' . "$template" . ')';
 print "Replacing $regexp\n";
 
 @Warning = 
@@ -37,7 +39,7 @@ print "Replacing $regexp\n";
 foreach $platform (@ARGV)
 {
 
-    $target = $qual . $platform;
+    $target = $prefix . $platform;
     $dc="$target.dc";
     unlink($dc);
     print "Generating $dc from $template...\n";
