@@ -1,0 +1,56 @@
+! Auto-saved display configuration.
+
+prototype fallback 'Default' gp 'gp.init'
+
+config radar
+	widget 'iconbar' 1075 10 80 550
+	graphic 'r' 4 21 596 579 'Default'
+		description 'radar-r'
+		buttonmap 'big'
+		forcepd
+	endgraphic
+endconfig
+
+beginpd 'radar-r'
+global
+   parameter altitude                  '121.9977'
+   parameter altitude-label            '122.0 deg'
+   parameter pd-name                   'radar-r'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '13-jun-1997,01:39:25'
+   parameter plot-type                 'CAP'
+   parameter proj-topannot-left-menu   'projection'
+   parameter radar-space               'true'
+   parameter x-max                     '181.6480'
+   parameter x-min                     '-47.4690'
+   parameter y-max                     '134.5202'
+   parameter y-min                     '-92.2411'
+component p_map
+   parameter color                     'yellow'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'default'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_polar
+   parameter altitude-control          'true'
+   parameter color-table               'wild_new'
+   parameter every-sweep               'true'
+   parameter field                     'vr'
+   parameter icon                      'radar'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'spol-middle'
+   parameter icon-right-menu           'DataAvailable'
+   parameter limit-proc                'raster-limit-proc'
+   parameter platform                  'spol'
+   parameter radar-scan                'rhi'
+   parameter representation            'polar'
+   parameter require                   'radar, raster, spol'
+   parameter rhi-angle                 '121.9977'
+   parameter trigger                   'spol'
+   parameter trigger-global            'true'
+endpd
+

@@ -1,0 +1,32 @@
+#!/usr/bin/python
+#
+
+from Tkinter import *
+import os
+import sys
+
+
+class Main (Frame):
+    def __init__ (self, master = None):
+	Frame.__init__ (self, master)
+	self.pack ()
+	self.l = Label (self, bitmap = '@/ops/zebra/global',
+			foreground = 'yellow', background = 'darkblue')
+	self.l.pack (side = 'left')
+	self.label = Label (self, text = 'Zebra magic startup button',
+			    foreground = 'red')
+	self.label.pack (side = 'top')
+	self.button = Button (self, text = 'Click here to start system',
+			      command = self.doit)
+	self.button.pack (side = 'top')
+
+    def doit (self):
+	self.button['text'] = '...Zebra starting now...'
+	self.button.flash ()
+	os.environ['STARTBUTTON_USED'] = 'certainly'
+	os.system ('/ops/zebra/startup')
+	sys.exit (0)
+
+
+win = Main ()
+win.mainloop ()

@@ -1,0 +1,42 @@
+#!/bin/tcsh
+#
+# Get the whole mess going.
+#
+
+#
+# If we're not running on zebu, dump off the work there.
+#
+if ( `hostname` != "zebu.spol.net" ) then
+    xhost +zebu
+    rsh zebu /ops/zebra/remdm `hostname` &
+    exit 0
+endif
+
+#
+# Otherwise we need to run the real thing.
+#
+setenv XAPPLRESDIR /zebra/lib/resources
+setenv ZEB_MESSAGE "message -internet"
+
+xterm -icon -name 'zebra' -title 'zebra' -e /zebra/bin/zstart /ops/zebra  &
+#
+# Hang out for a bit, then start the other stuff once we have a 
+# data store available.
+#
+sleep 5
+chmod 777 /tmp/fcc.socket    # Hack!  Kludge!
+/zebra/bin/LastData -g 240x150-0+175 /ops/zebra/LastData.conf &
+
+#
+# Are we on zebu?  If so run some extra goodies.
+#
+rm -f /ops/run/arch.out	# AAAAARRRRGH!
+/zebra/bin/Archiver -f /dev/st0 -g +5-5 -time 60 \
+		    -database /ops/run/ArcDB \
+		    -tapelimit 3500000 \
+		    -exclude spol >& /ops/run/arch.out &
+sleep 2
+rm -f /ops/run/rain.out
+/ops/bin/startboth >& /ops/run/rain.out
+ rsh hy-id rm -f /ops/run/hyid.out
+ rsh hy-id /ops/bin/starthyid '<' /dev/null '>&' /ops/run/hyid.out '&'

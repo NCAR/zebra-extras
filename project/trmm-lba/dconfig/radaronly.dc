@@ -1,0 +1,73 @@
+! Auto-saved display configuration.
+
+prototype fallback 'Default' gp 'gp.init'
+
+config radaronly
+	widget 'iconbar' 6 28 81 406
+	graphic 'x' 97 42 728 762 'Default'
+		description 'radaronly-x'
+		buttonmap 'big'
+		forcepd
+	endgraphic
+endconfig
+
+beginpd 'radaronly-x'
+global
+   parameter altitude-label            '?'
+   parameter pd-name                   'radaronly-x'
+   parameter plot-hold                 'false'
+   parameter plot-mode                 'real-time'
+   parameter plot-time                 '29-may-1997,17:55:32'
+   parameter plot-type                 'CAP'
+   parameter proj-topannot-left-menu   'projection'
+   parameter radar-space               'true'
+   parameter x-max                     '150.3555'
+   parameter x-min                     '-154.8321'
+   parameter y-max                     '162.4108'
+   parameter y-min                     '-164.4854'
+component p_polar
+   parameter altitude-control          'true'
+   parameter color-table               'scook'
+   parameter every-sweep               'true'
+   parameter every-volume              'true'
+   parameter field                     'dbz'
+   parameter icon                      'radar'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'spol-middle'
+   parameter icon-right-menu           'DataAvailable'
+   parameter limit-proc                'raster-limit-proc'
+   parameter platform                  'spol'
+   parameter radar-scan                'Any'
+   parameter representation            'polar'
+   parameter require                   'radar, raster, spol'
+   parameter scale-mode                'manual'
+   parameter sur-angle                 '4.9988'
+   parameter trigger                   'spol'
+   parameter trigger-global            'true'
+   parameter vr-center                 '0'
+   parameter vr-nsteps                 '15'
+   parameter vr-step                   '4'
+component p_map.0
+   parameter color                     'cyan'
+   parameter field                     'map'
+   parameter icon                      'streams'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'rivers'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_map
+   parameter color                     'yellow'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'default'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+endpd
+

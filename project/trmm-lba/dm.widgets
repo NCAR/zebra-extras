@@ -1,0 +1,307 @@
+!
+! Various DM widgets of interest.
+! $Id: dm.widgets,v 1.1 2002-10-17 21:29:20 burghart Exp $
+!
+
+!
+! If you're going to have time series plots, you need TSNewField...
+!
+define widget enter form "Entry widget"
+	noheader
+!
+! The platform selection line.
+!
+	label l_plat "Platform:"
+	pulldown platform 'chasevan' menu 'plats' width 100
+	label space ' ' width 100
+	button exit 'Zap' color red command 'popdown #ui$form'
+	newline
+!
+! Positions here.
+!
+	label l_lat 'Lat:'
+	blank lat_deg '-9' width 40
+	blank lat_min '-25' width 40
+	label l_lon 'Lon:'
+	blank lon_deg '159' width 40
+	blank lon_min '58' width 40
+	label l_alt 'Alt:'
+	blank alt '0.0' width 60
+	newline
+!
+! Let them put in a time.
+!
+	label l_time 'Time:'
+	blank time 'now' width 200
+	newline
+!
+! Options.
+!
+	button enter 'Enter point' command 'DoEnter false'
+	button overw 'Change last point' command 'DoEnter true'
+	newline
+!
+! And a gripe window.
+!
+	label gripe ' ' width 300 color red
+endform
+
+define widget hardcopy form "Print Window"
+
+	noheader
+	label title "HARDCOPY WIDGET" width 140 
+	!
+	! Command buttons
+	!
+	button help "Help" command 'help "printer"'
+	button print "Print" command 'printer_go'
+	button dismiss "Dismiss" command 'popdown #ui$form' color red
+	newline
+	label label_win "Printing:" width 140
+	! menu might be useful if ever want to preselect window names
+	! pulldown win "One Window" menu printer_window_menu width 150
+	button win "One Window" command 'printer_toggle_win' width 150
+	newline
+	button label_name "Printer name:" command printer_toggle_dest width 140
+	blank printer_name #default_printer_name width 150
+	newline
+	label label_device "Device type:" width 140
+	pulldown printer_device #default_printer_device \
+		menu printer_device_menu width 150
+	newline
+	label label_rv "Reverse video:" width 140
+	button rv "On" command 'printer_toggle_rv' width 150
+	newline
+!	label label_orient "Orientation:" width 140
+!	button orient "Portrait" command 'printer_toggle_orient' width 150
+!	newline
+	label label_remove "Remove widget:" width 140
+	button remove "No" command 'printer_toggle_remove' width 150
+	newline
+
+	!
+	! This label will be for showing instructions, hints, and errors
+	!
+	label hints1 "Verify/change settings, then click [Print]." \
+		width 300 
+	newline
+	label hints2 "Be sure the window is not obstructed!" \
+		width 300 
+
+enddef
+
+procedure printer_go
+
+	set device_option getftext(ui$form,"printer_device")
+	set rv_option " "
+	set root_option " "
+	set xwd2ps getenv("ZEB_XWD2PS_PATH")	
+	set xwd getenv("ZEB_XWD_PATH")
+	set xpr getenv("ZEB_XPR_PATH")
+!
+! Figure out what you have to run to get a file printed around here.
+!
+	if (SystemType = 'bsd')
+		local pcommand '| lpr -P'
+	else
+		local pcommand '| lp -d '  ! trailing space necessary
+	endif
+
+	! Add a little robustness
+	if (getftext(ui$form,"printer_name") = "")
+		formtext #ui$form "hints2" \
+			"No destination name specified. Try again."
+		return
+	endif
+
+	if (xwd = "UNDEFINED")
+		set xwd "xwd"
+	endif
+	if (xpr = "UNDEFINED")
+		set xpr "xpr"
+	endif
+
+	if (getftext(ui$form,"win") = "Entire Screen")
+		set root_option " -root "
+		formtext #ui$form "hints1" \
+			"Printing the entire screen, please wait."
+	else
+		formtext #ui$form "hints1" \
+			"Click mouse in window you wish printed."
+	endif
+
+ 	set print_command concat3(xwd,root_option," | ")
+
+	!
+	! If the device is "pscolor", we must try xwd2ps.
+	! If the device is "psmono", we will use xwd2ps since
+	! its being supplied on the CD.
+	! Every other device has to go to xpr.
+	!
+	if ((device_option = "pscolor") or (device_option = "psmono"))
+		!
+		! KLOOGE for CASES and linux
+		!
+		set print_command "convert "
+
+		if (getftext(ui$form,"rv") = "On")
+!			set print_command concat(print_command,"-negate ")
+!			set rv_option " -I "
+		endif
+		if (xwd2ps = "UNDEFINED")
+			set xwd2ps "xwd2ps"
+		endif
+!		set print_command concat(print_command,xwd2ps)
+!		set print_command concat(print_command,rv_option) 
+		if (device_option = "psmono")
+!			set print_command concat(print_command," -m ")
+		endif
+
+		set wacko "X: -transparency rgb:00/00/00 -pen rgb:00/00/00 -opaque rgb:ff/ff/ff ps:- "
+		set print_command concat(print_command, wacko)
+!		set print_command concat(print_command," X: ps:- ")
+
+	!
+	! Otherwise we're printing to a non-PS device and must use xpr
+	!
+	else
+		if (getftext(ui$form,"rv") = "On")
+			set rv_option " -rv "
+		endif
+		set print_command concat3(print_command,xpr,rv_option)
+		! Not necessary but we'll keep it for posterity
+		if (device_option = "psmono")
+			set device_option "ps"
+		endif
+		set print_command concat3(print_command," -device ",device_option)
+	endif
+
+	!
+	! Now test destination: either a file or a printer
+	!
+	if (getftext(ui$form,"label_name") = "Printer name:")
+		set print_command concat(print_command, pcommand)
+	else
+		set print_command concat(print_command," > ")
+	endif
+	set print_command concat(print_command,getftext(ui$form,"printer_name"))
+	message "Print command: #" print_command
+
+	set show_print_command quote(print_command)
+	formtext #ui$form "hints2" #show_print_command
+	if (getftext(ui$form,"remove") = "Yes")
+		popdown #ui$form
+		shell print_command
+	else
+		shell print_command
+		formtext #ui$form "hints1" "Done. [Print] again or change settings."
+		formtext #ui$form "hints2" "Click [Dismiss] to remove this window."
+	endif
+endprocedure
+
+procedure DoEnter overwrite bool
+!
+! Pull info from the widget.
+!
+!	local plat concat('l_',getftext(ui$form,'platform'))
+	local plat getftext(ui$form,'platform')
+	local lat_deg getftext(ui$form,'lat_deg')
+	local lon_deg getftext(ui$form,'lon_deg')
+	local lat_min getftext(ui$form,'lat_min')
+	local lon_min getftext(ui$form,'lon_min')
+	local alt getftext(ui$form,'alt')
+! 
+! Do the entry.
+!
+	if (overwrite)
+		enter #plat #lat_deg #lat_min #lon_deg #lon_min #alt
+	else
+		local when getftext(ui$form,'time')
+		enter #plat #lat_deg #lat_min #lon_deg #lon_min #alt #when
+	endif
+endprocedure
+
+define widget plats intmenu 'platforms'
+	title 'Platforms'
+	line
+	entry 'CSU Chase van' 'formtext #ui$form platform chasevan'
+endmenu
+
+
+procedure TSNewField
+	local w dm$button_window
+	parameter #w global plot-hold true
+!
+! Kludge #1: assume that the third component in the PD is an xytrace.  If
+!	     they don't do anything unusual, that will be the case.
+!
+	local sc NthComp(w, 2)
+!
+! Take the source component, and add it back to the window.  
+!
+	add #w #sc #w 0
+!
+! Kludge #2: we have no easy way to know what name the new component was 
+!	     assigned.  It is certainly different from the source!  So we
+!	     have to simply step through and see.
+!
+! We also count traces (in the older components only) while we are at it.
+!
+	local comps pd_complist(w)
+	local ntrace 0
+	local nlast 0
+	foreach comp #comps
+		local ntrace (ntrace + nlast)
+		local new comp
+		if (comp <> 'global' and comp <> 'xy-grid')
+			local nlast NValue(w, comp, 'platform')
+		endif
+	endfor
+!
+! Time to assign a new set of colors for the new component.
+!
+	local p 0
+	local nplat NValue(w, new, 'platform')
+	while (p < nplat)
+		local color NthColor('xygraph', ntrace+p)
+		if (p = 0)
+			local clist color
+		else
+			local clist concat3(clist, ',', color)
+		endif
+		local p (p + 1)
+	endwhile
+	local clist quote(clist)	! Some joker used "hot pink"
+	parameter #w #new field-color #clist
+!
+! Kludge #3, pick a new field for this trace.  Someday we'll have a nice
+!	     way for the user to do that; for now we just have to choose
+!	     something and let them tweak it.
+!
+	local foundone false
+	foreach field tdry rh dp pt ! that should do it
+		if (not foundone)   ! wish we had "break"
+			local hasit false
+			foreach comp #comps
+				if (PDParam (w, comp, 'y-field') = field)
+					local hasit true
+				endif
+			endfor
+			if (not hasit)
+				local foundone true
+				local newfield field
+			endif
+		endif
+	endfor
+!
+! Store the new field, release the window, and we are done.  Also force
+! the new axis on the right, since there's no room on the left in the
+! tseries template.
+!
+	parameter #w #new y-field #newfield
+	parameter #w #new axis-left false
+	parameter #w #new axis-right true
+	parameter #w global plot-hold false
+endprocedure
+
+

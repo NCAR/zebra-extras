@@ -1,0 +1,249 @@
+! $Id: IconBar,v 1.1 2002-10-17 21:29:20 burghart Exp $
+!
+! Generic IconBar template
+!
+
+set ui$bitmap_directory concat(c$libdir, "/icons")
+
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	noheader
+	!
+	! Define the menus
+	!
+	menu help bitmap iconbar-help
+		title 'Zeb Help Access'
+		line
+		entry 'Introduction' 'help intro'
+		entry 'On-line topics' 'help index'
+		entry 'Starting Zebra' 'help start'
+		entry 'Shutting down' 'help shut-down'
+		entry 'Keys and mouse buttons' 'help keys'
+		entry 'The icon bar' 'help iconbar'
+		entry 'Editing display configurations' 'help editing-configs'
+		line
+		entry 'Horizontal plots' 'help horizontal-plots'
+		entry 'Skew-t plots' 'help skewt'
+		entry 'XYGraph plots' 'help xy-graphs'
+		entry 'Cross-section plots' 'help cross-section'
+	endmenu
+	menu tools bitmap tools-big
+		title 'Tools'
+		line
+		entry 'Time widget'	'popup time'
+		entry 'Make a print' 'popup hardcopy'
+		entry 'Event logger' 'shell "EventLogger -w &"'
+		entry 'Log notices' 'shell "dsnotice -log -all &"'
+		line
+		entry 'Add display window' 'popup newwindow'
+		entry 'Delete display window' 'popup zorchwindow'
+		entry 'Save current configuration' 'popup saveconfig'
+		line
+		entry 'Data store contents' 'shell "dsdwidget &"'
+		entry 'Data store management' 'shell "dsmanage &"'
+!		entry 'Archiver' 'shell "./Archiver &"'
+		entry 'Scan optimizer' 'shell "Optimizer radars &"'
+!		line
+!		entry 'Create custom precip accumulation' 'shell "custom &"'
+!		line
+!		entry 'Chase van location' 'putc2 p_loc platform chasevan icon tinycircle'
+!		entry 'Enter chase van location' 'popup enter'
+		line
+		entry ' ' 'beep'
+		line
+		entry 'Shut down Zebra' 'popup shutdown-conf'
+	endmenu
+!
+! The project display configurations are added in this menu
+!
+	menu configs bitmap configs
+		title 'Display configurations'
+		line
+		entry 'Single-window basic radar' 'display radaronly' \
+			(dm$config = 'radaronly')
+		entry 'Four precip windows' 'display megaprecip' \
+			(dm$config = 'megaprecip')
+		entry 'Radar + precip + particle types' 'display rad-pre-pd' \
+		      	(dm$config = 'rad-pre-pd')
+		entry 'Two radar windows + precip' 'display radar2win' \
+			(dm$config = 'radar2win')
+		line
+		submenu 'Wilson' WilsonConfigs
+		submenu 'Brandes' BrandesConfigs
+		line
+		entry 'Empty screen' 'display empty' (dm$config = 'empty')
+	endmenu
+!
+! Radar products.
+!
+	menu radar bitmap radar
+		title 'Radar data'
+		line
+		entry 'S-Pol radar' 'putc1 p_polar platform spol'
+	endmenu
+!
+! Precip
+!
+	menu precip bitmap iss-rain
+	     	title 'Accumulated precipitation products'
+		line
+		entry 'KDP precipitation' 'putc1 c_precip field kac'
+		entry 'Z-r precipitation' 'putc1 c_precip field zac'
+		entry 'ZDR precipitation' 'putc1 c_precip field dac'
+		entry 'Hybrid precipitation' 'putc1 c_precip field hac'
+		line
+		entry 'KDP precipitation contours' \
+			'putc1 c_precipcont field kac'
+		entry 'Z-r precipitation contours' \
+			'putc1 c_precipcont field zac'
+		entry 'ZDR precipitation contours' \
+			 'putc1 c_precipcont field dac'
+		entry 'Hybrid precipitation contours' \
+			'putc1 c_precipcont field hac'
+		line
+		entry 'Particle types' 'putc1 c_pdesc field pd'
+	endmenu
+	menu 'actracks' bitmap aircraft
+		title 'A/C Tracks'
+		line
+		entry 'Citation' \
+		    'putc3 p_track platform citation icon citation color yellow'
+		entry 'DC-8' \
+		    'putc3 p_track platform dc8 icon dc8 color green'
+		entry 'ER-2' \
+		    'putc3 p_track platform er2 icon er2 color pink'
+	endmenu
+!
+! Maps, locations and other informational overlays
+!
+	menu 'overlays' bitmap overlays
+		title 'Static Overlays'
+		line
+		entry 'State border map' 'putc2 p_map platform state icon map'
+		entry 'County lines map' \
+			'putc2 p_map platform county icon map'
+		entry 'Lake map' \
+			'putc3 p_map platform fwater icon lakes color cyan'
+		entry 'Streams and rivers map' \
+			'putc3 p_map platform water icon streams color cyan'
+		entry 'Roads and highways map' \
+			'putc3 p_map platform road icon roadmap color green'
+		line
+		entry 'Radar location' \
+			'putc2 p_loc platform spol icon radar-loc'
+		entry 'Radar range/azimuth rings' \
+			'putc2 p_rings platform spol do-labels false'
+		line
+		entry 'Optimizer boundary' \
+			'putc2 p_opt_boundary platform boundary color darkblue'
+		line
+		entry 'X-Y Grid (km)' \
+			'putc3 p_kmgrid x-spacing 100 y-spacing 100 color cyan'
+		entry 'Lat/Lon Grid' \
+			'putc3 p_llgrid x-spacing 60 y-spacing 60 color cyan'
+!		entry 'Window Bounds' put_wbounds p_wbounds
+		line
+		entry 'AL Wind profiler location' \
+		        'putc3 p_loc platform c_101 icon prof-sm color red'
+		entry 'SWF gauge locations' \
+		      'putc3 p_station platform swf color red icon fmill-loc'
+		entry 'STJ gauge locations' \
+		      'putc3 p_station platform stj color red icon fmill-loc'
+		entry 'SFL gauge locations' \
+		      'putc3 p_station platform sfl color red icon fmill-loc'
+		entry 'KSC gauge locations' \
+		      'putc3 p_station platform ksc color red icon fmill-loc'
+		entry 'Cluster gauge locations' \
+		      'putc3 p_station platform cluster color red icon fmill-loc'
+	endmenu
+
+
+enddef
+
+
+define widget WilsonConfigs intmenu 'x'
+	title "Jim's configs"
+	line
+	entry 'July 20' 'display wilson-jul20'
+endmenu
+
+define widget BrandesConfigs intmenu 'x'
+       	title "Ed's configs"
+	line
+	entry 'July 21' 'display ed_config'
+endmenu
+
+
+
+set SoundingPlatforms 'knorr/class,suroit/class,sounding/lear-ds'
+
+procedure SendLocs
+	parameter p_active_loc p_active_loc platform #SoundingPlatforms
+	parameter p_active_loc p_active_loc icon sounding-small
+	putc2 p_active_loc location-time observation time-label true
+	parameter p_active_loc p_active_loc location-time point
+endprocedure
+
+
+
+
+!
+! Put in window bounds.
+!
+procedure put_wbounds comp string
+!
+! Get the window we want to see.
+!
+	set wbounds_win "none"
+	pickwin wbounds_win
+	if (wbounds_win = "none")
+		beep
+		return
+	endif
+!
+! And now the place where it goes.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")
+		beep
+		return
+	endif
+!
+! Fix up the component and ship it over.
+!
+	parameter #comp #comp platform #wbounds_win
+	add #comp #comp #target_win
+endprocedure
+
+!
+! Shutdown stuff.
+!
+
+define widget shutdown-conf form 'Confirm shutdown'
+	noheader
+	label l 'Do you really want to shut down zebra?'
+	newline
+	button yes 'yes' command 'do_shutdown' color red
+	button no 'no' command 'popdown #ui$form'
+enddef
+
+
+procedure do_shutdown
+	if (getenv ('STARTBUTTON_USED') <> 'UNDEFINED')
+		shell 'nohup /ops/zebra/startbutton &'
+		shell 'sleep 2'
+	endif
+	shutdown
+endprocedure
+
+!
+! Lists
+!
+set kg1 'ksc_02,ksc_05,ksc_07,ksc_08,ksc_11,ksc_14,ksc_16,ksc_17,ksc_18,ksc_20'
+set kg2 ',ksc_22,ksc_23,ksc_25,ksc_26,ksc_27,ksc_28,ksc_29,ksc_33,ksc_35,ksc_68'
+set KscGauges concat(kg1,kg2)
+
+set ClusterGauges 'c_101,c_102,c_103,c_104,c_105,c_106,c_107,c_108,c_108b,c_108c,c_109,c_110,c_111,c_112,c_113,c_114,c_115,c_116'
