@@ -5,6 +5,7 @@
 # the FSL mesonet files.
 #
 unset noclobber
+unalias mv
 
 if ($#argv != 1) then
     echo "Usage: $0 <fsl_mesonet_data_dir>"
@@ -69,7 +70,7 @@ end
 #
 # Replace the old timestamp file with the new one
 #
-mv $newtimestampfile $timestampfile
+mv -f $newtimestampfile $timestampfile
 
 echo "$myname ($$) finished `date`" >> $logfile
 exit 0
