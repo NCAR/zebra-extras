@@ -11,6 +11,7 @@ global
 	plot-type:	xygraph
 	icon-middle-menu:	DataAvailable
 	platform:	Dsgp915rwpwindC1.a2
+	require:	simple-color
 	sa-scale:	12
 	show-steps:	false
 	xy-adj-axis-side:	b
@@ -47,7 +48,7 @@ global
 	vec-scale:	3
 	x-field:	time
 	y-field:	heights
-	require:	xywind,profiler
+	require:	xywind, profiler, xytrace, simple-color
 	coords:		compass
 	wdir-field:	dir
 	wspd-field:	spd

@@ -3,6 +3,7 @@ global
 	axis-bottom-space:	30
 	axis-left-space:	60
 	axis-right-space:	20
+	axis-top-space:		20
 	height-scale-y-max:	7000.0
 	pd-name:	Profiler-Temp
 	plot-mode:	history
@@ -49,7 +50,7 @@ global
 	x-field:	time
 	y-field:	height
 	z-field:	temp
-	z-justify:	mid
+	z-justify:	base
 	z-scale:	0.02
 	skip-data-points:	9999.0,-9999.0
-	require:	xytrace
+	require:	xytrace, simple-color

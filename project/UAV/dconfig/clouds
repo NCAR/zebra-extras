@@ -1,13 +1,17 @@
 ! Auto-saved display configuration.
 config clouds
-	widget 'iconbar' 0 809 378 91
-	window 'w_cloud_tseries' -3 195 722 614 gp gp.init
-		description 'clouds-w_cloud_tseries'
+	widget 'iconbar' 4 826 458 72
+	window 'Clock' 400 809 250 60 fccclock
+		description 'clouds-Clock'
+		buttonmap 'default'
+	endwindow
+	window 'UpperLeft' 5 184 722 589 gp gp.init
+		description 'clouds-UpperLeft'
 		buttonmap 'xyplot'
 		forcepd
 	endwindow
-	window 'w_blc_tseries' 672 192 480 552 gp gp.init
-		description 'clouds-w_blc_tseries'
+	window 'UpperRight' 666 186 480 527 gp gp.init
+		description 'clouds-UpperRight'
 		buttonmap 'xyplot'
 		forcepd
 	endwindow

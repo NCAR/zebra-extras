@@ -1,9 +1,13 @@
 ! Auto-saved display configuration.
 config NGM
-	widget 'iconbar' 8 8 336 64
-	window 'UpperLeft' 8 87 760 635 gp gp.init
+	widget 'iconbar' 8 8 452 68
+	window 'UpperLeft' 8 87 760 560 gp gp.init
 		description 'NGM-UpperLeft'
 		buttonmap 'big'
 		forcepd
+	endwindow
+	window 'Clock' 500 8 250 60 fccclock
+		description 'NGM-Clock'
+		buttonmap 'default'
 	endwindow
 endconfig
