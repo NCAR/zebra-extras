@@ -31,7 +31,7 @@ buttonmap radar
 	local	b	'popcoords'
 	local	g	'popup position'
 	local	m	'popup movie'
-	local	p	'polyline l_spotlight'
+	local	o	'polyline boundary'
 	local	r	'movie run'
 	local	s	'movie stop'
 	local	t	'popup overlay'
