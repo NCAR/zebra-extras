@@ -1,3 +1,37 @@
+Wed Jan 31 15:08:37 1996  Gary Granger  <granger@narnia.atd.ucar.edu>
+
+	* Addition of HKUST pump house RASS data and display:
+
+	  The cnw2iss script was copied into cnt2iss and modified to
+	  convert the Radian consensus temperature files (.cnt) to the
+	  ISS format expected by prof_ingest.
+
+	  The ingest_shalowan_profiler script was copied into
+	  ingest_pump_house and modified to also process the .cnt files
+	  and ingest them into the pumphouse/rass platform with
+	  prof_ingest.  The start_zeb_ingest_scripts script now calls
+	  ingest_pump_house instead of ingest_shalowan_profiler.
+
+	  ds.config: Added pumphouse platforms (pumphouse/profl,
+          pumphouse/profh, pumphouse/profm, pumphouse/rass) which
+          essentially serve as aliases for the shalowan platforms, since
+          the pumphouse data directories point to the shalowan
+          directories.
+
+	  Added the rass-template.pd file to ./pd, then updated the
+	  requisite 'iss' module in ./modules and added the 'iss-new' and
+	  'xywind' modules.
+
+	  Created the 'pumphouse-rass' display configuration (file
+	  ./dconfig/pumphouse-rass.dc) and added an entry for it to the
+	  IconBar menu.
+
+	* zebsh: add -f option to avoid reading home startup files.
+
+	* empty.dc: lengthen iconbar to fit all of the icons.
+
+	* start_event_logger: pipe 'mv' output to /dev/null
+
 Wed May 25 12:26:21 1994  Gary Granger  (granger@steam)
 
 	* IconBar: add tseries plot-type window template; change xygraph
