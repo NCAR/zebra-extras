@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.6 2002-05-14 15:40:44 burghart Exp $
+! $Id: IconBar,v 1.7 2002-05-17 15:13:57 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -109,7 +109,8 @@ define widget iconbar menubar " "
 		entry 'Particle types' 'putc0 p_pdesc'
 		entry 'Precip' 'putc1 c_precip platform precip.basic'
 		entry 'Nexrad composite' 'putc0 p_composite'
-		entry 'Refract-Storm' 'putc2 p_refract_storm platform refract_storm field N'
+		entry 'Refractivity' \
+			'putc2 p_refract_storm platform refract_storm field n'
 		entry 'AP' 'putc2 p_polar platform AP field dbz'
 !		submenu 'Nexrad level 2' 'nexrad_level2'
 !		entry 'Binet winds' 'putc0 p_binet_winds'
