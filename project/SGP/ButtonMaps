@@ -1,0 +1,81 @@
+!
+! The file for display manager button maps.
+!
+
+!
+! Basic, vanilla stuff.
+!
+buttonmap basic
+	local	mb-left		'drawbox pushcoord'
+	local	m			'popup movie'
+	local	r			'movie run'
+	local	s			'movie stop'
+	local	b			'popcoords'
+	local	h			'help'
+endmap
+
+buttonmap oklahoma.cap
+	local	mb-s-left	'drawbox pushcoord'
+	local	mb-left		'getposition'
+	local	mb-middle	'drawline sendendpoints'
+	local	mb-right	'toggle_main'
+	local	F1			'toggle_main'
+	local	a			'popup acwidget'
+	local	b			'popcoords'
+	local	g			'popup position'
+	local	m			'popup movie'
+	local	p			'polyline l_spotlight'
+	local	r			'movie run'
+	local	s			'movie stop'
+	local	t			'popup overlay'
+	local	Up			'altstep 1'
+	local	Down		'altstep -1'
+	local	u			'altstep 1'
+	local	d			'altstep -1'
+	local	Left		'DoZoom -225 75 -150 150'
+	local	Right		'DoZoom -93 22 -43 72'
+	local	F29			'altstep 99'
+	local	F35			'altstep -99'
+	local	F31			'toggle_main'
+	local	h			'help'
+	local	l			'popup LineWidth'
+endmap
+ 
+buttonmap sounding.cap
+	local	mb-left		'drawbox pushcoord'
+	local	b			'popcoords'
+	local	m			'popup movie'
+	local	Up			'altstep 1'
+	local	Down		'altstep -1'
+	local	u			'altstep 1'
+	local	d			'altstep -1'
+	local	r			'movie run'
+	local	s			'movie stop'
+	dm		c			'toggle_snd'
+	local	h			'help'
+endmap
+ 
+buttonmap xygraph
+	local	mb-s-left	'drawbox zoom'
+	local	b			'unzoom'
+! need to determine DoZoom coordinates
+!	local	Left		'DoZoom -225 75 -150 150'
+!	local	Right		'DoZoom -93 22 -43 72'
+	local	m			'popup movie'
+	local	r			'movie run'
+	local	s			'movie stop'
+	local	h			'help'
+	local	t			'popup overlay'
+endmap
+ 
+buttonmap pam.cap
+	local	mb-s-left	'drawbox pushcoord'
+	local	b			'popcoords'
+! need to determine DoZoom coordinates
+!	local	Left		'DoZoom -225 75 -150 150'
+!	local	Right		'DoZoom -93 22 -43 72'
+	local	m			'popup movie'
+	local	r			'movie run'
+	local	s			'movie stop'
+	local	h			'help'
+endmap

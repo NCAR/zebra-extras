@@ -1,0 +1,1445 @@
+!
+! All the definitions required to make the iconbars work.
+!
+set ui$bitmap_directory concat(getenv("ZEB_TOPDIR"), "/lib/icons")
+!
+! This is the facilitymenu itself.....
+!
+define widget facilitymenu menubar " "
+	!
+	! All this stuff tells the system to put it, unadorned by headers and
+	! title bars, where we want it.  DM does "override" by itself now,
+	! since this facilitymenu appears in the display config, so we don't
+	! bother with it here.
+	!
+	noheader
+	size 338 65
+	location 15 15
+	! vertical
+	override
+	!
+	! Now we can define the menus themselves.
+	!
+	menu 'global' bitmap global
+		title 'Zeb Control Options'
+		line
+		entry 'Facility Menus' 'popdown instrumentmenu; popup facilitymenu'
+		entry 'Instrument Menus' 'popdown facilitymenu; popup instrumentmenu'
+		entry 'Clear Zeb Display' 'display empty'
+		entry 'Shut down Display system' 'shutdown'
+	endmenu
+	menu 'utilities' bitmap utilities
+		title 'Utilities'
+		line
+		entry 'DataStore Widget'\
+			'shell "$BINHOME/dsdwidget&"'
+		entry 'EventLogger Widget'\
+			'shell "$BINHOME/EventLogger&"'
+		entry 'Time Control Window'\
+			'popup time'
+	endmenu
+	menu 'central' bitmap central
+		title 'Central Facility Instruments'
+		line
+		submenu 'TWR21X' twr21x
+		submenu 'BSRN1' bsrn1
+		submenu 'MWR1' mwr1
+		submenu 'SMOS8' smos8
+		submenu 'SONDE1' sonde1
+		submenu 'MFRSR1' mfrsr1
+		submenu '915RASS1' 915rass1
+		submenu 'EBBR1' ebbr1
+	endmenu
+	menu 'extended' bitmap extended
+		title 'Extended Facility List'
+		line
+		submenu 'ASHTON' ash
+		submenu 'CEMENT' cement
+		submenu 'COLDWATER' cold
+		submenu 'CORDELL' cord
+		submenu 'MEEKER' meek
+		submenu 'PLEVNA' plev
+		submenu 'RINGWOOD' ring
+		submenu 'ELK FALLS' elk
+		submenu 'PAWHUSKA' paw
+	endmenu
+	menu 'boundary' bitmap boundary
+		title 'Boundary Facility List'
+		line
+		submenu 'PURCELL' pur 
+	endmenu
+	menu 'auxiliary' bitmap auxiliary
+		title 'Auxiliary Facility List'
+		line
+	endmenu
+enddef
+
+!
+! This is the instrumentmenu itself.....
+!
+define widget instrumentmenu menubar " "
+	!
+	! All this stuff tells the system to put it, unadorned by headers and
+	! title bars, where we want it.  DM does "override" by itself now,
+	! since this instrumentmenu appears in the display config, so we don't
+	! bother with it here.
+	!
+	noheader
+	size 560 65
+	location 15 15
+	! vertical
+	override
+	!
+	! Now we can define the menus themselves.
+	!
+	menu 'global' bitmap global
+		title 'Zeb Control Options'
+		line
+		entry 'Facility Menus' 'popdown instrumentmenu; popup facilitymenu'
+		entry 'Instrument Menus' 'popdown facilitymenu; popup instrumentmenu'
+		entry 'Clear Zeb Display' 'display empty'
+		entry 'Shut down Display system' 'shutdown'
+	endmenu
+	menu 'utilities' bitmap utilities
+		title 'Utilities'
+		line
+		entry 'DataStore Widget'\
+			'shell "$BINHOME/dsdwidget&"'
+		entry 'EventLogger Widget'\
+			'shell "$BINHOME/EventLogger&"'
+		entry 'Time Control Window'\
+			'popup time'
+	endmenu
+	menu 'EBBR' bitmap ebbr
+		title 'EBBR Instruments'
+		line
+		submenu "EBBR1 Central" instebbr1
+		submenu "EBBR2 Cement" instebbr2
+		submenu "EBBR3 Ringwood" instebbr3
+		submenu "EBBR4 Ashton" instebbr4
+		submenu "EBBR5 Coldwater" instebbr5
+		submenu "EBBR6 Meeker" instebbr6
+		submenu "EBBR7 Cordell" instebbr7
+		submenu "EBBR8 Plevna" instebbr8
+		submenu "EBBR9 Elk Falls" instebbr9
+		submenu "EBBR10 Pawhuska" instebbr10
+	endmenu
+	menu 'SMOS' bitmap smos
+		title 'SMOS Instruments'
+		line
+		submenu "SMOS1 Ashton" instsmos1
+		submenu "SMOS2 Coldwater" instsmos2
+		line
+		submenu "SMOS4 Meeker" instsmos4
+		submenu "SMOS5 Ringwood" instsmos5
+		line
+		submenu "SMOS8 Central" instsmos8
+	endmenu
+	menu 'BSRN' bitmap bsrn
+		title 'BSRN Instruments'
+		line
+		submenu "BSRN1 Central" instbsrn1
+	endmenu
+	menu 'MWR' bitmap mwr
+		title 'MWR Instruments'
+		line
+		submenu "MWR1 Central" instmwr1
+	endmenu
+	menu 'SONDE' bitmap sonde
+		title 'SONDE Instruments'
+		line
+		submenu "SONDE1 Central" instsonde1
+	endmenu
+	menu 'TWR21X' bitmap twr21x
+		title 'TWR21X Instruments'
+		line
+		submenu "TWR21X1 Central" insttwr21x
+	endmenu
+	menu 'MFRSR' bitmap mfrsr
+		title 'MFRSR Instruments'
+		line
+		submenu "MFRSR1 Central" instmfrsr1
+	endmenu
+	menu '915RASS' bitmap 915rass
+		title '915RASS Instruments'
+		line
+		submenu "915RASS1 Central" inst915rass1
+	endmenu
+enddef
+
+!
+! Facility Menus
+!
+define widget ash intmenu 'ASHTON'
+	title 'Ashton Facility Instruments'
+	line
+	submenu "EBBR4" ebbr4
+	submenu "SMOS1" smos1
+endmenu
+
+define widget cement intmenu 'CEMENT'
+	title 'Cement Facility Instruments'
+	line
+	submenu "EBBR2" ebbr2
+endmenu
+
+define widget cold intmenu 'COLDWATER'
+	title 'Coldwater Facility Instruments'
+	line
+	submenu "EBBR5" ebbr5
+	submenu "SMOS2" smos2
+endmenu
+
+define widget cord intmenu 'CORDELL'
+	title 'Cordell Facility Instruments'
+	line
+	submenu "EBBR7" ebbr7
+endmenu
+
+define widget meek intmenu 'MEEKER'
+	title 'Meeker Facility Instruments'
+	line
+	submenu "EBBR6" ebbr6
+	submenu "SMOS4" smos4
+endmenu
+
+define widget plev intmenu 'PLEVNA'
+	title 'Plevna Facility Instruments'
+	line
+	submenu "EBBR8" ebbr8
+endmenu
+
+define widget paw intmenu 'PAWHUSKA'
+	title 'Pawhuska Facility Instruments'
+	line
+	submenu "EBBR10" ebbr10
+endmenu
+
+define widget elk intmenu 'ELK FALLS'
+	title 'Elk Falls Facility Instruments'
+	line
+	submenu "EBBR9" ebbr9
+endmenu
+
+define widget ring intmenu 'RINGWOOD'
+	title 'Ringwood Facility Instruments'
+	line
+	submenu "EBBR3" ebbr3
+	submenu "SMOS5" smos5
+endmenu
+
+define widget pur intmenu 'PURCELL'
+	title 'Purcell Facility Instruments'
+	line
+endmenu
+
+!
+! Platforms Menus
+!
+define widget twr21x intmenu 'TWR21X PLATFORM'
+	title 'TWR21X1 PLATFORM'
+	line
+	entry '1 Minute A0: temp, rh, vap_pres, aspirator'\
+		'put_4parameters "Dsgp1twr21xC1.a0" "temp" "rh" "vap_pres" "aspirator"'
+	entry '1 Minute A0: vbat'\
+		'put_1parameters "Dsgp1twr21xC1.a0" "vbat"'
+	entry '30 Minute A1: temp, rh, vap_pres, aspirator'\
+		'put_4parameters "Dsgp30twr21xC1.a1" "temp" "rh" "vap_pres" "aspirator"'
+	entry '30 Minute A1: sd_temp, sd_rh, sd_vap_pres'\
+		'put_3parameters "Dsgp30twr21xC1.a1" "sd_temp" "sd_rh" "sd_vap_pres"'
+endmenu
+
+define widget bsrn1 intmenu 'BSRN1'
+	title 'Baseline Surface Radiation Network Data'
+	line
+	entry 'BSRN CF A0: vbat, vref, svref'\
+		'put_3parameters "DsgpbsrnC1.a0" "vbat" "vref" "svref"'
+	entry 'BSRN CF A0: stcase, stdome, ptcase, ptdome'\
+		'put_4parameters "DsgpbsrnC1.a0" "stcase" "stdome" "ptcase" "ptdome"'
+	entry 'BSRN CF A0: psp1, psp2, psig, nip'\
+		'put_4parameters "DsgpbsrnC1.a0" "psp1" "psp2" "psig" "nip"'
+	entry 'BSRN CF A0: spsp1, spsp2, ssig, snip'\
+		'put_4parameters "DsgpbsrnC1.a0" "spsp1" "spsp2" "ssig" "snip"'
+	entry 'BSRN CF A1: nip, psp1, psp2, psig'\
+		'put_4parameters "DsgpbsrnC1.a1" "nip" "psp1" "psp2" "psig"'
+endmenu
+
+define widget sonde1 intmenu 'SONDE1'
+	title 'Balloon Borne Sounding System Data'
+	entry 'Sonde CF A1: pres,tdry,dp,rh'\
+		'put_4parameters "DsgpsondeC1.a1" "pres" "tdry" "dp" "rh"'
+	entry 'Sonde CF A1: wspd, deg, u_wind, v_wind'\
+		'put_4parameters "DsgpsondeC1.a1" "wspd" "deg" "u_wind" "v_wind"'
+	entry 'Sonde CF A1: alt, wstat, asc'\
+		'put_3parameters "DsgpsondeC1.a1" "alt" "wstat" "asc"'
+endmenu
+
+define widget mfrsr1 intmenu 'MFRSR1'
+	title 'MultiFilter RSR Data'
+	entry 'MFRSR CF A0: dif1-4,tot1-4,dir1-4'\
+		'put_34parameters "1,1,1,1" "dif1,dif2,dif3,dif4" "tot1,tot2,tot3,tot4" "dir1,dir2,dir3,dir4"'
+	entry 'MFRSR CF A0: dif5-7,tot5-7,dir5-7'\
+		'put_33parameters "1,1,1" "dif5,dif6,dif7" "tot5,tot6,tot7" "dir5,dir6,dir7"'
+endmenu
+
+define widget 915rass1 intmenu '915RASS1'
+	title '915 RASS Data'
+endmenu
+
+define widget mwr1 intmenu 'MWR1'
+	title 'Water Vapor Radiometer Data'
+	line
+	entry 'MWR CF A1: liq, vap, tkxc, tkbb'\
+		'put_4parameters "DsgpmwrlosC1.a0" "liq" "vap" "tkxc" "tkbb"'
+	entry 'MWR CF A1: sky/skyn, tbsky/tbskyn, bb/bbn, '\
+		'put_34parameters "DsgpmwrlosC1.a0,DsgpmwrlosC1.a0,DsgpmwrlosC1.a0,DsgpmwrlosC1.a0" "23sky,23skyn,31sky,31skyn" "23tdbsky,23tbskyn,31sky,31tbskyn" "23bb,23bbn,31bb,31bbn"'
+	entry 'MWR CF A1: 23unoise,31unoise'\
+		'put_2parameters "DsgpmwrlosC1.a0" "23unoise" "31unoise"'
+endmenu
+
+define widget ebbr1 intmenu 'EBBR1'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A0: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE13.a1,Dsgp15ebbrE13.a1,Dsgp15ebbrE13.a1,Dsgp15ebbrE13.a1,Dsgp15ebbrE13.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A0: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE13.a1,Dsgp15ebbrE13.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A0: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE13.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE13.a0,Dsgp5ebbrE13.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE13.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE13.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget ebbr2 intmenu 'EBBR2'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A1: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE26.a1,Dsgp15ebbrE26.a1,Dsgp15ebbrE26.a1,Dsgp15ebbrE26.a1,Dsgp15ebbrE26.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A1: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE26.a1,Dsgp15ebbrE26.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A1: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE26.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE26.a0,Dsgp5ebbrE26.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE26.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE26.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget ebbr3 intmenu 'EBBR3'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A1: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE15.a1,Dsgp15ebbrE15.a1,Dsgp15ebbrE15.a1,Dsgp15ebbrE15.a1,Dsgp15ebbrE15.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A1: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE15.a1,Dsgp15ebbrE15.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A1: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE15.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE15.a0,Dsgp5ebbrE15.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE15.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE15.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget ebbr4 intmenu 'EBBR4'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A1: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE9.a1,Dsgp15ebbrE9.a1,Dsgp15ebbrE9.a1,Dsgp15ebbrE9.a1,Dsgp15ebbrE9.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A1: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE9.a1,Dsgp15ebbrE9.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A1: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE9.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE9.a0,Dsgp5ebbrE9.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE9.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE9.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget ebbr5 intmenu 'EBBR5'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A1: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE8.a1,Dsgp15ebbrE8.a1,Dsgp15ebbrE8.a1,Dsgp15ebbrE8.a1,Dsgp15ebbrE8.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A1: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE8.a1,Dsgp15ebbrE8.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A1: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE8.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE8.a0,Dsgp5ebbrE8.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE8.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE8.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget ebbr6 intmenu 'EBBR6'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A1: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE20.a1,Dsgp15ebbrE20.a1,Dsgp15ebbrE20.a1,Dsgp15ebbrE20.a1,Dsgp15ebbrE20.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A1: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE20.a1,Dsgp15ebbrE20.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A1: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE20.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE20.a0,Dsgp5ebbrE20.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE20.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE20.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget ebbr7 intmenu 'EBBR7'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A1: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE22.a1,Dsgp15ebbrE22.a1,Dsgp15ebbrE22.a1,Dsgp15ebbrE22.a1,Dsgp15ebbrE22.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A1: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE22.a1,Dsgp15ebbrE22.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A1: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE22.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE22.a0,Dsgp5ebbrE22.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE22.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE22.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget ebbr8 intmenu 'EBBR8'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A1: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE4.a1,Dsgp15ebbrE4.a1,Dsgp15ebbrE4.a1,Dsgp15ebbrE4.a1,Dsgp15ebbrE4.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A1: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE4.a1,Dsgp15ebbrE4.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A1: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE4.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE4.a0,Dsgp5ebbrE4.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE4.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE4.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget ebbr9 intmenu 'EBBR9'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A1: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE7.a1,Dsgp15ebbrE7.a1,Dsgp15ebbrE7.a1,Dsgp15ebbrE7.a1,Dsgp15ebbrE7.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A1: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE7.a1,Dsgp15ebbrE7.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A1: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE7.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE7.a0,Dsgp5ebbrE7.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE7.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE7.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget ebbr10 intmenu 'EBBR10'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A1: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE12.a1,Dsgp15ebbrE12.a1,Dsgp15ebbrE12.a1,Dsgp15ebbrE12.a1,Dsgp15ebbrE12.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A1: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE12.a1,Dsgp15ebbrE12.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A1: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE12.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE12.a0,Dsgp5ebbrE12.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE12.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE12.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget smos1 intmenu 'SMOS1'
+	title 'Surface Met Obs Station Data'
+	line
+	entry '1 Minute A0: temp, rh, precip'\
+		'put_3parameters "Dsgp1smosE9.a0" "temp" "rh" "precip"'
+	entry '1 Minute A0: wspd,wspd_va,wdir,sd_deg'\
+		'put_4parameters "Dsgp1smosE9.a0" "wspd" "wspd_va" "wdir" "sd_deg"'
+	entry '1 Minute A0: vap_pres, bar_pres'\
+		'put_2parameters "Dsgp1smosE9.a0" "vap_pres" "bar_pres"'
+	entry '30 Minute A1: wspd_va,sd_wspd,wdir,sd_deg'\
+		'put_4parameters "Dsgp30smosE9.a1" "wspd_va" "sd_wspd" "wdir" "sd_deg"'
+	entry '30 Minute A1: temp, rh, sd_temp, sd_rh'\
+		'put_4parameters "Dsgp30smosE9.a1" "temp" "rh" "sd_temp" "sd_rh"'
+	entry '30 Minute A1: vap_pres, bar_pres, sd_vap_pres, sd_bar_pres'\
+		'put_4parameters "Dsgp30smosE9.a1" "vap_pres" "bar_pres" "sd_vap_pres" "sd_bar_pres"'
+	entry '30 Minute A1: snow, snow_sen, precip, vbat'\
+		'put_4parameters "Dsgp30smosE9.a1" "snow" "snos_sen" "precip" "vbat"'
+endmenu
+
+define widget smos2 intmenu 'SMOS2'
+	title 'Surface Met Obs Station Data'
+	line
+	entry '1 Minute A0: temp, rh, precip'\
+		'put_3parameters "Dsgp1smosE8.a0" "temp" "rh" "precip"'
+	entry '1 Minute A0: wspd,wspd_va,wdir,sd_deg'\
+		'put_4parameters "Dsgp1smosE8.a0" "wspd" "wspd_va" "wdir" "sd_deg"'
+	entry '1 Minute A0: vap_pres, bar_pres'\
+		'put_2parameters "Dsgp1smosE8.a0" "vap_pres" "bar_pres"'
+	entry '30 Minute A1: wspd_va,sd_wspd,wdir,sd_deg'\
+		'put_4parameters "Dsgp30smosE8.a1" "wspd_va" "sd_wspd" "wdir" "sd_deg"'
+	entry '30 Minute A1: temp, rh, sd_temp, sd_rh'\
+		'put_4parameters "Dsgp30smosE8.a1" "temp" "rh" "sd_temp" "sd_rh"'
+	entry '30 Minute A1: vap_pres, bar_pres, sd_vap_pres, sd_bar_pres'\
+		'put_4parameters "Dsgp30smosE8.a1" "vap_pres" "bar_pres" "sd_vap_pres" "sd_bar_pres"'
+	entry '30 Minute A1: snow, snow_sen, precip, vbat'\
+		'put_4parameters "Dsgp30smosE8.a1" "snow" "snos_sen" "precip" "vbat"'
+endmenu
+
+define widget smos4 intmenu 'SMOS4'
+	title 'Surface Met Obs Station Data'
+	line
+	entry '1 Minute A0: temp, rh, precip'\
+		'put_3parameters "Dsgp1smosE20.a0" "temp" "rh" "precip"'
+	entry '1 Minute A0: wspd,wspd_va,wdir,sd_deg'\
+		'put_4parameters "Dsgp1smosE20.a0" "wspd" "wspd_va" "wdir" "sd_deg"'
+	entry '1 Minute A0: vap_pres, bar_pres'\
+		'put_2parameters "Dsgp1smosE20.a0" "vap_pres" "bar_pres"'
+	entry '30 Minute A1: wspd_va,sd_wspd,wdir,sd_deg'\
+		'put_4parameters "Dsgp30smosE20.a1" "wspd_va" "sd_wspd" "wdir" "sd_deg"'
+	entry '30 Minute A1: temp, rh, sd_temp, sd_rh'\
+		'put_4parameters "Dsgp30smosE20.a1" "temp" "rh" "sd_temp" "sd_rh"'
+	entry '30 Minute A1: vap_pres, bar_pres, sd_vap_pres, sd_bar_pres'\
+		'put_4parameters "Dsgp30smosE20.a1" "vap_pres" "bar_pres" "sd_vap_pres" "sd_bar_pres"'
+	entry '30 Minute A1: snow, snow_sen, precip, vbat'\
+		'put_4parameters "Dsgp30smosE20.a1" "snow" "snos_sen" "precip" "vbat"'
+endmenu
+
+define widget smos5 intmenu 'SMOS5'
+	title 'Surface Met Obs Station Data'
+	line
+	entry '1 Minute A0: temp, rh, precip'\
+		'put_3parameters "Dsgp1smosE15.a0" "temp" "rh" "precip"'
+	entry '1 Minute A0: wspd,wspd_va,wdir,sd_deg'\
+		'put_4parameters "Dsgp1smosE15.a0" "wspd" "wspd_va" "wdir" "sd_deg"'
+	entry '1 Minute A0: vap_pres, bar_pres'\
+		'put_2parameters "Dsgp1smosE15.a0" "vap_pres" "bar_pres"'
+	entry '30 Minute A1: wspd_va,sd_wspd,wdir,sd_deg'\
+		'put_4parameters "Dsgp30smosE15.a1" "wspd_va" "sd_wspd" "wdir" "sd_deg"'
+	entry '30 Minute A1: temp, rh, sd_temp, sd_rh'\
+		'put_4parameters "Dsgp30smosE15.a1" "temp" "rh" "sd_temp" "sd_rh"'
+	entry '30 Minute A1: vap_pres, bar_pres, sd_vap_pres, sd_bar_pres'\
+		'put_4parameters "Dsgp30smosE15.a1" "vap_pres" "bar_pres" "sd_vap_pres" "sd_bar_pres"'
+	entry '30 Minute A1: snow, snow_sen, precip, vbat'\
+		'put_4parameters "Dsgp30smosE15.a1" "snow" "snos_sen" "precip" "vbat"'
+endmenu
+
+define widget smos8 intmenu 'SMOS8'
+	title 'Surface Met Obs Station Data'
+	line
+	entry '1 Minute A0: temp, rh, precip'\
+		'put_3parameters "Dsgp1smosE13.a0" "temp" "rh" "precip"'
+	entry '1 Minute A0: wspd,wspd_va,wdir,sd_deg'\
+		'put_4parameters "Dsgp1smosE13.a0" "wspd" "wspd_va" "wdir" "sd_deg"'
+	entry '1 Minute A0: vap_pres, bar_pres'\
+		'put_2parameters "Dsgp1smosE13.a0" "vap_pres" "bar_pres"'
+	entry '30 Minute A1: wspd_va,sd_wspd,wdir,sd_deg'\
+		'put_4parameters "Dsgp30smosE13.a1" "wspd_va" "sd_wspd" "wdir" "sd_deg"'
+	entry '30 Minute A1: temp, rh, sd_temp, sd_rh'\
+		'put_4parameters "Dsgp30smosE13.a1" "temp" "rh" "sd_temp" "sd_rh"'
+	entry '30 Minute A1: vap_pres, bar_pres, sd_vap_pres, sd_bar_pres'\
+		'put_4parameters "Dsgp30smosE13.a1" "vap_pres" "bar_pres" "sd_vap_pres" "sd_bar_pres"'
+	entry '30 Minute A1: snow, snow_sen, precip, vbat'\
+		'put_4parameters "Dsgp30smosE13.a1" "snow" "snos_sen" "precip" "vbat"'
+endmenu
+
+!
+! Platforms instMenus
+!
+define widget insttwr21x intmenu 'TWR21X PLATFORM'
+	title 'TWR21X1 PLATFORM'
+	line
+	entry '1 Minute A0: temp, rh, vap_pres, aspirator'\
+		'put_4parameters "Dsgp1twr21xC1.a0" "temp" "rh" "vap_pres" "aspirator"'
+	entry '1 Minute A0: vbat'\
+		'put_1parameters "Dsgp1twr21xC1.a0" "vbat"'
+	entry '30 Minute A1: temp, rh, vap_pres, aspirator'\
+		'put_4parameters "Dsgp30twr21xC1.a1" "temp" "rh" "vap_pres" "aspirator"'
+	entry '30 Minute A1: sd_temp, sd_rh, sd_vap_pres'\
+		'put_3parameters "Dsgp30twr21xC1.a1" "sd_temp" "sd_rh" "sd_vap_pres"'
+endmenu
+
+define widget instbsrn1 intmenu 'BSRN1'
+	title 'Baseline Surface Radiation Network Data'
+	line
+	entry 'BSRN CF A0: vbat, vref, svref'\
+		'put_3parameters "DsgpbsrnC1.a0" "vbat" "vref" "svref"'
+	entry 'BSRN CF A0: stcase, stdome, ptcase, ptdome'\
+		'put_4parameters "DsgpbsrnC1.a0" "stcase" "stdome" "ptcase" "ptdome"'
+	entry 'BSRN CF A0: psp1, psp2, psig, nip'\
+		'put_4parameters "DsgpbsrnC1.a0" "psp1" "psp2" "psig" "nip"'
+	entry 'BSRN CF A0: spsp1, spsp2, ssig, snip'\
+		'put_4parameters "DsgpbsrnC1.a0" "spsp1" "spsp2" "ssig" "snip"'
+	entry 'BSRN CF A1: nip, psp1, psp2, psig'\
+		'put_4parameters "DsgpbsrnC1.a1" "nip" "psp1" "psp2" "psig"'
+endmenu
+
+define widget instsonde1 intmenu 'SONDE1'
+	title 'Balloon Borne Sounding System Data'
+	entry 'Sonde CF A1: pres,tdry,dp,rh'\
+		'put_4parameters "DsgpsondeC1.a1" "pres" "tdry" "dp" "rh"'
+	entry 'Sonde CF A1: wspd, deg, u_wind, v_wind'\
+		'put_4parameters "DsgpsondeC1.a1" "wspd" "deg" "u_wind" "v_wind"'
+	entry 'Sonde CF A1: alt, wstat, asc'\
+		'put_3parameters "DsgpsondeC1.a1" "alt" "wstat" "asc"'
+endmenu
+
+define widget instmfrsr1 intmenu 'MFRSR1'
+	title 'MultiFilter RSR Data'
+	entry 'MFRSR CF A0: dif1-4,tot1-4,dir1-4'\
+		'put_34parameters "1,1,1,1" "dif1,dif2,dif3,dif4" "tot1,tot2,tot3,tot4" "dir1,dir2,dir3,dir4"'
+	entry 'MFRSR CF A0: dif5-7,tot5-7,dir5-7'\
+		'put_33parameters "1,1,1" "dif5,dif6,dif7" "tot5,tot6,tot7" "dir5,dir6,dir7"'
+endmenu
+
+define widget inst915rass1 intmenu '915RASS1'
+	title '915 RASS Data'
+endmenu
+
+define widget instmwr1 intmenu 'MWR1'
+	title 'Water Vapor Radiometer Data'
+	line
+	entry 'MWR CF A1: liq, vap, tkxc, tkbb'\
+		'put_4parameters "DsgpmwrlosC1.a0" "liq" "vap" "tkxc" "tkbb"'
+	entry 'MWR CF A1: sky/skyn, tbsky/tbskyn, bb/bbn, '\
+		'put_34parameters "DsgpmwrlosC1.a0,DsgpmwrlosC1.a0,DsgpmwrlosC1.a0,DsgpmwrlosC1.a0" "23sky,23skyn,31sky,31skyn" "23tdbsky,23tbskyn,31sky,31tbskyn" "23bb,23bbn,31bb,31bbn"'
+	entry 'MWR CF A1: 23unoise,31unoise'\
+		'put_2parameters "DsgpmwrlosC1.a0" "23unoise" "31unoise"'
+endmenu
+
+define widget instebbr1 intmenu 'EBBR1'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1,Dsgp30ebbrE13.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A1: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE13.a1,Dsgp15ebbrE13.a1,Dsgp15ebbrE13.a1,Dsgp15ebbrE13.a1,Dsgp15ebbrE13.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A1: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE13.a1,Dsgp15ebbrE13.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A1: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE13.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE13.a0,Dsgp5ebbrE13.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE13.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE13.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget instebbr2 intmenu 'EBBR2'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1,Dsgp30ebbrE26.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A1: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE26.a1,Dsgp15ebbrE26.a1,Dsgp15ebbrE26.a1,Dsgp15ebbrE26.a1,Dsgp15ebbrE26.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A1: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE26.a1,Dsgp15ebbrE26.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A1: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE26.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE26.a0,Dsgp5ebbrE26.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE26.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE26.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget instebbr3 intmenu 'EBBR3'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1,Dsgp30ebbrE15.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A1: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE15.a1,Dsgp15ebbrE15.a1,Dsgp15ebbrE15.a1,Dsgp15ebbrE15.a1,Dsgp15ebbrE15.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A1: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE15.a1,Dsgp15ebbrE15.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A1: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE15.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE15.a0,Dsgp5ebbrE15.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE15.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE15.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget instebbr4 intmenu 'EBBR4'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1,Dsgp30ebbrE9.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A1: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE9.a1,Dsgp15ebbrE9.a1,Dsgp15ebbrE9.a1,Dsgp15ebbrE9.a1,Dsgp15ebbrE9.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A1: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE9.a1,Dsgp15ebbrE9.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A1: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE9.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE9.a0,Dsgp5ebbrE9.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE9.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE9.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget instebbr5 intmenu 'EBBR5'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1,Dsgp30ebbrE8.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A1: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE8.a1,Dsgp15ebbrE8.a1,Dsgp15ebbrE8.a1,Dsgp15ebbrE8.a1,Dsgp15ebbrE8.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A1: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE8.a1,Dsgp15ebbrE8.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A1: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE8.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE8.a0,Dsgp5ebbrE8.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE8.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE8.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget instebbr6 intmenu 'EBBR6'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1,Dsgp30ebbrE20.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A1: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE20.a1,Dsgp15ebbrE20.a1,Dsgp15ebbrE20.a1,Dsgp15ebbrE20.a1,Dsgp15ebbrE20.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A1: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE20.a1,Dsgp15ebbrE20.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A1: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE20.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE20.a0,Dsgp5ebbrE20.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE20.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE20.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget instebbr7 intmenu 'EBBR7'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1,Dsgp30ebbrE22.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A1: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE22.a1,Dsgp15ebbrE22.a1,Dsgp15ebbrE22.a1,Dsgp15ebbrE22.a1,Dsgp15ebbrE22.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A1: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE22.a1,Dsgp15ebbrE22.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A1: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE22.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE22.a0,Dsgp5ebbrE22.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE22.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE22.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget instebbr8 intmenu 'EBBR8'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1,Dsgp30ebbrE4.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A1: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE4.a1,Dsgp15ebbrE4.a1,Dsgp15ebbrE4.a1,Dsgp15ebbrE4.a1,Dsgp15ebbrE4.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A1: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE4.a1,Dsgp15ebbrE4.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A1: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE4.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE4.a0,Dsgp5ebbrE4.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE4.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE4.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget instebbr9 intmenu 'EBBR9'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1,Dsgp30ebbrE7.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A1: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE7.a1,Dsgp15ebbrE7.a1,Dsgp15ebbrE7.a1,Dsgp15ebbrE7.a1,Dsgp15ebbrE7.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A1: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE7.a1,Dsgp15ebbrE7.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A1: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE7.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE7.a0,Dsgp5ebbrE7.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE7.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE7.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget instebbr10 intmenu 'EBBR10'
+	title 'Energy Balance Bowen Ratio Data'
+	line
+	entry '30 Minute A1: sm1-5, ts1-5, shf1-5, c_shf1-5'\
+		'put_45parameters "Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1" "sm1,sm2,sm3,sm4,sm5" "ts1,ts2,ts3,ts4,ts5" "shf1,shf2,shf3,shf4,shf5" "c_shf1,c_shf2,c_shf3,c_shf4,c_shf5"'
+	entry '30 Minute A1: g1-5,cs1-5,ces1-5,ave_shf,bowen,e,h,q'\
+		'put_45parameters "Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1" "g1,g2,g3,g4,g5" "cs1,cs2,cs3,cs4,cs5" "ces1,ces2,ces3,ces4,ces5" "ave_shf,bowen,e,h,q"'
+	entry '30 Minute A1: home,tair,thum,hum'\
+		'put_42parameters "Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1" "home_15,home_30" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot"'
+	entry '30 Minute A1: pres,wind'\
+		'put_23parameters "Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1,Dsgp30ebbrE12.a1" "vp_top,vp_bot,pres" "res_ws,wind_d,sigma_wd"'
+	entry '15 Minute A1: mv_hft1-5,rr_sm1-5,rr_ts1-5'\
+		'put_35parameters "Dsgp15ebbrE12.a1,Dsgp15ebbrE12.a1,Dsgp15ebbrE12.a1,Dsgp15ebbrE12.a1,Dsgp15ebbrE12.a1" "mv_hft1,mv_hft2,mv_hft3,mv_hft4,mv_hft5" "rr_sm1,rr_sm2,rr_sm3,rr_sm4,rr_sm5" "rr_ts1,rr_ts2,rr_ts3,rr_ts4,rr_ts5"'
+	entry '15 Minute A1: rr_thum,mv_hum,tair,bat,signature'\
+		'put_42parameters "Dsgp15ebbrE12.a1,Dsgp15ebbrE12.a1" "rr_thum_r,rr_thum_l" "mv_hum_r,mv_hum_l" "tair_r,tair_l" "bat,signature"'
+	entry '15 Minute A1: mv_q,mv_pres,mv_wind_d,mv_home'\
+		'put_4parameters "Dsgp15ebbrE12.a1" "mv_q" "mv_pres" "mv_wind_d" "mv_home"'
+	entry '5 Minute A0: tair,thum,hum,vp'\
+		'put_42parameters "Dsgp5ebbrE12.a0,Dsgp5ebbrE12.a0" "tair_top,tair_bot" "thum_top,thum_bot" "hum_top,hum_bot" "vp_top,vp_bot"'
+	entry '5 Minute A0: q,pres,home'\
+		'put_3parameters "Dsgp5ebbrE12.a0" "q" "pres" "home"'
+	entry '5 Minute A0: wind_s,res_ws,wind_d,sigma_wd'\
+		'put_4parameters "Dsgp5ebbrE12.a0" "wind_s" "res_ws" "wind_d" "sigma_wd"'
+endmenu
+
+define widget instsmos1 intmenu 'SMOS1'
+	title 'Surface Met Obs Station Data'
+	line
+	entry '1 Minute A0: temp, rh, precip'\
+		'put_3parameters "Dsgp1smosE9.a0" "temp" "rh" "precip"'
+	entry '1 Minute A0: wspd,wspd_va,wdir,sd_deg'\
+		'put_4parameters "Dsgp1smosE9.a0" "wspd" "wspd_va" "wdir" "sd_deg"'
+	entry '1 Minute A0: vap_pres, bar_pres'\
+		'put_2parameters "Dsgp1smosE9.a0" "vap_pres" "bar_pres"'
+	entry '30 Minute A1: wspd_va,sd_wspd,wdir,sd_deg'\
+		'put_4parameters "Dsgp30smosE9.a1" "wspd_va" "sd_wspd" "wdir" "sd_deg"'
+	entry '30 Minute A1: temp, rh, sd_temp, sd_rh'\
+		'put_4parameters "Dsgp30smosE9.a1" "temp" "rh" "sd_temp" "sd_rh"'
+	entry '30 Minute A1: vap_pres, bar_pres, sd_vap_pres, sd_bar_pres'\
+		'put_4parameters "Dsgp30smosE9.a1" "vap_pres" "bar_pres" "sd_vap_pres" "sd_bar_pres"'
+	entry '30 Minute A1: snow, snow_sen, precip, vbat'\
+		'put_4parameters "Dsgp30smosE9.a1" "snow" "snos_sen" "precip" "vbat"'
+endmenu
+
+define widget instsmos2 intmenu 'SMOS2'
+	title 'Surface Met Obs Station Data'
+	line
+	entry '1 Minute A0: temp, rh, precip'\
+		'put_3parameters "Dsgp1smosE8.a0" "temp" "rh" "precip"'
+	entry '1 Minute A0: wspd,wspd_va,wdir,sd_deg'\
+		'put_4parameters "Dsgp1smosE8.a0" "wspd" "wspd_va" "wdir" "sd_deg"'
+	entry '1 Minute A0: vap_pres, bar_pres'\
+		'put_2parameters "Dsgp1smosE8.a0" "vap_pres" "bar_pres"'
+	entry '30 Minute A1: wspd_va,sd_wspd,wdir,sd_deg'\
+		'put_4parameters "Dsgp30smosE8.a1" "wspd_va" "sd_wspd" "wdir" "sd_deg"'
+	entry '30 Minute A1: temp, rh, sd_temp, sd_rh'\
+		'put_4parameters "Dsgp30smosE8.a1" "temp" "rh" "sd_temp" "sd_rh"'
+	entry '30 Minute A1: vap_pres, bar_pres, sd_vap_pres, sd_bar_pres'\
+		'put_4parameters "Dsgp30smosE8.a1" "vap_pres" "bar_pres" "sd_vap_pres" "sd_bar_pres"'
+	entry '30 Minute A1: snow, snow_sen, precip, vbat'\
+		'put_4parameters "Dsgp30smosE8.a1" "snow" "snos_sen" "precip" "vbat"'
+endmenu
+
+define widget instsmos4 intmenu 'SMOS4'
+	title 'Surface Met Obs Station Data'
+	line
+	entry '1 Minute A0: temp, rh, precip'\
+		'put_3parameters "Dsgp1smosE20.a0" "temp" "rh" "precip"'
+	entry '1 Minute A0: wspd,wspd_va,wdir,sd_deg'\
+		'put_4parameters "Dsgp1smosE20.a0" "wspd" "wspd_va" "wdir" "sd_deg"'
+	entry '1 Minute A0: vap_pres, bar_pres'\
+		'put_2parameters "Dsgp1smosE20.a0" "vap_pres" "bar_pres"'
+	entry '30 Minute A1: wspd_va,sd_wspd,wdir,sd_deg'\
+		'put_4parameters "Dsgp30smosE20.a1" "wspd_va" "sd_wspd" "wdir" "sd_deg"'
+	entry '30 Minute A1: temp, rh, sd_temp, sd_rh'\
+		'put_4parameters "Dsgp30smosE20.a1" "temp" "rh" "sd_temp" "sd_rh"'
+	entry '30 Minute A1: vap_pres, bar_pres, sd_vap_pres, sd_bar_pres'\
+		'put_4parameters "Dsgp30smosE20.a1" "vap_pres" "bar_pres" "sd_vap_pres" "sd_bar_pres"'
+	entry '30 Minute A1: snow, snow_sen, precip, vbat'\
+		'put_4parameters "Dsgp30smosE20.a1" "snow" "snos_sen" "precip" "vbat"'
+endmenu
+
+define widget instsmos5 intmenu 'SMOS5'
+	title 'Surface Met Obs Station Data'
+	line
+	entry '1 Minute A0: temp, rh, precip'\
+		'put_3parameters "Dsgp1smosE15.a0" "temp" "rh" "precip"'
+	entry '1 Minute A0: wspd,wspd_va,wdir,sd_deg'\
+		'put_4parameters "Dsgp1smosE15.a0" "wspd" "wspd_va" "wdir" "sd_deg"'
+	entry '1 Minute A0: vap_pres, bar_pres'\
+		'put_2parameters "Dsgp1smosE15.a0" "vap_pres" "bar_pres"'
+	entry '30 Minute A1: wspd_va,sd_wspd,wdir,sd_deg'\
+		'put_4parameters "Dsgp30smosE15.a1" "wspd_va" "sd_wspd" "wdir" "sd_deg"'
+	entry '30 Minute A1: temp, rh, sd_temp, sd_rh'\
+		'put_4parameters "Dsgp30smosE15.a1" "temp" "rh" "sd_temp" "sd_rh"'
+	entry '30 Minute A1: vap_pres, bar_pres, sd_vap_pres, sd_bar_pres'\
+		'put_4parameters "Dsgp30smosE15.a1" "vap_pres" "bar_pres" "sd_vap_pres" "sd_bar_pres"'
+	entry '30 Minute A1: snow, snow_sen, precip, vbat'\
+		'put_4parameters "Dsgp30smosE15.a1" "snow" "snos_sen" "precip" "vbat"'
+endmenu
+
+define widget instsmos8 intmenu 'SMOS8'
+	title 'Surface Met Obs Station Data'
+	line
+	entry '1 Minute A0: temp, rh, precip'\
+		'put_3parameters "Dsgp1smosE13.a0" "temp" "rh" "precip"'
+	entry '1 Minute A0: wspd,wspd_va,wdir,sd_deg'\
+		'put_4parameters "Dsgp1smosE13.a0" "wspd" "wspd_va" "wdir" "sd_deg"'
+	entry '1 Minute A0: vap_pres, bar_pres'\
+		'put_2parameters "Dsgp1smosE13.a0" "vap_pres" "bar_pres"'
+	entry '30 Minute A1: wspd_va,sd_wspd,wdir,sd_deg'\
+		'put_4parameters "Dsgp30smosE13.a1" "wspd_va" "sd_wspd" "wdir" "sd_deg"'
+	entry '30 Minute A1: temp, rh, sd_temp, sd_rh'\
+		'put_4parameters "Dsgp30smosE13.a1" "temp" "rh" "sd_temp" "sd_rh"'
+	entry '30 Minute A1: vap_pres, bar_pres, sd_vap_pres, sd_bar_pres'\
+		'put_4parameters "Dsgp30smosE13.a1" "vap_pres" "bar_pres" "sd_vap_pres" "sd_bar_pres"'
+	entry '30 Minute A1: snow, snow_sen, precip, vbat'\
+		'put_4parameters "Dsgp30smosE13.a1" "snow" "snos_sen" "precip" "vbat"'
+endmenu
+
+!
+! Procedures for plotting
+!
+procedure put_4parameters plat1 string field1 string field2 string field3 string field4 string
+	display all4
+	parameter win1 instrument platform #plat1
+	parameter win1 instrument y-field #field1
+	parameter win1 instrument axis-l-label #field1
+	parameter win1 instrument axis-b-label #plat1
+	parameter win2 instrument platform #plat1
+	parameter win2 instrument y-field #field2
+	parameter win2 instrument axis-l-label #field2
+	parameter win2 instrument axis-b-label #plat1
+	parameter win3 instrument platform #plat1
+	parameter win3 instrument y-field #field3
+	parameter win3 instrument axis-l-label #field3
+	parameter win3 instrument axis-b-label #plat1
+	parameter win4 instrument platform #plat1
+	parameter win4 instrument y-field #field4
+	parameter win4 instrument axis-l-label #field4
+	parameter win4 instrument axis-b-label #plat1
+endprocedure
+
+procedure put_3parameters plat1 string field1 string field2 string field3 string
+	display all3
+	parameter win1 instrument platform #plat1
+	parameter win1 instrument y-field #field1
+	parameter win1 instrument axis-l-label #field1
+	parameter win1 instrument axis-b-label #plat1
+	parameter win2 instrument platform #plat1
+	parameter win2 instrument y-field #field2
+	parameter win2 instrument axis-l-label #field2
+	parameter win2 instrument axis-b-label #plat1
+	parameter win3 instrument platform #plat1
+	parameter win3 instrument y-field #field3
+	parameter win3 instrument axis-l-label #field3
+	parameter win3 instrument axis-b-label #plat1
+endprocedure
+
+procedure put_2parameters plat1 string field1 string field2 string
+	display all2
+	parameter win1 instrument platform #plat1
+	parameter win1 instrument y-field #field1
+	parameter win1 instrument axis-l-label #field1
+	parameter win1 instrument axis-b-label #plat1
+	parameter win2 instrument platform #plat1
+	parameter win2 instrument y-field #field2
+	parameter win2 instrument axis-l-label #field2
+	parameter win2 instrument axis-b-label #plat1
+endprocedure
+
+procedure put_1parameters plat1 string field1 string
+	display all1
+	parameter win1 instrument platform #plat1
+	parameter win1 instrument y-field #field1
+	parameter win1 instrument axis-l-label #field1
+	parameter win1 instrument axis-b-label #plat1
+endprocedure
+
+!
+! Procedures for putting multiple fields in 
+!
+procedure put_12parameters plat1 string field1 string
+	display all12
+	parameter win1 instrument2 platform #plat1
+	parameter win1 instrument2 y-field #field1
+	parameter win1 instrument2 axis-l-label #field1
+	parameter win1 instrument2 axis-b-label #plat1
+endprocedure
+
+procedure put_13parameters plat1 string field1 string
+	display all13
+	parameter win1 instrument3 platform #plat1
+	parameter win1 instrument3 y-field #field1
+	parameter win1 instrument3 axis-l-label #field1
+	parameter win1 instrument3 axis-b-label #plat1
+endprocedure
+
+procedure put_14parameters plat1 string field1 string
+	display all14
+	parameter win1 instrument4 platform #plat1
+	parameter win1 instrument4 y-field #field1
+	parameter win1 instrument4 axis-l-label #field1
+	parameter win1 instrument4 axis-b-label #plat1
+endprocedure
+
+procedure put_15parameters plat1 string field1 string
+	display all15
+	parameter win1 instrument5 platform #plat1
+	parameter win1 instrument5 y-field #field1
+	parameter win1 instrument5 axis-l-label #field1
+	parameter win1 instrument5 axis-b-label #plat1
+endprocedure
+
+procedure put_23parameters plat1 string field1 string field2 string
+	display all23
+	parameter win1 instrument3 platform #plat1
+	parameter win1 instrument3 y-field #field1
+	parameter win1 instrument3 axis-l-label #field1
+	parameter win1 instrument3 axis-b-label #plat1
+	parameter win2 instrument3 platform #plat1
+	parameter win2 instrument3 y-field #field2
+	parameter win2 instrument3 axis-l-label #field2
+	parameter win2 instrument3 axis-b-label #plat1
+endprocedure
+
+procedure put_33parameters plat1 string field1 string field2 string field3 string
+	display all33
+	parameter win1 instrument3 platform #plat1
+	parameter win1 instrument3 y-field #field1
+	parameter win1 instrument3 axis-l-label #field1
+	parameter win1 instrument3 axis-b-label #plat1
+	parameter win2 instrument3 platform #plat1
+	parameter win2 instrument3 y-field #field2
+	parameter win2 instrument3 axis-l-label #field2
+	parameter win2 instrument3 axis-b-label #plat1
+	parameter win3 instrument3 platform #plat1
+	parameter win3 instrument3 y-field #field3
+	parameter win3 instrument3 axis-l-label #field3
+	parameter win3 instrument3 axis-b-label #plat1
+endprocedure
+
+procedure put_34parameters plat1 string field1 string field2 string field3 string
+	display all34
+	parameter win1 instrument4 platform #plat1
+	parameter win1 instrument4 y-field #field1
+	parameter win1 instrument4 axis-l-label #field1
+	parameter win1 instrument4 axis-b-label #plat1
+	parameter win2 instrument4 platform #plat1
+	parameter win2 instrument4 y-field #field2
+	parameter win2 instrument4 axis-l-label #field2
+	parameter win2 instrument4 axis-b-label #plat1
+	parameter win3 instrument4 platform #plat1
+	parameter win3 instrument4 y-field #field3
+	parameter win3 instrument4 axis-l-label #field3
+	parameter win3 instrument4 axis-b-label #plat1
+endprocedure
+
+procedure put_35parameters plat1 string field1 string field2 string field3 string
+	display all35
+	parameter win1 instrument5 platform #plat1
+	parameter win1 instrument5 y-field #field1
+	parameter win1 instrument5 axis-l-label #field1
+	parameter win1 instrument5 axis-b-label #plat1
+	parameter win2 instrument5 platform #plat1
+	parameter win2 instrument5 y-field #field2
+	parameter win2 instrument5 axis-l-label #field2
+	parameter win2 instrument5 axis-b-label #plat1
+	parameter win3 instrument5 platform #plat1
+	parameter win3 instrument5 y-field #field3
+	parameter win3 instrument5 axis-l-label #field3
+	parameter win3 instrument5 axis-b-label #plat1
+endprocedure
+
+procedure put_42parameters plat1 string field1 string field2 string field3 string field4 string
+	display all42
+	parameter win1 instrument2 platform #plat1
+	parameter win1 instrument2 y-field #field1
+	parameter win1 instrument2 axis-l-label #field1
+	parameter win1 instrument2 axis-b-label #plat1
+	parameter win2 instrument2 platform #plat1
+	parameter win2 instrument2 y-field #field2
+	parameter win2 instrument2 axis-l-label #field2
+	parameter win2 instrument2 axis-b-label #plat1
+	parameter win3 instrument2 platform #plat1
+	parameter win3 instrument2 y-field #field3
+	parameter win3 instrument2 axis-l-label #field3
+	parameter win4 instrument2 axis-b-label #plat1
+	parameter win4 instrument2 platform #plat1
+	parameter win4 instrument2 y-field #field4
+	parameter win4 instrument2 axis-l-label #field4
+	parameter win3 instrument2 axis-b-label #plat1
+endprocedure
+
+procedure put_43parameters plat1 string field1 string field2 string field3 string field4 string
+	display all43
+	parameter win1 instrument3 platform #plat1
+	parameter win1 instrument3 y-field #field1
+	parameter win1 instrument3 axis-l-label #field1
+	parameter win1 instrument3 axis-b-label #plat1
+	parameter win2 instrument3 platform #plat1
+	parameter win2 instrument3 y-field #field2
+	parameter win2 instrument3 axis-l-label #field2
+	parameter win2 instrument3 axis-b-label #plat1
+	parameter win3 instrument3 platform #plat1
+	parameter win3 instrument3 y-field #field3
+	parameter win3 instrument3 axis-l-label #field3
+	parameter win4 instrument3 axis-b-label #plat1
+	parameter win4 instrument3 platform #plat1
+	parameter win4 instrument3 y-field #field4
+	parameter win4 instrument3 axis-l-label #field4
+	parameter win3 instrument3 axis-b-label #plat1
+endprocedure
+
+procedure put_45parameters plat1 string field1 string field2 string field3 string field4 string
+	display all45
+	parameter win1 instrument5 platform #plat1
+	parameter win1 instrument5 y-field #field1
+	parameter win1 instrument5 axis-l-label #field1
+	parameter win1 instrument5 axis-b-label #plat1
+	parameter win2 instrument5 platform #plat1
+	parameter win2 instrument5 y-field #field2
+	parameter win2 instrument5 axis-l-label #field2
+	parameter win2 instrument5 axis-b-label #plat1
+	parameter win3 instrument5 platform #plat1
+	parameter win3 instrument5 y-field #field3
+	parameter win3 instrument5 axis-l-label #field3
+	parameter win4 instrument5 axis-b-label #plat1
+	parameter win4 instrument5 platform #plat1
+	parameter win4 instrument5 y-field #field4
+	parameter win4 instrument5 axis-l-label #field4
+	parameter win3 instrument5 axis-b-label #plat1
+endprocedure
+
+!
+! The simple case: add a component to a window with no changes.
+!
+procedure put_component name string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+!
+! If this component is already present in the window, remove it.  Otherwise
+! put it in.
+!
+	if (pd_defined (target_win, name, "platform"))
+		!message 'Already there'
+		remove #target_win #name
+	else
+		add #name #name #target_win
+	endif
+endprocedure
+
+
+!
+! Add a component to a window, changing the field name.
+!
+procedure PutCompField comp string field string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+!
+! Send the stuff over.
+!
+	parameter #comp #comp "field" #field
+	add #comp #comp #target_win
+endprocedure
+
+
+!
+! Add a component to a window, changing the field name.  This version puts
+! the component at the bottom of the stack.
+!
+procedure PutBCompField comp string field string radarspace string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+!
+! If the component is already in the window, just change the field.
+!
+	if (pd_defined (target_win, comp, "platform"))
+		parameter #target_win #comp "field" #field
+!
+! Otherwise change the field *in DM* to avoid making the GP draw twice,
+! then send it over.
+!
+	else
+		parameter #comp #comp "field" #field
+		add #comp #comp #target_win 1
+	!
+	! Take care of the radar-space parameter.
+	!
+		parameter #target_win "global" "radar-space" #radarspace
+	endif
+endprocedure
+
+
+!
+! Remove a component from a window.
+!
+procedure ZapComp comp string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+!
+! If this component truly exists in the window, get rid of it.
+!
+	if (pd_defined (target_win, comp, "platform"))
+		remove #target_win #comp
+	endif
+endprocedure
+
+
+
+!
+! Put in window bounds.
+!
+procedure put_wbounds comp string
+!
+! Get the window we want to see.
+!
+	set wbounds_win "none"
+	pickwin wbounds_win
+	if (wbounds_win = "none")
+		beep
+		return
+	endif
+!
+! And now the place where it goes.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")
+		beep
+		return
+	endif
+!
+! Fix up the component and ship it over.
+!
+	parameter #comp #comp platform #wbounds_win
+	add #comp #comp #target_win
+endprocedure
+
+
+
+
+!
+! pconfig -- switch between the various 'picture' configs.
+!
+procedure pconfig config string
+!
+! Switch over to the new config.
+!
+	display #config
+!
+! Figure out what we're doing with window boxes.
+!
+!	if (config = 'picture' or config = 'picturex')
+!		parameter big wbox disable false
+!	elseif (config = 'pictures')
+!		parameter big wbox disable true
+!	endif
+endprocedure
+
+
+
+!
+! Add a component to a window, changing an arbitrary parameter.
+!
+procedure PutCompX comp string param string value string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+
+	parameter #comp #comp #param #value
+	add #comp #comp #target_win
+endprocedure
+
+

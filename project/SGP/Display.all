@@ -1,0 +1,294 @@
+!
+! This file is read into DisplayConfigs upon startup of display manager.
+!
+!
+! all4
+!
+config all4
+	window 'win1' 3 145 530 350 #gp_exec #init_file
+		description 'instrument'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win2' 3 520 530 350 #gp_exec #init_file
+		description 'instrument'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win3' 540 145 530 350 #gp_exec #init_file
+		description 'instrument'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win4' 540 520 530 350 #gp_exec #init_file
+		description 'instrument'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+endconfig
+!
+! all3
+!
+config all3
+	window 'win1' 3 145 530 350 #gp_exec #init_file
+		description 'instrument'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win2' 3 520 530 350 #gp_exec #init_file
+		description 'instrument'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win3' 540 145 530 350 #gp_exec #init_file
+		description 'instrument'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win4' -600 -600 530 350 #gp_exec #init_file
+		description 'instrument'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+endconfig
+!
+! all2
+!
+config all2
+	window 'win1' 3 145 530 350 #gp_exec #init_file
+		description 'instrument'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win2' 3 520 530 350 #gp_exec #init_file
+		description 'instrument'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win3' -600 -600 530 350 #gp_exec #init_file
+		description 'instrument'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win4' -600 -600 530 350 #gp_exec #init_file
+		description 'instrument'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+endconfig
+!
+! all1
+!
+config all1
+	window 'win1' 3 145 530 350 #gp_exec #init_file
+		description 'instrument'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win2' -600 -600 530 350 #gp_exec #init_file
+		description 'instrument'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win3' -600 -600 530 350 #gp_exec #init_file
+		description 'instrument'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win4' -600 -600 530 350 #gp_exec #init_file
+		description 'instrument'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+endconfig
+!
+! all12
+!
+config all12
+	window 'win1' 3 145 530 350 #gp_exec #init_file
+		description 'instrument2'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+endconfig
+!
+! all13
+!
+config all13
+	window 'win1' 3 145 530 350 #gp_exec #init_file
+		description 'instrument3'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+endconfig
+!
+! all14
+!
+config all14
+	window 'win1' 3 145 530 350 #gp_exec #init_file
+		description 'instrument4'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+endconfig
+!
+! all15
+!
+config all15
+	window 'win1' 3 145 530 350 #gp_exec #init_file
+		description 'instrument5'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+endconfig
+!
+! all23
+!
+config all23
+	window 'win1' 3 145 530 350 #gp_exec #init_file
+		description 'instrument3'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win2' 3 520 530 350 #gp_exec #init_file
+		description 'instrument3'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+endconfig
+!
+! all33
+!
+config all33
+	window 'win1' 3 145 530 350 #gp_exec #init_file
+		description 'instrument3'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win2' 3 520 530 350 #gp_exec #init_file
+		description 'instrument3'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win3' 540 145 530 350 #gp_exec #init_file
+		description 'instrument3'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+endconfig
+!
+! all34
+!
+config all34
+	window 'win1' 3 145 530 350 #gp_exec #init_file
+		description 'instrument4'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win2' 3 520 530 350 #gp_exec #init_file
+		description 'instrument4'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win3' 540 145 530 350 #gp_exec #init_file
+		description 'instrument4'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+endconfig
+!
+! all35
+!
+config all35
+	window 'win1' 3 145 530 350 #gp_exec #init_file
+		description 'instrument5'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win2' 3 520 530 350 #gp_exec #init_file
+		description 'instrument5'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win3' 540 145 530 350 #gp_exec #init_file
+		description 'instrument5'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+endconfig
+!
+!
+! all42
+!
+config all42
+	window 'win1' 3 145 530 350 #gp_exec #init_file
+		description 'instrument2'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win2' 3 520 530 350 #gp_exec #init_file
+		description 'instrument2'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win3' 540 145 530 350 #gp_exec #init_file
+		description 'instrument2'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win4' 540 520 530 350 #gp_exec #init_file
+		description 'instrument2'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+endconfig
+!
+! all43
+!
+config all43
+	window 'win1' 3 145 530 350 #gp_exec #init_file
+		description 'instrument3'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win2' 3 520 530 350 #gp_exec #init_file
+		description 'instrument3'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win3' 540 145 530 350 #gp_exec #init_file
+		description 'instrument3'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win4' 540 520 530 350 #gp_exec #init_file
+		description 'instrument3'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+endconfig
+!
+! all45
+!
+config all45
+	window 'win1' 3 145 530 350 #gp_exec #init_file
+		description 'instrument5'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win2' 3 520 530 350 #gp_exec #init_file
+		description 'instrument5'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win3' 540 145 530 350 #gp_exec #init_file
+		description 'instrument5'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+	window 'win4' 540 520 530 350 #gp_exec #init_file
+		description 'instrument5'
+		buttonmap 'xygraph'
+		forcepd
+	endwindow
+endconfig

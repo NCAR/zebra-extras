@@ -1,0 +1,20 @@
+#!/bin/csh
+#
+# Start up the Zeb system.
+#
+# Do everything possible to insure that we start clean.
+#
+tweakcolor yellow
+
+        setenv NO_DM_TIME yes
+        setenv HOST `hostname`
+        cd $CONFIGHOME
+        sleep 1
+        set nonomatch; rm -f ${ZEB_TOPDIR}/tmp/*
+
+#
+# Start the display manager.
+#
+		setenv DEFAULT_CONFIG empty
+        $BINHOME/dm  $CONFIGHOME/dm.config
+wait
