@@ -1,0 +1,15 @@
+#/bin/csh
+
+set binfiles=(pdb_ingest pdbecho)
+set rapfiles=(llwas.locs products.pdbs tempest piglet stratus)
+
+foreach f ($binfiles)
+	echo "rcp $f zeb@sundog.rap:/zeb/bin"
+	rcp $f zeb@sundog.rap:/zeb/bin
+end
+
+foreach f ($rapfiles)
+	echo "rcp $f zeb@sundog.rap:/zeb/raps"
+	rcp $f zeb@sundog.rap:/zeb/raps
+end
+

@@ -1,0 +1,77 @@
+#
+# PRODUCTS FOR PDBS (PRODUCT DATA BASE SERVER)
+# 6/9/92
+#
+# PRODUCT NAME      CODE    PID ID      COLOR   SOCKET          BUFFER  SAVE
+#  DESCRIPTION
+#
+#MB_Integration      MBA     1   8317    Red     mb_box_fig_int  1000    1
+# Microbursts from Integration (INT_MB_RECORD)
+#MicroBurst_TDWR     MBC     4   8315    Yellow  mb_box_fig      1000    1
+# Microbursts from Lincoln Algorithm (MB_RECORD)
+#MB_Predict          MBP     3   9401    Yellow  mb_pred_refmt   1000    1
+# Microburst Prediction from mb_predict
+#
+#GustFront_Integ.    GFA     5   8134    Red     gf_box_fig_int  1000    1
+# Gust Fronts from Integration (INT_GF_RECORD)  
+#GustFront_Shear     GFB     6   9102    Green   thinline        10000   1
+# Convergence Line Automatic Detection (CLAD Shear-based Algorithm)
+#
+TVS_Detect          TVS     7   12010   Red     tvs_refmt     	1000    1
+ Tornado vortex detection from NSSL's rt_tvs
+TVS_Predict         TVP     8   12020   Yellow  tvs_refmt     	1000    1
+ Tornado vortex prediction from NSSL's rt_tvs
+Hail_Detect         HAL     29  12050   LightBlue nssl_out     	1000    1
+ NSSL Hail Detection
+#
+Circ_Shear  	    CSH     9   9104    Green   tvs-shear      	10000   0
+ Circulation  from Shear-based Algorithm    
+Circ_Corr  	    CCS     20  9105    Green   tvs-shear      	10000   0
+# Correlating Circulation from Shear-based Algorithm    
+#
+#TAP_Vectors         TAP     10  8001    Red     tap_vector      1000    1
+# Tracking and Prediction vectors
+AC_TRACKS  	    ACT     11  9221    LightBlue ac_tracks     3000    0
+ Aircraft tracks
+AC_SELECTED    	    ACS     17  7020    Magenta  ac_selected     1000    0
+ Selected Aircraft Tracks
+#LLWAS_Winds         LLW     13  7120    White   scaled_lw       1000    0
+# Llwas winds
+#
+HG_BOUNDRY 	   HGB      14  9201    Cyan    insert_fig  	1000    1
+ Human Generated Boundries (BDRY_RECORD)
+HG_CORES   	   HGC      15  9202    Cyan    insert_fig  	1000    1
+ Human Generated Cores/Cells (CORE_RECORD)
+HG_NOWCAST 	   HGN      16  9205    Cyan    nowcast_fig 	1000    1
+ Human Generated Precipitation Nowcasts (NOWCAST_RECORD)
+#
+EX_BOUNDRY 	   EXB      18  9203    Red	 extrap_fig  	1000    1
+ Extrapolated Boundries (BDRY_EXTRAP_RECORD)
+EX_CORES   	   EXC      19  9204    Red	 extrap_fig  	1000    1
+ Extrapolated Cores/Cells (CORE_EXTRAP_RECORD)
+#
+Hum_Bdry_Extrap	   HBX	    21  9225    White    nowc-extrap	1000   0
+ ANOW (Automated nowcast) extrapolations of Human-Generated Boundries 
+Hum_Bdry_Coll	   HBC	    22  9226    White	 nowc-collision	1000   0
+  ANOW predicted collisions of Human-Generated Boundries
+CLAD_Bdry_Extrap   CBX	    23  9229    Magenta	 rsb-extrap	1000   0
+ ANOW extrapolations of CLAD-Generated Boundries
+CLAD_Bdry_Coll	   CBC	    24  9230    Magenta	 rsb-collision	1000   0
+ ANOW predicted collisions of CLAD-Generated Boundries
+#
+Hum_SBdry_Nowc	   HBN	    25  9227    White    nowc-extrap	1000   0
+ ANOW generated Single Boundry Based Nowcast (from Human Boundries)
+Hum_Coll_Nowc      HCN      26  9228    White    nowc-collision	1000   0
+ ANOW generated Colliding Boundry Based Nowcast (from Human Boundries)
+CLAD_SBdry_Nowc	   CBN      27  9231    Magenta  rsb-extrap	1000   0
+ ANOW generated Single Boundry Based Nowcast (from CLAD)
+CLAD_Coll_Nowc     CCN      28  9232    Magenta  rsb-collision	1000   0
+ ANOW generated Colliding Boundry Based Nowcast (from CLAD)
+#
+StormTracks	 STR	   30  10098   Cyan	none		0 	0
+ Dixon Storm Tracks	
+StormPredict	 STP	   31  10099   Red	none		0 	0
+ Dixon Storm Tracks Predicted 	
+StormForecst	 STF	   32  10097   Yellow	none		0 	0
+ Dixon Storm Tracks 30 min Forecast	
+
