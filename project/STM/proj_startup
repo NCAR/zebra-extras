@@ -12,6 +12,5 @@ echo "Reading proj_startup"
 #
 setenv NO_DM_TIME yes
 if ( ! $?DEFAULT_CONFIG ) setenv DEFAULT_CONFIG empty
-if ( ! $?INITIAL_TIME ) setenv INITIAL_TIME 1-jan-95
 if ( ! $?ZEB_CACHEDIR ) setenv ZEB_CACHEDIR $CONFIGHOME/cache
 
