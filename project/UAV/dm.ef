@@ -83,9 +83,6 @@ procedure TweakEF station string instrument string
 !
 ! Get the target window.
 !
-message ' station is #' station
-message ' instument is #' instrument
-	
 	set target_win "none"
 	pickwin target_win
 	if (target_win = 'none')

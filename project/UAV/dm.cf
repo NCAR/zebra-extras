@@ -53,7 +53,7 @@ procedure CFAddXygraph station string instrument string window string
             parameter p_xytrace p_xytrace annot-middle-menu sirosfields
             local realplat concat3(instrument, "C1",".a1")
             ShipScalar #realplat 'short_direct_normal' #window
-        elseif ( instrument = 'Dsgpmwrlos')
+        elseif ( instrument = 'sgpmwrlos')
             parameter p_xytrace p_xytrace icon-middle-menu mwrfields
             parameter p_xytrace p_xytrace annot-middle-menu mwrfields
             local realplat concat3(instrument, "C1",".a1")
@@ -81,8 +81,6 @@ procedure TweakCF station string instrument string
 !
 ! Get the target window.
 !
-message ' station is #' station
-message ' instument is #' instrument
 	
 	set target_win "none"
 	pickwin target_win
