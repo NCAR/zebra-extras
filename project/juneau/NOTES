@@ -59,3 +59,54 @@ Tag_NWS_Test_970327:
 	The version used for NWS testing on jnu_term and jnu_wind on the
 	morning of 27 Mar 1997.
 
+Things to do after 11:30, 970327 NWS test:
+
+   x	remove the airport window in the "all" configuration
+
+   x	make sure zebra icon appear in space between windows
+
+   x	lower wind plot by about 50 pixels to make room for system xclock
+
+   x	leave data-skip on wind plot at 1, though it was originally set
+	there accidentally
+
+   x	popup time control window automatically, preferrably around space
+	between windows so that either "System Time" shows through or the
+	real time and set time buttons
+
+   x	add time control to zebra iconbar menu
+
+   x	leave the time/title in the wind plot top annotation
+
+   x	add time-height-winds menu to right button (already on left)
+
+   x	add menu options for plotting barbs in knots and choosing between
+	every point and every other point
+
+	send changes to jnu_wind in juneau.3 and update ~zuser/.xinitrc
+	before 16:00 today
+
+
+Bug in xywind module: setting data-skip to 1 plots every *other* point
+rather than every point.
+
+Its possible to raise time and iconbar above graphics windows with this
+dm command:
+
+	shell "(sleep 5; zrun Displaymgr 'popup time; popup iconbar') &"
+
+The problem is not knowing how long the delay should be.
+
+Look into why zebra slow to startup on jnu_term.  Even though datastore
+large, cache files should exist.  Is daemon trusting the stat times in the
+cache?  Should it?  Or is the delay in merely stat()'ing each file to see
+if its mtime differs from the cache?
+
+We could set each file constant, which means new files will be found, but
+not the most recent data in those files, so we could still be several hours
+off without a rescan.
+
+Tag_NWS_970327_3:
+
+	Version installed on jnu_wind under project directory juneau.3
+

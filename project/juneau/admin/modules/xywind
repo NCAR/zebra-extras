@@ -1,5 +1,5 @@
 !
-! Restricted version of the xywind library module.
+! Wind profile stuff.
 !
 !
 
@@ -18,20 +18,13 @@ define widget time-height-winds intmenu 'Generic winds'
 	entry 'Barbs in m/s' 'parameter #icon_component barb-type "m/s"' \
 		(PDParam (icon_component,"barb-type") <> "knots")
 	line
-	entry 'Plot every height' \
-		'parameter #icon_component data-skip "0"' \
-		(PDParam (icon_component,"data-skip") = "0")
-	entry 'Plot every other height' \
-		'parameter #icon_component data-skip "1"' \
-		(PDParam (icon_component,"data-skip") = "1")
-!	line
-!	entry 'Monochrome' 'ToggleBoolean "color-mono"' \
-!		(PDParam (icon_component, "color-mono") = "true")
-!	submenu 'Mono Color' simple-color
-!	line
-!	submenu 'Data skip interval' 'xywind-data-skip'
-!	line
-!	entry 'Other plot parameters...' 'popup iss-params'
+	entry 'Monochrome' 'ToggleBoolean "color-mono"' \
+		(PDParam (icon_component, "color-mono") = "true")
+	submenu 'Mono Color' simple-color
+	line
+	submenu 'Data skip interval' 'xywind-data-skip'
+	line
+	entry 'Other plot parameters...' 'popup iss-params'
 endmenu
 
 
