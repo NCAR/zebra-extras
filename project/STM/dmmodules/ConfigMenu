@@ -27,6 +27,7 @@ define widget saved-config-menu intmenu 'saved configurations'
 	entry 'snd_xsect' 'display snd_xsect' (dm$config = 'snd_xsect')
 	entry 'sonde' 'display sonde' (dm$config = 'sonde')
 	entry 'sondes' 'display sondes' (dm$config = 'sondes')
+	entry 'tseries' 'display tseries' (dm$config = 'tseries')
 	entry 'uav-track' 'display uav-track' (dm$config = 'uav-track')
 	entry 'uav-tseries' 'display uav-tseries' (dm$config = 'uav-tseries')
 	entry 'vertical' 'display vertical' (dm$config = 'vertical')
