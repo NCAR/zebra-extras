@@ -151,3 +151,84 @@ Tag_Juneau_970402_5:
 
 	juneau.5 tagged and installed on sea_aops and jnu_term
 
+----- Email from Bob:	
+
+Looks like things are coming together on sea_aops. I am hoping the
+Santiago will install it in Seattle during the week of April 14.  
+
+While I am in Juneau this time (April 8-28) I will try to get some more
+anemometers hooked up to the jnu_aops machine. I think they will have 1
+second data that will need to have a 1 minute high, low, and average
+computed and displayed as is done now for the raw_mt_roberts. Would it
+be possible to use a median rather that the mean and use 5th and 95th
+percentile rather than min and max? Anyway, I will probably call you
+for support on the ingesters, since no doubt these sensors will have
+different formats...
+	
+-----
+	
+Things to do:
+
+	Make copies of .xinitrc and .fvwm2rc from ~zuser on jnu_term and
+	sea_aops.  Add hostname check for startup zebra config?  Keep
+	copies in juneau project directory.  (Make ~ files links to the
+	files in juneau project?)
+
+   x	Wrong Xserver virtual screen size on sea_aops: screen scrolls when
+	pointer moved past edge.
+
+	Colormap problem on sea_aops:
+
+		Check xf86config for depth being used
+
+		Check version of xf86 being used and for newer version
+
+		Chris says they're using S3 X server.
+
+		Restarting fvwm2 does not fix the problem; must restart X.
+
+		Check fvwm2 web page or FAQ for colormap bugs.  Santiago
+		will check for patterns in graphics card and/or X server.
+
+	sea_aops using Number Nine card with CL GD64xx chipset, _I182?
+	xfree86 3.2 server.
+
+Maybe as a start we set a parameter which just forces the graphics process
+to keep all the colors it allocates, either permanently or until the next
+reconfig.  If small change, make it on juneau branch and merge onto trunk.
+
+	Added FreeColors(pd) routine which searchs for the "keep-colors"
+	parameter and does not call ct_FreeColors if true.  The rest of the
+	graphics process calls FreeColors() instead of ct_FreeColors().
+
+Santiago reports /tmp filling up, probably due to gp cache files.  Set
+file-path and max-frames appropriately.
+
+Santiago reports Bob is seeing the colormap problem on several machines in
+Alaska.  Check out Zebra color allocation, and look for ICCCM compliance?
+
+----------------
+
+Integrating Gary Cunning and Andrew Weekly analysis configuration needs in
+juneau:project/juneau:
+
+	ISS winds @ some height on a station plot (use active area menu
+	which sets the dimension parameter to slice the station quadrant at
+	a particular height).
+
+	time series window for any station (5), with all of the usual
+	editing capabilities
+
+	ability to start individual windows and add them to the current
+	display
+
+Gary reports the xwd on the linux x server generates output from which
+xwd2ps cannot create a legal postscript file...  It works if dumping a
+window on a remote display.
+
+----------------
+
+Tag_Juneau_6 on 20-may-1997, 10:00.
+
+
+
