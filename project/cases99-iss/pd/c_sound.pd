@@ -8,9 +8,9 @@ c_sound
 	 axis-t-color             : yellow
 	 axis-t-grid-intensity    : 0.0
 	 axis-t-label             : wspd
-	 axis-t-tic-interval      : 1.0
+!	 axis-t-tic-interval      : 1.0
 	 axis-top                 : true
-	 data-mode                : snapshot
+	 data-mode                : observation
 	 do-color-proc            : change_component_color
 	 field-color              : yellow
 	 field-select-command     : set-xfield
@@ -25,14 +25,14 @@ c_sound
 	 require                  : iss-new
 	 scale-x-mode             : autoscale
 	 scale-y-mode             : manual
-	 trigger                  : sounding
+	 skip-data-points	  : -9999.0
+	 trigger                  : platform
 	 x-field                  : wspd
-	 xyprivate-data-begin     : 7-Jul-95,17:46:43
-	 xyprivate-data-end       : 7-Jul-95,17:46:43
-	 xyprivate-x-max          : 20.0
-	 xyprivate-x-min          : 0.0
-	 xyprivate-x-type         : f
-	 xyprivate-y-max          : 10.0000
-	 xyprivate-y-min          : 0.0000
-	 xyprivate-y-type         : f
+!
+! For field derivations, asking for "alt" will not give you
+! the alt which is in the file, which is actually 
+! alt[][km above MSL][altitude].  This relies on the definition
+! in derivs/defaults for the [altitude] field type.
+!
+!	 y-field                  : [altitude]
 	 y-field                  : alt

@@ -25,14 +25,7 @@ c_wind
 	 require                  : iss-new
 	 scale-x-mode             : manual
 	 scale-y-mode             : manual
-	 trigger                  : sounding
+	 skip-data-points	  : 9999.0
+	 trigger                  : platform
 	 x-field                  : wspd
-	 xyprivate-data-begin     : 6-Jul-95,5:17:24
-	 xyprivate-data-end       : 6-Jul-95,5:17:24
-	 xyprivate-x-max          : 20.0000
-	 xyprivate-x-min          : 0.0000
-	 xyprivate-x-type         : f
-	 xyprivate-y-max          : 10000.0
-	 xyprivate-y-min          : 0.0000
-	 xyprivate-y-type         : f
 	 y-field                  : height

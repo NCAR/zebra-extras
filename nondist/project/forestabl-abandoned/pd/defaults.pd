@@ -53,6 +53,9 @@ defaults
 	icon-background:		midnight blue
 	disabled-icon-color:		gray90
 	disabled-icon-background:	gray40
+
+	skip-data-points:		9999.0, -9999.0
+	iss1/class-bad-value:		-9999.0
 !
 ! FEST range limits
 !

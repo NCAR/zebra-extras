@@ -25,14 +25,7 @@ c_rass
 	 require                  : iss-new
 	 scale-x-mode             : manual
 	 scale-y-mode             : manual
-	 trigger                  : rass
+	 skip-data-points	  : 9999.0
+	 trigger                  : platform
 	 x-field                  : tv
-	 xyprivate-data-begin     : 7-Jul-95,17:32:30
-	 xyprivate-data-end       : 7-Jul-95,17:32:30
-	 xyprivate-x-max          : 30.0000
-	 xyprivate-x-min          : 18.0000
-	 xyprivate-x-type         : f
-	 xyprivate-y-max          : 10000.0
-	 xyprivate-y-min          : 0.0000
-	 xyprivate-y-type         : f
 	 y-field                  : height
