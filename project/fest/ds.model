@@ -3,7 +3,7 @@
 !
 
 platform eta
-	organization	scalar
+	organization	nspace
 	filetype	grib
 	model
 endplatform
@@ -33,7 +33,7 @@ platform ngm_sfc
 endplatform
 
 platform avnold
-	organization	scalar
+	organization	nspace
 	filetype	grib
 	model
 endplatform
