@@ -292,12 +292,14 @@ endmenu
 define widget mwr1 intmenu 'MWR1'
 	title 'Water Vapor Radiometer Data'
 	line
-	entry 'MWR CF A1: liq, vap, tkxc, tkbb'\
+	entry 'MWR CF A0: liq, vap, tkxc, tkbb'\
 		'put_4parameters "DsgpmwrlosC1.a0" "liq" "vap" "tkxc" "tkbb"'
-	entry 'MWR CF A1: sky/skyn, tbsky/tbskyn, bb/bbn, '\
+	entry 'MWR CF A0: sky/skyn, tbsky/tbskyn, bb/bbn, '\
 		'put_34parameters "DsgpmwrlosC1.a0,DsgpmwrlosC1.a0,DsgpmwrlosC1.a0,DsgpmwrlosC1.a0" "23sky,23skyn,31sky,31skyn" "23tdbsky,23tbskyn,31sky,31tbskyn" "23bb,23bbn,31bb,31bbn"'
-	entry 'MWR CF A1: 23unoise,31unoise'\
+	entry 'MWR CF A0: 23unoise,31unoise'\
 		'put_2parameters "DsgpmwrlosC1.a0" "23unoise" "31unoise"'
+	entry 'MWR CF B2: vap,dlm_quality_flag'\
+		'put_2parameters "DsgpmwrlosC1.b2" "vap" "dlm_quality_flag"'
 endmenu
 
 define widget ebbr1 intmenu 'EBBR1'
@@ -704,12 +706,14 @@ endmenu
 define widget instmwr1 intmenu 'MWR1'
 	title 'Water Vapor Radiometer Data'
 	line
-	entry 'MWR CF A1: liq, vap, tkxc, tkbb'\
+	entry 'MWR CF A0: liq, vap, tkxc, tkbb'\
 		'put_4parameters "DsgpmwrlosC1.a0" "liq" "vap" "tkxc" "tkbb"'
-	entry 'MWR CF A1: sky/skyn, tbsky/tbskyn, bb/bbn, '\
+	entry 'MWR CF A0: sky/skyn, tbsky/tbskyn, bb/bbn, '\
 		'put_34parameters "DsgpmwrlosC1.a0,DsgpmwrlosC1.a0,DsgpmwrlosC1.a0,DsgpmwrlosC1.a0" "23sky,23skyn,31sky,31skyn" "23tdbsky,23tbskyn,31sky,31tbskyn" "23bb,23bbn,31bb,31bbn"'
-	entry 'MWR CF A1: 23unoise,31unoise'\
+	entry 'MWR CF A0: 23unoise,31unoise'\
 		'put_2parameters "DsgpmwrlosC1.a0" "23unoise" "31unoise"'
+	entry 'MWR CF B2: vap,dlm_quality_flag'\
+		'put_2parameters "DsgpmwrlosC1.b2" "vap" "dlm_quality_flag"'
 endmenu
 
 define widget instebbr1 intmenu 'EBBR1'
