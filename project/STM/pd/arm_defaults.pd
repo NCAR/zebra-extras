@@ -1,5 +1,5 @@
 !
-! $Id: arm_defaults.pd,v 1.1.1.1 1995-03-17 19:57:26 granger Exp $
+! $Id: arm_defaults.pd,v 1.2 1995-09-11 07:38:15 granger Exp $
 !
 ! This plot description contains parameter defaults for the ARM project.
 ! The 'defaults' component needs to be dropped into the library defaults
@@ -32,7 +32,7 @@ defaults
 !
 ! Satellites
 !
-	sgpgoesvis.tmp-icon-age-limit:		30m
+
 !
 ! Models
 !
