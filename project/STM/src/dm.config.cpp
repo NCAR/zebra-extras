@@ -64,7 +64,7 @@ set itime getenv("INITIAL_TIME")
 if (itime <> "UNDEFINED")
 	history all #itime
 else
-	history all 24-Jun-1993,0
+	history all 24-Jun-1993,12:00
 endif
 
 
