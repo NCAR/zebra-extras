@@ -1,7 +1,9 @@
 XCOMM !/bin/csh -f
 XCOMM
 XCOMM Environment variable settings specific to ARM
-XCOMM $Id: proj_env.cpp,v 1.1 1997-02-04 14:56:18 granger Exp $
+XCOMM $Id: proj_env.cpp,v 1.2 1997-03-11 00:27:47 granger Exp $
+
+#include "config.h"
 
 echo "Reading proj_env"
 
