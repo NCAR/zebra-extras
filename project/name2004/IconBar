@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.1.1.1 2004-06-23 19:23:44 burghart Exp $
+! $Id: IconBar,v 1.2 2004-07-09 20:06:41 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -33,7 +33,7 @@ define widget iconbar menubar " "
 		title 'Tools'
 		line
 		entry 'Time widget'	'popup time'
-		entry 'Make a print' 'popup hardcopy'
+!		entry 'Make a print' 'popup hardcopy'
 		line
 		entry 'Add display window' 'popup newwindow'
 		entry 'Delete display window' 'popup zorchwindow'
@@ -52,8 +52,8 @@ define widget iconbar menubar " "
 		entry 'Data store management' 'shell "dsmanage &"'
 		entry 'Event logger' 'shell "EventLogger -w &"'
 		line
-		entry 'Save Screen Image' 'shell "grabpng &"'
-		entry 'Print Screen Image' 'shell "printWin &"'
+!		entry 'Save Screen Image' 'shell "grabpng &"'
+		entry 'Print Window Image' 'shell "printWin &"'
 		line
 		entry 'Zero Out Rain Accumulation' \
 			'shell "/ops/bin/reset_rain &" '
@@ -158,8 +158,8 @@ define widget iconbar menubar " "
 		    'putc3 p_map platform default icon state color yellow3'
 		entry 'Rivers' \
 		    'putc3 p_map platform water icon rivers color cyan3'
-		entry 'Roads' \
-		    'putc3 p_map platform road icon roads color gray30'
+!		entry 'Roads' \
+!		    'putc3 p_map platform road icon roads color gray30'
 		line
 		entry 'X-Y Grid (km)' \
 		    'putc3 p_kmgrid x-spacing 100 y-spacing 100 color cyan'
@@ -171,16 +171,9 @@ define widget iconbar menubar " "
 		entry 'Topography (for plan views)' 'putc0 p_elev'
 		line
 		entry 'Radar range rings' 'putc1 p_rings platform spol'
-		entry 'Radar locations' 'do_radar_locs'
-		entry 'Radar composite boundary' \
-    'putc3 p_map platform composite_bounds icon rectangle color cyan4'
-		entry 'Center point' \
-    'putc3 p_loc platform center-point trigger platform trigger-global true'
+!		entry 'Radar locations' 'do_radar_locs'
 		line
-		entry 'AERI sites' 'putc0 p_aeri'
-		entry 'ISFF sites' 'putc0 p_isff_sites'
-		entry 'Extra NCAR surface sites' 'putc0 p_ncarsfc_sites'
-		entry 'NWS sites' 'putc0 p_nws'
+		entry 'NOAA profiler site' 'putc0 p_noaa_profiler'
 		line
 !		entry 'Optimizer boundary' 'putc0 p_opt_boundary'
 		entry 'Window Bounds' 'put_wbounds p_wbounds'
