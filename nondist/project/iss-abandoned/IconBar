@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.2 1997-12-07 21:08:48 granger Exp $
+! $Id: IconBar,v 1.3 1997-12-16 22:38:28 granger Exp $
 !
 ! All the definitions required to make the iconbar work.
 !
@@ -67,6 +67,13 @@ define widget iconbar menubar " "
 		entry 'Sheboygan (ISS 2)' 'display iss2' (dm$config = 'iss2')
 		entry 'Greenville (ISS 3)' 'display iss3' (dm$config = 'iss3')
 		entry 'Soundings' 'display soundings' (dm$config = 'soundings')
+		line
+		entry 'Lineplot (ISS 1)' 'display lineplot-iss1' \
+			(dm$config = 'lineplot-iss1')
+		entry 'Lineplot (ISS 2)' 'display lineplot-iss2' \
+			(dm$config = 'lineplot-iss2')
+		entry 'Lineplot (ISS 3)' 'display lineplot-iss3' \
+			(dm$config = 'lineplot-iss3')
 		line
 		entry 'Empty screen' 'display empty' (dm$config = 'empty')
 	endmenu
