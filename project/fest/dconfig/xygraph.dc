@@ -1,0 +1,64 @@
+! Auto-saved display configuration.
+config xygraph
+	window 'UpperLeft' 10 10 1000 785 gp gp.init
+		description 'xygraph-UpperLeft'
+		buttonmap 'basic'
+		forcepd
+	endwindow
+	widget 'iconbar' 1016 10 80 505
+endconfig
+
+beginpd 'xygraph-UpperLeft'
+global
+   parameter alt-scale-y-max           '18.0'
+   parameter alt-scale-y-min           '0.0'
+   parameter axis-bottom-space         '120'
+   parameter axis-left-space           '50'
+   parameter axis-right-space          '70'
+   parameter axis-top-space            '120'
+   parameter height-scale-y-max        '18000.0'
+   parameter height-scale-y-min        '0'
+   parameter icon-middle-menu          'global-fields-menu'
+   parameter pd-name                   'xygraph-UpperLeft'
+   parameter plot-mode                 'real-time'
+   parameter plot-type                 'xygraph'
+   parameter ta-scale                  '0.03'
+   parameter trigger                   '30m'
+   parameter xy-adj-axis-side          't'
+   parameter xy-adj-scale-dim          'x'
+   parameter xy-axis-b-font-scale      '0.020'
+   parameter xy-axis-l-font-scale      '0.020'
+   parameter xy-axis-r-font-scale      '0.020'
+   parameter xy-axis-t-font-scale      '0.020'
+   parameter xy-data-mode              'series'
+   parameter xy-scale-x-mode           'autoscale'
+   parameter xy-scale-y-mode           'manual'
+   parameter xy-series-span            '720m'
+component altscale
+   parameter axis-bottom               'false'
+   parameter axis-l-grid-intensity     '0.0'
+   parameter axis-l-label              'altitude (kmsl)'
+   parameter axis-l-tic-interval       '1.0'
+   parameter do-side-annotation        'false'
+   parameter field-color               'black'
+   parameter platform                  'prof_azcn5_l'
+   parameter representation            'simple'
+   parameter representation-style      'cross'
+   parameter x-field                   'nothing'
+   parameter y-field                   'alt'
+component heightscale
+   parameter axis-bottom               'false'
+   parameter axis-left                 'false'
+   parameter axis-r-grid-intensity     '0.0'
+   parameter axis-r-label              'height (m > ground)'
+   parameter axis-r-tic-interval       '500.0'
+   parameter axis-right                'true'
+   parameter do-side-annotation        'false'
+   parameter field-color               'black'
+   parameter platform                  'prof_azcn5_l'
+   parameter representation            'simple'
+   parameter representation-style      'cross'
+   parameter x-field                   'nothing'
+   parameter y-field                   'height'
+endpd
+

@@ -1,0 +1,127 @@
+! Auto-saved display configuration.
+config xsect
+	window 'UpperRight' 512 7 640 469 gp gp.init
+		description 'xsect-UpperRight'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'UpperLeft' 5 65 500 412 gp gp.init
+		description 'xsect-UpperLeft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'LowerLeft' 6 476 844 421 gp gp.init
+		description 'xsect-LowerLeft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	widget 'iconbar' 5 5 505 70
+endconfig
+
+beginpd 'xsect-UpperRight'
+global
+   parameter altitude                  '0.0000'
+   parameter comment                   'Aircraft coordinator big window plot description.'
+   parameter icon-middle-menu          'DataAvailable'
+   parameter menu-platform             'cp4'
+   parameter pd-name                   'xsect-UpperRight'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '4-Mar-92,21:00:00'
+   parameter plot-type                 'CAP'
+   parameter radar-space               'false'
+   parameter ta-scale                  '0.04'
+   parameter time-frames               '2'
+   parameter trigger                   'cp4'
+   parameter x-max                     '2105.3960'
+   parameter x-min                     '-2948.2817'
+   parameter xsect-component           'xsect'
+   parameter xsect-window              'LowerLeft'
+   parameter y-max                     '-1919.9396'
+   parameter y-min                     '2143.5125'
+component c_goes_us
+   parameter altitude                  '0.0'
+   parameter color-table               '16gray'
+   parameter field                     'ir'
+   parameter icon                      'satellite'
+   parameter icon-middle-menu          'goes-middle'
+   parameter icon-right-menu           'DataAvailable'
+   parameter ir-center                 '128'
+   parameter ir-step                   '14.0'
+   parameter menu-platform             'goes'
+   parameter platform                  'goes_us'
+   parameter representation            'raster'
+component c_map
+   parameter color                     'gray60'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter platform                  'stormfest'
+   parameter representation            'overlay'
+component c_nwssounding_loc
+   parameter color                     'cyan'
+   parameter field                     'location'
+   parameter icon                      'sounding-loc'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'locations-right'
+   parameter label-size                '0.025'
+   parameter platform                  'ABQ,AMA,DDC,DEN,ELP,GGG,GJT,GRB,HON,LBF,LIT,LND,MAF,OMA,OUN,PAH,PIA,RAP,SEP,STC,TOP,UMN,BIS,DRA,BOI,ELY,GEG,GGW,GTF,INW,SLC,TUS,WMC,MFR,MYF,OAK,SLE,UIL,VBG,ANN,OLM,CGO,RDD,ILA,NPS,PRB,NTD,YXY,YYE,YSM,YXS,YZT,WVK,WSE,YVQ,YEV'
+   parameter representation            'overlay'
+component c_sounding_loc
+   parameter color                     'cyan'
+   parameter field                     'location'
+   parameter icon                      'sounding-loc'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'locations-right'
+   parameter label-size                '0.025'
+   parameter platform                  'slb,iow,ear,3v1,hys,62k,akz,irk,cou,stl,hen,guy'
+   parameter representation            'overlay'
+endpd
+
+beginpd 'xsect-UpperLeft'
+global
+   parameter pd-name                   'xsect-UpperLeft'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '4-Mar-92,21:00:00'
+   parameter plot-type                 'skewt'
+   parameter trigger                   '1m'
+component skewt
+   parameter color-table               'Skew-t'
+   parameter icon                      'sounding'
+   parameter icon-left-menu            'skewt-left'
+   parameter icon-middle-menu          'DataAvailable'
+   parameter icon-right-menu           'feet-km'
+   parameter menu-platform             'sslb,siow,sear,s3v1,shys,s62k,sakz,sirk,scou,sstl,shen,sguy'
+   parameter platform                  'sslb'
+   parameter representation            'skewt'
+endpd
+
+beginpd 'xsect-LowerLeft'
+global
+   parameter left-endpoint             '198.061,724.309'
+   parameter pd-name                   'xsect-LowerLeft'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '4-Mar-92,21:00:00'
+   parameter plot-type                 'xsect'
+   parameter right-endpoint            '306.095,807.182'
+   parameter trigger                   '5m'
+component xsect
+   parameter by-altitude               'false'
+   parameter color                     'cyan'
+   parameter color-mono                'true'
+   parameter color-table               'cook32'
+   parameter ept-center                '280.0'
+   parameter ept-step                  '10'
+   parameter field                     'pt'
+   parameter icon                      'xsect'
+   parameter icon-middle-menu          'xsect-field-menu'
+   parameter icon-right-menu           'xsect-right'
+   parameter platform                  'ssep,soun,sakz,stop,soma,sslb'
+   parameter pt-center                 '300.0'
+   parameter pt-step                   '4'
+   parameter representation            'contour'
+   parameter wspd-center               '50'
+   parameter wspd-step                 '10'
+   parameter zig-zag                   'true'
+endpd
+

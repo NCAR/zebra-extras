@@ -1,0 +1,67 @@
+! Auto-saved display configuration.
+config surf-hourly
+	window 'big' 5 5 700 700 gp gp.init
+		description 'surf-hourly-big'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 710 250 30 fccclock
+		description 'surf-hourly-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 262 712 505 78
+	window 'RadarStatus' 770 670 300 60 graphproc
+		nongraphic
+	endwindow
+endconfig
+
+beginpd 'surf-hourly-big'
+global
+   parameter pd-name                   'surf-hourly-big'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '1-Feb-92,14:00:00'
+   parameter plot-type                 'CAP'
+   parameter trigger                   'surface_hourly'
+   parameter x-max                     '1012.2355'
+   parameter x-min                     '-581.3679'
+   parameter y-max                     '-774.6618'
+   parameter y-min                     '736.1482'
+component c_meso_winds
+   parameter arrow-scale               '0.01'
+   parameter color                     'cyan'
+   parameter filter-resolution         '50'
+   parameter icon                      'meso_winds'
+   parameter icon-right-menu           'meso-winds-options'
+   parameter limit-proc                'adj_arrow_scale'
+   parameter platform                  'surface_hourly'
+   parameter quadrants                 'tdry'
+   parameter representation            'station'
+   parameter spatial-filter            'true'
+   parameter u-field                   'u_wind'
+   parameter v-field                   'v_wind'
+component c_radar_loc
+   parameter color                     'white'
+   parameter field                     'location'
+   parameter icon                      'radar-loc'
+   parameter icon-middle-menu          'simple-color'
+   parameter platform                  'cp3,cp4,mhr,okc,fdr,cim,hot,chill,osk'
+   parameter representation            'overlay'
+component c_map
+   parameter color                     'gray60'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter platform                  'stormfest'
+   parameter representation            'overlay'
+endpd
+
+beginpd 'surf-hourly-Clock'
+global
+   parameter pd-name                   'surf-hourly-Clock'
+component clock
+   parameter background                'white'
+   parameter foreground                'black'
+   parameter xfont                     '-*-new century schoolbook-bold-r-*-*-25-*-*-*-*-*-*-*'
+endpd
+
