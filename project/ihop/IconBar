@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.4 2002-05-04 19:20:33 burghart Exp $
+! $Id: IconBar,v 1.5 2002-05-05 18:15:35 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -116,9 +116,9 @@ define widget iconbar menubar " "
 		title 'Satellite Data'
 		line
 		entry 'GOES 1 km' \
-			'putc2 p_goes platform goes_1km icon goes_1km'
+			'putc2 p_goes platform goes_1km icon sat_1km'
 		entry 'GOES 4 km' \
-			'putc2 p_goes platform goes_4km icon goes_4km'
+			'putc2 p_goes platform goes_4km icon sat_4km'
 	endmenu
 	menu aircraft bitmap aircraft
 		title 'Aircraft'
@@ -157,10 +157,8 @@ define widget iconbar menubar " "
 		line
 		entry 'Radar range rings' 'putc1 p_rings platform spol'
 		entry 'Radar locations' 'do_radar_locs'
-		entry 'Binet North lobes' \
-			'putc2 p_map platform north_lobes color white'
-		entry 'Binet South lobes' \
-			'putc2 p_map platform south_lobes color white'
+		entry 'Radar composite boundary' \
+			'putc3 p_map platform composite_bounds icon rectangle color cyan4'
 !		entry 'Optimizer boundary' 'putc0 p_opt_boundary'
 		entry 'Window Bounds' 'put_wbounds p_wbounds'
 	endmenu
