@@ -1,0 +1,16 @@
+global
+	pd-name:	p_osu
+p_osu
+	platform:	osu01,osu02,osu03,osu04,osu05,osu06,osu07,osu08,osu09,osu10,osu11,osu12,osu13,osu14,osu15,osu16,osu17,osu18,osu19,osu20,osu21,osu22,osu23,osu24,osu25,osu26,osu27,osu28,osu29,osu30,osu31,osu32,osu33
+	representation:	overlay
+	field:		location
+	color:		green
+	icon-left-menu:		minimal-cap-left-menu
+	posicon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	posicon-right-menu:	location-options
+	label:		platform
+	active-icon:	true
+	require:	location
+	label-size:	12
+	icon:		diamond

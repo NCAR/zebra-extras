@@ -1,0 +1,16 @@
+global
+	pd-name:	p_rgauge
+p_rgauge
+	platform:	agtk1,bumk1,cdwk1,cbdk1,cssk1,elbk1,eldk1,oxfk1,peck1,prtk1,potk1,rock1,rosk1,swkk1,smbk1,wnfk1,atlk2,agak1,bumk2,cssk2,edek1,edrk1,towk1,wfdk1,bmanl,oxanl,smanl,wwanl,mri01,mri02,mri03,mri04,mri05,mri06,mri07,mri08,eti02,eti06
+	representation:	overlay
+	field:		location
+	color:		green
+	icon-left-menu:		minimal-cap-left-menu
+	posicon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	posicon-right-menu:	location-options
+	label:		platform
+	active-icon:	true
+	require:	location
+	label-size:	12
+	icon:		square
