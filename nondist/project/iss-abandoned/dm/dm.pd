@@ -3,10 +3,6 @@
 ! the project.
 !
 
-! Set things up for high-depth displays:
-!
-require truecolor
-
 !-----------------------------------------------------------------------
 ! Add to the defaults database from the project-specific databases.
 !
