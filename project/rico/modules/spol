@@ -1,5 +1,5 @@
 !
-! $Id: spol,v 1.1.1.1 2004-11-16 16:59:21 burghart Exp $
+! $Id: spol,v 1.2 2005-01-16 19:30:40 granger Exp $
 !
 
 require radar
@@ -93,6 +93,10 @@ define widget spol-fields intmenu 'x'
 		(PDParam (icon_component, 'field') = 'z_hh_k')
  	entry 'LDR_VH_K' 'param #icon_component field ldr_vh_k' \
 		(PDParam (icon_component, 'field') = 'ldr_vh_k')
+	entry 'ZDR_VH_K' 'param #icon_component field zdr_vh_k' \
+		(PDParam (icon_component, 'field') = 'zdr_vh_k')
+	entry 'RHO_VH_K' 'param #icon_component field rho_vh_k' \
+		(PDParam (icon_component, 'field') = 'rho_vh_k')
 	entry 'NCP_HH_K' 'param #icon_component field ncp_hh_k' \
 		(PDParam (icon_component, 'field') = 'ncp_hh_k')
 	entry 'SW_HH_K' 'param #icon_component field sw_hh_k' \
