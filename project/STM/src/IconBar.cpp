@@ -84,11 +84,15 @@ define widget iconbar menubar " "
 			(dm$config = 'iss-timeht')
 		entry 'Sounding cross sections' 'display snd_xsect' \
 		        (dm$config = 'snd_xsect')
+		entry 'AERI LBL Clouds' 'display aericlouds' \
+			(dm$config = 'aericlouds')
 		entry 'RUC model' 'display ruc' (dm$config = 'ruc')
 		entry 'Oklahoma Mesonet' 'display ok-mesonet' \
 			(dm$config = 'ok-mesonet')
 		entry 'Wind Profiler Demo Network' 'display wpdn' \
 			(dm$config = 'wpdn')
+		entry 'AVHRR/GOES Satellite' 'display satellite' \
+			(dm$config = 'satellite')
 		entry 'SMOS Time Series' 'display smos-tseries' \
 			(dm$config = 'smos-tseries')
 		submenu 'UAV Configurations' uav-config-menu
@@ -171,12 +175,25 @@ define widget iconbar menubar " "
 		entry 'NGM Wind Vectors' 'sendout p_ngm_winds pick'
 	endmenu
 	menu satellite bitmap satellite
-		title 'Satellite Data'
+		title 'Satellite Images'
 		line
 		entry 'GOES-Minnis' 'sendout c_goes_minnis pick'
-		entry 'GOES-8' 'beep'
-		entry 'AVHRR' 'beep'
-		entry 'TOVS' 'beep'
+		line
+		entry 'GOES-8 5-channel (4 km)' \
+		   'putc2 p_raster platform sgpgoes8X1.a1 field gvar_ch1'
+		entry 'GOES-8 1-channel vis (1 km)' \
+		   'putc2 p_raster platform sgpgoes8visX1.a1 field gvar_ch1'
+		line
+		entry 'NOAA-9 AVHRR Albedo and Brightness' \
+		   'putc2 p_raster platform n9avhrrmerc field avhrr_ch1'
+		entry 'NOAA-9 AVHRR Radiances' \
+		   'putc2 p_raster platform n9avhrrradmerc field avhrr_ch3'
+!		entry 'AVHRR State Lines' \
+   'putc2 p_satoverlay platform avhrr_sgp.state_lines field state_line'
+!		entry 'AVHRR Lat-Lon Grid' \
+   'putc2 p_satoverlay platform avhrr_sgp.lat_lon field lat_lon_grid'
+		line
+		submenu 'GOES-7 Platforms' goes-7-menu
 	endmenu
 	menu sone bitmap sonde
 		title 'Sonde Instruments'
@@ -261,9 +278,28 @@ define widget uav-config-menu intmenu 'UAV configurations'
 	entry 'NGM Model' 'display NGM' (dm$config = 'NGM')
 	entry 'NWS Surface Hourlies' 'display Mesonet' (dm$config = 'Mesonet')
 	entry 'Profiler' 'display Profiler' (dm$config = 'Profiler')
-	entry 'GOES Satellite' 'display Satellite' (dm$config = 'Satellite')
+	entry 'Satellite' 'display satellite' (dm$config = 'satellite')
 endmenu
 
+
+define widget goes-7-menu intmenu 'GOES-7 images'
+	title 'GOES-7 Images'
+	line
+	entry 'GOES-7 Visible' \
+	   'putc2 p_satellite platform g7vismerc field vas_visible'
+	entry 'GOES-7 Channel 5 brightness' \
+	   'putc2 p_satellite platform g7irmerc field vas_ir5'
+	entry 'GOES-7 Channel 8 brightness' \
+	   'putc2 p_satellite platform g7ir8merc field vas_ir8'
+	entry 'GOES-7 Channel 12 brightness' \
+	   'putc2 p_satellite platform g7irmerc field vas_ir12'
+	entry 'GOES-7 Channel 5 radiances' \
+	   'putc2 p_satellite platform g7radirmerc field vas_ir5'
+	entry 'GOES-7 Channel 8 radiances' \
+	   'putc2 p_satellite platform g7radir8merc field vas_ir8'
+	entry 'GOES-7 Channel 12 radiances' \
+	   'putc2 p_satellite platform g7radirmerc field vas_ir12'
+endmenu
 
 
 !
@@ -295,7 +331,7 @@ define widget dslistings intmenu 'dsdwidget listings'
 	entry 'Mesonets' \
 	   'shell "dsdwidget -a -t Mesonets mesoX sfchrlyX okmX &"'
 	entry 'Satellites' \
-	   'shell "dsdwidget -a -t Satellites goes avhrr &"'
+	   'shell "dsdwidget -a -t Satellites goes avhrr g7 g8 &"'
 	entry 'Models' \
 	   'shell "dsdwidget -a -t Models sgpngm250 sgpeta mm5ncar sgpruc &"'
 	line
