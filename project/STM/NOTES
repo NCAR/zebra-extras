@@ -11,4 +11,65 @@ Try using Chris' imagedump changes to periodically dump plots as xwd even
 if plot window obscured.  Also try using perusal movie code to raise plot
 window and call imagedump on it.
 
+Code changes:
+
+	Daemon should update unified cache file if set rather than
+	platform cache files for cache-on-exit.  That keeps unified cache
+	file up to date without needing to write into data directories
+	or stepping on another daemon's toes.
+
+	Define a new dm command to automatically generate an iconbar with a
+	given name.  Pass a list of menu names or platform classes or an
+	explicit list of platforms to generate entries for.  DM can pick
+	appropriate entries by the organization of each platform.
+
+	Make platform's organization available as a function in both gp and
+	dm to allow intelligent decisions in modules without relying on
+	project-specific platform names.  Allow platform class and parent
+	information also.
+
+Remove the conditionals from ds.config and just define all of the known ARM
+platforms.  DelayDataDirs will keep directories from being created.
+
+Separate platforms by project or platform category, such as SGP, UAV,
+external, and TWP.  Read the platform definition files in ds.config as
+needed.
+
+There's no reason we can't have multiple iconbars, one for each site's set
+of platforms.  UAV and SGP could be combined just by having their
+respective platforms available on separate iconbars.  All those platforms
+could be defined in menus, but only those with data would be activated.
+
+Autoconfiguration:
+
+	New dm command which says "this entry adds this platform to some
+	window": use platform to set active state of entry, query platform
+	for organization, check for an add-data command for that
+	window.
+
+	Three kinds of adds? add a new component, add to a component, or
+	change an existing platform in a component, where add-to implies
+	add-new if no component existing.
+
+	Need menu entries which can be activated by any expression, such
+	as a 'data available?' function or 'forecast platform?'  menus
+	can stay the same, but irrelevant entries (such as forecast options
+	for non-forecast grids) will be inactive.  Alternative is to set the
+	menus for a component or active area using conditional tests of
+	those expressions.
+
+For configurations built up of library window pd's: add a parameter to the
+window which references the library pd.  Rather than write the pd into the
+.dc file, use the named pd already loaded.
+
+How to accomodate platform name migrations from development (D) to
+production?
+
+Separate platform definitions into files: ds/sgp/{profilers,smos,...},
+ds/external/..., ds/uav and read them in ds.config.  Always define
+all platforms but set delaydatadirs true.
+
+Add option to dsdwidget to skip platforms with no data, use that option in
+ARM config except for "all platforms" option?  Or make it a toggle button?
+
 

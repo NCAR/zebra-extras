@@ -1,4 +1,5 @@
-/* $Id: config.h.dist,v 1.1 1997-02-04 14:56:18 granger Exp $
+/* -*- C -*-
+ * $Id: config.h.dist,v 1.2 1997-06-02 22:55:25 granger Exp $
  *
  * Configuration file for ARM project configuration
  */
@@ -6,28 +7,34 @@
 /*
  * The project name, such as STM or UAV
  */
-#define ProjectName 	STM /* UAV */
+#define CFG_PROJECTNAME 	SGP
 
 /*
  * The absolute path name of the project directory (i.e., the parent
  * directory of this src directory.
  */
-#define ProjectDir	/* e.g. /apps/dev/sgp/project/STM */
+#define CFG_PROJECTDIR		"/apps/zebra/project/ARM"
 
 /*
- * Define this to be the directory which contains the platform directories.
- * For example, if /data is the data home, then the individual platform
- * directories are in /data/sgp/platforms, to which DefaultDataDir should
- * be defined.  This can be overridden on the zstart command line or
- * with the DATAHOME or DATA_DIR environment variables.
+ * Define the default data directories which contain the individual platform
+ * directories.  These can be overridden with the DATAHOME or
+ * DEVDATAHOME environment variables.
  */
-#define DefaultDataDir	/data/sgp/platforms
+#define CFG_DATAHOME "/data/cdf"
+#define CFG_DEVDATAHOME "/data/devcdf"
+#define CFG_DSCACHEFILE "data.ds_cache"
 
 /*
- * Define the symbol Realtime to enable certain realtime behavior, such
+ * Define the symbol REALTIME to enable certain realtime behavior, such
  * as periodic rescans and cache updates.  This also forces graphics 
  * windows to come up in realtime mode.
  */
-#define Realtime
+#define REALTIME
+
+/*
+ * The path to the Web browser.  If it is on the path, it does not need to
+ * be an absolute path.  Make sure it is enclosed in double quotes.
+ */
+#define CFG_BROWSERPATH "/local/bin/netscape"
 
 

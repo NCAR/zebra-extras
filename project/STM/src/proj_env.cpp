@@ -1,7 +1,7 @@
 XCOMM !/bin/csh -f
 XCOMM
 XCOMM Environment variable settings specific to ARM
-XCOMM $Id: proj_env.cpp,v 1.2 1997-03-11 00:27:47 granger Exp $
+XCOMM $Id: proj_env.cpp,v 1.3 1997-06-02 22:55:31 granger Exp $
 
 #include "config.h"
 
@@ -16,16 +16,10 @@ if (! $?ZEB_EVENTLOGGER) \
 
 setenv ZEBHOME $ZEB_TOPDIR
 setenv HOST `uname -n`
-setenv ZEB_PROJECT ARMProject
-setenv CONFIGHOME ProjectDir
+setenv CONFIGHOME CFG_PROJECTDIR
 setenv ZEB_PROJDIR $CONFIGHOME
+setenv DATA_DIR CFG_DEFAULTDATADIR
 
-XCOMM This is mostly to keep zstart quiet.
-XCOMM DATAHOME will take precedence in ds.config
-XCOMM
-setenv DATA_DIR DefaultDataDir
-
-XCOMM Force multiple option on dm command line
-XCOMM
-XCOMM setenv ZEB_DM_CONFIG '-multiple dm.config'
+if ( ! $?ZEB_CACHEDIR ) \
+	setenv ZEB_CACHEDIR $CONFIGHOME/cache
 

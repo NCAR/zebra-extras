@@ -1,4 +1,4 @@
-XCOMM $Id: Imakefile,v 1.7 1997-02-04 14:56:17 granger Exp $
+XCOMM $Id: Imakefile,v 1.8 1997-06-02 22:55:24 granger Exp $
 
 CFGFILES = ds.config IconBar dm.config dm.pd \
 	   cf-active-loc ef-active-loc bf-active-loc
@@ -15,17 +15,12 @@ DISTFILES = Imakefile $(CFGSRCS) $(HELPSRCS)
 
 #include "config.h"
 
-DEFDATADIR = DefaultDataDir
-DATADEFINE = -DDEFDATADIR=\"$(DEFDATADIR)\" 
 HELPLIBDIR = $(LIBDIR)/help
 HELPDEFINE = -DHELPDIR=$(HELPLIBDIR)
-PROJECT = ARMProject
+PROJECT = CFG_PROJECTNAME
 PROJDEFINE = -DPROJECT=$(PROJECT) -D$(PROJECT)
-#ifdef Realtime
-REALTIME = -DREALTIME
-#endif
 
-DEFINES = $(PROJDEFINE) $(HELPDEFINE) $(DATADEFINE) $(REALTIME)
+DEFINES = $(PROJDEFINE) $(HELPDEFINE) 
 
 PROJDIR = ..
 MODULEDIR = $(PROJDIR)/modules
@@ -35,8 +30,11 @@ DESTDIR = /* we know we don't want to prepend anything to the install dir */
 all:: $(CFGFILES) $(HELPFILES)
 
 #define InstallCppFile(target,dest) \
-CppScriptTarget(target,target.cpp,$(DEFINES),/**/)		@@\
-InstallNamedProg(target,target,dest)
+CppScriptTarget(target.o,target.cpp,$(DEFINES),/**/)		@@\
+InstallNamedProg(target.o,target,dest)
+
+install::
+	(cd $(PROJDIR); ./makelinks)
 
 InstallCppFile(ds.config,$(PROJDIR))
 InstallCppFile(dm.config,$(PROJDIR))

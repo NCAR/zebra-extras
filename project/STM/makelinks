@@ -1,0 +1,28 @@
+#! /bin/sh
+#
+# $Id: makelinks,v 1.1 1997-06-02 22:55:12 granger Exp $
+#
+# Make some file links required in this project directory tree
+#
+
+exec <<EOTABLE
+maps/default.map sgp.map
+SGP .
+EOTABLE
+
+while read target src; do
+
+	: echo "$target --> $src"
+	if [ -h $target ]; then
+		: echo "Link $target exists."
+	else
+		if [ -f $target ]; then
+			echo "File $target in the way!"
+		else
+			(set -x; ln -s $src $target)
+		fi
+	fi
+
+done
+
+
