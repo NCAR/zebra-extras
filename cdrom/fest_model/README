@@ -1,0 +1,68 @@
+Welcome to the STORM-FEST CD-ROM, Model Supplement.  This two disk set was
+produced as a collaboration among the Office of Field Project Support of
+the University Corporation for Atmospheric Research, the Atmospheric
+Technology Division (ATD) of the National Center for Atmospheric Research
+(NCAR), and the U.S. Weather Research Program Office.  Contained on these
+disks are datasets from four different meteorological models run during the
+STORM-FEST project, which took place in February and March of 1992 and was
+based in Kansas City, MO.  Also included is ATD's Zeb software package,
+which can be used to view the included data as well as data from the
+original STORM-FEST three disk CD-ROM set of observed data.
+
+For more information on the contents and use of these disks, see the
+accompanying booklet.  If the booklet is missing, it is included on the
+disks in PostScript form in the file "doc/booklet.ps".  It is also included
+in ASCII text form in file "doc/booklet.txt".
+
+
+
+
+
+		==================================================
+		STORM-FEST '92: Intensive Observing Periods (IOPs)
+		==================================================
+
+       +----------------------------------------------------------------+
+       |       |  Obs.  |  Model  |                  |                  |
+       |  IOP  |   CD   |   CD    |  Start Time (Z)  |   End Time (Z)   |
+       |================================================================|
+       |   1   |        |         |  Feb.  3, 12:00  |  Feb.  4, 00:00  |
+       |-------|        |  None   |------------------+------------------|
+       |   2   |        |         |  Feb.  6, 12:00  |  Feb.  7, 00:00  |
+       |-------|        |---------+------------------+------------------|
+       |   3   |        |         |  Feb.  9, 12:00  |  Feb.  9, 22:00  |
+       |-------|        |         |------------------+------------------|
+       |   4   |    1   |         |  Feb. 10, 06:00  |  Feb. 11, 00:00  |
+       |-------|        |         |------------------+------------------|
+       |   5   |        |    1    |  Feb. 11, 00:00  |  Feb. 12, 12:00  |
+       |-------|        |         |------------------+------------------|
+       |   6   |        |         |  Feb. 14, 06:00  |  cont. w/IOP 7   |
+       |-------|        |         |------------------+------------------|
+       |   7   |        |         | continues IOP 6  |  Feb. 18, 12:00  |
+       |-------+--------+---------+------------------+------------------|
+       |   8   |        |         |  Feb. 19, 12:00  |  Feb. 19, 20:00  |
+       |-------|        |  None   |------------------+------------------|
+       |   9   |        |         |  Feb. 21, 16:00  |  Feb. 22, 03:00  |
+       |-------|        |---------+------------------+------------------|
+       |  10   |        |         |  Feb. 22, 12:00  |  Feb. 23, 03:00  |
+       |-------|        |         |------------------+------------------|
+       |  11   |        |    2    |  Feb. 23, 18:00  |  Feb. 25, 01:00  |
+       |-------|    2   |         |------------------+------------------|
+       |  12   |        |         |  Feb. 25, 12:00  |  Feb. 26, 00:00  |
+       |-------|        |---------+------------------+------------------|
+       |  13   |        |         |  Feb. 27, 15:00  |  cont. w/IOP 14  |
+       |-------|        |         |------------------+------------------|
+       |  14   |        |  None   | continues IOP 13 |  Feb. 29, 10:00  |
+       |-------|        |         |------------------+------------------|
+       |  15   |        |         |  Mar.  1, 15:00  |  Mar.  2, 00:00  |
+       |-------+--------+---------+------------------+------------------|
+       |  16   |        |         |  Mar.  3, 18:00  |  Mar.  5, 12:00  |
+       |-------|        |         |------------------+------------------|
+       |  17   |        |         |  Mar.  5, 12:00  |  Mar. 10, 14:00  |
+       |-------|        |    2    |------------------+------------------|
+       |  18   |    3   |         |  Mar. 10, 18:00  |  Mar. 11, 00:00  |
+       |-------|        |         |------------------+------------------|
+       |  19   |        |         |  Mar. 11, 12:00  |  Mar. 12, 06:00  |
+       |-------|        |---------+------------------+------------------|
+       |  20   |        |  None   |  Mar. 12, 18:00  |  Mar. 14, 13:00  |
+       +----------------------------------------------------------------+
