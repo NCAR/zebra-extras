@@ -1,5 +1,5 @@
 !
-! $Id: xmgr-pipe,v 1.2 1995-04-18 22:35:10 granger Exp $
+! $Id: xmgr-pipe,v 1.3 1995-09-12 03:49:51 granger Exp $
 !
 ! Pipe a time series of data to an ACE/gr tool
 !
@@ -16,7 +16,7 @@ procedure xmgr-pipe begin string end string platform string field string
 	local cmd concat4("xmgrpipe ",begin," ",end)
 	local cmd concat3(cmd, " ", platform)
 	local cmd concat3(cmd, " ", field)
-	local amp '>& /dev/null &'
+	local amp '1> /dev/null 2>&1 &'
 	local cmd concat4(cmd, ' | ', acegr, " -pipe ")
 	local cmd concat(cmd,amp)
 !
