@@ -10,12 +10,18 @@ endif
 define widget #wname intmenu 'ctbl'
 	title 'Color tables'
 	line
-	entry 'Black and white log, 36 steps' 'CTSet newgray' \
-		(PDParam(icon_component, 'color-table') = 'newgray')
-	entry 'Black and white, 16 steps' 'CTSet 16gray' \
-		(PDParam(icon_component, 'color-table') = '16gray')
-	entry 'Five-step gray' 'CTSet fivegray' \
-		(PDParam(icon_component, 'color-table') = 'fivegray')
+	entry '16-step greyscale' 'CTSet gray16' \
+		(PDParam(icon_component, 'color-table') = 'gray16')
+	entry '16-step reversed greyscale' 'CTSet revgray16' \
+		(PDParam(icon_component, 'color-table') = 'revgray16')
+	entry '32-step greyscale' 'CTSet gray32' \
+		(PDParam(icon_component, 'color-table') = 'gray32')
+	entry '32-step reversed greyscale' 'CTSet revgray32' \
+		(PDParam(icon_component, 'color-table') = 'revgray32')
+	entry '64-step greyscale' 'CTSet gray64' \
+		(PDParam(icon_component, 'color-table') = 'gray64')
+	entry '64-step reversed greyscale' 'CTSet revgray64' \
+		(PDParam(icon_component, 'color-table') = 'revgray64')
 	line
 	entry 'scook table' 'CTSet scook' \
 		(PDParam(icon_component, 'color-table') = 'scook')
