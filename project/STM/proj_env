@@ -23,5 +23,5 @@ setenv DATA_DIR $DATAHOME/sgp/platforms
 
 # Force multiple option on dm command line
 #
-#setenv ZEB_DM_CONFIG '-multiple dm.config'
+setenv ZEB_DM_CONFIG '-multiple dm.config'
 
