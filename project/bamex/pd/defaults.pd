@@ -253,10 +253,10 @@ defaults
 	refract_storm-data-age-limit:	40m
 	radar_composite-icon-age-limit:	30m
 	radar_composite-data-age-limit:	45m
-	goes8_1km-icon-age-limit:	60m
-	goes8_1km-data-age-limit:	90m
-	goes8_4km-icon-age-limit:	60m
-	goes8_4km-data-age-limit:	90m
+	goes_1km-icon-age-limit:	60m
+	goes_1km-data-age-limit:	90m
+	goes_4km-icon-age-limit:	60m
+	goes_4km-data-age-limit:	90m
 	p3-icon-age-limit:	2m
 	p3-data-age-limit:	120m
 	dc8-icon-age-limit:	2m
