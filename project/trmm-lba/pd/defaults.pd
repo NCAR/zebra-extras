@@ -1,16 +1,14 @@
 !
 ! This file contains the default values for some plot description parameters.
 !
-! $Id: defaults.pd,v 1.7 2002-10-24 22:35:24 burghart Exp $
+! $Id: defaults.pd,v 1.8 2002-12-04 00:02:05 burghart Exp $
 !
 defaults
 	pd-name:			defaults
 !
 ! Project origin
 !
-	origin-lat:			-11.22126
-	origin-lon:			-61.99820
-	origin-alt:			201
+	origin-location:	-11.22126 -61.99820 201
 !
 ! The default, big picture zoom locations for constant altitude plots.  These
 ! values are in km w.r.t. the origin above.  Make 'em smaller for smaller scale
@@ -46,6 +44,9 @@ defaults
 	boundary-age-limit:	4h
 	icon-age-limit:		12h
 	elev-icon-age-limit:	20000d
+	elev-data-age-limit:	20000d
+	landsat-icon-age-limit: 20000d
+	landsat-data-age-limit: 20000d
 	swf-icon-age-limit:	90d
 	stj-icon-age-limit:	90d
 	sfj-icon-age-limit:	90d

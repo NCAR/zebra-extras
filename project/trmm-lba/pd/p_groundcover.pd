@@ -1,0 +1,22 @@
+!
+! LANDSAT groundcover data
+!
+global
+	pd-name:	p_groundcover
+p_groundcover
+	platform:	landsat
+	field:	ground_cover
+	altitude-control:	false
+	color-table:	groundcover
+	ground_cover-center:	3.5
+	ground_cover-step:	1
+	ground_cover-nsteps:	8
+	icon:	groundcover
+	icon-right-menu:	raster-right
+	legend-map:	0,water,1,forest,2,pasture,3,,4,,5,rock,6,town,7,other
+	limit-proc:	raster-limit-proc
+	radar-space:	false
+	representation:	raster
+	require:	raster
+	scale-mode:	manual
+	side-annot-style:	legend
