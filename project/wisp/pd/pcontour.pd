@@ -1,0 +1,21 @@
+GLOBAL
+	comment:	Generic PD for variable fields.
+	pd-name:	pcontour
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	1m
+	contour-color-table:	gcook16
+base
+	platform:	mesonet
+	representation:	filled-contour
+	field:		mr
+	icon-middle-menu:	meso-middle
+winds
+	platform:	mesonet
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.005
+	color:		cyan
+	icon:		meso_winds
+	icon-middle-menu:	simple-color

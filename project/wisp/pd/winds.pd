@@ -1,0 +1,12 @@
+GLOBAL
+	pd-name:	winds
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	1m
+winds-mesonet
+	platform:	mesonet
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.005
+	arrow-color:	red

@@ -1,0 +1,8 @@
+GLOBAL
+	pd-name:	skewtest
+	plot-mode:	real-time
+	plot-type:	skewt
+	trigger:	1m
+skewt
+	representation:	skewtest
+	platform:	byr

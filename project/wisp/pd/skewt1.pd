@@ -1,0 +1,11 @@
+GLOBAL
+	pd-name:	skewt1
+	plot-mode:	real-time
+	plot-type:	skewt
+	trigger:	1m
+	ta-color:	yellow
+	ta-color-match:	true
+skewt
+	representation:	skewt
+	platform:	dvr
+	color-table:	Skew-t

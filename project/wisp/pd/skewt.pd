@@ -1,0 +1,10 @@
+GLOBAL
+	pd-name:	skewt
+	plot-mode:	real-time
+	plot-type:	skewt
+	trigger:	1m
+skewt
+	representation:	skewt
+	platform:	dvr
+	max-platform:	3
+	icon:		sounding

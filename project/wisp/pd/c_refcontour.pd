@@ -1,0 +1,12 @@
+GLOBAL
+	comment:	CP3 contoured reflectivity component.
+	pd-name:	c_ref_contour
+c_ref_contour
+	platform:	cp3
+	representation:	contour
+	field:		reflectivity
+	color-table:	refcontour
+	contour-step:	20
+	contour-center: 15
+	line-width:	2
+	do-labels:	false

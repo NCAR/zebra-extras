@@ -1,0 +1,16 @@
+GLOBAL
+	comment:	PD to bring in mudras data.
+	pd-name:	mudras
+	plot-mode:	real-time
+	plot-time:	17-jul-87,15:30
+	plot-type:	CAP
+	trigger:	1m
+	contour-color-table:	ContourMono
+	raster-color-table:	cook16
+	time-frames:	10
+radar
+	platform:	cp3
+	representation:	raster
+	field:		velocity
+	color-table:	scook
+	fast-raster:	true

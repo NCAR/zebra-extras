@@ -1,0 +1,11 @@
+GLOBAL
+	pd-name:	c_ddop
+	comment:	Dual doppler component.
+c_ddop
+	platform:	ddop
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.01
+	color:		white
+	icon-middle-menu:	simple-color

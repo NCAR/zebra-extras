@@ -1,0 +1,13 @@
+GLOBAL
+	pd-name:	trec
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	1m
+	altitude:	2000
+trec
+	platform:	trec
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.005
+	arrow-color:	red

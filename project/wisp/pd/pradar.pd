@@ -1,0 +1,40 @@
+GLOBAL
+	comment:	PD to bring in mudras data.
+	pd-name:	pradar
+	plot-mode:	real-time
+	plot-time:	17-jul-87,22:19
+	plot-type:	CAP
+	trigger:	1m
+	cp3-movie-pregenerate:	velocity,reflectivity
+	contour-color-table:	ContourMono
+	raster-color-table:	scook
+	time-frames:	2
+c_cp3
+	platform:	cp3
+	representation:	raster
+	field:		reflectivity
+	new-raster:	true
+wbox
+	platform:	uleft
+	representation:	overlay
+	field:		wbox
+	color:		black
+	line-width:	2
+	icon:		wbox
+	icon-middle-menu:	simple-color
+aircraft
+	representation:	track
+	platform:	kingair
+	time-period:	600
+	color-code-field:	alt
+	color-table:	cook16
+	line-width:	3
+winds
+	platform:	mesonet
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.005
+	color:	red
+	icon:		meso_winds
+	icon-middle-menu:	simple-color

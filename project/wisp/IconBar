@@ -1,0 +1,263 @@
+!
+! All the definitions required to make the iconbar work.
+!
+set ui$bitmap_directory "/fcc/lib/icons"
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	!
+	! All this stuff tells the system to put it, unadorned by headers and
+	! title bars, where we want it.  DM does "override" by itself now,
+	! since this iconbar appears in the display config, so we don't
+	! bother with it here.
+	!
+	noheader
+	size 230 80
+	location 100 100
+	! vertical
+	! override
+	!
+	! Now we can define the menus themselves.
+	!
+	menu 'global' bitmap global
+		title 'FCC control options'
+		line
+		entry 'Reset to demo time' 'demotime' false
+		line
+		entry 'Sound effects' 'set SoundEnabled (not SoundEnabled)' \
+				SoundEnabled
+		line
+		entry 'Kitchen sink configuration' 'pconfig everything' \
+			(dm$config = 'everything')
+		entry 'Surveillance configuration' 'pconfig sur' \
+			(dm$config = "sur")
+		entry 'Surveillance/sounding configuration' \
+			'pconfig sur-sounding' (dm$config = "sur-sounding")
+!		entry 'Radar/cross section/PAM configuration' \
+!			'pconfig picturex' (dm$config = "picturex")
+!		entry '"Gallery" configuration' 'display gallery' \
+!			(dm$config = "gallery")
+		entry 'Empty configuration' 'display empty' \
+			(dm$config = "empty")
+		line
+		entry 'Shut down FCC system' 'sound flush; shutdown'
+	endmenu
+	menu 'cp4' bitmap cp4
+		title 'CP4 doppler radar'
+		line
+		entry 'Velocity'	'PutBCompField c_cp3 velocity'
+		entry 'Reflectivity'	'PutBCompField c_cp3 reflectivity'
+!		line
+!		entry 'Reflectivity contours' 'put_component c_ref_contour'
+	endmenu
+	menu mesonet bitmap mesonet
+		title 'PAM mesonet data'
+		line
+		entry 'Line Contours'		''
+		line
+		entry '   Temperature' 		'PutCompField c_mesonet tdry'
+		entry '   Dewpoint temperature'	'PutCompField c_mesonet dp'
+		entry '   Pressure'		'PutCompField c_mesonet pres'
+		entry '   Humidity'		'PutCompField c_mesonet rh'
+		entry '   Mixing ratio'		'PutCompField c_mesonet mr'
+		entry '   Potential temperature' 'PutCompField c_mesonet pt'
+		entry '   Equivalent Potential temperature' \
+						'PutCompField c_mesonet ept'
+		line
+		entry 'Filled Contours'		''
+		line
+		entry '   Temperature' 		'PutBCompField c_fmesonet tdry'
+		entry '   Dewpoint temperature'	'PutBCompField c_fmesonet dp'
+		entry '   Pressure'		'PutBCompField c_fmesonet pres'
+		entry '   Humidity'		'PutBCompField c_fmesonet rh'
+		entry '   Mixing ratio'		'PutBCompField c_fmesonet mr'
+		entry '   Potential temperature' 'PutCompField c_fmesonet pt'
+		entry '   Equivalent Potential temperature' \
+						'PutCompField c_fmesonet ept'
+		line
+		entry 'Wind vectors'		'put_component c_meso_winds'
+!		line
+!		entry 'remove' 			'ZapComp c_mesonet'
+	endmenu
+	menu sounding bitmap sounding
+		title 'Sounding operations'
+		line
+		entry 'Sounding location overlay' 'put_component c_sounding_loc'
+	endmenu
+	menu 'overlays' bitmap overlays
+		title 'Static overlays'
+		line
+		entry 'Radar locations' 'put_component c_radar_loc'
+		entry 'Sounding locations' 'put_component c_sounding_loc'
+		entry 'CP4 range rings' 'put_component c_rings'
+		entry 'Highway and city map' 'put_component c_map'
+		entry 'WISP 91 map' 'put_component c_wisp_map'
+		entry 'Window bounds' 'put_wbounds c_wbounds'
+		entry 'Boundary'	'put_component c_boundary'
+	endmenu
+enddef
+
+
+
+
+!
+! The simple case: add a component to a window with no changes.
+!
+procedure put_component name string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+!
+! If this component is already present in the window, remove it.  Otherwise
+! put it in.
+!
+	if (pd_defined (target_win, name, "platform"))
+		message 'Already there'
+		remove #target_win #name
+	else
+		add #name #name #target_win
+	endif
+endprocedure
+
+
+
+!
+! Add a component to a window, changing the field name.
+!
+procedure PutCompField comp string field string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+!
+! If the component is already in the window, just change the field.
+!
+	if (pd_defined (target_win, comp, "platform"))
+		parameter #target_win #comp "field" #field
+!
+! Otherwise change the field *in DM* to avoid making the GP draw twice,
+! then send it over.
+!
+	else
+		parameter #comp #comp "field" #field
+		add #comp #comp #target_win
+	endif
+endprocedure
+
+
+!
+! Add a component to a window, changing the field name.  This version puts
+! the component at the bottom of the stack.
+!
+procedure PutBCompField comp string field string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+!
+! If the component is already in the window, just change the field.
+!
+	if (pd_defined (target_win, comp, "platform"))
+		parameter #target_win #comp "field" #field
+!
+! Otherwise change the field *in DM* to avoid making the GP draw twice,
+! then send it over.
+!
+	else
+		parameter #comp #comp "field" #field
+		add #comp #comp #target_win 1
+	endif
+endprocedure
+
+
+!
+! Remove a component from a window.
+!
+procedure ZapComp comp string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+!
+! If this component truly exists in the window, get rid of it.
+!
+	if (pd_defined (target_win, comp, "platform"))
+		remove #target_win #comp
+	endif
+endprocedure
+
+
+
+!
+! Put in window bounds.
+!
+procedure put_wbounds comp string
+!
+! Get the window we want to see.
+!
+	set wbounds_win "none"
+	pickwin wbounds_win
+	if (wbounds_win = "none")
+		beep
+		return
+	endif
+!
+! And now the place where it goes.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")
+		beep
+		return
+	endif
+!
+! Fix up the component and ship it over.
+!
+	parameter #comp #comp platform #wbounds_win
+	add #comp #comp #target_win
+endprocedure
+
+
+
+
+!
+! pconfig -- switch between the various 'picture' configs.
+!
+procedure pconfig config string
+!
+! Switch over to the new config.
+!
+	display #config
+!
+! Figure out what we're doing with window boxes.
+!
+!	if (config = 'picture' or config = 'picturex')
+!		parameter big wbox disable false
+!	elseif (config = 'pictures')
+!		parameter big wbox disable true
+!	endif
+endprocedure

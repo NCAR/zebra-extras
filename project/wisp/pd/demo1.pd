@@ -1,0 +1,11 @@
+GLOBAL
+	pd-name:	pam2
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	1m
+	contour-color-table:	ContourMono
+base-mesonet
+	representation:	filled-contour
+	field:		tdry
+	contour-center:	26
+	contour-step:	1.0

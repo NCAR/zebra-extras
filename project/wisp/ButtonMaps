@@ -1,0 +1,82 @@
+!
+! The file for display manager button maps.
+!
+!
+!
+
+!
+! Basic, vanilla stuff.
+!
+buttonmap basic
+	local	mb-left 'drawbox pushcoord'
+	local	m	'popup movie'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	b	'popcoords'
+endmap
+
+!
+! Buttons for radar type windows, with radar toggling, xsect control, and
+! so on.
+!
+buttonmap radar
+	local	mb-left 'drawbox pushcoord'
+	local	mb-middle 'drawline sendendpoints'
+	local	mb-right 'toggle_radar'
+	local	F1 	'toggle_radar'
+	local	b	'popcoords'
+	local	m	'popup movie'
+	local	p	'polyline boundary'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	t	'popup overlay'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+endmap
+
+
+
+buttonmap test
+	local	mb-left 'drawbox pushcoord'
+	local	m	'popup movie'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	b	'popcoords'
+	local	p	'polyline cp3'
+endmap
+
+
+buttonmap big
+	local	mb-left 'drawbox pushcoord'
+	local	mb-middle 'drawline sendendpoints'
+	local	mb-right 'toggle_radar'
+	local	F1 	'toggle_radar'
+	local	b	'popcoords'
+	local	m	'popup movie'
+	local	p	'polyline boundary'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	t	'popup overlay'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+endmap
+
+
+buttonmap sounding
+	local	mb-left 'drawbox pushcoord'
+	local	b	'popcoords'
+	local	m	'popup movie'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	r	'movie run'
+	local	s	'movie stop'
+	dm	c	'toggle_snd'
+endmap
+
+buttonmap aircraft
+!	menu mb-left 'airfield'
+	local	m	'popup movie'
+endmap
+

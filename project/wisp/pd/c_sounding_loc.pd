@@ -1,0 +1,12 @@
+GLOBAL
+	pd-name:	c_sounding_loc
+	comment:	sounding location
+c_sounding_loc
+	platform:	akron,berthoud,elbert,flg,mobile1,mobile2,pville,wiggins
+	representation:	overlay
+	field:		location
+	color:		white
+	icon-middle-menu:	simple-color
+	icon-right-menu:	location-right
+	icon:		sounding-loc
+ 

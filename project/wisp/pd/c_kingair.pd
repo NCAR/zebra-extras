@@ -1,0 +1,12 @@
+GLOBAL
+	pd-name:	c_kingair
+	comment:	Generic aircraft component.
+c_kingair
+	representation:	track
+	platform:	kingair
+	time-period:	600
+	trigger:	10s
+	field:	rhum
+	color-table:	Rainbow
+	line-width:	3
+	icon-middle-menu:	airfield

@@ -1,0 +1,16 @@
+GLOBAL
+	comment:	Generic PD for mesonet data
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	1m
+	contour-color-table:	ContourMono
+	pd-name:	refcont
+refcont
+	platform:	cp3
+	representation:	contour
+	field:		reflectivity
+	color-table:	refcontour
+	contour-step:	20
+	contour-center: 15
+	line-width:	2
+	do-labels:	false

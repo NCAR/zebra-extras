@@ -1,0 +1,9 @@
+GLOBAL
+	comment:	Generic CP3 component
+	pd-name:	c_cp3
+c_cp3
+	platform:	cp3
+	representation:	raster
+	field:		reflectivity
+	new-raster:	true
+	color-table:	scook

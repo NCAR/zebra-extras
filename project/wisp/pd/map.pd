@@ -1,0 +1,9 @@
+GLOBAL
+	pd-name:	map
+	comment:	The basic CINDE map
+map
+	platform:	cinde
+	representation:	overlay
+	field:		map
+	color:		blue
+ 

@@ -1,0 +1,17 @@
+GLOBAL
+	pd-name:	pam
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	1m
+	contour-color-table:	ContourMono
+base-mesonet
+	representation:	filled-contour
+	field:		ept
+	contour-center:	339.0
+	contour-step:	1.0
+winds-mesonet
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.005
+	arrow-color:	white

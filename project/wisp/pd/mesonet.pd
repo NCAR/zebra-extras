@@ -1,0 +1,24 @@
+GLOBAL
+	comment:	Generic PD for mesonet data
+	pd-name:	mesonet
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	mesonet
+	contour-color-table:	gcook16
+	raster-color-table:	contour
+	x-min:		-50
+base-mesonet
+	platform:	mesonet
+	representation:	filled-contour
+	field:		mr
+	icon-middle-menu:	meso-middle
+c_meso_winds
+	platform:	mesonet
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.005
+	color:		white
+	icon-middle-menu:	simple-color
+	icon:		meso_winds
+	limit-proc:	adj_arrow_scale

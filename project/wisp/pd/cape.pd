@@ -1,0 +1,37 @@
+GLOBAL
+	pd-name:	cape
+	origin-lat:	28.3422
+	origin-lon:	-80.9350
+	x-min:		-25
+	x-max:		50
+	y-min:		-25
+	y-max:		50
+	cp2-location:	28.7544 -80.7742 0.0
+	cp3-location:	28.3422 -80.9350 0.0
+	cp4-location:	28.2297 -80.7358 0.0
+	plot-type:	CAP
+	plot-mode:	real-time
+	trigger:	boundary
+	comment:	CaPE map overlay
+cape_map
+	platform:	cape
+	representation:	overlay
+	field:		map
+	color:		white
+	icon-middle-menu:	simple-color
+	icon:		map
+c_radar_loc
+	platform:	cp2, cp3, cp4
+	representation:	overlay
+	field:		location
+	color:		white
+	icon-middle-menu:	simple-color
+	icon:		radar-loc
+boundary
+	platform:	boundary
+	representation:	overlay
+	color:		white
+	field:		boundary
+	closed-boundary:	true
+	trigger:	boundary
+	line-width:	3

@@ -1,0 +1,45 @@
+GLOBAL
+	comment:	Generic PD for mesonet data
+	pd-name:	mesonet1
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	1m
+	mesonet-movie-pregenerate:	mr,rh
+	mesonet-movie-pregenerate:	pt,ept
+	contour-color-table:	contour
+	raster-color-table:	contour
+	ta-color-match:	true
+	ta-color:	yellow	
+	ta-scale:	0.04
+base-mesonet
+	platform:	mesonet
+	representation:	contour
+	field:		ept
+	label-blanking:	true
+	color-mono:	true
+	color:	white
+	sa-scale:	0.03
+	ct-limit:	2
+	sa-show:	false
+	icon-middle-menu:	meso-middle
+mesonet2
+	platform:	mesonet
+	representation:	contour
+	field:		rh
+	label-blanking:	false
+	color-mono:	true
+	color:	yellow
+	sa-scale:	0.025
+	ct-limit:	2
+	icon-middle-menu:	meso-middle
+mesonet3
+	platform:	mesonet
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	icon-middle-menu:	simple-color
+	arrow-scale:	0.005
+	icon:	meso_winds
+	color:	red
+	limit-proc:	adj_arrow_scale
+

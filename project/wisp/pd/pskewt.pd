@@ -1,0 +1,12 @@
+GLOBAL
+	pd-name:	pskewt
+	plot-mode:	real-time
+	plot-type:	skewt
+	trigger:	berthoud
+skewt
+	representation:	skewt
+	platform:	berthoud
+	icon-middle-menu: xsect-plat
+	max-platform:	3
+	color-table:	Skew-t
+	icon:		sounding

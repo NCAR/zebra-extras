@@ -1,0 +1,23 @@
+GLOBAL
+	comment:	Kludge PD for gale
+	pd-name:	gale
+	plot-mode:	history
+	plot-time:	26-jan-86,00:02
+	plot-type:	CAP
+	trigger:	1m
+	contour-color-table:	ContourMono
+	raster-color-table:	scook
+	time-frames:	10
+	origin-lat:			35.2361
+	origin-lon:			-75.5383
+	origin-alt:			1750
+	x-min:		-80
+	y-min:		-80
+	x-max:		80
+	y-max:		80
+radar
+	platform:	gale
+	representation:	raster
+	field:		velocity
+	color-table:	scook
+	fast-raster:	true

@@ -1,0 +1,8 @@
+GLOBAL
+	pd-name:	tseries
+	plot-mode:	real-time
+	plot-type:	tseries
+	trigger:	1m
+tseries
+	representation:	tseries
+	platform:	dvr

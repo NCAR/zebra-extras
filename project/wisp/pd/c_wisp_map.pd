@@ -1,0 +1,11 @@
+GLOBAL
+	pd-name:	c_wisp_map
+	comment:	Generic map overlay
+c_wisp_map
+	platform:	wisp91
+	representation:	overlay
+	field:		map
+	color:		white
+	icon-middle-menu:	simple-color
+	icon:		map
+ 

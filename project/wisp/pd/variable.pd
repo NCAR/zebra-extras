@@ -1,0 +1,16 @@
+GLOBAL
+	comment:	Generic PD for variable fields.
+	pd-name:	variable
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	1m
+	contour-color-table:	cook16
+c_meso_winds
+	platform:	mesonet
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.005
+	color:		white
+	icon-middle-menu:	simple-color
+	icon:		meso_winds

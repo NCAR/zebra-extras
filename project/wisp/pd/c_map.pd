@@ -1,0 +1,11 @@
+GLOBAL
+	pd-name:	c_map
+	comment:	Generic map overlay
+c_map
+	platform:	cinde
+	representation:	overlay
+	field:		map
+	color:		blue
+	icon-middle-menu:	simple-color
+	icon:		map
+ 

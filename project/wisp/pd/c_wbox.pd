@@ -1,0 +1,11 @@
+GLOBAL
+	comment:	Generic window bounding box component
+	pd-name:	c_wbox
+c_wbox
+	platform:	unknown
+	representation:	overlay
+	field:		wbox
+	color:		black
+	line-width:	2
+	icon:		wbox
+	icon-middle-menu:	simple-color

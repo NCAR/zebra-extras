@@ -1,0 +1,20 @@
+GLOBAL
+	pd-name:	cindeopt
+	comment:	CINDE optimizer setup
+	plot-type:	CAP
+	plot-mode:	real-time
+	trigger:	boundary
+	raster-color-table:	scook
+c_cp3
+	platform:	cp3
+	representation:	raster
+	field:		reflectivity
+	new-raster:	true
+boundary
+	platform:	boundary
+	representation:	overlay
+	color:		white
+	field:		boundary
+	closed-boundary:	true
+	trigger:	boundary
+	line-width:	3

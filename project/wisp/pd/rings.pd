@@ -1,0 +1,9 @@
+GLOBAL
+	pd-name:	cp3_range_rings
+	comment:	Kludgy CP3 rings overlay
+cp3_range_rings
+	platform:	cp3rings
+	representation:	overlay
+	field:		feature
+	color:		white
+ 

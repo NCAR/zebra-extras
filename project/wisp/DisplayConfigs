@@ -1,0 +1,170 @@
+!
+! All of the predefined display configurations live in this file.
+!
+
+!
+! GraphProc test window config and color table
+!
+!
+! The initialization file.
+!
+set init_file "/fcc/wisp/gp.init"
+
+config wisp
+	window 'radar'	10 10 700 700 /fcc/gp/gp #init_file
+		buttonmap 'big'
+		description 'image'
+	endwindow
+	window 'Clock' 10 720 300 30 '/fcc/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar'  720 10 70 260
+endconfig
+
+config bigmhr
+	window 'radar'	10 10 700 700 /fcc/gp/gp #init_file
+		buttonmap 'big'
+		description 'mhr'
+	endwindow
+	window 'Clock' 10 720 300 30 '/fcc/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar'  720 10 70 260
+endconfig
+
+config sur
+	window 'sur'	10 10 700 700 /fcc/gp/gp #init_file
+		buttonmap 'big'
+		description 'image-sur'
+	endwindow
+	window 'radar' 720 10 420 400 /fcc/gp/gp #init_file
+		buttonmap 'big' 
+		description 'image'
+	endwindow
+	window 'mesonet' 720 420 420 450 /fcc/gp/gp #init_file
+		buttonmap 'big'
+		description 'mesonet'
+	endwindow
+	window 'Clock' 10 720 300 30 '/fcc/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar'  320 720 290 60
+endconfig
+
+
+config sur-sounding
+	window 'sur'	10 10 700 700 /fcc/gp/gp #init_file
+		buttonmap 'big'
+		description 'image-sur'
+	endwindow
+	window 'sounding' 720 10 420 400 /fcc/gp/gp #init_file
+		buttonmap 'big' 
+		description 'pskewt'
+	endwindow
+	window 'mesonet' 720 420 420 450 /fcc/gp/gp #init_file
+		buttonmap 'big'
+		description 'mesonet'
+	endwindow
+	window 'Clock' 10 720 300 30 '/fcc/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar'  320 720 290 60
+endconfig
+
+
+config everything
+	window 'sur' 5 330 600 565 /fcc/gp/gp #init_file
+		buttonmap 'radar'
+		description image-sur
+	endwindow
+	window 'radar' 5 5 320 320 /fcc/gp/gp #init_file
+		buttonmap 'radar' 
+		description 'image'
+	endwindow
+	window 'xsect' 330 5 400 320 /fcc/gp/gp #init_file
+		buttonmap 'test'
+		description 'xsect'
+	endwindow
+	window 'mesonet' 735 5 400 320 /fcc/gp/gp #init_file
+		buttonmap 'basic'
+		description 'mesonet'
+	endwindow 
+	window 'sounding' 610 330 450 400 /fcc/gp/gp #init_file
+		buttonmap 'basic'
+		description 'pskewt'
+	endwindow
+	widget 'iconbar'  1067 330 70 260
+	window 'Event logger' 610 735 500 150
+		nongraphic
+	endwindow
+endconfig
+
+config mhr
+	window 'radar'	10 10 400 400 /fcc/gp/gp #init_file
+		buttonmap 'big'
+		description 'mhr'
+	endwindow
+	window 'Clock' 10 420 300 30 '/fcc/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+endconfig
+
+
+config smallwisp
+	window 'radar'	10 10 400 400 /fcc/gp/gp #init_file
+		buttonmap 'big'
+		description 'image'
+	endwindow
+	window 'Clock' 10 420 300 30 '/fcc/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+endconfig
+
+
+config mesonet
+	window 'mesonet' 10 10 500 500 /fcc/gp/gp #init_file
+		description 'mesonet'
+		buttonmap 'test'
+	endwindow
+	window 'Clock' 10 520 300 30 '/fcc/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 520 10 70 410
+endconfig
+
+
+
+!
+! Simple CINDE optimizer config
+!
+config cindeopt
+	window 'cindeopt' 5 5 700 700 /fcc/gp/gp #init_file
+		description 'cindeopt'
+		buttonmap 'big'
+	endwindow
+	window 'Clock' 5 710 250 30 '/fcc/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 260 710 445 57
+	window 'Event logger' 5 772 700 125
+		nongraphic
+	endwindow
+endconfig
+
+!
+! Generic linked PD to display one window zoomed.
+!
+config zoom 1
+	window 'humungo' 5 5 1100 850 /fcc/gp/gp #init_file
+		buttonmap 'big'
+		linkpd 1
+	endwindow
+endconfig
+
+
+!
+! An empty config just to clear out the screen.
+!
+config empty
+	widget 'iconbar' 1070 5 70 410
+endconfig

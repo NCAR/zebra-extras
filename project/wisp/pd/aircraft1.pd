@@ -1,0 +1,43 @@
+GLOBAL
+	pd-name:	aircraft1
+	plot-mode:	real-time
+	plot-type:	CAP
+	time-frames:	2
+	contour-color-table:	ContourMono
+	trigger:	2m
+	ta-color-match:	true
+	ta-color:	yellow
+	altitude:	2000
+aircraft1
+	representation:	track
+	platform:	kingair
+	time-period:	600
+	trigger:	10s
+	field:	rh
+	color-table:	Rainbow
+	line-width:	3
+	icon-middle-menu:	airfield
+	arrow:	true
+	arrow-type:	wind	
+	arrow-color:	cyan
+	arrow-scale:	0.007
+	arrow-interval:	10s
+	arrow-line-width:	2
+	x-field:	u_wind
+	y-field:	v_wind
+mesonet-winds
+	platform:	mesonet
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	icon-middle-menu:	simple-color
+	icon-right-menu:	side-annot-scale
+	arrow-scale:	0.005
+	icon:	meso_winds
+	color:	red
+mesonet
+	platform:	mesonet
+	representation:	contour
+	field:		ept
+	color-table:	gcook16
+	icon-middle-menu:	meso-middle

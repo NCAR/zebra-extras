@@ -1,0 +1,13 @@
+GLOBAL
+	pd-name:	c_meso_winds
+	pd-comment:	Generic mesonet winds overlay
+c_meso_winds
+	platform:	mesonet
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.005
+	color:		red
+	icon-middle-menu:	simple-color
+	icon:		meso_winds
+	limit-proc:	adj_arrow_scale

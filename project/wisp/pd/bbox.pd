@@ -1,0 +1,10 @@
+GLOBAL
+	pd-name:	bbox
+	comment:	Dual doppler bounding box component
+bbox
+	platform:	cp3dd
+	representation:	overlay
+	field:		gridbbox
+	color:		black
+	line-width:	2
+	icon:		none

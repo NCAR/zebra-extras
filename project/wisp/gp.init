@@ -1,0 +1,815 @@
+!
+! The graphics process initialization file.
+!
+
+
+define widget airfield intmenu 'airfield'
+	title "Aircraft color code fields"
+	line
+	entry 'Aircraft altitude' 'fldset "alt"'
+	entry 'Virtual temperature' 'fldset "vt"'
+	entry 'Relative humidity' 'fldset "rh"'
+	entry 'Mixing ratio' 'fldset "mr"'
+	entry 'Dewpoint temperature' 'fldset "dp"'
+endmenu
+
+!
+! The default left button menu.
+!
+define widget leftmenu intmenu "leftmenu"
+	title 'Overlay Operations'
+	line
+	entry 'Adjust Limits' 'i_adjust'
+	line
+	entry 'Raise to top' 'move #icon_component 0'
+	entry 'Move to bottom' 'move #icon_component 1'
+	entry 'Remove' 'i_remove_component'
+endmenu
+
+!
+! The Track Adjust Limits submenu
+!
+define widget adjust_track_limits cmenu "Adjust Limits"
+	entry 'Arrow Scale' 'i_adj_arrow'
+	entry 'Center/Step' 'i_adj_centstep'
+enddef
+
+!
+! The Skew-t Adjust Limits submenu
+!
+define widget adjust_skewt_limits cmenu "Adjust Limits"
+	entry 'Pressure Limits' 'i_adj_pres'
+	entry 'Temperature Limits' 'i_adj_temp'
+enddef
+
+!
+! Middle icon button field for aircraft data.
+!
+define widget aircraft-menu intmenu "Aircraft menu"
+	title "Aircraft color code fields"
+	line
+	entry 'Aircraft altitude' 'fldset "alt"'
+	entry 'Virtual temperature' 'fldset "vt"'
+	entry 'Relative humidity' 'fldset "rh"'
+	entry 'Mixing ratio' 'fldset "mr"'
+	entry 'Dewpoint temperature' 'fldset "dp"'
+endmenu
+
+!
+! Middle icon button menu for Mesonet data.
+!
+define widget meso-middle intmenu 'Field control popup'
+	title 'PAM mesonet contour fields'
+	line
+	entry 'Potential temperature' 'param #icon_component field pt'
+	entry 'Equivalent potential temperature' 'param #icon_component field ept'
+	entry 'Mixing ratio' 'param #icon_component field mr'
+!	entry 'Rain rate' 'param #icon_component field rainr'
+	entry 'Relative humidity' 'param #icon_component field rh'
+	entry 'Dewpoint temperature' 'param #icon_component field dp'
+	entry 'Pressure' 'param #icon_component field pres'
+	entry 'Temperature' 'param #icon_component field tdry'
+endmenu
+
+!
+! Cross-section field menu (can't really be extended until we have field
+! derivation)
+!
+define widget xsect-field-menu intmenu 'Field control popup'
+	title 'Field Selection'
+	line
+!	entry 'Potential temperature' 'param #icon_component field pt' \
+!		(pd_param (icon_component, "field", "string") = "pt")
+!	entry 'Equivalent Potential temperature' \
+!		'param #icon_component field ept' \
+!		(pd_param (icon_component, "field", "string") = "ept")
+!	entry 'Mixing ratio' 'param #icon_component field mr' \
+!		(pd_param (icon_component, "field", "string") = "mr")
+	entry 'Relative humidity' 'param #icon_component field rh' \
+		(pd_param (icon_component, "field", "string") = "rh")
+	entry 'Dewpoint temperature' 'param #icon_component field dp' \
+		(pd_param (icon_component, "field", "string") = "dp")
+	entry 'Pressure' 'param #icon_component field pres' \
+		(pd_param (icon_component, "field", "string") = "pres")
+	entry 'Temperature' 'param #icon_component field tdry' \
+		(pd_param (icon_component, "field", "string") = "tdry")
+endmenu
+
+!
+! Middle icon menu for radar data.
+!
+define widget radar-middle intmenu 'Radar field menu'
+	title 'Radar'
+	line
+	entry 'Reflectivity' 'param #icon_component field reflectivity'
+	entry 'Velocity' 'param #icon_component field velocity'
+!	line
+!	entry 'Raster representation' \
+!		'param #icon_component representation raster'
+!	entry 'Contour representation' \
+!		'param #icon_component representation contour'
+!	entry 'Filled contour representation' \
+!		'param #icon_component representation filled-contour'
+endmenu
+
+!
+! Middle menu for the surveillance radar component.
+!
+define widget cp4-surv intmenu 'radar'
+	title 'Surveillance radar'
+	line
+	entry 'Reflectivity' 'param #icon_component field reflectivity' \
+		(pd_param(icon_component,"field","string") = "reflectivity")
+	entry 'Velocity' 'param #icon_component field velocity' \
+		(pd_param(icon_component,"field","string") = "velocity")
+	line
+	entry '0.2 degree scans' 'param global altitude 0.2' \
+		(within (pd_param ("global", "altitude", "float"), 0.2, .2))
+	entry '0.8 degree scans' 'param global altitude 0.8' \
+		(within (pd_param ("global", "altitude", "float"), 0.8, .2))
+	entry '1.5 degree scans' 'param global altitude 1.5' \
+		(within (pd_param ("global", "altitude", "float"), 1.5, .2))
+	entry '4.0 degree scans' 'param global altitude 4.0' \
+		(within (pd_param ("global", "altitude", "float"), 4.0, .2))
+endmenu
+
+!
+! Left button menu for the global component.
+!
+define widget global-left intmenu 'Global left menu'
+	title 'Global Options'
+	line
+	entry 'Adjust Global Limits' 'popup adjust_global_limits'
+	line 
+	entry 'Zoom window' 'dm "zoom #dm$button_window"'
+	line
+	entry 'Popup overlay times window' 'popup overlay'
+	line
+	entry 'Popup movie controller' 'popup movie'
+	entry 'Run movie' 'movie run'
+	entry 'Stop movie' 'movie stop'
+endmenu
+
+!
+! The Global Adjust Limits submenu
+!
+define widget adjust_global_limits cmenu "Adjust Global Limits"
+	entry 'X Limits' 'i_adj_x'
+	entry 'Y Limits' 'i_adj_y'
+enddef
+
+
+!
+! Label control for locations.
+!
+define widget location-right intmenu 'location'
+	title 'Location options'
+	line
+	entry 'Labels' 'toggle_label #icon_component label' \
+		(pd_param (icon_component, "label", "string") <> "none")
+endmenu
+
+
+!
+! Toggle the labels.
+!
+procedure toggle_label component string param string
+	local current pd_param(component,param,"string")
+	if (current = "none")
+		parameter #component #param platform
+	else
+		parameter #component #param none
+	endif
+endprocedure
+
+!
+! Adjustments to range rings.
+!
+define widget rings-menu intmenu 'rings adjustment'
+	title 'Range ring parameters'
+!	line
+!	entry 'CP4 center' 'parameter #icon_component platform cp4' \
+!		(pd_param (icon_component, "platform", "string") = 'cp4')
+!	entry 'CP3 center' 'parameter #icon_component platform cp3' \
+!		(pd_param (icon_component, "platform", "string") = 'cp3')
+	line
+	entry '10 km rings' 'parameter #icon_component ring-interval 10' \
+		(pd_param (icon_component, "ring-interval", "string") = '10')
+	entry '20 km rings' 'parameter #icon_component ring-interval 20' \
+		(pd_param (icon_component, "ring-interval", "string") = '20')
+	entry '30 km rings' 'parameter #icon_component ring-interval 30' \
+		(pd_param (icon_component, "ring-interval", "string") = '30')
+	entry '40 km rings' 'parameter #icon_component ring-interval 40' \
+		(pd_param (icon_component, "ring-interval", "string") = '40')
+	line
+	entry '30 degree lines' \
+		'parameter #icon_component azimuth-interval 30' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '30')
+	entry '45 degree lines' \
+		'parameter #icon_component azimuth-interval 45' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '45')
+	entry '90 degree lines' \
+		'parameter #icon_component azimuth-interval 90' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '90')
+endmenu
+
+!
+! Middle button for tsondings.
+!
+define widget tseries-middle intmenu 'tseries middle'
+	title 'Available tsondings'
+	line
+	entry 'Byers, 21:30' 'do_tsonding byr 870717,21:30'
+	line
+	entry 'Denver, 21:30' 'do_tsonding dvr 870717,21:30'
+	entry 'Denver, 21:35' 'do_tsonding dvr 870717,21:35'
+	entry 'Denver, 22:42' 'do_tsonding dvr 870717,22:42'
+	line
+	entry 'Elizabeth, 21:33' 'do_tsonding elz 870717,21:33'
+	entry 'Elizabeth, 22:47' 'do_tsonding elz 870717,22:47'
+	line
+	entry 'Golden, 21:30' 'do_tsonding gdn 870717,21:30'
+	entry 'Golden, 22:44' 'do_tsonding gdn 870717,22:44'
+	line
+	entry 'Hudson, 22:12' 'do_tsonding hud 870717,22:12'
+	entry 'Hudson, 22:40' 'do_tsonding hud 870717,22:40'
+	line
+	entry 'Mobile 1, 21:32' 'do_tsonding mb1 870717,21:32'
+	entry 'Mobile 1, 22:38' 'do_tsonding mb1 870717,22:38'
+	entry 'Mobile 2, 21:32' 'do_tsonding mb2 870717,21:32'
+	entry 'Mobile 2, 22:36' 'do_tsonding mb2 870717,22:36'
+	entry 'Mobile 3, 21:30' 'do_tsonding mb3 870717,21:30'
+endmenu
+
+procedure do_tsonding platform string when string
+	parameter tseries platform #platform
+	parameter global plot-time #when
+endprocedure
+
+!
+! A color menu for components with a simple "color" component.
+!
+define widget simple-color intmenu 'simple colors'
+	title 'Change Color'
+	line
+	entry 'white' 'do_simple_color white'
+	entry 'black' 'do_simple_color black'
+	entry 'lavender' 'do_simple_color lavender'
+	entry 'gray' 'do_simple_color gray60'
+	entry 'blue' 'do_simple_color blue'
+	entry 'cyan' 'do_simple_color cyan'
+	entry 'green' 'do_simple_color green'
+	entry 'khaki' 'do_simple_color khaki'
+	entry 'yellow' 'do_simple_color yellow'
+	entry 'tan' 'do_simple_color tan'
+	entry 'brown' 'do_simple_color brown'
+	entry 'orange' 'do_simple_color orange'
+	entry 'red' 'do_simple_color red'
+	entry 'pink' 'do_simple_color "HotPink"'
+	entry 'violet' 'do_simple_color violet'
+endmenu
+
+
+define widget line-contour-color intmenu 'Line Contour Colors'
+	title 'Line Contour Color'
+	line
+	entry 'white' 'do_contour_color white'
+	entry 'black' 'do_contour_color black'
+	entry 'lavender' 'do_contour_color lavender'
+	entry 'gray' 'do_contour_color gray60'
+	entry 'blue' 'do_contour_color blue'
+	entry 'cyan' 'do_contour_color cyan'
+	entry 'green' 'do_contour_color green'
+	entry 'khaki' 'do_contour_color khaki'
+	entry 'yellow' 'do_contour_color yellow'
+	entry 'tan' 'do_contour_color tan'
+	entry 'brown' 'do_contour_color brown'
+	entry 'orange' 'do_contour_color orange'
+	entry 'red' 'do_contour_color red'
+	entry 'pink' 'do_contour_color "HotPink"'
+	entry 'violet' 'do_contour_color violet'
+	line
+	entry 'Multi-Colored Contours ' 'do_mono_color'
+	line
+	entry 'Label Blanking On' 'do_blank_label true' \
+		(pd_param (icon_component, "label-blanking", "string") = "true")
+	entry 'Label Blanking Off' 'do_blank_label false' \
+		(pd_param(icon_component, "label-blanking", "string") = "false")
+	line
+	entry 'Side Annotation' ''
+	line
+	entry 'Small' 'do_side_annot_size 0.02'
+	entry 'Medium' 'do_side_annot_size 0.025'
+	entry 'Large' 'do_side_annot_size 0.03'
+	line
+	entry 'Annotation On' 'do_side_annot_show true' \
+		(pd_param (icon_component, "sa-show", "string") = "true")
+	entry 'Annotation Off' 'do_side_annot_show false' \
+		(pd_param (icon_component, "sa-show", "string") = "false")
+	line
+	entry 'Skip on' 'do_annot_skip 2'  
+	entry 'Skip off' 'do_annot_skip 1'   
+endmenu
+
+define widget air-arrow-color intmenu 'Aircraft arrow colors'
+	title 'Aircraft Arrow Color'
+	line
+	entry 'white' 'do_air_color white'
+	entry 'black' 'do_air_color black'
+	entry 'lavender' 'do_air_color lavender'
+	entry 'gray' 'do_air_color gray60'
+	entry 'blue' 'do_air_color blue'
+	entry 'cyan' 'do_air_color cyan'
+	entry 'green' 'do_air_color green'
+	entry 'khaki' 'do_air_color khaki'
+	entry 'yellow' 'do_air_color yellow'
+	entry 'tan' 'do_air_color tan'
+	entry 'brown' 'do_air_color brown'
+	entry 'orange' 'do_air_color orange'
+	entry 'red' 'do_air_color red'
+	entry 'pink' 'do_air_color "HotPink"'
+	entry 'violet' 'do_air_color violet'
+	line
+	entry 'No Arrows' 'remove_air_arrows'
+	line
+	entry 'Side Annotation' ''
+	line
+	entry 'Small' 'do_side_annot_size 0.02'
+	entry 'Medium' 'do_side_annot_size 0.025'
+	entry 'Large' 'do_side_annot_size 0.03'
+	line
+	entry 'Skip on' 'do_annot_skip 2'   
+	entry 'Skip off' 'do_annot_skip 1'   
+endmenu
+
+define widget annot-color intmenu 'Annotation colors'
+	title 'Top Annotation'
+	line
+	entry 'white' 'do_annot_color white'
+	entry 'black' 'do_annot_color black'
+	entry 'lavender' 'do_air_color lavender'
+	entry 'gray' 'do_annot_color gray60'
+	entry 'blue' 'do_annot_color blue'
+	entry 'cyan' 'do_annot_color cyan'
+	entry 'green' 'do_annot_color green'
+	entry 'khaki' 'do_annot_color khaki'
+	entry 'yellow' 'do_annot_color yellow'
+	entry 'tan' 'do_annot_color tan'
+	entry 'brown' 'do_annot_color brown'
+	entry 'orange' 'do_annot_color orange'
+	entry 'red' 'do_annot_color red'
+	entry 'pink' 'do_annot_color "HotPink"'
+	entry 'violet' 'do_annot_color violet'
+	line
+	entry 'Small' 'do_annot_size 0.03'
+	entry 'Medium' 'do_annot_size 0.035'
+	entry 'Large' 'do_annot_size 0.04'	
+	line
+	entry 'Color Match On' 'color_match true'  \
+		(pd_param (icon_component, "ta-color-match", "string") = "true")
+	entry 'Color Match Off' 'color_match false'  \
+		(pd_param(icon_component, "ta-color-match", "string") = "false")
+endmenu
+
+define widget side-annot-scale intmenu 'Side annotation'
+	title 'Side Annotation'
+	line
+	entry 'Small' 'do_side_annot_size 0.02'
+	entry 'Medium' 'do_side_annot_size 0.025'
+	entry 'Large' 'do_side_annot_size 0.03'
+endmenu
+
+procedure do_blank_label value string
+	parameter #icon_component label-blanking #value
+endprocedure
+
+procedure color_match value string
+	parameter #icon_component ta-color-match #value
+endprocedure
+
+procedure do_side_annot_show show string
+	parameter #icon_component sa-show #show
+endprocedure
+
+procedure do_side_annot_size size string
+	parameter #icon_component sa-scale #size
+endprocedure
+
+procedure do_annot_skip skip string
+	parameter #icon_component ct-limit #skip
+endprocedure
+
+procedure do_annot_size size string
+	parameter #icon_component ta-scale #size
+endprocedure
+
+procedure do_annot_color color string
+	parameter #icon_component ta-color #color
+endprocedure
+
+procedure do_mono_color
+	parameter #icon_component color-mono false
+endprocedure
+
+procedure remove_air_arrows
+	parameter #icon_component arrow false
+endprocedure
+
+procedure do_contour_color color string
+	parameter #icon_component color #color
+	parameter #icon_component color-mono true
+endprocedure
+
+procedure do_air_color color string
+	parameter #icon_component arrow-color #color
+	parameter #icon_component arrow true
+endprocedure
+
+procedure do_simple_color color string
+	parameter #icon_component color #color
+endprocedure
+
+procedure fldset name string
+	parameter #icon_component field #name
+endprocedure
+
+
+!
+! Remove a component.
+!
+procedure i_remove_component
+	local dm_cmd concat("remove ",ourname)
+	dm concat(concat (dm_cmd, " "), icon_component)
+endprocedure
+
+!
+! Toggle the winds overlay.  For now, we have to ask DM to do it for us,
+! since we don't have this stuff around.
+!
+procedure change_winds
+	if (pd_defined ("winds-mesonet", "u-field"))
+		dm "remove #dm$button_window winds-mesonet"
+	else
+		dm "add winds winds-mesonet #dm$button_window"
+	endif
+endprocedure
+
+!
+! Similar stuff for the aircraft overlay.
+!
+procedure change_aircraft
+	if (pd_defined ("aircraft", "platform"))
+		dm "remove #dm$button_window aircraft"
+	else
+		dm "add kingair aircraft #dm$button_window"
+	endif
+endprocedure
+
+procedure toggle_radar 
+	if (pd_param ("radar", "field", "string") = "reflectivity")
+		parameter radar field "velocity"
+	else
+		parameter radar field "reflectivity"
+	endif
+endprocedure
+
+!
+! Adjust the limits on x.
+!
+procedure i_adj_x
+	local proc pd_paramsearch("global", "x-limit-proc", "global", "string")
+	if (proc <> "(Undefined)")
+		#proc
+	else
+		dm "beep"
+	endif
+endprocedure
+
+!
+! Adjust the limits on y.
+!
+procedure i_adj_y
+	local proc pd_paramsearch("global", "y-limit-proc", "global", "string")
+	if (proc <> "(Undefined)")
+		#proc 
+	else
+		dm "beep"
+	endif
+endprocedure
+
+!
+! Adjust the limits on arrow scale.
+!
+procedure i_adj_arrow
+	local rep pd_param(icon_component, "representation", "string")
+	local proc pd_paramsearch(icon_component, "arrow-limit-proc", rep, "string")
+	if (proc <> "(Undefined)")
+		#proc #icon_component
+	else
+		dm "beep"
+	endif
+endprocedure
+
+!
+! Adjust the limits on center/step.
+!
+procedure i_adj_centstep
+	local rep pd_param(icon_component, "representation", "string")
+	local proc pd_paramsearch(icon_component, "centstep-limit-proc", rep, "string")
+	if (proc <> "(Undefined)")
+		#proc #icon_component
+	else
+		dm "beep"
+	endif
+endprocedure
+
+!
+! Adjust the limits on pressure.
+!
+procedure i_adj_pres
+	local rep pd_param(icon_component, "representation", "string")
+	local proc pd_paramsearch(icon_component, "pres-limit-proc", rep, "string")
+	if (proc <> "(Undefined)")
+		#proc #icon_component
+	else
+		dm "beep"
+	endif
+endprocedure
+
+!
+! Adjust the limits on temperature.
+!
+procedure i_adj_temp
+	local rep pd_param(icon_component, "representation", "string")
+	local proc pd_paramsearch(icon_component, "temp-limit-proc", rep, "string")
+	if (proc <> "(Undefined)")
+		#proc #icon_component
+	else
+		dm "beep"
+	endif
+endprocedure
+
+!
+! Adjust the limits on a component.
+!
+procedure i_adjust
+	local rep pd_param(icon_component, "representation", "string")
+	if (rep = "track")
+		popup adjust_track_limits
+	else 
+		if (rep = "skewt")
+			popup adjust_skewt_limits
+	     	else 
+			local proc pd_paramsearch(icon_component, "limit-proc", rep, "string")
+			if (proc <> "(Undefined)")
+				#proc #icon_component
+			else
+				dm "beep"
+			endif
+	     	endif
+	endif
+endprocedure
+
+
+!
+! The pressure minval maxval adjuster.
+!
+procedure adj_pres_minmax comp string
+	local rep pd_param(comp, "representation", "string")
+	local minval pd_paramsearch(comp, "pres-minval", rep, "string")
+	local maxval pd_paramsearch(comp, "pres-maxval", rep, "string")
+	activate doublefloat #comp "pres-minval" "Pressure Minval: " #minval \
+		"pres-maxval" "Pressure Maxval: " #maxval
+endprocedure
+
+!
+! The temperature minval maxval adjuster.
+!
+procedure adj_temp_minmax comp string
+	local rep pd_param(comp, "representation", "string")
+	local minval pd_paramsearch(comp, "temp-minval", rep, "string")
+	local maxval pd_paramsearch(comp, "temp-maxval", rep, "string")
+	activate doublefloat #comp "temp-minval" "Temperature Minval: " \
+		#minval "temp-maxval" "Temperature Maxval: " #maxval
+endprocedure
+
+!
+! The radar minval maxval adjuster.
+!
+procedure adj_radar_minmax comp string
+	local field pd_param(comp, "field", "string")
+	local minval pd_paramsearch(comp, "minval", field, "string")
+	local maxval pd_paramsearch(comp, "maxval", field, "string")
+	activate doublefloat #comp "minval" "Minval: " #minval \
+		"maxval" "Maxval: " #maxval
+endprocedure
+
+!
+! The center step adjuster.
+!
+procedure adj_center_step comp string
+	local field pd_param(comp, "field", "string")
+	local repr pd_param(comp, "representation", "string")
+	local center_param concat(repr, "-center")
+	local center pd_paramsearch(comp, center_param, field, "string")
+	local step_param concat(repr, "-step")
+	local step pd_paramsearch(comp, step_param, field, "string")
+	activate doublefloat #comp #center_param "Center: " #center \
+		#step_param "Step: " #step
+endprocedure
+
+!
+! The filled contour center step adjuster.
+!
+procedure adj_fill_centstep comp string
+	local field pd_param(comp, "field", "string")
+	local center pd_paramsearch(comp, "contour-center", field, "string")
+	local step pd_paramsearch(comp, "contour-step", field, "string")
+	activate doublefloat #comp "contour-center" "Center: " #center \
+		"contour-step" "Step: " #step
+endprocedure
+
+!
+! The x min max adjuster.
+!
+procedure adj_x_minmax 
+	local xmin pd_paramsearch("global", "x-min", "", "string")
+	local xmax pd_paramsearch("global", "x-max", "", "string")
+	activate doublefloat "global" "x-min" "X Min: " #xmin \
+		"x-max" "X Max: " #xmax
+endprocedure
+
+!
+! The y min max adjuster.
+!
+procedure adj_y_minmax 
+	local ymin pd_paramsearch("global", "y-min", "", "string")
+	local ymax pd_paramsearch("global", "y-max", "", "string")
+	activate doublefloat "global" "y-min" "Y Min: " #ymin \
+		"y-max" "Y Max: " #ymax
+endprocedure
+
+!
+! The line contour center step adjuster.
+!
+procedure adj_line_centstep comp string
+	local field pd_param(comp, "field", "string")
+	local center pd_paramsearch(comp, "contour-center", field, "string")
+	local step pd_paramsearch(comp, "contour-step", field, "string")
+	activate doublefloat #comp "contour-center" "Center: " #center \
+		"contour-step" "Step: " #step
+endprocedure
+
+!
+! The arrow scale adjuster.
+!
+procedure adj_arrow_scale comp string
+	local current pd_param(icon_component, "arrow-scale", "string")
+	activate singlefloat #comp 'arrow-scale' "Arrow Scale: " #current
+endprocedure
+
+!
+! A bunch of stuff for dealing with cross section platforms.
+!
+define widget xsect-plat intmenu "Cross section platforms"
+	title 'Soundings used'
+	line
+	entry 'Akron' 'toggle_xsp akron' \
+	   (substring(pd_param(icon_component, "platform", "string"),"akron"))
+	entry 'Berthoud' 'toggle_xsp berthoud' \
+	   (substring(pd_param(icon_component, "platform", "string"),"berthoud"))
+	entry 'Elbert' 'toggle_xsp elbert' \
+	   (substring(pd_param(icon_component, "platform", "string"),"elbert"))
+	entry 'Flg' 'toggle_xsp flg' \
+	   (substring(pd_param(icon_component, "platform", "string"),"flg"))
+	entry 'Mobile1' 'toggle_xsp mobile1' \
+	   (substring(pd_param(icon_component, "platform", "string"),"mobile1"))
+	entry 'Mobile2' 'toggle_xsp mobile2' \
+	   (substring(pd_param(icon_component, "platform", "string"),"mobile2"))
+	entry 'Platteville' 'toggle_xsp pville' \
+	   (substring(pd_param(icon_component, "platform", "string"),"pville"))
+	entry 'Wiggins' 'toggle_xsp wiggins' \
+	   (substring(pd_param(icon_component, "platform", "string"),"wiggins"))
+endmenu
+
+
+!
+! Toggle the presence of a given sounding.
+!
+procedure toggle_xsp platform string
+	local oldplat (pd_param (icon_component, "platform", "string"))
+!
+! See if it's already there.  If so, we remove it the hard way.
+!
+	if (substring (oldplat, platform))
+	    local first true
+	    foreach snd akron berthoud elbert flg mobile pville wiggins
+		if (snd <> platform and substring (oldplat, snd))
+		    if (first)
+			local newplat snd
+			local first false
+		    else
+			local newplat concat(newplat,concat(",",snd))
+		    endif
+		endif
+	    endfor
+!
+! Otherwise we just add it.  If there is a maximum number of platforms,
+! though, we have to enforce it.
+!
+	else
+	    local newplat (concat(oldplat, concat (",",platform)))
+	    local max pd_param(icon_component,"max-platform","string")
+	    if (max <> "(Undefined)")
+	    	local imax pd_param(icon_component,"max-platform","integer")
+		if (n_occur (newplat, ",") >= imax)
+			dm "beep"
+			return
+		endif
+	    endif
+	endif
+!
+! Store the thing.
+!
+	param #icon_component platform #newplat
+endprocedure
+
+
+!
+! The two circulations at various times.
+!
+feature circ
+	at 17-jul-87,21:30
+	text 39.9194 -104.5842 "C1" 0.04
+	circle 39.9194 -104.5842 1.0
+
+	at 17-jul-87,21:45
+	text 39.9331 -104.6019 "C1" 0.04
+	circle 39.9331 -104.6019 1
+
+	at 17-jul-87,22:00
+	circle 39.9581 -104.6022 1
+	text 39.9581 -104.6022 "C1" 0.04
+	circle 39.8853 -104.5828 1
+	text 39.8853 -104.5828 "C2" 0.04
+
+	at 17-jul-87,22:10
+	circle 39.8908 -104.5981 1
+	text 39.8908 -104.5981 "C2" 0.04
+
+	at 17-jul-87,22:20
+	! nothing
+endfeature
+
+!
+! The two circulations at various times -- without text
+!
+feature circnt
+	at 17-jul-87,21:30
+	circle 39.9194 -104.5842 1.0
+
+	at 17-jul-87,21:45
+	circle 39.9331 -104.6019 1
+
+	at 17-jul-87,22:00
+	circle 39.9581 -104.6022 1
+	circle 39.8853 -104.5828 1
+
+	at 17-jul-87,22:10
+	circle 39.8908 -104.5981 1
+
+	at 17-jul-87,22:20
+	! nothing
+endfeature
+
+!
+! Soundings
+!
+feature soundings
+	text 39.70389 -104.24806 "BYR"
+	text 39.76722 -104.86917 "DVR"
+	text 39.37444 -104.55972 "ELZ"
+	text 39.81972 -105.21861 "GDN"
+	text 40.1094 -104.6933  "HUD"
+	text 39.882 -104.592 "MB 1"
+	text 39.89778 -104.74652 "MB 2"
+	text 39.77819 -104.67420 "MB 3"
+endfeature
+
+!
+! Where the radars are.
+!
+feature radars
+	text 39.95 -105.19 "CP2"
+	text 39.7647 -104.8731 "CP3"
+	text 39.7894 -104.5506 "NOAA C"
+	text 39.7639 -104.7328 "NOAA D"
+	text 39.6947 -104.7442 "FL-2"
+	text 39.8772 -104.7631 "UND"
+endfeature
+
+feature cp3rings
+	circle 39.7647 -104.8731 20
+	circle 39.7647 -104.8731 40
+	circle 39.7647 -104.8731 60
+endfeature

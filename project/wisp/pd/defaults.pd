@@ -1,0 +1,179 @@
+!
+! This file contains the default values for all plot description parameters.
+!
+defaults
+	pd-name:			defaults
+!
+! Various menus for the icons in the plot windows.
+!
+	icon-left-menu:			leftmenu
+	cp3-icon-middle-menu:		radar-middle
+	global-icon-left-menu:		global-left
+	global-icon-right-menu:		annot-color
+	kingair-icon-middle-menu:	airfield
+	kingair-icon-right-menu:	air-arrow-color
+	king-air-icon-middle-menu:	airfield
+	mesonet-icon-right-menu:	line-contour-color
+	trec-icon-right-menu:		side-annot-scale
+	dualdop-icon-right-menu:	side-annot-scale
+	ddop-icon-right-menu:		side-annot-scale
+!
+! The origin is the CP4 radar at marshall.
+!
+	origin-lat:			39.95
+	origin-lon:			-105.19
+	origin-alt:			1750
+!
+! Zoom parameters to nicely cover the CINDE area.
+!
+	x-min:				-100
+	x-max:				200
+	y-min:				-150
+	y-max:				150
+!
+! Locations in general.
+!
+	cp2-location:			39.95 -105.19 1.750
+	cp4-location:			39.95 -105.19 1.750
+	akron-location:			40.1748 -103.1975 1420
+	berthoud-location:		40.3187 -105.1397 1577
+	elbert-location:		39.2247 -104.6247 2135
+	flg-location:			39.3570 -103.0368 1480
+	mobile1-location:		40.0297 -105.2188 1575
+	mobile2-location:		39.9667 -105.5    2494
+	pville-location:		40.1717 -104.7217 1525
+	wiggins-location:		40.2883 -104.05 1384
+	location-label-size:		0.02
+!
+! Give ten minutes of aircraft data by default.
+!
+	king-air-time-period:		10
+!
+! Where to put the frame cache files.
+!
+	file-path:			/fcc/tmp
+!
+! The icons to use in the windows, qualified by platform name.
+!
+	global-icon:			global
+	cp3-icon:			cp3
+	mesonet-icon:			mesonet
+	king-air-icon:			kingair
+	kingair-icon:			kingair
+	ddop-icon:			dual
+	dualdop-icon:			dual
+	trec-icon:			trec
+	byr-icon:			byr
+	dvr-icon:			dvr
+	elz-icon:			elz
+	gdn-icon:			gdn
+	mb1-icon:			mb1
+	mb2-icon:			mb2
+	mb3-icon:			mb3
+	icon-color:			yellow
+	icon-background:		midnight blue
+!
+! Long descriptions of fields, in the absence of a real fields module.
+!
+	velocity-desc:			radar velocity
+	reflectivity-desc:		radar reflectivity
+	alt-desc:			altitude
+	rh-desc:			relative humidity
+	rhum-desc:			relative humidity
+	mr-desc:			mixing ratio
+! What RBand uses to draw the box/line.  Don't mess with it.
+	xorvalue:			63
+!
+! field-annotation-format to specify an alternative printf format for
+! track side annotation.
+!
+	alt-annotation-format:		%.3f
+!
+! Some stuff to make the demos look nicer.
+!
+	movie-end-time:			now
+	movie-minutes:			60
+	frame-rate:			10
+	frame-skip:			 5
+	ta-color-match:			true
+!
+! Where cross sections are done.
+!
+	xsect-window:			xsect
+	xsect-component:		global
+!
+! Plotting limits.
+!
+	pres-contour-center:		830
+	pres-contour-step:		10
+	pres-minval:			790
+	pres-maxval:			870
+	skewt-pres-minval:		100
+	skewt-pres-maxval:		1050
+	skewt-temp-minval:		-40
+	skewt-temp-maxval:		35
+	winds/arrow-scale:		20
+	winds-representation:		vector
+	winds/arrow-color:		green
+	Xarrow-color:			purple
+	rh-contour-center:		55
+	rh-contour-step:		6
+	rh-minval:			20
+	rh-maxval:			40
+	dp-contour-center:		0
+	dp-contour-step:		1
+	dp-minval:			0
+	dp-maxval:			20
+	tdry-contour-center:		10
+	tdry-contour-step:		1
+	tdry-minval:			-10
+	tdry-maxval:			10
+	rh-track-center:		45
+	rh-track-step:			2
+	wir-track-center:		0
+	wir-track-step:			1
+	ept-track-center:		343
+	ept-track-step:		1
+	ept-contour-center:		310
+	ept-contour-step:		2
+	reflectivity-contour-center:		20
+	reflectivity-contour-step:		5
+	velocity-contour-center:	0
+	velocity-contour-step:		5
+	reflectivity-minval:		-10
+	reflectivity-maxval:		70
+	velocity-minval:		-10
+	velocity-maxval:		10
+	alt-track-center:		0.930
+	alt-track-step:			0.010
+	vt-track-center:		300
+	vt-track-step:		20
+	mr-track-center:		8
+	mr-track-step:			0.5
+	mr-contour-center:		4
+	mr-contour-step:		0.5
+	dp-track-center:		10
+	dp-track-step:			2
+	pt-contour-center:		294
+	pt-contour-step:		2
+!
+! If all else fails, these should prevent things from dying altogether.
+!
+	contour-center:			0
+	contour-step:			25
+	track-center:			10
+	track-step:			10
+!
+! Adjust limit procedures.
+!
+	track-arrow-limit-proc:		adj_arrow_scale
+	track-centstep-limit-proc:	adj_center_step
+	vector-limit-proc:		adj_arrow_scale
+	contour-limit-proc:		adj_center_step
+	filled-contour-limit-proc:	adj_fill_centstep
+	line-contour-limit-proc:	adj_line_centstep
+	raster-limit-proc:		adj_radar_minmax
+	skewt-pres-limit-proc:		adj_pres_minmax
+	skewt-temp-limit-proc:		adj_temp_minmax
+	global-x-limit-proc:		adj_x_minmax
+	global-y-limit-proc:		adj_y_minmax

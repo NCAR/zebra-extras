@@ -1,0 +1,35 @@
+GLOBAL
+	comment:	WISP radar pd
+	pd-name:	mhr
+	plot-mode:	real-time
+	plot-type:	CAP
+	plot-time:	5-mar-91,19:52
+	trigger:	mhr
+	contour-color-table:	contour
+	raster-color-table:	scook
+	velocity-minval:	-20
+	velocity-maxval:	20
+	radar-space:	true
+	time-frames:	2
+	altitude:	-1
+	x-min:		-150
+	x-max:		150
+	y-min:		-150
+	y-max:		150
+radar
+	platform:	mhr
+	field:		velocity
+	representation:	raster
+	icon:		cp4
+	every-sweep:	true
+c_rings
+	platform:	cp4
+	representation:	overlay
+	field:		range-rings
+	color:		white
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-menu
+	icon:		rings
+	ring-interval:	20
+	azimuth-interval:	30
+ 

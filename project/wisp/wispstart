@@ -1,0 +1,29 @@
+#!/bin/csh
+# 
+# Start up the FCC system.
+#
+# $Id: wispstart,v 1.1.1.1 1995-01-20 06:02:16 granger Exp $
+#
+cd ../bin
+rm -f /tmp/fcc.socket
+
+echo -n 'Starting MESSAGE...'
+message & 
+sleep 1
+
+echo -n 'Starting the event logger...'
+EventLogger &
+echo -n 'Waiting for the event logger...'
+sleep 5
+echo 'done.'
+
+echo -n 'Starting the timer...'
+timer &
+echo -n '...and the data store daemon...'
+dsDaemon /fcc/wisp/ds.wisp.config &
+echo -n "...and the sound generator..."
+Sound &
+#echo -n "...and the PRT notifier..."
+#sleep 2
+#/fcc/DataStore/prt_Notify &
+# settime 910305 195000

@@ -1,0 +1,9 @@
+GLOBAL
+	comment:	Generic mesonet PD component
+	pd-name:	c_fmesonet
+c_fmesonet
+	platform:	mesonet
+	representation:	filled-contour
+	field:		rh
+	color-table:	cook16
+	icon-middle-menu:	meso-middle

@@ -1,0 +1,28 @@
+GLOBAL
+	pd-name:	pddop
+	plot-mode:	real-time
+	plot-time:	17-jul-87,22:19
+	plot-type:	CAP
+	trigger:	2m
+	contour-color-table:	cook16
+	raster-color-table:	scook
+	x-min:	45
+	x-max:	55
+	y-min:	-12
+	y-max:	3
+winds
+	platform:	ddop
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.005
+	color:	cyan
+	icon-middle-menu:	simple-color
+aircraft
+	representation:	track
+	platform:	kingair
+	time-period:	600
+	color-code-field:	rh
+	color-table:	cook16
+	line-width:	3
+	data-skip:	10

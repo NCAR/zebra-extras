@@ -1,0 +1,24 @@
+GLOBAL
+	pd-name:	radardd
+	plot-mode:	real-time
+	plot-time:	17-jul-87,15:30
+	plot-type:	CAP
+	trigger:	2m
+	contour-color-table:	ContourMono
+	raster-color-table:	scook
+	x-min:	45
+	x-max:	55
+	y-min:	-12
+	y-max:	3
+radar
+	platform:	cp3
+	representation:	raster
+	field:		velocity
+	new-raster:	true
+winds
+	platform:	cp3dd
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.01
+	arrow-color:	blue

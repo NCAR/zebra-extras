@@ -1,0 +1,7 @@
+GLOBAL
+	pd-name:	clock
+clock
+	xfont:		-*-new century schoolbook-bold-r-*-*-25-*-*-*-*-*-*-*
+	font:		-*-helvetica-medium-r-*-*-*-240-*-*-*-*-*-*
+	foreground:	white
+	background:	black

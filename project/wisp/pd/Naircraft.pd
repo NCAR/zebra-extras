@@ -1,0 +1,16 @@
+GLOBAL
+	pd-name:	Naircraft
+	plot-mode:	real-time
+	plot-type:	CAP
+	contour-color-table:	ContourMono
+	trigger:	2m
+	altitude:	2000
+aircraft
+	representation:	track
+	platform:	kingair
+	time-period:	600
+	trigger:	10s
+	field:	rh
+	color-table:	Rainbow
+	line-width:	3
+	icon-middle-menu:	airfield

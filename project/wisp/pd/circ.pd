@@ -1,0 +1,10 @@
+GLOBAL
+	pd-name:	circ
+	comment:	Circulation annotation
+circ
+	platform:	circ
+	representation:	overlay
+	field:		feature
+	color:		white
+	line-width:	2
+ 

@@ -1,0 +1,25 @@
+GLOBAL
+	comment:	Overlays
+	pd-name:	overlays
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	2m
+	contour-color-table:	contour
+	raster-color-table:	contour
+c_ref_contour
+	platform:	cp3
+	representation:	contour
+	field:		reflectivity
+	color-table:	refcontour
+	contour-step:	20
+	contour-center: 15
+	line-width:	2
+	do-labels:	false
+c_map
+	platform:	cinde
+	representation:	overlay
+	field:		map
+	color:		blue
+	icon-middle-menu:	simple-color
+	icon:		map
+ 

@@ -1,0 +1,15 @@
+GLOBAL
+	comment:	PD to bring in mudras data.
+	pd-name:	radar
+	plot-mode:	real-time
+	plot-time:	17-jul-87,15:30
+	plot-type:	CAP
+	trigger:	2m
+	contour-color-table:	ContourMono
+	raster-color-table:	scook
+	time-frames:	2
+c_cp3
+	platform:	cp3
+	representation:	raster
+	field:		reflectivity
+	new-raster:	true

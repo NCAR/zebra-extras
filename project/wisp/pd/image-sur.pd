@@ -1,0 +1,40 @@
+GLOBAL
+	comment:	WISP surveillance radar pd
+	pd-name:	image-sur
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	cp4
+	contour-color-table:	contour
+	raster-color-table:	scook
+	velocity-minval:	-20
+	velocity-maxval:	20
+	radar-space:	true
+	time-frames:	2
+	altitude:	0.2
+radar
+	platform:	cp4
+	field:		reflectivity
+	representation:	raster
+	icon:		cp4-sur
+	icon-middle-menu:	cp4-surv
+	every-sweep:	false
+c_rings
+	platform:	cp4
+	representation:	overlay
+	field:		range-rings
+	color:		white
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-menu
+	icon:		rings
+	ring-interval:	20
+	azimuth-interval:	30
+c_meso_winds
+	platform:	mesonet
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.005
+	color:		red
+	icon-middle-menu:	simple-color
+	icon:		meso_winds
+	limit-proc:	adj_arrow_scale
