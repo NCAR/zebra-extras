@@ -63,7 +63,7 @@ parameter skewt-template global "add-data-mode" "overlay-mode"
 !
 set ef_locns 'E4,E7,E8,E9,E12,E15,E20,E22,E26'
 set bf_locns 'B1,B4,B5,B6'
-set all_locns concat4("CF,",ef_locns,",",bf_locns)
+set all_locns concat4("C1,",ef_locns,",",bf_locns)
 
 !
 ! Active EF locations
@@ -82,12 +82,12 @@ parameter p_ef_locns p_ef_locns posicon-left-menu minimal-cap-left-menu
 !
 pdlift p_active_loc p_active_loc p_bf_locns
 parameter p_bf_locns p_bf_locns label-size 12
-parameter p_bf_locns p_bf_locns color white
-parameter p_bf_locns p_bf_locns icon-color white
+parameter p_bf_locns p_bf_locns color cyan
+parameter p_bf_locns p_bf_locns icon-color cyan
 parameter p_bf_locns p_bf_locns icon bf-locn
 parameter p_bf_locns p_bf_locns platform #bf_locns
 parameter p_bf_locns p_bf_locns require "location, bf-active-loc"
-parameter p_bf_locns p_bf_locns posicon-middle-menu ef-send-menu
+parameter p_bf_locns p_bf_locns posicon-middle-menu bf-send-menu
 parameter p_bf_locns p_bf_locns posicon-left-menu minimal-cap-left-menu
 
 !
@@ -98,7 +98,7 @@ parameter p_cf_locns p_cf_locns color HotPink
 parameter p_cf_locns p_cf_locns icon-color HotPink
 parameter p_cf_locns p_cf_locns icon circle
 parameter p_cf_locns p_cf_locns label-size 12
-parameter p_cf_locns p_cf_locns platform CF
+parameter p_cf_locns p_cf_locns platform C1
 parameter p_cf_locns p_cf_locns require "location, cf-active-loc"
 parameter p_cf_locns p_cf_locns posicon-middle-menu cf-send-menu
 parameter p_cf_locns p_cf_locns posicon-left-menu minimal-cap-left-menu
