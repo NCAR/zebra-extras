@@ -1,0 +1,36 @@
+global
+	axis-bottom-space:	50
+	axis-left-space:	100
+	axis-right-space:	100
+	axis-top-space:	50
+	icon-middle-menu:	global-xytime-menu
+	pd-name:	xygraph
+	plot-mode:	history
+	plot-time:	10-jan-93,10
+	plot-type:	xygraph
+	ta-scale:	0.03
+	trigger:	1d
+	xy-adj-axis-side:	l
+	xy-adj-scale-dim:	y
+	xy-axis-b-font-scale:	0.020
+	xy-axis-l-font-scale:	0.020
+	xy-axis-r-font-scale:	0.020
+	xy-axis-t-font-scale:	0.020
+	xy-data-mode:	series
+	xy-scale-x-mode:	autoscale
+	xy-scale-y-mode:	autoscale
+	xy-series-span:	240h
+timescale
+	axis-b-label:	Time
+	axis-b-tic-interval:	10m
+	axis-bottom:	true
+	axis-left:	false
+	data-ndatapoints:	0
+	do-side-annotation:	false
+	field-color:	black
+	icon:	none
+	platform:	tao/0n143e
+	representation:	simple
+	representation-style:	cross
+	x-field:	time
+	y-field:	sst

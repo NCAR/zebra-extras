@@ -1,0 +1,10 @@
+#!/bin/csh
+#
+# The VORTEX project startup file.
+#
+
+#
+# Provide a reasonable default config and that's it.
+#
+if ( ! $?DEFAULT_CONFIG ) setenv DEFAULT_CONFIG wide
+if ( ! $?INITIAL_TIME ) setenv INITIAL_TIME 17-apr-95,23:00

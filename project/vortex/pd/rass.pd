@@ -1,0 +1,32 @@
+global
+	pd-name: rass
+	plot-type: xygraph
+rass
+	adj-axis-side: t
+	axis-bottom: false
+	axis-left: false
+	axis-t-color: green
+	axis-t-grid-intensity: 0.0
+	axis-t-label: v_temp
+	axis-t-tic-interval: 1.0
+	axis-top: true
+	data-mode:      series
+	do-color-proc: change_component_color
+	field-color: green
+	field-select-command: myset_xfield
+	icon: iss-tdry
+	icon-background: black
+	icon-color: green
+	icon-left-menu: xy-simple
+	icon-middle-menu: FieldMenu
+	icon-right-menu: DataAvailable
+	platform: kapinga/rass915
+	representation: simple
+	representation-style: line
+	scale-x-mode:   autoscale
+	scale-y-mode:   manual
+	trigger: rass
+	x-field: v_temp
+	y-field: height
+endpd
+

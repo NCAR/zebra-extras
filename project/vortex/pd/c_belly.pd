@@ -1,0 +1,17 @@
+!
+! P3 belly radar composite images.
+!
+GLOBAL
+	pd-name:	c_belly
+c_belly
+	platform:	n42rf_lf
+	field:		reflectivity
+	representation:	raster
+	color-table:	wild_new
+	label-blanking:	false
+	icon-middle-menu:	p3radar-middle
+	icon-right-menu:	DataAvailable
+	menu-platform:	n42rf_lf,n43rf_lf
+	scale-mode:	autoscale
+	limit-proc:	contour-putup-adj
+	require:	contour

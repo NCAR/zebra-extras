@@ -1,0 +1,353 @@
+!
+! The VORTEX graphics process initialization file.
+!
+
+! Our various path variables.
+!
+set RequirePath concat("./modules,",RequirePath)
+set MapPath concat("./maps,",MapPath)
+
+!
+! We just gotta have this one...
+!
+require simple-color
+
+!
+! Change the origin of an cartesian grid.
+!
+define widget kmgrid-origins intmenu 'cart grid origin'
+	title 'Cartesian grid origin'
+	line
+	entry 'Norman' 'parameter #icon_component origin norman' \
+		(PDParam (icon_component, "origin") = 'norman')
+	entry 'N308D' 'parameter #icon_component origin n308d' \
+		(PDParam (icon_component, "origin") = 'n308d')
+	entry 'N43RF' 'parameter #icon_component origin n43rf' \
+		(PDParam (icon_component, "origin") = 'n43rf')
+endmenu
+
+!
+! Zoom to to preset x and y ranges.
+!
+procedure DoZoom xmin string xmax string ymin string ymax string
+	parameter global x-min #xmin
+	parameter global x-max #xmax
+	parameter global y-min #ymin
+	parameter global y-max #ymax
+endprocedure
+
+!
+! Change the endpoints for an associated (presumably cross-section) window.
+! We force ourselves to update (by issuing a parameter command but not actually
+! changing anything) so that we'll be current if we're displaying the bounds
+! of the cross-section window.
+!
+procedure ChangeXSect
+        drawline sendendpoints
+
+        local ptype PDParam('global','plot-type')
+        parameter global plot-type #ptype
+endprocedure
+
+!
+! The raster left button menu.
+!
+define widget raster-left intmenu 'Raster Left'
+	title 'Overlay Operations'
+	line
+	submenu 'Adjust Limits' 'adjust-raster-limits'
+	entry 'Spatial offset options' 'require offsets; popup offsets'
+	line
+	entry 'Raise to top' 'move #icon_component 0'
+	entry 'Move to bottom' 'move #icon_component 1'
+	entry 'Disable/reenable' 'ToggleBoolean "disable"'
+	entry 'Remove' 'i_remove_component'
+endmenu
+
+!
+! The Raster Plot Adjust Limits submenu
+!
+define widget adjust-raster-limits intmenu 'Adjust Limits'
+	title 'Adjust Limits'
+	line
+	entry 'Center/Step' 'require ctr-step; popup center-step'
+	entry 'Highlight/Range' 'require raster; popup highlight'
+endmenu
+
+
+
+
+
+
+define widget p3radar-middle intmenu 'Radar field menu'
+	title 'P3 composite radar'
+	line
+	entry 'black & white color table' \
+		'param #icon_component color-table 16gray' \
+		(pd_param (icon_component,"color-table","string") = "16gray")
+	entry 'scook color table' 'param #icon_component color-table scook' \
+		(pd_param (icon_component,"color-table","string") = "scook")
+	entry 'contour' 'param #icon_component color-table contour' \
+		(pd_param (icon_component,"color-table","string") = "contour")
+	entry 'hotcold' 'param #icon_component color-table hotcold' \
+		(pd_param (icon_component,"color-table","string") = "hotcold")
+	entry 'wild' 'param #icon_component color-table wild' \
+		(pd_param (icon_component,"color-table","string") = "wild")
+	entry 'wild_new' 'param #icon_component color-table wild_new' \
+		(pd_param (icon_component,"color-table","string") = "wild_new")
+	line
+	entry 'Raster representation' \
+		'param #icon_component representation raster'
+	entry 'Contour representation' \
+		'param #icon_component representation contour'
+	entry 'Filled contour representation' \
+		'param #icon_component representation filled-contour'
+	line
+	submenu 'Contour Width' LineWidth
+endmenu
+
+
+
+
+
+!
+! Left button menu for the global component.
+!
+define widget global-left intmenu 'Global left menu'
+	title 'Global Options'
+	line
+	entry 'Scale back to big picture' 'DoZoom -1000 1000 -1000 1000'
+	line
+	entry 'Reset window to initial state' 'dm "ResetWindow"'
+	line
+	entry 'Popup Overlay Times Window' 'popup overlay'
+	entry 'Popup Movie Controller' 'popup movie'
+	entry 'Popup position readout widget' 'popup position'
+	entry 'Popup image file generator' 'popup imagecrank'
+	submenu 'Movies' movie-control
+endmenu
+
+
+!
+! Movie control menu.
+!
+define widget movie-control intmenu 'movie control'
+	title 'Movie Control'
+	line
+	entry 'Popup Movie Controller' 'popup movie'
+	entry 'Run Movie' 'movie run'
+	entry 'Stop Movie' 'movie stop'
+endmenu
+
+
+!
+! The Global Adjust Limits submenu
+!
+define widget adjust_global_limits intmenu "Adjust Global Limits"
+	entry 'X Limits' 'i_adjust_global x-limit-proc'
+	entry 'Y Limits' 'i_adjust_global y-limit-proc'
+endmenu
+
+!
+! Adjustments to range rings.
+!
+define widget rings-menu intmenu 'rings adjustment'
+	title 'Range ring parameters'
+	line
+	entry 'Norman Origin' 'parameter #icon_component platform norman' \
+		(pd_param (icon_component, "platform", "string") = 'norman')
+	entry 'N308D Origin' 'parameter #icon_component platform n308d' \
+		(pd_param (icon_component, "platform", "string") = 'n308d')
+	entry 'N43RF Origin' 'parameter #icon_component platform n43rf'\
+		(pd_param (icon_component, "platform", "string") = 'n43rf')
+	line
+	entry '10 km rings' 'parameter #icon_component ring-interval 10' \
+		(pd_param (icon_component, "ring-interval", "string") = '10')
+	entry '20 km rings' 'parameter #icon_component ring-interval 20' \
+		(pd_param (icon_component, "ring-interval", "string") = '20')
+	entry '30 km rings' 'parameter #icon_component ring-interval 30' \
+		(pd_param (icon_component, "ring-interval", "string") = '30')
+	entry '40 km rings' 'parameter #icon_component ring-interval 40' \
+		(pd_param (icon_component, "ring-interval", "string") = '40')
+	line
+	entry '10 degree lines' \
+		'parameter #icon_component azimuth-interval 10' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '10')
+	entry '30 degree lines' \
+		'parameter #icon_component azimuth-interval 30' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '30')
+	entry '45 degree lines' \
+		'parameter #icon_component azimuth-interval 45' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '45')
+	entry '90 degree lines' \
+		'parameter #icon_component azimuth-interval 90' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '90')
+	line
+	submenu 'Line Width' linewidth
+endmenu
+
+!
+! Remove a component.
+!
+procedure i_remove_component
+	local dm_cmd concat("remove ",ourname)
+	dm concat(concat (dm_cmd, " "), icon_component)
+endprocedure
+
+
+!
+! Adjust the limits on the global component.
+!
+procedure i_adjust_global procparam string
+	local proc pd_paramsearch(icon_component,procparam,"global","string")
+	if (proc <> "(Undefined)")
+		#proc 
+	else
+		dm "beep"
+	endif
+endprocedure
+
+!
+! Adjust the limits on a component.
+!
+procedure i_adjust procparam string
+	local rep pd_param(icon_component, "representation", "string")
+	local proc pd_paramsearch(icon_component, procparam, rep, "string")
+	if (proc <> "(Undefined)")
+		#proc #icon_component
+	else
+		dm "beep"
+	endif
+endprocedure
+
+!
+! The generic center/step adjuster.
+!
+procedure adj_center_step comp string
+        require ctr-step
+        popup center-step
+endprocedure
+
+!
+! The pressure minval maxval adjuster.
+!
+procedure adj_pres_minmax comp string
+	local rep pd_param(comp, "representation", "string")
+	local minval pd_paramsearch(comp, "pres-minval", rep, "string")
+	local maxval pd_paramsearch(comp, "pres-maxval", rep, "string")
+	activate doublefloat #comp "pres-minval" "Pressure Minval: " #minval \
+		"pres-maxval" "Pressure Maxval: " #maxval
+endprocedure
+
+!
+! The temperature minval maxval adjuster.
+!
+procedure adj_temp_minmax comp string
+	local rep pd_param(comp, "representation", "string")
+	local minval pd_paramsearch(comp, "temp-minval", rep, "string")
+	local maxval pd_paramsearch(comp, "temp-maxval", rep, "string")
+	activate doublefloat #comp "temp-minval" "Temperature Minval: " \
+		#minval "temp-maxval" "Temperature Maxval: " #maxval
+endprocedure
+
+
+!
+! The highlight range adjuster.
+!
+procedure adj_highlight_range comp string
+	local field pd_param(comp, "field", "string")
+	local repr pd_param(comp, "representation", "string")
+	local high_param concat(field, "-highlight")
+	local highlight pd_paramsearch(comp, high_param, repr, "string")
+	local range_param concat(field, "-highlight-range")
+	local range pd_paramsearch(comp, range_param, repr, "string")
+	activate doublefloat #comp #high_param "Highlight: " #highlight \
+		#range_param "Range: " #range
+endprocedure
+
+!
+! The x-spacing y-spacing adjuster.
+!
+procedure adj_xy_spacing comp string
+	local x pd_param(comp, "x-spacing", "string")
+	local y pd_param(comp, "y-spacing", "string")
+	activate doublefloat #comp "x-spacing" "X-Spacing: " #x \
+		"y-spacing" "Y-Spacing: " #y
+endprocedure
+
+!
+! The x min max adjuster.
+!
+procedure adj_x_minmax 
+	local xmin pd_paramsearch("global", "x-min", "", "string")
+	local xmax pd_paramsearch("global", "x-max", "", "string")
+	activate doublefloat "global" "x-min" "X Min: " #xmin \
+		"x-max" "X Max: " #xmax
+endprocedure
+
+!
+! The y min max adjuster.
+!
+procedure adj_y_minmax 
+	local ymin pd_paramsearch("global", "y-min", "", "string")
+	local ymax pd_paramsearch("global", "y-max", "", "string")
+	activate doublefloat "global" "y-min" "Y Min: " #ymin \
+		"y-max" "Y Max: " #ymax
+endprocedure
+
+!
+! The arrow scale adjuster.
+!
+procedure adj_arrow_scale comp string
+	local current pd_param(icon_component, "arrow-scale", "string")
+	activate singlefloat #comp 'arrow-scale' "Arrow Scale: " #current
+endprocedure
+
+
+!
+! GMS satellite control.
+!
+procedure gms_resolution which string
+	if (which = "high")
+		local plat 'gms'
+	else
+		Local plat 'gms-big'
+	endif
+	parameter #icon_component platform #plat
+	parameter #icon_component field ir
+	parameter global trigger #plat
+endprocedure
+
+procedure gms_visible plat string
+	parameter #icon_component platform #plat
+	parameter #icon_component field vis
+	parameter global trigger #plat
+endprocedure
+
+!
+! Move to center around a click without changing zoom.
+!
+procedure CtrMove
+	local xmin pd_paramsearch('global','x-min','x','float')
+	local xmax pd_paramsearch('global','x-max','x','float')
+	local ymin pd_paramsearch('global','y-min','x','float')
+	local ymax pd_paramsearch('global','y-max','x','float')
+	local xshift (buttonx - (xmax + xmin)/2)
+	local yshift (buttony - (ymax + ymin)/2)
+	local newv string(xmin + xshift)
+	parameter global x-min #newv
+	local newv string(xmax + xshift)
+	parameter global x-max #newv
+	local newv string(ymin + yshift)
+	parameter global y-min #newv
+	local newv string(ymax + yshift)
+	parameter global y-max #newv
+endprocedure
+
+!
+! Get our field definitions.
+!
+!set DefFile (concat (concat (c$libdir, "/"), "FieldDefs"))
+set DefFile "FieldDefs"
+read #DefFile
+

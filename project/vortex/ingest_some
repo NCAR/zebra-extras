@@ -1,0 +1,162 @@
+#!/bin/csh
+#
+# Script to ingest a subset of satellite data for VORTEX.  
+#
+set nonomatch
+unset noclobber
+setenv HOST	`uname -n`
+
+setenv NICE	"nice -5"
+
+set AreaDir = /data2/pub
+set IngestId = `date +%y%m%d.%H%M`
+set IngestList = /tmp/ingest_list.$IngestId
+rm -f $IngestList
+
+
+#
+# Start a data store daemon for this ingest
+#
+setenv ZEB_TOPDIR /dt/zeb
+setenv ZEB_SOCKET /tmp/ingest_socket.$IngestId
+message
+mstatus >& /dev/null
+if ($status) then
+	echo "Failed to start zebra message daemon... Exiting."
+	exit (1)
+endif
+
+set EventLog = /tmp/ingest_log.$IngestId
+EventLogger -n -f $EventLog &
+sleep 1
+timer &
+dsDaemon /dt/zeb/project/vortex/ds.config &
+
+
+#		*******************
+#			GOES
+#		*******************
+#
+# These are the pairs of <file prefix>.<field name> we'll use for ingest
+#
+set GOESpairs = "VIS.vis IR.ir WV.wv FOG.fog"
+
+#
+# Make a 90 minute old file and get a list of GOES area files in 
+# /data2/pub that are older than that.  We need this delay because:
+#	o new files are sent once an hour from OFPS
+#	o there's no guarantee that different images for a given time
+#	  will arrive together (and we have to ingest them together)
+
+set CompFile = /tmp/ingest_compare.$IngestId
+makeoldfile $CompFile 0
+
+cd $AreaDir
+foreach pair ($GOESpairs)
+	set prefix = $pair:r
+	find . -name "${prefix}${1}*" \! -newer $CompFile -print >> $IngestList
+end
+
+rm -f $CompFile
+
+#
+# Now reduce the file list to just a list of julian day/time combinations
+# (extracted from the file names)
+#
+cat $IngestList | sed 's/[^0-9]//g' | sort > $IngestList.sorted
+uniq $IngestList.sorted $IngestList
+rm -f $IngestList.sorted
+
+#
+# The default ingest parameters
+#
+set CmdDefaults = /tmp/GOES.defaults
+cat > $CmdDefaults << _EOF_
+	limits 20.0 -115.0 45.0 -85.0
+	set platform "goes"
+	set originLat 35.0
+	set kmResolution 2
+_EOF_
+
+#
+# Do each time in our list
+#
+set CmdFile = /tmp/ingest_cmds.$IngestId
+set FinishScript = /tmp/finish.$IngestId
+
+foreach areatime (`cat $IngestList`)
+	echo Doing $areatime
+
+	cp $CmdDefaults $CmdFile
+
+	foreach pair ($GOESpairs)
+		set fileprefix = $pair:r
+		set fieldname = $pair:e
+
+		foreach file (`ls $AreaDir/${fileprefix}* | fgrep $areatime`)
+			$NICE gunzip $file
+			set file = $file:r
+		#
+		# KLUGE for gvarIngest: filename must be lower case..
+		#
+			set newfile = `echo $file | tr "[A-Z]" "[a-z]"`
+			mv $file $newfile
+			set file = $newfile
+
+			echo file $file $fieldname >> $CmdFile
+			echo $NICE rm -f $file >> $FinishScript
+		end
+	end
+
+	#
+	# We can finally start this ingest
+	#
+	$NICE gvarIngest $CmdFile
+	if ($status) then
+		echo Error in $IngestId GOES ingest for $areatime
+		echo Leaving area files intact
+		rm -f $FinishScript
+		continue
+	endif
+
+	rm -f $CmdFile
+	source $FinishScript
+	rm -f $FinishScript
+end
+
+
+#		*******************
+#		     WSI Nowrad
+#		*******************
+#
+# This is much simpler than the GOES stuff.  Just ingest every file starting
+# with "WSI" in the area file directory.
+#
+
+cd $AreaDir
+
+foreach file ( `find . -name "WSI*" -print` )
+	$NICE gunzip $file
+	set file = $file:r
+
+	echo WSI Nowrad `echo $file | sed 's/[^0-9]//g'`
+
+	$NICE NowradIngest nowrad $file 35.0
+	if ($status) then
+		echo Error during NowradIngest
+		$NICE gzip $file
+		continue
+	endif
+
+	rm -f $file
+end
+
+#
+# Finish up
+#
+
+zstop >& /dev/null
+
+rm -f $EventLog
+rm -f $IngestList
+rm -f $CmdDefaults

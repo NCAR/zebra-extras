@@ -1,0 +1,13 @@
+GLOBAL
+	pd-name:	c_vor
+	comment:	VOR locations
+c_vor
+	platform:	VOR_NAMES_HERE
+	representation:	overlay
+	field:		location
+	color:		yellow
+	icon:		vor-location
+	icon-right-menu:	location-options
+	label-size:	10
+	location-icon:		vor-location
+	require:	location

@@ -1,0 +1,534 @@
+!
+! This file contains the default values for some plot description parameters.
+!
+defaults
+	pd-name:			defaults
+!
+! Post processing mode parameters.
+!
+	post-proc-mode:			true
+	pp-dm-time-adjust:		65m
+!
+! Various menus for the icons in the plot windows.
+!
+	icon-left-menu:			standard-cap-left-menu
+	global-icon-left-menu:		global-left
+	global-icon-right-menu:		globaltopannot
+!
+! Generic icon stuff
+!
+	global-icon:	global
+	icon-color:			yellow
+	icon-background:		midnight blue
+	disabled-icon-color:		gray90
+	disabled-icon-background:	gray40
+	icon-age-foreground:		pink
+	icon-age-background:		red
+!
+! Age limits for data (i.e., when to make the icon red)
+!
+	icon-age-limit:		15m
+!
+!   for aircraft:
+!
+	n43rf_lf-icon-age-limit:	15m
+	n43rf-icon-age-limit:	15m
+	n308d-icon-age-limit:	15m
+	eldora-icon-age-limit:	15m
+!
+!   for satellite
+!
+	goes-icon-age-limit:		15m
+!
+! Icons to use for various platforms
+!
+	n43rf-icon:		n43rf
+	n43rf_lf-icon:		n43rf_lf
+	n308d-icon:		n308d
+!
+! origin at 35N 100W (a convenient point near Norman)
+!
+	origin-lat:			35
+	origin-lon:			-100
+	origin-alt:			0.0
+!
+! The default, big picture zoom locations.
+!
+	x-min:				-1000
+	x-max:				1000
+	y-min:				-1000
+	y-max:				1000
+!
+! Default aircraft track colors.
+!
+	n308d-color:			orange
+	n43rf-color:			cyan
+!
+! Origins for the get position widget.
+!
+	pos-origin:	norman
+!
+! Locations.
+!
+	norman-location:	35.0 -100.0 0.0
+!
+! Where to put the frame cache files.
+!
+	file-path:	/tmp
+!
+! The maximum number of frames to be stored in the file.
+!
+	max-frames:	30
+!
+! Commands to be executed out of the DataAvailable menu.
+!
+	data-available-command:		DefaultDataAvail
+!
+! Data range limits
+!
+	u_wind-range-min:		-25
+	u_wind-range-max:		25
+	v_wind-range-min:		-25
+	v_wind-range-max:		25
+	dp-range-min:			-30
+	dp-range-max:			30
+	tdry-range-min:			-30
+	tdry-range-max:			30
+	pres-range-max:			1040
+	pres-range-min:			800
+	cpres-range-max:		1040
+	cpres-range-min:		800
+	raina15-range-min:		0.0
+	raina15-range-max:		50.0
+	raina60-range-min:		0.0
+	raina60-range-max:		50.0
+!
+! What RBand uses to draw the box/line.  Don't mess with it.
+!
+	xorvalue:			63
+	xor-line-width:			3
+!
+! field-annotation-format to specify an alternative printf format for
+! track side annotation.
+!
+	alt-annotation-format:		%.3f
+!
+! Some stuff to make the demos look nicer.
+!
+	frame-rate:	5
+	frame-skip:	60
+	movie-end-time:	16-dec-92
+	movie-minutes:	300
+	ta-color-match:			true
+!
+! Where cross sections are done.
+!
+	xsect-window:			all
+	xsect-component:		global
+!
+! Grid parameters.
+!
+	grid-tic-width:			5
+	grid-solid:			false
+	grid-color:			gray40
+	grid-icon-middle-menu:		simple-color
+	grid-icon-right-menu:		grid_spacing
+	grid-icon:			grid
+!
+! Plotting limits.
+!
+!
+! Representation -> Skewt.
+!
+	skewt-pres-minval:		100
+	skewt-pres-maxval:		1050
+	skewt-temp-minval:		-30
+	skewt-temp-maxval:		35
+!
+!Representation -> Raster.
+!
+	raster-reflectivity-center:	30
+	raster-reflectivity-step:	8
+	raster-maxdz-center:		30
+	raster-maxdz-step:		8
+	raster-velocity-center:		0
+	raster-velocity-step:		5
+	raster-radialvelocity-center:	0
+	raster-radialvelocity-step:	8
+	raster-w_wind-center:		0
+	raster-w_wind-step:		8
+	raster-reflectivity-nsteps:	11
+	raster-maxdz-nsteps:		11
+	raster-velocity-nsteps:		11
+	raster-radialvelocity-nsteps:	11
+	raster-w_wind-nsteps:		11
+	raster-vis-center:		128
+	raster-vis-step:		-16
+	raster-vis-nsteps:		17
+	raster-visr-center:		100
+	raster-visr-step:		12
+	raster-visr-nsteps:		17
+	raster-ir-center:		128
+	raster-ir-step:			16
+	raster-ir-nsteps:		17
+	raster-wv-center:		128
+	raster-wv-step:			-16
+	raster-wv-nsteps:		17
+	raster-wv-center:		128
+	raster-wv-step:			-16
+	raster-wv-nsteps:		17
+	raster-fog-center:		128
+	raster-fog-step:		-16
+	raster-fog-nsteps:		17
+	raster-intensity-center:	128
+	raster-intensity-step:		16
+	raster-intensity-nsteps:	17
+	raster-div-center:		0
+	raster-div-step:		2
+	raster-div-nsteps:		17
+!
+! Other.
+!
+	winds/arrow-scale:		20
+	winds-representation:		vector
+	winds/arrow-color:		green
+	Xarrow-color:			purple
+!
+! If all else fails, these should prevent things from dying altogether.
+!
+	contour-center:			0
+	contour-step:			25
+	track-center:			10
+	track-step:			10
+	pres-minval:			900
+	pres-maxval:			1100
+	rh-minval:			20
+	rh-maxval:			40
+	dp-minval:			0
+	dp-maxval:			20
+	tdry-minval:			-10
+	tdry-maxval:			10
+!
+! Adjust limit procedures.
+!
+	track-arrow-limit-proc:		adj_arrow_scale
+	track-time-limit-proc:		adj_time_period
+	track-centstep-limit-proc:	adj_center_step
+	raster-highrange-limit-proc:	adj_highlight_range
+	raster-centstep-limit-proc:	adj_center_step
+	raster-limit-proc:		adjust-raster-limits
+	vector-limit-proc:		adj_arrow_scale
+	contour-limit-proc:		adj_center_step
+	filled-contour-limit-proc:	adj_center_step
+	contour-limit-proc:		adj_center_step
+	filled-contour-centstep-limit-proc:	adj_center_step
+	contour-centstep-limit-proc:	adj_center_step
+	skewt-pres-limit-proc:		adj_pres_minmax
+	skewt-temp-limit-proc:		adj_temp_minmax
+	global-x-limit-proc:		adj_x_minmax
+	global-y-limit-proc:		adj_y_minmax
+	lightning-limit-proc:		adj_time_step
+!
+! XY-Graph default parameters.
+!
+	do-color-proc:		change_ta_color
+!
+! XY-Simple defaults.
+!
+	xy-simple-representation-style:	line
+!
+! XY-Wind defaults.
+!
+	xy-wind-representation-style:	arrow
+	xy-wind-coords:			cartesian
+	xy-wind-wdir-field:		wdir
+	xy-wind-wspd-field:		wspd
+	xy-wind-vec-scale:		5.0
+	xy-wind-barb-scale:		25
+!
+! Other.
+!
+	winds/arrow-scale:		20
+	winds-representation:		vector
+	winds/arrow-color:		green
+	Xarrow-color:			purple
+!
+! If all else fails, these should prevent things from dying altogether.
+!
+	contour-center:			0
+	contour-step:			25
+	track-center:			10
+	track-step:			10
+	pres-minval:			900
+	pres-maxval:			1100
+	rh-minval:			20
+	rh-maxval:			40
+	dp-minval:			0
+	dp-maxval:			20
+	tdry-minval:			-10
+	tdry-maxval:			10
+!
+! Adjust limit procedures.
+!
+	track-arrow-limit-proc:		adj_arrow_scale
+	track-time-limit-proc:		adj_time_period
+	track-centstep-limit-proc:	adj_center_step
+	raster-highrange-limit-proc:	adj_highlight_range
+	raster-centstep-limit-proc:	adj_center_step
+	raster-limit-proc:		adj_center_step
+	vector-limit-proc:		adj_arrow_scale
+	contour-limit-proc:		adj_center_step
+	filled-contour-limit-proc:	adj_center_step
+	contour-limit-proc:		adj_center_step
+	filled-contour-centstep-limit-proc:	adj_center_step
+	contour-centstep-limit-proc:	adj_center_step
+	skewt-pres-limit-proc:		adj_pres_minmax
+	skewt-temp-limit-proc:		adj_temp_minmax
+	global-x-limit-proc:		adj_x_minmax
+	global-y-limit-proc:		adj_y_minmax
+	lightning-limit-proc:		adj_time_step
+!
+! XY-Graph default parameters.
+!
+	do-color-proc:		change_ta_color
+!
+! XY-Simple defaults.
+!
+	xy-simple-representation-style:	line
+!
+! XY-Wind defaults.
+!
+	xy-wind-representation-style:	arrow
+	xy-wind-coords:			cartesian
+	xy-wind-wdir-field:		wdir
+	xy-wind-wspd-field:		wspd
+	xy-wind-vec-scale:		5.0
+	xy-wind-barb-scale:		25
+	xy-wind-color-table:		Winds
+	xy-wind-data-skip:		5
+	xy-wind-step:			5.0
+	xy-wind-scale-speed:		25.0
+!
+! XY-Contour defaults.
+!
+!	xy-contour-representation-style:	line
+	xy-contour-color-table:		AllWhite
+	xy-contour-x-grid:		25
+	xy-contour-y-grid:		25
+	xy-contour-z-step:		2.5
+	xy-contour-grid-method:		profile-linear
+	xy-contour-do-side-annotation: false
+!
+! field specific XY defaults
+!
+! x scale min's and max's
+!
+	tdry-scale-x-min:	-80.0
+	tdry-scale-x-max:	20.0
+	dp-scale-x-min:		-80.0
+	dp-scale-x-max:		20.0
+	wspd-scale-x-min:	0.0
+	wspd-scale-x-max:	50.0
+	wdir-scale-x-min:	0.0
+	wdir-scale-x-max:	360.0
+	rh-scale-x-min:		0.0
+	rh-scale-x-max:		100.0
+	pres-scale-x-min:	50.0
+	pres-scale-x-max:	800.0
+	u_wind-scale-x-max:	20.0
+	u_wind-scale-x-min:	-20.0
+	v_wind-scale-x-max:	20.0
+	v_wind-scale-x-min:	-20.0
+	tv-scale-x-min:		-80.0
+	tv-scale-x-max:		20.0
+	vt-scale-x-min:		-80.0
+	vt-scale-x-max:		50.0
+	v_temp-scale-x-min:	0.0
+	v_temp-scale-x-max:	30.0
+	height-scale-x-min:	0.0
+	height-scale-x-max:	10.0
+!
+! y scale min's and max's
+!
+	alt-scale-y-min:	0.0
+	alt-scale-y-max:	10.0
+	height-scale-y-min:	0.0
+	height-scale-y-max:	10000.0
+	wspd-scale-y-min:	0
+	wspd-scale-y-max:	10
+	rh-scale-y-min:		0
+	rh-scale-y-max:		100
+	rh-scale-y-min:		0
+	rh-scale-y-max:		100
+	tdry-scale-y-min:	-5
+	tdry-scale-y-max:	20
+	wdir-scale-y-min:	0
+	wdir-scale-y-max:	360
+	pres-scale-y-min:	830
+	pres-scale-y-max:	850
+	sol-scale-y-min:	0
+	sol-scale-y-max:	800
+	soldiff-scale-y-min:	0
+	soldiff-scale-y-max:	800
+	netrad-scale-y-min:	-400
+	netrad-scale-y-max:	400
+	batt-scale-y-min:	12
+	batt-scale-y-max:	14
+	tbox-scale-y-min:	-10
+	tbox-scale-y-max:	30
+	rain-scale-y-min:	0
+	rain-scale-y-max:	10
+!
+! Layout sizing factors.
+!
+	axis-bottom-space:	25
+	axis-left-space:	50
+	axis-top-space:		0
+	axis-right-space:	0
+!
+! nearby VOR locations
+!
+	OKC-location:	 35.40  -97.60 0.00
+	TUL-location:	 36.20  -95.90 0.00
+	PNC-location:	 36.74  -97.10 0.00
+	GAG-location:	 36.30  -99.77 0.00
+	WWR-location:	 36.44  -99.37 0.00
+	LTS-location:	 34.70  -99.34 0.00
+	ADM-location:	 34.30  -97.02 0.00
+	MLC-location:	 34.88  -95.78 0.00
+	AUS-location:	 30.28  -97.70 0.00
+	JCT-location:	 30.50  -99.75 0.00
+	ACT-location:	 31.62  -97.22 0.00
+	SJT-location:	 31.37 -100.50 0.00
+	ABI-location:	 32.42  -99.68 0.00
+	SEP-location:	 32.22  -98.18 0.00
+	GGG-location:	 32.35  -94.65 0.00
+	DAL-location:	 32.85  -96.85 0.00
+	FTW-location:	 32.82  -97.35 0.00
+	LBB-location:	 33.65 -101.82 0.00
+	CDS-location:	 34.44 -100.28 0.00
+	PVW-location:	 34.17 -101.72 0.00
+	AMA-location:	 35.24 -101.70 0.00
+	CVN-location:	 34.42 -103.08 0.00
+	GLS-location:	 29.27  -94.87 0.00
+	HDO-location:	 29.35  -99.17 0.00
+	MAF-location:	 31.95 -102.18 0.00
+	CRP-location:	 27.77  -97.50 0.00
+	VCT-location:	 28.85  -96.92 0.00
+	SPS-location:	 33.97  -98.48 0.00
+	FYV-location:	 36.00  -94.17 0.00
+	LIT-location:	 34.74  -92.24 0.00
+	FSM-location:	 35.34  -94.37 0.00
+	HOT-location:	 34.48  -93.10 0.00
+	PBF-location:	 34.17  -91.94 0.00
+	ELD-location:	 33.22  -92.80 0.00
+	TXK-location:	 33.45  -94.00 0.00
+	IRK-location:	 40.10  -92.55 0.00
+	MCI-location:	 39.28  -94.72 0.00
+	COU-location:	 38.82  -92.22 0.00
+	STL-location:	 38.75  -90.37 0.00
+	JLN-location:	 37.17  -94.50 0.00
+	UMN-location:	 36.88  -93.90 0.00
+	GLD-location:	 39.37 -101.70 0.00
+	HLC-location:	 39.38  -99.84 0.00
+	CNK-location:	 39.55  -97.65 0.00
+	MHK-location:	 39.15  -96.67 0.00
+	TOP-location:	 39.07  -95.64 0.00
+	EMP-location:	 38.34  -96.20 0.00
+	GBD-location:	 38.35  -98.87 0.00
+	GCK-location:	 37.94 -100.72 0.00
+	DDC-location:	 37.77  -99.97 0.00
+	ICT-location:	 37.65  -97.44 0.00
+	CNU-location:	 37.67  -95.48 0.00
+	CDR-location:	 42.84 -103.08 0.00
+	VTN-location:	 42.87 -100.55 0.00
+	OFK-location:	 41.98  -97.43 0.00
+	OMA-location:	 41.30  -95.90 0.00
+	LBF-location:	 41.13 -100.68 0.00
+	SNY-location:	 41.10 -102.98 0.00
+	MCK-location:	 40.22 -100.58 0.00
+	GRI-location:	 40.97  -98.32 0.00
+	LNK-location:	 40.85  -96.75 0.00
+	BIE-location:	 40.32  -96.75 0.00
+	AIA-location:	 42.05 -102.80 0.00
+	MCW-location:	 43.15  -93.34 0.00
+	SUX-location:	 42.40  -96.38 0.00
+	FOD-location:	 42.55  -94.18 0.00
+	ALO-location:	 42.55  -92.40 0.00
+	DBQ-location:	 42.40  -90.70 0.00
+	CID-location:	 41.88  -91.70 0.00
+	DSM-location:	 41.54  -93.65 0.00
+	OTM-location:	 41.10  -92.45 0.00
+	BRL-location:	 40.78  -91.12 0.00
+	DEN-location:	 39.75 -104.87 0.00
+	COS-location:	 38.82 -104.72 0.00
+	CAG-location:	 40.50 -107.53 0.00
+	DRO-location:	 37.15 -107.75 0.00
+	GJT-location:	 39.12 -108.53 0.00
+	ASE-location:	 39.22 -106.87 0.00
+	BOI-location:	 43.57 -116.22 0.00
+	PIH-location:	 42.92 -112.60 0.00
+	BIL-location:	 45.80 -108.53 0.00
+	GTF-location:	 47.48 -111.37 0.00
+	HLN-location:	 46.60 -112.00 0.00
+	MLS-location:	 46.43 -105.87 0.00
+	RFD-location:	 42.20  -89.10 0.00
+	MLI-location:	 41.45  -90.52 0.00
+	MMO-location:	 41.37  -88.68 0.00
+	PIA-location:	 40.67  -89.68 0.00
+	SLO-location:	 38.65  -88.97 0.00
+	SPI-location:	 39.85  -89.68 0.00
+	SHV-location:	 32.47  -93.82 0.00
+	MLU-location:	 32.52  -92.05 0.00
+	ESF-location:	 31.40  -92.30 0.00
+	NOR-location:	 35.24  -97.46 0.00
+	CIM-location:	 35.48  -97.81 0.00
+	LCH-location:	 30.12  -93.22 0.00
+	TUS-location:	 32.11 -110.93 0.00
+	PHX-location:	 33.43 -112.02 0.00
+	YUM-location:	 32.65 -114.69 0.00
+	FLG-location:	 35.13 -111.66 0.00
+	IGM-location:	 35.27 -113.95 0.00
+	INW-location:	 35.02 -110.73 0.00
+	PRC-location:	 34.65 -112.43 0.00
+	EKO-location:	 40.83 -115.78 0.00
+	ELY-location:	 39.28 -114.85 0.00
+	LAS-location:	 36.08 -115.17 0.00
+	RNO-location:	 39.50 -119.78 0.00
+	TPH-location:	 38.07 -117.08 0.00
+	SAN-location:	 32.73 -117.16 0.00
+	LAX-location:	 33.93 -118.49 0.00
+	SAC-location:	 38.52 -121.50 0.00
+	EED-location:	 34.77 -114.62 0.00
+	ABQ-location:	 35.05 -106.61 0.00
+	GUP-location:	 35.52 -108.78 0.00
+	LRU-location:	 32.28 -106.92 0.00
+	LVS-location:	 35.65 -105.15 0.00
+	ROW-location:	 33.30 -104.53 0.00
+	CDC-location:	 37.70 -113.10 0.00
+	PUC-location:	 39.62 -110.75 0.00
+	SLC-location:	 40.77 -111.97 0.00
+	DTA-location:	 39.33 -112.58 0.00
+	CPR-location:	 42.92 -106.47 0.00
+	CYS-location:	 41.15 -104 82 0.00
+	4DG-location:	 42.75 -105.38 0.00
+	LND-location:	 42.82 -108.73 0.00
+	SHR-location:	 44.77 -106.97 0.00
+	ELP-location:	 31.80 -106.40 0.00
+	CJS-location:	 31.63 -106.43 0.00
+	CUU-location:	 28.70 -105.96 0.00
+	GYM-location:	 27.98 -110.93 0.00
+	TRC-location:	 25.56 -103.41 0.00
+	MTY-location:	 25.78 -100.10 0.00
+	LAP-location:	 24.16 -110.30 0.00
+	MZT-location:	 23.20 -106.41 0.00
+	TAM-location:	 22.28  -97.85 0.00
+	CUN-location:	 21.03  -86.88 0.00
+	GDL-location:	 20.51 -103.31 0.00
+	MID-location:	 20.95  -89.66 0.00
+	ZLO-location:	 19.15 -104.56 0.00
+	MEX-location:	 19.43  -99.06 0.00
+	VER-location:	 19.15  -96.18 0.00
+	ZIH-location:	 17.65 -101.45 0.00
+	ACA-location:	 16.75  -99.76 0.00
+	HMO-location:	 29.10 -111.05 0.00

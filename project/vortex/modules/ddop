@@ -1,0 +1,75 @@
+!
+! Various useful stuff to support the dual-doppler intercomparison 
+! exercise.
+!
+define widget ddop-switch intmenu ' '
+	title 'Multiple-doppler platforms'
+	line
+	entry 'Chong floating boundary condition' 'DdopPlat chong_vclf' \
+	      (PDParam (icon_component, 'platform') = 'chong_vclf')
+	entry 'Chong OB' 'DdopPlat chong_ob' \
+	      (PDParam (icon_component, 'platform') = 'chong_ob')
+	entry 'Chong floating boundary -- quad' 'DdopPlat chong_vquadclf' \
+	      (PDParam (icon_component, 'platform') = 'chong_vquadclf')
+	entry 'Chong OB -- quad' 'DdopPlat chong_vquadob' \
+	      (PDParam (icon_component, 'platform') = 'chong_vquadob')
+	entry 'Gamache combined' 'DdopPlat gamache_rad' \
+	      (PDParam (icon_component, 'platform') = 'gamache_rad')
+	entry 'Gamache quad' 'DdopPlat gamache_quad' \
+	      (PDParam (icon_component, 'platform') = 'gamache_quad')
+	entry 'Gamache n42rf' 'DdopPlat gamache_42' \
+	      (PDParam (icon_component, 'platform') = 'gamache_42')
+	entry 'Gamache n43rf' 'DdopPlat gamache_43' \
+	      (PDParam (icon_component, 'platform') = 'gamache_43')
+	entry 'Jorgensen' 'DdopPlat jorgensen' \
+	      (PDParam (icon_component, 'platform') = 'jorgensen')
+	entry 'Kingsmill quad' 'DdopPlat kingsmill_quad' \
+	      (PDParam (icon_component, 'platform') = 'kingsmill_quad')
+	entry 'Kingsmill n42rf' 'DdopPlat kingsmill_42' \
+	      (PDParam (icon_component, 'platform') = 'kingsmill_42')
+	entry 'Kingsmill n43rf' 'DdopPlat kingsmill_43' \
+	      (PDParam (icon_component, 'platform') = 'kingsmill_43')
+	entry 'Roux' 'DdopPlat roux_radar' \
+	      (PDParam (icon_component, 'platform') = 'roux_radar')
+endmenu
+
+
+procedure DdopPlat platform string
+	parameter #icon_component platform #platform
+endprocedure
+
+
+
+
+!
+! The right button menu 
+!
+define widget dd-contour-right intmenu 'contour right'
+	title 'Contour plot options'
+	line
+	submenu 'Change source platform' 'ddop-switch'
+	submenu 'Contour type' 'contour-types'
+	submenu 'Label options' 'contour-label-options'
+	entry 'Color-coded contours' 'ToggleBoolean color-mono' \
+		(PDParam(icon_component,'color-mono') <> 'true')
+	submenu 'Contour color (when mono)' 'simple-color'
+	submenu 'Line width' linewidth
+endmenu
+
+
+
+!
+! Right menu
+!
+define widget dd-winds-right intmenu ' '
+	title 'Doppler Winds Options'
+	line
+	submenu 'Change source platform' 'ddop-switch'
+	line
+	submenu 'Color' 'simple-color'
+	submenu	'Arrow Line Width' 'linewidth'
+	submenu 'Barbs/Vectors' 'winds-style'
+	submenu 'Data Degradation' 'winds-degrade'
+endmenu
+
+

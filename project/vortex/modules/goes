@@ -1,0 +1,96 @@
+!
+! Support for GOES satellite image data.
+!
+
+!
+! Middle icon menu for GOES data.
+!
+define widget goes-middle intmenu 'GOES field menu'
+	title 'GOES satellite options'
+	line
+	entry 'Infrared' 'goes_fld ir' \
+		(PDParam(icon_component,"field") = "ir")
+	entry 'Visible' 'goes_fld vis' \
+		(PDParam(icon_component,"field") = "vis")
+	entry 'Water Vapor' 'goes_fld vis' \
+		(PDParam(icon_component,"field") = "wv")
+	entry 'Fog' 'goes_fld vis' \
+		(PDParam(icon_component,"field") = "fog")
+	line
+	entry 'IR grayscale color table' \
+		 'param #icon_component color-table ir_gray' \
+		(PDParam (icon_component,"color-table") = "ir_gray")
+	entry 'Vis black & white; blue highlight < 226 K color table'\
+		 'param #icon_component color-table new_ir_gray' \
+		(PDParam (icon_component,"color-table") = "new_ir_gray")
+	entry 'black & white color table'\
+		 'param #icon_component color-table 16gray' \
+		(PDParam (icon_component,"color-table") = "16gray")
+	entry 'Three-step' 'param #icon_component color-table SmallRainbow' \
+	        (PDParam (icon_component, 'color-table') = 'SmallRainbow')
+	entry 'Rainbow table' 'param #icon_component color-table Rainbow' \
+		(PDParam (icon_component,"color-table") = "cook16")
+	entry 'Contour table' 'param #icon_component color-table Contour' \
+		(PDParam (icon_component,"color-table") = "Contour")
+!	entry 'cook32' 'param #icon_component color-table cook32' \
+!		(PDParam (icon_component,"color-table") = "cook32")
+!	entry 'hotcold' 'param #icon_component color-table hotcold' \
+!		(PDParam (icon_component,"color-table") = "hotcold")
+!	entry 'wild' 'param #icon_component color-table wild' \
+!		(PDParam (icon_component,"color-table") = "wild")
+!	entry 'wild_new' 'param #icon_component color-table wild_new' \
+!		(PDParam (icon_component,"color-table") = "wild_new")
+!	submenu 'Chen Color Tables' ChenColorTables
+	line
+	entry 'Raster representation' 'goes_rep raster' \
+		(PDParam(icon_component, 'representation') = 'raster')
+	entry 'Contour representation' 'goes_rep contour' \
+		(PDParam(icon_component, 'representation') = 'contour')
+	entry 'Filled contour representation' 'goes_rep filled-contour' \
+		(PDParam(icon_component, 'representation') = 'filled-contour')
+	line
+	submenu 'Contour Width' LineWidth
+endmenu
+
+!
+! Change our representation.
+!
+procedure goes_rep rep string
+!
+! Make sure they aren't wasting our time.
+!
+	local currep PDParam(icon_component, 'representation')
+	if (currep = rep)
+		return
+	endif
+!
+! Switch around color tables.
+!
+	local oldtable PDParam(icon_component, 'color-table')
+	local newtable PDParam(icon_component, concat(rep,'-color-table'))
+	local svname concat(currep,'-color-table')
+	parameter #icon_component #svname #oldtable
+	parameter #icon_component color-table #newtable
+!
+! If we're going back to raster, go ahead and rewire the plot limits.
+!
+	if (rep = 'raster')
+		parameter #icon_component ir-center 280.0
+		parameter #icon_component ir-step 12
+	endif
+!
+! Tweak the representation and we're done.
+!
+	parameter #icon_component representation #rep
+endprocedure
+
+
+
+procedure goes_plat plat string
+	parameter #icon_component platform #plat
+endprocedure
+
+
+procedure goes_fld fld string
+	parameter #icon_component field #fld
+endprocedure

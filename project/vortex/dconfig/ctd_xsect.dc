@@ -1,0 +1,108 @@
+! Auto-saved display configuration.
+config ctd_xsect
+	window 'big' 3 3 800 576 gp gp.init
+		description 'ctd_xsect-big'
+		buttonmap 'default'
+		forcepd
+	endwindow
+	window 'w1' 2 605 428 270 gp gp.init
+		description 'ctd_xsect-w1'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	widget 'iconbar' 807 5 75 505
+	window 'Event logger' 475 650 600 150 graphproc
+		nongraphic
+	endwindow
+endconfig
+
+beginpd 'ctd_xsect-big'
+global
+   parameter altitude                  '0.00'
+   parameter altitude-label            'Alt: 0.00 km MSL'
+   parameter left-endpoint             '0.0,0.0'
+   parameter pd-name                   'ctd_xsect-big'
+   parameter platform                  'kexue_ctd,vickers_ctd,alis_ctd,wecoma_ctd'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '11-Feb-93,0:00:00'
+   parameter plot-type                 'xsect'
+   parameter right-endpoint            '300.0,300.0'
+   parameter ta-scale                  '0.025'
+   parameter trigger                   'alis_ctd'
+   parameter z-field                   'depth'
+   parameter z-max                     '0.0'
+   parameter z-min                     '-0.5'
+   parameter zig-zag                   'true'
+component p_xsect
+   parameter color                     'cyan'
+   parameter color-mono                'true'
+   parameter color-table               'cook32'
+   parameter field                     'tdry'
+   parameter icon                      'xsect'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'FieldMenu'
+   parameter icon-right-menu           'ctd-right'
+   parameter limit-proc                'contour-putup-adj'
+   parameter menu-platform             'nat_ctd,vickers_ctd,wecoma_ctd,moana_ctd,alis_ctd,malaita_ctd,noroit_ctd,kexue_ctd'
+   parameter platform                  'kexue_ctd,vickers_ctd,alis_ctd,wecoma_ctd'
+   parameter representation            'filled-contour'
+   parameter require                   'ctd_xsect, contour'
+   parameter scale-mode                'auto'
+   parameter tdry-center               '23.4000'
+   parameter tdry-step                 '0.9000'
+endpd
+
+beginpd 'ctd_xsect-w1'
+global
+   parameter altitude-label            '?'
+   parameter frame-rate                '10'
+   parameter frame-skip                '60'
+   parameter movie-end-time            'now'
+   parameter movie-minutes             '300'
+   parameter pd-name                   'ctd_xsect-w1'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '11-Feb-93,0:00:00'
+   parameter plot-type                 'CAP'
+   parameter ta-scale                  '0.035'
+   parameter trigger                   'gms'
+   parameter x-max                     '328.2256'
+   parameter x-min                     '-1305.1361'
+   parameter y-max                     '328.4018'
+   parameter y-min                     '1738.7332'
+component p_map
+   parameter color                     'yellow'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter platform                  'coare'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_map.0
+   parameter color                     'brown'
+   parameter field                     'map'
+   parameter icon                      'ifa'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '2'
+   parameter platform                  'coare-ifa'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component tc_ctdloc
+   parameter active-icon               'true'
+   parameter color                     'white'
+   parameter field                     'location'
+   parameter icon                      'boat'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-right-menu           'location-options'
+   parameter label                     'platform'
+   parameter label-size                '11'
+   parameter platform                  'alis_ctd,kexue_ctd,nat_ctd,noroit_ctd,malaita_ctd,moana_ctd,vickers_ctd,wecoma_ctd'
+   parameter posicon-left-menu         'minimal-cap-left-menu'
+   parameter posicon-middle-menu       'ctdloc-shipout'
+   parameter posicon-right-menu        'location-options'
+   parameter representation            'overlay'
+   parameter require                   'location, ctdloc'
+   parameter time-label                'false'
+endpd
+

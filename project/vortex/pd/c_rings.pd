@@ -1,0 +1,13 @@
+GLOBAL
+	pd-name:	c_rings
+	comment:	Generic range rings overlay
+c_rings
+	platform:	honiara
+	representation:	overlay
+	field:		range-rings
+	color:		green
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-menu
+	icon:		rings
+	ring-interval:	450
+	azimuth-interval:	45

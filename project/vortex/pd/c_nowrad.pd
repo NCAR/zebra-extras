@@ -1,0 +1,12 @@
+GLOBAL
+	pd-name:	c_nowrad
+c_nowrad
+	platform:	nowrad
+	field:		intensity	
+	representation:	raster
+	color-table:	nowrad
+	icon:		nowrad
+	icon-middle-menu:	DataAvailable
+	altitude:	0.0
+	icon-right-menu:	raster-right
+	require:	raster

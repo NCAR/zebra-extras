@@ -1,0 +1,32 @@
+global
+	pd-name: wind
+	plot-type: xygraph
+wind
+	adj-axis-side: t
+	axis-bottom: false
+	axis-left: false
+	axis-t-color: cyan
+	axis-t-grid-intensity: 0.0
+	axis-t-label: u_wind
+	axis-t-tic-interval: 1.0
+	axis-top: true
+	data-mode:      series
+	do-color-proc: change_component_color
+	field-color: cyan
+	field-select-command: myset_xfield
+	icon: iss-prof
+	icon-background: black
+	icon-color: cyan
+	icon-left-menu: xy-simple
+	icon-middle-menu: FieldMenu
+	icon-right-menu: DataAvailable
+	platform: kapinga/prof915h
+	representation: simple
+	representation-style: line
+	scale-x-mode:   autoscale
+	scale-y-mode:   manual
+	trigger: wind
+	x-field: u_wind
+	y-field: height
+endpd
+

@@ -1,0 +1,15 @@
+!
+! Simple support for CTD location.
+!
+define widget ctdloc-shipout intmenu 'x'
+       title 'CTD options'
+       line
+       entry 'Display in other window' 'send_ctd'
+endmenu
+
+
+procedure send_ctd
+	local dmcmd quote(concat3('PutScalar ', icon_platform, ' x'))
+	dm #dmcmd
+endprocedure
+

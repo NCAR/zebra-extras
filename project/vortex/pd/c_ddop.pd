@@ -1,0 +1,20 @@
+GLOBAL
+	pd-name:	c_ddop
+c_ddop
+	altitude-control:	true
+	color-table:	gcook16
+	degrade:	1
+	dz-center:	30
+	dz-nsteps:	17
+	dz-step:	5
+	field:	DZ
+	grid-method:	bilinear
+	icon:		n43rf_lf
+	icon-left-menu:	raster-left
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	raster-right
+	line-width:	2
+	platform:	n43rf_lf
+	representation:	raster
+	require:	simple-color, raster
+	scale-mode:	auto
