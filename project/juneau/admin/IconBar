@@ -1,0 +1,123 @@
+! $Id: IconBar,v 1.1 1997-03-27 02:29:08 granger Exp $
+!
+
+set ui$bitmap_directory concat(c$libdir, "/icons")
+
+require "cfg-tools"
+
+define widget iconbar menubar " "
+	noheader
+	!
+	! Define the menus
+	!
+	menu tools bitmap tools-big
+		title 'Tools'
+		line
+		entry 'Time Control Tool...' 'popup time'
+		entry 'Printing Tool...' 'popup hardcopy'
+		entry 'Configuration Tool...' 'popup ConfigEdit'
+		entry 'XTerm Shell Tool' 'shell \
+  "xterm -T ZebraShell -bg grey90 -fg purple -fn 8x13bold -e zstart -shell &"'
+		entry 'Data Listings' 'shell "dsdwidget &"'
+		entry 'Data Store Management' 'shell "dsmanage &"'
+		line
+		entry 'Begin new configuration...' 'popup newconfig'
+		submenu 'Add new window' 'template-menu'
+		entry 'Kill window by cursor' 'point-and-shoot'
+		entry 'Add window named...' 'popup NewWindow'
+		entry 'Kill window named...' 'popup ZorchWindow'
+		line
+		entry 'Save this configuration' 'cfgsave #dm$config'
+		entry 'Save this configuration as...' 'popup SaveConfig'
+
+		entry 'Restore to original' 'cfg-restore'
+		line
+		entry 'Shutdown Zebra' 'shutdown'
+	endmenu
+	menu configs bitmap configs
+		title 'Display configurations'
+		line
+		entry 'Default (All)' 'display all' \
+			(dm$config = "all")
+		entry 'Stations and time series' 'display stations' \
+			(dm$config = "stations")
+		entry 'Map display' 'display map' (dm$config = 'map')
+		entry 'Map and profiler' 'display both' (dm$config = 'both')
+		entry 'Profiler Winds' 'display profiler' \
+			(dm$config = 'profiler')
+		entry 'Empty screen' 'display empty' (dm$config = 'empty')
+	endmenu
+	menu 'overlays' bitmap overlays
+		title 'Static Overlays'
+		line
+		entry 'Default map' \
+			'putc3 p_map platform default color tan icon map'
+		line
+
+		submenu 'Radar Range Rings' RadarRings
+		entry 'X-Y Grid (km)' \
+			'putc3 p_kmgrid x-spacing 300 y-spacing 300 color cyan'
+		entry 'Lat/Lon Grid' \
+			'putc3 p_llgrid x-spacing 300 y-spacing 300 color cyan'
+		line
+		entry 'Window Bounds' 'require send-wbounds; send-wbounds'
+	endmenu
+	menu help bitmap iconbar-help
+		title 'Zebra Help Access'
+		line
+		entry 'Introduction' 'help intro'
+		entry 'On-line Help Index' 'help index'
+		entry 'Starting Zebra' 'help start'
+		entry 'Shutting Down' 'help shut-down'
+		entry 'Keys and Mouse Buttons' 'help keys'
+		entry 'The Icon Bar' 'help iconbar'
+		entry 'Editing Display Configurations' 'help editing-configs'
+		line
+		entry 'Horizontal plots' 'help horizontal-plots'
+		entry 'Skew-t plots' 'help skewt'
+		entry 'XYGraph plots' 'help xy-graphs'
+		entry 'Cross section plots' 'help cross-section'
+	endmenu
+enddef
+	
+
+define widget template-menu intmenu 'window templates'
+	title 'Window Templates'
+	line
+	entry 'Constant altitude plot' \
+		'create-window cap cap-template big'
+	entry 'Skew-t plot' \
+		'create-window skewt skewt-template sounding'
+	entry 'Time-series plot' \
+		'create-window tseries tseries-template xyplot'
+	entry 'Time-height plot' \
+		'create-window theight time-height-template xyplot'
+	entry 'Simple line plot' \
+		'create-window lineplot lineplot-template xyplot'
+	entry 'Wind profile' 'create-window wind wind-template xyplot'
+	entry 'RASS profile' 'create-window rass rass-template xyplot'
+	entry 'XY Graph' 'create-window xygraph xygraph-template xyplot'
+	entry 'Vertical cross-section' \
+		'create-window xsect xsect-template default'
+	entry 'Real-time clock' 'create-clock'
+endmenu
+
+
+
+!
+! Radar range ring menu.
+!
+define widget RadarRings intmenu 'radar range rings'
+	title 'Radar Range Rings'
+	line
+	entry 'JNU Range Rings' 'putc1 p_rings platform JNU'
+	entry 'MARMN Range Rings' 'putc1 p_rings platform MARMN'
+	entry 'TRDWL Range Rings' 'putc1 p_rings platform TRDWL'
+	entry 'SALMN Range Rings' 'putc1 p_rings platform SALMN'
+	entry 'LEMNN Range Rings' 'putc1 p_rings platform LEMNN'
+	entry 'LYNNS Range Rings' 'putc1 p_rings platform LYNNS'
+	entry 'CGL Range Rings' 'putc1 p_rings platform CGL'
+	entry 'BARLO Range Rings' 'putc1 p_rings platform BARLO'
+endmenu
+
+

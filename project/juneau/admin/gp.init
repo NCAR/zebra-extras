@@ -1,0 +1,12 @@
+! $Id: gp.init,v 1.1 1997-03-27 02:29:09 granger Exp $
+!
+! Similar to the master gp.init, but we insert our modules path before
+! the restricted modules, and we don't require the 'restricted' module.
+!
+
+set iconpath concat3("./admin/icons,./icons,", c$libdir, "/icons")
+set mappath concat("./maps,", c$libdir)
+set RequirePath concat('./admin/modules,./modules,',RequirePath)
+
+require SiteChange
+
