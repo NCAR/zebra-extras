@@ -58,6 +58,22 @@ defaults
 	p3-icon-age-limit:		10m
 	surface_hourly-icon-age-limit:	75m
 	surface_5min-icon-age-limit:	10m
+
+!
+! The following values need to be skipped on various platforms:
+!
+!	NWS surface hourlies:	-9999
+!	Sondes:			-9999
+!	NGM:			-99999
+!	WPDN:			-999, -99999
+!	MWR-LOS:		-9999
+!	BLC:			-999
+!	SIROS:			-9999
+!	MFR:			-1111, -2222, -3333, -4444
+!	Profilers:		-9999, 9999
+
+	skip-data-points: -9999, -99999, -999, -1111, -2222, -3333, -4444, 9999
+
 !
 ! for now, let's put the origin at the ops center.  The coords are taken
 ! from Chris's "wsr" coords, on the assumtion that wsr means the nexrad
@@ -369,10 +385,6 @@ defaults
 !
 	ops-ctr-location:	38.8333	-94.55	0.0
 	rt-location:		39.1442	-95.2683	0.0
-!
-! The maximum number of frames to be stored in the file.
-!
-	max-frames:	20
 ! 
 ! Some movie pregeneration fields.
 !
