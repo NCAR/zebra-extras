@@ -26,6 +26,9 @@ procedure theight-add plat string field string win string
 	if (substring (plat, 'prof/') or realplatform (concat ('prof/', plat)))
 		th-cadd tc-thcontour #plat #win
 		th-cadd tc-thwinds #plat #win
+	elseif (substring(plat, 'Dsgp60wpdnwndsX1.a1'))
+		th-cadd tc-thcontour #plat #win
+		th-cadd tc-thwinds #plat #win
 	elseif (substring(plat,'sounding/') or realplatform(concat('sounding/',plat)))
 		th-cadd tc-sndcontour #plat #win
 		th-cadd tc-sndwinds #plat #win
