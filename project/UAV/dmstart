@@ -7,11 +7,11 @@
         setenv XAPPLRESDIR ${ZEBHOME}/lib/resources
         setenv ZEB_TOPDIR ${ZEBHOME}
         setenv NO_DM_TIME yes
-        setenv HOST `hostname`
+        setenv HOST `uname -n`
         cd $CONFIGHOME
         sleep 1
-        set nonomatch; rm -f ${ZEBHOME}/tmp/*
-		$BINHOME/tweakcolor yellow
+#       set nonomatch; rm -f ${ZEBHOME}/tmp/*
+	$BINHOME/tweakcolor yellow
 #
 # Start the display manager.
 #
