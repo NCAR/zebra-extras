@@ -1,18 +1,18 @@
 ! Auto-saved display configuration.
 config Satellite
-	widget 'iconbar' 0 802 370 80
-	window 'UpperLeft' 0 121 830 702 gp gp.init
+	widget 'iconbar' -4 -25 499 115
+	window 'UpperLeft' -2 239 810 661 gp gp.init
 		description 'Satellite-UpperLeft'
 		buttonmap 'big'
 		forcepd
 	endwindow
-	window 'UpperRight' 737 246 470 442 gp gp.init
+	window 'UpperRight' 735 237 500 460 gp gp.init
 		description 'Satellite-UpperRight'
 		buttonmap 'xyplot'
 		forcepd
 	endwindow
-	window 'Clock' 500 6 250 60 fccclock
-		description 'Satellite-Clock'
-		buttonmap 'default'
-	endwindow
+!	window 'Clock' 500 6 250 60 fccclock
+!		description 'Satellite-Clock'
+!		buttonmap 'default'
+!	endwindow
 endconfig

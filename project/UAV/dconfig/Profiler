@@ -1,16 +1,16 @@
 ! Auto-saved display configuration.
 config Profiler
-	widget 'iconbar' 0 802 370 80
-	window 'Clock' 672 80 250 60 fccclock
-		description 'Profiler-Clock'
-		buttonmap 'default'
-	endwindow
-	window 'UpperLeft' 0 194 556 598 gp gp.init
+	widget 'iconbar' 0 0 460 80
+!	window 'Clock' 672 80 250 60 fccclock
+!		description 'Profiler-Clock'
+!		buttonmap 'default'
+!	endwindow
+	window 'UpperLeft' 0 257 576 610 gp gp.init
 		description 'Profiler-UpperLeft'
 		buttonmap 'xygraph'
 		forcepd
 	endwindow
-	window 'UpperRight' 545 194 672 597 gp gp.init
+	window 'UpperRight' 479 256 692 609 gp gp.init
 		description 'Profiler-UpperRight'
 		buttonmap 'xygraph'
 		forcepd

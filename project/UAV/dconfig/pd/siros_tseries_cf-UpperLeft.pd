@@ -106,6 +106,6 @@ c_ir_temp
 	platform:	sgpmwrlosC1.a1
 	representation:	simple
 	representation-style:	line
-	require:	xytrace,simple-color
+	require:	xytrace,simple-color,mwr
 	x-field:	time
 	y-field:	ir_temp

@@ -1,6 +1,6 @@
 ! Auto-saved display configuration.
 config surface_met_E15
-	widget 'iconbar' 3 789 380 111
+	widget 'iconbar' 0 0 380 80
 	window 'UpperLeft' -1 194 698 597 gp gp.init
 		description 'surface_met_E15-UpperLeft'
 		buttonmap 'xyplot'

@@ -1,12 +1,12 @@
 global
 	altitude-label:	?
 	comment:	Satellite
-	frame-rate:	5
-	frame-skip:	1
+	frame-rate:	1
+	frame-skip:	60
 	icon-middle-menu:	DataAvailable
 	menu-platform:	sgpgoesvis.tmp
 	movie-end-time:	now
-	movie-minutes:	6
+	movie-minutes:	1140	
 	movie-mode:	False
 	pd-name:	Satellite-UpperLeft
 	platform:	sgpgoesvis.tmp

@@ -1,6 +1,6 @@
 ! Auto-saved display configuration.
 config siros_tseries_cf
-	widget 'iconbar'	0 802 370 80
+	widget 'iconbar'	0 0 370 80
 !	window Clock 380 7 250 60 #clock_exec
 !		description 'whiteclock'
 !	window Clock 380 7 250 60 fccclock

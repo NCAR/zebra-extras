@@ -10,7 +10,7 @@ global
 	plot-type:	CAP
 	ta-scale:	.04
 	time-frames:	2
-	platform:	sgpsfchrlyX1.00
+	platform:	sgpsfchrlyX1.a1
 	trigger:	platform
 	x-max:	700
 	x-min:	-800
@@ -29,7 +29,7 @@ p_fcontour
 	icon-right-menu:	contour-right
 	label-blanking:	false
 	limit-proc:	contour-putup-adj
-	platform:	sgpsfchrlyX1.00
+	platform:	sgpsfchrlyX1.a1
 	representation:	filled-contour
 	require:	contour, simple-color, surface
 	scale-mode:	auto
@@ -113,7 +113,7 @@ p_irg_winds
 	icon-right-menu:	irg-winds-right
 	limit-proc:	adj_arrow_scale
 	max-fill:	3.0
-	platform:	sgpsfchrlyX1.00
+	platform:	sgpsfchrlyX1.a1
 	radius:	2.0
 	representation:	vector
 	require:	irg_winds, simple-color
@@ -135,7 +135,7 @@ p_station
 	icon-middle-menu:	nws-station-fields
 	icon-right-menu:	p-station-right
 	limit-proc:	adj_arrow_scale
-	platform:	sgpsfchrlyX1.00
+	platform:	sgpsfchrlyX1.a1
 	posicon-middle-menu:	nws-station-fields
 	quad4:	none
 	representation:	station

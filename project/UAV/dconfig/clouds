@@ -1,18 +1,18 @@
 ! Auto-saved display configuration.
 config clouds
-	widget 'iconbar' 0 802 370 80
-	window 'Clock' 400 809 250 60 fccclock
-		description 'clouds-Clock'
-		buttonmap 'default'
-	endwindow
-	window 'UpperLeft' 0 195 752 632 gp gp.init
+	widget 'iconbar' 0 0 460 80
+!	window 'Clock' 400 809 250 60 fccclock
+!		description 'clouds-Clock'
+!		buttonmap 'default'
+!	endwindow
+	window 'UpperLeft' -4 257 762 638 gp gp.init
 		description 'clouds-UpperLeft'
 		buttonmap 'xyplot'
 		forcepd
 	endwindow
-	window 'UpperRight' 643 190 510 570 gp gp.init
-		description 'clouds-UpperRight'
-		buttonmap 'xyplot'
-		forcepd
-	endwindow
+!	window 'UpperRight' 632 259 520 576 gp gp.init
+!		description 'clouds-UpperRight'
+!		buttonmap 'xyplot'
+!		forcepd
+!	endwindow
 endconfig

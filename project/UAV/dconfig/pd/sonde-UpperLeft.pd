@@ -4,6 +4,7 @@ global
 	plot-mode:	real-time
 	plot-time:	3-Feb-94,21:43:00
 	plot-type:	skewt
+	platform:	sgpsondeC1.a1
 	trigger:	platform
 	x-max:	0.9693
 	x-min:	0.8765
