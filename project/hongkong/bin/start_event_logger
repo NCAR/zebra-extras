@@ -11,8 +11,8 @@
 
 	echo -n 'Starting the event logger...'
 	foreach n (4 3 2 1)
-		mv -f $ZEB_LOGFILE.$n $ZEB_LOGFILE.`expr $n + 1`
+	   mv -f $ZEB_LOGFILE.$n $ZEB_LOGFILE.`expr $n + 1` >& /dev/null
 	end
-	mv -f $ZEB_LOGFILE $ZEB_LOGFILE.1
+	mv -f $ZEB_LOGFILE $ZEB_LOGFILE.1 >& /dev/null
 	EventLogger -f $ZEB_LOGFILE -w &
 	sleep 1
