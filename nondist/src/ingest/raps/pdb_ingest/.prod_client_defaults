@@ -1,0 +1,21 @@
+# Defaults & parameter data base for the RAWPG display program; red
+# ------------------------------------------------------------------
+#
+# General flow information - Infrequent 
+prod_client.debug_flag:		1   
+
+# Initialization flow, messaging indicators
+prod_client.debug1_flag:	1   
+
+# Verbose initialization info, frequent message indicators
+prod_client.debug2_flag:	0
+
+#
+#	Setup file info
+#
+prod_client.product_info_file:		products.info
+#
+#  Program control parameters
+#
+prod_client.sock_retry_seconds:		5
+#
