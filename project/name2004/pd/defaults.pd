@@ -6,38 +6,17 @@ defaults
 !
 ! Project origin (S-Pol)
 !
-	origin-location:	23.9292     -106.9515     0
+	origin-location:	23.92897    -106.95212    0
 !
 ! Add named locations to your heart's delight.  
 ! Form: 
 !	<sitename>-location:	<lat> <lon> <alt>
 !
-	spol-location:		23.9292     -106.9515     0
+	spol-location:		23.92897    -106.95212    0
 !
-! NWS radars
+! NOAA profiler
 !
-	KAMA-location:	35.22000 -101.71722 1099
-	KDDC-location:	37.77278  -99.96972 790
-	KFDR-location:	34.34444  -98.98306 382
-	KFTG-location:	39.78333 -104.55000 1709
-	KFWS-location:	32.56667  -97.30000 233
-	KGLD-location:	39.36750 -101.69305 1114
-	KICT-location:	37.64722  -97.42944 406
-	KINX-location:	36.18333  -95.56667 226
-	KLBB-location:	33.66750 -101.82139 1000
-	KTLX-location:	35.33333  -97.28333 338
-	KVNX-location:	36.74083  -98.12778 0
-!
-! NWS sites
-!
-	ABQ-location:		35.05	-106.60	0
-	DNR-location:		39.75	-104.87	0
-	FWD-location:		32.83	-97.30	0
-	LBF-location:		41.13	-100.68	0
-	MAF-location:		31.95	-102.18	0
-	QUN-location:		35.21	-97.45	0
-	SHV-location:		32.46	-93.78	0
-	TOP-location:		39.07	-95.62	0
+	NOAA_profiler-location:	24.28043    -107.16448    27
 !
 ! Icons to use for various platforms.  The icons themselves can be created
 ! using the X Window "bitmap" utility, and saved in the <project>/icons 
@@ -63,7 +42,7 @@ defaults
 !
 	icon-age-limit:		15m
 	spol-icon-age-limit:	20m
-	spol-data-age-limit:	20m
+	spol-data-age-limit:	30m
 	refract_storm-icon-age-limit:	20m
 	refract_storm-data-age-limit:	40m
 	radar_composite-icon-age-limit:	30m
@@ -168,8 +147,8 @@ defaults
 	dm-center:		-90
 	dm-step:		6
 	dm-nsteps:		11
-	phidp-center:		10
-	phidp-step:		2
+	phidp-center:		80
+	phidp-step:		20
 	phidp-nsteps:		10
 	rhohv-center:		0.5
 	rhohv-step:		0.1
