@@ -272,6 +272,9 @@ define widget sonde1 intmenu 'SONDE1'
 		'put_4parameters "DsgpsondeC1.a1" "wspd" "deg" "u_wind" "v_wind"'
 	entry 'Sonde CF A1: alt, wstat, asc'\
 		'put_3parameters "DsgpsondeC1.a1" "alt" "wstat" "asc"'
+	line
+	entry 'Sonde CF A1: Skew-T Plot'\
+         'parameter sounding skewt platform "DsgpsondeC1.a1"; display sounding'
 endmenu
 
 define widget mfrsr1 intmenu 'MFRSR1'
@@ -681,6 +684,9 @@ define widget instsonde1 intmenu 'SONDE1'
 		'put_4parameters "DsgpsondeC1.a1" "wspd" "deg" "u_wind" "v_wind"'
 	entry 'Sonde CF A1: alt, wstat, asc'\
 		'put_3parameters "DsgpsondeC1.a1" "alt" "wstat" "asc"'
+	line
+	entry 'Sonde CF A1: Skew-T Plot'\
+         'parameter sounding skewt platform "DsgpsondeC1.a1"; display sounding'
 endmenu
 
 define widget instmfrsr1 intmenu 'MFRSR1'
