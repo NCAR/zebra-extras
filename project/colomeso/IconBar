@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.1 1996-06-19 21:43:10 burghart Exp $
+! $Id: IconBar,v 1.2 1996-10-25 06:40:01 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -59,6 +59,8 @@ define widget iconbar menubar " "
 	!
 		entry 'Simple horizontal plot' 'display simple' \
 			(dm$config = 'simple')
+		entry 'Time series plot' 'display tseries' \
+			(dm$config = 'tseries')
 		line
 		entry 'Empty screen' 'display empty' (dm$config = 'empty')
 	endmenu
