@@ -1,0 +1,13 @@
+procedure ChangeXYPlat platform string field string target_win string
+!
+! UGLY.  We change the platform in every component except "global" and
+! "xy-grid".
+!
+	local comps pd_complist(target_win)
+
+	foreach comp #comps
+		if (comp <> 'global' and comp <> "xy-grid")
+			parameter #target_win #comp platform #platform
+		endif
+	endfor
+endprocedure
