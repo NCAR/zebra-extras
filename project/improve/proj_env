@@ -1,4 +1,4 @@
-#!/bin/tcsh
+#!/bin/tcsh -f
 #
 # Set up environment for SPOL operations.
 #
@@ -6,4 +6,30 @@ if (! $?DATA_DIR) setenv DATA_DIR /data/spol
 if (! $?ZEB_EVENTLOGGER) \
     setenv ZEB_EVENTLOGGER "$ZEB_TOPDIR/bin/EventLogger -w"
 if (! $?DEFAULT_CONFIG) setenv DEFAULT_CONFIG empty
+if (! $?ELEV_DATA_DIR) setenv ELEV_DATA_DIR $PWD/elev
+
+# Check for project options.
+set options=($*)
+
+foreach rc ($options)
+
+    if ("$rc" == "help") then
+	echo "improve project options:"
+	echo " "
+	echo "  noclean    Disable datastore cleanup."
+	echo " "
+	echo "Press Ctl-C to quit, <enter> to continue."
+	set a="$<"
+    endif
+    if ("$rc" == ".") continue
+    if ("$rc" == "noclean") setenv DS_DISABLE_CLEANUP 1
+
+end
+
+# Make sure /usr/bin/python appears first in the path since
+# /usr/local/bin/python will not work on RH 7.0.  Likewise we
+# need to explicitly set PYTHONHOME so that shared libraries
+# can be found.
+setenv PATH /usr/bin:$PATH
+setenv PYTHONHOME /usr
 

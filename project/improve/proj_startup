@@ -1,4 +1,4 @@
-#!/bin/tcsh
+#!/bin/tcsh -f
 #
 # This will eventually be the project startup file.  We need to:
 #
