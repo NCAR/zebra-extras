@@ -1,0 +1,23 @@
+XCOMM
+XCOMM DataStore interface manual Imakefile
+XCOMM
+XCOMM $Id: Imakefile,v 1.1 1996-02-19 21:26:47 granger Exp $
+XCOMM
+
+BOOK = DataStore
+TITLE = "The Data Store Interface Manual"
+AUTHOR = "granger@ncar.ucar.edu"
+
+CHAPTERS = title.fm preface.fm intro.fm datachunks.fm locations.fm \
+	   metclasses.fm grids.fm nspace.fm elements.fm attributes.fm \
+	   dsapi.fm dfa.fm ingest.fm
+
+INDEX = $(BOOK)IX.doc
+TOC = $(BOOK)TOC.doc
+
+DISTFILES = $(BOOK).book $(CHAPTERS) $(INDEX) $(TOC) Imakefile
+
+#include <Docs.rules>
+
+DistfilesTarget($(DISTFILES))
+

@@ -1,0 +1,21 @@
+XCOMM
+XCOMM Install documentation Imakefile
+XCOMM
+XCOMM $Id: Imakefile,v 1.1 1996-02-19 21:26:48 granger Exp $
+XCOMM
+
+BOOK = Install
+TITLE = "The Zebra Installation Manual"
+AUTHOR = "granger@ncar.ucar.edu"
+
+CHAPTERS = install-title.fm install.fm mach-appndx.fm smry-appndx.fm
+
+INDEX = $(BOOK)IX.doc
+TOC = $(BOOK)TOC.doc
+
+DISTFILES = $(BOOK).book $(CHAPTERS) $(INDEX) $(TOC) Imakefile
+
+#include <Docs.rules>
+
+DistfilesTarget($(DISTFILES))
+

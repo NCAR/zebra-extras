@@ -1,0 +1,47 @@
+XCOMM
+XCOMM Release notes Imakefile
+XCOMM
+XCOMM $Id: Imakefile,v 1.1 1996-02-19 21:24:21 granger Exp $
+XCOMM
+
+BOOK = Release
+TITLE = "Zebra Release Notes"
+AUTHOR = "granger@ncar.ucar.edu"
+NOTES = RELEASE.NOTES
+
+CHAPTERS = release.fm
+TEXTSRC = release.fm
+INDEX = 
+TOC = 
+
+PERL = perl
+
+DISTFILES = $(BOOK).book $(CHAPTERS) $(INDEX) $(TOC) Imakefile
+
+/* #define FrameExtension fm */
+
+#include <Docs.rules>
+
+/*
+ * Generate ASCII RELEASE.NOTES
+ */
+$(NOTES): $(TEXTSRC)
+	RemoveFile($@)
+	@echo Creating $@ ;\
+	 (echo "Open $(TEXTSRC)"; \
+	  echo "SaveAs a $(TEXTSRC) $@" ;\
+	  echo "Quit") >> batch.$$$$ ;\
+	$(FMBATCH) < batch.$$$$ ;\
+	$(RM) batch.$$$$ ;\
+	$(PERL) -pi -e 's/\267//;' -e 's/^\t(\d)/$$1/;' $@ ;\
+	echo "Done."
+
+notes: $(NOTES)
+
+install install.notes:: $(NOTES)
+
+clean::
+	$(RM) $(NOTES)
+
+DistfilesTarget($(DISTFILES))
+

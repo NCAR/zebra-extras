@@ -1,0 +1,21 @@
+XCOMM
+XCOMM Realtime guide Imakefile
+XCOMM
+XCOMM $Id: Imakefile,v 1.1 1996-02-19 21:26:49 granger Exp $
+XCOMM
+
+BOOK = Realtime
+TITLE = "Guide to Real-time Zebra"
+AUTHOR = "corbet@ncar.ucar.edu"
+
+CHAPTERS = Title.fm intro.fm monitors.fm archiver.fm netxfr.fm
+
+INDEX = $(BOOK)IX.doc
+TOC = $(BOOK)TOC.doc
+
+DISTFILES = $(BOOK).book $(CHAPTERS) $(INDEX) $(TOC) Imakefile
+
+#include <Docs.rules>
+
+DistfilesTarget($(DISTFILES))
+

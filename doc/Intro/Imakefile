@@ -1,0 +1,22 @@
+XCOMM
+XCOMM Intro manual Imakefile
+XCOMM
+XCOMM $Id: Imakefile,v 1.1 1996-02-19 21:26:48 granger Exp $
+XCOMM
+
+BOOK = Intro
+TITLE = "Introducing Zebra"
+AUTHOR = "corbet@ncar.ucar.edu"
+
+CHAPTERS = title.fm manuals.fm starting.fm help.fm \
+	   Tutorial.fm ModelData.fm
+
+INDEX = $(BOOK)IX.doc
+TOC = $(BOOK)TOC.doc
+
+DISTFILES = $(BOOK).book $(CHAPTERS) $(INDEX) $(TOC) Imakefile
+
+#include <Docs.rules>
+
+DistfilesTarget($(DISTFILES))
+

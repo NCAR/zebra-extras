@@ -1,0 +1,22 @@
+XCOMM
+XCOMM AdvUsers documentation Imakefile
+XCOMM
+XCOMM $Id: Imakefile,v 1.1 1996-02-19 21:25:33 granger Exp $
+XCOMM
+
+BOOK = AdvUsers
+TITLE = "The zebra advanced user's manual"
+AUTHOR = "corbet@ncar.ucar.edu"
+
+CHAPTERS = DataStore.fm Displaymgr.fm GraphProc.fm \
+	   Intro.fm Structure.fm Title.fm UserInterface.fm
+
+INDEX = $(BOOK)IX.doc
+TOC = $(BOOK)TOC.doc
+
+DISTFILES = $(BOOK).book $(CHAPTERS) $(INDEX) $(TOC) Imakefile
+
+#include <Docs.rules>
+
+DistfilesTarget($(DISTFILES))
+

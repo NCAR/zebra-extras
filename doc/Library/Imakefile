@@ -1,0 +1,22 @@
+XCOMM
+XCOMM Library interface manual Imakefile
+XCOMM
+XCOMM $Id: Imakefile,v 1.1 1996-02-19 21:26:49 granger Exp $
+XCOMM
+
+BOOK = Library
+TITLE = "The Zebra Library Interface"
+AUTHOR = "granger@ncar.ucar.edu"
+
+CHAPTERS = title.fm ipc.fm timer.fm geography.fm pdlib.fm \
+	   graphicsw.fm sound.fm ixfr.fm misc.fm
+
+INDEX = $(BOOK)IX.doc
+TOC = $(BOOK)TOC.doc
+
+DISTFILES = $(BOOK).book $(CHAPTERS) $(INDEX) $(TOC) Imakefile
+
+#include <Docs.rules>
+
+DistfilesTarget($(DISTFILES))
+
