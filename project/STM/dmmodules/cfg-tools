@@ -56,13 +56,13 @@ endprocedure
 
 
 !
-! Call newwindow with the given parameters.  Pass rename to
-! newwindow so that we'll get a unique name instead of failing.
+! Create a graphic window, passing the 'rename' option so that we get a
+! unique name instead of failing.
 !
+prototype fallback Graphic gp gp.init
+
 procedure create-window name string pdname string bmap string
-
-	newwindow #name #pdname forcepd buttonmap #bmap rename
-
+	newgraphic Graphic #name #pdname forcepd buttonmap #bmap rename
 endprocedure
 
 
