@@ -6,7 +6,7 @@ global
 	pd-name:	w_mwr_tseries
 	plot-mode:	real-time
 	trigger:	platform
-	platform:	DsgpmwrlosC1.a1
+	platform:	sgpmwrlosC1.a1
 	plot-time:	now
 	plot-type:	xygraph
 	xy-axis-b-font-scale:	10
@@ -23,7 +23,7 @@ xy-grid
 	field-color:	red
 	do-side-annotation:	true
 	icon:	none
-	platform:	DsgpmwrlosC1.a1
+	platform:	sgpmwrlosC1.a1
 	representation:	simple
 	representation-style:	line
 	x-field:	nothing
@@ -44,7 +44,7 @@ p_xytrace
 	icon-middle-menu:	FieldMenu
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	DsgpmwrlosC1.a1
+	platform:	sgpmwrlosC1.a1
 	representation:	simple
 	representation-style:	line
 	require:	xytrace, simple-color

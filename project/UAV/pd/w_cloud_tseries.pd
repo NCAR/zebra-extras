@@ -4,7 +4,7 @@ global
 	axis-right-space:	50
 	axis-top-space:	30
 	pd-name:	w_cloud_tseries
-	platform:	DsgpmwrlosC1.a1
+	platform:	sgpmwrlosC1.a1
 	plot-mode:	history
 	plot-time:	2-Feb-94,20:41:00
 	plot-type:	xygraph
@@ -29,7 +29,7 @@ xy-grid
 	do-side-annotation:	false
 	field-color:	red
 	icon:	none
-	platform:	DsgpmwrlosC1.a1
+	platform:	sgpmwrlosC1.a1
 	representation:	simple
 	representation-style:	line
 	x-field:	time
@@ -58,7 +58,7 @@ l_xytrace
 	icon-middle-menu:	FieldMenu
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	DsgpmwrlosC1.a1
+	platform:	sgpmwrlosC1.a1
 	representation:	simple
 	representation-style:	cross
 	require:	xytrace, simple-color
@@ -88,7 +88,7 @@ r_xytrace
 	icon-middle-menu:	FieldMenu
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	DsgpmwrlosC1.a1
+	platform:	sgpmwrlosC1.a1
 	representation:	simple
 	representation-style:	point
 	require:	xytrace, simple-color
