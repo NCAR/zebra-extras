@@ -1,7 +1,7 @@
 !
 ! This file contains the default values for some plot description parameters.
 !
-! $Id: defaults.pd,v 1.2 2002-10-17 23:01:05 burghart Exp $
+! $Id: defaults.pd,v 1.3 2002-10-17 23:44:00 burghart Exp $
 !
 defaults
 	pd-name:			defaults
@@ -31,9 +31,17 @@ defaults
 !
 	null-icon:		null
 !
+! Actually apply the data age limits we set below
+!
+	limit-data-age:		true
+!
 ! Age limits for data (i.e., when to make the icon red)
 ! Although we set a default of 15 minutes, a separate value is generally 
 ! used for each platform.  Example:
+!
+!	icon-age-limit:		15m
+!	cp2-icon-age-limit:	2m
+!	goes-icon-age-limit:	120m
 !
 	boundary-age-limit:	4h
 	icon-age-limit:		12h
@@ -43,6 +51,9 @@ defaults
 	ksc-icon-age-limit:	90d
 	cluster-icon-age-limit:	90d
 	spol-icon-age-limit:	5m
+	spol-data-age-limit:	20m
+	goes-icon-age-limit:	30m
+	goes-data-age-limit:	60m
 !
 	history-color:		green
 !
@@ -165,9 +176,9 @@ defaults
 !
 ! Default plot limits.
 !
-	goes-vis-center:	50
-	goes-vis-nsteps:	10
-	goes-vis-step:		10
+	vis-center:	50
+	vis-nsteps:	10
+	vis-step:		10
 	vr-center:		0
 	vr-nsteps:		14
 	vr-step:		2
