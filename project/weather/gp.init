@@ -1,88 +1,27 @@
 !
-! The stout environment graphics process initialization file.
+! The runtime gp.init, for doing the things that every graphics process
+! must do.  In particular, set the require path, require the project-specific
+! global module, and read the field definitions.  Though what's to keep us
+! from moving all of this into the load file and abolishing gp.int
+! altogether?  Hmmm... a far cry from the five-thousand-line init files of
+! the past...
 !
 
+set RequirePath concat('modules,',RequirePath)
+require 'simple-color'
+require 'global'
 
-!
-! Left button menu for the global component.
-!
-define widget global-left intmenu 'Global left menu'
-	title 'Global Options'
-	line
-	entry 'Change Time Span' 'i_adjust_global time-limit-proc'
-	line
-	entry 'Popup Overlay Times Window' 'popup overlay'
-	entry 'Popup Movie Controller' 'popup movie'
-	entry 'Popup position readout widget' 'popup position'
-	submenu 'Movies' movie-control
-endmenu
+procedure ChangeXSect
+        drawline sendendpoints
 
-
-!
-! Movie control menu.
-!
-define widget movie-control intmenu 'movie control'
-	title 'Movie Control'
-	line
-	entry 'Popup Movie Controller' 'popup movie'
-	entry 'Run Movie' 'movie run'
-	entry 'Stop Movie' 'movie stop'
-endmenu
-
-!
-! Time span adjuster
-!
-procedure adj_xy_time
-	local time pd_param("global", "xy-series-span", "string")
-	activate singlestring "global" "xy-series-span" "Time Interval: " #time
-endprocedure
-
-!
-! Adjust the limits on the global component.
-!
-procedure i_adjust_global procparam string
-	local proc pd_paramsearch(icon_component,procparam,"global","string")
-	if (proc <> "(Undefined)")
-		#proc 
-	else
-		dm "beep"
-	endif
-endprocedure
-
-
-!
-! Adjust the limits on a component.
-!
-procedure i_adjust procparam string
-	local rep pd_param(icon_component, "representation", "string")
-	local proc pd_paramsearch(icon_component, procparam, rep, "string")
-	if (proc <> "(Undefined)")
-		#proc #icon_component
-	else
-		dm "beep"
-	endif
-endprocedure
-
-
-!
-! Remove a component.
-!
-procedure i_remove_component
-	dm concat4("remove ", ourname, " ", icon_component)
-endprocedure
-
-
-!
-! Color tweaker for xy plot components
-!
-procedure xy-color color string
-	parameter #icon_component icon-color #color
-	parameter #icon_component field-color #color
-	parameter #icon_component axis-r-color #color
+        local ptype PDParam('global', 'plot-type')
+        parameter global plot-type #ptype
 endprocedure
 
 !
 ! Get our field definitions.
 !
-set FieldsFile concat3(c$libdir, "/", "FieldDefs")
-read #FieldsFile
+require xsect-ctl
+set DefFile (concat (concat (c$libdir, "/"), "FieldDefs"))
+read #DefFile
+
