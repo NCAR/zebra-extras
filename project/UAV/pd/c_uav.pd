@@ -1,21 +1,38 @@
 GLOBAL
 	pd-name:	c_uav
-	plot-mode:	real-time
-	plot-type:	CAP
-	contour-color-table:	ContourMono
-	trigger:	uav
-	altitude:	2000
 c_uav
+	active-icon:	true
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-middle-menu:	uav-field-menu
+	posicon-right-menu:	track-right
+	altitude-control:	true
 	representation:	track
-	platform:	uav
-	time-period:	600s
-	trigger:	uav
-	color:		white
+	platform:	sgpuavtrack
+	field:		alt
+	time-period:	1800s
+	trigger:	platform
+	color:		cyan
+	color-table:	Contour
+	scale-mode:	autoscale
 	show-position:	true
+	limit-proc:	gnarly-track-adjust
 	position-icon:	littleplane
 	sa-scale:	0.025
-	line-width:	3
-	icon-left-menu:		track-left
-	icon-middle-menu:	track-color
-	icon-right-menu:	linewidth
-	icon:		aircraft
+	line-width:	2
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	uav-field-menu
+	icon-right-menu:	track-right
+	icon:		littleplane
+	data-skip:	5
+	arrow:		false
+	arrow-scale:	0.01
+	arrow-color:	black
+	arrow-line-width:	0
+	arrow-interval:	5m
+	x-field:	u_wind
+	y-field:	v_wind
+	annot-time:	false
+	annot-time-interval:	2m
+	annot-time-color:	red
+	annot-time-scale:	10
+	require:	simple-color, track, uav
