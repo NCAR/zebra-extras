@@ -5,7 +5,7 @@
 !
 ! The right way to do this....
 !
-set ui$bitmap_directory concat(c$libdir, "/icons")
+set ui$bitmap_directory concat(c$projdir, "/icons")
 
 !
 ! This is the iconbar menu itself.....
@@ -79,7 +79,7 @@ define widget iconbar menubar " "
 		'shell "$OPENWINHOME/bin/xterm -T NWS_Surface_Hourly -sb +aw -g 180x50+0+40 -bg cyan -e /apps/development/bin/sfc&"'
 
 	endmenu
-	menu 'siros' bitmap /apps/development/UAV/icons/siros
+	menu 'siros' bitmap siros
 		title 'SIROS Time Series'
 		line
 		entry 'Central Facility (also E13, Lamont)' \
@@ -109,7 +109,7 @@ define widget iconbar menubar " "
 		entry 'Vis' 'place_goes vis'
 		entry 'IR' 'place_goes ir'
 	endmenu
-	menu model bitmap /apps/development/UAV/icons/model
+	menu model bitmap model
 		title 'Nested Grid Model'
 		line
 		entry 'Line Contours' 'place_ngm "contour"' 
