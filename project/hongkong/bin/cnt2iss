@@ -1,0 +1,230 @@
+#! /usr/local/bin/perl
+# -*- perl -*-
+#
+# $Id: cnt2iss,v 1.1 1996-01-31 22:26:41 granger Exp $
+#
+# cnt2iss converts Radian consensus temperature files from RASS
+# to files suitable for ingest by 'profiler_ingest',
+# which was written for the iss profiler.
+#
+# Modified by Gary Granger (Jan 1996) from the cnw2iss script written
+# by Mike Dixon, May 1994
+#
+#
+# Usage: cnt2iss consensus_file target_top_dir n_data_sets dir1 dir2 ....
+#
+# The target files will be placed in the relevant subdirectories. The file name
+# will be dir_name.yyyymmdd.hhmmss
+#
+
+#
+# subroutine to read ahead to a line containing the given token
+#
+
+sub read_to_token {
+
+  local($token) = $_[0];
+
+  while ($fline = <CNT>) {
+
+    chop ($fline);
+
+    if ($fline =~ /$token/) {
+      return;
+    }
+    
+  }
+
+}
+
+#
+# subroutine to read ahead to a line containing the given token
+# and set the token's value
+#
+
+sub set_token {
+
+  local($token) = $_[0];
+
+  while ($fline = <CNT>) {
+
+    chop ($fline);
+
+    if ($fline =~ /$token/) {
+      ($var) = ($fline =~ m%\s*\S+\s+(\S+)%);
+      return ($var);
+    }
+  
+  }
+
+}
+
+#
+# main routine
+#
+
+#
+# check usage
+#
+
+($prog = $0) =~ s%.*/%%;
+
+$usage = "Usage : $prog <Radian .cnt file> <top_dir> ";
+
+if ($#ARGV != 1) {
+
+  print("$usage\n");
+  exit(-1);
+
+}
+
+$cnt_file_name = shift(@ARGV);
+$top_dir = shift(@ARGV);
+
+#
+# Open consensus file
+#
+
+if (open (CNT, $cnt_file_name) == 0) {
+  printf (STDERR "Cannot open $cnt_file_name\n");
+  printf (STDERR "$usage\n");
+  exit(-1);
+}
+
+#
+# deal with each data set in turn
+#
+
+$end_of_file = 0;
+while ( $end_of_file == 0 ) {
+
+#
+# get the date, time etc.
+#
+  if ($fline = <CNT>) {
+
+    $lat = &set_token("Lat");
+    $lon = &set_token("Lon");
+    $elev = &set_token("Elev");
+    $year = &set_token("YY");
+    $month = &set_token("MM");
+    $day = &set_token("DD");
+    $hour = &set_token("HH");
+    $min = &set_token("MM");
+    $sec = &set_token("SS");
+#   $pulsew = &set_token("pw");
+
+  }
+  else {   # end-of-file
+    exit(0);
+  }
+
+#  if ( $pulsew == 400 )  {
+#     $dir = "profl";
+#  }
+#  elsif ( $pulsew == 700 ) {
+#     $dir = "profm";
+#  }
+#  elsif ( $pulsew == 1400 ) {
+#     $dir = "profh";
+#  }
+#  else {
+#     printf( STDERR "Unknown pulse width in $cnt_file_name... exiting.\n");
+#     exit(-1);
+#  }
+  $dir = "rass";
+  
+#
+# space forward to header before the data
+#
+  
+  &read_to_token("height");
+
+#
+# read in the data lines
+#
+
+  $end_of_set = 0;
+  $nhts = 0;
+
+  while (!$end_of_set ) {
+
+    if ($fline = <CNT>) {
+
+#      chop ($fline);
+
+      if ($fline =~ /\$/) {
+	$end_of_set = 1;
+      }
+
+    } else {
+
+      $end_of_file = 1;
+
+    }
+
+    if (!$end_of_set && !$end_of_file ) {
+
+#      print $fline, "\n";
+#      print "nhts: ", $nhts, "\n";
+
+	($ht[$nhts], $temp[$nhts]) =
+	    ($fline =~ m%^\s*(\S+)\s+(\S+)\s+(\S+)%);
+
+#
+# change heights to meters
+#
+
+      $ht[$nhts] *= 1000.0;
+      $nhts++;
+
+    }
+
+  } # while
+
+  close (CNT);
+
+#
+# compute the delta and first values
+#
+
+  $first = $ht[0];
+  $delta = $ht[1] - $ht[0];
+
+#
+# write to file
+#
+
+  $target_file = $top_dir."/".$dir."/".$dir.".19".$year.$month.$day.".".$hour.$min.$sec;
+
+  if (open (TARGET, ">".$target_file) == 0) {
+    printf (STDERR "Cannot open file %s for writing\n", $target_file);
+    printf (STDERR "$usage\n");
+    exit(-1);
+  }
+
+  printf(STDOUT "%s creating file '%s'\n", $prog, $target_file);
+
+  printf(TARGET "TIME\t%d %d %d\n", $hour, $min, $sec);
+  printf(TARGET "DATE\t%d %d %d\n", $day, $month, $year);
+  printf(TARGET "LAT\t%g\n", $lat);
+  printf(TARGET "LON\t%g\n", $lon);
+  printf(TARGET "ELEV\t%d\n", $elev);
+  printf(TARGET "DELTA\t%d\n", $delta);
+  printf(TARGET "FIRST\t%d\n", $first);
+  printf(TARGET "N_FIELDS\t2\n");
+  printf(TARGET "BAD_FLAG\t9999.0\n");
+  printf(TARGET "height tv\n");
+
+  for ($iht = 0; $iht < $nhts; $iht++) {
+
+      printf (TARGET "%g\t%g\n", $ht[$iht], $temp[$iht]);
+
+  } # iht
+
+  close (TARGET);
+
+} # while not end-of-file
+
+exit (0);
+

@@ -1,0 +1,135 @@
+#!/usr/local/bin/perl
+#
+# $Id: ingest_pump_house,v 1.1 1996-01-31 22:26:48 granger Exp $
+
+$platform = "pumphouse";
+$data_ingest = "/zeb/data_ingest";
+$ingest_dir = "$data_ingest/$platform";
+$archive_dir = "$data_ingest/archive/$platform";
+@subplats = ('profl', 'profm', 'profh', 'rass');
+$forever = 1;
+# $Debug = 1;
+
+sub System
+{
+    local ($cmd) = @_;
+    print "$cmd\n" if $Debug;
+    system ($cmd) unless $Debug;
+}
+
+
+while ($forever) {
+
+#
+# change to ingest raw directory
+#
+  
+  $raw_subdir = "/raw";
+  chdir ($ingest_dir.$raw_subdir);
+
+#
+# get raw consensus winds file list
+#
+  open(CNWLIST, "ls *.cnw 2> /dev/null |");
+#
+# move through the file list
+#
+  while ($cnw_file = <CNWLIST>)
+  {
+      chop($cnw_file);
+      $cnw_path = $ingest_dir.$raw_subdir."/".$cnw_file;
+#
+# filter the cnw file to create iss-format profiler files
+#
+      &System("cnw2iss $cnw_path $ingest_dir");
+#
+# move the file to the archive directory
+#
+      &System("mv $cnw_file $archive_dir$raw_subdir");
+
+  } # while ($cnw_file ...
+  close (CNWLIST);
+
+#
+# get raw spectral file list
+#
+  open(SPLIST, "ls *.sp* 2> /dev/null |");
+#
+# move through the file list
+#
+  while ($sp_file = <SPLIST>)
+  {
+      chop($sp_file);
+#
+# move the file to the archive directory
+#
+      printf (STDOUT "mv $sp_file $archive_dir$raw_subdir\n");
+      &System("mv $sp_file $archive_dir$raw_subdir");
+
+  } # while ($sp_file ...
+  close (SPLIST);
+
+#
+# get raw consensus temperature file list
+#
+  open(CNTLIST, "ls *.cnt 2> /dev/null |");
+#
+# move through the file list
+#
+  while ($cnt_file = <CNTLIST>)
+  {
+      
+      chop($cnt_file);
+      $cnt_path = $ingest_dir.$raw_subdir."/".$cnt_file;
+#
+# filter the cnt file to create iss-format profiler files
+#
+      &System("cnt2iss $cnt_path $ingest_dir");
+#
+# move the file to the archive directory
+#
+      &System("mv $cnt_file $archive_dir$raw_subdir");
+
+  } # while
+  close (CNTLIST);
+
+#
+# loop through the data sub-platforms
+#
+  foreach $subplat (@subplats) 
+  {
+#
+# change to ingest directory
+#
+      chdir ($ingest_dir."/".$subplat);
+#
+# get subplat consensus file list
+#
+      open(SUBPLATLIST, "ls $subplat* 2> /dev/null |");
+#
+# move through the file list
+#
+      while ($subplat_file = <SUBPLATLIST>)
+      {
+	  chop($subplat_file);
+#
+# ingest the file into zeb
+#
+	  &System ("prof_ingest -p $platform/$subplat -f $subplat_file");
+#
+# move the file to the archive directory
+#
+	  &System ("mv $subplat_file $archive_dir/$subplat");
+
+      } # while ($subplat_file ...
+
+      close (SUBPLATLIST);
+
+  } # foreach ($subplat) ...
+
+  sleep (300);
+
+} # while ($forever)
+
+exit(0);
+
