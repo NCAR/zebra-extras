@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.12 2002-05-21 15:13:36 burghart Exp $
+! $Id: IconBar,v 1.13 2002-05-21 17:23:17 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -175,6 +175,12 @@ define widget iconbar menubar " "
 		entry 'Radar locations' 'do_radar_locs'
 		entry 'Radar composite boundary' \
 			'putc3 p_map platform composite_bounds icon rectangle color cyan4'
+		line
+		entry 'AERI sites' 'putc0 p_aeri'
+		entry 'ISFF sites' 'putc0 p_isff_sites'
+		entry 'Extra NCAR surface sites' 'putc0 p_ncarsfc_sites'
+		entry 'NWS sites' 'putc0 p_nws'
+		line
 !		entry 'Optimizer boundary' 'putc0 p_opt_boundary'
 		entry 'Window Bounds' 'put_wbounds p_wbounds'
 	endmenu
@@ -214,7 +220,7 @@ endprocedure
 ! Add radar locations
 !
 procedure do_radar_locs
-	local radars "spol,katx,krtx"
+	local radars "spol,KAMA,KDDC,KFDR,KFTG,KFWS,KGLD,KICT,KINX,KLBB,KTLX,KVNX"
 	putc2 p_loc active-icon false platform #radars
 endprocedure
 
