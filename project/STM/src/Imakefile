@@ -1,4 +1,4 @@
-XCOMM $Id: Imakefile,v 1.1 1995-09-10 14:48:08 granger Exp $
+XCOMM $Id: Imakefile,v 1.2 1995-09-11 07:39:40 granger Exp $
 
 PROGRAMS = ds.config IconBar dm.config dm.pd \
 	   cf-active-loc ef-active-loc bf-active-loc
@@ -10,7 +10,7 @@ DISTFILES = Imakefile $(CPPSRCS)
 DEFDATADIR = /apps/data/sgp/platforms
 PROJECT = UAV
 
-DEFINES = -DPROJECT=$(PROJECT) -D$(PROJECT) -DDEFDATADIR=$(DEFDATADIR)
+DEFINES = -DPROJECT=$(PROJECT) -D$(PROJECT) -DDEFDATADIR=\"$(DEFDATADIR)\"
 
 PROJDIR = ..
 MODULEDIR = $(PROJDIR)/modules
