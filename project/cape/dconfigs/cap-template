@@ -1,0 +1,12 @@
+! Auto-saved display configuration.
+config cap-template
+	window 'cape' 5 5 700 700 gp gp.init
+		description 'cap-template-cape'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	widget 'iconbar' 191 710 514 84
+	window 'Event logger' 5 772 700 125 gp
+		nongraphic
+	endwindow
+endconfig

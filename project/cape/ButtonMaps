@@ -1,0 +1,117 @@
+!
+! The file for display manager button maps.
+!
+!
+!
+
+!
+! Basic, vanilla stuff.
+!
+buttonmap basic
+	local	mb-s-left 'drawbox pushcoord'
+	local	m	'popup movie'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	b	'popcoords'
+	local	h	'help'
+endmap
+
+!
+! Buttons for radar type windows, with radar toggling, xsect control, and
+! so on.
+!
+buttonmap radar
+	local	mb-s-left 'drawbox pushcoord'
+	local	mb-right 'toggle_radar'
+	local	mb-s-middle 'userannot'
+	local	F1 	'toggle_radar'
+	local	i	'popup insert'
+	local	a	'popup annotate'
+	local	b	'popcoords'
+	local	g	'popup position'
+	local	m	'popup movie'
+	local	p	'polyline l_boundary'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	t	'popup overlay'
+	local	F29	'altstep 99'
+	local	F35	'altstep -99'
+	local 	F31	'toggle_radar'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	u	'altstep 1'
+	local	d	'altstep -1'
+	local	Left	'DoZoom -225 75 -150 150'
+	local	Right	'DoZoom -93 22 -43 72'
+	local	h	'help'
+endmap
+
+
+
+
+buttonmap big
+	local	mb-s-left 'drawbox pushcoord'
+	local	mb-left	'getposition'
+	local	mb-middle 'drawline sendendpoints'
+	local	mb-s-middle 'userannot'
+	local	mb-right 'toggle_main'
+	local	F1 	'toggle_main'
+	local	a	'popup annotate'
+	local	i	'popup insert'
+	local	b	'popcoords'
+	local	f	'toggle_satellite'
+	local	g	'popup position'
+	local	m	'popup movie'
+	local	p	'polyline l_spotlight'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	t	'popup overlay'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	u	'altstep 1'
+	local	d	'altstep -1'
+	local	Left	'DoZoom -225 75 -150 150'
+	local	Right	'DoZoom -93 22 -43 72'
+	local	F29	'altstep 99'
+	local	F35	'altstep -99'
+	local 	F31	'toggle_main'
+	local 	h	'help'
+	local	l	'popup LineWidth'
+	local	k	'activate stationwidget c_nowcast nowcast'
+	local	F5	'parameter global altitude 0.5'
+	local	F2	'parameter global altitude 2.0'
+endmap
+
+
+buttonmap sounding
+	local	mb-left 'drawbox pushcoord'
+	local	b	'popcoords'
+	local	m	'popup movie'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	u	'altstep 1'
+	local	d	'altstep -1'
+	local	r	'movie run'
+	local	s	'movie stop'
+	dm	c	'toggle_snd'
+	local	h	'help'
+endmap
+
+buttonmap aircraft
+!	menu mb-left 'airfield'
+	local	m	'popup movie'
+	local	h	'help'
+endmap
+
+!
+! Buttons for XY plots
+!
+buttonmap xyplot
+	local	mb-s-left	'drawbox zoom'
+	local	b	'unzoom'
+	local	m	'popup movie'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	t	'popup overlay'
+	local	h	'help'
+endmap

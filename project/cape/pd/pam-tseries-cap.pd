@@ -1,0 +1,39 @@
+global
+	pd-name:	pam-tseries-cap
+	plot-mode:	history
+	plot-time:	2-Aug-91,22:00:00
+	plot-type:	CAP
+	x-max:	44.3142
+	x-min:	-218.3734
+	y-max:	-68.5615
+	y-min:	123.0586
+p_map
+	color:	yellow
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	0
+	platform:	default
+	representation:	overlay
+	require:	simple-color
+p_station
+	active-icon:	true
+	annot-field-menu-extras:	station|Station Identification,none
+	annot-left-menu:	FieldMenu
+	annot-middle-menu:	FieldMenu
+	arrow-scale:	0.01
+	do-shape:	true
+	field-select-command:	p_toggle_quadrant
+	icon-field-menu-extras:	station|Station Identification
+	icon-left-menu:	standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	p-station-right
+	limit-proc:	adj_arrow_scale
+	platform:	mesonet
+	posicon-middle-menu:	FieldMenu
+	quad4:	station
+	representation:	station
+	require:	station, simple-color
+	u-field:	u_wind
+	v-field:	v_wind

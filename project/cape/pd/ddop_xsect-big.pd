@@ -1,0 +1,132 @@
+global
+	altitude:	0.20
+	altitude-label:	Alt: 0.20 km MSL
+	comment:	Big window post-processing plot description.
+	icon-middle-menu:	DataAvailable
+	kluge-force-update:	kluge
+	pd-name:	ddop_xsect-big
+	plot-mode:	history
+	plot-time:	2-Aug-91,22:40:00
+	plot-type:	CAP
+	radar-space:	false
+	time-frames:	2
+	trigger:	ddop
+	x-max:	25.6250
+	x-min:	-66.8750
+	y-max:	87.7641
+	y-min:	-58.7906
+c_ddop_fillcont
+	color-moon:	cyan
+	color-table:	cook16_bk
+	contour-ref_cp4-center:	30
+	contour-ref_cp4-step:	10
+	field:	ref_cp4
+	icon:	ddop
+	icon-middle-menu:	ddop-middle
+	icon-right-menu:	FieldMenu
+	label-blanking:	false
+	platform:	ddop
+	representation:	filled-contour
+	trigger:	2m
+	u_wind-center:	0.0
+	u_wind-step:	10
+c_rings
+	azimuth-interval:	30
+	color:	khaki
+	field:	range-rings
+	icon:	rings
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-menu
+	platform:	cp4
+	representation:	overlay
+	ring-interval:	20
+c_radar_loc
+	color:	white
+	field:	location
+	icon:	radar-loc
+	icon-middle-menu:	simple-color
+	label-size:	0.025
+	platform:	cp2,cp3,cp4,nmt,fl2c,und,mit,ptk
+	representation:	overlay
+c_map
+	color:	tan
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	platform:	cape
+	representation:	overlay
+c_opt_bdry
+	closed-boundary:	true
+	color:	yellow
+	field:	boundary
+	icon:	opt_bdry
+	icon-middle-menu:	simple-color
+	icon-right-menu:	bdry-right
+	label:	none
+	line-width:	2
+	platform:	boundary
+	representation:	overlay
+	trigger:	boundary
+	trigger-global:	true
+c_station_plot
+	arrow-scale:	0.01
+	color:	white
+	grid:	false
+	icon:	meso_stations
+	icon-left-menu:	meso-leftmenu
+	icon-middle-menu:	meso-winds-mid
+	icon-right-menu:	meso-station-options
+	limit-proc:	adj_arrow_scale
+	line-width:	3
+	platform:	sfc
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+c_lightning
+	color-table:	smallrevgray
+	icon:	light
+	icon-middle-menu:	lightning-color
+	platform:	lightning
+	representation:	lightning
+	time-step:	2m
+	trigger:	lightning
+	trigger-global:	true
+c_sounding_loc
+	color:	white
+	field:	location
+	icon:	sounding-loc
+	icon-middle-menu:	simple-color
+	platform:	tco,dpk,dun,day,fel,rus
+	representation:	overlay
+c_ddop_map
+	color:	yellow
+	field:	map
+	icon:	ddop-lobes
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	2
+	platform:	cape_ddop
+	representation:	overlay
+c_ddop
+	arrow-scale:	0.005
+	color:	white
+	degrade:	3
+	every-sweep:	true
+	icon:	ddop_vector
+	icon-left-menu:	ddop-left
+	icon-middle-menu:	simple-color
+	icon-right-menu:	line-width
+	platform:	ddop
+	representation:	vector
+	trigger-global:	true
+	u-field:	u_wind
+	v-field:	v_wind
+c_wbounds
+	color:	black
+	field:	wbounds
+	icon:	wbounds
+	icon-middle-menu:	simple-color
+	line-width:	2
+	platform:	xsect
+	representation:	overlay

@@ -1,0 +1,5 @@
+#!/bin/csh
+#
+# Provide a reasonable default config and that's it.
+#
+if ( ! $?DEFAULT_CONFIG ) setenv DEFAULT_CONFIG empty

@@ -1,0 +1,12 @@
+! Auto-saved display configuration.
+config pam-tseries
+	widget 'iconbar' 628 4 228 166
+	window 'cap' 2 2 616 499 gp gp.init
+		description 'pam-tseries-cap'
+		buttonmap 'basic'
+	endwindow
+	window 'tseries' 2 507 1116 386 gp gp.init
+		description 'pam-tseries-tseries'
+		buttonmap 'default'
+	endwindow
+endconfig

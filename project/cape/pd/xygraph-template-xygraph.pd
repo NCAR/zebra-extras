@@ -1,0 +1,13 @@
+global
+	pd-name:	xygraph-template-xygraph
+	plot-type:	xygraph
+xy-grid
+	axis-b-label:	Time
+	axis-b-tic-interval:	10m
+	axis-bottom:	true
+	do-side-annotation:	false
+	icon:	none
+	platform:	mesonet/1
+	representation:	simple
+	x-field:	time
+	y-field:	nothing

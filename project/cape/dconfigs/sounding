@@ -1,0 +1,13 @@
+! Auto-saved display configuration.
+config sounding
+	widget 'iconbar' 0 612 606 66
+	window 'cap' 4 5 600 601 gp gp.init
+		description 'sounding-cap'
+		buttonmap 'radar'
+		forcepd
+	endwindow
+	window 'skewt' 610 4 540 735 gp gp.init
+		description 'sounding-skewt'
+		buttonmap 'default'
+	endwindow
+endconfig

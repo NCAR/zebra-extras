@@ -1,0 +1,8 @@
+! Auto-saved display configuration.
+config xygraph-template
+	widget 'iconbar' 1072 7 70 481
+	window 'xygraph' 12 9 568 377 gp gp.init
+		description 'xygraph-template'
+		buttonmap 'default'
+	endwindow
+endconfig

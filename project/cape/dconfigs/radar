@@ -1,0 +1,8 @@
+! Auto-saved display configuration.
+config radar
+	widget 'iconbar' 917 9 231 166
+	window 'radar' 3 1 908 826 gp gp.init
+		description 'radar-radar'
+		buttonmap 'radar'
+	endwindow
+endconfig

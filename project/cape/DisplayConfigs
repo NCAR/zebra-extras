@@ -1,0 +1,26 @@
+!
+! Display configurations.  At this point, there are almost no real configs
+! in this file, but we do set up the parameters that the config files
+! depend on.
+!
+	set ConfigDir './dconfigs'
+	set ConfigPD './pd'
+	pddir #ConfigPD
+
+!
+! Defaults for dynamically-created windows.
+!
+	set default_exec "gp"
+	set default_arg1 "gp.init"
+!
+! The initialization file.
+!
+	set init_file "gp.init"
+	set gp_exec "gp"
+	set clock_exec (concat (c$bindir, "/fccclock"))
+!
+! An empty config just to clear out the screen.
+!
+	config empty
+        	widget 'iconbar' 1070 5 70 580
+	endconfig

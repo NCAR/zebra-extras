@@ -1,0 +1,509 @@
+!
+! All the definitions required to make the iconbar work.
+!
+
+!
+! The right way to do this....
+! set ui$bitmap_directory concat(getenv("ZEBHOME"), "/zeb/lib/icons")
+!
+set ui$bitmap_directory concat(c$libdir, "/icons")
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	!
+	! All this stuff tells the system to put it, unadorned by headers and
+	! title bars, where we want it.  DM does "override" by itself now,
+	! since this iconbar appears in the display config, so we don't
+	! bother with it here.
+	!
+	noheader
+	! size 230 80
+	location 100 100
+	! vertical
+	! override
+	!
+	! Now we can define the menus themselves.
+	!
+	menu 'global' bitmap global
+		title 'Zeb control options'
+		line
+		entry 'Simple radar configuration' 'display radar' \
+			(dm$config = 'radar')
+		entry 'PAM CAP and time series' 'display pam-tseries' \
+			(dm$config = 'pam-tseries')
+		entry 'Sounding display' 'display sounding' \
+			(dm$config = 'sounding')
+		entry 'Empty configuration' 'display empty' \
+			(dm$config = 'empty')
+		entry 'Dual Doppler Cross-section' 'display ddop_xsect' \
+			(dm$config = 'ddop_xsect')
+		line
+		entry 'Time Widget'	'popup time'
+		entry 'Configuration editing widget' 'popup ConfigEdit'
+		entry 'Data Store Display Widget' 'shell "dsdwidget &"'
+		entry 'Data store management widget' 'shell "dsmanage &"'
+		line
+		entry 'Shut down Zeb system' 'sound flush; shutdown'
+	endmenu
+	menu help bitmap iconbar-help
+		title 'Zeb Help Access'
+		line
+		entry 'Introduction' 'help'
+		entry 'On-line Topics' 'help tablecontents'
+		entry 'Guide to Documentation' 'help documentation'
+		entry 'Shutting Down' 'help shutdown'
+	endmenu
+	menu printer bitmap printer
+		title 'Color prints'
+		line
+		entry 'Print widget' 'popup hardcopy'
+	endmenu
+	menu 'cp4' bitmap cp4
+		title 'CP4 Doppler Radar'
+		line
+		entry 'Velocity' 'putc2 p_radar platform cp4 field velocity'
+		entry 'Reflectivity' 'putc2 p_radar platform cp4 field reflectivity'
+		line
+		entry 'Reflectivity Contours' 'put_component c_ref_contour'
+	endmenu
+	menu Dual-Doppler bitmap dual
+		title 'Dual-Doppler Analysis'
+		line
+		submenu 'Line Contoured Data' 'LineDDop'
+		submenu 'Filled Contour Data' 'FilledDDop'
+		line
+		entry 'Wind Vectors' 'put_component c_ddop'
+	endmenu
+	menu mesonet bitmap mesonet
+		title 'Mesonet Data'
+		line
+		submenu 'Pam Line Contoured Data' 'LineMesonet'
+		submenu 'Pam Filled Contour Data' 'FilledMesonet'
+		line
+		entry 'Pam Wind Vectors' 'sendout p_irg_winds pick'
+		line
+		entry 'Pam Station Plot' 'sendout p_station pick'
+!		line
+!		line
+!		submenu 'Pam and KSC Line Contoured Data' 'KSCLineMesonet'
+!		submenu 'Pam and KSC Filled Contour Data' 'KSCFilledMesonet'
+!		line
+!		entry 'Pam and KSC Wind Vectors' 'put_component c_KSC_meso_winds'
+!		line
+!		entry 'Pam and KSC Station Plot' 'put_component c_KSC_station_plot'
+	endmenu
+	menu lightning bitmap biglightning
+		title 'LLP Lightning Network'
+		line
+		entry 'Lightning Data' 'put_component c_lightning'
+		entry 'LLP Area Overlay' 'put_component c_llp_map'
+	endmenu
+	menu fieldmill bitmap bigfmill
+		title 'Field Mill Data'
+		line
+		entry 'Field strength contours' \
+	     'putc3 p_contour platform field-mill field fstrength icon fmill'
+	endmenu
+	menu satellite bitmap satellite
+		title 'Satellite Data'
+		line
+		entry 'Visible' 'putc2 p_raster platform goes field visr'
+		entry 'Infra-Red' 'putc2 p_raster platform goes field ir'
+	endmenu
+	menu aircraft bitmap aircraft
+		title 'Aircraft'
+		line
+		entry 'N312D (Storm 1)' 'putc1 p_simple_track platform n312d'
+		entry 'N2UW (Storm 2)' 'putc1 p_simple_track platform n2uw'
+		entry 'N42RF (Storm 3)' 'putc1 p_simple_track platform n42rf'
+		entry 'N431NA (Storm 4)' 'putc1 p_simple_track platform n431na'
+		entry 'N4706B (Storm 5)' 'putc1 p_simple_track platform n4706b'
+		entry 'N566NA (Storm 6)' 'putc1 p_simple_track platform n566na'
+		entry 'N709NA (Storm 7)' 'putc1 p_simple_track platform n709na'
+		entry 'N510MH (Storm 8)' 'putc1 p_simple_track platform n510mh'
+		entry 'N9929J (Storm 9)' 'putc1 p_simple_track platform n9929j'
+		line
+!		entry 'N312D_GEN (Storm 1)' 'putc2 p_track platform n312d_gen field palt'
+		entry 'N312D_GEN (Storm 1)' 'PutScalar n312d_gen palt'
+
+	endmenu
+	menu 'overlays' bitmap overlays
+		title 'Static Overlays'
+		line
+		submenu 'Grids and Range Rings' GridsAndRings
+		submenu 'Maps' 'Maps'
+		submenu 'Locations' LocMenu
+		submenu 'Boundaries' IBboundary
+		line
+		entry 'Window Bounds' 'put_wbounds c_wbounds'
+	endmenu
+enddef
+
+
+!
+! Location lists.
+!
+set Radars 'cp2,cp3,cp4,nmt,fl2c,und,mit,nmt,ptk'
+set ClassStations 'tco,dpk,dun,day,fel,rus,mobile'
+
+
+!
+! The various maps.
+!
+define widget Maps intmenu 'Maps'
+	title 'Map overlays'
+	line
+	entry 'Coasts and Waterways' 'putc1 p_map platform cape'
+	entry 'Roads' 'putc1 p_map platform cape_roads'
+	entry 'LLP Network Area' 'putc1 p_map platform cape_llpnet'
+	entry 'Restricted Air Space' 'putc1 p_map platform cape_aircraft'
+	entry 'Dual Doppler Lobes' 'putc2 p_map platform cape_ddop icon ddop-lobes'
+	line
+endmenu
+
+
+!
+! Location submenu.
+!
+define widget LocMenu intmenu 'Location menu'
+	title 'Static locations'
+	line
+	entry 'Ops Center' 'put_component c_ops-ctr'
+	entry 'Radars' 'putc2 p_loc platform #Radars icon radar-loc'
+	entry 'VOR/DME' 'put_component c_vor_loc'
+	entry 'CLASS stations' 'putc2 p_iss_loc platform #ClassStations icon sounding-loc'
+endmenu
+
+!
+! The submenu for boundary selection.
+!
+define widget IBboundary intmenu 'Icon bar boundary menu'
+	title 'Boundary overlays'
+	line
+	entry 'Scan optimizer boundary' 'PutCompX c_opt_bdry platform boundary'
+	entry 'Spotlight' 'put_component c_spotlight'
+	entry 'Nowcast'	'put_component c_nowcast'
+	submenu 'CaPOW' CapowPlats 
+endmenu
+
+
+!
+!Submenu for Capow platforms.
+!
+define widget CapowPlats intmenu 'Capow Platforms'
+	title 'Capow Platforms'
+	line
+	entry 'Boundary' 'put_component c_capow_bdry'
+	entry 'Core' 'put_component c_capow_core'
+	entry 'Nowcast' 'put_component c_capow_nowcast'
+endmenu
+
+
+!
+! Submenu for grids and range rings.
+!
+define widget GridsAndRings intmenu 'grid and rings and nifty stuff'
+	title 'Grids, rings, and such'
+	line
+	entry 'CP2 range rings' 'putc1 p_rings platform cp2'
+	entry 'CP3 range rings' 'putc1 p_rings platform cp3'
+	entry 'CP4 range rings' 'putc1 p_rings platform cp4'
+	entry 'NMT range rings' 'putc1 p_rings platform nmt'
+	line
+	entry 'Melbourne (MLB) VOR/DME' 'PutCompX c_vor platform vor-melbourne'
+	entry 'Orlando (ORL) VOR/DME' 'PutCompX c_vor platform vor-orlando'
+	entry 'Ormond (OMN) VOR/DME' 'PutCompX c_vor platform vor-ormond'
+	entry 'Vero Beach (VRB) VOR/DME' 'PutCompX c_vor platform vor-vero'
+	line
+	entry 'CP2 azimuth limits' 'put_component c_az_lims'
+	line
+	entry 'Cartesian grid overlay (km)' 'sendout p_kmgrid pick'
+	entry 'Cartesian grid overlay (lat/lon)' 'sendout p_llgrid pick'
+endmenu
+
+
+!
+! Menus for mesonet contours.  Two completely separate menus required
+! for the filled and line cases, alas.
+!
+define widget FilledMesonet intmenu 'Filled mesonet contour selection'
+	title 'Mesonet data in filled contours'
+	line
+	entry 'Temperature' \
+ 		'putc1 p_fcontour field tdry'
+	entry 'Dewpoint Temperature' \
+		'putc1 p_fcontour field dp'
+	entry 'Relative Humidity' \
+		'putc1 p_fcontour field rh'
+	entry 'Raw Pressure' \
+		'putc1 p_fcontour field pres'
+	entry 'Corrected Pressure' \
+	 	'putc1 p_fcontour field cpres0'
+	entry 'Mixing Ratio' \
+		'putc1 p_fcontour field mr'
+	entry 'Potential Temperature' \
+		'putc1 p_fcontour field pt'
+	entry 'Equivalent Potential Temperature' \
+		'putc1 p_fcontour field ept'
+	entry '15-Minute Rain Accumulation' \
+		'putc1 p_fcontour field raina15'
+	entry '60-Minute Rain Accumulation' \
+		'putc1 p_fcontour field raina60'
+endmenu
+
+define widget KSCFilledMesonet intmenu 'Filled mesonet contour selection'
+	title 'Mesonet data in filled contours'
+	line
+	entry 'Temperature' 		'PutBCompField c_KSC_fmesonet tdry false'
+	entry 'Dewpoint Temperature'	'PutBCompField c_KSC_fmesonet dp false'
+	entry 'Relative Humidity'	'PutBCompField c_KSC_fmesonet rh false'
+	entry 'Raw Pressure'		'PutBCompField c_KSC_fmesonet pres false'
+	entry 'Corrected Pressure' 	'PutBCompField c_KSC_fmesonet cpres0 false'
+	entry 'Mixing Ratio'		'PutBCompField c_KSC_fmesonet mr false'
+	entry 'Potential Temperature'	'PutBCompField c_KSC_fmesonet pt false'
+	entry 'Equivalent Potential Temperature' 'PutBCompField c_KSC_fmesonet ept false'
+	entry '15-Minute Rain Accumulation' 'PutBCompField c_KSC_fmesonet raina15 false'
+	entry '60-Minute Rain Accumulation' 'PutBCompField c_KSC_fmesonet raina60 false'
+endmenu
+
+define widget LineMesonet intmenu 'Line mesonet contour selection'
+	title 'Mesonet data in line contours'
+	line
+	entry 'Temperature' 		'putc1 p_contour field tdry'
+	entry 'Dewpoint Temperature'	'putc1 p_contour field dp'
+	entry 'Relative Humidity'	'putc1 p_contour field rh'
+	entry 'Raw Pressure'		'putc1 p_contour field pres'
+	entry 'Corrected Pressure' 	'putc1 p_contour field cpres0'
+	entry 'Mixing Ratio'		'putc1 p_contour field mr'
+	entry 'Potential Temperature'	'putc1 p_contour field pt'
+	entry 'Equivalent Potential Temperature' 'putc1 p_contour field ept'
+	entry '15-Minute Rain Accumulation' 'putc1 p_contour field raina15'
+	entry '60-Minute Rain Accumulation' 'putc1 p_contour field raina60'
+endmenu
+
+
+define widget KSCLineMesonet intmenu 'Line mesonet contour selection'
+	title 'Mesonet data in line contours'
+	line
+	entry 'Temperature' 		'PutCompField c_KSC_mesonet tdry'
+	entry 'Dewpoint Temperature'	'PutCompField c_KSC_mesonet dp'
+	entry 'Relative Humidity'	'PutCompField c_KSC_mesonet rh'
+	entry 'Raw Pressure'		'PutCompField c_KSC_mesonet pres'
+	entry 'Corrected Pressure' 	'PutCompField c_KSC_mesonet cpres0'
+	entry 'Mixing Ratio'		'PutCompField c_KSC_mesonet mr'
+	entry 'Potential Temperature'	'PutCompField c_KSC_mesonet pt'
+	entry 'Equivalent Potential Temperature' 'PutCompField c_KSC_mesonet ept'
+	entry '15-Minute Rain Accumulation' 'PutCompField c_KSC_mesonet raina15'
+	entry '60-Minute Rain Accumulation' 'PutCompField c_KSC_mesonet raina60'
+endmenu
+
+!
+! Menus for dual doppler contours.
+!
+define widget LineDDop intmenu 'Line ddop contour selection'
+	title 'Dual Doppler Data in Line Contours'
+	line
+	entry 'Divergence Contours' 'PutCompX c_ddop_cont field div'
+	entry 'Vertical Velocity Contours' \
+		'PutCompX c_ddop_cont field w_wind'
+	entry 'Vertical Vorticity Contours' 'PutCompX c_ddop_cont field xvort'
+	entry 'Cp4 Interpolated Reflectivity' \
+		'PutCompX c_ddop_cont field ref_cp4'
+	entry 'Cp3 Interpolated Reflectivity' \
+		'PutCompX c_ddop_cont field ref_cp3'
+endmenu
+
+define widget FilledDDop intmenu 'Filled ddop contour selection'
+	title 'Dual Doppler Data in Filled Contours'
+	line
+	entry 'Divergence Contours' 'PutBCompField c_ddop_fillcont div false'
+	entry 'Vertical Velocity Contours' \
+		'PutBCompField c_ddop_fillcont w_wind false'
+	entry 'Vertical Vorticity Contours' 'PutBCompField c_ddop_fillcont kvort false'
+	entry 'Cp4 Interpolated Reflectivity' \
+		'PutBCompField c_ddop_fillcont ref_cp4 false'
+	entry 'Cp3 Interpolated Reflectivity' \
+	'PutBCompField c_ddop_fillcont ref_cp3 false'
+endmenu
+
+!
+! The simple case: add a component to a window with no changes.
+!
+procedure put_component name string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+!
+! If this component is already present in the window, remove it.  Otherwise
+! put it in.
+!
+!	if (pd_defined (target_win, name, "platform"))
+!		message 'Already there'
+!		remove #target_win #name
+!	else
+		add #name #name #target_win
+!	endif
+endprocedure
+
+
+
+!
+! Add a component to a window, changing the field name.
+!
+procedure PutCompField comp string field string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+!
+! Send the stuff over.
+!
+	parameter #comp #comp "field" #field
+	add #comp #comp #target_win
+endprocedure
+
+
+!
+! Add a component to a window, changing the field name.  This version puts
+! the component at the bottom of the stack.
+!
+procedure PutBCompField comp string field string radarspace string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+!
+! If the component is already in the window, just change the field.
+!
+	if (pd_defined (target_win, comp, "platform"))
+		parameter #target_win #comp "field" #field
+!
+! Otherwise change the field *in DM* to avoid making the GP draw twice,
+! then send it over.
+!
+	else
+		parameter #comp #comp "field" #field
+		add #comp #comp #target_win 1
+	!
+	!  Take care of the radar-space parameter.
+	!
+		parameter #target_win "global" "radar-space" #radarspace
+	endif
+endprocedure
+
+
+!
+! Remove a component from a window.
+!
+procedure ZapComp comp string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+!
+! If this component truly exists in the window, get rid of it.
+!
+	if (pd_defined (target_win, comp, "platform"))
+		remove #target_win #comp
+	endif
+endprocedure
+
+
+
+!
+! Put in window bounds.
+!
+procedure put_wbounds comp string
+!
+! Get the window we want to see.
+!
+	set wbounds_win "none"
+	pickwin wbounds_win
+	if (wbounds_win = "none")
+		beep
+		return
+	endif
+!
+! And now the place where it goes.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")
+		beep
+		return
+	endif
+!
+! Fix up the component and ship it over.
+!
+	parameter #comp #comp platform #wbounds_win
+	add #comp #comp #target_win
+endprocedure
+
+
+
+
+!
+! pconfig -- switch between the various 'picture' configs.
+!
+procedure pconfig config string
+!
+! Switch over to the new config.
+!
+	display #config
+!
+! Figure out what we're doing with window boxes.
+!
+!	if (config = 'picture' or config = 'picturex')
+!		parameter big wbox disable false
+!	elseif (config = 'pictures')
+!		parameter big wbox disable true
+!	endif
+endprocedure
+
+
+
+!
+! Add a component to a window, changing an arbitrary parameter.
+!
+procedure PutCompX comp string param string value string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+
+	parameter #comp #comp #param #value
+	add #comp #comp #target_win
+endprocedure
+
+
+! read 'print.widget'

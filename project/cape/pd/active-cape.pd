@@ -1,0 +1,57 @@
+global
+	pd-name:	active-cape
+	plot-mode:	history
+	plot-time:	2-aug-91,21:30
+	plot-type:	CAP
+	x-max:	48.3695
+	x-min:	-75.0000
+	y-max:	-46.0181
+	y-min:	78.8688
+p_map
+	color:	yellow
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	0
+	platform:	cape
+	representation:	overlay
+	require:	simple-color
+c_radar_loc
+	color:	white
+	field:	location
+	icon:	radar-loc
+	icon-middle-menu:	simple-color
+	platform:	cp2, cp3, cp4, nmt, fl2c, und, mit
+	representation:	overlay
+c_ops-ctr
+	color:	green
+	field:	location
+	icon:	ops-ctr
+	icon-middle-menu:	simple-color
+	label:	none
+	platform:	ops-ctr
+	representation:	overlay
+p_station
+	active-icon:	true
+	annot-field-menu-extras:	none
+	annot-left-menu:	FieldMenu
+	annot-middle-menu:	FieldMenu
+	arrow-scale:	0.01
+	do-shape:	true
+	field-select-command:	p_toggle_quadrant
+	icon-field-menu-extras:	station|Station Identification
+	icon-left-menu:	standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	p-station-right
+	limit-proc:	adj_arrow_scale
+	platform:	mesonet
+	posicon-middle-menu:	FieldMenu
+	quad1:	twet
+	quad2:	tdry
+	quad3:	rh
+	quad4:	station
+	representation:	station
+	require:	station, simple-color
+	u-field:	u_wind
+	v-field:	v_wind

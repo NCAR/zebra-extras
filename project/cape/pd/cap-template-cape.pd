@@ -1,0 +1,30 @@
+global
+	pd-name:	cap-template-cape
+	plot-mode:	history
+	plot-time:	2-aug-91,21:30
+	plot-type:	CAP
+p_map
+	color:	yellow
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	0
+	platform:	cape
+	representation:	overlay
+	require:	simple-color
+c_radar_loc
+	color:	white
+	field:	location
+	icon:	radar-loc
+	icon-middle-menu:	simple-color
+	platform:	cp2, cp3, cp4, nmt, fl2c, und, mit
+	representation:	overlay
+c_ops-ctr
+	color:	green
+	field:	location
+	icon:	ops-ctr
+	icon-middle-menu:	simple-color
+	label:	none
+	platform:	ops-ctr
+	representation:	overlay

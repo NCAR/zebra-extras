@@ -1,0 +1,8 @@
+! Auto-saved display configuration.
+config jc
+	widget 'iconbar' 917 9 231 166
+	window '/home/steam/corbet/zeb/gp/gp' 3 1 908 826 /local/bin/emacs
+		description 'radar-radar'
+		buttonmap 'radar'
+	endwindow
+endconfig

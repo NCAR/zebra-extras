@@ -1,0 +1,16 @@
+global
+	pd-name:	sounding-skewt
+	plot-mode:	history
+	plot-time:	2-aug-1991,20:15:57
+	plot-type:	skewt
+skewt
+	color-table:	Skew-t
+	icon:	sounding
+	icon-left-menu:	skewt-left
+	icon-middle-menu:	DataAvailable
+	icon-right-menu:	feet-km
+	menu-platform:	tco,dpk,dun,day,fel,rus,mobile
+	platform:	tco
+	representation:	skewt
+	require:	skewt
+	trigger:	platform

@@ -1,0 +1,432 @@
+!
+! This file contains the default values for all plot description parameters.
+!
+defaults
+	pd-name:			defaults
+!
+! Post processing mode parameters.
+!
+	post-proc-mode:			true
+	pp-dm-time-adjust:		15m
+	sa-scale:			12
+!
+! Various menus for the icons in the plot windows.
+!
+	icon-left-menu:			leftmenu
+	mhr-icon-middle-menu:		radar-middle
+	global-icon-left-menu:		global-left
+	global-icon-right-menu:		annot-color
+	kingair-icon-middle-menu:	airfield
+	kingair-icon-right-menu:	air-arrow-options
+	king-air-icon-middle-menu:	airfield
+	mesonet-icon-right-menu:	line-contour-options
+	trec-icon-right-menu:		side-annot-scale
+	ddop-icon-left-menu:		ddop-left
+	cp4-icon-left-menu:		raster-left
+!
+! Age limits for changing icon color.
+!
+	icon-age-foreground:		pink
+	icon-age-background:		red
+	mesonet-icon-age-limit:		10m
+	cp4-icon-age-limit:		10m
+	ddop-icon-age-limit:		10m
+	goes-icon-age-limit:		10m
+	lightning-icon-age-limit:	20m
+	n2uw-icon-age-limit:		10m
+	n312d-icon-age-limit:		10m
+	n312d_gen-icon-age-limit:	10m
+	n42rf-icon-age-limit:		10m
+	n431na-icon-age-limit:		10m
+	n4706b-icon-age-limit:		10m
+	n510mh-icon-age-limit:		10m
+	n566na-icon-age-limit:		10m
+	n709na-icon-age-limit:		10m
+	n9929j-icon-age-limit:		10m
+	field-mill-icon-age-limit:	10m
+!
+! for now, let's put the origin at the ops center.  The coords are taken
+! from Chris's "wsr" coords, on the assumtion that wsr means the nexrad
+! radar.
+!
+	origin-lat:			 28.1130
+	origin-lon:			-80.6542
+	origin-alt:			0.0
+	ops-ctr-location:	28.1130 -80.6542 0.030
+!
+! The default, big picture zoom locations.
+!
+	x-min:				-225
+	x-max:				75
+	y-min:				-150
+	y-max:				150
+!
+! Radar locations.
+!
+	cp2-location:	28.7544 -80.7747 0.009
+	cp3-location:	28.3417 -80.9350 0.012
+	cp4-location:	28.2294 -80.7356 0.012
+	fl2c-location:	28.3442 -81.3258 0.045
+	und-location:	28.4242 -81.1914 0.046
+	wsr-location:	28.1130 -80.6542 0.030
+	mit-location:	28.4928 -81.3780 0.035
+	nmt-location:	28.625943 -80.682794 0.0
+	ptk-location:	28.2139 -80.5992 0.0
+!
+! The NASA field mill network.
+!
+	fm1-location:	28.7037	-80.6687 0
+	fm2-location:	28.6875	-80.7197 0
+	fm4-location:	28.6643	-80.6393 0
+	fm5-location:	28.6582	-80.6995 0
+	fm6-location:	28.6440	-80.6665 0
+	fm7-location:	28.6423	-80.7478 0
+	fm8-location:	28.8833	-80.2667 0
+	fm9-location:	28.1333	-80.8167 0
+	fm10-location:	28.6240	-80.1667 0
+	fm11-location:	28.5667	-80.6740 0
+	fm12-location:	28.6022	-80.6412 0
+	fm13-location:	28.6020	-80.5897 0
+	fm14-location:	28.5785	-80.6088 0
+	fm15-location:	28.5767	-80.6433 0
+	fm16-location:	28.5752	-80.5733 0
+	fm17-location:	28.5620	-80.6702 0
+	fm18-location:	28.5552	-80.7023 0
+	fm19-location:	28.5495	-80.6205 0
+	fm20-location:	28.5417	-80.6447 0
+	fm21-location:	28.5257	-80.6223 0
+	fm22-location:	28.5068	-80.6938 0
+	fm23-location:	28.4640	-80.6545 0
+	fm25-location:	28.4247	-80.6640 0
+	fm26-location:	28.5493	-80.5672 0
+	fm27-location:	28.5030	-80.5583 0
+	fm28-location:	28.4602	-80.5273 0
+	fm29-location:	28.4625	-80.5837 0
+	fm30-location:	28.4750	-80.5585 0
+	fm32-location:	28.4368	-80.5803 0
+	fm33-location:	28.4153	-80.6060 0
+	fm34-location:	28.4498	-80.5637 0
+!
+! Fix the azimuth limits location
+!
+	cp2-az-limits-location:	28.7544 -80.7747 0.009
+!
+! Fixed CLASS locations.
+!
+	tco-location:		28.5064 -80.8047 0
+	dpk-location:		28.0789 -80.9083 0
+	dun-location:		29.0619 -82.3711 0
+	day-location:		29.1942 -81.0522 0
+	fel-location:		27.7372 -80.6406 0
+	rus-location:		27.7    -82.4	 0
+	location-label-size:		0.02
+!
+! VOR information for aircraft control.
+!
+	vor-melbourne-location:	28.1050 -80.6356 0
+	vor-orlando-location:	28.5425 -81.3353 0
+	vor-ormond-location:	29.3031 -81.1131 0
+	vor-vero-location:	27.6781 -80.4897 0
+	vor-melbourne-azimuth-offset:	3.0833333
+	vor-orlando-azimuth-offset:	3.0833333
+	vor-ormond-azimuth-offset:	3.0833333
+	vor-vero-azimuth-offset:	4.0
+!
+! Aircraft platforms we know about.
+!
+	aircraft-platforms:	n312d,n2uw,n42rf,n431na,n566na,n709na,n510mh,n9929j
+!
+! Give ten minutes of aircraft data by default.
+!
+	king-air-time-period:		10
+	t28-time-period:		10
+!
+! Where to put the frame cache files.
+!
+	file-path:	/zeb/tmp
+!
+! The maximum number of frames to be stored in the file.
+!
+	max-frames:	20
+!
+! Possible origins for the position widget.
+!
+	pos-origin:	cp2,cp3,cp4
+! 
+! Some movie pregeneration fields.
+!
+	cp4-movie-pregenerate:	reflectivity,velocity
+!
+! Commands to be executed out of the DataAvailable menu.
+!
+	data-available-command:		DefaultDataAvail
+	cp2-az-limits-data-available-command:	CP2AzLimitsAvail
+	cp4-data-available-command:	CP4Volume
+!
+! The icons to use in the windows, qualified by platform name.
+!
+	global-icon:			global
+	cp2-icon:			cp2
+	cp3-icon:			cp3
+	cp4-icon:			cp4
+	vor-melbourne-icon:             radar-loc
+	vor-orlando-icon:               radar-loc
+	vor-ormond-icon:                radar-loc
+	mesonet-icon:			mesonet
+	king-air-icon:			kingair
+	kingair-icon:			kingair
+	icon-color:			yellow
+	icon-background:		midnight blue
+	disabled-icon-color:		gray90
+	disabled-icon-background:	gray40
+!
+! User insertable data platforms for the insert widget.
+!
+	user-insert-platforms:	boundary,spotlight,nowcast,loc-test
+!
+! User insertable platforms that have subplatforms (used by insert widget).
+!
+	nowcast-sub:		true
+!
+! Maximum number of subplatforms (used by insert widget).
+!
+	nowcast-max-sub-plat:	3
+!
+! Attribute lists.
+!
+	spotlight-attributes:	junk,test,nothing
+!
+! Range limits for Florida.  Don't try these with a colorado project.
+!
+	u_wind-range-min:		-25
+	u_wind-range-max:		25
+	v_wind-range-min:		-25
+	v_wind-range-max:		25
+	dp-range-min:			10
+	dp-range-max:			45
+	tdry-range-min:			10
+	tdry-range-max:			45
+	pres-range-max:			1040
+	pres-range-min:			950
+	cpres-range-max:		1040
+	cpres-range-min:		950
+	raina15-range-min:		0.0
+	raina15-range-max:		50.0
+	raina60-range-min:		0.0
+	raina60-range-max:		50.0
+!
+! Long descriptions of fields, in the absence of a real fields module.
+!
+	velocity-desc:			Radar velocity
+	reflectivity-desc:		Radar reflectivity
+	alt-desc:			altitude
+	rh-desc:			relative humidity
+	rhum-desc:			relative humidity
+	mr-desc:			mixing ratio
+	cpres0-desc:			altitude-corrected pressure
+	raina15-desc:			15-minute rain accum.
+	raina60-desc:			60-minute rain accum.
+	fstrength-desc:			Electric field strength
+	visr-desc:			Visible satellite
+	aaa-desc:			Infra-Red satellite
+	vis-desc:			New Visible satellite
+	ir-desc:			New Infra-Red satellite
+!
+! What RBand uses to draw the box/line.  Don't mess with it.
+!
+	xorvalue:			63
+	xor-line-width:			3
+!
+! field-annotation-format to specify an alternative printf format for
+! track side annotation.
+!
+	alt-annotation-format:		%.3f
+!
+! Some stuff to make the demos look nicer.
+!
+	movie-end-time:			now
+	movie-minutes:			60
+	frame-rate:			 5
+	frame-skip:			10
+	ta-color-match:			true
+!
+! Where cross sections are done.
+!
+	xsect-window:			xsect
+	xsect-component:		global
+!
+! Grid parameters.
+!
+	grid-tic-width:			5
+	grid-solid:			false
+	grid-color:			gray40
+	grid-icon-middle-menu:		simple-color
+	grid-icon-right-menu:		grid_spacing
+	grid-icon:			grid
+!
+! Plotting limits.
+!
+! Representation -> Contour.
+!
+	contour-wspd-center:		5
+	contour-wspd-step:		1
+	contour-wdir-center:		180
+	contour-wdir-step:		10
+	contour-fstrength-center:	500
+	contour-fstrength-step:		100
+	contour-raina15-center:		8
+	contour-raina15-step:		1
+	contour-raina60-center:		8
+	contour-raina60-step:		1
+	contour-pres-center:		1013
+	contour-pres-step:		1
+	contour-cpres0-center:		1013
+	contour-cpres0-step:		1
+	contour-rh-center:		65
+	contour-rh-step:		5
+	contour-dp-center:		25
+	contour-dp-step:		1
+	contour-tdry-center:		30
+	contour-tdry-step:		1
+	contour-ept-center:		345
+	contour-ept-step:		3
+	contour-mr-center:		20
+	contour-mr-step:		1
+	contour-reflectivity-center:	30
+	contour-reflectivity-step:	25
+	contour-velocity-center:	0
+	contour-velocity-step:		5
+	contour-pt-center:		305
+	contour-pt-step:		1
+	contour-w_wind-center:		0
+	contour-w_wind-step:		1
+	contour-div-center:		0
+	contour-div-step:		2
+	contour-ref_cp3-center:		20
+	contour-ref_cp3-step:		5
+	contour-ref_cp4-center:		20
+	contour-ref_cp4-step:		5
+!
+! Representation -> Track.
+!
+!	track-rh-center:		45
+!	track-rh-step:			2
+!	track-wir-center:		0
+!	track-wir-step:			1
+	track-ept-center:		345
+	track-ept-step:			3
+	track-palt-center:		600
+	track-palt-step:		50
+	track-alt-center:		600
+	track-alt-step:		50
+	track-tvir-center:		300
+	track-tvir-step:		3
+	track-mr-center:		15
+	track-mr-step:			1
+	track-dp-center:		25
+	track-dp-step:			1
+	track-tdry-center:		25
+	track-tdry-step:		1
+	track-w_wind-center:		0
+	track-w_wind-step:		1
+	track-pt-center:		310
+	track-pt-step:			1
+!
+! Representation -> Skewt.
+!
+	skewt-pres-minval:		100
+	skewt-pres-maxval:		1050
+	skewt-temp-minval:		-20
+	skewt-temp-maxval:		45
+!
+!Representation -> Raster.
+!
+	raster-reflectivity-center:	30
+	raster-reflectivity-step:	8
+	raster-velocity-center:		0
+	raster-velocity-step:		5
+	raster-reflectivity-nsteps:	11
+	raster-velocity-nsteps:		11
+	raster-visr-center:		128
+	raster-visr-step:		16
+	raster-visr-nsteps:		17
+	raster-aaa-center:		8192
+	raster-aaa-step:		1024
+	raster-aaa-nsteps:		17
+	raster-vis-center:		128
+	raster-vis-step:		16
+	raster-vis-nsteps:		17
+	raster-ir-center:		8192
+	raster-ir-step:			1024
+	raster-ir-nsteps:	       	17
+!
+! Representation -> Time series.
+!
+	tseries-wspd-center:    10
+	tseries-wspd-step:      2
+	tseries-palt-center:	600
+	tseries-palt-step:	50
+	tseries-w_wind-center:	0
+	tseries-w_wind-step:	1
+	tseries-wdir-center:    180
+	tseries-wdir-step:      20
+	tseries-rh-center:      50
+	tseries-rh-step:        15
+	tseries-pres-center:    1020
+	tseries-pres-step:      5
+	tseries-cpres0-center:  120
+	tseries-cpres0-step:    5
+	tseries-ept-center:     355
+	tseries-ept-step:       10
+	tseries-mr-center:      20
+	tseries-mr-step:        3
+	tseries-tdry-center:    30
+	tseries-tdry-step:      3
+	tseries-pt-center:      305
+	tseries-pt-step:        5
+	tseries-dp-center:      26
+	tseries-dp-step:        3
+	tseries-raina15-center: 3
+	tseries-raina15-step:   1
+	tseries-raina60-center: 6
+	tseries-raina60-step:   2
+!
+! Other.
+!
+	winds-arrow-scale:		20
+	winds-representation:		vector
+	winds-arrow-color:		green
+	Xarrow-color:			purple
+!
+! If all else fails, these should prevent things from dying altogether.
+!
+	contour-center:			0
+	contour-step:			25
+	track-center:			10
+	track-step:			10
+	pres-minval:			900
+	pres-maxval:			1100
+	rh-minval:			20
+	rh-maxval:			40
+	dp-minval:			0
+	dp-maxval:			20
+	tdry-minval:			-10
+	tdry-maxval:			10
+!
+! Adjust limit procedures.
+!
+	track-arrow-limit-proc:		adj_arrow_scale
+	track-time-limit-proc:		adj_time_period
+	track-centstep-limit-proc:	adj_center_step
+	raster-highrange-limit-proc:	adj_highlight_range
+	raster-centstep-limit-proc:	adj_center_step
+	raster-limit-proc:		adj_center_step
+	vector-limit-proc:		adj_arrow_scale
+	contour-limit-proc:		adj_center_step
+	filled-contour-limit-proc:	adj_fill_centstep
+	line-contour-limit-proc:	adj_line_centstep
+	skewt-pres-limit-proc:		adj_pres_minmax
+	skewt-temp-limit-proc:		adj_temp_minmax
+	global-x-limit-proc:		adj_x_minmax
+	global-y-limit-proc:		adj_y_minmax
+	lightning-limit-proc:		adj_time_step

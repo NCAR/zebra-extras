@@ -1,0 +1,108 @@
+global
+	altitude:	0.30
+	cp4-filter-attribute:	sur
+	pd-name:	radar-radar
+	plot-mode:	history
+	plot-time:	2-Aug-91,22:00:00
+	plot-type:	CAP
+	radar-space:	true
+	x-max:	104.7030
+	x-min:	-254.7030
+	y-max:	150.0000
+	y-min:	-150.0000
+p_radar
+	color-table:	wild_new
+	every-sweep:	false
+	field:	reflectivity
+	icon:	cp4
+	icon-left-menu:	standard-cap-left-menu
+	icon-middle-menu:	radar-middle
+	icon-right-menu:	DataAvailable
+	platform:	cp4
+	representation:	raster
+	require:	radar
+	scale-mode:	auto
+p_map
+	color:	yellow
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	0
+	platform:	default
+	representation:	overlay
+	require:	simple-color
+p_rings
+	azimuth-interval:	30
+	color:	white
+	do-labels:	false
+	field:	range-rings
+	icon:	rings
+	icon-left-menu:	minimal-cap-left-menu
+	icon-middle-menu:	rings-origin
+	icon-right-menu:	rings-right
+	platform:	cp4
+	representation:	overlay
+	require:	rings, simple-color
+	ring-interval:	20
+p_loc
+	active-icon:	true
+	color:	green
+	field:	location
+	icon:	radar-loc
+	icon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:	platform
+	label-size:	12
+	platform:	cp2,cp3,cp4,nmt,fl2c,und,mit,nmt,ptk
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-right-menu:	location-options
+	representation:	overlay
+	require:	location
+p_map.0
+	color:	red
+	field:	map
+	icon:	ddop-lobes
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	platform:	cape_ddop
+	representation:	overlay
+	require:	simple-color
+p_iss_loc
+	active-icon:	true
+	color:	white
+	field:	location
+	icon:	sounding-loc
+	icon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:	platform
+	label-size:	12
+	platform:	tco,dpk,dun,day,fel,rus,mobile
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-middle-menu:	send-iss
+	posicon-right-menu:	location-options
+	representation:	overlay
+	require:	location, iss-cap
+p_station
+	active-icon:	true
+	annot-field-menu-extras:	station|Station Identification,none
+	annot-left-menu:	FieldMenu
+	annot-middle-menu:	FieldMenu
+	arrow-scale:	0.01
+	do-shape:	true
+	field-select-command:	p_toggle_quadrant
+	filter-resolution:	50
+	icon-field-menu-extras:	station|Station Identification
+	icon-left-menu:	standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	p-station-right
+	limit-proc:	adj_arrow_scale
+	platform:	mesonet
+	posicon-middle-menu:	FieldMenu
+	quad1:	tdry
+	quad4:	station
+	representation:	station
+	require:	station, simple-color
+	spatial-filter:	true
+	u-field:	u_wind
+	v-field:	v_wind

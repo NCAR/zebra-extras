@@ -1,0 +1,34 @@
+global
+	pd-name:	sounding-cap
+	plot-mode:	history
+	plot-time:	2-Aug-91,22:00:00
+	plot-type:	CAP
+	x-max:	44.3142
+	x-min:	-218.3734
+	y-max:	-68.5615
+	y-min:	123.0586
+p_map
+	color:	yellow
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	0
+	platform:	default
+	representation:	overlay
+	require:	simple-color
+p_iss_loc
+	active-icon:	true
+	color:	cyan
+	field:	location
+	icon:	sounding-loc
+	icon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:	platform
+	label-size:	12
+	platform:	tco,dpk,dun,day,fel,rus
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-middle-menu:	send-iss
+	posicon-right-menu:	location-options
+	representation:	overlay
+	require:	location, iss-cap

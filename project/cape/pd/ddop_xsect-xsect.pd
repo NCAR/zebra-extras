@@ -1,0 +1,30 @@
+global
+	altitude:	0.20
+	altitude-label:	Alt: 0.20 km MSL
+	left-endpoint:	-35.851,17.949
+	pd-name:	ddop_xsect-xsect
+	plot-hold:	false
+	plot-mode:	history
+	plot-time:	2-Aug-91,22:40:00
+	plot-type:	xsect
+	right-endpoint:	-35.570,-12.462
+	trigger:	5m
+	z-max:	6
+	z-min:	0
+ddop_xsect
+	altitude-center:	0.0000
+	altitude-step:	5.0000
+	color-table:	wild_new
+	contour-ref_cp4-center:	30
+	contour-ref_cp4-step:	10
+	field:	ref_cp3
+	grid-method:	bilinear
+	icon:	xsect
+	icon-middle-menu:	ddop-middle
+	icon-right-menu:	FieldMenu
+	platform:	ddop
+	ref_cp4-center:	30
+	ref_cp4-step:	10
+	representation:	filled-contour
+	u_wind-center:	0.0000
+	u_wind-step:	8000.0000
