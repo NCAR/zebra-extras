@@ -36,15 +36,28 @@ zplotbatch $plottime p3 auto >>& $logfile
 #
 # make a link to the latest image
 #
-sleep 5		# wait for the new png to be ready
+sleep 10		# wait for the new png to be ready
 cd $BATCH_IMAGE_SPOOL
 set latest_img = latest_image.png
-set new_img = `find . -name "*auto.png" -newer $latest_img | sort | tail -1`
-if (! $status) then
+
+#
+# look a few times until we find the new image available or we give up
+#
+@ try = 0
+while ($try < 3)
+   set new_img = `find . -name "*auto.png" -newer $latest_img | sort | tail -1`
+   if ($new_img != "") break
+   @ try++
+   sleep 5
+end
+
+if ($new_img != "") then
 	mv -f latest-4.png latest-5.png
 	mv -f latest-3.png latest-4.png
 	mv -f latest-2.png latest-3.png
 	mv -f latest-1.png latest-2.png
 	mv -f $latest_img latest-1.png
 	ln -s $new_img $latest_img
+else
+	echo "No image available after $try tries"
 endif
