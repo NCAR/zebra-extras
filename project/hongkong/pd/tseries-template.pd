@@ -1,41 +1,45 @@
-!
-! An empty template PD for time series xygraphs.
-!
 global
+	altitude-label:	?
 	pd-name:	tseries-template
-	plot-type:	xygraph
 	plot-mode:	real-time
-	plot-time:	now
-	xy-data-mode:	series
-	xy-series-span:	720m
-!
-! Spacings.
-!
-	axis-bottom-space:	30
-	axis-top-space:		30
-	axis-left-space:	50
-	axis-right-space:	50
-! 
-! Fonts.
-!
-	xy-axis-b-font-scale:	12
-	xy-axis-t-font-scale:	12
-	xy-axis-l-font-scale:	12
-	xy-axis-r-font-scale:	12
-!
-! This component just draws a grid.
-!
-xy-grid
-	representation:		simple
-	x-field:		time
-	y-field:		nothing
-	axis-bottom:		true
-	axis-left:		false
-	axis-right:		false
-	axis-top:		false
-	icon:			none
-	axis-b-label:		Time
-	axis-b-tic-interval:	10m
-	do-side-annotation:	false
-	platform:		null
-	field-color:		red
+	plot-time:	2-aug-1991,22:18:00
+	plot-type:	tseries
+	rh-center:	50
+	rh-step:	10
+	sa-scale:	0.08
+	ta-scale:	0.035
+	tdry-center:	10
+	tdry-step:	10
+	trigger:	aws
+	wspd_max-center:	5
+	wspd_max-step:	1
+tseries
+	axis-color:	gray60
+	color-table:	tseries
+	data-skip:	0
+	dskip-limit-proc:	adj_data_skip
+	field:	tdry,rh
+	flip-time:	false
+	icon:	tseries
+	icon-left-menu:	tseries-left
+	icon-middle-menu:	tseries-middle
+	icon-right-menu:	tseries-right
+	left-limit-proc:	adj_left_centstep
+	line-width:	3
+	max-field:	2
+	nstep:	11
+	nstep-limit-proc:	adj_num_step
+	num-stations:	47
+	platform:	aws/RO,aws/CLK
+	representation:	tseries
+	require:	lx-tseries
+	rh-center:	50
+	rh-step:	10
+	right-limit-proc:	adj_right_centstep
+	sa-scale:	0.02
+	ta-scale:	0.07
+	time-interval:	24h
+	time-limit-proc:	adj_time_int
+	wspd_max-center:	5
+	wspd_max-step:	1
+
