@@ -1,8 +1,6 @@
 #!/bin/csh -f
 #
-# Run ACtracker.Consumer to ingest nrl_p3 data from port 25001, and
-# run a Zebra platform directory watcher to keep the datastore
-# updated.
+# Run ACtracker.Consumer to ingest nrl_p3 data from port 25001
 #
 cd /code/burghart/ACtracker
 
@@ -12,16 +10,6 @@ echo "$0 started `date`" >>& $logfile
 set path = (/code/burghart/java/bin /usr/local/zebra/bin $path)
 
 set datadir = /scr/js1/bamex/nrl_p3
-
-
-#
-# Run a directory watcher to force dsrescans as new data are written.
-# Use "at", since just running and backgrounding the platwatch script 
-# just doesn't work...
-#
-at "now + 1 minute" <<EOF
-    ./platwatch.nrl_p3 $datadir 10 >> $logfile 2>&1
-EOF
 
 #
 # Run the ingestor (repeating incoming packets to bamex-gate)
