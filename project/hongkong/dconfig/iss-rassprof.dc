@@ -1,7 +1,7 @@
 ! Auto-saved display configuration.
 config iss-rassprof
 	widget 'iconbar' 5 25 70 500
-	window 'rassprof' 86 25 1000 850 /zeb/bin/gp gp.init
+	window 'rassprof' 86 25 1000 850 gp gp.init
 		description 'iss-rassprof-rassprof'
 		buttonmap 'default'
 		forcepd

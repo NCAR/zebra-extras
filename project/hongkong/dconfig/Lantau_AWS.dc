@@ -5,7 +5,7 @@ config Lantau_AWS
 		buttonmap 'big'
 		forcepd
 	endwindow
-	window 'timeseries' 5000 5000 430 697 /zeb/bin/gp gp.init
+	window 'timeseries' 5000 5000 430 697 gp gp.init
 		description 'Lantau_AWS-timeseries'
 		buttonmap 'default'
 		forcepd

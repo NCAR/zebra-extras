@@ -5,7 +5,7 @@ config aws_winds
 		buttonmap 'big'
 		forcepd
 	endwindow
-	window 'timeseries' 5000 5000 430 697 /zeb/bin/gp gp.init
+	window 'timeseries' 5000 5000 430 697 gp gp.init
 		description 'aws_winds-timeseries'
 		buttonmap 'default'
 		forcepd

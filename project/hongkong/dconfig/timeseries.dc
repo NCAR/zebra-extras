@@ -1,11 +1,11 @@
 ! Auto-saved display configuration.
 config timeseries
-	window 'timeseries' 518 25 628 830 /zeb/bin/gp gp.init
+	window 'timeseries' 518 25 628 830 gp gp.init
 		description 'timeseries-timeseries'
 		buttonmap 'default'
 		forcepd
 	endwindow
-	window 'small' 4 120 504 495 /zeb/bin/gp gp.init
+	window 'small' 4 120 504 495 gp gp.init
 		description 'timeseries-small'
 		buttonmap 'big'
 		forcepd

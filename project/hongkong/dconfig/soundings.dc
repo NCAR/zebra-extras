@@ -1,21 +1,21 @@
 ! Auto-saved display configuration.
 config soundings
-	window 'sounding1' 4 28 522 419 /zeb/bin/gp gp.init
+	window 'sounding1' 4 28 522 419 gp gp.init
 		description 'soundings-sounding1'
 		buttonmap 'default'
 		forcepd
 	endwindow
-	window 'sounding2' 537 27 526 421 /zeb/bin/gp gp.init
+	window 'sounding2' 537 27 526 421 gp gp.init
 		description 'soundings-sounding2'
 		buttonmap 'default'
 		forcepd
 	endwindow
-	window 'sounding3' 5 479 520 413 /zeb/bin/gp gp.init
+	window 'sounding3' 5 479 520 413 gp gp.init
 		description 'soundings-sounding3'
 		buttonmap 'default'
 		forcepd
 	endwindow
-	window 'sounding4' 536 478 524 413 /zeb/bin/gp gp.init
+	window 'sounding4' 536 478 524 413 gp gp.init
 		description 'soundings-sounding4'
 		buttonmap 'default'
 		forcepd

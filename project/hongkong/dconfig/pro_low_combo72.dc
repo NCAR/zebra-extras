@@ -1,17 +1,17 @@
 ! Auto-saved display configuration.
 config pro_low_combo72
 	widget 'iconbar' 5 26 72 518
-	window 'profilerl' 85 7 1012 598 /zeb/bin/gp gp.init
+	window 'profilerl' 85 7 1012 598 gp gp.init
 		description 'pro_low_combo72-profilerl'
 		buttonmap 'default'
 		forcepd
 	endwindow
-	window 'sounding' 726 27 420 555 /zeb/bin/gp gp.init
+	window 'sounding' 726 27 420 555 gp gp.init
 		description 'pro_low_combo72-sounding'
 		buttonmap 'default'
 		forcepd
 	endwindow
-	window 'timeseries' 92 505 842 389 /zeb/bin/gp gp.init
+	window 'timeseries' 92 505 842 389 gp gp.init
 		description 'pro_low_combo72-timeseries'
 		buttonmap 'big'
 		forcepd

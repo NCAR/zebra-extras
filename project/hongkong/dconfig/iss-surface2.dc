@@ -1,7 +1,7 @@
 ! Auto-saved display configuration.
 config iss-surface2
 	widget 'iconbar' 5 27 70 500
-	window 'surface' 85 28 1000 850 /zeb/bin/gp gp.init
+	window 'surface' 85 28 1000 850 gp gp.init
 		description 'iss-surface2-surface'
 		buttonmap 'default'
 		forcepd
