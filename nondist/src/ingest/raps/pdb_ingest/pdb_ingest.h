@@ -1,5 +1,5 @@
 /*
- * $Id: pdb_ingest.h,v 1.1 1992-07-03 18:39:15 granger Exp $
+ * $Id: pdb_ingest.h,v 1.2 1993-03-24 23:00:28 granger Exp $
  *
  * Global type defines and macros for pdb_ingest modules,
  * particularly the ProductRecord type definition and the
@@ -10,8 +10,6 @@
 #define _pdb_ingest_h_
 
 #include "pdblib.h"
-
-extern char DumpDataChunks;
 
 /*===============================================================*/
 /* Products Table:
@@ -90,7 +88,7 @@ typedef struct _ProductRecord {
 	float origin_lon;
 	float angle;	/* Origin of product grid, usually MHR */
 	time_t last;	/* Last time data received for this prod */
-	short requested;/* non-zero if this product being request */
+	short requested;/* non-zero if this product is being requested */
 
 	/*___ The PDB_PRODUCT msg handlers ___*/
 
