@@ -3,7 +3,7 @@
 prototype fallback 'Graphic' gp 'gp.init'
 
 config satellite
-	widget 'iconbar' 4 4 605 61
+	widget 'iconbar' 4 4 500 61
 	graphic 'UpperLeft' 5 85 1000 625 'Graphic'
 		description 'satellite-UpperLeft'
 		buttonmap 'big'
@@ -14,6 +14,7 @@ endconfig
 beginpd 'satellite-UpperLeft'
 global
    parameter altitude                  '500'
+   parameter altitude-label            ''
    parameter pd-name                   'satellite-UpperLeft'
    parameter platform                  'sgpgoes8X1.a1'
    parameter plot-hold                 'false'
@@ -22,6 +23,7 @@ global
    parameter plot-type                 'CAP'
    parameter proj-topannot-left-menu   'projection'
    parameter projection                'zebra'
+   parameter sa-space                  '0.075'
    parameter trigger                   'platform'
    parameter x-max                     '2100.00'
    parameter x-min                     '-2400.00'
