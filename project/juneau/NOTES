@@ -110,3 +110,23 @@ Tag_NWS_970327_3:
 
 	Version installed on jnu_wind under project directory juneau.3
 
+Next version needed for sea_aops machine.  The default display should be
+like the all.dc config but without the profiler plot and the time widget,
+and without a menu entry for the time widget in the iconbar.
+
+	Use a second link to juneau project dir called airport; check for
+	it in dm.config and set the default config and the EnableTimePopup
+	variable accordingly.
+
+	restricted/IconBar tests EnableTimePopup for whether to include a
+	time widget menu entry.
+
+Put the runtime project config links inside the project directory and add
+them to the makelinks script.  Then they won't clutter the project
+directory, and referring to them as juneau/airport and/or juneau/jadmin or
+juneau/default is more descriptive.
+
+Tag_Juneau_970331_4:
+
+	juneau.4 directory tagged and installed on sea_aops, 970331.
+
