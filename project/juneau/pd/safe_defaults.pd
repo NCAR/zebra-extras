@@ -33,12 +33,6 @@ safe_defaults
 !
 	axis-left-space:	30
 !
-! Where to put the frame cache files and the maximum number of frames
-! to store in the cache.
-!
-	file-path:	/tmp
-	max-frames:	30
-!
 ! Command to be executed out of the DataAvailable menu.
 !
 	data-available-command:		DefaultDataAvail

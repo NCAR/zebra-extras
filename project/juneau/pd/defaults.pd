@@ -59,6 +59,19 @@ defaults
 	pos-origin:	boulder
 
 !
+! Where to put the frame cache files and the maximum number of frames
+! to store in the cache.
+!
+	file-path:	./cache
+	max-frames:	24
+	time-frames:	2
+!
+! Keep our colors rather than trying to free and re-allocate.  Hopefully
+! this avoids a colortable bug somewhere between zebra and the x server.
+!
+	keep-colors:	true
+
+!
 ! UNLESS YOU NEED TO TWEAK ONE OR MORE OF THE "SAFE" DEFAULTS, YOU'RE DONE!
 ! The safe defaults can be found in the safe_defaults.pd file.  They are
 ! dropped into the defaults pd in dm.config when the display manager starts.
