@@ -1,14 +1,12 @@
 /*
- * handlers.c -- A collections of handlers for raw and polyline format
- *		 products.  Contains a useful collection of utilities for
- *		 ingesting boundary products, especially an intelligent
- *		 common Location buffer.
+ * handlers.c -- A collection of handlers for raw and polyline format
+ *		 products.  Requires the routines in pdbutils.c.
  *
- * $Id: handlers.c,v 1.1 1992-07-03 18:04:24 granger Exp $
+ * $Id: handlers.c,v 1.2 1993-03-24 22:58:28 granger Exp $
  */
 
 #if !defined(saber) && !defined(lint)
-static char rcsid[]="$Id: handlers.c,v 1.1 1992-07-03 18:04:24 granger Exp $";
+static char rcsid[]="$Id: handlers.c,v 1.2 1993-03-24 22:58:28 granger Exp $";
 #endif
 
 /*------- For PDBS: ----*/
@@ -20,335 +18,10 @@ static char rcsid[]="$Id: handlers.c,v 1.1 1992-07-03 18:04:24 granger Exp $";
 
 #include "ingest.h"
 #include "pdb_ingest.h"		/* For the ProductRecord type */
-
-extern Location *GetLocnsBuffer FP((unsigned long npts));
-
-/*----------------------*/
-
-/*
- * To convert i16 coords in decameters to float km
- */
-#define FKM(c) ((float)(((float)(c))/100.0))
+#include "pdbutils.h"
 
 
-/*
- * Use a static Locations buffer for converting points to lat/lon
- * and storing in data-chunks.  It re-allocs as necessary to supply
- * adequate space for each request, and then remains that size for
- * later requests.  It checks for consistently reduced requests and
- * reduces its allocation accordingly.  It is hoped this reduces
- * malloc delays and memory thrashing.
- */
-Location *
-GetLocnsBuffer(npts)
-	unsigned long npts;	/* Number locns required */
-{
-	static Location *locns = NULL;
-	static unsigned int numlocns = 0;
-	static unsigned long count = 0;
-	static unsigned long max = 0;
-#	define NCOUNTS 15
-	/*
-	 * max == Maximum # points requested in last 'count' calls
-	 *	  which were less than numlocns
-	 * After NCOUNTS counts, if max < 0.75*numlocns, we'll reduce
-	 * our memory allocation
-	 */
-
-	if (!locns)  /* set up some first guess at a good size */
-	{
-		numlocns = (npts > 500) ? npts : 500;
-		locns = (Location *)malloc(numlocns * sizeof(Location));
-	}
-	else if (numlocns < npts)
-	{
-		locns = (Location *)
-			realloc((char *)locns, npts * sizeof(Location));
-		numlocns = npts;
-		count = 0;	/* Restart our underused count */
-		max = 0;
-	}
-	/* else buffer is already big enough;
-	 * we'll keep a count of these occasions and perhaps try to
-	 * reduce our memory need after some # of times
-	 */
-	else
-	{
-		++count;
-		if (npts > max)
-			max = npts;
-		if (count > NCOUNTS) 
-		{
-			if ((numlocns >> 1) + (numlocns >> 2) > max)
-			{
-				locns = (Location *)
-				   realloc((char *)locns,
-					   max * sizeof(Location));
-			}
-			count = 0;
-			max = 0;
-		}
-	}
-
-	return(locns);
-}
-
-
-/*
- * Most PDB products contain id's of -1 to indicate NULL products
- */
-short
-CheckIdNum(pr, idnum)
-	ProductRecord *pr;
-	long idnum;
-{
-	/* 
-	 * If the idnum is -1, then this a NULL packet and we should ignore it
-	 */
-	if (idnum < 0)
-	{
-		IngestLog(EF_DEBUG,"Null packet ignored for %s, rap id %d",
-			  pr->platform, pr->rap_id);
-		return(0);
-	}
-	else
-	{
-		return(1);
-	}
-}
-
-
-/* 
- * Here we use a subid to create a new platform name
- * and get a platid for it... If its a bad platform,
- * return NULL for the platform name.  It uses an LRU
- * replacement strategy for giving the most recently
- * used id_numbers identical subplatform ids.  Each
- * ProductRecord holds four important fields:
- * index_oldest == Points to least recently used idnum
- * index_newest == Points the idnum most recently used
- * id_numbers[subid-1] == The id_number last used for this subid
- * next_oldest[] == Index of the next least recently used idnum
- */
-char *
-GetSubPlatform(pr, idnum, subid, platid)
-	ProductRecord *pr;
-	long idnum;
-	int *subid;
-	PlatformId *platid;
-{
-	static char platform[15];
-	short i,j,jump;
-
-/*
- * First check for a valid idnum.  idnum == -1 implies null product
- */
-	if (!CheckIdNum(pr, idnum))
-		return NULL;
-/*
- * idnum is assumed to be an id number from the data
- * product.  This id number is searched for in the LRU arrays
- * from oldest to newest.  If the search reaches the newest
- * id number (at index_newest), then the idnum was not found and
- * it is inserted at index_oldest.  
- * Otherwise the index of the found id number becomes the subid,
- * and the found subid becomes the newest idnum
- */
-	i = pr->index_oldest;
-	j = i;
-	while (pr->id_numbers[i] != idnum)
-	{
-		if ((i == pr->index_newest))
-		{
-			/* Id number not found!
-			 * Have to replace the oldest id_number with this idnum
-			 * Essentially this means inserting at the beginning of
-			 * next_oldest list
-			 */
-			i = pr->index_oldest;
-			j = pr->index_newest;
-			break;
-		}
-		/* 
-		 * Go to the next_oldest id_number, but store the
-		 * current index for use when inserting
-		 */
-		j = i;
-		i = pr->next_oldest[i];
-	}
-	/*
-	 * i is the index to store the idnum in.  It becomes the newest idnum.
-	 * j is the index of the element in next_oldest which pointed to i.
-	 * j must be made to point to what i pointed to.
-	 */
-	*subid = i+1;
-	pr->id_numbers[i] = idnum;
-	if (i != pr->index_newest) /* else this is already the newest idnum */
-	{
-		if (i == pr->index_oldest)
-		{
-			pr->index_oldest = pr->next_oldest[i];
-		}
-		pr->next_oldest[j] = pr->next_oldest[i];
-		pr->next_oldest[pr->index_newest] = i;
-		pr->index_newest = i;
-		pr->next_oldest[i] = pr->index_oldest;
-	}
-
-	sprintf(platform,"%s.%i",pr->platform,*subid);
-	*platid = ds_LookupPlatform(platform);
-	if (*platid == BadPlatform)
-	{
-	   IngestLog(EF_PROBLEM,"bad platform %s for product %d",
-	      platform, pr->rap_id);
-	   return(NULL);
-	}
-	IngestLog(EF_DEBUG,"subplatform %s: idnum %li, subid %i, plat_id %d",
-	   platform, idnum, *subid, *platid);
-	return(platform);
-}
-
-
-
-/*
- * Print time_t times using ZebTime's TimePrintFormat 
- * Mimics asctime and ctime but without the annoying \n
- * Note that since it uses a static char buffer, this 
- * function can only be invoked once in a parameter list
- */
-char *
-AscSysTime(systime, fmt)
-	long systime;
-	TimePrintFormat fmt;
-{
-	static char timestring[50];
-	ZebTime ztime;
-
-	TC_SysToZt(systime, &ztime);
-	TC_EncodeTime(&ztime, fmt, timestring);
-	return(timestring);
-}
-
-
-
-/*
- * Set an integer attribute in a DataChunk sample
- */
-void
-SetIntAttr(dc, att, val)
-	DataChunk *dc;
-	char *att;
-	int val;
-{
-	char value[10];
-
-	sprintf(value,"%li",val);
-	dc_SetSampleAttr(dc, 0,att,value);
-}
-
-
-/*
- * Set a point attr in a DataChunk using Nowc_pt coordinates x,y
- */
-void
-SetNowcPointAttr(dc, att, x, y)
-	DataChunk *dc;
-	char *att;
-	short x, y;
-/*
- * Assumes cvt_Origin has already been set
- */
-{
-	char value[30];
-	float lat, lon;
-
-	/* Convert the x,y center to lat/long */
-	cvt_ToLatLon(FKM(x), FKM(y), &lat, &lon);
-	sprintf(value,"%5.4f %5.4f",lat, lon);
-	dc_SetSampleAttr(dc, 0,att,value);
-}
-
-
-
-/*
- * Translate an array of Nowc_pt points into lat/long and
- * return an array of locns to which the lat/long has been
- * appended starting at position start.
- */
-void
-AppendLocations(locns, start, shortpts, npts)
-	Location **locns;  /* Array to append to, may be moved */
-	int start;	   /* Where to start adding at */
-	Nowc_pt *shortpts; /* {short x; short y;}  */
-	int  npts;  	   /* # pts to add from shortpts */
-/*
- * Assumes cvt_Origin has already been set 
- */
-{
-	int i;
-
-	/*
-	 * Make sure our locns buffer has enough room
-	 * to store more points
-	 */
-	(*locns) = GetLocnsBuffer(start + npts);
-
-	for (i=0; i< npts; i++)
-	{
-		cvt_ToLatLon(FKM(shortpts[i].x), 
-			     FKM(shortpts[i].y),
-			     &(*locns)[start+i].l_lat,
-			     &(*locns)[start+i].l_lon);
-		(*locns)[start + i].l_alt = 0.0;
-	}
-}
-
-
-void
-TriggerDataStore(pr, when, platid)
-	ProductRecord *pr;
-	ZebTime *when;
-	PlatformId platid;
-/*
- * Trigger new data by writing one point to the parent
- * platform. XXX as Jon would say...
- * But we have to make sure we don't do it too often,
- * so platforms like act, acs, and hal should not use
- * this trigger method but instead a timeout like 1m
- *
- * At the moment, we are just using the current system time
- * as the trigger. This could change...
- *
- * Prevents triggers from occurring more often than every 10 secs
- */
-{
-	static Location trigger = { 0.0, 0.0, 0.0 };
-	static time_t last_trigger = 0;  /* Time last trigger sent */
-	PlatformId trigger_id;
-	DataChunk *tdc;
-	ZebTime now;
-
-	TC_SysToZt(Time(0), &now);
-	if (TC_ZtToSys(&now) - last_trigger < 10)
-		return;
-	last_trigger = TC_ZtToSys(&now);
-	tdc = dc_CreateDC(DCC_Boundary);
-	trigger_id = ds_LookupPlatform(pr->platform);
-	tdc->dc_Platform = trigger_id;
-	dc_BndAdd(tdc, &now, trigger_id, &trigger, 1);
-	if (!ds_Store(tdc, FALSE, 0, 0))
-	{
-		IngestLog(EF_PROBLEM,
-		   "DataStore for rap_trigger failed at %s",
-		   AscSysTime(TC_ZtToSys(&now),TC_Full));
-	}
-	/* Now delete the data just written to save space */
-	ds_DeleteData(trigger_id, 0);
-	dc_DestroyDC(tdc);
-}
-
-
-void
+static void
 StoreBoundary(pr, dc, when, platid, locns, numlocns)
 	ProductRecord *pr;
 	DataChunk *dc;
@@ -371,11 +44,10 @@ StoreBoundary(pr, dc, when, platid, locns, numlocns)
 	if (numlocns>0)
 	{
 		dc_BndAdd(dc, &now, platid, locns, numlocns);
-		if (DumpDataChunks) dc_DumpDC(dc);
 		if (!ds_Store(dc, FALSE, 0, 0))
 		{
 			IngestLog(EF_PROBLEM,
-			"platform %s id %d, RAP %d, time %s: DataStore failed",
+		"platform %s id %d, RAP %d, time %s: DataStore failed",
 			pr->platform, platid, pr->rap_id, 
 			AscSysTime(Time(0), TC_Full));
 		}
@@ -390,7 +62,9 @@ StoreBoundary(pr, dc, when, platid, locns, numlocns)
 
 
 
-/* IDs: 9203, 9204, 9225, 9226, 9229, 9230
+/* 
+ * IDs: 9203, 9204, 9225, 9226, 9229, 9230
+ *
  * For extrapolations, data is ingested from the platform
  * according to pr->platform postfixed with ".<id_num>"
  * from the Extrapolation_header.  <id_num> will be called
@@ -443,13 +117,17 @@ IngestExtrapolations( pr, mtype, messin, lenin)
 	if (!(platform = GetSubPlatform(pr, id_num, &subid, &platid)))
 		return(0);
 
-	IngestLog(EF_INFO,
-   	   "%s(%d): %d extraps, id_num %li, subid %d, generated %s",
-	   pr->platform, pr->rap_id, nextraps, id_num, subid, 
+	IngestLog(EF_DEBUG,
+   	   "  %s(%d): %d extraps, id_num %li, subid %d, generated %s",
+	   pr->code, pr->rap_id, nextraps, id_num, subid, 
 	   AscSysTime(gen_time, TC_Full));
 
 	dc = dc_CreateDC(DCC_Boundary);
 	dc->dc_Platform = platid;
+
+	SetIntAttr(dc, 0, AttId, (int)id_num);
+	dc_SetSampleAttr(dc, 0, AttGenerateTime, 
+	   AscSysTime(Ctime6(exhead->machine_time), TC_Full));
 	
 	cvt_Origin(pr->origin_lat,pr->origin_lon);
 
@@ -466,7 +144,7 @@ IngestExtrapolations( pr, mtype, messin, lenin)
 	    	extrap_time = Ctime6(core_head->extrap_time);
 		x_ctr = core_head->x_ctr;
 		y_ctr = core_head->y_ctr;
-		SetIntAttr(dc, "dbz", (int)(core_head->dbz));
+		SetIntAttr(dc, 0, AttDbz, (int)(core_head->dbz));
 	    }
             else
 	    {
@@ -480,18 +158,19 @@ IngestExtrapolations( pr, mtype, messin, lenin)
 		y_ctr = bound_head->y_ctr;
 	    }
 
-	    SetNowcPointAttr(dc, "center", x_ctr, y_ctr);
-	    sprintf(att,"extrap_time_%i",n);
+	    SetNowcCenterAttr(dc, x_ctr, y_ctr);
+	    sprintf(att,"extrap-time-%i",n);
 	    dc_SetSampleAttr(dc, 0, att, AscSysTime(extrap_time, TC_Full));
 
-	    IngestLog(EF_INFO,
-	       "%s(%d): extrap #%d has %i pts, time: %s",
-	       platform, pr->rap_id, n, npts, AscSysTime(extrap_time, TC_Full));
+	    IngestLog(EF_DEBUG,
+	       "  %s(%d): extrap #%d has %i pts, extrap_time = %s",
+	       pr->code, pr->rap_id, n, npts, 
+	       AscSysTime(extrap_time, TC_Full));
 
 	    /*
 	     * Add points to our locns buffer
 	     */
-	    AppendLocations(&locns, totpts, nowc, npts);
+	    AppendNowcLocations(&locns, totpts, nowc, npts);
 	    totpts += npts;
 
 	}
@@ -523,7 +202,7 @@ IngestNowcasts( pr, mtype, messin, lenin)
 	Bdry_header	*bhead;
 	Core_header	*chead;
 	Nowc_pt		*nowc;
-      	long		start_time, gen_time, exp_time;
+      	long		start_time, gen_time;
 	long		id_num;
 
 	DataChunk 	*dc;
@@ -554,7 +233,6 @@ IngestNowcasts( pr, mtype, messin, lenin)
 		nowc = (Nowc_pt *) (messin + sizeof(Bdry_header));
 		start_time = Ctime6( bhead->scan_time);
 		gen_time = Ctime6( bhead->machine_time);
-	        exp_time = -1;
 		id_num = bhead->id_num;
 		x_ctr = bhead->x_ctr;
 		y_ctr = bhead->y_ctr;
@@ -566,7 +244,6 @@ IngestNowcasts( pr, mtype, messin, lenin)
 	      	nowc = (Nowc_pt *) (messin + sizeof(Core_header));
 		start_time = Ctime6( chead->scan_time);
 		gen_time = Ctime6( chead->machine_time);
-	        exp_time = -1;
 		id_num = chead->id_num;
 		x_ctr = chead->x_ctr;
 		y_ctr = chead->y_ctr;
@@ -574,7 +251,12 @@ IngestNowcasts( pr, mtype, messin, lenin)
 	else
 		return (0);
 
-	SetNowcPointAttr(dc, "center", x_ctr, y_ctr);
+	SetIntAttr(dc, 0, AttId, (int)id_num);
+	dc_SetSampleAttr(dc, 0, AttStartTime,
+	   AscSysTime(start_time, TC_Full));
+	dc_SetSampleAttr(dc, 0, AttGenerateTime,
+	   AscSysTime(gen_time, TC_Full));
+	SetNowcCenterAttr(dc, x_ctr, y_ctr);
 
 	if (!(platform = GetSubPlatform(pr, id_num, &subid, &platid)))
 	{
@@ -585,16 +267,15 @@ IngestNowcasts( pr, mtype, messin, lenin)
 	/* Since AscSysTime can't be called twice in same function,
 	 * we must store one of the times before passing to Log */
 	(void)strcpy(timestring, AscSysTime(start_time, TC_Full));
-	IngestLog(EF_INFO,
-   	   "%s(%d): id_num %li, subid %d, start: %s, generated %s",
-	   platform, pr->rap_id, id_num, subid, 
-	   timestring, AscSysTime(gen_time, TC_Full));
+	IngestLog(EF_DEBUG,
+   	 "  %s(%d): id_num %li, subid %d, npts %d, start: %s",
+	 pr->code, pr->rap_id, id_num, subid, npts,
+	 timestring, AscSysTime(gen_time, TC_Full));
 
 	dc->dc_Platform = platid;
 
-	AppendLocations(&locns, 0, nowc, npts);
+	AppendNowcLocations(&locns, 0, nowc, npts);
 
-      	pr->last = gen_time;
 	TC_SysToZt(gen_time, &when);
 	StoreBoundary(pr, dc, &when, platid, locns, npts);
 	TriggerDataStore(pr, &when, platid);
@@ -605,8 +286,7 @@ IngestNowcasts( pr, mtype, messin, lenin)
 
 
 /*
- * Ingest HG Nowcasts, 9205.  Assigns a locally generated id
- * from 1 to 30 for each region contained in the message
+ * Ingest HG Nowcasts, 9205.
  */
 /* ARGSUSED */
 int 
@@ -640,15 +320,11 @@ IngestNowcastRegions( pr, mtype, messin, lenin)
 	 * npts will be the # of points, x_ctr and y_ctr will
 	 * be set
 	 */
-	if (pr->rap_id == 9205)
-	{
-		nhead = (Nowcast *) messin;
-		nregions = *(int *)(&nhead->num_region);
-		gen_time = Ctime6( nhead->entered_time);
-		exp_time = Ctime6( nhead->valid_time);
-	}
-	else
-		return (0);
+	nhead = (Nowcast *) messin;
+	nregions = *(int *)(&nhead->num_region);
+	gen_time = Ctime6( nhead->entered_time);
+	exp_time = Ctime6( nhead->valid_time);
+	start_time = Ctime6( nhead->issued_time );
 
 	if (nregions == 0)
 	{
@@ -658,9 +334,9 @@ IngestNowcastRegions( pr, mtype, messin, lenin)
 		return(0);
 	}
 
-	IngestLog(EF_INFO,
-   	   "%s(%d): %d regions, type %li, gentime %s", 
-	   pr->platform, pr->rap_id, nregions,  nhead->nowcast_type,
+	IngestLog(EF_DEBUG,
+   	   "  %s(%d): %d regions, type %li, gen_time = %s", 
+	   pr->code, pr->rap_id, nregions,  nhead->nowcast_type,
 	   AscSysTime(gen_time, TC_Full));
 
 	TC_SysToZt(gen_time, &when);
@@ -685,18 +361,29 @@ IngestNowcastRegions( pr, mtype, messin, lenin)
 		}
 		dc->dc_Platform = platid;
 	
-		IngestLog(EF_INFO,
-		   "%s(%d): region #%i, %i points, type %li, region_id %li",
-		   platform, pr->rap_id, i, nregion->npts,
+		IngestLog(EF_DEBUG,
+		   "  %s(%d): region #%i, %i pts, type %li, region_id %li",
+		   pr->code, pr->rap_id, i, nregion->npts,
 		   nregion->region_type, nregion->region_id);
 
-		AppendLocations(&locns, 0, nowc, (int)(nregion->npts));
-		StoreBoundary(pr, dc, &when, platid, locns, (int)(nregion->npts));
+		dc_SetSampleAttr(dc, 0, AttStartTime, 
+			AscSysTime(start_time, TC_Full));
+		dc_SetSampleAttr(dc, 0, AttGenerateTime, 
+			AscSysTime(gen_time, TC_Full));
+		dc_SetSampleAttr(dc, 0, AttExpireTime, 
+			AscSysTime(exp_time, TC_Full));
+		SetIntAttr(dc, 0, AttNowcastType, (int)nhead->nowcast_type);
+		SetIntAttr(dc, 0, AttProbability, (int)nhead->probability);
+		SetIntAttr(dc, 0, AttRegionType, (int)nregion->region_type);
+		SetIntAttr(dc, 0, AttRegionId, (int)nregion->region_id);
+
+		AppendNowcLocations(&locns, 0, nowc, (int)(nregion->npts));
+		StoreBoundary(pr, dc, &when, platid, 
+			      locns, (int)(nregion->npts));
 		TriggerDataStore(pr, &when, platid);
 		dc_DestroyDC(dc);
 	}
 
-      	pr->last = gen_time;
 	return (0);
 }
 
@@ -735,8 +422,8 @@ IngestForecasts( pr, mtype, messin, lenin )
 
       	if ((fhead->id_number < 0) || (npts <= 0))
 	{
-	    IngestLog(EF_INFO,"%s(%d): Null product ignored",
-		pr->platform, pr->rap_id);
+	    IngestLog(EF_DEBUG,"  %s(%d): Null product ignored",
+		pr->code, pr->rap_id);
             return (0);
 	}
 
@@ -749,23 +436,23 @@ IngestForecasts( pr, mtype, messin, lenin )
 
 	cvt_Origin(pr->origin_lat,pr->origin_lon);
 
-	/* The assignments convert the structure field to int */
-	probability = fhead->probability;
-	period = fhead->period;		/* Forecast time in mins */
-	SetIntAttr(dc, "probability", probability);
-	SetIntAttr(dc, "period", period);
-	SetNowcPointAttr(dc, "center", fhead->x_ctr, fhead->y_ctr);
+	probability = (int)fhead->probability;
+	period = (int)fhead->period;		/* Forecast time in mins */
+	SetIntAttr(dc, 0, AttId, (int)fhead->id_number);
+	SetIntAttr(dc, 0, AttProbability, probability);
+	SetIntAttr(dc, 0, AttPeriod, period);
+	SetNowcCenterAttr(dc, fhead->x_ctr, fhead->y_ctr);
 
       	start_time = Ctime6( fhead->creation_time);
       	gen_time = Ctime6( fhead->creation_time);
 	expire_time = start_time + 3600;
 
-	IngestLog(EF_INFO,"%s(%d): %d points, id_number %li, generated %s",
-		platform, pr->rap_id, npts, fhead->id_number,
+	IngestLog(EF_DEBUG,
+	   "  %s(%d): %d pts, id_num %li, subid %i, gen_time = %s",
+		pr->code, pr->rap_id, npts, fhead->id_number, subid,
 		AscSysTime(gen_time, TC_Full));
 
-	AppendLocations(&locns, 0, nowc, npts);
-      	pr->last = gen_time;
+	AppendNowcLocations(&locns, 0, nowc, npts);
 	TC_SysToZt(gen_time, &when);
 	StoreBoundary(pr, dc, &when, platid, locns, npts);
 	TriggerDataStore(pr, &when, platid);
@@ -809,9 +496,9 @@ IngestPolylineProduct(pr, mtype, msg, mlen)
 	pd = (PDBproduct *)msg;
 	if (pd->npts == 0)		/* Check for an empty product */
 	{
-		IngestLog(EF_DEBUG,"%s, empty polyline product ignored.",
-			  pr->platform);
-		return(0);
+	   IngestLog(EF_DEBUG,"  %s(%d): empty polyline product ignored.",
+		  pr->code, pr->pdb_id);
+	   return(0);
 	}
 
 	platform = GetSubPlatform(pr, pr->next_id, &subid, &platid);
@@ -825,22 +512,23 @@ IngestPolylineProduct(pr, mtype, msg, mlen)
 	 * Add the fields of the PDBproduct as attributes
 	 */
 	sprintf(attr,"%hu",pd->line_type);
-	dc_SetSampleAttr(dc, 0, "line-type", attr);
+	dc_SetSampleAttr(dc, 0, AttLineType, attr);
 	sprintf(attr,"%li",pd->id);
-	dc_SetSampleAttr(dc, 0, "id", attr);
+	dc_SetSampleAttr(dc, 0, AttId, attr);
 	sprintf(attr,"%li",pd->subid);
-	dc_SetSampleAttr(dc, 0, "subid", attr);
-	dc_SetSampleAttr(dc, 0, "start-time", 
+	dc_SetSampleAttr(dc, 0, AttSubid, attr);
+	dc_SetSampleAttr(dc, 0, AttStartTime,
 			 AscSysTime(pd->start_time, TC_Full));
-	dc_SetSampleAttr(dc, 0, "expire-time", 
+	if (pd->expire_time >= 0)
+		dc_SetSampleAttr(dc, 0, AttExpireTime,
 			 AscSysTime(pd->expire_time, TC_Full));
-	dc_SetSampleAttr(dc, 0, "generate-time", 
+	dc_SetSampleAttr(dc, 0, AttGenerateTime,
 			 AscSysTime(pd->generate_time, TC_Full));
 	/* 
 	 * This is the value the ov_Boundary() routine will 
 	 * look for to distinguish multiple polylines
 	 */
-	dc_SetSampleAttr(dc, 0, "penup-point", "0.0");
+	dc_SetSampleAttr(dc, 0, AttPenupPoint, "0.0");
 
 	cvt_Origin(pr->origin_lat, pr->origin_lon);
 	pdbpts = (PDBpt *)(msg + sizeof(PDBproduct));
@@ -917,10 +605,12 @@ IngestPolylineProduct(pr, mtype, msg, mlen)
 		break;
 	}
 	/*
-	 * Then update our last-received field and destroy the DChunk
+	 * Then destroy the DataChunk
 	 */
-	pr->last = Time(0);
 	dc_DestroyDC(dc);
 	return(0);
 }
+
+
+
 
