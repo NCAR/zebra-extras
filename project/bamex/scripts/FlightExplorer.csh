@@ -58,7 +58,7 @@ endif
 #
 setenv ZEB_TOPDIR /opt/zebra
 $ZEB_TOPDIR/bin/FlightExplorer \
-    $ZEB_TOPDIR/project/bamex/scripts/FlightEx_map.bamex $tmpfile
+    $ZEB_TOPDIR/project/bamex/scripts/FlightEx_map.bamex $tmpfile > /dev/null
 
 #
 # "archive" this file
