@@ -107,7 +107,7 @@ defaults
 	p3-data-age-limit:	120m
 	dc8-icon-age-limit:	2m
 	dc8-data-age-limit:	120m
-	mesonet_15-icon-age-limit:	45m
+	mesonet_15-icon-age-limit:	60m
 	mesonet_15-data-age-limit:	90m
 	elev-icon-age-limit:	20000d
 	topo-icon-age-limit:	20000d
