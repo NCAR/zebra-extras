@@ -1,7 +1,7 @@
 !
 ! All the definitions required to make the iconbar work.
 !
-! $Id: IconBar,v 1.6 1996-01-30 15:48:25 granger Exp $
+! $Id: IconBar,v 1.7 1996-01-31 22:29:21 granger Exp $
 
 !
 ! The right way to do this....
@@ -244,6 +244,8 @@ define widget shalowan-display-menu intmenu 'HKUST-Pump House'
 		(dm$config = 'shalowan-prof2')
 	entry 'HKUST-Pump House Prof low/high' 'display shalowan-prof3' \
 		(dm$config = 'shalowan-prof3')
+	entry 'HKUST-Pump House RASS' 'display pumphouse-rass' \
+		(dm$config = 'pumphouse-rass')
 
 endmenu
 
