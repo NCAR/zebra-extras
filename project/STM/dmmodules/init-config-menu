@@ -31,11 +31,6 @@ define widget saved-config-menu intmenu 'saved configurations'
 endmenu
 
 !
-! We need ConfigDir to be set correctly, make sure it has
-!
-require init-config-path
-
-!
 ! Define the procedure which creates the saved config menu
 !
 procedure init-config-menu
