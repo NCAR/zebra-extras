@@ -1,22 +1,22 @@
 ! Auto-saved display configuration.
 config iss-lineplot-timeheight
 	widget 'iconbar' 1066 429 74 278
-	graphic 'map' 654 430 408 437 gp gp.init
+	graphic 'map' 654 430 408 437  Graphic
 		description 'iss-lineplot-timeheight-map'
 		buttonmap 'xyplot'
 		forcepd
 	endgraphic
-	graphic 'lp' 0 5 648 857 gp gp.init
+	graphic 'lp' 0 5 648 857  Graphic
 		description 'iss-lineplot-timeheight-lp'
 		buttonmap 'xyplot'
 		forcepd
 	endgraphic
-	graphic 'thw' 661 3 244 399 gp gp.init
+	graphic 'thw' 661 3 244 399  Graphic
 		description 'iss-lineplot-timeheight-thw'
 		buttonmap 'xyplot'
 		forcepd
 	endgraphic
-	graphic 'thc' 913 3 228 397 gp gp.init
+	graphic 'thc' 913 3 228 397  Graphic
 		description 'iss-lineplot-timeheight-thc'
 		buttonmap 'xyplot'
 		forcepd

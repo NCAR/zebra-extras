@@ -1,12 +1,12 @@
 ! Auto-saved display configuration.
 config iss-lineplot
 	widget 'iconbar' 1062 -45 80 550
-	graphic 'map' 654 269 488 598 gp gp.init
+	graphic 'map' 654 269 488 598  Graphic
 		description 'iss-lineplot-map'
 		buttonmap 'xyplot'
 		forcepd
 	endgraphic
-	graphic 'lp' 0 5 648 857 gp gp.init
+	graphic 'lp' 0 5 648 857  Graphic
 		description 'iss-lineplot-lp'
 		buttonmap 'xyplot'
 		forcepd

@@ -1,22 +1,22 @@
 ! Auto-saved display configuration.
 config iss-timeheight-skew-temp
 	widget 'iconbar' 1061 -24 75 467
-	graphic 'skew-t' 658 1 400 468 gp gp.init
+	graphic 'skew-t' 658 1 400 468  Graphic
 		description 'iss-timeheight-skew-temp-skew-t'
 		buttonmap 'sounding'
 		forcepd
 	endgraphic
-	graphic 'wind' 1 1 652 430 gp gp.init
+	graphic 'wind' 1 1 652 430  Graphic
 		description 'iss-timeheight-skew-temp-wind'
 		buttonmap 'xyplot'
 		forcepd
 	endgraphic
-	graphic 'rass' -1 457 652 419 gp gp.init
+	graphic 'rass' -1 457 652 419  Graphic
 		description 'iss-timeheight-skew-temp-rass'
 		buttonmap 'xyplot'
 		forcepd
 	endgraphic
-	graphic 'map' 661 477 476 392 gp gp.init
+	graphic 'map' 661 477 476 392  Graphic
 		description 'iss-timeheight-skew-temp-map'
 		buttonmap 'xyplot'
 		forcepd

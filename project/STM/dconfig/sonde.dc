@@ -1,17 +1,17 @@
 ! Auto-saved display configuration.
 config sonde
 	widget 'iconbar' 6 7 453 70
-	graphic 'UpperLeft' 6 83 696 605 gp gp.init
+	graphic 'UpperLeft' 6 83 696 605  Graphic
 		description 'sonde-UpperLeft'
 		buttonmap 'sounding'
 		forcepd
 	endgraphic
-	graphic 'UpperRight' 468 6 676 524 gp gp.init
+	graphic 'UpperRight' 468 6 676 524  Graphic
 		description 'sonde-UpperRight'
 		buttonmap 'xyplot'
 		forcepd
 	endgraphic
-	graphic 'LowerRight' 481 456 668 432 gp gp.init
+	graphic 'LowerRight' 481 456 668 432  Graphic
 		description 'sonde-LowerRight'
 		buttonmap 'sounding'
 		forcepd

@@ -1,7 +1,7 @@
 ! Auto-saved display configuration.
 config clouds
 	widget 'iconbar' 5 155 453 70
-	graphic 'UpperLeft' 5 236 762 638 gp gp.init
+	graphic 'UpperLeft' 5 236 762 638  Graphic
 		description 'clouds-UpperLeft'
 		buttonmap 'xyplot'
 		forcepd
