@@ -42,15 +42,16 @@ c_map
 	representation:	overlay
 c_locns_cf
 	active-icon:	true
-	color:	HotPink
+	color:	yellow
 	field:	location
-	icon:	ops-ctr
+	icon:	circle
+	icon-color:	yellow
 	icon-left-menu:	minimal-cap-left-menu
 	icon-right-menu:	location-options
 	label:	none
 	label-size:	12
 	platform:	cf
-	posicon:	ops-ctr
+	posicon:	circle
 	posicon-left-menu:	minimal-cap-left-menu
 	posicon-middle-menu:	send-cf
 	posicon-right-menu:	location-options
@@ -61,6 +62,7 @@ c_locns_ef
 	color:	green
 	field:	location
 	icon:	littlecircle
+	icon-color:	green
 	icon-left-menu:	minimal-cap-left-menu
 	icon-right-menu:	location-options
 	label:	platform
@@ -72,3 +74,19 @@ c_locns_ef
 	posicon-right-menu:	location-options
 	representation:	overlay
 	require:	location, ef-cap
+c_locns_uav
+	active-icon:	true
+	color:	HotPink
+	field:	location
+	icon:	littleplane
+	icon-color:	HotPink
+	icon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:	platform
+	label-size:	12
+	platform:	UAV
+	posicon:	littleplane
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-right-menu:	location-options
+	representation:	overlay
+	require:	location

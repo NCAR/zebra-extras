@@ -7,7 +7,7 @@ global
 	global-series-span-proc:	adj_series_span
 	pd-name:	sonde-LowerRight
 	platform:	sgpsondeC1.a1
-	plot-mode:	history
+	plot-mode:	real-time
 	plot-time:	2-feb-1994,20:33:00
 	plot-type:	xygraph
 	ta-scale:	.045

@@ -7,7 +7,7 @@ global
 	cloud2-scale-y-min:	0.0
 	pd-name:	clouds-UpperRight
 	platform:	DsgpblcC1.a1
-	plot-mode:	history
+	plot-mode:	real-time
 	plot-time:	20-Jan-94,21:43:00
 	plot-type:	xygraph
 	sa-scale:	.03
@@ -63,7 +63,7 @@ xy-grid
 	representation:	simple
 	representation-style:	line
 	require:	xytrace, simple-color
-	scale-y-mode:	autoscale
+!	scale-y-mode:	autoscale
 	x-field:	time
 	xyprivate-data-begin:	20-Jan-94,9:42:55
 	xyprivate-data-end:	20-Jan-94,21:42:50

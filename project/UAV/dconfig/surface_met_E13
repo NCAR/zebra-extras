@@ -1,8 +1,8 @@
 ! Auto-saved display configuration.
 config surface_met_E13
-	widget 'iconbar' 0 0 493 107
-	window 'w_smos_tseries_E13' 1 102 640 535 gp gp.init
-		description 'surface_met_E13-w_smos_tseries_E13'
+	widget 'iconbar' 3 789 390 142
+	window 'UpperLeft' 0 191 670 615 gp gp.init
+		description 'surface_met_E13-UpperLeft'
 		buttonmap 'xyplot'
 		forcepd
 	endwindow

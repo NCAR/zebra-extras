@@ -60,7 +60,8 @@ l_xytrace
 	icon-middle-menu:	sirosfields
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	DsgpsirosE13.a1
+!	platform:	DsgpsirosE13.a1
+	platform:	SOMETHING
 	representation:	simple
 	representation-style:	line
 	require:	xytrace, simple-color, siros, xyplots
@@ -87,7 +88,8 @@ r_xytrace
 	icon-middle-menu:	sirosfields
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	DsgpsirosE13.a1
+!	platform:	DsgpsirosE13.a1
+	platform:	SOMETHING
 	representation:	simple
 	representation-style:	line
 	require:	xytrace, simple-color, siros, xyplots

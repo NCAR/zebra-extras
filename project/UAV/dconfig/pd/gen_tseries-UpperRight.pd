@@ -4,7 +4,7 @@ global
 	axis-right-space:	50
 	axis-top-space:	30
 	pd-name:	gen_tseries-UpperRight
-	platform:	DsgpmwrlosC1.a1
+	platform:	sgpmwrlosC1.a1
 	plot-mode:	real-time
 	plot-time:	now
 	plot-type:	xygraph
@@ -23,7 +23,7 @@ xy-grid
 	do-side-annotation:	true
 	field-color:	red
 	icon:	none
-	platform:	DsgpmwrlosC1.a1
+	platform:	sgpmwrlosC1.a1
 	representation:	simple
 	representation-style:	line
 	x-field:	nothing
@@ -44,7 +44,7 @@ p_xytrace
 	icon-middle-menu:	FieldMenu
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	DsgpmwrlosC1.a1
+	platform:	sgpmwrlosC1.a1
 	representation:	simple
 	representation-style:	line
 	require:	xytrace, simple-color
@@ -66,7 +66,7 @@ q_xytrace
 	icon-middle-menu:	FieldMenu
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	DsgpsirosE13.a1
+	platform:	sgpsirosE13.a1
 	representation:	simple
 	representation-style:	line
 	require:	xytrace, simple-color

@@ -10,8 +10,8 @@ global
 	plot-type:	CAP
 	ta-scale:	.04
 	time-frames:	2
+	platform:	sgpsfchrlyX1.00
 	trigger:	platform
-	platform:	sgpsfchrlyX1.a1
 	x-max:	700
 	x-min:	-800
 	y-max:	200
@@ -29,7 +29,7 @@ p_fcontour
 	icon-right-menu:	contour-right
 	label-blanking:	false
 	limit-proc:	contour-putup-adj
-	platform:	sgpsfchrlyX1.a1
+	platform:	sgpsfchrlyX1.00
 	representation:	filled-contour
 	require:	contour, simple-color, surface
 	scale-mode:	auto
@@ -98,7 +98,7 @@ c_locns_ef
 	icon-right-menu:	location-options
 	label:	platform
 	label-size:	12
-	platform:	E1,E2,E3,E4,E5,E6,E7,E8,E9,E10,E11,E12,E15,E16,E17,E18,E19,E20,E21,E22,E23,E24,E25
+	platform:	E9,E13,E15
 	posicon:	littlecircle
 	posicon-left-menu:	minimal-cap-left-menu
 	posicon-right-menu:	location-options
@@ -113,7 +113,7 @@ p_irg_winds
 	icon-right-menu:	irg-winds-right
 	limit-proc:	adj_arrow_scale
 	max-fill:	3.0
-	platform:	sgpsfchrlyX1.a1
+	platform:	sgpsfchrlyX1.00
 	radius:	2.0
 	representation:	vector
 	require:	irg_winds, simple-color
@@ -135,7 +135,7 @@ p_station
 	icon-middle-menu:	nws-station-fields
 	icon-right-menu:	p-station-right
 	limit-proc:	adj_arrow_scale
-	platform:	sgpsfchrlyX1.a1
+	platform:	sgpsfchrlyX1.00
 	posicon-middle-menu:	nws-station-fields
 	quad4:	none
 	representation:	station

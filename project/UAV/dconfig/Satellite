@@ -1,13 +1,13 @@
 ! Auto-saved display configuration.
 config Satellite
-	widget 'iconbar' 6 6 453 68
-	window 'UpperLeft' 6 81 820 646 gp gp.init
+	widget 'iconbar' 0 802 370 80
+	window 'UpperLeft' 0 121 830 702 gp gp.init
 		description 'Satellite-UpperLeft'
 		buttonmap 'big'
 		forcepd
 	endwindow
-	window 'LowerRight' 688 486 460 386 gp gp.init
-		description 'Satellite-LowerRight'
+	window 'UpperRight' 737 246 470 442 gp gp.init
+		description 'Satellite-UpperRight'
 		buttonmap 'xyplot'
 		forcepd
 	endwindow

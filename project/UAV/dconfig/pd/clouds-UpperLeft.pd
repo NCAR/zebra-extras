@@ -4,11 +4,10 @@ global
 	axis-right-space:	50
 	axis-top-space:	30
 	pd-name:	clouds-UpperLeft
-	platform:	DsgpmwrlosC1.a1
-	plot-mode:	history
+	platform:	sgpmwrlosC1.a1
+	plot-mode:	real-time
 	plot-time:	2-Feb-94,20:41:00
 	plot-type:	xygraph
-	sa-scale:	.03
 	ta-scale:	.037
 	trigger:	platform
 	xy-axis-b-font-scale:	10
@@ -19,14 +18,18 @@ global
 	xy-series-span:	720m
 xy-grid
 	axis-b-label:	Time
+	axis-b-tic-interval:	7200s
 	axis-bottom:	true
+	axis-l-tic-interval:	1.0000
 	axis-left:	false
+	axis-r-tic-interval:	1.0000
 	axis-right:	false
+	axis-t-tic-interval:	7200s
 	axis-top:	false
 	do-side-annotation:	false
 	field-color:	red
 	icon:	none
-	platform:	DsgpmwrlosC1.a1
+	platform:	sgpmwrlosC1.a1
 	representation:	simple
 	representation-style:	line
 	x-field:	time
@@ -35,11 +38,15 @@ l_xytrace
 	annot-left-menu:	xy-an-left
 	annot-middle-menu:	mwrfields
 	annot-right-menu:	simple-color
+	axis-b-tic-interval:	7200s
 	axis-bottom:	false
 	axis-l-color:	rgb:ffff/00/00
 	axis-l-grid-intensity:	0.7
+	axis-l-tic-interval:	.1
 	axis-left:	true
+	axis-r-tic-interval:	1.0000
 	axis-right:	false
+	axis-t-tic-interval:	7200s
 	axis-top:	false
 	color-tweaker:	xytrace-color
 	disable:	false
@@ -51,22 +58,28 @@ l_xytrace
 	icon-middle-menu:	mwrfields
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	DsgpmwrlosC1.a1
+	platform:	sgpmwrlosC1.a1
 	representation:	simple
 	representation-style:	cross
 	require:	xytrace, simple-color, mwr
+	scale-y-max:	2.0
+	scale-y-min:	.5
+	scale-y-mode:	manual
 	x-field:	time
 	y-field:	vap
 r_xytrace
 	annot-left-menu:	xy-an-left
 	annot-middle-menu:	mwrfields
 	annot-right-menu:	simple-color
+	axis-b-tic-interval:	7200s
 	axis-bottom:	false
+	axis-l-tic-interval:	1.0000
 	axis-left:	false
 	axis-r-color:	rgb:ffff/a5a5/00
 	axis-r-grid-intensity:	0.0
-	axis-r-tic-interval:	0.001
+	axis-r-tic-interval:	.01
 	axis-right:	true
+	axis-t-tic-interval:	7200s
 	axis-top:	false
 	color-tweaker:	xytrace-color
 	disable:	false
@@ -78,9 +91,12 @@ r_xytrace
 	icon-middle-menu:	mwrfields
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	DsgpmwrlosC1.a1
+	platform:	sgpmwrlosC1.a1
 	representation:	simple
 	representation-style:	line
 	require:	xytrace, simple-color, mwr
+	scale-y-max:	+1.0
+	scale-y-min:	-0.01
+	scale-y-mode:	manual
 	x-field:	time
 	y-field:	liq
