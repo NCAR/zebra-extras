@@ -1,0 +1,153 @@
+#! /bin/sh -x
+#
+# $Id: batch-plot,v 1.1 1997-05-30 19:31:21 granger Exp $
+#
+# Start a display manager session with a virtual X server and dump
+# images of its plots.
+
+# ---- Site-specific configuration settings ----
+
+host=`uname -n`
+
+# The spool dir is where images are dumped
+spool=/apps/zebra/images
+
+# Default config to dump when none specified on command line
+config="smos-tseries"
+
+# Top zebra directory
+ztop="/apps/zebra"
+
+# Project directory
+project=/apps/zebra/project
+
+# Special path
+PATH=$ztop/bin:/home/granger/bin:$PATH
+
+# Path to Xvfb
+xvfb=Xvfb
+
+# Display connection to use for virtual X server
+display=":9"
+
+# ---- 
+if [ $host = stout ] ; then
+
+# The spool dir is where images are dumped
+spool=/dt/granger/images
+
+# Default config to dump when none specified on command line
+config="sonde"
+
+# Top zebra directory
+ztop="/zebra"
+
+# Project directory
+project=/scr/steam/arm/SGP
+DATA_DIR=/dt/granger/data/arm/sgp
+export DATA_DIR
+
+# Special path
+PATH=$ztop/bin:$PATH
+
+# Path to Xvfb
+xvfb=/local/X11R6.1/bin/Xvfb
+
+# Display connection to use for virtual X server
+display=":9"
+
+fi
+
+# ---- End site configuration ----
+
+target=""
+if [ $# -gt 0 ]; then
+    config=$1
+    shift
+    if [ $# -gt 0 ]; then
+	target=$1
+	shift
+    fi
+fi
+
+# Should be no arguments left
+if [ $# -gt 0 ]; then
+    echo "Usage: $0 [config [window]]"
+    exit 1
+fi
+
+PRESERVE_ZEB=1; export PRESERVE_ZEB
+
+# Start our private, virtual X display
+
+#Needed when file paths are not what were compiled into Xvfb
+#set owl=/usr/openwin/lib/X11
+#set owf=$owl/fonts
+#set fp="$owf/misc,$owf/Speedo,$owf/Type1,$owf/75dpi,$owf/100dpi"
+
+$xvfb $display &
+x=$!
+sleep 5
+DISPLAY=${display}.0 ; export DISPLAY
+
+# Make sure we have a datastore running
+
+zstart -n -ds $project
+sleep 5
+
+# Then start a private display session
+# We set the dm name explicitly so that we can query it
+
+DEFAULT_CONFIG=$config
+ZEB_DM_CONFIG="-multiple -name Batch dm.config"
+export DEFAULT_CONFIG ZEB_DM_CONFIG
+zstart -dm -preserve $project &
+sleep 5
+zrun Batch 'realtime all'
+zquery Batch
+sleep 5
+
+# Get a list of the graphics processes appearing in this display
+
+procs=`mstatus | egrep 'group-Batch' | sed -e 's,^.*:,,g' -e 's/,//g'`
+echo Processes: $procs
+
+# For each process, tell it to dump its plot
+# Put the image in a subdirectory of spool according to the hour of day
+
+hour=`date -u '+%H'`
+if [ ! -d $spool/$hour ]; then
+    mkdir -p $spool/$hour
+fi
+
+for plot in $procs ; do
+
+    name=`echo $plot | sed -e 's/-Batch.*//'`
+    echo $name
+
+    # If we have a specific target, skip this window if it's not it
+
+    if [ "$target" = "" -o "$target" = "$name" ]; then
+
+	# Form the gif file name by extracting the plot name from the
+	# process. An alternative is to grep the pd-name from a zquery of
+	# the process, which includes the config name.  For now we can
+	# prepend the config here.
+
+	zrun $plot "imgdump gif \"$spool/$hour/${config}-$name.gif\""
+
+    fi
+
+done
+sleep 15
+
+# Exit the window manager and kill our virtual X server
+
+zrun Batch 'shutdown'
+sleep 5
+
+#kill `ps -f | grep Xvfb | grep -v grep | awk -e '{ print $1; }'`
+kill $x
+
+
+
