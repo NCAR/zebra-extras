@@ -1,0 +1,8 @@
+! $Id: fest-model,v 1.1 1994-09-24 08:17:43 granger Exp $
+!
+! A module file which pops up the model widget when required by
+! a graphics process.
+!
+
+popup model
+
