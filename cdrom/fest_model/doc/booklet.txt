@@ -1,0 +1,537 @@
+		===================================
+		STORM-FEST CD-ROM, MODEL SUPPLEMENT
+		===================================
+
+
+Production of this CD-ROM set is the result of collaboration among the
+Office of Field Project Support of the University Corporation for
+Atmospheric Research, the Atmospheric Technology Division (ATD) of the
+National Center for Atmospheric Research (NCAR), and the U.S. Weather
+Research Program Office. This CD-ROM set contains a selection of model data
+sets generated during the STORM-FEST 1992 field project. Lists of IOPs and
+the data sets contained on the CD-ROM are shown in tables below. In
+addition, ATD's Zeb visual ization software is included on the disks. Zeb
+provides comprehen sive graphical integration of the data from the original
+observational STORM-FEST CD-ROM set and this model data CD-ROM set. Dis
+plays include surface plots, skew-T plots, vertical cross-sections of
+sounding data, profiler time-height plots, altitude graphs and time series
+plots.
+
+
+The STORM-FEST Model Data Sets
+------------------------------
+
+The NOAA/NWS National Meteorological Center (NMC) models and plans are
+outlined by Kalney, et al., in the Proceedings of the Tenth Conference on
+Numerical Weather Prediction, Portland, Ore gon, July 18-22, 1994, 143-148,
+American Meteorological Society, Boston MA.
+
+The four model data sets on the STORM-FEST disk are comparable for many
+purposes, but they differ in detail. The Nested Grid Model (NGM) has been
+essentially frozen since 1990 although the Regional Data Assimilation
+System (RDAS) was incorporated in 1991. The Aviation (AVN) model has been
+evolving slowly since 1980 and is based on the spectral technique whereas
+all the other models are grip-point models. The Mesoscale Analysis and
+Predic tion System (MAPS) and Eta models have been developed more recently
+and both use vertical coordinates that differ from the tradi tional sigma
+of the NGM and AVN. The Eta uses the step-mountain approach where surfaces
+are nearly flat and horizontal whereas the MAPS uses a hybrid of sigma near
+the ground and isentropic sur faces aloft. Scores of verification studies
+indicate that generally the AVN becomes more competitive as forecast range
+increases; the Eta is almost always better than the NGM and is by far the
+best model for quantitative precipitation forecasts; MAPS is best for fore
+casts less than 12 hours. For a specific storm and a specific pur pose, any
+of the four models may be better than the rest. For this reason, all four
+are on the CD-ROM and the user is free (and encouraged) to compare and
+select the model that seems best for the user's purposes.
+
+Actually, for the purposes of STORM-FEST studies, the role of the dynamical
+model producing the data set may be secondary. Those users interested in
+the best description they can find of the structure of the storms will want
+to use the model associated with the best data assimilation system for the
+scales, levels and variables of con cern to them. In their terminology, NMC
+has two intermittent (fore cast-analysis cycle) systems: the NGM-based RDAS
+(Regional Data Assimilation System) and the Global Data Assimilation Sys
+tem (GDAS) used by the AVN and based on the global spectral model. The NGM
+and the Eta model data on CD-ROM both come from models run from initial
+conditions based on the RDAS, while the AVN analysis uses a first-guess
+from the GDAS. MAPS is pri marily a data assimilation system rather than a
+prediction model.  A final note of caution: model data suffered in varying
+amounts when transferred to the grid of the data set on the CD-ROM and may
+suffer further when converted to the users grid. While great care is taken
+to retain information without introducing noise or destroying information,
+choices are always required that are not necessarily optimal for any
+particular user.
+
+
+Hardware Requirements
+---------------------
+
+The STORM-FEST CD-ROM uses the Rock Ridge Interchange Protocol (RRIP),
+which is an extension of the ISO 9660 CD-ROM standard. Most UNIX machines
+will be able to access the data files on the CD-ROM using this protocol;
+some (such as HPs), will require use of an included script to create a
+"shadow" directory to establish correct filenames. Additional software is
+required for data access by a PC.
+
+The version of Zeb distributed on the CD-ROM has the following
+requirements:
+
+	* One of the following workstations (color highly recommended):
+
+		+ Sun w/SunOS 4.1.3 or greater
+
+		+ Sun w/Solaris 2.0 or greater
+
+		+ HP 9000 series w/HP-UX A.09.01 (may work under other 
+		  HP-UX versions, but untested)
+
+		+ Silicon Graphics Indy w/IRIX 5.1.0.1 (may work on other 
+		  SGI machines or IRIX versions, but untested)
+
+		+ X11R4 or greater (this criterion is met by Sun OpenWindows 
+		  3.0 or greater)
+
+	* a minimum of 16MB of RAM (32MB or more recommended)
+
+	* 32MB minimum swap space (swap space needs to be at least 
+	  twice the RAM under SunOS)
+
+	* a CD-ROM player somewhere on the network.
+
+
+Mounting the CD-ROM Under SunOS or HP-UX
+----------------------------------------
+
+Under the SunOS and HP-UX operating systems, CD-ROM disks must be mounted
+by the super-user using the mount command: Put the CD into the carrier and
+insert into the CD-ROM drive.  Decide where you want to mount the CD on
+your system. We suggest /zebcd, but you may put it anywhere (the
+instructions below assume that it is on /zebcd). Create the mount
+directory:
+
+	# mkdir /zebcd
+
+Mount the CD on your selected directory. Note that the CD-ROM device name
+(/dev/...) may be different on your machine.
+
+Under SunOS:
+
+	# mount -t hsfs -o ro /dev/sr0 /zebcd
+
+Under HP-UX:
+
+	# mount /dev/dsk/c201d2s0 /zebcd -t cdfs -o ro
+
+
+Mounting the CD-ROM Under Solaris or IRIX
+-----------------------------------------
+
+The Solaris and IRIX operating systems provide for automatic mounting of
+CD-ROM disks once they are inserted into the sys tem's CD-ROM drive. By
+default, the disk will be mounted to direc tory /cdrom/cdrom0 under
+Solaris, and to directory /CDROM under IRIX.
+
+Later parts of this document assume that the CD-ROM is mounted to directory
+/zebcd, so you may wish to create a symbolic link from /zebcd to the actual
+mount directory, e.g.,
+
+	# mkdir /zebcd
+	# ln -s /zebcd /CDROM
+
+This must be done by super-user.  Solaris Note: Under Solaris, there is a
+problem which causes con sole messages of the form
+
+	NOTICE: hs_access: error out on VWRITE 
+
+to occasionally appear when the STORM-FEST CD-ROM is being used. These
+messages are innocuous and should be ignored.
+
+
+Mounting the CD-ROM From a Remote Machine Using NFS
+---------------------------------------------------
+
+If your CD-ROM drive is on a different machine than the machine on which
+you wish to run the software, you can mount it remotely via NFS. The
+following instructions assume that the machine with the drive is called
+"server", and the machine on which you want to run zeb is called "client":
+
+Mount the CD on "server" by following the instructions above.  Edit the
+file /etc/exports on "server" and add a line that reads simply:
+
+	/zebcd
+
+(or the name of your mount point if other than /zebcd).
+
+Run:
+	# exportfs -a
+
+On "client" perform the following:
+
+	# mkdir /zebcd
+
+And
+
+	under SunOS or IRIX:
+
+	   # mount -o ro -t nfs server:/zebcd /zebcd
+
+	under Solaris:
+
+	   # mount -o ro -F nfs server:/zebcd /zebcd
+
+	under HP-UX
+
+	   # mount server:/zebcd /zebcd -f nfs -o ro
+
+
+Shadow Directories Under HP-UX
+------------------------------
+
+On HP machines, the files on the CD-ROM disks will be seen with 8-character
+all uppercase filenames; this is a result of the CD file system software
+under HP-UX. Because of this, Zeb must be run from a shadow directory that
+provides the files via their real names rather than the truncated versions
+that come directly from the CD. A script is provided for setting up the
+shadow directory: SHADOW.CD;1. The shadow directory needs to be created
+only once, and generally will take a few megabytes of space. In the example
+below, it is assumed that one of the CDs is mounted on /zebcd. Shadow
+directory /zebshadow is created:
+
+	% /zebcd/SHADOW.CD\;1 /zebshadow
+
+Note that the semicolon in the name of the script must be escaped with a
+backslash. Once the shadow directory has been created, Zeb related work
+should proceed as if the CD were directly mounted to the shadow directory.
+
+
+Printing Documentation
+----------------------
+
+After the CD-ROM is mounted, files under the /zebcd/doc directory can be
+sent to a PostScript printer. A few important documents there:
+
+	* installcd.ps: information on installing Zeb onto your local disk 
+	  for performance improvement.
+
+	* RunningZeb.ps: extended information for getting started with Zeb.
+
+	* ModelData.ps: description of new utilities that have been 
+	  added to Zeb for dealing with model data.
+
+	* ObsAndModel.ps: instructions for using data from both the 
+	  original observational data CD-ROM set and this model data 
+	  CD-ROM set together.
+
+
+Running Zeb
+-----------
+
+After the CD-ROM is mounted, Zeb can be run directly from the CD-ROM:
+
+	% /zebcd/runzeb
+
+For significantly better performance, Zeb can be installed onto your local
+disk:
+
+	% /zebcd/installzeb
+
+
+Unmounting the CD-ROM
+---------------------
+
+under SunOS or HP-UX (as super-user):
+
+	# umount /zebcd
+
+under IRIX (no special privilege necessary):
+
+	% eject /CDROM
+
+under Solaris (no special privilege necessary):
+
+	% eject cdrom
+
+If you get a "device busy" or similar message from the umount or eject
+command, it means that some process is still using the CD- ROM. Most
+likely, you have a window with its current directory on the CD-ROM. Use the
+cd command in that window to move your current directory elsewhere and try
+again.
+
+
+GrADS: Additional Software for Viewing the STORM-FEST Model Data
+----------------------------------------------------------------
+
+Another way to analyze and display the model data on this CD-ROM is to
+utilize the GrADS (Gridded Analysis and Display System) package, developed
+by Brian Doty of the Center for Ocean-Land- Atmosphere Interactions at the
+University of Maryland. GrADS is available in binary form for Sun, IBM,
+DEC, HP, SGI, and PC com puters. Source code is not available.
+
+NOTE: GrADS is not written or supported by UCAR/NCAR. Send Internet e-mail
+to support@grads.iges.org with any questions, prob lems, or suggestions
+related to the software itself.
+
+As of this writing, the latest version of GrADS released was 1.4; ver sion
+1.5 was nearing completion. Unfortunately, version 1.5 is nec essary to
+properly display the data on this CD-ROM, as it is the first version to
+support polar stereographic grids in GRIB data.
+
+Since version 1.5 was on the verge of release, it seemed imprudent to place
+instructions on this CD-ROM which would soon be obso lete. Therefore, the
+Office of Field Project Support has established a directory on their
+anonymous FTP server containing information on the current status of GrADS,
+along with instructions on acquiring and using GrADS with this CD-ROM.
+
+To get this information, use your FTP program to connect to the computer
+"ofps.ucar.edu" (numeric IP address 128.117.90.64). (The details of FTP
+will depend on your system; consult your system documentation for further
+explanation.) When prompted for a name, type "ftp" (without the quotes) and
+press your Return key. The remote computer should respond, "Guest login ok,
+send ident as password." Enter your e-mail address at the "Password:"
+prompt and press Return. The remote computer should respond, "Guest login
+ok, access restrictions apply." You are now ready to list and transfer
+files.
+
+Type "cd pub/grads" and press return. You are now in the directory on our
+computer containing the GrADS information. Typing "dir" and Return should
+produce a display resembling this one:
+
+	total 9
+	-rw-r--r-- 1 mark staff   1033 Jul 14 10:59 README.grads
+	-rw-r--r-- 1 mark staff    723 Nov  9 1993  avn27.ctl
+				.
+				.
+				.
+	-rw-r--r-- 1 mark staff    973 Jul 13 15:47 eta.ctl
+	-rw-r--r-- 1 mark staff    710 Jun  1 11:45 ngm.ctl
+
+This is a list of the files in the directory on our computer. (Note that
+the sizes and dates of the files will change over time, and that we may add
+files to the directory. However, the first file listed above is guaranteed
+to be present.) Right now, you should transfer the file called
+"README.grads" to your own computer and read it. To do so, type "get
+README.grads" and press Return; this transfers the file into the current
+directory on your computer. Once the file has transferred successfully,
+type "quit" and Return to exit the FTP ses sion. Finally, read the file you
+just transferred and follow its instruc tions accordingly.
+
+Questions about obtaining GrADS can be directed to: 
+
+	Mark Bradford (mark@ncar.ucar.edu)
+	303-497-8169
+
+
+Acknowledgments
+---------------
+
+We would like to thank all who participated in STORM-FEST and are
+especially grateful to the National Meteorological Center and NOAA's
+Forecast System Laboratory for providing the model data contained here. The
+CD-ROM project was managed by C.  Burghart. The Zeb software and modules
+for formatting the data were written by J. Corbet, C. Burghart, G. Granger,
+K. Gould, A.  Barrett, and M. Case. Additional data translation programming
+was done by M. Bradford. The software on this CD-ROM was reviewed by
+C. Mueller, J. Moore, W. Brazille, S. Dembek, and L. Dervillee.  The data
+periods included on these disks were selected by C.  Kreitzberg. The
+original cover art was designed by J. Locatelli.
+
+
+Further Information
+-------------------
+
+Questions regarding the Zeb software? Contact:
+
+	Rebecca Sobol (sobol@ncar.ucar.edu)
+	303-497-8847
+
+Questions regarding the data sets? Contact:
+
+	Steve Williams (sfw@ncar.ucar.edu)
+	303-497-8164
+
+
+
+
+
+		                                     *
+		     STORM-FEST '92: Model Data Times 
+	+------------------------------------------------------+
+	| CD #   IOP   Data Start Time (Z)   Data End Time (Z) |
+	+------------------------------------------------------+
+	|         3     Feb.  9, 00:00        Feb. 10, 03:00   |
+	|   1     4     Feb. 10, 06:00        Feb. 10, 18:00   |
+	|         5     Feb. 11, 00:00        Feb. 14, 03:00   |
+	|        6-7    Feb. 14, 06:00        Feb. 19, 00:00   |
+	+------------------------------------------------------+
+	|        10     Feb. 22, 12:00        Feb. 23, 09:00   |
+	|        11     Feb. 23, 12:00        Feb. 25, 09:00   |
+	|   2    12     Feb. 25, 12:00        Feb. 26, 00:00   |
+	|        16     Mar.  3, 12:00        Mar.  5, 00:00   |
+	|        17     Mar.  5, 12:00        Mar. 10, 06:00   |
+	|        18     Mar. 10, 12:00        Mar. 11, 09:00   |
+	|        19     Mar. 11, 12:00        Mar. 12, 00:00   |
+	+------------------------------------------------------+
+
+	* Note that models may have data gaps within these periods.
+	  Data from times between IOPs are included with the 
+	  succeeding IOP
+
+
+
+
+
+=============================================================================
+			AVN (Aviation) Model - old form
+=============================================================================
+
+Temporal Resolution
+-------------------
+
+	Issue Times: 0Z, 12Z.
+
+	Forecast Times: 0 hr, 6 hr, 12 hr, 18 hr, 24 hr, 30 hr, 36 hr, 42 hr, 
+			48 hr, 54 hr, 60 hr, 66 hr, 72 hr.
+
+Spatial Resolution and Coverage
+-------------------------------
+
+	Latitude: every 4 degrees from 20 N to 60 N.
+
+	Longitude: every 4 degrees from 130 W to 58 W.
+
+Description
+-----------
+
+	This model is NMC's global spectral model with a resolution of 126 
+	waves using triangular truncation (or about 110 km) and 18 sigma 
+	layers.  It uses the Kuo convection scheme and is run in the so-
+	called Aviation slot twice daily out to 72 hours. See Kanamitsu, M., 
+	1989: NMC's global spectral model and Global Data Assimilation 
+	System. Wea. Forecasting, 4, 335-342. (See also, Kanamitsu, M., 
+	et al., 1991: Recent changes implemented into the Global Forecast 
+	System at NMC. Wea. Forecasting, 6, 425-435; and Kanamitsu, M., 
+	S. Saha, 1994: Mon. Wea. Rev. -in press)
+
+
+
+
+
+
+=============================================================================
+				Eta Model
+=============================================================================
+
+Temporal Resolution
+-------------------
+
+	Issue Times: 0Z, 12Z.
+
+	Forecast Times: 0 hr, 12 hr, 18 hr, 24 hr, 30 hr, 36 hr, 42 hr, 48 hr.
+
+Spatial Resolution and Coverage
+-------------------------------
+
+	Latitude: every 1 degree from 20 N to 60 N.
+
+	Longitude: every 1 degree from 130 W to 60 W.
+
+Description
+-----------
+
+	The Eta model is a regional model with step-terrain coordinates 
+	intended as the model of the future at NMC.  During STORM-FEST, 
+	it's resolution was 80 km with 16 levels.  It uses state-of-the-art 
+	numerics and physics with the Betts-Miller convective parameter
+	ization.  It has become operational at NMC in the Early run replac
+	ing the venerable LFM. See Black, T. L., 1994: The new NMC 
+	mesoscale Eta Model: Description and forecast examples. Wea. 
+	Forecasting, 9, 265-278.
+
+
+
+
+
+
+=============================================================================
+	Mesoscale Analysis and Prediction System (MAPS) Model
+=============================================================================
+
+Temporal Resolution
+-------------------
+
+	Issue Times: 0Z, 3Z, 6Z, 9Z, 12Z, 15Z, 18Z, 21Z.
+
+	Forecast Times: 0 hr, 3 hr, 6 hr.
+
+Spatial Resolution and Coverage
+-------------------------------
+
+	Latitude: every 1 degree from 20 N to 60 N.
+
+	Longitude: every 1 degree from 130 W to 60 W.
+
+Description
+-----------
+
+	This model is a regional isentropic model designed to ingest data 
+	nearly continuously, with a resolution of 80 km and 18 levels.  If one 
+	wants the best analysis at all times in contrast to a forecast this 
+	should be the best data set, but it may not be for some storms and 
+	for some applications. See Benjamin, S. G., K. A. Brewster, R. 
+	Brummer, B. F. Jewett, T. W. Schlatter, T. L. Smith, 1991: An isen
+	tropic three-hourly data assimilation system using ACARS aircraft 
+	observations, Mon. Wea. Rev., 119, 888-906.
+
+
+
+
+
+
+=============================================================================
+			Nested Grid Model (NGM)
+=============================================================================
+
+Temporal Resolution
+-------------------
+
+	Issue Times: 0Z, 12Z.
+
+	Forecast Times: 0 hr, 12 hr, 18 hr, 24 hr, 30 hr, 36 hr, 42 hr, 48 hr.
+
+Spatial Resolution and Coverage
+-------------------------------
+
+	Latitude: every 2 degrees from 20 N to 60 N.
+
+	Longitude: every 2 degrees from 130 W to 60 W.
+
+Description
+-----------
+
+	The Nested Grid Model (NGM) has been the standard regional 
+	model used at NMC for a decade, with a resolution of 80 km and 16 
+	sigma layers using a Kuo parameterization scheme for convection. 
+	See Hoke, J. E., et al, 1989: The Regional Analysis System of the 
+	National Meteorological Center, Wea. Forecasting, 4, 323-334.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,4703 @@
+%!PS-Adobe-3.0
+%%BoundingBox: (atend)
+%%Pages: (atend)
+%%PageOrder: (atend)
+%%DocumentFonts: (atend)
+%%Creator: Frame 4.0
+%%DocumentData: Clean7Bit
+%%EndComments
+%%BeginProlog
+%
+% Frame ps_prolog 4.0, for use with Frame 4.0 products
+% This ps_prolog file is Copyright (c) 1986-1993 Frame Technology
+% Corporation.  All rights reserved.  This ps_prolog file may be
+% freely copied and distributed in conjunction with documents created
+% using FrameMaker, FrameBuilder and FrameViewer as long as this 
+% copyright notice is preserved.
+%
+% Frame products normally print colors as their true color on a color printer
+% or as shades of gray, based on luminance, on a black-and white printer. The
+% following flag, if set to True, forces all non-white colors to print as pure
+% black. This has no effect on bitmap images.
+/FMPrintAllColorsAsBlack             false def
+%
+% Frame products can either set their own line screens or use a printer's 
+% default settings. Three flags below control this separately for no 
+% separations, spot separations and process separations. If a flag
+% is true, then the default printer settings will not be changed. If it is
+% false, Frame products will use their own settings from a table based on
+% the printer's resolution.
+/FMUseDefaultNoSeparationScreen      true  def
+/FMUseDefaultSpotSeparationScreen    true  def
+/FMUseDefaultProcessSeparationScreen false def
+%
+% For any given PostScript printer resolution, Frame products have two sets of 
+% screen angles and frequencies for printing process separations, which are 
+% recomended by Adobe. The following variable chooses the higher frequencies
+% when set to true or the lower frequencies when set to false. This is only
+% effective if the appropriate FMUseDefault...SeparationScreen flag is false.
+/FMUseHighFrequencyScreens true def
+%
+% PostScript Level 2 printers contain an "Accurate Screens" feature which can
+% improve process separation rendering at the expense of compute time. This 
+% flag is ignored by PostScript Level 1 printers.
+/FMUseAcccurateScreens true def
+%
+% The following PostScript procedure defines the spot function that Frame
+% products will use for process separations. You may un-comment-out one of
+% the alternative functions below, or use your own.
+%
+% Dot function
+/FMSpotFunction {abs exch abs 2 copy add 1 gt 
+		{1 sub dup mul exch 1 sub dup mul add 1 sub }
+		{dup mul exch dup mul add 1 exch sub }ifelse } def
+%
+% Line function
+% /FMSpotFunction { pop } def
+%
+% Elipse function
+% /FMSpotFunction { dup 5 mul 8 div mul exch dup mul exch add 
+%		sqrt 1 exch sub } def
+%
+%
+/FMversion (4.0) def 
+/FMLevel1 /languagelevel where {pop languagelevel} {1} ifelse 2 lt def
+/FMPColor
+	FMLevel1 {
+		false
+		/colorimage where {pop pop true} if
+	} {
+		true
+	} ifelse
+def
+/FrameDict 400 dict def 
+systemdict /errordict known not {/errordict 10 dict def
+		errordict /rangecheck {stop} put} if
+% The readline in PS 23.0 doesn't recognize cr's as nl's on AppleTalk
+FrameDict /tmprangecheck errordict /rangecheck get put 
+errordict /rangecheck {FrameDict /bug true put} put 
+FrameDict /bug false put 
+mark 
+% Some PS machines read past the CR, so keep the following 3 lines together!
+currentfile 5 string readline
+00
+0000000000
+cleartomark 
+errordict /rangecheck FrameDict /tmprangecheck get put 
+FrameDict /bug get { 
+	/readline {
+		/gstring exch def
+		/gfile exch def
+		/gindex 0 def
+		{
+			gfile read pop 
+			dup 10 eq {exit} if 
+			dup 13 eq {exit} if 
+			gstring exch gindex exch put 
+			/gindex gindex 1 add def 
+		} loop
+		pop 
+		gstring 0 gindex getinterval true 
+		} bind def
+	} if
+/FMshowpage /showpage load def
+/FMquit /quit load def
+/FMFAILURE { 
+	dup = flush 
+	FMshowpage 
+	/Helvetica findfont 12 scalefont setfont
+	72 200 moveto
+	show FMshowpage 
+	FMquit 
+	} def 
+/FMVERSION {
+	FMversion ne {
+		(Frame product version does not match ps_prolog!) FMFAILURE
+		} if
+	} def 
+/FMBADEPSF { 
+	(PostScript Lang. Ref. Man., 2nd Ed., H.2.4 says EPS must not call X              )
+	dup dup (X) search pop exch pop exch pop length 
+	4 -1 roll 
+	putinterval 
+	FMFAILURE
+	} def
+/FMLOCAL {
+	FrameDict begin
+	0 def 
+	end 
+	} def 
+/concatprocs
+	{
+	/proc2 exch cvlit def/proc1 exch cvlit def/newproc proc1 length proc2 length add array def
+	newproc 0 proc1 putinterval newproc proc1 length proc2 putinterval newproc cvx
+}def
+FrameDict begin 
+/FMnone 0 def
+/FMcyan 1 def
+/FMmagenta 2 def
+/FMyellow 3 def
+/FMblack 4 def
+/FMcustom 5 def
+/FrameNegative false def 
+/FrameSepIs FMnone def 
+/FrameSepBlack 0 def
+/FrameSepYellow 0 def
+/FrameSepMagenta 0 def
+/FrameSepCyan 0 def
+/FrameSepRed 1 def
+/FrameSepGreen 1 def
+/FrameSepBlue 1 def
+/FrameCurGray 1 def
+/FrameCurPat null def
+/FrameCurColors [ 0 0 0 1 0 0 0 ] def 
+/FrameColorEpsilon .001 def	
+/eqepsilon {		
+	sub dup 0 lt {neg} if
+	FrameColorEpsilon le
+} bind def
+/FrameCmpColorsCMYK { 
+	2 copy 0 get exch 0 get eqepsilon {
+		2 copy 1 get exch 1 get eqepsilon {
+			2 copy 2 get exch 2 get eqepsilon {
+				3 get exch 3 get eqepsilon
+			} {pop pop false} ifelse
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+/FrameCmpColorsRGB { 
+	2 copy 4 get exch 0 get eqepsilon {
+		2 copy 5 get exch 1 get eqepsilon {
+			6 get exch 2 get eqepsilon
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+/RGBtoCMYK { 
+	1 exch sub 
+	3 1 roll 
+	1 exch sub 
+	3 1 roll 
+	1 exch sub 
+	3 1 roll 
+	3 copy 
+	2 copy 
+	le { pop } { exch pop } ifelse 
+	2 copy 
+	le { pop } { exch pop } ifelse 
+	dup dup dup 
+	6 1 roll 
+	4 1 roll 
+	7 1 roll 
+	sub 
+	6 1 roll 
+	sub 
+	5 1 roll 
+	sub 
+	4 1 roll 
+} bind def
+/CMYKtoRGB { 
+	dup dup 4 -1 roll add 						  
+	5 1 roll 3 -1 roll add 						  
+	4 1 roll add 								  
+	1 exch sub dup 0 lt {pop 0} if 3 1 roll 	  
+	1 exch sub dup 0 lt {pop 0} if exch 	      
+	1 exch sub dup 0 lt {pop 0} if exch	  		  
+} bind def
+/FrameSepInit {
+	1.0 RealSetgray
+} bind def
+/FrameSetSepColor { 
+	/FrameSepBlue exch def
+	/FrameSepGreen exch def
+	/FrameSepRed exch def
+	/FrameSepBlack exch def
+	/FrameSepYellow exch def
+	/FrameSepMagenta exch def
+	/FrameSepCyan exch def
+	/FrameSepIs FMcustom def
+	setCurrentScreen	
+} bind def
+/FrameSetCyan {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 1.0 def
+	/FrameSepIs FMcyan def
+	setCurrentScreen	
+} bind def
+ 
+/FrameSetMagenta {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 1.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMmagenta def
+	setCurrentScreen
+} bind def
+ 
+/FrameSetYellow {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 1.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMyellow def
+	setCurrentScreen
+} bind def
+ 
+/FrameSetBlack {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 1.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMblack def
+	setCurrentScreen
+} bind def
+ 
+/FrameNoSep { 
+	/FrameSepIs FMnone def
+	setCurrentScreen
+} bind def
+/FrameSetSepColors { 
+	FrameDict begin
+	[ exch 1 add 1 roll ]
+	/FrameSepColors  
+	exch def end
+	} bind def
+/FrameColorInSepListCMYK { 
+	FrameSepColors {  
+       		exch dup 3 -1 roll 
+       		FrameCmpColorsCMYK 
+       		{ pop true exit } if
+    	} forall 
+	dup true ne {pop false} if
+	} bind def
+/FrameColorInSepListRGB { 
+	FrameSepColors {  
+       		exch dup 3 -1 roll 
+       		FrameCmpColorsRGB 
+       		{ pop true exit } if
+    	} forall 
+	dup true ne {pop false} if
+	} bind def
+/RealSetgray /setgray load def
+/RealSetrgbcolor /setrgbcolor load def
+/RealSethsbcolor /sethsbcolor load def
+end 
+/setgray { 
+	FrameDict begin
+	FrameSepIs FMnone eq
+		{ RealSetgray } 
+		{ 
+		FrameSepIs FMblack eq 
+			{ RealSetgray } 
+			{ FrameSepIs FMcustom eq 
+			  FrameSepRed 0 eq and
+			  FrameSepGreen 0 eq and
+			  FrameSepBlue 0 eq and {
+			  	RealSetgray
+			  } {
+				1 RealSetgray pop 
+			  } ifelse
+			} ifelse
+		} ifelse
+	end
+} bind def
+/setrgbcolor { 
+	FrameDict begin
+	FrameSepIs FMnone eq
+	{  RealSetrgbcolor }
+	{
+		3 copy [ 4 1 roll ] 
+		FrameColorInSepListRGB
+		{
+				FrameSepBlue eq exch 
+			 	FrameSepGreen eq and exch 
+			 	FrameSepRed eq and
+			 	{ 0 } { 1 } ifelse
+		}
+		{
+			FMPColor {
+				RealSetrgbcolor
+				currentcmykcolor
+			} {
+				RGBtoCMYK
+			} ifelse
+			FrameSepIs FMblack eq
+			{1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		RealSetgray
+	} 
+	ifelse
+	end
+} bind def
+/sethsbcolor {
+	FrameDict begin
+	FrameSepIs FMnone eq 
+	{ RealSethsbcolor } 
+	{
+		RealSethsbcolor 
+		currentrgbcolor  
+		setrgbcolor 
+	} 
+	ifelse
+	end
+} bind def
+FrameDict begin
+/setcmykcolor where {
+	pop /RealSetcmykcolor /setcmykcolor load def
+} {
+	/RealSetcmykcolor {
+		4 1 roll
+		3 { 3 index add 0 max 1 min 1 exch sub 3 1 roll} repeat 
+		setrgbcolor pop
+	} bind def
+} ifelse
+userdict /setcmykcolor { 
+		FrameDict begin
+		FrameSepIs FMnone eq
+		{ RealSetcmykcolor } 
+		{
+			4 copy [ 5 1 roll ]
+			FrameColorInSepListCMYK
+			{
+				FrameSepBlack eq exch 
+				FrameSepYellow eq and exch 
+				FrameSepMagenta eq and exch 
+				FrameSepCyan eq and 
+				{ 0 } { 1 } ifelse
+			}
+			{
+				FrameSepIs FMblack eq
+				{1.0 exch sub 4 1 roll pop pop pop} {
+				FrameSepIs FMyellow eq
+				{pop 1.0 exch sub 3 1 roll pop pop} {
+				FrameSepIs FMmagenta eq
+				{pop pop 1.0 exch sub exch pop } {
+				FrameSepIs FMcyan eq
+				{pop pop pop 1.0 exch sub } 
+				{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+			} ifelse
+			RealSetgray
+		}
+		ifelse
+		end
+	} bind put
+FMLevel1 not { 
+	
+	/patProcDict 5 dict dup begin
+		<0f1e3c78f0e1c387> { 3 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<0f87c3e1f0783c1e> { 3 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+		<8142241818244281> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke
+											-1 -1 moveto 9 9 lineto stroke } bind def
+		<03060c183060c081> { 1 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<8040201008040201> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+	end def
+	/patDict 15 dict dup begin
+		/PatternType 1 def		
+		/PaintType 2 def		
+		/TilingType 3 def		
+		/BBox [ 0 0 8 8 ] def 	
+		/XStep 8 def			
+		/YStep 8 def			
+		/PaintProc {
+			begin
+			patProcDict bstring known {
+				patProcDict bstring get exec
+			} {
+				8 8 true [1 0 0 -1 0 8] bstring imagemask
+			} ifelse
+			end
+		} bind def
+	end def
+} if
+/combineColor {
+    FrameSepIs FMnone eq
+	{
+		graymode FMLevel1 or not {
+			
+			[/Pattern [/DeviceCMYK]] setcolorspace
+			FrameCurColors 0 4 getinterval aload pop FrameCurPat setcolor
+		} {
+			FrameCurColors 3 get 1.0 ge {
+				FrameCurGray RealSetgray
+			} {
+				FMPColor graymode and {
+					0 1 3 { 
+						FrameCurColors exch get
+						1 FrameCurGray sub mul
+					} for
+					RealSetcmykcolor
+				} {
+					4 1 6 {
+						FrameCurColors exch get
+						graymode {
+							1 exch sub 1 FrameCurGray sub mul 1 exch sub
+						} {
+							1.0 lt {FrameCurGray} {1} ifelse
+						} ifelse
+					} for
+					RealSetrgbcolor
+				} ifelse
+			} ifelse
+		} ifelse
+	} { 
+		FrameCurColors 0 4 getinterval aload
+		FrameColorInSepListCMYK {
+			FrameSepBlack eq exch 
+			FrameSepYellow eq and exch 
+			FrameSepMagenta eq and exch 
+			FrameSepCyan eq and
+			FrameSepIs FMcustom eq and
+			{ FrameCurGray } { 1 } ifelse
+		} {
+			FrameSepIs FMblack eq
+			{FrameCurGray 1.0 exch sub mul 1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop FrameCurGray 1.0 exch sub mul 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		graymode FMLevel1 or not {
+			
+			[/Pattern [/DeviceGray]] setcolorspace
+			FrameCurPat setcolor
+		} { 
+			graymode not FMLevel1 and {
+				
+				dup 1 lt {pop FrameCurGray} if
+			} if
+			RealSetgray
+		} ifelse
+	} ifelse
+} bind def
+/savematrix {
+	orgmatrix currentmatrix pop
+	} bind def
+/restorematrix {
+	orgmatrix setmatrix
+	} bind def
+/dmatrix matrix def
+/dpi    72 0 dmatrix defaultmatrix dtransform
+    dup mul exch   dup mul add   sqrt def
+	
+/freq dpi dup 72 div round dup 0 eq {pop 1} if 8 mul div def
+/sangle 1 0 dmatrix defaultmatrix dtransform exch atan def
+/dpiranges   [  2540    2400    1693     1270    1200     635      600      0      ] def
+/CMLowFreqs  [ 100.402  94.8683 89.2289 100.402  94.8683  66.9349  63.2456 47.4342 ] def
+/YLowFreqs   [  95.25   90.0    84.65    95.25   90.0     70.5556  66.6667 50.0    ] def
+/KLowFreqs   [  89.8026 84.8528 79.8088  89.8026 84.8528  74.8355  70.7107 53.033  ] def
+/CLowAngles  [  71.5651 71.5651 71.5651 71.5651  71.5651  71.5651  71.5651 71.5651 ] def
+/MLowAngles  [  18.4349 18.4349 18.4349 18.4349  18.4349  18.4349  18.4349 18.4349 ] def
+/YLowTDot    [  true    true    false    true    true     false    false   false   ] def
+/CMHighFreqs [ 133.87  126.491 133.843  108.503 102.523  100.402   94.8683 63.2456 ] def
+/YHighFreqs  [ 127.0   120.0   126.975  115.455 109.091   95.25    90.0    60.0    ] def
+/KHighFreqs  [ 119.737 113.137 119.713  128.289 121.218   89.8026  84.8528 63.6395 ] def
+/CHighAngles [  71.5651 71.5651 71.5651  70.0169 70.0169  71.5651  71.5651 71.5651 ] def
+/MHighAngles [  18.4349 18.4349 18.4349  19.9831 19.9831  18.4349  18.4349 18.4349 ] def
+/YHighTDot   [  false   false   true     false   false    true     true    false   ] def
+/PatFreq     [	10.5833 10.0     9.4055  10.5833 10.0	  10.5833  10.0	   9.375   ] def
+/screenIndex {
+	0 1 dpiranges length 1 sub { dup dpiranges exch get 1 sub dpi le {exit} {pop} ifelse } for
+} bind def
+/getCyanScreen {
+	FMUseHighFrequencyScreens { CHighAngles CMHighFreqs} {CLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+/getMagentaScreen {
+	FMUseHighFrequencyScreens { MHighAngles CMHighFreqs } {MLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+/getYellowScreen {
+	FMUseHighFrequencyScreens { YHighTDot YHighFreqs} { YLowTDot YLowFreqs } ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get { 3 div
+			{2 { 1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch} repeat
+			FMSpotFunction } } {/FMSpotFunction load } ifelse
+			0.0 exch
+} bind def
+/getBlackScreen  {
+	FMUseHighFrequencyScreens { KHighFreqs } { KLowFreqs } ifelse
+		screenIndex get 45.0 /FMSpotFunction load 
+} bind def
+/getSpotScreen {
+	getBlackScreen
+} bind def
+/getCompositeScreen {
+	getBlackScreen
+} bind def
+/FMSetScreen 
+	FMLevel1 { /setscreen load 
+	}{ {
+		8 dict begin
+		/HalftoneType 1 def
+		/SpotFunction exch def
+		/Angle exch def
+		/Frequency exch def
+		/AccurateScreens FMUseAcccurateScreens def
+		currentdict end sethalftone
+	} bind } ifelse
+def
+/setDefaultScreen {
+	FMPColor {
+		orgrxfer cvx orggxfer cvx orgbxfer cvx orgxfer cvx setcolortransfer
+	}
+	{
+		orgxfer cvx settransfer
+	} ifelse
+	orgfreq organgle orgproc cvx setscreen
+} bind def
+/setCurrentScreen {
+	FrameSepIs FMnone eq {
+		FMUseDefaultNoSeparationScreen {
+			setDefaultScreen
+		} {
+			getCompositeScreen FMSetScreen
+		} ifelse
+	} {
+		FrameSepIs FMcustom eq {
+			FMUseDefaultSpotSeparationScreen {
+				setDefaultScreen
+			} {
+				getSpotScreen FMSetScreen
+			} ifelse
+		} {
+			FMUseDefaultProcessSeparationScreen {
+				setDefaultScreen
+			} {
+				FrameSepIs FMcyan eq {
+					getCyanScreen FMSetScreen
+				} {
+					FrameSepIs FMmagenta eq {
+						getMagentaScreen FMSetScreen
+					} {
+						FrameSepIs FMyellow eq {
+							getYellowScreen FMSetScreen
+						} {
+							getBlackScreen FMSetScreen
+						} ifelse
+					} ifelse
+				} ifelse
+			} ifelse
+		} ifelse
+	} ifelse 
+} bind def
+end
+	/gstring FMLOCAL
+	/gfile FMLOCAL
+	/gindex FMLOCAL
+	/orgrxfer FMLOCAL
+	/orggxfer FMLOCAL
+	/orgbxfer FMLOCAL
+	/orgxfer FMLOCAL
+	/orgproc FMLOCAL
+	/orgrproc FMLOCAL
+	/orggproc FMLOCAL
+	/orgbproc FMLOCAL
+	/organgle FMLOCAL
+	/orgrangle FMLOCAL
+	/orggangle FMLOCAL
+	/orgbangle FMLOCAL
+	/orgfreq FMLOCAL
+	/orgrfreq FMLOCAL
+	/orggfreq FMLOCAL
+	/orgbfreq FMLOCAL
+	/yscale FMLOCAL
+	/xscale FMLOCAL
+	/edown FMLOCAL
+	/manualfeed FMLOCAL
+	/paperheight FMLOCAL
+	/paperwidth FMLOCAL
+/FMDOCUMENT { 
+	array /FMfonts exch def 
+	/#copies exch def
+	FrameDict begin
+	0 ne /manualfeed exch def
+	/paperheight exch def
+	/paperwidth exch def
+	0 ne /FrameNegative exch def 
+	0 ne /edown exch def 
+	/yscale exch def
+	/xscale exch def
+	FMLevel1 {
+		manualfeed {setmanualfeed} if
+		/FMdicttop countdictstack 1 add def 
+		/FMoptop count def 
+		setpapername 
+		manualfeed {true} {papersize} ifelse 
+		{manualpapersize} {false} ifelse 
+		{desperatepapersize} {false} ifelse 
+		{ (Can't select requested paper size for Frame print job!) FMFAILURE } if
+		count -1 FMoptop {pop pop} for
+		countdictstack -1 FMdicttop {pop end} for 
+		}
+		{{1 dict dup /PageSize [paperwidth paperheight]put setpagedevice}stopped
+		{ (Can't select requested paper size for Frame print job!) FMFAILURE } if
+		 {1 dict dup /ManualFeed manualfeed put setpagedevice } stopped pop }
+	ifelse 
+	
+	FMPColor {
+		currentcolorscreen
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+			cvlit /orgbproc exch def
+				  /orgbangle exch def 
+				  /orgbfreq exch def
+			cvlit /orggproc exch def
+				  /orggangle exch def 
+				  /orggfreq exch def
+			cvlit /orgrproc exch def
+				  /orgrangle exch def 
+				  /orgrfreq exch def
+			currentcolortransfer 
+			FrameNegative {
+				1 1 4 { 
+					pop { 1 exch sub } concatprocs 4 1 roll
+				} for
+				4 copy
+				setcolortransfer
+			} if
+			cvlit /orgxfer exch def
+			cvlit /orgbxfer exch def
+			cvlit /orggxfer exch def
+			cvlit /orgrxfer exch def
+	} {
+		currentscreen 
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+				  
+		currenttransfer 
+		FrameNegative {
+			{ 1 exch sub } concatprocs
+			dup settransfer
+		} if 
+		cvlit /orgxfer exch def
+	} ifelse
+	end 
+} def 
+/pagesave FMLOCAL
+/orgmatrix FMLOCAL
+/landscape FMLOCAL
+/pwid FMLOCAL
+/FMBEGINPAGE { 
+	FrameDict begin 
+	/pagesave save def
+	3.86 setmiterlimit
+	/landscape exch 0 ne def
+	landscape { 
+		90 rotate 0 exch dup /pwid exch def neg translate pop 
+	}{
+		pop /pwid exch def
+	} ifelse
+	edown { [-1 0 0 1 pwid 0] concat } if
+	0 0 moveto paperwidth 0 lineto paperwidth paperheight lineto 
+	0 paperheight lineto 0 0 lineto 1 setgray fill
+	xscale yscale scale
+	/orgmatrix matrix def
+	gsave 
+} def 
+/FMENDPAGE {
+	grestore 
+	pagesave restore
+	end 
+	showpage
+	} def 
+/FMFONTDEFINE { 
+	FrameDict begin
+	findfont 
+	ReEncode 
+	1 index exch 
+	definefont 
+	FMfonts 3 1 roll 
+	put
+	end 
+	} def 
+/FMFILLS {
+	FrameDict begin dup
+	array /fillvals exch def
+	dict /patCache exch def
+	end 
+	} def 
+/FMFILL {
+	FrameDict begin
+	 fillvals 3 1 roll put
+	end 
+	} def 
+/FMNORMALIZEGRAPHICS { 
+	newpath
+	0.0 0.0 moveto
+	1 setlinewidth
+	0 setlinecap
+	0 0 0 sethsbcolor
+	0 setgray 
+	} bind def
+	/fx FMLOCAL
+	/fy FMLOCAL
+	/fh FMLOCAL
+	/fw FMLOCAL
+	/llx FMLOCAL
+	/lly FMLOCAL
+	/urx FMLOCAL
+	/ury FMLOCAL
+/FMBEGINEPSF { 
+	end 
+	/FMEPSF save def 
+	/showpage {} def 
+% See Adobe's "PostScript Language Reference Manual, 2nd Edition", page 714.
+% "...the following operators MUST NOT be used in an EPS file:" (emphasis ours)
+	/banddevice {(banddevice) FMBADEPSF} def
+	/clear {(clear) FMBADEPSF} def
+	/cleardictstack {(cleardictstack) FMBADEPSF} def 
+	/copypage {(copypage) FMBADEPSF} def
+	/erasepage {(erasepage) FMBADEPSF} def
+	/exitserver {(exitserver) FMBADEPSF} def
+	/framedevice {(framedevice) FMBADEPSF} def
+	/grestoreall {(grestoreall) FMBADEPSF} def
+	/initclip {(initclip) FMBADEPSF} def
+	/initgraphics {(initgraphics) FMBADEPSF} def
+	/initmatrix {(initmatrix) FMBADEPSF} def
+	/quit {(quit) FMBADEPSF} def
+	/renderbands {(renderbands) FMBADEPSF} def
+	/setglobal {(setglobal) FMBADEPSF} def
+	/setpagedevice {(setpagedevice) FMBADEPSF} def
+	/setshared {(setshared) FMBADEPSF} def
+	/startjob {(startjob) FMBADEPSF} def
+	/lettertray {(lettertray) FMBADEPSF} def
+	/letter {(letter) FMBADEPSF} def
+	/lettersmall {(lettersmall) FMBADEPSF} def
+	/11x17tray {(11x17tray) FMBADEPSF} def
+	/11x17 {(11x17) FMBADEPSF} def
+	/ledgertray {(ledgertray) FMBADEPSF} def
+	/ledger {(ledger) FMBADEPSF} def
+	/legaltray {(legaltray) FMBADEPSF} def
+	/legal {(legal) FMBADEPSF} def
+	/statementtray {(statementtray) FMBADEPSF} def
+	/statement {(statement) FMBADEPSF} def
+	/executivetray {(executivetray) FMBADEPSF} def
+	/executive {(executive) FMBADEPSF} def
+	/a3tray {(a3tray) FMBADEPSF} def
+	/a3 {(a3) FMBADEPSF} def
+	/a4tray {(a4tray) FMBADEPSF} def
+	/a4 {(a4) FMBADEPSF} def
+	/a4small {(a4small) FMBADEPSF} def
+	/b4tray {(b4tray) FMBADEPSF} def
+	/b4 {(b4) FMBADEPSF} def
+	/b5tray {(b5tray) FMBADEPSF} def
+	/b5 {(b5) FMBADEPSF} def
+	FMNORMALIZEGRAPHICS 
+	[/fy /fx /fh /fw /ury /urx /lly /llx] {exch def} forall 
+	fx fw 2 div add fy fh 2 div add  translate
+	rotate
+	fw 2 div neg fh 2 div neg translate
+	fw urx llx sub div fh ury lly sub div scale 
+	llx neg lly neg translate 
+	/FMdicttop countdictstack 1 add def 
+	/FMoptop count def 
+	} bind def
+/FMENDEPSF {
+	count -1 FMoptop {pop pop} for 
+	countdictstack -1 FMdicttop {pop end} for 
+	FMEPSF restore
+	FrameDict begin 
+	} bind def
+FrameDict begin 
+/setmanualfeed {
+%%BeginFeature *ManualFeed True
+	 statusdict /manualfeed true put
+%%EndFeature
+	} bind def
+/max {2 copy lt {exch} if pop} bind def
+/min {2 copy gt {exch} if pop} bind def
+/inch {72 mul} def
+/pagedimen { 
+	paperheight sub abs 16 lt exch 
+	paperwidth sub abs 16 lt and
+	{/papername exch def} {pop} ifelse
+	} bind def
+	/papersizedict FMLOCAL
+/setpapername { 
+	/papersizedict 14 dict def 
+	papersizedict begin
+	/papername /unknown def 
+		/Letter 8.5 inch 11.0 inch pagedimen
+		/LetterSmall 7.68 inch 10.16 inch pagedimen
+		/Tabloid 11.0 inch 17.0 inch pagedimen
+		/Ledger 17.0 inch 11.0 inch pagedimen
+		/Legal 8.5 inch 14.0 inch pagedimen
+		/Statement 5.5 inch 8.5 inch pagedimen
+		/Executive 7.5 inch 10.0 inch pagedimen
+		/A3 11.69 inch 16.5 inch pagedimen
+		/A4 8.26 inch 11.69 inch pagedimen
+		/A4Small 7.47 inch 10.85 inch pagedimen
+		/B4 10.125 inch 14.33 inch pagedimen
+		/B5 7.16 inch 10.125 inch pagedimen
+	end
+	} bind def
+/papersize {
+	papersizedict begin
+		/Letter {lettertray letter} def
+		/LetterSmall {lettertray lettersmall} def
+		/Tabloid {11x17tray 11x17} def
+		/Ledger {ledgertray ledger} def
+		/Legal {legaltray legal} def
+		/Statement {statementtray statement} def
+		/Executive {executivetray executive} def
+		/A3 {a3tray a3} def
+		/A4 {a4tray a4} def
+		/A4Small {a4tray a4small} def
+		/B4 {b4tray b4} def
+		/B5 {b5tray b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	statusdict begin stopped end 
+	} bind def
+/manualpapersize {
+	papersizedict begin
+		/Letter {letter} def
+		/LetterSmall {lettersmall} def
+		/Tabloid {11x17} def
+		/Ledger {ledger} def
+		/Legal {legal} def
+		/Statement {statement} def
+		/Executive {executive} def
+		/A3 {a3} def
+		/A4 {a4} def
+		/A4Small {a4small} def
+		/B4 {b4} def
+		/B5 {b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	stopped 
+	} bind def
+/desperatepapersize {
+	statusdict /setpageparams known
+		{
+		paperwidth paperheight 0 1 
+		statusdict begin
+		{setpageparams} stopped 
+		end
+		} {true} ifelse 
+	} bind def
+/DiacriticEncoding [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /space /exclam /quotedbl
+/numbersign /dollar /percent /ampersand /quotesingle /parenleft
+/parenright /asterisk /plus /comma /hyphen /period /slash /zero /one
+/two /three /four /five /six /seven /eight /nine /colon /semicolon
+/less /equal /greater /question /at /A /B /C /D /E /F /G /H /I /J /K
+/L /M /N /O /P /Q /R /S /T /U /V /W /X /Y /Z /bracketleft /backslash
+/bracketright /asciicircum /underscore /grave /a /b /c /d /e /f /g /h
+/i /j /k /l /m /n /o /p /q /r /s /t /u /v /w /x /y /z /braceleft /bar
+/braceright /asciitilde /.notdef /Adieresis /Aring /Ccedilla /Eacute
+/Ntilde /Odieresis /Udieresis /aacute /agrave /acircumflex /adieresis
+/atilde /aring /ccedilla /eacute /egrave /ecircumflex /edieresis
+/iacute /igrave /icircumflex /idieresis /ntilde /oacute /ograve
+/ocircumflex /odieresis /otilde /uacute /ugrave /ucircumflex
+/udieresis /dagger /.notdef /cent /sterling /section /bullet
+/paragraph /germandbls /registered /copyright /trademark /acute
+/dieresis /.notdef /AE /Oslash /.notdef /.notdef /.notdef /.notdef
+/yen /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/ordfeminine /ordmasculine /.notdef /ae /oslash /questiondown
+/exclamdown /logicalnot /.notdef /florin /.notdef /.notdef
+/guillemotleft /guillemotright /ellipsis /.notdef /Agrave /Atilde
+/Otilde /OE /oe /endash /emdash /quotedblleft /quotedblright
+/quoteleft /quoteright /.notdef /.notdef /ydieresis /Ydieresis
+/fraction /currency /guilsinglleft /guilsinglright /fi /fl /daggerdbl
+/periodcentered /quotesinglbase /quotedblbase /perthousand
+/Acircumflex /Ecircumflex /Aacute /Edieresis /Egrave /Iacute
+/Icircumflex /Idieresis /Igrave /Oacute /Ocircumflex /.notdef /Ograve
+/Uacute /Ucircumflex /Ugrave /dotlessi /circumflex /tilde /macron
+/breve /dotaccent /ring /cedilla /hungarumlaut /ogonek /caron
+] def
+/ReEncode { 
+	dup 
+	length 
+	dict begin 
+	{
+	1 index /FID ne 
+		{def} 
+		{pop pop} ifelse 
+	} forall 
+	0 eq {/Encoding DiacriticEncoding def} if 
+	currentdict 
+	end 
+	} bind def
+FMPColor 
+	
+	{
+	/BEGINBITMAPCOLOR { 
+		BITMAPCOLOR} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPCOLORc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUECOLOR } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUECOLORc } def
+	}
+	
+	{
+	/BEGINBITMAPCOLOR { 
+		BITMAPGRAY} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPGRAYc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUEGRAY } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUEGRAYc } def
+	}
+ifelse
+/K { 
+	FMPrintAllColorsAsBlack {
+		dup 1 eq 2 index 1 eq and 3 index 1 eq and not
+			{7 {pop} repeat 0 0 0 1 0 0 0} if
+	} if 
+	FrameCurColors astore 
+	pop combineColor
+} bind def
+/graymode true def
+	/bwidth FMLOCAL
+	/bpside FMLOCAL
+	/bstring FMLOCAL
+	/onbits FMLOCAL
+	/offbits FMLOCAL
+	/xindex FMLOCAL
+	/yindex FMLOCAL
+	/x FMLOCAL
+	/y FMLOCAL
+/setPatternMode {
+	FMLevel1 {
+		/bwidth  exch def
+		/bpside  exch def
+		/bstring exch def
+		/onbits 0 def  /offbits 0 def
+		freq sangle landscape {90 add} if 
+			{/y exch def
+			 /x exch def
+			 /xindex x 1 add 2 div bpside mul cvi def
+			 /yindex y 1 add 2 div bpside mul cvi def
+			 bstring yindex bwidth mul xindex 8 idiv add get
+			 1 7 xindex 8 mod sub bitshift and 0 ne FrameNegative {not} if
+			 {/onbits  onbits  1 add def 1}
+			 {/offbits offbits 1 add def 0}
+			 ifelse
+			}
+			setscreen
+		offbits offbits onbits add div FrameNegative {1.0 exch sub} if
+		/FrameCurGray exch def
+	} { 
+		pop pop
+		dup patCache exch known {
+			patCache exch get
+		} { 
+			dup
+			patDict /bstring 3 -1 roll put
+			patDict 
+			9 PatFreq screenIndex get div dup matrix scale
+			makepattern
+			dup 
+			patCache 4 -1 roll 3 -1 roll put
+		} ifelse
+		/FrameCurGray 0 def
+		/FrameCurPat exch def
+	} ifelse
+	/graymode false def
+	combineColor
+} bind def
+/setGrayScaleMode {
+	graymode not {
+		/graymode true def
+		FMLevel1 {
+			setCurrentScreen
+		} if
+	} if
+	/FrameCurGray exch def
+	combineColor
+} bind def
+/normalize {
+	transform round exch round exch itransform
+	} bind def
+/dnormalize {
+	dtransform round exch round exch idtransform
+	} bind def
+/lnormalize { 
+	0 dtransform exch cvi 2 idiv 2 mul 1 add exch idtransform pop
+	} bind def
+/H { 
+	lnormalize setlinewidth
+	} bind def
+/Z {
+	setlinecap
+	} bind def
+	
+/PFill {
+	graymode FMLevel1 or not {
+		gsave 1 setgray eofill grestore
+	} if
+} bind def
+/PStroke {
+	graymode FMLevel1 or not {
+		gsave 1 setgray stroke grestore
+	} if
+	stroke
+} bind def
+	/fillvals FMLOCAL
+/X { 
+	fillvals exch get
+	dup type /stringtype eq
+	{8 1 setPatternMode} 
+	{setGrayScaleMode}
+	ifelse
+	} bind def
+/V { 
+	PFill gsave eofill grestore
+	} bind def
+/Vclip {
+	clip
+	} bind def
+/Vstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/N { 
+	PStroke
+	} bind def
+/Nclip {
+	strokepath clip newpath
+	} bind def
+/Nstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/M {newpath moveto} bind def
+/E {lineto} bind def
+/D {curveto} bind def
+/O {closepath} bind def
+	/n FMLOCAL
+/L { 
+ 	/n exch def
+	newpath
+	normalize
+	moveto 
+	2 1 n {pop normalize lineto} for
+	} bind def
+/Y { 
+	L 
+	closepath
+	} bind def
+	/x1 FMLOCAL
+	/x2 FMLOCAL
+	/y1 FMLOCAL
+	/y2 FMLOCAL
+/R { 
+	/y2 exch def
+	/x2 exch def
+	/y1 exch def
+	/x1 exch def
+	x1 y1
+	x2 y1
+	x2 y2
+	x1 y2
+	4 Y 
+	} bind def
+	/rad FMLOCAL
+/rarc 
+	{rad 
+	 arcto
+	} bind def
+/RR { 
+	/rad exch def
+	normalize
+	/y2 exch def
+	/x2 exch def
+	normalize
+	/y1 exch def
+	/x1 exch def
+	mark
+	newpath
+	{
+	x1 y1 rad add moveto
+	x1 y2 x2 y2 rarc
+	x2 y2 x2 y1 rarc
+	x2 y1 x1 y1 rarc
+	x1 y1 x1 y2 rarc
+	closepath
+	} stopped {x1 y1 x2 y2 R} if 
+	cleartomark
+	} bind def
+/RRR { 
+	/rad exch def
+	normalize /y4 exch def /x4 exch def
+	normalize /y3 exch def /x3 exch def
+	normalize /y2 exch def /x2 exch def
+	normalize /y1 exch def /x1 exch def
+	newpath
+	normalize moveto 
+	mark
+	{
+	x2 y2 x3 y3 rarc
+	x3 y3 x4 y4 rarc
+	x4 y4 x1 y1 rarc
+	x1 y1 x2 y2 rarc
+	closepath
+	} stopped
+	 {x1 y1 x2 y2 x3 y3 x4 y4 newpath moveto lineto lineto lineto closepath} if
+	cleartomark
+	} bind def
+/C { 
+	grestore
+	gsave
+	R 
+	clip
+	setCurrentScreen
+} bind def
+/CP { 
+	grestore
+	gsave
+	Y 
+	clip
+	setCurrentScreen
+} bind def
+	/FMpointsize FMLOCAL
+/F { 
+	FMfonts exch get
+	FMpointsize scalefont
+	setfont
+	} bind def
+/Q { 
+	/FMpointsize exch def
+	F 
+	} bind def
+/T { 
+	moveto show
+	} bind def
+/RF { 
+	rotate
+	0 ne {-1 1 scale} if
+	} bind def
+/TF { 
+	gsave
+	moveto 
+	RF
+	show
+	grestore
+	} bind def
+/P { 
+	moveto
+	0 32 3 2 roll widthshow
+	} bind def
+/PF { 
+	gsave
+	moveto 
+	RF
+	0 32 3 2 roll widthshow
+	grestore
+	} bind def
+/S { 
+	moveto
+	0 exch ashow
+	} bind def
+/SF { 
+	gsave
+	moveto
+	RF
+	0 exch ashow
+	grestore
+	} bind def
+/B { 
+	moveto
+	0 32 4 2 roll 0 exch awidthshow
+	} bind def
+/BF { 
+	gsave
+	moveto
+	RF
+	0 32 4 2 roll 0 exch awidthshow
+	grestore
+	} bind def
+/G { 
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	PFill fill
+	grestore
+	} bind def
+/Gstrk {
+	savematrix
+    newpath
+    2 index 2 div add exch 3 index 2 div sub exch 
+    normalize 2 index 2 div sub exch 3 index 2 div add exch 
+    translate
+    scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+    } bind def
+/Gclip { 
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	clip newpath
+	restorematrix
+	} bind def
+/GG { 
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto 
+	rotate 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath
+	PFill
+	fill
+	grestore
+	} bind def
+/GGclip { 
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath
+	clip newpath
+	restorematrix
+	} bind def
+/GGstrk { 
+	savematrix
+    newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath 
+	restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/A { 
+	gsave
+	savematrix
+	newpath
+	2 index 2 div add exch 3 index 2 div sub exch 
+	normalize 2 index 2 div sub exch 3 index 2 div add exch 
+	translate 
+	scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+/Aclip {
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	strokepath clip newpath
+	restorematrix
+} bind def
+/Astrk {
+	Gstrk
+} bind def
+/AA { 
+	gsave
+	savematrix
+	newpath
+	
+	3 index 2 div add exch 4 index 2 div sub exch 
+	
+	normalize 3 index 2 div sub exch 4 index 2 div add exch
+	translate 
+	rotate 
+	scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+/AAclip {
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath
+	strokepath clip newpath
+	restorematrix
+} bind def
+/AAstrk {
+	GGstrk
+} bind def
+	/x FMLOCAL
+	/y FMLOCAL
+	/w FMLOCAL
+	/h FMLOCAL
+	/xx FMLOCAL
+	/yy FMLOCAL
+	/ww FMLOCAL
+	/hh FMLOCAL
+	/FMsaveobject FMLOCAL
+	/FMoptop FMLOCAL
+	/FMdicttop FMLOCAL
+/BEGINPRINTCODE { 
+	/FMdicttop countdictstack 1 add def 
+	/FMoptop count 7 sub def 
+	/FMsaveobject save def
+	userdict begin 
+	/showpage {} def 
+	FMNORMALIZEGRAPHICS 
+	3 index neg 3 index neg translate
+	} bind def
+/ENDPRINTCODE {
+	count -1 FMoptop {pop pop} for 
+	countdictstack -1 FMdicttop {pop end} for 
+	FMsaveobject restore 
+	} bind def
+/gn { 
+	0 
+	{	46 mul 
+		cf read pop 
+		32 sub 
+		dup 46 lt {exit} if 
+		46 sub add 
+		} loop
+	add 
+	} bind def
+	/str FMLOCAL
+/cfs { 
+	/str sl string def 
+	0 1 sl 1 sub {str exch val put} for 
+	str def 
+	} bind def
+/ic [ 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0
+	{0 hx} {1 hx} {2 hx} {3 hx} {4 hx} {5 hx} {6 hx} {7 hx} {8 hx} {9 hx}
+	{10 hx} {11 hx} {12 hx} {13 hx} {14 hx} {15 hx} {16 hx} {17 hx} {18 hx}
+	{19 hx} {gn hx} {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12}
+	{13} {14} {15} {16} {17} {18} {19} {gn} {0 wh} {1 wh} {2 wh} {3 wh}
+	{4 wh} {5 wh} {6 wh} {7 wh} {8 wh} {9 wh} {10 wh} {11 wh} {12 wh}
+	{13 wh} {14 wh} {gn wh} {0 bl} {1 bl} {2 bl} {3 bl} {4 bl} {5 bl} {6 bl}
+	{7 bl} {8 bl} {9 bl} {10 bl} {11 bl} {12 bl} {13 bl} {14 bl} {gn bl}
+	{0 fl} {1 fl} {2 fl} {3 fl} {4 fl} {5 fl} {6 fl} {7 fl} {8 fl} {9 fl}
+	{10 fl} {11 fl} {12 fl} {13 fl} {14 fl} {gn fl}
+	] def
+	/sl FMLOCAL
+	/val FMLOCAL
+	/ws FMLOCAL
+	/im FMLOCAL
+	/bs FMLOCAL
+	/cs FMLOCAL
+	/len FMLOCAL
+	/pos FMLOCAL
+/ms { 
+	/sl exch def 
+	/val 255 def 
+	/ws cfs 
+	/im cfs 
+	/val 0 def 
+	/bs cfs 
+	/cs cfs 
+	} bind def
+400 ms 
+/ip { 
+	is 
+	0 
+	cf cs readline pop 
+	{	ic exch get exec 
+		add 
+		} forall 
+	pop 
+	
+	} bind def
+/rip { 
+	   
+	  
+	  bis ris copy pop 
+      is
+      0
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop 
+	  ris gis copy pop 
+	  dup is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  gis bis copy pop 
+	  dup add is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+      pop 
+      
+      } bind def
+/wh { 
+	/len exch def 
+	/pos exch def 
+	ws 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/bl { 
+	/len exch def 
+	/pos exch def 
+	bs 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/s1 1 string def
+/fl { 
+	/len exch def 
+	/pos exch def 
+	/val cf s1 readhexstring pop 0 get def
+	pos 1 pos len add 1 sub {im exch val put} for
+	pos len 
+	} bind def
+/hx { 
+	3 copy getinterval 
+	cf exch readhexstring pop pop 
+	} bind def
+	/h FMLOCAL
+	/w FMLOCAL
+	/d FMLOCAL
+	/lb FMLOCAL
+	/bitmapsave FMLOCAL
+	/is FMLOCAL
+	/cf FMLOCAL
+/wbytes { 
+      dup dup
+      24 eq { pop pop 3 mul }
+      { 8 eq {pop} {1 eq {7 add 8 idiv} {3 add 4 idiv} ifelse} ifelse } ifelse
+	} bind def
+/BEGINBITMAPBWc { 
+	1 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAPGRAYc { 
+	8 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAP2BITc { 
+	2 {} COMMONBITMAPc
+	} bind def
+/COMMONBITMAPc { 
+		 
+	/r exch def
+	/d exch def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/h exch def /w exch def
+	/lb w d wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	r                    
+	/is im 0 lb getinterval def 
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	w h d [w 0 0 h neg 0 h] 
+	{ip} image 
+	bitmapsave restore 
+	grestore
+	} bind def
+/BEGINBITMAPBW { 
+	1 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAPGRAY { 
+	8 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAP2BIT { 
+	2 {} COMMONBITMAP
+	} bind def
+/COMMONBITMAP { 
+	/r exch def
+	/d exch def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/h exch def /w exch def
+	/bitmapsave save def 
+	r                    
+	/is w d wbytes string def
+	/cf currentfile def 
+	w h d [w 0 0 h neg 0 h] 
+	{cf is readhexstring pop} image
+	bitmapsave restore 
+	grestore
+	} bind def
+/ngrayt 256 array def
+/nredt 256 array def
+/nbluet 256 array def
+/ngreent 256 array def
+	/gryt FMLOCAL
+	/blut FMLOCAL
+	/grnt FMLOCAL
+	/redt FMLOCAL
+	/indx FMLOCAL
+	/cynu FMLOCAL
+	/magu FMLOCAL
+	/yelu FMLOCAL
+	/k FMLOCAL
+	/u FMLOCAL
+FMLevel1 {
+/colorsetup {
+	currentcolortransfer
+	/gryt exch def
+	/blut exch def
+	/grnt exch def
+	/redt exch def
+	0 1 255 {
+		/indx exch def
+		/cynu 1 red indx get 255 div sub def
+		/magu 1 green indx get 255 div sub def
+		/yelu 1 blue indx get 255 div sub def
+		/k cynu magu min yelu min def
+		/u k currentundercolorremoval exec def
+%		/u 0 def
+		nredt indx 1 0 cynu u sub max sub redt exec put
+		ngreent indx 1 0 magu u sub max sub grnt exec put
+		nbluet indx 1 0 yelu u sub max sub blut exec put
+		ngrayt indx 1 k currentblackgeneration exec sub gryt exec put
+	} for
+	{255 mul cvi nredt exch get}
+	{255 mul cvi ngreent exch get}
+	{255 mul cvi nbluet exch get}
+	{255 mul cvi ngrayt exch get}
+	setcolortransfer
+	{pop 0} setundercolorremoval
+	{} setblackgeneration
+	} bind def
+}
+{
+/colorSetup2 {
+	[ /Indexed /DeviceRGB 255 
+		{dup red exch get 255 div 
+		 exch dup green exch get 255 div 
+		 exch blue exch get 255 div}
+	] setcolorspace
+} bind def
+} ifelse
+	/tran FMLOCAL
+/fakecolorsetup {
+	/tran 256 string def
+	0 1 255 {/indx exch def 
+		tran indx
+		red indx get 77 mul
+		green indx get 151 mul
+		blue indx get 28 mul
+		add add 256 idiv put} for
+	currenttransfer
+	{255 mul cvi tran exch get 255.0 div}
+	exch concatprocs settransfer
+} bind def
+/BITMAPCOLOR { 
+	/d 8 def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/h exch def /w exch def
+	/bitmapsave save def
+	FMLevel1 {	
+		colorsetup
+		/is w d wbytes string def
+		/cf currentfile def 
+		w h d [w 0 0 h neg 0 h] 
+		{cf is readhexstring pop} {is} {is} true 3 colorimage 
+	} {
+		colorSetup2
+		/is w d wbytes string def
+		/cf currentfile def 
+		7 dict dup begin
+			/ImageType 1 def
+			/Width w def
+			/Height h def
+			/ImageMatrix [w 0 0 h neg 0 h] def
+			/DataSource {cf is readhexstring pop} bind def
+			/BitsPerComponent d def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPCOLORc { 
+	/d 8 def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/h exch def /w exch def
+	/lb w d wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	FMLevel1 {	
+		colorsetup
+		/is im 0 lb getinterval def 
+		ws 0 lb getinterval is copy pop 
+		/cf currentfile def 
+		w h d [w 0 0 h neg 0 h] 
+		{ip} {is} {is} true 3 colorimage
+	} {
+		colorSetup2
+		/is im 0 lb getinterval def 
+		ws 0 lb getinterval is copy pop 
+		/cf currentfile def 
+		7 dict dup begin
+			/ImageType 1 def
+			/Width w def
+			/Height h def
+			/ImageMatrix [w 0 0 h neg 0 h] def
+			/DataSource {ip} bind def
+			/BitsPerComponent d def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPTRUECOLORc { 
+	/d 24 def
+        gsave
+ 	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/h exch def /w exch def
+	/lb w d wbytes def 
+	sl lb lt {lb ms} if 
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/ris im 0 w getinterval def	
+	/gis im w w getinterval def	
+	/bis im w 2 mul w getinterval def 
+        
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        w h 8 [w 0 0 h neg 0 h] 
+        {w rip pop ris} {gis} {bis} true 3 colorimage
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPTRUECOLOR { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/h exch def /w exch def
+        /bitmapsave save def 
+        /is w string def
+        /gis w string def
+        /bis w string def
+        /cf currentfile def 
+        w h 8 [w 0 0 h neg 0 h] 
+        { cf is readhexstring pop } 
+        { cf gis readhexstring pop } 
+        { cf bis readhexstring pop } 
+        true 3 colorimage 
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPTRUEGRAYc { 
+	/d 24 def
+        gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/h exch def /w exch def
+	/lb w d wbytes def 
+	sl lb lt {lb ms} if 
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/ris im 0 w getinterval def	
+	/gis im w w getinterval def	
+	/bis im w 2 mul w getinterval def 
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        w h 8 [w 0 0 h neg 0 h] 
+        {w rip pop ris gis bis w gray} image
+        bitmapsave restore 
+        grestore
+        } bind def
+/ww FMLOCAL
+/r FMLOCAL
+/g FMLOCAL
+/b FMLOCAL
+/i FMLOCAL
+/gray { 
+        /ww exch def
+        /b exch def
+        /g exch def
+        /r exch def
+        0 1 ww 1 sub { /i exch def r i get .299 mul g i get .587 mul
+			b i get .114 mul add add r i 3 -1 roll floor cvi put } for
+        r
+        } bind def
+/BITMAPTRUEGRAY { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/h exch def /w exch def
+        /bitmapsave save def 
+        /is w string def
+        /gis w string def
+        /bis w string def
+        /cf currentfile def 
+        w h 8 [w 0 0 h neg 0 h] 
+        { cf is readhexstring pop 
+          cf gis readhexstring pop 
+          cf bis readhexstring pop w gray}  image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPGRAY { 
+	8 {fakecolorsetup} COMMONBITMAP
+	} bind def
+/BITMAPGRAYc { 
+	8 {fakecolorsetup} COMMONBITMAPc
+	} bind def
+/ENDBITMAP {
+	} bind def
+end 
+	/ALDsave FMLOCAL
+	/ALDmatrix matrix def ALDmatrix currentmatrix pop
+/StartALD {
+	/ALDsave save def
+	 savematrix
+	 ALDmatrix setmatrix
+	} bind def
+/InALD {
+	 restorematrix
+	} bind def
+/DoneALD {
+	 ALDsave restore
+	} bind def
+/I { setdash } bind def
+/J { [] 0 setdash } bind def
+%%EndProlog
+%%BeginSetup
+(4.0) FMVERSION
+1 1 0 0 612 792 0 1 12 FMDOCUMENT
+0 0 /Helvetica FMFONTDEFINE
+1 0 /Helvetica-Bold FMFONTDEFINE
+2 0 /Helvetica-Oblique FMFONTDEFINE
+3 0 /Courier FMFONTDEFINE
+4 0 /Courier-Bold FMFONTDEFINE
+32 FMFILLS
+0 0 FMFILL
+1 0.1 FMFILL
+2 0.3 FMFILL
+3 0.5 FMFILL
+4 0.7 FMFILL
+5 0.9 FMFILL
+6 0.97 FMFILL
+7 1 FMFILL
+8 <0f1e3c78f0e1c387> FMFILL
+9 <0f87c3e1f0783c1e> FMFILL
+10 <cccccccccccccccc> FMFILL
+11 <ffff0000ffff0000> FMFILL
+12 <8142241818244281> FMFILL
+13 <03060c183060c081> FMFILL
+14 <8040201008040201> FMFILL
+16 1 FMFILL
+17 0.9 FMFILL
+18 0.7 FMFILL
+19 0.5 FMFILL
+20 0.3 FMFILL
+21 0.1 FMFILL
+22 0.03 FMFILL
+23 0 FMFILL
+24 <f0e1c3870f1e3c78> FMFILL
+25 <f0783c1e0f87c3e1> FMFILL
+26 <3333333333333333> FMFILL
+27 <0000ffff0000ffff> FMFILL
+28 <7ebddbe7e7dbbd7e> FMFILL
+29 <fcf9f3e7cf9f3f7e> FMFILL
+30 <7fbfdfeff7fbfdfe> FMFILL
+%%EndSetup
+%%Page: "1" 1
+%%BeginPaperSize: Letter
+%%EndPaperSize
+612 792 1 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 0 0 0 1 1 1]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 0.3 0.4 0 0 0.7 0.6 1]
+ 9 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+J
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(1 of 3) 72 214.67 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+56.69 338.46 205.51 650.27 R
+7 X
+V
+1 6.5 Q
+0 X
+(ST) 59.12 645.93 T
+(ORM-FEST CD-ROM, MODEL SUPPLEMENT) 67.31 645.93 T
+0 5 Q
+0.13 (Production of this CD-ROM set is the result of collaboration among) 56.69 636.05 P
+0.14 0.01 (the Of) 56.69 630.55 B
+0.14 0.01 (f) 70.41 630.55 B
+0.14 0.01 (ice of Field Project Support of the University Corporation for) 71.81 630.55 B
+-0.1 (Atmospheric Research, the Atmospheric T) 56.69 625.05 P
+-0.1 (echnology Division \050A) 149.67 625.05 P
+-0.1 (TD\051) 197.18 625.05 P
+0.05 (of the National Center for Atmospheric Research \050NCAR\051) 56.69 619.55 P
+0 4 Q
+0.04 (1) 183.73 621.55 P
+0 5 Q
+0.05 (, and the) 185.96 619.55 P
+-0.13 (U.S. W) 56.69 614.05 P
+-0.13 (eather Research Program Of) 72.31 614.05 P
+-0.13 (\336ce. This CD-ROM set contains) 136.02 614.05 P
+0.14 0 (a selection of model data sets generated during the ST) 56.69 608.55 B
+0.14 0 (ORM-FEST) 179.39 608.55 B
+0.13 (1992 \336eld project. Lists of IOPs and the data sets contained on the) 56.69 603.05 P
+-0.02 (CD-ROM are shown in tables below) 56.69 597.55 P
+-0.02 (. In addition, A) 135.77 597.55 P
+-0.02 (TD\325) 167.3 597.55 P
+-0.02 (s Zeb) 174.99 597.55 P
+0 4 Q
+-0.02 (2) 187.47 599.55 P
+0 5 Q
+-0.02 ( visual-) 189.7 597.55 P
+0.14 0 (ization software is included on the disks. Zeb provides comprehen-) 56.69 592.05 B
+0.01 (sive graphical integration of the data from the original observational) 56.69 586.55 P
+-0.03 (ST) 56.69 581.05 P
+-0.03 (ORM-FEST CD-ROM set and this model data CD-ROM set. Dis-) 62.99 581.05 P
+0.14 0.01 (plays include surface plots, skew-T plots, vertical cross-sections of) 56.69 575.55 B
+0.14 0.06 (sounding data, prof) 56.69 570.05 B
+0.14 0.06 (iler time-height plots, altitude graphs and time) 100.93 570.05 B
+(series plots.) 56.69 564.55 T
+1 6 Q
+(The ST) 56.69 554 T
+(ORM-FEST Model Data Sets) 76.59 554 T
+0 5 Q
+0.14 0.13 (The NOAA/NWS National Meteorological Center \050NMC\051 models) 56.69 545.29 B
+0.14 0.05 (and plans are outlined by Kalney) 56.69 539.79 B
+0.14 0.05 (, et al., in the) 131.14 539.79 B
+2 F
+0.14 0.05 (Proceedings of the) 162.7 539.79 B
+0.06 (T) 56.69 534.29 P
+0.06 (enth Conference on Numerical W) 59.29 534.29 P
+0.06 (eather Prediction) 133.35 534.29 P
+0 F
+0.06 (, Portland, Ore-) 171.21 534.29 P
+0.14 0.03 (gon, July 18-22, 1994, 143-148, American Meteorological Society) 56.69 528.79 B
+0.14 0.03 (,) 204.12 528.79 B
+(Boston MA..) 56.69 523.29 T
+0.14 0.03 (The four model data sets on the ST) 56.69 515.4 B
+0.14 0.03 (ORM-FEST disk are compara-) 136.91 515.4 B
+0.14 0.11 (ble for many purposes, but they dif) 56.69 509.9 B
+0.14 0.11 (fer in detail. The Nested Grid) 137.84 509.9 B
+0.14 0.02 (Model \050NGM\051 has been essentially frozen since 1990 although the) 56.69 504.4 B
+0.14 0.11 (Regional Data Assimilation System \050RDAS\051 was incorporated in) 56.69 498.9 B
+0.14 0.11 (1991. The A) 56.69 493.4 B
+0.14 0.11 (viation \050A) 85.33 493.4 B
+0.14 0.11 (VN\051 model has been evolving slowly since) 107.03 493.4 B
+0.14 0.02 (1980 and is based on the spectral technique whereas all the other) 56.69 487.9 B
+0.09 (models are grip-point models. The Mesoscale Analysis and Predic-) 56.69 482.4 P
+0.14 0.08 (tion System \050MAPS\051 and Eta models have been developed more) 56.69 476.9 B
+0.14 0.01 (recently and both use vertical coordinates that dif) 56.69 471.4 B
+0.14 0.01 (fer from the tradi-) 166.62 471.4 B
+0.05 (tional sigma of the NGM and A) 56.69 465.9 P
+0.05 (VN. The Eta uses the step-mountain) 124.68 465.9 P
+-0.05 (approach where surfaces are nearly \337at and horizontal whereas the) 56.69 460.4 P
+0.14 0.04 (MAPS uses a hybrid of sigma near the ground and isentropic sur-) 56.69 454.9 B
+0.14 (faces aloft. Scores of veri\336cation studies indicate that generally the) 56.69 449.4 P
+0.14 0.07 (A) 56.69 443.9 B
+0.14 0.07 (VN becomes more competitive as forecast range increases; the) 59.73 443.9 B
+0.14 0.12 (Eta is almost always better than the NGM and is by far the best) 56.69 438.4 B
+-0.08 (model for quantitative precipitation forecasts; MAPS is best for fore-) 56.69 432.9 P
+0.14 0.07 (casts less than 12 hours. For a specif) 56.69 427.4 B
+0.14 0.07 (ic storm and a specif) 143.21 427.4 B
+0.14 0.07 (ic pur-) 191.12 427.4 B
+0.14 0.05 (pose, any of the four models may be better than the rest. For this) 56.69 421.9 B
+0.14 0.21 (reason, all four are on the CD-ROM and the user is free \050and) 56.69 416.4 B
+0.14 0.03 (encouraged\051 to compare and select the model that seems best for) 56.69 410.9 B
+(the user) 56.69 405.4 T
+(\325) 74.94 405.4 T
+(s purposes.) 75.96 405.4 T
+0.14 0.02 (Actually) 56.69 397.52 B
+0.14 0.02 (, for the purposes of ST) 74.01 397.52 B
+0.14 0.02 (ORM-FEST studies, the role of the) 127.4 397.52 B
+0.14 0.01 (dynamical model producing the data set may be secondary) 56.69 392.02 B
+0.14 0.01 (. Those) 188.63 392.02 B
+-0.11 (users interested in the best description they can \336nd of the structure) 56.69 386.52 P
+0.14 0.08 (of the storms will want to use the model associated with the best) 56.69 381.02 B
+-0.01 (data assimilation system for the scales, levels and variables of con-) 56.69 375.52 P
+0.14 0.04 (cern to them. In their terminology) 56.69 370.02 B
+0.14 0.04 (, NMC has two intermittent \050fore-) 131.4 370.02 B
+0.14 0.15 (cast-analysis cycle\051 systems: the NGM-based RDAS \050Regional) 56.69 364.52 B
+56.69 356.46 205.51 362.85 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+65.69 360.62 209.69 360.62 2 L
+0.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+-0 180 792 792 C
+0 5 Q
+0 X
+0 0 0 1 0 0 0 K
+-0.08 (1. The National Center for Atmospheric Research is sponsored by) 60.29 353.12 P
+(the National Science Foundation.) 56.69 347.12 T
+(2. Developed by the Research Data Program of NCAR.) 60.29 341.12 T
+219.68 338.46 368.5 650.27 R
+7 X
+V
+0 X
+0.14 0.07 (Data Assimilation System\051 and the Global Data Assimilation Sys-) 219.68 646.93 B
+0.14 0.14 (tem \050GDAS\051 used by the A) 219.68 641.43 B
+0.14 0.14 (VN and based on the global spectral) 282.46 641.43 B
+0.14 0.05 (model. The NGM and the Eta model data on CD-ROM both come) 219.68 635.93 B
+0.14 0.05 (from models run from initial conditions based on the RDAS, while) 219.68 630.43 B
+0.14 0.05 (the A) 219.68 624.93 B
+0.14 0.05 (VN analysis uses a f) 231.39 624.93 B
+0.14 0.05 (irst-guess from the GDAS. MAPS is pri-) 278.28 624.93 B
+(marily a data assimilation system rather than a prediction model.) 219.68 619.43 T
+0.14 0.15 (A f) 219.68 611.49 B
+0.14 0.15 (inal note of caution: model data suf) 226.38 611.49 B
+0.14 0.15 (fered in varying amounts) 309.96 611.49 B
+0.14 0.1 (when transferred to the grid of the data set on the CD-ROM and) 219.68 605.99 B
+0.14 0.1 (may suf) 219.68 600.49 B
+0.14 0.1 (fer further when converted to the users grid. While great) 237.94 600.49 B
+0.14 0.18 (care is taken to retain information without introducing noise or) 219.68 594.99 B
+0.14 0.11 (destroying information, choices are always required that are not) 219.68 589.49 B
+(necessarily optimal for any particular user) 219.68 583.99 T
+(.) 311.66 583.99 T
+1 6 Q
+(Hardware Requirements) 219.68 573.37 T
+0 5 Q
+0.14 0.16 (The ST) 219.68 564.59 B
+0.14 0.16 (ORM-FEST CD-ROM uses the Rock Ridge Interchange) 237.07 564.59 B
+0.14 0.06 (Protocol \050RRIP\051, which is an extension of the ISO 9660 CD-ROM) 219.68 559.09 B
+0.11 (standard. Most UNIX machines will be able to access the data \336les) 219.68 553.59 P
+0.14 0.21 (on the CD-ROM using this protocol; some \050such as HPs\051, will) 219.68 548.09 B
+0.14 0.05 (require use of an included script to create a \322shadow\323 directory to) 219.68 542.59 B
+0.14 0.01 (establish correct f) 219.68 537.09 B
+0.14 0.01 (ilenames. Additional software is required for data) 259.26 537.09 B
+(access by a PC.) 219.68 531.59 T
+0.14 0.09 (The version of Zeb distributed on the CD-ROM has the following) 219.68 523.64 B
+(requirements:) 219.68 518.14 T
+(\245 One of the following workstations \050color highly recommended\051:) 225.35 510.19 T
+(- Sun w/SunOS 4.1.3 or greater) 233.86 503.74 T
+(- Sun w/Solaris 2.0 or greater) 233.86 497.3 T
+0.6 (- HP 9000 series w/HP-UX A.09.01 \050may work under other) 233.86 490.85 P
+(HP-UX versions, but untested\051) 237.54 485.35 T
+0.85 (- Silicon Graphics Indy w/IRIX 5.1.0.1 \050may work on other) 233.86 478.9 P
+(SGI machines or IRIX versions, but untested\051) 237.54 473.4 T
+0.64 (\245 X1) 225.35 466.95 P
+0.64 (1R4 or greater \050this criterion is met by Sun OpenWindows) 234.88 466.95 P
+(3.0 or greater\051) 229.61 461.45 T
+(\245 a minimum of 16MB of RAM \05032MB or more recommended\051) 225.35 455 T
+0.27 (\245 32MB minimum swap space \050swap space needs to be at least) 225.35 448.55 P
+(twice the RAM under SunOS\051) 229.61 443.05 T
+(\245 a CD-ROM player somewhere on the network.) 225.35 436.61 T
+1 6 Q
+(Mounting the CD-ROM Under SunOS or HP-UX) 219.68 425.99 T
+0 5 Q
+0.14 0.06 (Under the SunOS and HP-UX operating systems, CD-ROM disks) 219.68 417.21 B
+(must be mounted by the super-user using the) 219.68 411.71 T
+3 F
+(mount) 321.68 411.71 T
+0 F
+( command:) 336.68 411.71 T
+(1\051 Put the CD into the carrier and insert into the CD-ROM drive.) 219.68 403.76 T
+0.64 (2\051 Decide where you want to mount the CD on your system. W) 219.68 396.81 P
+0.64 (e) 365.72 396.81 P
+0.38 (suggest) 226.2 391.31 P
+3 F
+0.82 (/zebcd) 245.48 391.31 P
+0 F
+0.38 (, but you may put it anywhere \050the instructions) 263.48 391.31 P
+-0.09 (below assume that it is on) 226.2 385.81 P
+3 F
+-0.2 (/zebcd) 284.56 385.81 P
+0 F
+-0.09 (\051. Create the mount directory:) 302.56 385.81 P
+1 F
+(# mkdir /zebcd) 248.49 378.87 T
+0 F
+0.05 (3\051 Mount the CD on your selected directory) 219.68 371.42 P
+0.05 (. Note that the CD-ROM) 314.96 371.42 P
+(device name \050) 226.2 365.92 T
+3 F
+(/dev/...) 257.6 365.92 T
+0 F
+(\051 may be dif) 281.6 365.92 T
+(ferent on your machine.) 307.63 365.92 T
+(\245 Under SunOS:) 225.35 358.97 T
+1 F
+(# mount -t hsfs -o ro /dev/sr0 /zebcd) 248.49 353.02 T
+0 F
+(\245 Under HP-UX:) 225.35 346.07 T
+1 F
+(# mount /dev/dsk/c201d2s0 /zebcd -t cdfs -o ro) 248.49 340.12 T
+396.85 338.46 545.67 650.27 R
+7 X
+V
+1 6 Q
+0 X
+(Mounting the CD-ROM Under Solaris or IRIX) 396.85 646.27 T
+0 5 Q
+0.14 0.2 (The Solaris and IRIX operating systems provide for automatic) 396.85 637.74 B
+0.14 0.12 (mounting of CD-ROM disks once they are inserted into the sys-) 396.85 632.24 B
+0.14 0.01 (tem\325) 396.85 626.74 B
+0.14 0.01 (s CD-ROM drive. By default, the disk will be mounted to direc-) 406.25 626.74 B
+0.14 0.21 (tory) 396.85 621.24 B
+3 F
+0.3 0.21 (/cdrom/cdrom0) 407.75 621.24 B
+0 F
+0.14 0.21 ( under Solaris, and to directory) 449.46 621.24 B
+3 F
+0.3 0.21 (/CDROM) 526.63 621.24 B
+0 F
+(under IRIX.) 396.85 615.74 T
+0.14 0.01 (Later parts of this document assume that the CD-ROM is mounted) 396.85 608.04 B
+-0.1 (to directory) 396.85 602.54 P
+3 F
+-0.21 (/zebcd) 422.78 602.54 P
+0 F
+-0.1 (, so you may wish to create a symbolic link from) 440.78 602.54 P
+3 F
+(/zebcd) 396.85 597.04 T
+0 F
+( to the actual mount directory) 414.85 597.04 T
+(, e.g.,) 478.95 597.04 T
+1 F
+(# mkdir /zebcd) 425.65 589.34 T
+(# ln -s /zebcd /CDROM) 425.65 583.15 T
+0 F
+(This must be done by super-user) 396.85 574.95 T
+(.) 469.66 574.95 T
+1 F
+0.1 (Solaris Note:) 396.85 567.26 P
+0 F
+0.1 ( Under Solaris, there is a problem which causes con-) 427.79 567.26 P
+(sole messages of the form) 396.85 561.76 T
+4 F
+(NOTICE: hs_access: error out on VWRITE) 425.65 554.06 T
+0 F
+0.14 0.03 (to occasionally appear when the ST) 396.85 545.86 B
+0.14 0.03 (ORM-FEST CD-ROM is being) 477.81 545.86 B
+(used. These messages are innocuous and should be ignored.) 396.85 540.36 T
+1 6 Q
+2.3 (Mounting the CD-ROM From a Remote Machine) 396.85 530 P
+(Using NFS) 396.85 523 T
+0 5 Q
+0.14 0.06 (If your CD-ROM drive is on a dif) 396.85 514.47 B
+0.14 0.06 (ferent machine than the machine) 470.5 514.47 B
+0.14 0.06 (on which you wish to run the software, you can mount it remotely) 396.85 508.97 B
+0.14 0.05 (via NFS. The following instructions assume that the machine with) 396.85 503.47 B
+0.14 0.03 (the drive is called \322server\323, and the machine on which you want to) 396.85 497.97 B
+(run zeb is called \322client\323:) 396.85 492.47 T
+(1\051 Mount the CD on \322server\323 by following the instructions above.) 396.85 484.77 T
+-0.09 (2\051 Edit the \336le) 396.85 478.07 P
+3 F
+-0.2 (/etc/exports) 428.43 478.07 P
+0 F
+-0.09 ( on \322server\323 and add a line that reads) 464.43 478.07 P
+(simply:) 403.37 472.57 T
+1 F
+(/zebcd) 425.65 465.88 T
+0 F
+(\050or the name of your mount point if other than) 403.37 458.68 T
+3 F
+(/zebcd) 505.09 458.68 T
+0 F
+(\051.) 523.09 458.68 T
+(3\051 Run:) 396.85 451.98 T
+1 F
+(# exportfs -a) 425.65 445.29 T
+0 F
+(4\051 On \322client\323 perform the following:) 396.85 438.09 T
+1 F
+(# mkdir /zebcd) 425.65 431.39 T
+0 F
+(5\051 And) 396.85 424.2 T
+(\245 under SunOS or IRIX:) 402.52 417.5 T
+1 F
+(# mount -o ro -t nfs server:/zebcd /zebcd) 425.65 411.8 T
+0 F
+(\245 under Solaris:) 402.52 405.11 T
+1 F
+(# mount -o ro -F nfs server:/zebcd /zebcd) 425.65 399.41 T
+0 F
+(\245 under HP-UX) 402.52 392.71 T
+1 F
+(# mount server:/zebcd /zebcd -f nfs -o ro) 425.65 387.02 T
+1 6 Q
+(Shadow Directories Under HP-UX) 396.85 376.15 T
+0 5 Q
+0.14 0.03 (On HP machines, the f) 396.85 367.62 B
+0.14 0.03 (iles on the CD-ROM disks will be seen with) 448.23 367.62 B
+0.14 0.04 (8-character all uppercase f) 396.85 362.12 B
+0.14 0.04 (ilenames; this is a result of the CD f) 457.58 362.12 B
+0.14 0.04 (ile-) 538.92 362.12 B
+0.14 0.07 (system software under HP-UX. Because of this, Zeb must be run) 396.85 356.62 B
+0.14 0 (from a shadow directory that provides the f) 396.85 351.12 B
+0.14 0 (iles via their real names) 492.49 351.12 B
+-0.09 (rather than the truncated versions that come directly from the CD. A) 396.85 345.62 P
+0.14 0.57 (script is provided for setting up the shadow directory:) 396.85 340.12 B
+559.84 338.46 708.66 650.27 R
+7 X
+V
+3 F
+0 X
+0.3 0.14 (SHADOW.CD;1) 559.84 646.93 B
+0 F
+0.14 0.14 (. The shadow directory needs to be created only) 594.38 646.93 B
+0.14 0.16 (once, and generally will take a few megabytes of space. In the) 559.84 641.43 B
+0.14 0.08 (example below) 559.84 635.93 B
+0.14 0.08 (, it is assumed that one of the CDs is mounted on) 594.09 635.93 B
+3 F
+(/zebcd) 559.84 630.43 T
+0 F
+(. Shadow directory) 577.84 630.43 T
+3 F
+(/zebshadow) 620.64 630.43 T
+0 F
+( is created:) 650.64 630.43 T
+1 F
+(% /zebcd/SHADOW) 588.64 622.75 T
+(.CD\134;1 /zebshadow) 633.93 622.75 T
+0 F
+0.14 0.01 (Note that the semicolon in the name of the script must be escaped) 559.84 614.56 B
+0.14 0.12 (with a backslash. Once the shadow directory has been created,) 559.84 609.06 B
+0.14 0.31 (Zeb related work should proceed as if the CD were directly) 559.84 603.56 B
+(mounted to the shadow directory) 559.84 598.06 T
+(.) 632.01 598.06 T
+1 6 Q
+(Printing Documentation) 559.84 587.71 T
+0 5 Q
+0.14 0.02 (After the CD-ROM is mounted, f) 559.84 579.18 B
+0.14 0.02 (iles under the) 632.1 579.18 B
+3 F
+0.3 0.02 (/zebcd/doc) 664.28 579.18 B
+0 F
+0.14 0.02 ( direc-) 694.51 579.18 B
+0.06 (tory can be sent to a) 559.84 573.68 P
+2 F
+0.06 (PostScript) 606.91 573.68 P
+0 F
+0.06 (printer) 631.15 573.68 P
+0.06 (. A few important documents) 645.05 573.68 P
+(there:) 559.84 568.18 T
+0.33 (\245) 565.51 560.5 P
+1 F
+0.33 (installcd.ps) 568.99 560.5 P
+0 F
+0.33 (: information on installing Zeb onto your local disk) 596.5 560.5 P
+(for performance improvement.) 569.76 555 T
+0.51 (\245) 565.51 548.81 P
+1 F
+0.51 (RunningZeb.ps) 569.16 548.81 P
+0 F
+0.51 (: extended information for getting started with) 605.55 548.81 P
+(Zeb.) 569.76 543.31 T
+1.66 (\245) 565.51 537.12 P
+1 F
+1.66 (ModelData.ps) 570.31 537.12 P
+0 F
+1.66 (: description of new utilities that have been) 602.82 537.12 P
+(added to Zeb for dealing with model data.) 569.76 531.62 T
+1.04 (\245) 565.51 525.43 P
+1 F
+1.04 (ObsAndModel.ps) 569.69 525.43 P
+0 F
+1.04 (: instructions for using data from both the) 610.8 525.43 P
+0.69 (original observational data CD-ROM set and this model data) 569.76 519.93 P
+(CD-ROM set together) 569.76 514.43 T
+(.) 617.83 514.43 T
+1 6 Q
+(Running Zeb) 559.84 504.08 T
+0 5 Q
+-0.13 (After the CD-ROM is mounted, Zeb can be run directly from the CD-) 559.84 495.56 P
+(ROM:) 559.84 490.06 T
+1 F
+(% /zebcd/runzeb) 588.64 482.37 T
+0 F
+0.08 (For signi\336cantly better performance, Zeb can be installed onto your) 559.84 474.19 P
+(local disk:) 559.84 468.69 T
+1 F
+(% /zebcd/installzeb) 588.64 461 T
+1 6 Q
+(Unmounting the CD-ROM) 559.84 450.14 T
+0 5 Q
+(\245 under SunOS or HP-UX \050as super-user\051:) 565.51 443.12 T
+1 F
+(# umount /zebcd) 588.64 437.44 T
+0 F
+(\245 under IRIX \050no special privilege necessary\051:) 565.51 430.75 T
+1 F
+(% eject /CDROM) 588.64 425.06 T
+0 F
+(\245 under Solaris \050no special privilege necessary\051:) 565.51 418.37 T
+1 F
+(% eject cdrom) 588.64 412.69 T
+0 F
+0.14 0.05 (If you get a \322device busy\323 or similar message from the) 559.84 404.5 B
+3 F
+0.3 0.05 (umount) 684.31 404.5 B
+0 F
+0.14 0.05 ( or) 702.59 404.5 B
+3 F
+0.2 (eject) 559.84 399 P
+0 F
+0.09 ( command, it means that some process is still using the CD-) 574.84 399 P
+0.14 0.05 (ROM. Most likely) 559.84 393.5 B
+0.14 0.05 (, you have a window with its current directory on) 598.39 393.5 B
+0.14 0.08 (the CD-ROM. Use the) 559.84 388 B
+4 F
+0.3 0.08 (cd) 612.2 388 B
+0 F
+0.14 0.08 ( command in that window to move your) 618.35 388 B
+(current directory elsewhere and try again.) 559.84 382.5 T
+1 6 Q
+-0.11 (GrADS: Additional Software for V) 559.84 372.14 P
+-0.11 (iewing the ST) 654.31 372.14 P
+-0.11 (ORM-) 692.66 372.14 P
+(FEST Model Data) 559.84 365.14 T
+0 5 Q
+0.14 0.13 (Another way to analyze and display the model data on this CD-) 559.84 356.62 B
+-0.12 (ROM is to utilize the GrADS \050Gridded Analysis and Display System\051) 559.84 351.12 P
+0.14 0.05 (package, developed by Brian Doty of the Center for Ocean-Land-) 559.84 345.62 B
+0.14 0.08 (Atmosphere Interactions at the University of Maryland. GrADS is) 559.84 340.12 B
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "1" 1
+%%Page: "2" 2
+612 792 1 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 0 0 0 1 1 1]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 0.3 0.4 0 0 0.7 0.6 1]
+ 9 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2 of 3) 72 214.67 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+56.69 338.46 205.51 650.27 R
+7 X
+V
+0 5 Q
+0 X
+0.14 0.01 (available in binary form for Sun, IBM, DEC, HP) 56.69 646.93 B
+0.14 0.01 (, SGI, and PC com-) 161.4 646.93 B
+(puters. Source code is not available.) 56.69 641.43 T
+0.14 0.07 (NOTE: GrADS is not written or supported by UCAR/NCAR. Send) 56.69 633.92 B
+-0.07 (Internet e-mail to support@grads.iges.org with any questions, prob-) 56.69 628.42 P
+(lems, or suggestions related to the software itself.) 56.69 622.92 T
+-0.13 (As of this writing, the latest version of GrADS released was 1.4; ver-) 56.69 615.4 P
+0.14 0.01 (sion 1.5 was nearing completion. Unfortunately) 56.69 609.9 B
+0.14 0.01 (, version 1.5 is nec-) 161.41 609.9 B
+-0.01 (essary to properly display the data on this CD-ROM, as it is the \336rst) 56.69 604.4 P
+(version to support polar stereographic grids in GRIB data.) 56.69 598.9 T
+-0.04 (Since version 1.5 was on the verge of release, it seemed imprudent) 56.69 591.38 P
+0.14 0.06 (to place instructions on this CD-ROM which would soon be obso-) 56.69 585.88 B
+0.14 0.02 (lete. Therefore, the Of) 56.69 580.38 B
+0.14 0.02 (f) 106.35 580.38 B
+0.14 0.02 (ice of Field Project Support has established) 107.75 580.38 B
+0.14 0.04 (a directory on their anonymous FTP server containing information) 56.69 574.88 B
+-0.01 (on the current status of GrADS, along with instructions on acquiring) 56.69 569.38 P
+(and using GrADS with this CD-ROM.) 56.69 563.88 T
+0.14 0.12 (T) 56.69 556.36 B
+0.14 0.12 (o get this information, use your FTP program to connect to the) 59.31 556.36 B
+-0.1 (computer \322ofps.ucar) 56.69 550.86 P
+-0.1 (.edu\323 \050numeric IP address 128.1) 100.78 550.86 P
+-0.1 (17.90.64\051. \050The) 171.43 550.86 P
+0.14 0.13 (details of FTP will depend on your system; consult your system) 56.69 545.36 B
+-0.09 (documentation for further explanation.\051 When prompted for a name,) 56.69 539.86 P
+0.14 0.19 (type \322ftp\323 \050without the quotes\051 and press your Return key) 56.69 534.36 B
+0.14 0.19 (. The) 193.23 534.36 B
+0.14 0.09 (remote computer should respond, \322Guest login ok, send ident as) 56.69 528.86 B
+0.14 0.09 (password.\323 Enter your e-mail address at the \322Password:\323 prompt) 56.69 523.36 B
+0.14 0.09 (and press Return. The remote computer should respond, \322Guest) 56.69 517.86 B
+0.14 0.07 (login ok, access restrictions apply) 56.69 512.36 B
+0.14 0.07 (.\323 Y) 133.71 512.36 B
+0.14 0.07 (ou are now ready to list and) 141.44 512.36 B
+(transfer \336les.) 56.69 506.86 T
+0.14 0.01 (T) 56.69 499.34 B
+0.14 0.01 (ype \322cd pub/grads\323 and press return. Y) 59.48 499.34 B
+0.14 0.01 (ou are now in the directory) 145.72 499.34 B
+-0.11 (on our computer containing the GrADS information. T) 56.69 493.84 P
+-0.11 (yping \322dir\323 and) 173.77 493.84 P
+(Return should produce a display resembling this one:) 56.69 488.34 T
+3 F
+-0.5 (total 9) 56.69 480.83 S
+-0.5 (-rw-r--r--) 56.69 475.31 S
+-0.5 (1 mark staff) 84.19 475.31 S
+-0.5 (1033 Jul 14 10:59 README.grads) 121.69 475.31 S
+-0.5 (-rw-r--r--) 56.69 469.79 S
+-0.5 (1 mark staff) 84.19 469.79 S
+-0.5 (723 Nov) 124.19 469.79 S
+-0.5 (9) 146.69 469.79 S
+-0.5 (1993 avn27.ctl) 154.2 469.79 S
+-0.5 (-rw-r--r-- 1 mark staff) 56.69 455.25 S
+-0.5 (973 Jul 13 15:47 eta.ctl) 124.19 455.25 S
+-0.5 (-rw-r--r-- 1 mark staff) 56.69 449.73 S
+-0.5 (710 Jun 1) 124.19 449.73 S
+-0.5 ( 11:45 ngm.ctl) 149.19 449.73 S
+0 F
+0.14 0 (This is a list of the f) 56.69 441.71 B
+0.14 0 (iles in the directory on our computer) 100.37 441.71 B
+0.14 0 (. \050Note that) 180.48 441.71 B
+0.14 0.05 (the sizes and dates of the f) 56.69 436.21 B
+0.14 0.05 (iles will change over time, and that we) 118.58 436.21 B
+0.14 0.02 (may add f) 56.69 430.71 B
+0.14 0.02 (iles to the directory) 79.1 430.71 B
+0.14 0.02 (. However) 121.51 430.71 B
+0.14 0.02 (, the f) 144.05 430.71 B
+0.14 0.02 (irst f) 156.98 430.71 B
+0.14 0.02 (ile listed above is) 166.68 430.71 B
+0.14 0.06 (guaranteed to be present.\051 Right now) 56.69 425.21 B
+0.14 0.06 (, you should transfer the f) 141.73 425.21 B
+0.14 0.06 (ile) 200.4 425.21 B
+0.14 0.08 (called \322README.grads\323 to your own computer and read it. T) 56.69 419.71 B
+0.14 0.08 (o do) 195.4 419.71 B
+0.14 0.04 (so, type \322get README.grads\323 and press Return; this transfers the) 56.69 414.21 B
+0.14 0.08 (f) 56.69 408.71 B
+0.14 0.08 (ile into the current directory on your computer) 58.16 408.71 B
+0.14 0.08 (. Once the f) 163.21 408.71 B
+0.14 0.08 (ile has) 190.44 408.71 B
+0.08 (transferred successfully) 56.69 403.21 P
+0.08 (, type \322quit\323 and Return to exit the FTP ses-) 108.92 403.21 P
+0.14 0 (sion. Finally) 56.69 397.71 B
+0.14 0 (, read the f) 82.88 397.71 B
+0.14 0 (ile you just transferred and follow its instruc-) 107.22 397.71 B
+(tions accordingly) 56.69 392.21 T
+(.) 93.56 392.21 T
+(Questions about obtaining GrADS can be directed to:) 56.69 384.7 T
+(Mark Bradford \050mark@ncar) 70.87 377.18 T
+(.ucar) 131.23 377.18 T
+(.edu\051) 142.07 377.18 T
+(303-497-8169) 70.87 369.66 T
+1 6 Q
+(Acknowledgments) 56.69 359.48 T
+0 5 Q
+0.14 0.08 (W) 56.69 351.12 B
+0.14 0.08 (e would like to thank all who participated in ST) 61.4 351.12 B
+0.14 0.08 (ORM-FEST and) 168.71 351.12 B
+0.14 0.09 (are especially grateful to the National Meteorological Center and) 56.69 345.62 B
+0.14 0.05 (NOAA) 56.69 340.12 B
+0.14 0.05 (\325) 70.68 340.12 B
+0.14 0.05 (s Forecast System Laboratory for providing the model data) 71.75 340.12 B
+56.69 338.46 205.51 650.27 C
+102.76 459.1 159.45 468.12 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+3 5 Q
+0 X
+0 0 0 1 0 0 0 K
+(.) 131.09 467 T
+(.) 131.09 463.5 T
+(.) 131.09 460 T
+56.69 338.46 205.51 650.27 C
+-0 180 792 792 C
+219.68 416.41 368.5 536.88 R
+7 X
+0 0 0 1 0 0 0 K
+V
+223.15 433.66 365.04 436.88 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+-0 180 792 792 C
+0 5 Q
+0 X
+0 0 0 1 0 0 0 K
+(* Note that models may have data gaps within these periods.) 223.15 430.33 T
+(Data from times between IOPs are included with the suc) 227.4 424.33 T
+(cceeding IOP) 227.4 418.33 T
+(.) 256.77 418.33 T
+1 6 Q
+(ST) 241.43 525.88 T
+(ORM-FEST \32492: Model Data T) 248.99 525.88 T
+(imes) 331.22 525.88 T
+1 4.8 Q
+(*) 344.9 528.28 T
+1 5 Q
+(CD #) 226.18 516.55 T
+(IOP) 245.27 516.55 T
+(Data Start T) 263.2 516.55 T
+(ime \050Z\051) 291.17 516.55 T
+(Data End T) 317.41 516.55 T
+(ime \050Z\051) 343.44 516.55 T
+0 F
+(3) 248.19 509.05 T
+(Feb 9, 00:00) 271.34 509.05 T
+(Feb. 10, 03:00) 322.5 509.05 T
+(1) 230.48 502.05 T
+(4) 248.19 502.05 T
+(Feb. 10, 06:00) 269.26 502.05 T
+(Feb. 10, 18:00) 322.5 502.05 T
+(5) 248.19 495.05 T
+(Feb. 1) 269.44 495.05 T
+(1, 00:00) 283.25 495.05 T
+(Feb. 14, 03:00) 322.5 495.05 T
+(6-7) 245.96 488.05 T
+(Feb. 14, 06:00) 269.26 488.05 T
+(Feb. 19, 00:00) 322.5 488.05 T
+(10) 246.8 481.05 T
+(Feb. 22, 12:00) 269.26 481.05 T
+(Feb. 23, 09:00) 322.5 481.05 T
+(1) 246.98 474.05 T
+(1) 249.39 474.05 T
+(Feb. 23, 12:00) 269.26 474.05 T
+(Feb. 25, 09:00) 322.5 474.05 T
+(2) 230.48 467.05 T
+(12) 246.8 467.05 T
+(Feb. 25, 12:00) 269.26 467.05 T
+(Feb. 26, 00:00) 322.5 467.05 T
+(16) 246.8 460.05 T
+(Mar) 270.79 460.05 T
+(. 3, 12:00) 279.12 460.05 T
+(Mar) 324.03 460.05 T
+(. 5, 00:00) 332.36 460.05 T
+(17) 246.8 453.05 T
+(Mar) 270.79 453.05 T
+(. 5, 12:00) 279.12 453.05 T
+(Mar) 322.64 453.05 T
+(. 10, 06:00) 330.97 453.05 T
+(18) 246.8 446.05 T
+(Mar) 269.4 446.05 T
+(. 10, 12:00) 277.73 446.05 T
+(Mar) 322.82 446.05 T
+(. 1) 331.16 446.05 T
+(1, 09:00) 336.35 446.05 T
+(19) 246.8 439.05 T
+(Mar) 269.58 439.05 T
+(. 1) 277.92 439.05 T
+(1, 12:00) 283.11 439.05 T
+(Mar) 322.64 439.05 T
+(. 12, 00:00) 330.97 439.05 T
+223.15 521.63 223.15 437.13 2 L
+V
+0.5 H
+0 Z
+N
+240.6 522.13 240.6 513.63 2 L
+V
+N
+240.6 514.13 240.6 436.63 2 L
+V
+0.25 H
+N
+258.55 522.13 258.55 513.63 2 L
+V
+0.5 H
+N
+258.55 514.13 258.55 436.63 2 L
+V
+0.25 H
+N
+312.2 522.13 312.2 513.63 2 L
+V
+0.5 H
+N
+312.2 514.13 312.2 436.63 2 L
+V
+0.25 H
+N
+365.04 521.63 365.04 437.13 2 L
+V
+0.5 H
+N
+222.9 521.88 365.29 521.88 2 L
+V
+N
+222.9 513.88 365.29 513.88 2 L
+V
+N
+240.47 506.88 365.29 506.88 2 L
+V
+0.25 H
+N
+240.47 499.88 365.29 499.88 2 L
+V
+N
+240.47 492.88 365.29 492.88 2 L
+V
+N
+222.9 485.88 365.29 485.88 2 L
+V
+0.5 H
+N
+240.47 478.88 365.29 478.88 2 L
+V
+0.25 H
+N
+240.47 471.88 365.29 471.88 2 L
+V
+N
+240.47 464.88 365.29 464.88 2 L
+V
+N
+240.47 457.88 365.29 457.88 2 L
+V
+N
+240.47 450.88 365.29 450.88 2 L
+V
+N
+240.47 443.88 365.29 443.88 2 L
+V
+N
+222.9 436.88 365.29 436.88 2 L
+V
+0.5 H
+N
+219.68 338.46 368.5 409.32 R
+7 X
+V
+2 F
+0 X
+-0.23 (Copyright \251 1994) 219.68 405.99 P
+-0.23 (University Corporation for Atmospheric Research.) 259.38 405.99 P
+0.14 0.05 (All rights reserved. No part of this work covered by the copyrights) 219.68 400.49 B
+0.14 0.02 (herein may be reproduced or used in any form or by any means --) 219.68 394.99 B
+0.14 0.02 (graphic, electronic, or mechanical, including photocopying, record-) 219.68 389.49 B
+0.14 0.06 (ing, taping, or information storage and retrieval systems - without) 219.68 383.99 B
+0.08 (permission of the copyright owner) 219.68 378.49 P
+0.08 (.This software and any accompa-) 294.56 378.49 P
+0.14 0.01 (nying written materials are provided \322as is\323 without warranty of any) 219.68 372.99 B
+0.14 0.08 (kind. UCAR expressly disclaims all warranties of any kind, either) 219.68 367.49 B
+-0.23 (express or implied, including but not limited to the implied warranties) 219.68 361.99 P
+0.14 0.01 (of merchantability and f) 219.68 356.49 B
+0.14 0.01 (itness for a particular purpose. UCAR does) 272.1 356.49 B
+0.14 0.07 (not indemnify any infringement of copyright, patent, or trademark) 219.68 350.99 B
+-0.18 (through use or modi\336cation of this software. UCAR does not provide) 219.68 345.49 P
+(maintenance or updates for its software.) 219.68 339.99 T
+219.68 543.97 368.5 650.27 R
+7 X
+V
+0 F
+0 X
+0.14 0.38 (contained here. The CD-ROM project was managed by C.) 219.68 646.93 B
+0.14 0.1 (Burghart. The Zeb software and modules for formatting the data) 219.68 641.43 B
+0.14 0.1 (were written by J. Corbet, C. Burghart, G. Granger) 219.68 635.93 B
+0.14 0.1 (, K. Gould, A.) 337.03 635.93 B
+0.14 0 (Barrett, and M. Case. Additional data translation programming was) 219.68 630.43 B
+0.14 0.01 (done by M. Bradford. The software on this CD-ROM was reviewed) 219.68 624.93 B
+0.14 0.05 (by C. Mueller) 219.68 619.43 B
+0.14 0.05 (, J. Moore, W) 249.75 619.43 B
+0.14 0.05 (. Brazille, S. Dembek, and L. Dervillee.) 280.24 619.43 B
+0.14 0.19 (The data periods included on these disks were selected by C.) 219.68 613.93 B
+(Kreitzberg. The original cover art was designed by J. Locatelli.) 219.68 608.43 T
+1 6 Q
+(Further Information) 219.68 598.27 T
+0 5 Q
+(Questions regarding the Zeb software? Contact:) 219.68 589.93 T
+(Rebecca Sobol \050sobol@ncar) 233.86 582.43 T
+(.ucar) 297.29 582.43 T
+(.edu\051) 308.13 582.43 T
+(303-497-8847) 233.86 574.93 T
+(Questions regarding the data sets? Contact:) 219.68 567.43 T
+(Steve Williams \050sfw@ncar) 233.86 559.93 T
+(.ucar) 291.72 559.93 T
+(.edu\051) 302.56 559.93 T
+(303-497-8164) 233.86 552.43 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "2" 2
+%%Page: "3" 3
+612 792 1 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 0 0 0 1 1 1]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 0.3 0.4 0 0 0.7 0.6 1]
+ 9 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(3 of 3) 72 214.67 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+396.85 480.19 545.67 650.27 R
+7 X
+V
+1 8 Q
+0 X
+(Mesoscale Analysis and Prediction) 404.57 644.93 T
+(System \050MAPS\051 Model) 429.03 634.93 T
+1 6 Q
+(T) 396.85 622.27 T
+(emporal Resolution) 400.07 622.27 T
+0 5 Q
+(\245 Issue T) 402.52 615.43 T
+(imes: 0Z, 3Z, 6Z, 9Z, 12Z, 15Z, 18Z, 21Z.) 421.87 615.43 T
+(\245 Forecast T) 402.52 609.43 T
+(imes: 0 hr) 429.37 609.43 T
+(, 3 hr) 451.04 609.43 T
+(, 6 hr) 462.16 609.43 T
+(.) 473.28 609.43 T
+1 6 Q
+(Spatial Resolution and Coverage) 396.85 599.27 T
+0 5 Q
+(\245 Latitude: every 1 degree from 20 N to 60 N.) 402.52 592.43 T
+(\245 Longitude: every 1 degree from 130 W to 60 W) 402.52 586.43 T
+(.) 509.32 586.43 T
+1 6 Q
+(Description) 396.85 576.27 T
+0 5 Q
+0.14 0.06 (This model is a regional isentropic model designed to ingest data) 396.85 567.93 B
+-0.05 (nearly continuously) 396.85 562.43 P
+-0.05 (, with a resolution of 80 km and 18 levels.  If one) 439.23 562.43 P
+0.14 0.12 (wants the best analysis at all times in contrast to a forecast this) 396.85 556.93 B
+0.14 0 (should be the best data set, but it may not be for some storms and) 396.85 551.43 B
+0.14 0.16 (for some applications. See Benjamin, S. G., K. A. Brewster) 396.85 545.93 B
+0.14 0.16 (, R.) 537.26 545.93 B
+0.14 0.03 (Brummer) 396.85 540.43 B
+0.14 0.03 (, B. F) 417.36 540.43 B
+0.14 0.03 (. Jewett, T) 429.22 540.43 B
+0.14 0.03 (. W) 452.36 540.43 B
+0.14 0.03 (. Schlatter) 459.82 540.43 B
+0.14 0.03 (, T) 482.55 540.43 B
+0.14 0.03 (. L. Smith, 1991: An isen-) 488.06 540.43 B
+0.14 0.05 (tropic three-hourly data assimilation system using ACARS aircraft) 396.85 534.93 B
+(observations,) 396.85 529.43 T
+2 F
+(Mon. W) 427.98 529.43 T
+(ea. Rev) 445.11 529.43 T
+(.) 461.97 529.43 T
+0 F
+(,) 463.36 529.43 T
+1 F
+(1) 466.14 529.43 T
+(19) 468.64 529.43 T
+0 F
+(, 888-906.) 474.2 529.43 T
+559.84 480.19 708.66 650.27 R
+7 X
+V
+1 8 Q
+0 X
+(Nested Grid Model \050NGM\051) 585.8 644.93 T
+1 6 Q
+(T) 559.84 632.27 T
+(emporal Resolution) 563.06 632.27 T
+0 5 Q
+(\245 Issue T) 565.51 625.43 T
+(imes: 0Z, 12Z.) 584.86 625.43 T
+0.62 (\245 Forecast T) 565.51 619.43 P
+0.62 (imes: 0 hr) 593.59 619.43 P
+0.62 (, 12 hr) 616.49 619.43 P
+0.62 (, 18 hr) 631.62 619.43 P
+0.62 (, 24 hr) 646.75 619.43 P
+0.62 (, 30 hr) 661.88 619.43 P
+0.62 (, 36 hr) 677.01 619.43 P
+0.62 (, 42 hr) 692.14 619.43 P
+0.62 (,) 707.27 619.43 P
+(48) 569.76 613.93 T
+(hr) 576.71 613.93 T
+(.) 580.88 613.93 T
+1 6 Q
+(Spatial Resolution and Coverage) 559.84 603.77 T
+0 5 Q
+(\245 Latitude: every 2 degrees from 20 N to 60 N.) 565.51 596.93 T
+(\245 Longitude: every 2 degrees from 130 W to 60 W) 565.51 590.93 T
+(.) 674.82 590.93 T
+1 6 Q
+(Description) 559.84 580.77 T
+0 5 Q
+0.14 0.16 (The Nested Grid Model \050NGM\051 has been the standard regional) 559.84 572.43 B
+-0.05 (model used at NMC for a decade, with a resolution of 80 km and 16) 559.84 566.93 P
+0.14 0.01 (sigma layers using a Kuo parameterization scheme for convection.) 559.84 561.43 B
+0.14 0.03 (See Hoke, J. E., et al, 1989: The Regional Analysis System of the) 559.84 555.93 B
+(National Meteorological Center) 559.84 550.43 T
+(,) 628.2 550.43 T
+2 F
+(W) 630.98 550.43 T
+(ea. Forecasting) 635.61 550.43 T
+0 F
+(,) 670.07 550.43 T
+1 F
+(4) 672.85 550.43 T
+0 F
+(, 323-334.) 675.63 550.43 T
+396.85 338.46 545.67 480.19 R
+7 X
+V
+1 6 Q
+0 X
+(MAPS Model Data) 445.76 469.19 T
+1 5 Q
+(Date) 406.51 459.86 T
+(Issue T) 429.71 459.86 T
+(imes \050Z\051) 446.86 459.86 T
+(Date) 482.76 459.86 T
+(Issue T) 504.22 459.86 T
+(imes \050Z\051) 521.36 459.86 T
+0 F
+(Feb. 9) 404.84 452.36 T
+(9, 18, 21) 438.14 452.36 T
+(Feb. 24) 479.7 452.36 T
+-0.09 (0, 3, 6, 9, 12, 15,) 503.61 452.36 P
+(18, 21) 515.42 446.36 T
+(Feb. 10) 403.45 439.36 T
+(3, 6, 9, 12, 18) 432.58 439.36 T
+(Feb. 25) 479.7 439.36 T
+(0, 3, 9, 12, 15,) 506.39 439.36 T
+(18, 21) 515.42 433.36 T
+(Feb. 1) 403.64 426.36 T
+(1) 417.44 426.36 T
+(12, 21) 440.92 426.36 T
+(Feb. 26) 479.7 426.36 T
+(0) 520.98 426.36 T
+(Feb. 12) 403.45 419.36 T
+(3, 6, 9, 18) 436.75 419.36 T
+(Mar) 481.23 419.36 T
+(. 3) 489.56 419.36 T
+(12, 15, 18) 511.25 419.36 T
+(Feb. 13) 403.45 412.36 T
+(3, 6, 9, 15, 21) 432.58 412.36 T
+(Mar) 481.23 412.36 T
+(. 4) 489.56 412.36 T
+(9) 520.98 412.36 T
+(Feb. 14) 403.45 405.36 T
+(0, 3, 6, 9, 12, 15,) 429.11 405.36 T
+(18, 21) 440.92 399.36 T
+(Mar) 481.23 405.36 T
+(. 5) 489.56 405.36 T
+(15, 18, 21) 511.25 405.36 T
+(Feb. 15) 403.45 392.36 T
+-0.12 (6, 9, 12, 15, 18, 21) 427.31 392.36 P
+(Mar) 481.23 392.36 T
+(. 6) 489.56 392.36 T
+(0, 6, 9, 18, 21) 507.08 392.36 T
+(Feb. 16) 403.45 385.36 T
+(0, 3, 6, 9, 12, 15,) 429.11 385.36 T
+(18, 21) 440.92 379.36 T
+(Mar) 481.23 385.36 T
+(. 7) 489.56 385.36 T
+(NONE) 515.15 385.36 T
+(Feb. 17) 403.45 372.36 T
+(0, 6) 443.7 372.36 T
+(Mar) 481.23 372.36 T
+(. 8) 489.56 372.36 T
+(15, 18, 21) 511.25 372.36 T
+(Feb. 18) 403.45 365.36 T
+(NONE) 440.65 365.36 T
+(Mar) 481.23 365.36 T
+(. 9) 489.56 365.36 T
+(12, 15, 18, 21) 507.08 365.36 T
+(Feb. 19) 403.45 358.36 T
+(NONE) 440.65 358.36 T
+(Mar) 479.84 358.36 T
+(. 10) 488.17 358.36 T
+(0, 3, 6, 21) 511.25 358.36 T
+(Feb. 22) 403.45 351.36 T
+(12, 21) 440.92 351.36 T
+(Mar) 480.02 351.36 T
+(. 1) 488.36 351.36 T
+(1) 493.55 351.36 T
+(0, 6, 9) 515.42 351.36 T
+(Feb. 23) 403.45 344.36 T
+(0, 3, 6, 9, 15, 21) 429.8 344.36 T
+(Mar) 479.84 344.36 T
+(. 12) 488.17 344.36 T
+(0) 520.98 344.36 T
+398.55 464.94 398.55 342.44 2 L
+V
+0.5 H
+0 Z
+N
+425.31 465.44 425.31 456.94 2 L
+V
+N
+425.31 457.44 425.31 341.94 2 L
+V
+0.25 H
+N
+470.43 464.94 470.43 342.44 2 L
+V
+0.5 H
+N
+475.58 464.94 475.58 342.44 2 L
+V
+N
+500.78 465.44 500.78 456.94 2 L
+V
+N
+500.78 457.44 500.78 341.94 2 L
+V
+0.25 H
+N
+543.97 464.94 543.97 342.44 2 L
+V
+0.5 H
+N
+398.3 465.19 470.68 465.19 2 L
+V
+N
+475.33 465.19 544.22 465.19 2 L
+V
+N
+398.3 457.19 470.68 457.19 2 L
+V
+N
+475.33 457.19 544.22 457.19 2 L
+V
+N
+398.3 444.19 470.68 444.19 2 L
+V
+0.25 H
+N
+475.33 444.19 544.22 444.19 2 L
+V
+N
+398.3 431.19 470.68 431.19 2 L
+V
+N
+475.33 431.19 544.22 431.19 2 L
+V
+N
+398.3 424.19 470.68 424.19 2 L
+V
+N
+475.33 424.19 544.22 424.19 2 L
+V
+N
+398.3 417.19 470.68 417.19 2 L
+V
+N
+475.33 417.19 544.22 417.19 2 L
+V
+N
+398.3 410.19 470.68 410.19 2 L
+V
+N
+475.33 410.19 544.22 410.19 2 L
+V
+N
+398.3 397.19 470.68 397.19 2 L
+V
+N
+475.33 397.19 544.22 397.19 2 L
+V
+N
+398.3 390.19 470.68 390.19 2 L
+V
+N
+475.33 390.19 544.22 390.19 2 L
+V
+N
+398.3 377.19 470.68 377.19 2 L
+V
+N
+475.33 377.19 544.22 377.19 2 L
+V
+N
+398.3 370.19 470.68 370.19 2 L
+V
+N
+475.33 370.19 544.22 370.19 2 L
+V
+N
+398.3 363.19 470.68 363.19 2 L
+V
+N
+475.33 363.19 544.22 363.19 2 L
+V
+N
+398.3 356.19 470.68 356.19 2 L
+V
+N
+475.33 356.19 544.22 356.19 2 L
+V
+N
+398.3 349.19 470.68 349.19 2 L
+V
+N
+475.33 349.19 544.22 349.19 2 L
+V
+N
+398.3 342.19 470.68 342.19 2 L
+V
+0.5 H
+N
+475.33 342.19 544.22 342.19 2 L
+V
+N
+559.84 366.8 708.66 480.19 R
+7 X
+V
+1 6 Q
+0 X
+(NGM Model Data) 610.42 469.19 T
+1 5 Q
+(Date) 569.51 459.86 T
+(Issue T) 592.71 459.86 T
+(imes \050Z\051) 609.85 459.86 T
+(Date) 645.75 459.86 T
+(Issue T) 667.21 459.86 T
+(imes \050Z\051) 684.35 459.86 T
+0 F
+(Feb. 9) 567.84 452.36 T
+(0, 12) 605.3 452.36 T
+(Feb. 24) 642.69 452.36 T
+(0, 12) 679.8 452.36 T
+(Feb. 10) 566.45 445.36 T
+(0, 12) 605.3 445.36 T
+(Feb. 25) 642.69 445.36 T
+(0, 12) 679.8 445.36 T
+(Feb. 1) 566.63 438.36 T
+(1) 580.44 438.36 T
+(0, 12) 605.3 438.36 T
+(Feb. 26) 642.69 438.36 T
+(0) 683.97 438.36 T
+(Feb. 12) 566.45 431.36 T
+(0, 12) 605.3 431.36 T
+(Mar) 644.22 431.36 T
+(. 3) 652.56 431.36 T
+(12) 682.58 431.36 T
+(Feb. 13) 566.45 424.36 T
+(0, 12) 605.3 424.36 T
+(Mar) 644.22 424.36 T
+(. 4) 652.56 424.36 T
+(0, 12) 679.8 424.36 T
+(Feb. 14) 566.45 417.36 T
+(0, 12) 605.3 417.36 T
+(Mar) 644.22 417.36 T
+(. 5) 652.56 417.36 T
+(0, 12) 679.8 417.36 T
+(Feb. 15) 566.45 410.36 T
+(0, 12) 605.3 410.36 T
+(Mar) 644.22 410.36 T
+(. 6) 652.56 410.36 T
+(0, 12) 679.8 410.36 T
+(Feb. 16) 566.45 403.36 T
+(0, 12) 605.3 403.36 T
+(Mar) 644.22 403.36 T
+(. 7) 652.56 403.36 T
+(0, 12) 679.8 403.36 T
+(Feb. 17) 566.45 396.36 T
+(0, 12) 605.3 396.36 T
+(Mar) 644.22 396.36 T
+(. 8) 652.56 396.36 T
+(0, 12) 679.8 396.36 T
+(Feb. 18) 566.45 389.36 T
+(0, 12) 605.3 389.36 T
+(Mar) 644.22 389.36 T
+(. 9) 652.56 389.36 T
+(0, 12) 679.8 389.36 T
+(Feb. 19) 566.45 382.36 T
+(0) 609.47 382.36 T
+(Mar) 642.83 382.36 T
+(. 10) 651.17 382.36 T
+(0, 12) 679.8 382.36 T
+(Feb. 22) 566.45 375.36 T
+(12) 608.08 375.36 T
+(Mar) 643.02 375.36 T
+(. 1) 651.35 375.36 T
+(1) 656.54 375.36 T
+(0, 12) 679.8 375.36 T
+(Feb. 23) 566.45 368.36 T
+(0, 12) 605.3 368.36 T
+(Mar) 642.83 368.36 T
+(. 12) 651.17 368.36 T
+(0) 683.97 368.36 T
+561.54 464.94 561.54 366.44 2 L
+V
+N
+588.3 465.44 588.3 456.94 2 L
+V
+N
+588.3 457.44 588.3 365.94 2 L
+V
+0.25 H
+N
+633.42 464.94 633.42 366.44 2 L
+V
+0.5 H
+N
+638.57 464.94 638.57 366.44 2 L
+V
+N
+663.77 465.44 663.77 456.94 2 L
+V
+N
+663.77 457.44 663.77 365.94 2 L
+V
+0.25 H
+N
+706.96 464.94 706.96 366.44 2 L
+V
+0.5 H
+N
+561.29 465.19 633.67 465.19 2 L
+V
+N
+638.32 465.19 707.21 465.19 2 L
+V
+N
+561.29 457.19 633.67 457.19 2 L
+V
+N
+638.32 457.19 707.21 457.19 2 L
+V
+N
+561.29 450.19 633.67 450.19 2 L
+V
+0.25 H
+N
+638.32 450.19 707.21 450.19 2 L
+V
+N
+561.29 443.19 633.67 443.19 2 L
+V
+N
+638.32 443.19 707.21 443.19 2 L
+V
+N
+561.29 436.19 633.67 436.19 2 L
+V
+N
+638.32 436.19 707.21 436.19 2 L
+V
+N
+561.29 429.19 633.67 429.19 2 L
+V
+N
+638.32 429.19 707.21 429.19 2 L
+V
+N
+561.29 422.19 633.67 422.19 2 L
+V
+N
+638.32 422.19 707.21 422.19 2 L
+V
+N
+561.29 415.19 633.67 415.19 2 L
+V
+N
+638.32 415.19 707.21 415.19 2 L
+V
+N
+561.29 408.19 633.67 408.19 2 L
+V
+N
+638.32 408.19 707.21 408.19 2 L
+V
+N
+561.29 401.19 633.67 401.19 2 L
+V
+N
+638.32 401.19 707.21 401.19 2 L
+V
+N
+561.29 394.19 633.67 394.19 2 L
+V
+N
+638.32 394.19 707.21 394.19 2 L
+V
+N
+561.29 387.19 633.67 387.19 2 L
+V
+N
+638.32 387.19 707.21 387.19 2 L
+V
+N
+561.29 380.19 633.67 380.19 2 L
+V
+N
+638.32 380.19 707.21 380.19 2 L
+V
+N
+561.29 373.19 633.67 373.19 2 L
+V
+N
+638.32 373.19 707.21 373.19 2 L
+V
+N
+561.29 366.19 633.67 366.19 2 L
+V
+0.5 H
+N
+638.32 366.19 707.21 366.19 2 L
+V
+N
+56.69 480.19 205.51 650.27 R
+7 X
+V
+1 8 Q
+0 X
+(A) 71.32 644.93 T
+(VN \050A) 76.51 644.93 T
+(viation\051 Model - old form) 97.99 644.93 T
+1 6 Q
+(T) 56.69 632.27 T
+(emporal Resolution) 59.92 632.27 T
+0 5 Q
+(\245 Issue T) 62.36 625.43 T
+(imes: 0Z, 12Z.) 81.71 625.43 T
+-0.07 (\245 Forecast T) 62.36 619.43 P
+-0.07 (imes: 0 hr) 89.07 619.43 P
+-0.07 (, 6 hr) 110.6 619.43 P
+-0.07 (, 12 hr) 121.58 619.43 P
+-0.07 (, 18 hr) 135.34 619.43 P
+-0.07 (, 24 hr) 149.09 619.43 P
+-0.07 (, 30 hr) 162.85 619.43 P
+-0.07 (, 36 hr) 176.61 619.43 P
+-0.07 (, 42 hr) 190.36 619.43 P
+-0.07 (,) 204.12 619.43 P
+(48 hr) 66.61 613.93 T
+(, 54 hr) 77.73 613.93 T
+(, 60 hr) 91.63 613.93 T
+(, 66 hr) 105.53 613.93 T
+(, 72 hr) 119.43 613.93 T
+(.) 133.33 613.93 T
+1 6 Q
+(Spatial Resolution and Coverage) 56.69 603.77 T
+0 5 Q
+(\245 Latitude: every 4 degrees from 20 N to 60 N.) 62.36 596.93 T
+(\245 Longitude: every 4 degrees from 130 W to 58 W) 62.36 590.93 T
+(.) 171.67 590.93 T
+1 6 Q
+(Description) 56.69 580.77 T
+0 5 Q
+0.14 0 (This model is NMC\325) 56.69 572.43 B
+0.14 0 (s global spectral model with a resolution of 126) 100.39 572.43 B
+0.14 0.04 (waves using triangular truncation \050or about 1) 56.69 566.93 B
+0.14 0.04 (10 km\051 and 18 sigma) 157.57 566.93 B
+0.14 0.11 (layers.  It uses the Kuo convection scheme and is run in the so-) 56.69 561.43 B
+0.14 0.01 (called A) 56.69 555.93 B
+0.14 0.01 (viation slot twice daily out to 72 hours. See Kanamitsu, M.,) 74.57 555.93 B
+0.14 0.08 (1989: NMC\325) 56.69 550.43 B
+0.14 0.08 (s global spectral model and Global Data Assimilation) 83.91 550.43 B
+0.14 0.04 (System.) 56.69 544.93 B
+2 F
+0.14 0.04 (W) 76.6 544.93 B
+0.14 0.04 (ea. Forecasting) 81.27 544.93 B
+0 F
+0.14 0.04 (,) 116.46 544.93 B
+1 F
+0.14 0.04 (4) 119.46 544.93 B
+0 F
+0.14 0.04 (, 335-342. \050See also, Kanamitsu, M.,) 122.28 544.93 B
+0.08 (et al., 1991: Recent changes implemented into the Global Forecast) 56.69 539.43 P
+-0.07 (System at NMC.) 56.69 533.93 P
+2 F
+-0.07 (W) 94.28 533.93 P
+-0.07 (ea. Forecasting) 98.91 533.93 P
+0 F
+-0.07 (,) 133.3 533.93 P
+1 F
+-0.07 (6) 136.02 533.93 P
+0 F
+-0.07 (, 425-435; and Kanamitsu, M.,) 138.8 533.93 P
+(S. Saha, 1994:) 56.69 528.43 T
+2 F
+(Mon. W) 91.16 528.43 T
+(ea. Rev) 108.3 528.43 T
+(.) 125.16 528.43 T
+0 F
+( -in press\051) 126.55 528.43 T
+56.69 366.8 205.51 480.19 R
+7 X
+V
+1 6 Q
+0 X
+(A) 102.54 469.19 T
+(viation Model Data) 106.65 469.19 T
+1 5 Q
+(Date) 66.36 459.86 T
+(Issue T) 89.56 459.86 T
+(imes \050Z\051) 106.7 459.86 T
+(Date) 142.6 459.86 T
+(Issue T) 164.06 459.86 T
+(imes \050Z\051) 181.2 459.86 T
+0 F
+(Feb. 9) 64.69 452.36 T
+(0, 12) 102.15 452.36 T
+(Feb. 24) 139.54 452.36 T
+(0, 12) 176.65 452.36 T
+(Feb. 10) 63.3 445.36 T
+(0, 12) 102.15 445.36 T
+(Feb. 25) 139.54 445.36 T
+(0, 12) 176.65 445.36 T
+(Feb. 1) 63.48 438.36 T
+(1) 77.29 438.36 T
+(0, 12) 102.15 438.36 T
+(Feb. 26) 139.54 438.36 T
+(0) 180.82 438.36 T
+(Feb. 12) 63.3 431.36 T
+(0, 12) 102.15 431.36 T
+(Mar) 141.07 431.36 T
+(. 3) 149.41 431.36 T
+(12) 179.43 431.36 T
+(Feb. 13) 63.3 424.36 T
+(0, 12) 102.15 424.36 T
+(Mar) 141.07 424.36 T
+(. 4) 149.41 424.36 T
+(0, 12) 176.65 424.36 T
+(Feb. 14) 63.3 417.36 T
+(0, 12) 102.15 417.36 T
+(Mar) 141.07 417.36 T
+(. 5) 149.41 417.36 T
+(0, 12) 176.65 417.36 T
+(Feb. 15) 63.3 410.36 T
+(0, 12) 102.15 410.36 T
+(Mar) 141.07 410.36 T
+(. 6) 149.41 410.36 T
+(0, 12) 176.65 410.36 T
+(Feb. 16) 63.3 403.36 T
+(0, 12) 102.15 403.36 T
+(Mar) 141.07 403.36 T
+(. 7) 149.41 403.36 T
+(NONE) 174.99 403.36 T
+(Feb. 17) 63.3 396.36 T
+(0, 12) 102.15 396.36 T
+(Mar) 141.07 396.36 T
+(. 8) 149.41 396.36 T
+(0, 12) 176.65 396.36 T
+(Feb. 18) 63.3 389.36 T
+(0, 12) 102.15 389.36 T
+(Mar) 141.07 389.36 T
+(. 9) 149.41 389.36 T
+(0, 12) 176.65 389.36 T
+(Feb. 19) 63.3 382.36 T
+(0) 106.32 382.36 T
+(Mar) 139.68 382.36 T
+(. 10) 148.02 382.36 T
+(0, 12) 176.65 382.36 T
+(Feb. 22) 63.3 375.36 T
+(12) 104.93 375.36 T
+(Mar) 139.87 375.36 T
+(. 1) 148.2 375.36 T
+(1) 153.39 375.36 T
+(0, 12) 176.65 375.36 T
+(Feb. 23) 63.3 368.36 T
+(0, 12) 102.15 368.36 T
+(Mar) 139.68 368.36 T
+(. 12) 148.02 368.36 T
+(0) 180.82 368.36 T
+58.4 464.94 58.4 366.44 2 L
+V
+N
+85.15 465.44 85.15 456.94 2 L
+V
+N
+85.15 457.44 85.15 365.94 2 L
+V
+0.25 H
+N
+130.27 464.94 130.27 366.44 2 L
+V
+0.5 H
+N
+135.42 464.94 135.42 366.44 2 L
+V
+N
+160.62 465.44 160.62 456.94 2 L
+V
+N
+160.62 457.44 160.62 365.94 2 L
+V
+0.25 H
+N
+203.81 464.94 203.81 366.44 2 L
+V
+0.5 H
+N
+58.15 465.19 130.52 465.19 2 L
+V
+N
+135.17 465.19 204.06 465.19 2 L
+V
+N
+58.15 457.19 130.52 457.19 2 L
+V
+N
+135.17 457.19 204.06 457.19 2 L
+V
+N
+58.15 450.19 130.52 450.19 2 L
+V
+0.25 H
+N
+135.17 450.19 204.06 450.19 2 L
+V
+N
+58.15 443.19 130.52 443.19 2 L
+V
+N
+135.17 443.19 204.06 443.19 2 L
+V
+N
+58.15 436.19 130.52 436.19 2 L
+V
+N
+135.17 436.19 204.06 436.19 2 L
+V
+N
+58.15 429.19 130.52 429.19 2 L
+V
+N
+135.17 429.19 204.06 429.19 2 L
+V
+N
+58.15 422.19 130.52 422.19 2 L
+V
+N
+135.17 422.19 204.06 422.19 2 L
+V
+N
+58.15 415.19 130.52 415.19 2 L
+V
+N
+135.17 415.19 204.06 415.19 2 L
+V
+N
+58.15 408.19 130.52 408.19 2 L
+V
+N
+135.17 408.19 204.06 408.19 2 L
+V
+N
+58.15 401.19 130.52 401.19 2 L
+V
+N
+135.17 401.19 204.06 401.19 2 L
+V
+N
+58.15 394.19 130.52 394.19 2 L
+V
+N
+135.17 394.19 204.06 394.19 2 L
+V
+N
+58.15 387.19 130.52 387.19 2 L
+V
+N
+135.17 387.19 204.06 387.19 2 L
+V
+N
+58.15 380.19 130.52 380.19 2 L
+V
+N
+135.17 380.19 204.06 380.19 2 L
+V
+N
+58.15 373.19 130.52 373.19 2 L
+V
+N
+135.17 373.19 204.06 373.19 2 L
+V
+N
+58.15 366.19 130.52 366.19 2 L
+V
+0.5 H
+N
+135.17 366.19 204.06 366.19 2 L
+V
+N
+219.68 480.19 368.5 650.27 R
+7 X
+V
+1 8 Q
+0 X
+(Eta Model) 275.2 644.93 T
+1 6 Q
+(T) 219.68 632.27 T
+(emporal Resolution) 222.91 632.27 T
+0 5 Q
+(\245 Issue T) 225.35 625.43 T
+(imes: 0Z, 12Z.) 244.7 625.43 T
+0.62 (\245 Forecast T) 225.35 619.43 P
+0.62 (imes: 0 hr) 253.43 619.43 P
+0.62 (, 12 hr) 276.34 619.43 P
+0.62 (, 18 hr) 291.47 619.43 P
+0.62 (, 24 hr) 306.6 619.43 P
+0.62 (, 30 hr) 321.73 619.43 P
+0.62 (, 36 hr) 336.86 619.43 P
+0.62 (, 42 hr) 351.98 619.43 P
+0.62 (,) 367.11 619.43 P
+(48) 229.61 613.93 T
+(hr) 236.56 613.93 T
+(.) 240.73 613.93 T
+1 6 Q
+(Spatial Resolution and Coverage) 219.68 603.77 T
+0 5 Q
+(\245 Latitude: every 1 degree from 20 N to 60 N.) 225.35 596.93 T
+(\245 Longitude: every 1 degree from 130 W to 60 W) 225.35 590.93 T
+(.) 332.16 590.93 T
+1 6 Q
+(Description) 219.68 580.77 T
+0 5 Q
+0.14 0.12 (The Eta model is a regional model with step-terrain coordinates) 219.68 572.43 B
+-0.03 (intended as the model of the future at NMC.  During ST) 219.68 566.93 P
+-0.03 (ORM-FEST) 341.56 566.93 P
+-0.03 (,) 367.11 566.93 P
+0.14 0.13 (it\325) 219.68 561.43 B
+0.14 0.13 (s resolution was 80 km with 16 levels.  It uses state-of-the-art) 223.59 561.43 B
+0.14 0.06 (numerics and physics with the Betts-Miller convective parameter-) 219.68 555.93 B
+0.14 0.01 (ization.  It has become operational at NMC in the Early run replac-) 219.68 550.43 B
+0.14 0.2 (ing the venerable LFM. See Black, T) 219.68 544.93 B
+0.14 0.2 (. L., 1994: The new NMC) 307.83 544.93 B
+0.14 0.1 (mesoscale Eta Model: Description and forecast examples.) 219.68 539.43 B
+2 F
+0.14 0.1 (W) 356.61 539.43 B
+0.14 0.1 (ea.) 361.34 539.43 B
+(Forecasting) 219.68 533.93 T
+0 F
+(,) 245.8 533.93 T
+1 F
+(9) 248.59 533.93 T
+0 F
+(, 265-278.) 251.37 533.93 T
+219.68 366.8 368.5 480.19 R
+7 X
+V
+1 6 Q
+0 X
+(ET) 271.48 469.19 T
+(A Model Data) 278.7 469.19 T
+1 5 Q
+(Date) 229.35 459.86 T
+(Issue T) 252.55 459.86 T
+(imes \050Z\051) 269.69 459.86 T
+(Date) 305.59 459.86 T
+(Issue T) 327.05 459.86 T
+(imes \050Z\051) 344.19 459.86 T
+0 F
+(Feb. 9) 227.68 452.36 T
+(0, 12) 265.14 452.36 T
+(Feb. 24) 302.53 452.36 T
+(0, 12) 339.65 452.36 T
+(Feb. 10) 226.29 445.36 T
+(0, 12) 265.14 445.36 T
+(Feb. 25) 302.53 445.36 T
+(0, 12) 339.65 445.36 T
+(Feb. 1) 226.47 438.36 T
+(1) 240.28 438.36 T
+(0, 12) 265.14 438.36 T
+(Feb. 26) 302.53 438.36 T
+(0) 343.82 438.36 T
+(Feb. 12) 226.29 431.36 T
+(0, 12) 265.14 431.36 T
+(Mar) 304.06 431.36 T
+(. 3) 312.4 431.36 T
+(12) 342.43 431.36 T
+(Feb. 13) 226.29 424.36 T
+(0, 12) 265.14 424.36 T
+(Mar) 304.06 424.36 T
+(. 4) 312.4 424.36 T
+(0) 343.82 424.36 T
+(Feb. 14) 226.29 417.36 T
+(0, 12) 265.14 417.36 T
+(Mar) 304.06 417.36 T
+(. 5) 312.4 417.36 T
+(0, 12) 339.65 417.36 T
+(Feb. 15) 226.29 410.36 T
+(0, 12) 265.14 410.36 T
+(Mar) 304.06 410.36 T
+(. 6) 312.4 410.36 T
+(0, 12) 339.65 410.36 T
+(Feb. 16) 226.29 403.36 T
+(0, 12) 265.14 403.36 T
+(Mar) 304.06 403.36 T
+(. 7) 312.4 403.36 T
+(NONE) 337.98 403.36 T
+(Feb. 17) 226.29 396.36 T
+(0, 12) 265.14 396.36 T
+(Mar) 304.06 396.36 T
+(. 8) 312.4 396.36 T
+(0, 12) 339.65 396.36 T
+(Feb. 18) 226.29 389.36 T
+(0, 12) 265.14 389.36 T
+(Mar) 304.06 389.36 T
+(. 9) 312.4 389.36 T
+(0, 12) 339.65 389.36 T
+(Feb. 19) 226.29 382.36 T
+(0) 269.32 382.36 T
+(Mar) 302.67 382.36 T
+(. 10) 311.01 382.36 T
+(0) 343.82 382.36 T
+(Feb. 22) 226.29 375.36 T
+(12) 267.92 375.36 T
+(Mar) 302.86 375.36 T
+(. 1) 311.19 375.36 T
+(1) 316.38 375.36 T
+(12) 342.43 375.36 T
+(Feb. 23) 226.29 368.36 T
+(0, 12) 265.14 368.36 T
+(Mar) 302.67 368.36 T
+(. 12) 311.01 368.36 T
+(0) 343.82 368.36 T
+221.39 464.94 221.39 366.44 2 L
+V
+N
+248.14 465.44 248.14 456.94 2 L
+V
+N
+248.14 457.44 248.14 365.94 2 L
+V
+0.25 H
+N
+293.27 464.94 293.27 366.44 2 L
+V
+0.5 H
+N
+298.41 464.94 298.41 366.44 2 L
+V
+N
+323.61 465.44 323.61 456.94 2 L
+V
+N
+323.61 457.44 323.61 365.94 2 L
+V
+0.25 H
+N
+366.8 464.94 366.8 366.44 2 L
+V
+0.5 H
+N
+221.14 465.19 293.52 465.19 2 L
+V
+N
+298.16 465.19 367.05 465.19 2 L
+V
+N
+221.14 457.19 293.52 457.19 2 L
+V
+N
+298.16 457.19 367.05 457.19 2 L
+V
+N
+221.14 450.19 293.52 450.19 2 L
+V
+0.25 H
+N
+298.16 450.19 367.05 450.19 2 L
+V
+N
+221.14 443.19 293.52 443.19 2 L
+V
+N
+298.16 443.19 367.05 443.19 2 L
+V
+N
+221.14 436.19 293.52 436.19 2 L
+V
+N
+298.16 436.19 367.05 436.19 2 L
+V
+N
+221.14 429.19 293.52 429.19 2 L
+V
+N
+298.16 429.19 367.05 429.19 2 L
+V
+N
+221.14 422.19 293.52 422.19 2 L
+V
+N
+298.16 422.19 367.05 422.19 2 L
+V
+N
+221.14 415.19 293.52 415.19 2 L
+V
+N
+298.16 415.19 367.05 415.19 2 L
+V
+N
+221.14 408.19 293.52 408.19 2 L
+V
+N
+298.16 408.19 367.05 408.19 2 L
+V
+N
+221.14 401.19 293.52 401.19 2 L
+V
+N
+298.16 401.19 367.05 401.19 2 L
+V
+N
+221.14 394.19 293.52 394.19 2 L
+V
+N
+298.16 394.19 367.05 394.19 2 L
+V
+N
+221.14 387.19 293.52 387.19 2 L
+V
+N
+298.16 387.19 367.05 387.19 2 L
+V
+N
+221.14 380.19 293.52 380.19 2 L
+V
+N
+298.16 380.19 367.05 380.19 2 L
+V
+N
+221.14 373.19 293.52 373.19 2 L
+V
+N
+298.16 373.19 367.05 373.19 2 L
+V
+N
+221.14 366.19 293.52 366.19 2 L
+V
+0.5 H
+N
+298.16 366.19 367.05 366.19 2 L
+V
+N
+0 10 Q
+(Printed on) 638.05 350.23 T
+(Recycled Paper) 638.08 340.65 T
+0 311 385 340 412 21.75 20.25 613.03 338.46 FMBEGINEPSF
+%%BeginDocument: /a/home/steam/burghart/framemaker/recycle.epsi
+%!PS-Adobe-2.0 EPSF-1.2
+%%Creator: Adobe Illustrator(TM) 3.0
+%%For: (Printing Services) (Purdue University)
+%%Title: (recycle for place)
+%%CreationDate: (10/30/91) (10:17 AM)
+%%DocumentProcessColors: Black
+%%DocumentProcSets: Adobe_packedarray 1.0 0
+%%DocumentSuppliedProcSets: Adobe_packedarray 1.0 0
+%%DocumentProcSets: Adobe_cmykcolor 1.1 0
+%%DocumentSuppliedProcSets: Adobe_cmykcolor 1.1 0
+%%DocumentProcSets: Adobe_cshow 1.1 0
+%%DocumentSuppliedProcSets: Adobe_cshow 1.1 0
+%%DocumentProcSets: Adobe_customcolor 1.0 0
+%%DocumentSuppliedProcSets: Adobe_customcolor 1.0 0
+%%DocumentProcSets: Adobe_Illustrator881 1.19 0
+%%DocumentSuppliedProcSets: Adobe_Illustrator881 1.19 0
+%%BoundingBox: 311 385 340 412
+%%ColorUsage: Black&White
+%%TemplateBox: 306 396 306 396
+%%TileBox: 30 31 582 761
+%%DocumentPreview: Macintosh_Pic
+%%EndComments
+%%BeginProcSet: Adobe_packedarray 1.0 0
+% packedarray Operators
+% Version 1.0 5/9/1988
+% Copyright (C) 1987-1990
+% Adobe Systems Incorporated
+% All Rights Reserved
+userdict /Adobe_packedarray 5 dict dup begin put
+/initialize			% - initialize -
+{
+/packedarray where
+	{
+	pop
+	}
+	{
+	Adobe_packedarray begin
+	Adobe_packedarray
+		{
+		dup xcheck
+			{
+			bind
+			} if
+		userdict 3 1 roll put
+		} forall
+	end
+	} ifelse
+} def
+/terminate			% - terminate -
+{
+} def
+/packedarray		% arguments count packedarray array
+{
+array astore readonly
+} def
+/setpacking			% boolean setpacking -
+{
+pop
+} def
+/currentpacking		% - setpacking boolean
+{
+false
+} def
+currentdict readonly pop end
+%%EndProcSet
+Adobe_packedarray /initialize get exec
+%%BeginProcSet: Adobe_cmykcolor 1.1 0
+% cmykcolor Operators
+% Version 1.1 1/23/1989
+% Copyright (C) 1987-1990
+% Adobe Systems Incorporated
+% All Rights Reserved
+currentpacking true setpacking
+userdict /Adobe_cmykcolor 4 dict dup begin put
+/initialize			% - initialize -
+{
+/setcmykcolor where
+	{
+	pop
+	}
+	{
+	userdict /Adobe_cmykcolor_vars 2 dict dup begin put
+	/_setrgbcolor
+		/setrgbcolor load def
+	/_currentrgbcolor
+		/currentrgbcolor load def
+	Adobe_cmykcolor begin
+	Adobe_cmykcolor
+		{
+		dup xcheck
+			{
+			bind
+			} if
+		pop pop
+		} forall
+	end
+	end
+	Adobe_cmykcolor begin
+	} ifelse
+} def
+/terminate			% - terminate -
+{
+currentdict Adobe_cmykcolor eq
+	{
+	end
+	} if
+} def
+/setcmykcolor		% cyan magenta yellow black setcmykcolor -
+{
+1 sub 4 1 roll
+3
+	{
+	3 index add neg dup 0 lt
+		{
+		pop 0
+		} if
+	3 1 roll
+	} repeat
+Adobe_cmykcolor_vars /_setrgbcolor get exec
+pop
+} def 
+/currentcmykcolor	% - currentcmykcolor cyan magenta yellow black
+{
+Adobe_cmykcolor_vars /_currentrgbcolor get exec
+3
+	{
+	1 sub neg 3 1 roll
+	} repeat
+0
+} def
+currentdict readonly pop end
+setpacking
+%%EndProcSet
+%%BeginProcSet: Adobe_cshow 1.1 0
+% cshow Operator
+% Version 1.1 1/23/1989
+% Copyright (C) 1987-1990
+% Adobe Systems Incorporated
+% All Rights Reserved
+currentpacking true setpacking
+userdict /Adobe_cshow 3 dict dup begin put
+/initialize			% - initialize -
+{
+/cshow where
+	{
+	pop
+	}
+	{
+	userdict /Adobe_cshow_vars 1 dict dup begin put
+	/_cshow		% - _cshow proc
+		{} def
+	Adobe_cshow begin
+	Adobe_cshow
+		{
+		dup xcheck
+			{
+			bind
+			} if
+		userdict 3 1 roll put
+		} forall
+	end
+	end
+	} ifelse
+} def
+/terminate			% - terminate -
+{
+} def
+/cshow				% proc string cshow -
+{
+exch
+Adobe_cshow_vars
+	exch /_cshow
+	exch put
+	{
+	0 0 Adobe_cshow_vars /_cshow get exec
+	} forall
+} def
+currentdict readonly pop end
+setpacking
+%%EndProcSet
+%%BeginProcSet: Adobe_customcolor 1.0 0
+% Custom Color Operators
+% Version 1.0 5/9/1988
+% Copyright (C) 1987-1990
+% Adobe Systems Incorporated
+% All Rights Reserved
+currentpacking true setpacking
+userdict /Adobe_customcolor 5 dict dup begin put
+/initialize			% - initialize -
+{
+/setcustomcolor where
+	{
+	pop
+	}
+	{
+	Adobe_customcolor begin
+	Adobe_customcolor
+		{
+		dup xcheck
+			{
+			bind
+			} if
+		pop pop
+		} forall
+	end
+	Adobe_customcolor begin
+	} ifelse
+} def
+/terminate			% - terminate -
+{
+currentdict Adobe_customcolor eq
+	{
+	end
+	} if
+} def
+/findcmykcustomcolor	% cyan magenta yellow black name findcmykcustomcolor object
+{
+5 packedarray
+}  def
+/setcustomcolor		% object tint setcustomcolor -
+{
+exch
+aload pop pop
+4
+	{
+	4 index mul 4 1 roll
+	} repeat
+5 -1 roll pop
+setcmykcolor
+} def
+/setoverprint		% boolean setoverprint -
+{
+pop
+} def
+currentdict readonly pop end
+setpacking
+%%EndProcSet
+%%BeginProcSet: Adobe_Illustrator881 1.19 0
+% Adobe Illustrator (TM) Prolog
+% Version 1.19 1/23/1989
+% Copyright (C) 1987-1990
+% Adobe Systems Incorporated
+% All Rights Reserved
+currentpacking true setpacking
+userdict /Adobe_Illustrator881 72 dict dup begin put
+% initialization
+/initialize				% - initialize -
+{
+userdict /Adobe_Illustrator881_vars 29 dict dup begin put
+% paint operands
+/_lp /none def
+/_pf {} def
+/_ps {} def
+/_psf {} def
+/_pss {} def
+% text operands
+/_a null def
+/_as null def
+/_tt 2 array def
+/_tl 2 array def
+/_tm matrix def
+/t {} def
+% color operands
+/_gf null def
+/_cf 4 array def
+/_if null def
+/_of false def
+/_fc {} def
+/_gs null def
+/_cs 4 array def
+/_is null def
+/_os false def
+/_sc {} def
+/_i null def
+Adobe_Illustrator881 begin
+Adobe_Illustrator881
+	{
+	dup xcheck
+		{
+		bind
+		} if
+	pop pop
+	} forall
+end
+end
+Adobe_Illustrator881 begin
+Adobe_Illustrator881_vars begin
+newpath
+} def
+/terminate				% - terminate -
+{
+end
+end
+} def
+% definition operators
+/_					% - _ null
+null def
+/ddef				% key value ddef -
+{
+Adobe_Illustrator881_vars 3 1 roll put
+} def
+/xput				% key value literal xput -
+{
+dup load dup length exch maxlength eq
+	{
+	dup dup load dup
+	length 2 mul dict copy def
+	} if
+load begin def end
+} def
+/npop				% integer npop -
+{
+	{
+	pop
+	} repeat
+} def
+% marking operators
+/sw					% ax ay length string sw x y
+{
+stringwidth
+exch 5 -1 roll 3 index 1 sub mul add
+4 1 roll 3 1 roll 1 sub mul add
+} def
+/ss					% ax ay length string matrix ss -
+{
+3 -1 roll pop
+4 1 roll
+	{
+	2 npop (0) exch
+	2 copy 0 exch put pop
+	gsave
+	false charpath
+	currentpoint
+	4 index setmatrix
+	stroke
+	grestore
+	moveto
+	2 copy rmoveto
+	} exch cshow
+3 npop
+} def
+% path operators
+/sp					% ax ay length string sp -
+{
+exch pop
+	{
+	2 npop (0) exch
+	2 copy 0 exch put pop
+	false charpath
+	2 copy rmoveto
+	} exch cshow
+2 npop
+} def
+% path construction operators
+/pl					% x y pl x y
+{
+transform
+0.25 sub round 0.25 add exch
+0.25 sub round 0.25 add exch
+itransform
+} def
+/setstrokeadjust where
+{
+pop true setstrokeadjust
+/c				% x1 y1 x2 y2 x3 y3 c -
+{
+curveto
+} def
+/C
+/c load def
+/v				% x2 y2 x3 y3 v -
+{
+currentpoint 6 2 roll curveto
+} def
+/V
+/v load def
+/y				% x1 y1 x2 y2 y -
+{
+2 copy curveto
+} def
+/Y
+/y load def
+/l				% x y l -
+{
+lineto
+} def
+/L
+/l load def
+/m				% x y m -
+{
+moveto
+} def
+}
+{
+/c
+{
+pl curveto
+} def
+/C
+/c load def
+/v
+{
+currentpoint 6 2 roll pl curveto
+} def
+/V
+/v load def
+/y
+{
+pl 2 copy curveto
+} def
+/Y
+/y load def
+/l
+{
+pl lineto
+} def
+/L
+/l load def
+/m
+{
+pl moveto
+} def
+} ifelse
+% graphic state operators
+/d					% array phase d -
+{
+setdash
+} def
+/cf					% - cf flatness
+currentflat def
+/i					% flatness i -
+{
+dup 0 eq
+	{
+	pop cf
+	} if
+setflat
+} def
+/j					% linejoin j -
+{
+setlinejoin
+} def
+/J					% linecap J -
+{
+setlinecap
+} def
+/M					% miterlimit M -
+{
+setmiterlimit
+} def
+/w					% linewidth w -
+{
+setlinewidth
+} def
+% path painting operators
+/H					% - H -
+{} def
+/h					% - h -
+{
+closepath
+} def
+/N					% - N -
+{
+newpath
+} def
+/n					% - n -
+/N load def
+/F					% - F -
+{
+_pf
+} def
+/f					% - f -
+{
+closepath
+F
+} def
+/S					% - S -
+{
+_ps
+} def
+/s					% - s -
+{
+closepath
+S
+} def
+/B					% - B -
+{
+gsave F grestore
+S
+} def
+/b					% - b -
+{
+closepath
+B
+} def
+/W					% - W -
+{
+clip
+} def
+% text painting operators
+/ta					% length string ta ax ay length string
+{
+_as moveto
+_tt aload pop 4 -2 roll
+} def
+/tl					% - tl -
+{
+_tl aload pop translate
+} def
+/as					% - as array
+{
+{
+0 0
+}
+{
+2 copy _tt aload pop 4 -2 roll sw
+exch neg 2 div exch neg 2 div
+}
+{
+2 copy _tt aload pop 4 -2 roll sw
+exch neg exch neg
+}
+{
+0 0
+}
+} cvlit def
+/z					% literal size leading tracking align z -
+{
+/_a exch ddef
+/_as as _a get ddef
+_a 2 le
+	{
+	0 _tt astore pop
+	0 exch neg _tl astore pop
+	}
+	{
+	0 exch neg _tt astore pop
+	neg 0 _tl astore pop
+	} ifelse
+exch findfont exch scalefont setfont
+} def
+/tm					% matrix tm -
+{
+_tm currentmatrix pop
+concat
+} def
+/I					% matrix I -
+{
+tm
+/t
+	{
+	ta sp
+	tl
+	} ddef
+} def
+/o					% matrix o -
+{
+tm
+/t
+	{
+	ta 4 npop
+	tl
+	newpath
+	} ddef
+} def
+/e					% matrix e -
+{
+tm
+/t
+	{
+	ta _psf
+	tl
+	newpath
+	} ddef
+} def
+/r					% matrix r -
+{
+tm
+/t
+	{
+	ta _tm _pss
+	tl
+	newpath
+	} ddef
+} def
+/a					% matrix a -
+{
+tm
+/t
+	{
+	2 copy
+	ta _psf
+	newpath
+	ta _tm _pss
+	tl
+	newpath
+	} ddef
+} def
+/T					% - T -
+{
+_tm setmatrix
+} def
+% font operators
+/Z					% array literal literal direction Z -
+{
+pop
+findfont begin
+currentdict dup length 1 add dict begin
+	{
+	1 index /FID ne
+		{
+		def
+		}
+		{
+		2 npop
+		} ifelse
+	} forall
+/FontName exch def dup length 0 ne
+	{
+	/Encoding Encoding 256 array copy def
+	0 exch
+		{
+		dup type /nametype eq
+			{
+			Encoding 2 index 2 index put pop
+			1 add
+			}
+			{
+			exch pop
+			} ifelse
+		} forall
+	} if pop
+currentdict dup end end
+/FontName get exch definefont pop
+} def
+% group operators
+/u					% - u -
+{} def
+/U					% - U -
+{} def
+/q					% - q -
+{
+gsave
+} def
+/Q					% - Q -
+{
+grestore
+} def
+% place operators
+/`					% matrix llx lly urx ury string ` -
+{
+/_i save ddef
+6 1 roll 4 npop
+concat
+userdict begin
+/showpage {} def
+false setoverprint
+pop
+} def
+/~					% - ~ -
+{
+end
+_i restore
+} def
+% color operators
+/O					% flag O -
+{
+0 ne
+/_of exch ddef
+/_lp /none ddef
+} def
+/R					% flag R -
+{
+0 ne
+/_os exch ddef
+/_lp /none ddef
+} def
+/g					% gray g -
+{
+/_gf exch ddef
+/_fc
+{
+_lp /fill ne
+	{
+	_of setoverprint
+	_gf setgray
+	/_lp /fill ddef
+	} if
+} ddef
+/_pf
+{
+_fc
+fill
+} ddef
+/_psf
+{
+_fc
+exch pop
+ashow
+} ddef
+/_lp /none ddef
+} def
+/G					% gray G -
+{
+/_gs exch ddef
+/_sc
+{
+_lp /stroke ne
+	{
+	_os setoverprint
+	_gs setgray
+	/_lp /stroke ddef
+	} if
+} ddef
+/_ps
+{
+_sc
+stroke
+} ddef
+/_pss
+{
+_sc
+ss
+} ddef
+/_lp /none ddef
+} def
+/k					% cyan magenta yellow black k -
+{
+_cf astore pop
+/_fc
+{
+_lp /fill ne
+	{
+	_of setoverprint
+	_cf aload pop setcmykcolor
+	/_lp /fill ddef
+	} if
+} ddef
+/_pf
+{
+_fc
+fill
+} ddef
+/_psf
+{
+_fc
+exch pop
+ashow
+} ddef
+/_lp /none ddef
+} def
+/K					% cyan magenta yellow black K -
+{
+_cs astore pop
+/_sc
+{
+_lp /stroke ne
+	{
+	_os setoverprint
+	_cs aload pop setcmykcolor
+	/_lp /stroke ddef
+	} if
+} ddef
+/_ps
+{
+_sc
+stroke
+} ddef
+/_pss
+{
+_sc
+ss
+} ddef
+/_lp /none ddef
+} def
+/x					% cyan magenta yellow black name gray x -
+{
+/_gf exch ddef
+findcmykcustomcolor
+/_if exch ddef
+/_fc
+{
+_lp /fill ne
+	{
+	_of setoverprint
+	_if _gf 1 exch sub setcustomcolor
+	/_lp /fill ddef
+	} if
+} ddef
+/_pf
+{
+_fc
+fill
+} ddef
+/_psf
+{
+_fc
+exch pop
+ashow
+} ddef
+/_lp /none ddef
+} def
+/X					% cyan magenta yellow black name gray X -
+{
+/_gs exch ddef
+findcmykcustomcolor
+/_is exch ddef
+/_sc
+{
+_lp /stroke ne
+	{
+	_os setoverprint
+	_is _gs 1 exch sub setcustomcolor
+	/_lp /stroke ddef
+	} if
+} ddef
+/_ps
+{
+_sc
+stroke
+} ddef
+/_pss
+{
+_sc
+ss
+} ddef
+/_lp /none ddef
+} def
+% locked object operators
+/A					% value A -
+{
+pop
+} def
+currentdict readonly pop end
+setpacking
+%%EndProcSet
+%%EndProlog
+%%BeginSetup
+Adobe_cmykcolor /initialize get exec
+Adobe_cshow /initialize get exec
+Adobe_customcolor /initialize get exec
+Adobe_Illustrator881 /initialize get exec
+%%EndSetup
+0 A
+u
+0 O
+0 g
+0 i 0 J 0 j 1 w 4 M []0 d
+%%Note:
+325.3609 385.2781 m
+332.3902 385.2781 338.0888 390.9766 338.0888 398.006 c
+338.0888 405.0353 332.3902 410.7339 325.3609 410.7339 c
+318.3316 410.7339 312.633 405.0353 312.633 398.006 c
+312.633 390.9766 318.3316 385.2781 325.3609 385.2781 c
+f
+325.3609 398.006 m
+F
+U
+1 g
+0 R
+0 G
+1 J 1 j 0.5 w
+322.5405 407.2925 m
+329.4079 407.2925 l
+330.7095 405.3863 331.1891 404.6675 V
+333.3454 405.3238 L
+330.4391 400.6363 l
+325.2673 400.6206 L
+327.4391 402.1363 L
+326.3141 404.9956 321.7436 411.722 318.9079 402.8863 c
+322.9391 400.2613 l
+325.8454 404.9956 l
+B
+335.103 395.5345 m
+332.1536 389.8711 l
+329.862 389.598 329.0025 389.5055 V
+328.5874 387.29 L
+325.4936 391.9407 l
+328.5641 396.5581 L
+328.986 393.98 L
+331.7516 393.5581 338.6655 393.3238 333.102 401.2185 c
+328.9103 398.858 l
+331.9155 393.8863 l
+B
+318.9548 390.3238 m
+315.3619 396.3294 l
+316.183 398.0592 316.7339 399.2187 V
+315.0563 400.9261 L
+320.5954 400.9175 l
+322.7903 396.3132 L
+320.694 397.0599 L
+318.8419 394.6078 315.711 387.4134 324.7204 389.5738 c
+324.7121 394.4577 l
+319.236 394.4577 l
+B
+%%PageTrailer
+%%Trailer
+Adobe_Illustrator881 /terminate get exec
+Adobe_customcolor /terminate get exec
+Adobe_cshow /terminate get exec
+Adobe_cmykcolor /terminate get exec
+Adobe_packedarray /terminate get exec
+%%EOF
+
+%%EndDocument
+FMENDEPSF
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "3" 3
+%%Trailer
+%%BoundingBox: 0 0 612 792
+%%PageOrder: Ascend
+%%Pages: 3
+%%DocumentFonts: Helvetica
+%%+ Helvetica-Bold
+%%+ Helvetica-Oblique
+%%+ Courier
+%%+ Courier-Bold
+%%EOF
