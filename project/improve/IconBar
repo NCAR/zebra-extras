@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.3 2000-12-21 00:06:35 granger Exp $
+! $Id: IconBar,v 1.4 2001-01-08 00:37:12 vanandel Exp $
 !
 ! Generic IconBar template
 !
@@ -42,11 +42,15 @@ define widget iconbar menubar " "
 		entry 'Enter Convair locations (lat,lon,km/kft)' 'popup enter'
 		entry 'Enter Convair locations (lat,lon,ft)' \
       'shell "xterm -T convairmanual -e latlon_position convairmanual UW-Convair &"'
+		entry 'Enter File of Convair Locations' \
+		      'shell "xterm -T convair -e batch_track.py &"'
 		line
 		entry 'Scan optimizer' 'shell "Optimizer optimizer.config &"'
 		line
 		entry 'Data store contents' 'shell "dsdwidget &"'
 		entry 'Data store management' 'shell "dsmanage &"'
+                line
+                entry 'Save Screen Image' 'shell "grabpng %"'
 		line
 		entry 'Shut down Zebra' 'shutdown'
 	endmenu
@@ -64,6 +68,12 @@ define widget iconbar menubar " "
 		      	(dm$config = 'rad-pre-pd')
 		entry 'Two radar windows + precip' 'display radar2win' \
 			(dm$config = 'radar2win')
+		line
+		entry 'johnl' 'display johnl' (dm$config = 'johnl')
+		entry 'stoelinga1' 'display stoelinga1' \
+			(dm$config = 'stoelinga1')
+		entry 'stan' 'display stan' (dm$config = 'stan')
+		entry 'nws' 'display nws' (dm$config = 'nws')
 		line
 		entry 'Empty screen' 'display empty' (dm$config = 'empty')
 	endmenu
@@ -89,8 +99,10 @@ define widget iconbar menubar " "
 	menu aircraft bitmap aircraft
 		title 'Aircraft'
 		line
-		entry 'UW Convair-580 track' \
-	  'putc3 p_track platform convairmanual icon littleplane color white'
+		entry 'UW Convair-580 (manual)' \
+	  'putc3 p_track platform convairmanual icon littleplane color pink'
+		entry 'UW Convair-580 (batch)' \
+	  'putc3 p_track platform convair icon littleplane color white'
 	endmenu
 
 !
