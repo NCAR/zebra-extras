@@ -1,7 +1,9 @@
 !
 ! Various DM widgets of interest.
-! $Id: dm.widgets,v 1.3 2000-12-20 23:55:33 granger Exp $
+! $Id: dm.widgets,v 1.4 2000-12-21 00:05:09 granger Exp $
 !
+
+set lwidth '80'
 
 define widget north_south_menu intmenu 'platforms'
 	title 'North-South'
@@ -17,7 +19,19 @@ define widget east_west_menu intmenu 'platforms'
 	entry 'West' 'formtext #ui$form eastwest West'
 endmenu
 
-set lwidth '80'
+
+define widget en_altunits intmenu 'Default version'
+       title 'Altitude units'
+       line
+       entry 'kft' 'en_setaltunits "kft"'
+       entry 'km' 'en_setaltunits "km"'
+endmenu
+
+
+procedure en_setaltunits type string
+	local qtype quote(type)
+	formtext #ui$form aunits #qtype
+endprocedure
 
 define widget enter form "Entry widget"
 	noheader
@@ -50,8 +64,9 @@ define widget enter form "Entry widget"
 	pulldown eastwest West menu east_west_menu
 
 	newline
-	label l_alt 'Alt(km):'
+	label l_alt 'Altitude:'
 	blank alt '0.0' width #lwidth
+	pulldown aunits 'kft' menu en_altunits width 50
 	newline
 !
 ! Let them put in a time.
@@ -239,6 +254,20 @@ procedure DoEnter overwrite bool
 	local eastwest getftext(ui$form,'eastwest')
 	local northsouth getftext(ui$form,'northsouth')
 	local alt getftext(ui$form,'alt')
+	local altunits getftext(ui$form,'aunits')
+!
+! Convert altitude to km if necessary
+!
+	if (altunits = "km")
+		! nothing
+	elseif (altunits = "kft")
+		local altval #alt
+		local alt string(altval * .3048)
+	else
+		local mesg quote( concat3("bad units: '", altunits, "'"))
+		message #mesg
+		return
+	endif
 
 	local dlon_deg #lon_deg
 	local dlon_min #lon_min
