@@ -10,11 +10,6 @@ if (getenv ("ZEB_CONFIGS") <> "UNDEFINED")
 else
   	set ConfigDir concat(getenv ("HOME"), "/.zeb_configs")
 endif
-set configpath concat3(ConfigDir, ',', "/net/tcw/zeb/dconfig")
-
-!set ConfigDir "/net/tcw/zeb/dconfig"
-set ConfigPD "/net/tcw/zeb/dconfig/pd"
-pddir #ConfigPD
 
 !
 ! The initialization file.
