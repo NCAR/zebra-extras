@@ -37,14 +37,14 @@ defaults
 !	cp2-icon-age-limit:	2m
 !	goes-icon-age-limit:	120m
 !
-	icon-age-limit:		60s
+	icon-age-limit:		120s
 !
 ! Vaisala stations give us data every minute
 !
-	sheep_creek-icon-age-limit:	90s
-	sheep_creek_x-icon-age-limit:	90s
-	eagle_crest-icon-age-limit:	90s
-	eagle_crest_x-icon-age-limit:	90s
+	sheep_mount-icon-age-limit:	200s
+	sheep_mount_x-icon-age-limit:	200s
+	eagle_crest-icon-age-limit:	200s
+	eagle_crest_x-icon-age-limit:	200s
 !
 ! Handar stations give us 2 minute data
 !
@@ -72,11 +72,14 @@ defaults
 !	<sitename>-location:	<lat> <lon> <alt>
 !
 	boulder-location:	40.0 -105.3 1600.0
-	JNU-location:		58.351	-134.568	5.8
+	JNU-location:		58.351	-134.568 5.8
 	MARMN-location:		58.1902 -134.2154 0
 	TRDWL-location:		58.2483 -134.3283 0
 	SALMN-location:		58.3042 -134.4458 0
 	LEMNN-location:		58.3458 -134.5144 0
+	LYNNS-location:		58.3617 -135.0800 0
+	CGL-location:		58.3600 -134.7000 0
+	BARLO-location:		58.3600	-134.8900 0
 !
 ! Origins for the get position widget.
 !
