@@ -1,0 +1,201 @@
+! $Id: IconBar,v 1.1.1.1 2001-12-11 22:44:27 burghart Exp $
+!
+! Generic IconBar template
+!
+
+set ui$bitmap_directory concat(c$libdir, "/icons")
+
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	noheader
+	!
+	! Define the menus
+	!
+	menu help bitmap iconbar-help
+		title 'Zeb Help Access'
+		line
+		entry 'Introduction' 'help intro'
+		entry 'On-line topics' 'help index'
+		entry 'Starting Zebra' 'help start'
+		entry 'Shutting down' 'help shut-down'
+		entry 'Keys and mouse buttons' 'help keys'
+		entry 'The icon bar' 'help iconbar'
+		entry 'Editing display configurations' 'help editing-configs'
+		line
+		entry 'Horizontal plots' 'help horizontal-plots'
+		entry 'Skew-t plots' 'help skewt'
+		entry 'XYGraph plots' 'help xy-graphs'
+		entry 'Cross-section plots' 'help cross-section'
+	endmenu
+	menu tools bitmap tools-big
+		title 'Tools'
+		line
+		entry 'Time widget'	'popup time'
+		entry 'Make a print' 'popup hardcopy'
+		line
+		entry 'Add display window' 'popup newwindow'
+		entry 'Delete display window' 'popup zorchwindow'
+		entry 'Save current configuration' 'popup saveconfig'
+		line
+		entry 'Enter aircraft locations' 'popup enter'
+		line
+		entry 'Scan optimizer' 'shell "Optimizer optimizer.config &"'
+		line
+		entry 'Data store contents' 'shell "dsdwidget &"'
+		entry 'Data store management' 'shell "dsmanage &"'
+		line
+		entry 'Shut down Zebra' 'shutdown'
+	endmenu
+!
+! The project display configurations are added in this menu
+!
+	menu configs bitmap configs
+		title 'Display configurations'
+		line
+		entry 'Single-window basic radar' 'display radaronly' \
+			(dm$config = 'radaronly')
+		entry 'Four precip windows' 'display megaprecip' \
+			(dm$config = 'megaprecip')
+		entry 'Radar + precip + particle types' 'display rad-pre-pd' \
+		      	(dm$config = 'rad-pre-pd')
+		entry 'Two radar windows + precip' 'display radar2win' \
+			(dm$config = 'radar2win')
+		line
+		entry 'Empty screen' 'display empty' (dm$config = 'empty')
+	endmenu
+!
+! General platform/data menus here
+!
+! Example:
+!	menu satellite bitmap satellite
+!		title 'Satellite Data'
+!		line
+!		entry 'GOES Visible' 'putc2 c_goes platform goes field vis'
+!		entry 'GOES IR' 'putc2 c_goes platform goes field ir'
+!		line
+!	endmenu
+	menu radar bitmap radar
+		title 'Radar Data'
+		line
+		entry 'S-Pol' 'putc2 p_polar platform spol field dbz'
+		entry 'Particle types' 'putc0 p_pdesc'
+		entry 'Precip' 'putc1 c_precip platform precip.basic'
+		entry 'Binet winds' 'putc0 p_binet_winds'
+	endmenu
+!	menu aircraft bitmap aircraft
+!		title 'Aircraft'
+!		line
+!		entry 'N308D' \
+!		  'putc3 p_track platform n308d icon n308d color white'
+!	endmenu
+
+!
+! Maps, locations and other informational overlays
+!
+	menu 'overlays' bitmap overlays
+		title 'Static Overlays'
+		line
+		entry 'State borders' \
+		    'putc3 p_map platform state icon state color yellow3'
+		entry 'Rivers and lakes' \
+		    'putc3 p_map platform water icon rivers color cyan3'
+		entry 'Filled lakes' \
+		    'putc3 p_map platform fwater icon lakes color blue3'
+		entry 'Roads' \
+		    'putc3 p_map platform road icon roads color gray30'
+		entry 'County' \
+		    'putc3 p_map platform county icon county color tan'
+		line
+		entry 'X-Y Grid (km)' \
+		    'putc3 p_kmgrid x-spacing 100 y-spacing 100 color cyan'
+		entry 'Lat/Lon Grid' \
+		    'putc3 p_llgrid x-spacing 60 y-spacing 60 color gray70'
+		entry 'Dual-Doppler Lobes' \
+		    'putc3 p_map platform lobes icon ddop-lobes color black'
+		line
+		entry 'Topography (for plan views)' 'putc0 p_elev'
+		line
+		entry 'Radar range rings' 'putc1 p_rings platform spol'
+		entry 'Radar locations' 'do_radar_locs'
+		entry 'Binet North lobes' \
+			'putc2 p_map platform north_lobes color white'
+		entry 'Binet South lobes' \
+			'putc2 p_map platform south_lobes color white'
+!		entry 'Optimizer boundary' 'putc0 p_opt_boundary'
+		entry 'Window Bounds' 'put_wbounds p_wbounds'
+	endmenu
+enddef
+
+!
+! Put in window bounds.
+!
+procedure put_wbounds comp string
+!
+! Get the window we want to see.
+!
+	set wbounds_win "none"
+	pickwin wbounds_win
+	if (wbounds_win = "none")
+		beep
+		return
+	endif
+!
+! And now the place where it goes.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")
+		beep
+		return
+	endif
+!
+! Fix up the component and ship it over.
+!
+	parameter #comp #comp platform #wbounds_win
+	add #comp #comp #target_win
+endprocedure
+
+
+!
+! Add radar locations
+!
+procedure do_radar_locs
+	local radars "spol,binet_N,binet_S,katx,krtx"
+	putc2 p_loc active-icon false platform #radars
+endprocedure
+
+
+!
+! Put radar data in a CAP or xsect window
+!
+procedure PutRadar platform string
+    !
+    ! Start by finding a window.
+    !
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+
+	local ptype PDParam(target_win,'global','plot-type')
+    !
+    ! Choose the appropriate pd component template based on the plot type
+    !
+	if (ptype = "xsect")
+		local comp "p_fcontour"
+		parameter #comp #comp grid-method bilinear
+	else
+		local comp "p_raster"
+	endif
+    !
+    ! Tweak it up and send it out
+    !
+	parameter #comp #comp platform #platform
+	parameter #comp #comp icon #platform
+	parameter #comp #comp field maxdz
+	sendout #comp #target_win
+endprocedure

@@ -1,0 +1,19 @@
+!
+! gp init file for fastex
+!
+
+set RequirePath concat('./modules,',RequirePath)
+set MapPath concat('./maps,','MapPath')
+set DefFile "FieldDefs"
+read FieldDefs
+
+define widget rings-origins intmenu 'x'
+	title 'Rings Origins'
+	line
+	entry 'S-Pol' 'parameter #icon_component platform spol' \
+		(PDParam (icon_component, 'platform') = 'spol')
+	entry 'CHILL' 'parameter #icon_component platform chill' \
+		(PDParam (icon_component, 'platform') = 'chill')
+	entry 'KGLD' 'parameter #icon_component platform kgld' \
+		(PDParam (icon_component, 'platform') = 'kgld')
+endmenu

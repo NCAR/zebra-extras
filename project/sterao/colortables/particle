@@ -1,0 +1,20 @@
+colortable particle
+	0	0	0	! 0, nothing
+	0.817	0.813	0.715	! 1, cloud
+	1.000	0.848	0.610	! 2, drizzle
+	1.000	0.590	0.000	! 3, light rain
+	0.805	0.469	0.043	! 4, mod rain
+	1.000	0.187	0.187	! 5, heavy rain
+	0.984	0.984	0.184	! 6, hail
+	0.145	0.981	0.148	! 7, rain/hail mix
+	0.105	0.778	0.031	! 8, graupel small hail
+	0.000	0.574	0.000	! 9, graupel rain
+	0.305	0.875	1.000	! 10, dry snow
+	0.387	0.582	0.941	! 11, wet snow
+	0.375	0.332	0.754	! 12, ice crystals
+	1.000	0.793	1.000	! 13, irregular ice crystals
+	0.969	0.606	0.715	! 14, supercooled liquid
+	0.973	0.973	0.973	! 15, insects
+	0.629	0.629	0.504	! 16, birds
+	0.770	0.117	0.648	! 17, clutter
+endtable
