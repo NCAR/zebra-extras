@@ -20,7 +20,7 @@ p_aircraft
 	y-field:	v_wind
 	arrow-scale:	0.005
 	arrow-color:	brown
-	sa-scale:	0.025
+	sa-scale:	12
 	show-position:	true
 	scale-mode:	auto
 	icon-left-menu:		standard-cap-left-menu
