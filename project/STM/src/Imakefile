@@ -1,4 +1,4 @@
-XCOMM $Id: Imakefile,v 1.5 1995-09-22 00:25:43 granger Exp $
+XCOMM $Id: Imakefile,v 1.6 1995-09-28 13:53:54 granger Exp $
 
 CFGFILES = ds.config IconBar dm.config dm.pd \
 	   cf-active-loc ef-active-loc bf-active-loc
@@ -30,53 +30,28 @@ DESTDIR = /* we know we don't want to prepend anything to the install dir */
 
 all:: $(CFGFILES) $(HELPFILES)
 
-CppScriptTarget(ds.config,ds.config.cpp,$(DEFINES),/*$(ICONFIGFILES)*/)
-InstallNamedProg(ds.config,ds.config,$(PROJDIR))
+#define InstallCppFile(target,dest) \
+CppScriptTarget(target,target.cpp,$(DEFINES),/**/)		@@\
+InstallNamedProg(target,target,dest)
 
-CppScriptTarget(dm.config,dm.config.cpp,$(DEFINES),/*$(ICONFIGFILES)*/)
-InstallNamedProg(dm.config,dm.config,$(PROJDIR))
+InstallCppFile(ds.config,$(PROJDIR))
+InstallCppFile(dm.config,$(PROJDIR))
+InstallCppFile(IconBar,$(PROJDIR))
+InstallCppFile(dm.pd,$(PROJDIR))
 
-CppScriptTarget(IconBar,IconBar.cpp,$(DEFINES),/*$(ICONFIGFILES)*/)
-InstallNamedProg(IconBar,IconBar,$(PROJDIR))
+InstallCppFile(cf-active-loc,$(MODULEDIR))
+InstallCppFile(bf-active-loc,$(MODULEDIR))
+InstallCppFile(ef-active-loc,$(MODULEDIR))
 
-CppScriptTarget(dm.pd,dm.pd.cpp,$(DEFINES),/*$(ICONFIGFILES)*/)
-InstallNamedProg(dm.pd,dm.pd,$(PROJDIR))
-
-CppScriptTarget(cf-active-loc,cf-active-loc.cpp,$(DEFINES),/*$(ICONFIGFILES)*/)
-InstallNamedProg(cf-active-loc,cf-active-loc,$(MODULEDIR))
-
-CppScriptTarget(bf-active-loc,bf-active-loc.cpp,$(DEFINES),/*$(ICONFIGFILES)*/)
-InstallNamedProg(bf-active-loc,bf-active-loc,$(MODULEDIR))
-
-CppScriptTarget(ef-active-loc,ef-active-loc.cpp,$(DEFINES),/*$(ICONFIGFILES)*/)
-InstallNamedProg(ef-active-loc,ef-active-loc,$(MODULEDIR))
-
-CppScriptTarget(empty.html,empty.html.cpp,$(DEFINES),/*$(ICONFIGFILES)*/)
-InstallNamedProg(empty.html,empty.html,$(HELPDIR))
-
-CppScriptTarget(arm-iconbar.html,arm-iconbar.html.cpp,$(DEFINES),/**/)
-InstallNamedProg(arm-iconbar.html,arm-iconbar.html,$(HELPDIR))
-
-CppScriptTarget(arm-index.html,arm-index.html.cpp,$(DEFINES),/**/)
-InstallNamedProg(arm-index.html,arm-index.html,$(HELPDIR))
-
-CppScriptTarget(arm-displays.html,arm-displays.html.cpp,$(DEFINES),/**/)
-InstallNamedProg(arm-displays.html,arm-displays.html,$(HELPDIR))
-
-CppScriptTarget(tools.html,tools.html.cpp,$(DEFINES),/**/)
-InstallNamedProg(tools.html,tools.html,$(HELPDIR))
-
-CppScriptTarget(satellite.html,satellite.html.cpp,$(DEFINES),/**/)
-InstallNamedProg(satellite.html,satellite.html,$(HELPDIR))
-
-CppScriptTarget(smos-tseries.html,smos-tseries.html.cpp,$(DEFINES),/**/)
-InstallNamedProg(smos-tseries.html,smos-tseries.html,$(HELPDIR))
-
-CppScriptTarget(sondes.html,sondes.html.cpp,$(DEFINES),/**/)
-InstallNamedProg(sondes.html,sondes.html,$(HELPDIR))
-
-CppScriptTarget(arm-tutorial.html,arm-tutorial.html.cpp,$(DEFINES),/**/)
-InstallNamedProg(arm-tutorial.html,arm-tutorial.html,$(HELPDIR))
+InstallCppFile(empty.html,$(HELPDIR))
+InstallCppFile(arm-iconbar.html,$(HELPDIR))
+InstallCppFile(arm-index.html,$(HELPDIR))
+InstallCppFile(arm-displays.html,$(HELPDIR))
+InstallCppFile(tools.html,$(HELPDIR))
+InstallCppFile(satellite.html,$(HELPDIR))
+InstallCppFile(smos-tseries.html,$(HELPDIR))
+InstallCppFile(sondes.html,$(HELPDIR))
+InstallCppFile(arm-tutorial.html,$(HELPDIR))
 
 depend::
 
