@@ -57,6 +57,7 @@ defaults
 !	<sitename>-location:	<lat> <lon> <alt>
 !
 	boulder-location:	40.0 -105.3 1600.0
+	bao-location:		40.05 -105.0 1600.0
 !
 ! Origins for the get position widget.
 !
