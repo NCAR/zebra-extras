@@ -15,6 +15,7 @@ defaults
 	spol-location:		36.57810    -100.78278     0
 	katx-location:		48.1944     -122.4958      150
 	krtx-location:		45.7147     -122.9653      480
+	okc-location:		35.39309     -97.60073     395
 !
 ! Icons to use for various platforms.  The icons themselves can be created
 ! using the X Window "bitmap" utility, and saved in the <project>/icons 
