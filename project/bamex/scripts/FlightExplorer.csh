@@ -11,7 +11,18 @@
 # in order to run this from cron, since this will allow ftp to log in
 # automatically.
 #
+if (! $?ZEB_TOPDIR) then
+	echo "$0: ZEB_TOPDIR must be set!"
+	exit 1
+endif
 
+setenv ZEB_PROJDIR $ZEB_TOPDIR/project/bamex
+source $ZEB_PROJDIR/proj_env
+
+if (! $?DATA_DIR) then
+	echo "$0: DATA_DIR must be set!"
+	exit 1
+endif
 
 #
 # Get the time at the previous five minute mark
@@ -56,12 +67,11 @@ endif
 #
 # Ingest the file we grabbed
 #
-setenv ZEB_TOPDIR /opt/zebra
 $ZEB_TOPDIR/bin/FlightExplorer \
-    $ZEB_TOPDIR/project/bamex/scripts/FlightEx_map.bamex $tmpfile > /dev/null
+    $ZEB_PROJDIR/scripts/FlightEx_map.bamex $tmpfile > /dev/null
 
 #
 # "archive" this file
 #
-cat $tmpfile >> /data/bamex/FlightExplorer.data
+cat $tmpfile >> $DATA_DIR/FlightExplorer.data
 rm $tmpfile
