@@ -1,0 +1,10 @@
+#
+# On jnu_nws and jnu_afss, start a little shell that does a frequent dsrescan 
+# on our nfs mounted data directory
+#
+set host = `uname -n`
+
+if ($host == "jnu_afss" || $host == "jnu_nws") then
+	echo -n "Starting data store updater.." 
+#	./DSUpdater &
+endif
