@@ -1,5 +1,5 @@
 !
-! $Id: defaults.pd,v 1.4 1995-09-12 03:52:21 granger Exp $
+! $Id: defaults.pd,v 1.5 1995-09-14 02:27:38 granger Exp $
 !
 ! Defaults for defaults.  Older projects will override this 
 ! description completely, while others can use it as a foundation and
@@ -129,6 +129,15 @@ defaults
 	Dsgpmfr25mC1.a1-skip-data-points: -1111, -2222, -3333, -4444, -444444
 	Dsgpmfr10mC1.a1-skip-data-points: -1111, -2222, -3333, -4444, -444444
 	skip-data-points: -9999, -99999, -999, 9999
+
+! Sondes need single bad values against which locations can be compared
+! for track representations.
+
+	sgpsondewrpnC1.a1-bad-value:	-9999
+	sgpsondewrpnB1.a1-bad-value:	-9999
+	sgpsondewrpnB4.a1-bad-value:	-9999
+	sgpsondewrpnB5.a1-bad-value:	-9999
+	sgpsondewrpnB6.a1-bad-value:	-9999
 
 !--------------------------------------------------------------------
 ! Plotting limits.
