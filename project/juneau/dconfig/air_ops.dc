@@ -4,7 +4,7 @@ prototype fallback 'Default' gp 'admin/gp.init'
 prototype fallback 'Default' gp 'admin/gp.init'
 
 config air_ops
-	widget 'iconbar' 259 637 153 67
+	widget 'iconbar' 259 637 0 0
 	graphic 'one' 426 9 840 695 'Default'
 		description 'air_ops-one'
 		buttonmap 'big'

@@ -4,7 +4,7 @@ prototype fallback 'Default' gp 'admin/gp.init'
 prototype fallback 'Default' gp 'admin/gp.init'
 
 config both
-	widget 'iconbar' 782 33 80 224
+	widget 'iconbar' 782 33 0 0 
 	graphic 'one' 11 30 748 571 'Default'
 		description 'both-one'
 		buttonmap 'big'

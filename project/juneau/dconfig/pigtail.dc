@@ -4,7 +4,7 @@ prototype fallback 'Default' gp 'admin/gp.init'
 prototype fallback 'Default' gp 'admin/gp.init'
 
 config pigtail
-	widget 'iconbar' 5 5 200 70
+	widget 'iconbar' 5 5 0 0 
 	graphic 'profile' 14 91 693 634 'Default'
 		description 'pigtail-profile'
 		buttonmap 'default'

@@ -3,7 +3,7 @@
 prototype fallback 'Default' gp 'gp.init'
 
 config map
-	widget 'iconbar' 1106 31 80 224
+	widget 'iconbar' 1106 31 0 0 
 	graphic 'one' 11 30 1076 979 'Default'
 		description 'map-one'
 		buttonmap 'big'

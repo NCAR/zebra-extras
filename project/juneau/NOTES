@@ -204,9 +204,6 @@ reconfig.  If small change, make it on juneau branch and merge onto trunk.
 Santiago reports /tmp filling up, probably due to gp cache files.  Set
 file-path and max-frames appropriately.
 
-Santiago reports Bob is seeing the colormap problem on several machines in
-Alaska.  Check out Zebra color allocation, and look for ICCCM compliance?
-
 ----------------
 
 Integrating Gary Cunning and Andrew Weekly analysis configuration needs in
@@ -222,13 +219,12 @@ juneau:project/juneau:
 	ability to start individual windows and add them to the current
 	display
 
-Gary reports the xwd on the linux x server generates output from which
-xwd2ps cannot create a legal postscript file...  It works if dumping a
-window on a remote display.
-
 ----------------
 
 Tag_Juneau_6 on 20-may-1997, 10:00.
 
-
+Change iconbar width and height to zero so that it sizes itself
+automatically.  Only the location is explicitly set.  The zeroes will be
+overwritten when a configuration is saved, but the code could be changed to
+not overwrite zero widths and heights.
 

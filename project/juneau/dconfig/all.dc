@@ -5,7 +5,7 @@ prototype fallback 'Default' gp 'gp.init'
 prototype fallback 'Default' gp 'gp.init'
 
 config all
-	widget 'iconbar' 367 666 153 67
+	widget 'iconbar' 367 666 0 0
 	widget 'time' 11 548 450 220
 	graphic 'one' 426 9 840 695 'Default'
 		description 'all-one'
