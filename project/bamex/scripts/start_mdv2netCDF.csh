@@ -13,8 +13,8 @@
 # respectively.
 #
 /code/burghart/mdv2netCDF \
-	-params /code/burghart/bamex/scripts/mdv2netCDF.bamex_IR >& \
-	/code/burghart/bamex/mdv2netCDF_bamex_IR.log &
+	-params /usr/local/zebra/project/bamex/scripts/mdv2netCDF.bamex_IR >& \
+	/tmp/mdv2netCDF_bamex_IR.log &
 /code/burghart/mdv2netCDF \
-	-params /code/burghart/bamex/scripts/mdv2netCDF.bamex_Vis >& \
-	/code/burghart/bamex/mdv2netCDF_bamex_Vis.log &
+	-params /usr/local/zebra/project/bamex/scripts/mdv2netCDF.bamex_Vis >& \
+	/tmp/mdv2netCDF_bamex_Vis.log &
