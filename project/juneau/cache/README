@@ -1,0 +1,43 @@
+
+This is the directory used for graphics process frame cache files.  Each
+running graphics process (whether visible or not) allows a maximum of 30
+frames.  Each frame's size depends on the size of the window but is
+generally equal to width x height (the visual depth).
+
+For a 600x600 window, that's about 351 KB per frame or 10 MB for a whole
+frame cache file.
+
+The files only exist while a graphics process is running.  After the file
+is opened it is unlinked, so even though the inode and the disk space are
+still in use by the graphics process, the file will not appear in a
+directory listing.
+
+The frame cache directory and maximum frames are set in the pd/defaults.pd
+file.  The cache directory is relative to the top directory of the project
+configuration, from which all graphics processes run.
+
+!
+! Where to put the frame cache files and the maximum number of frames
+! to store in the cache.
+!
+	file-path:	./cache
+	max-frames:	30
+	time-frames:	2
+
+The time-frames parameter is the number of pixmap frames to keep in memory,
+while the max-frames parameter is the maximum number of frames the graphics
+process will ever cache, both in memory and in the frame cache file.  If
+movies require more than the default time-frames they will try to
+temporarily increase the in-memory pixmaps frames, but never above
+max-frames.  Be aware, though, that if there is not enough shared memory
+available for max-frames pixmaps, the movie controller will have problems
+if it tries to request max-frames time frames.  (Like possible crashing
+problems.)  Using a minimal time-frames of 2 allows quick toggling between
+two fields in a graphics process without being a memory hog.
+
+Enable eventlogger debug messages before a graphics process starts, and the
+graphics process will log the name and file path of the cache file it
+intends to use.  To disable frame cache files altogether, comment out the
+file-path parameter.
+
+
