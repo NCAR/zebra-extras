@@ -155,8 +155,8 @@ defaults
 	albedo-center:		35
 	albedo-nsteps:		14
 	albedo-step:		5
-	3_9_micron-center:	10
-	3_9_micron-nsteps:	10
+	3_9_micron-center:	-5
+	3_9_micron-nsteps:	13
 	3_9_micron-step:	-10
 	6_7_micron-center:	-40
 	6_7_micron-nsteps:	10
