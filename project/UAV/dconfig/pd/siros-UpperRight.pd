@@ -1,0 +1,199 @@
+!
+! This plot description plots the optical depths SIROS field as a time
+! series for each channel, and specifies the menu for changing between
+! representations.  The 0 channel gets its own left axis since its values
+! are so out of sync with the other channels.
+!
+global
+	axis-bottom-space:	30
+	axis-left-space:	100
+	axis-right-space:	100
+	axis-top-space:		30
+	pd-name:	siros-UpperRight
+	platform:	SOMETHING
+	plot-mode:	history
+	plot-time:	now
+	plot-type:	xygraph
+	ta-scale:	.022
+	trigger:	platform
+	icon-middle-menu:	siros-platforms
+	xy-axis-b-font-scale:	10
+	xy-axis-l-font-scale:	10
+	xy-axis-r-font-scale:	10
+	xy-axis-t-font-scale:	10
+	xy-data-mode:	series
+	xy-series-span:	720m
+	require:	siros
+xy-grid
+	axis-b-label:	Time
+	axis-b-tic-interval:	7200s
+	axis-bottom:	true
+	axis-left:	false
+	axis-right:	false
+	axis-t-tic-interval:	7200s
+	axis-top:	false
+	do-side-annotation:	true
+	field-color:	red
+	icon:	none
+	platform:	SOMETHING
+	representation:	simple
+	representation-style:	line
+	x-field:	time
+	y-field:	nothing
+c_channel0
+	annot-left-menu:	xy-an-left
+	annot-right-menu:	simple-color
+	axis-b-tic-interval:	7200s
+	axis-bottom:	false
+	axis-l-color:	white
+	axis-l-grid-intensity:	0.7
+	axis-l-label:	Channel 0
+	axis-left:	true
+	axis-right:	false
+	axis-t-tic-interval:	7200s
+	axis-top:	false
+	color-tweaker:	xytrace-color
+	disable:	false
+	do-side-annotation:	true
+	field-color:	red
+	icon:	tseries
+	icon-color:	red
+	icon-middle-menu:	siros-optical-plots
+	icon-right-menu:	xytrace-right
+	limit-proc:	xytrace-adjust
+	platform:	SOMETHING
+	representation:	simple
+	representation-style:	line
+	require:	xytrace, simple-color, siros, xyplots
+	x-field:	time
+	y-field:	hemisp
+	dimensions:	channel=0
+c_channel1
+	annot-left-menu:	xy-an-left
+	annot-right-menu:	simple-color
+	axis-b-tic-interval:	7200s
+	axis-bottom:	false
+	axis-r-color:	white
+	axis-r-grid-intensity:	0.7
+	axis-r-label:	Channels 1 - 6
+	axis-left:	false
+	axis-right:	true
+	axis-t-tic-interval:	7200s
+	axis-top:	false
+	color-tweaker:	xytrace-color
+	disable:	false
+	do-side-annotation:	true
+	field-color:	yellow
+	icon:	none
+	platform:	SOMETHING
+	representation:	simple
+	representation-style:	line
+	require:	xytrace, simple-color, siros, xyplots
+	x-field:	time
+	y-field:	hemisp
+	dimensions:	channel=1
+c_channel2
+	annot-left-menu:	xy-an-left
+	annot-right-menu:	simple-color
+	axis-b-tic-interval:	7200s
+	axis-bottom:	false
+	axis-left:	false
+	axis-right:	false
+	axis-t-tic-interval:	7200s
+	axis-top:	false
+	color-tweaker:	xytrace-color
+	disable:	false
+	do-side-annotation:	true
+	field-color:	green
+	icon:	none
+	platform:	SOMETHING
+	representation:	simple
+	representation-style:	line
+	require:	xytrace, simple-color, siros, xyplots
+	x-field:	time
+	y-field:	hemisp
+	dimensions:	channel=2
+c_channel3
+	annot-left-menu:	xy-an-left
+	annot-right-menu:	simple-color
+	axis-b-tic-interval:	7200s
+	axis-bottom:	false
+	axis-left:	false
+	axis-right:	false
+	axis-t-tic-interval:	7200s
+	axis-top:	false
+	color-tweaker:	xytrace-color
+	disable:	false
+	do-side-annotation:	true
+	field-color:	cyan
+	icon:	none
+	platform:	SOMETHING
+	representation:	simple
+	representation-style:	line
+	require:	xytrace, simple-color, siros, xyplots
+	x-field:	time
+	y-field:	hemisp
+	dimensions:	channel=3
+c_channel4
+	annot-left-menu:	xy-an-left
+	annot-right-menu:	simple-color
+	axis-b-tic-interval:	7200s
+	axis-bottom:	false
+	axis-left:	false
+	axis-right:	false
+	axis-t-tic-interval:	7200s
+	axis-top:	false
+	color-tweaker:	xytrace-color
+	disable:	false
+	do-side-annotation:	true
+	field-color:	blue
+	icon:	none
+	platform:	SOMETHING
+	representation:	simple
+	representation-style:	line
+	require:	xytrace, simple-color, siros, xyplots
+	x-field:	time
+	y-field:	hemisp
+	dimensions:	channel=4
+c_channel5
+	annot-left-menu:	xy-an-left
+	annot-right-menu:	simple-color
+	axis-b-tic-interval:	7200s
+	axis-bottom:	false
+	axis-left:	false
+	axis-right:	false
+	axis-t-tic-interval:	7200s
+	axis-top:	false
+	color-tweaker:	xytrace-color
+	disable:	false
+	do-side-annotation:	true
+	field-color:	brown
+	icon:	none
+	platform:	SOMETHING
+	representation:	simple
+	representation-style:	line
+	require:	xytrace, simple-color, siros, xyplots
+	x-field:	time
+	y-field:	hemisp
+	dimensions:	channel=5
+c_channel6
+	annot-left-menu:	xy-an-left
+	annot-right-menu:	simple-color
+	axis-b-tic-interval:	7200s
+	axis-bottom:	false
+	axis-left:	false
+	axis-right:	false
+	axis-t-tic-interval:	7200s
+	axis-top:	false
+	color-tweaker:	xytrace-color
+	disable:	false
+	do-side-annotation:	true
+	field-color:	violet
+	icon:	none
+	platform:	SOMETHING
+	representation:	simple
+	representation-style:	line
+	require:	xytrace, simple-color, siros, xyplots
+	x-field:	time
+	y-field:	hemisp
+	dimensions:	channel=6
