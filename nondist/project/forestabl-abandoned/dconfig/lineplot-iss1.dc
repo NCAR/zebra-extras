@@ -1,5 +1,11 @@
-! Auto-saved display configuration.
-
+! ================
+! WARNING: Auto-generated display configuration!
+!
+! This display was generated from the template lineplot-template, and probably
+! will be again, so any changes made in this file will be forgotten.
+! Permanent changes for all the basic iss configurations should be
+! made in lineplot-template, then run tmake to re-generate this display config.
+! ================
 prototype fallback 'Graphic' gp 'gp.init'
 prototype fallback 'Graphic' gp 'gp.init'
 
