@@ -1,5 +1,5 @@
 !
-! $Id: defaults.pd,v 1.3 1995-09-11 07:38:40 granger Exp $
+! $Id: defaults.pd,v 1.4 1995-09-12 03:52:21 granger Exp $
 !
 ! Defaults for defaults.  Older projects will override this 
 ! description completely, while others can use it as a foundation and
@@ -120,14 +120,14 @@ defaults
 !	NGM:			-99999
 !	WPDN:			-999, -99999
 !	MWR-LOS:		-9999
-!	BLC:			-999
+!	BLC:			-999, 499376.7
 !	SIROS:			-9999
 !	MFR:			-1111, -2222, -3333, -4444
 !	Profilers:		-9999, 9999
 
 	sgpnwssurfX1.a1-skip-data-points: -9999
-	Dsgpmfr25mC1.a1-skip-data-points: -1111, -2222, -3333, -4444
-	Dsgpmfr10mC1.a1-skip-data-points: -1111, -2222, -3333, -4444
+	Dsgpmfr25mC1.a1-skip-data-points: -1111, -2222, -3333, -4444, -444444
+	Dsgpmfr10mC1.a1-skip-data-points: -1111, -2222, -3333, -4444, -444444
 	skip-data-points: -9999, -99999, -999, 9999
 
 !--------------------------------------------------------------------
