@@ -1,5 +1,5 @@
 !
-! $Id: arm_defaults.pd,v 1.4 1997-04-11 15:23:22 granger Exp $
+! $Id: arm_defaults.pd,v 1.5 1997-05-30 07:38:03 granger Exp $
 !
 ! This plot description contains parameter defaults for the ARM project.
 ! The 'defaults' component needs to be dropped into the library defaults
@@ -107,7 +107,7 @@ defaults
 	E16-location:		36.061 -99.134 0	! Vici
 	E17-location:		0 0 0			! not specified
 	E18-location:		35.687 -95.856 0	! Morris
-	E19-location:		35.549 -98.020 0	! El Reno
+	E19-location:		35.549 -98.020 421	! El Reno
 	E20-location:		35.564 -96.988 0	! Meeker
 	E21-location:		35.615 -96.065 0	! Okmulgee
 	E22-location:		35.354 -98.977 0	! Cordell
