@@ -1,5 +1,5 @@
 /*
- * $Id: pdb_ingest.c,v 1.1 1992-07-03 18:24:51 granger Exp $
+ * $Id: pdb_ingest.c,v 1.2 1993-03-24 22:59:29 granger Exp $
  *
  * Ingest data products from RAP's Product Database Server, PDBS
  *
@@ -34,7 +34,8 @@
  */
 
 #if !defined(SABER) && !defined(lint)
-static char rscid[] = "$Id: pdb_ingest.c,v 1.1 1992-07-03 18:24:51 granger Exp $";
+static char rscid[] = 
+   "$Id: pdb_ingest.c,v 1.2 1993-03-24 22:59:29 granger Exp $";
 #endif
 
 #include <stdio.h>
@@ -59,11 +60,12 @@ static char rscid[] = "$Id: pdb_ingest.c,v 1.1 1992-07-03 18:24:51 granger Exp $
 #include "ingest.h"
 #include "pdblib.h"
 #include "pdb_ingest.h"
+#include "pdbutils.h"
 #include <copyright.h>
 
 #define ERR_CONTROL_SETTING "OFF SLOG LOG ON STD ON USR"
 
-#define KEY 0x18181818	/* '18' was my soccer jersey number...   :-) */
+#define KEY 0x18181818	/* '18' was my soccer jersey number... :-) */
 /*
  * Use a global value for key so that it can be set from the
  * command line, if necessary
@@ -71,7 +73,7 @@ static char rscid[] = "$Id: pdb_ingest.c,v 1.1 1992-07-03 18:24:51 granger Exp $
 static long Key = KEY;
 
 #ifndef lint
-MAKE_RCSID("$Id: pdb_ingest.c,v 1.1 1992-07-03 18:24:51 granger Exp $")
+MAKE_RCSID("$Id: pdb_ingest.c,v 1.2 1993-03-24 22:59:29 granger Exp $")
 #endif
 
 /*
@@ -88,6 +90,7 @@ static void	Exit FP((int code));
 /*
  * Product mapping functions:
  */
+static struct _ProductRecord *PdbIdMap FP((int pdb_id));
 static struct _ProductRecord *CodeMap FP((char *code));
 static struct _ProductRecord *RapIdMap FP((long rap_id));
 
@@ -98,6 +101,7 @@ static void	RequestProducts FP((char **code_list, int ncodes));
 static void	RequestProductFormat FP((int format));
 static void	SetProductStatus FP((int pdbid, int status));
 static void	SetProductDescription FP((int pdbid, char *desc));
+static int	VerifyConnection FP((char *msgname));
 static struct _ProductRecord *InsertProduct 
 			FP((int pdbid, char *code, char *name));
 
@@ -116,6 +120,7 @@ static int	QueryHandler FP((char *from));
 static int	DeathHandler ();
 static int	MessageHandler FP((struct message *msg));
 static void	signal_trap FP((int sig));
+static int	poll_msg FP((int msg_fd, int waitsecs));
 
 /*
  * Product handlers 
@@ -128,16 +133,12 @@ extern int	IngestPolylineProduct
 
 /*--------------------------------------------------------------*/
 
-# define BADVAL -9999.0
 # define DEFAULT_TIMEOUT 10
 # define DEFAULT_MAX_SUBS 10
 
 /*
  * Global debugging flags set from command line
  */
-char DumpDataChunks = (char)0;	/* Initially false
-				 * Used by handlers.c for debug info
-				 */
 int MaxSubplatforms = DEFAULT_MAX_SUBS;
 static char JustListProducts = (char)0;
 static int GlobalProductFormat = PDB_FORMAT_RAW;
@@ -149,11 +150,12 @@ static short ConcatenatePolylines = 0;  /* 0 - Use first polyline of prod
  * Other global data
  */
 static char *FormatString[] = { "NONE", "RAW", "LINE", "OBJS" };
+static long BeginTime = 0; /* When program was starter, for stat info */
 
 /*
  * The Map arrays:
  */
-static ProductRecord *PdbIdMap[ MAX_PRODUCTS ];
+static ProductRecord *PdbIdArray[ MAX_PRODUCTS ];
 static ProductRecord *PRptrMap[ MAX_PRODUCTS ] = { NULL };
 static int NumProducts = 0;
 
@@ -170,6 +172,7 @@ int main (argc, argv)
 {
 	char *msgname;
 
+	BeginTime = Time(0);
 /*
  * First parse any of the general ingest options
  */
@@ -208,17 +211,10 @@ int main (argc, argv)
  */
    	InitializeProductsTable();
 
-	if (JustListProducts)
-	{
-		printf("Listing products table:\n");
-		DumpProductsTable(stdout);
-		Exit(0);
-	}
-
 /*
  * Remaining arguments should be the requested data product codes
  */
-	if (argc < 2)
+	if ((argc < 2) && !JustListProducts)
 	{
 		fprintf(stderr,"Error: No products requested...\n");
 		Usage(argv[0]);
@@ -232,8 +228,16 @@ int main (argc, argv)
 		Exit(1);
 	}
 
+	if (JustListProducts)
+	{
+		printf("Listing products table:\n");
+		DumpProductsTable(stdout);
+		Exit(0);
+	}
+
 /*
- * Set the format in which we will receive each product
+ * Set the format in which we will receive each product,
+ * and request the products as specified on the rest of the command line
  */
 	RequestProductFormat(GlobalProductFormat);
    	RequestProducts(argv+1, argc - 1 );
@@ -242,7 +246,8 @@ int main (argc, argv)
  * Start receiving products from the products server
  */
 	PdbRequest(PDB_START, 0, 0);
-	IngestLog(EF_DEBUG,"Product Service Started");
+	IngestLog(EF_DEBUG,"--- Product Service Started at %s ---",
+	   AscSysTime(BeginTime, TC_Full));
    	ReceiveMessages();
 
 	/*
@@ -273,12 +278,7 @@ ParseCommandLineOptions(argc, argv)
 	while (i < *argc)
 	{
 		nargs = 1;
-		if (streq(argv[i],"-chunks") ||
-		    streq(argv[i],"-blow")) /* to 'blow chunks' */
-		{
-		   DumpDataChunks = (char)1;
-		}
-		else if (streq(argv[i],"-list"))
+		if (streq(argv[i],"-list"))
 		{
 		   JustListProducts = (char)1;
 		}
@@ -299,7 +299,7 @@ ParseCommandLineOptions(argc, argv)
 		else if (streq(argv[i],"-key"))
 		{
 		   nargs = 2;
-		   Key = atoi(argv[i+1]);
+		   Key = (unsigned)atol(argv[i+1]);
 		   if (!Key) Key = KEY;
 		   fprintf(stderr,"Key set to %li",Key);
 		}
@@ -334,7 +334,7 @@ ParseCommandLineOptions(argc, argv)
 		   continue;
 		}
 
-		RemoveOptions(argc, argv, i, nargs);
+		IngestRemoveOptions(argc, argv, i, nargs);
 	}
 }
 
@@ -343,27 +343,33 @@ static void
 Usage(prog)
 	char *prog;
 {
-   fprintf(stderr,"Usage: %s [options] product_code|all [...]\n",prog);
+   fprintf(stderr,
+      "Usage: %s [options] [-]all [-]<code> [-]<pdbid> ...\n",prog);
    fprintf(stderr,"       %s -list\n",prog);
    fprintf(stderr,"       %s -help\n",prog);
-   fprintf(stderr,"\nOptions:\n");
-   fprintf(stderr,"-chunks	Dump data chunks as sent\n");
-   fprintf(stderr,"-list	List the available data products\n");
-   fprintf(stderr,"-raw		Ingest raw products\n");
-   fprintf(stderr,"-line	Ingest polyline products\n");
-   fprintf(stderr,"-cat   	Join all polylines in a product\n");
-   fprintf(stderr,"-wait <secs>	Timeout value, default: %d secs\n",
+   fprintf(stderr," where <code> is a 3-ltr product code, and\n");
+   fprintf(stderr,
+      "       <pdbid> is the PDBS product id, 1 - %d\n", MAX_PROD_ID);
+   fprintf(stderr,"Options:\n");
+   fprintf(stderr,"   %-15s List the available data products\n","-list");
+   fprintf(stderr,"   %-15s Ingest raw products\n","-raw");
+   fprintf(stderr,"   %-15s Ingest polyline products\n","-line");
+   fprintf(stderr,"   %-15s Join all polylines in a product\n","-cat");
+   fprintf(stderr,"   %-15s Timeout value, default: %d secs\n","-wait <secs>",
 		DEFAULT_TIMEOUT);
-   fprintf(stderr,"-passive	Just connect and listen to server\n");
-   fprintf(stderr,"-monitor	Just connect and listen to server\n");
-   fprintf(stderr,"-subs <n>	Maximum number of subplatforms to use\n");
-   fprintf(stderr,"-key		Change the key used for shm and sem\n");
-   fprintf(stderr,"		1 or 2 will be added according to the");
-   fprintf(stderr,		" product format requested.");
-   fprintf(stderr,"\n");
-   fprintf(stderr,"\n");
+   fprintf(stderr,"   %-15s Just connect and listen to server\n","-passive");
+   fprintf(stderr,"   %-15s Just connect and listen to server\n","-monitor");
+   fprintf(stderr,"   %-15s Maximum number of subplatforms to use\n",
+		  "-subs <n>");
+   fprintf(stderr,"   %-15s Change the key used for shm and sem\n","-key <k>");
+   fprintf(stderr,"   %-15s 1 or 2 is added to the key, according to\n"," ");
+   fprintf(stderr,"   %-15s the product format being ingested.\n"," ");
    IngestUsage();
    PdbUsage();
+   fprintf(stderr,"Examples:\n");
+   fprintf(stderr,"%s -log all all -11 -17 -hal -raw -key 1234\n",prog);
+   fprintf(stderr,"%s -log pi -fast -sim data.lines -line all -requests\n",
+	prog);
 }
 
 
@@ -439,7 +445,7 @@ InitializeProductsTable()
 	int i;
 
 	for (i=0; i<MAX_PRODUCTS; ++i)
-		PdbIdMap[i] = NULL;
+		PdbIdArray[i] = NULL;
 		
 	PRptrMap[0] = NULL;
 	NumProducts = 0;
@@ -453,20 +459,18 @@ InitializeProductsTable()
 }
 
 
-int
+static int
 VerifyConnection(name)
 	char *name;  /* Application name to use in connect msg */
 /*
  * Send a CONNECT message to the server, then send a
  * LIST_PRODUCTS message and verify a response.
- * Repeat this 5 times if we don't get a response.
- * If every attempt fails, return 0, else return 1 after a 
- * verified response.
+ * Wait 1 minute between each attempt ....
  */
 {
-	int attempts;
+	int attempts = 0;
 
-	for (attempts = 0; attempts < 5; ++attempts)
+	while (++attempts)	/* Just keep trying forever */
 	{
 		/*
 		 * First request a list to verify connection and
@@ -477,17 +481,26 @@ VerifyConnection(name)
 				PDB_LIST_PRODUCTS, HandleResponse))
 		{
 			IngestLog(EF_INFO,
-		   "Products list received from PDBS.  Connection established.");
+	   "Products list received from PDBS.  Connection established.");
 			return (1);
 		}
+
 		/* Connection failed */
-		IngestLog(EF_EMERGENCY,"Connection attempt %i FAILED.  %s",
-			attempts+1, (attempts < 4) ? "Trying again..." :
-						     "Aborting attempts!");
-		if (attempts == 4)
-			break;
-		/* Otherwise try a CONNECT message; this resets our settings
-		 * on the server side (if it receives it) */
+		IngestLog(EF_EMERGENCY,
+		   "Connection attempt %i FAILED.  Trying again in 1 minute",
+		   attempts);
+		/*
+		 * Wait no more than 60 seconds before next connection attempt,
+		 * but meanwhile make sure we take care of any incoming msgs,
+		 * especially of the shutdown variety
+		 */
+		if (!DryRun)
+			poll_msg(msg_get_fd(),60);
+
+		/* 
+		 * Try a CONNECT message; this resets our settings
+		 * on the server side (if it receives it) 
+		 */
 		if (PdbRequestString(PDB_CONNECT, name) != 1)
 		{
 			IngestLog(EF_EMERGENCY,
@@ -571,27 +584,6 @@ ReadProductsFile(fname)
 
 
 
-
-
-void
-StrToUpper(str)
-	char *str;
-{
-	while (*str)
-		*(str++) = toupper(*str);
-}
-
-
-void
-StrToLower(str)
-	char *str;
-{
-	while (*str)
-		*(str++) = tolower(*str);
-}
-
-
-
 static void
 RequestProductFormat(fmt)
 	int fmt;
@@ -629,11 +621,18 @@ InsertProduct(pdbid, code, name)
 	ProductRecord *pr;
 	int i;
 
-	if (!(pr = PdbIdMap[pdbid]))   /* Need new record */
+	if ((pdbid < 1) || (pdbid > MAX_PROD_ID))
+	{
+	   IngestLog(EF_PROBLEM, 
+	      "Illegal product id %d inserting code %s, name %s",
+	      pdbid, code, name);
+	   return(NULL);
+	}
+	if (!(pr = PdbIdArray[pdbid]))   /* Need new record */
 	{
 	   pr = (PRptr)malloc(sizeof(ProductRecord));
 
-	   PdbIdMap[pdbid] = pr;
+	   PdbIdArray[pdbid] = pr;
 	   PRptrMap[NumProducts++] = pr;
 
 	   pr->pdb_id = pdbid;
@@ -688,7 +687,7 @@ SetProductDescription(pdbid, desc)
 {
 	ProductRecord *pr;
 
-	if (!(pr = PdbIdMap[pdbid]))
+	if (!(pr = PdbIdMap(pdbid)))
 		return;
 	strncpy(pr->desc, desc, PROD_DESC_LEN);
 	pr->desc[PROD_DESC_LEN-1] = '\0';
@@ -701,7 +700,7 @@ SetProductStatus(pdbid, status)
 	int pdbid;
 	int status;
 {
-	ProductRecord *pr = PdbIdMap[pdbid];
+	ProductRecord *pr = PdbIdMap(pdbid);
 
 	if (pr)
 		pr->status = (ProdStatus)status;
@@ -751,6 +750,27 @@ CodeMap(code)
 }
 
 
+static PRptr
+PdbIdMap(pdbid)
+	int pdbid;
+/*
+ * The mapping from pdbid to a product record is just an array indexing,
+ * but we also do some sanity checking here for bad pdbid's
+ */
+{
+	if ((pdbid < 1) || (pdbid > MAX_PROD_ID))
+	{
+		IngestLog(EF_PROBLEM, 
+		   "Bad product id %d in PdbIdMap()", pdbid);
+		return(NULL);
+	}
+	else
+	{
+		return(PdbIdArray[pdbid]);
+	}
+}
+	
+
 
 static void
 RequestProducts(code_list, ncodes)
@@ -799,7 +819,7 @@ RequestProducts(code_list, ncodes)
 		if ((pdbid = atoi(choice)) > 0)
 		{
 			if (pdbid < MAX_PRODUCTS)
-				pr = PdbIdMap[pdbid];
+				pr = PdbIdMap(pdbid);
 		}
 		else
 		{
@@ -927,43 +947,6 @@ signal_trap(sig)
 }
 
 
-#ifdef notdef
-/*
- * Log ERR messages to IngestLog
- */
-static void
-LogERRtoEL(priority, message)
-	int priority;
-	char *message;
-{
-	int elflag;
-
-	switch(priority)
-	{
-	   case ERR_ALERT:
-	   case ERR_RESOURCE:
-		elflag = EF_EMERGENCY;
-		break;
-	   case ERR_WARNING:
-		elflag = EF_PROBLEM;
-		break;
-	   case ERR_INFO:
-	   /* case ERR_DEBUG == ERR_INFO aaarrgh! */
-		elflag = EF_INFO;
-		break;
-	   case ERR_PROGRAM:
-		elflag = EF_PROBLEM;
-		break;
-	   default:
-		elflag = EF_DEBUG;
-		break;
-	}
-	IngestLog(elflag, message);
-}
-#endif
-
-
-
 /*
  * Try to exit cleanly from PDB Server and SOCK
  */
@@ -978,17 +961,45 @@ Exit(code)
 }
 
 
+/*
+ * Poll the message handler for any pending messages and handle them
+ * with msg_incoming().  The number of seconds to block on the select()
+ * is set with the 'timeout' parameter
+ */
+static int
+poll_msg(msg_fd, timeout)
+	int msg_fd;
+	int timeout; /* seconds */
+{
+	fd_set readfds;
+	int ret;
+	struct timeval delay;
+
+	delay.tv_sec = timeout;
+	delay.tv_usec = 0;
+
+	FD_ZERO(&readfds);
+	FD_SET(msg_fd,&readfds);
+
+	if (select(msg_fd+1, &readfds, NULL, NULL, &delay) > 0)
+	{
+		/* We have a message to read */
+		return(msg_incoming(msg_fd));
+	}
+	else
+		return(0);
+}
 
 
-
-/* ReceiveMessages
+/* 
+ * ReceiveMessages
  * ---------------
  * Alternatively polls (non-blocking select()) the message handler
  * file descriptor and the PDB (with PdbResponse).  Any mh messages
  * are sent to msg_incoming(), while PDB responses are dispatched
  * with HandleResponse().
  *
- * If no responses are received from the product server after 1 min,
+ * If no responses are received from the product server after some timeout,
  * a warning message is logged.  At this point, it is the operators 
  * option of assuming nothing is coming in, or restarting pdb_ingest
  */
@@ -997,10 +1008,9 @@ ReceiveMessages()
 {
 	int ret = 0;
 	int msg_fd;
-	fd_set readfds;
-	static struct timeval delay = { 0, 0 };
 	int secs_waiting;  /* The number of secs since last response */
-#	define TIMEOUT 5
+#	define TIMEOUT 2   /* interval, in seconds, to wait on a pdb response */
+#	define WARNING 10  /* interval, in minutes, to log a warning */
 
 	int pdb_mtype;
 	int pdb_mlen;
@@ -1022,18 +1032,11 @@ ReceiveMessages()
 		 */
 		if (!DryRun)
 		{
-		   FD_ZERO(&readfds);
-		   FD_SET(msg_fd,&readfds);
-
-		   if (select(msg_fd+1, &readfds, NULL, NULL, &delay) > 0)
-		   {
-		      /* We have a message to read */
-		      ret = msg_incoming(msg_fd);
-		      if (ret)
-			 IngestLog(EF_DEBUG,
+		   ret = poll_msg(msg_fd, 0);
+		   if (ret)
+			IngestLog(EF_DEBUG,
 			    "msg_incoming() returned %d",
 			    ret);
-		   }
 		}
 
 	/*
@@ -1063,7 +1066,8 @@ ReceiveMessages()
 		 */
 		{
 			secs_waiting += TIMEOUT;
-			if ((secs_waiting % 300) >= 300-TIMEOUT)
+			if ((secs_waiting % (WARNING*60)) >= 
+				(WARNING*60)-TIMEOUT)
 			{
 			   IngestLog(EF_PROBLEM, 
 		      "--- No response from PDBS in %i minutes!! ---",
@@ -1105,7 +1109,7 @@ HandleResponse(mtype, msg, mlen)
 		{
 		   if (sscanf(ptr,"%i %s %s", &pdbid, code, name) == 3)
 		   {
-		      pr = PdbIdMap[pdbid];
+		      pr = PdbIdMap(pdbid);
 		      if (!pr)  /* Product not in products file,
 				 * needs a description from server */
 		      {
@@ -1213,7 +1217,6 @@ DispatchProduct(mtype, msg, mlen)
 {
 	PDBproduct *pd = (PDBproduct *)msg;
 	ProductRecord *pr;
-	char *stime;
 	int pdbid;
 
 	if (GlobalProductFormat == PDB_FORMAT_RAW)
@@ -1237,7 +1240,7 @@ DispatchProduct(mtype, msg, mlen)
 		return(0);
 	}
 
-	pr = PdbIdMap[pdbid];
+	pr = PdbIdMap(pdbid);
 	if (!pr)
 	{
 	   IngestLog(EF_PROBLEM,"Id %d not found in ProductsTable",
@@ -1248,22 +1251,16 @@ DispatchProduct(mtype, msg, mlen)
 	 * Record the time of this reception, in case it is not
 	 * overridden with a more appropriate value later
 	 */
-	stime = ctime(&(pd->start_time));
-	stime[strlen(stime)-1] = '\0';
 	pr->last = Time(0);
-	switch(pr->format)
-	{
-	   case PDB_FORMAT_POLYLINE:
-	 	IngestLog(EF_INFO,
-	   	   "Polyline product %hu: npts %hu, start %s",
-	   	   pd->type, pd->npts, stime);
-		return(IngestPolylineProduct(pr, mtype, msg, mlen));
-		break;
-	   default:
-		IngestLog(EF_PROBLEM,"Unknown product format: %d",
-			pr->format);
-	}
-	return(0);
+	/*
+	 * At this point we assume the product is polyline, so ingest
+	 * in case it can be useful
+	 */
+	IngestLog(EF_INFO,
+  	   "Received %s(%hu): npts %hu, at %s",
+ 	   pr->code, pd->type, 
+	   pd->npts, AscSysTime(Time(0), TC_Full) );
+	return(IngestPolylineProduct(pr, mtype, msg, mlen));
 }
 
 
@@ -1282,7 +1279,7 @@ DispatchRawProduct(pr, mtype, msg, mlen)
  */
 {
 	char buf[100];
-	extern char *AscSysTime();
+	int ret;
 
 	/*
 	 * If we we're expecting polyline, we shouldn't get any
@@ -1296,11 +1293,11 @@ DispatchRawProduct(pr, mtype, msg, mlen)
 		/* We'll drop out and try to ingest this product anyway
 		 */
 	}
-	sprintf(buf,
-   	   "Raw product %d, RAP id %d, plat %s: %s",
-	   pr->pdb_id, pr->rap_id, pr->platform, 
-	   AscSysTime(Time(0), TC_Full));
 	pr->last = Time(0);
+	IngestLog(EF_INFO,
+   	   "Received %s(%d), pdb %d, at %s",
+	   pr->code, pr->rap_id, pr->pdb_id,
+	   AscSysTime(pr->last, TC_Full));
 
 	switch(pr->rap_id)
 	{
@@ -1310,29 +1307,27 @@ DispatchRawProduct(pr, mtype, msg, mlen)
 	   case 9226:
 	   case 9229:
 	   case 9230:
-		IngestLog(EF_INFO,"%s, Ingesting...",buf);
-		return(IngestExtrapolations(pr, mtype, msg, mlen));
+		ret = IngestExtrapolations(pr, mtype, msg, mlen);
 		break;
 	   case 9201:
 	   case 9202:
-		IngestLog(EF_INFO,"%s, Ingesting...",buf);
-		return(IngestNowcasts(pr, mtype, msg, mlen));
+		ret = IngestNowcasts(pr, mtype, msg, mlen);
 		break;
 	   case 9205:
-		IngestLog(EF_INFO,"%s, Ingesting...",buf);
-		return(IngestNowcastRegions(pr, mtype, msg, mlen));
+		ret = IngestNowcastRegions(pr, mtype, msg, mlen);
 		break;
 	   case 9227:
 	   case 9228:
 	   case 9231:
 	   case 9232:
-		IngestLog(EF_INFO,"%s, Ingesting...",buf);
-		return(IngestForecasts(pr, mtype, msg, mlen));
+		ret = IngestForecasts(pr, mtype, msg, mlen);
 		break;
 	   default:
-		IngestLog(EF_DEBUG,"%s, No handler!",buf);
+		IngestLog(EF_DEBUG,"No raw handler for %s(%d)!",
+			pr->code, pr->rap_id);
+		ret = 0;
 	}
-	return(0);
+	return(ret);
 }
 
 
@@ -1355,26 +1350,60 @@ PrintProductsTable()
  * Print the products table into a static buffer
  */
 {
-	static char buf[MAX_PRODUCTS * 4 * 80];
+	static char buf[MAX_PRODUCTS * 100];
 	int i;
 	ProductRecord *pr;
 	char *ptr;
+	time_t now;
 
 	buf[0] = '\0';
 	ptr = buf;
+
+	/*
+	 * Header info, simple statistics
+	 */
+	Time(&now);
+	sprintf(ptr,"Up for %d minutes, since %s",
+		(int)((now-BeginTime)/60),
+		ctime(&BeginTime));
+	ptr += strlen(ptr);
+	sprintf(ptr,"Time now is: %s\n",ctime(&now));
+	ptr += strlen(ptr);
+	
+	sprintf(ptr,"%3s %-4s%6s%9s:%-4s ",
+		"Id","Code","RAPid","Platform","Id");
+	ptr += strlen(ptr);
+	sprintf(ptr,"%-3s %-4s %-5s  %-15s\n",
+		"Req","Actv","Fmt","Last received:");
+	ptr += strlen(ptr);
+
+	sprintf(ptr,"%3s %-4s%6s%9s %-4s",
+		"--","----","-----","--------","---");
+	ptr += strlen(ptr);
+	sprintf(ptr,"%-3s %-4s %-5s  %-15s\n",
+		"---","----","---","--------------");
+	ptr += strlen(ptr);
+
 	for (i=0; i<NumProducts; ++i)
 	{
 	/*
-	 * For each product, print its id, code, name, and status
+	 * For each product, print important info
 	 */
 	   pr = PRptrMap[i];
+
+	   sprintf(ptr,
+		"%3i %-4s %5i %8s:%-3i ",
+		pr->pdb_id, pr->code, pr->rap_id, 
+		pr->platform, pr->platid);
+	   ptr += strlen(ptr);
+
+# ifdef notdef
 	   sprintf(ptr,
 		"%3i %-4s RAP:%5i  Name: %-20s  Platform: %-10s Id: %d\n",
 		pr->pdb_id, pr->code, pr->rap_id, pr->name,
 		pr->platform, pr->platid);
 	   ptr += strlen(ptr);
 
-# ifdef notdef
 	   sprintf(ptr,"         %-60s\n", pr->desc);
 	   ptr += strlen(ptr);
 	   sprintf(ptr,"         Origin: %4.2f deg lat  %4.2f deg lon",
@@ -1384,13 +1413,13 @@ PrintProductsTable()
 	   ptr += strlen(ptr);
 # endif
 
-	   sprintf(ptr,"         Req: %-4s Active: %-4s Fmt: %s",
+	   sprintf(ptr,"%-3s %-4s %-5s",
 		(pr->requested) ? "YES" : "NO",
 		(pr->status) ? "YES" : "NO",
 		FormatString[pr->format]);
 	   ptr += strlen(ptr);
-	   sprintf(ptr,"  Last: %s",
-		(pr->last) ? ctime(&(pr->last)) : "None\n");
+	   sprintf(ptr,"  %s",
+		(pr->last) ? ctime(&(pr->last)) : "Never\n");
 	   ptr += strlen(ptr);
 	}
 	if (!buf[0])
