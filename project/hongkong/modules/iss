@@ -70,14 +70,6 @@ procedure adjust_tic_interval sideParam string type string
 	endif
 endprocedure
 
-procedure adjust_scale param string type string
-	local fld   pd_param(icon_component,"y-field","string")
-	local param concat(fld,"-scale-y-max")
-	local tint pd_paramsearch(icon_component,"scale-y-min",fld,"string")
-	local tint2 pd_paramsearch(icon_component,"scale-y-max",fld,"string")
-        activate doublefloat #icon_component "scale-y-min" "Y-min: " #tint "scale-y-max" "Y-max: " #tint2
-endprocedure
-
 !
 ! XY-Series Simple
 !
@@ -89,7 +81,7 @@ define widget xy-simple intmenu 'Generic field-alt profile'
 	entry 'X Mark' 'set_representation_style xmark'  (pd_param(icon_component,"representation-style","string") = "xmark")
 	entry 'Cross' 'set_representation_style cross'  (pd_param(icon_component,"representation-style","string") = "cross")
 	line
-	entry 'Adjust Field Scale...' 'adjust_scale adj-scale-dim float'
+	entry 'Adjust Field Scale...' 'adjust_scale adj-scale-dim'
 	entry 'Set Tic Interval...' 'adjust_tic_interval adj-axis-side float'
 	entry 'Grids on/off' 'toggle_grid adj-axis-side'
 	line
@@ -267,3 +259,156 @@ procedure adj_series_span_old
 	local span pd_paramsearch("global", "xy-series-span", "", "string")
 	activate singlestring "global" "xy-series-span" "Time Span: " #span
 endprocedure
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! everything from here down added or changed by mindy
+!
+! XY-Series Simple
+!
+define widget my-xy-simple intmenu 'New Generic field-alt profile'
+        title 'XY Profile'
+        line
+        entry 'Line' 'set_representation_style line'  (pd_param(icon_component,"representation-style","string") = "line")
+        entry 'Point' 'set_representation_style point'  (pd_param(icon_component,"representation-style","string") = "point")
+        entry 'X Mark' 'set_representation_style xmark'  (pd_param(icon_component,"representation-style","string") = "xmark")
+        entry 'Cross' 'set_representation_style cross'  (pd_param(icon_component,"representation-style","string") = "cross")
+        line
+        entry 'Adjust Field Scale...' 'adjust_scale adj-scale-dim'
+        entry 'Set Tic Interval...' 'adjust_tic_interval adj-axis-side float'
+        entry 'Grids on/off' 'toggle_grid adj-axis-side'
+        line
+        submenu 'Select Color' select-color
+        entry 'Disable/reenable' 'ToggleBoolean "disable"' \
+                (PDParam(icon_component,"disable") = "true")
+        entry 'Remove' 'toggle_component absolute #icon_component'
+endmenu
+
+!
+! XY-Series Obs
+!
+define widget my-xy-obs intmenu 'My Generic field-alt profile'
+        title 'XY Observation'
+        line
+        entry 'Line' 'adjust_representation_style line'  (pd_param(icon_component,"representation-style","string") = "line")
+        entry 'Point' 'adjust_representation_style point'  (pd_param(icon_component,"representation-style","string") = "point")
+        entry 'X Mark' 'adjust_representation_style xmark'  (pd_param(icon_component,"representation-style","string") = "xmark")
+        entry 'Cross' 'adjust_representation_style cross'  (pd_param(icon_component,"representation-style","string") = "cross")
+        line
+!
+! I don't know where this procedure can be found... \/
+!
+        entry 'Adjust Observation Scale...' 'adjust_obs_scale'
+        entry 'Grids on/off' 'toggle_grid adj-axis-side'
+        line
+        submenu 'Select Color' select-field-color
+!       line
+!       entry 'Contour Overlay' 'toggle_component contour-pd contour-comp' \
+!        (substring(pd_param("global","component-list","string"),pd_param(icon_component,"contour-comp","string")))
+!       entry 'Omega Overlay' 'toggle_component woverlay-pd woverlay-comp' \
+!        (substring(pd_param("global","component-list","string"),pd_param(icon_component,"woverlay-comp","string")))
+endmenu
+
+procedure adjust_obs_scale
+        local scale pd_paramsearch(icon_component,"z-scale","xy-obs","string")
+        activate singlefloat #icon_component "z-scale" \
+                "Observation scale: " #scale
+endprocedure
+
+!
+! Middle button - Global plot configuration operations
+!
+! Time-Height Wind Barbs/Vectors
+!
+define widget my-iss-global-winds intmenu 'Global middle menu'
+        title 'Time-Height Winds'
+        line
+        entry 'Adjust Time Span...' 'i_adjust_global xy-series-span'
+        entry 'Set Tic Interval...' \
+                'adjust_tic_interval adj-axis-side time'
+        submenu 'Adjust Vertical Scale' adjust-height
+        line
+        entry 'High/Low profile' 'myxyhighlow'
+endmenu
+
+define widget iss-global-rass intmenu 'Global middle menu'
+        title 'Time-Height Rass'
+        line
+        entry 'Adjust Time Span...' 'i_adjust_global xy-series-span'
+        entry 'Set Tic Interval...' \
+                'adjust_tic_interval adj-axis-side time'
+        submenu 'Adjust Vertical Scale' adjust-height
+!       line
+!        entry 'High/Low profile' 'myxyhighlow'
+endmenu
+
+!
+! Toggle between high and low profiles.
+!
+!procedure myxyhighlow
+!        local current PDParam('915profh','platform')
+!        message 'current #' current
+!        if (substring (current, '915h'))
+!                local new ReplString(current,'915h','915l')
+!        else
+!                local new ReplString(current,'915l','915h')
+!        endif
+!        message 'platform #' new
+!        parameter 915profh platform #new
+!        parameter 915contourh platform #new
+!endprocedure
+
+!
+! Toggle between high and low profiles.
+! this is really just xyhighlow, if it works, change all myxyhighlow
+! to xyhighlow
+!
+procedure myxyhighlow
+        local current PDParam(icon_component,'platform')
+        if (substring (current, '_h'))
+                local new ReplString(current,'_h','_l')
+        elseif (substring (current, '_l'))
+                local new ReplString(current,'_l','_h')
+        endif
+        parameter #icon_component platform #new
+endprocedure
+
+define widget select-field-color intmenu 'select colors'
+        title 'Select Color'
+        line
+        entry 'white' 'parameter #icon_component field-color white'
+        entry 'gray' 'parameter #icon_component field-color gray50'
+        entry 'steel' 'parameter #icon_component field-color SteelBlue'
+        entry 'sky' 'parameter #icon_component field-color DeepSkyBlue'
+        entry 'blue' 'parameter #icon_component field-color blue'
+        entry 'cyan' 'parameter #icon_component field-color cyan'
+        entry 'green' 'parameter #icon_component field-color green'
+        entry 'spring' 'parameter #icon_component field-color SpringGreen1'
+        entry 'yellow' 'parameter #icon_component field-color yellow'
+        entry 'yellow2' 'parameter #icon_component field-color lemonchiffon'
+        entry 'tan' 'parameter #icon_component field-color tan'
+        entry 'brown' 'parameter #icon_component field-color brown'
+        entry 'orange' 'parameter #icon_component field-color orange'
+        entry 'red' 'parameter #icon_component field-color red'
+        entry 'magenta' 'parameter #icon_component field-color magenta'
+        entry 'hot-pink' 'parameter #icon_component field-color HotPink'
+        entry 'pink' 'parameter #icon_component field-color pink'
+        entry 'violet' 'parameter #icon_component field-color violet'
+        entry 'orchid' 'parameter #icon_component field-color MediumOrchid'
+endmenu
+
+procedure adjust_scale dimParam string
+        local dim pd_paramsearch(icon_component,dimParam,"xy","string")
+        local param concat(dim,"-field")
+        local qual pd_param(icon_component,param,"string")
+
+        local smin  concat( concat("scale-",dim),"-min")
+        local min pd_paramsearch(icon_component, smin,qual, "string")
+
+        local smax  concat( concat("scale-",dim),"-max")
+        local max pd_paramsearch(icon_component, smax, qual,"string")
+
+        local fmin concat( qual, "-min:")
+        local fmax concat( qual, "-max:")
+        parameter #icon_component scale-x-mode manual
+        activate doublefloat #icon_component #smin #fmin #min #smax #fmax #max
+endprocedure
+
