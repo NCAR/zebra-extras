@@ -19,7 +19,7 @@
  * maintenance or updates for its software.
  */
 
-static char *rcsid = "$Id: llp_ingest.c,v 1.1 1991-09-16 22:07:53 burghart Exp $";
+static char *rcsid = "$Id: llp_ingest.c,v 1.2 1992-08-13 00:53:41 granger Exp $";
 
 # include <copyright.h>
 # include <stdio.h>
@@ -34,7 +34,7 @@ static char *rcsid = "$Id: llp_ingest.c,v 1.1 1991-09-16 22:07:53 burghart Exp $
 # include <string.h>
 
 # include "llp_ingest.h"
-# include "../SLGrabber.h"
+# include "SLGrabber.h"
 
 /*
  * Buffering parameters, so that we don't put each flash into the
