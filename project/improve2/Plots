@@ -1,0 +1,13 @@
+# Define the set of platforms we watch and the configs and windows
+# needed to plot them.  The first field is the platform, followed
+# by yes or no for whether the platform is an "observational"
+# platform, then the display config and finally the windows in the
+# config which should be dumped.
+#
+# The observation platforms are plotted for each observation rather
+# than only the most recent.
+
+#particles              yes     wilson2 precip
+#particles 		yes	rad-pre-pd radar precip particles
+particles	yes	zebra_images1 LDR PID
+spol	yes	zebra_images1 DBZ VEL ZDR KDP RHO_HV
