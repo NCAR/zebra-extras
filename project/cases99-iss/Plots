@@ -15,8 +15,13 @@
 # (prof915l), which is also the display config window to plot (for
 # which the platform has also been changed to prof915h).
 
+# Ah hell, let both low and high mode trigger plots so we can just leave
+# this alone if iss1 switches back and forth...  But we'll still need
+# to change the iss1 display config each switch.
+
 iss1/class		yes	iss1 class
 iss1/prof915h		no	iss1 prof915l
+iss1/prof915l		no	iss1 prof915l
 #iss1/rass915		no	iss1 rass
 iss1/surface_met	no	iss1 surfmet surfwind surfrad
 
