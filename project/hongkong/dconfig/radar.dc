@@ -1,0 +1,98 @@
+! Auto-saved display configuration.
+config radar
+	window 'big' 43 39 800 845 gp gp.init
+		description 'radar-big'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 855 568 237 30 fccclock
+		description 'radar-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 616 31 510 68
+endconfig
+
+beginpd 'radar-big'
+global
+   parameter altitude-label            '?'
+   parameter arrow                     'true'
+   parameter arrow-color               'lavender'
+   parameter buttonmap                 'big'
+   parameter comment                   'Display the hong kong map.'
+   parameter pd-name                   'radar-big'
+   parameter plot-mode                 'real-time'
+   parameter plot-type                 'CAP'
+   parameter ta-color                  'khaki'
+   parameter ta-scale                  '24'
+   parameter trigger                   'aws'
+   parameter x-max                     '390.0001'
+   parameter x-min                     '-320.0000'
+   parameter y-max                     '-312.7775'
+   parameter y-min                     '356.4789'
+component p_radar
+   parameter color-table               'wild_new'
+   parameter every-sweep               'true'
+   parameter field                     'reflectivity'
+   parameter icon                      'cp4'
+   parameter icon-left-menu            'lx-cap-left-menu'
+   parameter icon-middle-menu          'radar-middle'
+   parameter icon-right-menu           'DataAvailable'
+   parameter platform                  'ro_radar'
+   parameter representation            'raster'
+   parameter require                   'radar'
+   parameter scale-mode                'auto'
+component p_map.0
+   parameter color                     'blue'
+   parameter disable                   'false'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'hk_terrain'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_kmgrid
+   parameter disable                   'true'
+   parameter field                     'grid'
+   parameter icon                      'grid'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'kmgrid-origins'
+   parameter icon-right-menu           'kmgrid-right'
+   parameter lat-lon                   'false'
+   parameter line-width                '0'
+   parameter platform                  'irrelevant'
+   parameter representation            'overlay'
+   parameter require                   'grid, simple-color'
+   parameter x-spacing                 '10'
+   parameter y-spacing                 '10'
+component p_map
+   parameter color                     'yellow'
+   parameter disable                   'true'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter platform                  'asia_map'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_map.1
+   parameter color                     'gray40'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter platform                  'hk_contours'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+endpd
+
+beginpd 'radar-Clock'
+global
+   parameter pd-name                   'radar-Clock'
+component clock
+   parameter background                'white'
+   parameter foreground                'black'
+   parameter xfont                     '-*-new century schoolbook-bold-r-*-*-25-*-*-*-*-*-*-*'
+endpd
+
