@@ -1,0 +1,527 @@
+! 
+! Modified xytrace module for colomeso tseries display.
+! Set scale-y-min and scale-y-mode for manual scale mode rather
+! than qualifying with the field name, since that can be a 
+! list of fields.
+
+!
+! Some widths, so we can change 'em in one place
+!
+local one_w "150"
+local two_w "300"
+local oneandahalf_w "225"
+local half_w "75"
+
+!
+! Main menus, xytrace-right and xytrace-left.  The xytrace-left menu
+! is just the standard minimal left menu we've come to know and love, with
+! the addition of all the stuff in xytrace-right.
+!
+
+require simple-color
+require form-utilities
+
+define widget xytrace-right intmenu 'x'
+	title 'XYGraph options'
+	line
+	entry 'Platforms & colors...' 'popup xytrace-plats-n-colors'
+	entry 'Other details...' 'popup xytrace-details'
+	line
+	
+endmenu
+
+define widget xytrace-left intmenu 'x'
+        title 'Overlay Operations'
+	line
+	entry 'Adjust Limits' 'i_adjust limit-proc'
+        line
+        entry 'Raise to top' 'move #icon_component 0'
+        entry 'Move to bottom' 'move #icon_component 1'
+        entry 'Disable/reenable' 'ToggleBoolean "disable"' \
+                (PDParam(icon_component,"disable") = "true")
+        entry 'Remove' 'i_remove_component'
+	line
+	entry 'Platform(s) & color(s)...' 'popup xytrace-plats-n-colors'
+	entry 'Other details...' 'popup xytrace-details'
+	line
+	
+endmenu
+
+!
+! Form widget to tweak platforms & colors
+!
+define widget xytrace-plats-n-colors form ' '
+	popup xyt-pnc-popup
+	noheader
+	label title 'happy happy joy joy' width #two_w
+	label comp 'c' color gray95
+	newline
+!
+! options to actually do something.
+!
+	button apply 'Apply' command xyt-pnc-apply
+	button applyd 'Apply and dismiss' \
+		command 'xyt-pnc-apply; popdown #ui$form'
+	button dismiss 'Dismiss' command 'popdown #ui$form' color red
+	newline
+!
+! Platforms and colors
+!
+	label plabel0 'Platform 1:'
+	blank plat0 '' width #one_w
+	pulldown color0 '' width #one_w menu form-color-menu
+	newline
+	label plabel1 'Platform 2:'
+	blank plat1 '' width #one_w
+	pulldown color1 '' width #one_w menu form-color-menu
+	newline
+	label plabel2 'Platform 3:'
+	blank plat2 '' width #one_w
+	pulldown color2 '' width #one_w menu form-color-menu
+	newline
+	label plabel3 'Platform 4:'
+	blank plat3 '' width #one_w
+	pulldown color3 '' width #one_w menu form-color-menu
+	newline
+enddef
+
+!
+! The xytrace-plats-n-colors initialization routine.
+!
+procedure xyt-pnc-popup
+	local f ui$form
+	local c icon_component
+	local yfld PDParam(c,'y-field')
+	local xfld PDParam(c,'x-field')
+	local platlist PDParam(c, 'platform')
+	local colorlist PDParam(c, 'field-color')
+
+	formtext #f comp #c
+
+	local ttl quote(concat3(yfld,' vs. ',xfld))
+	formtext #f title #ttl
+
+	local which 0
+	while (which < 4)
+		local plat NthElement(platlist, which)
+		local color NthElement(colorlist, which)
+		local pblank concat("plat", string(which))
+		local cbutton concat("color", string(which))
+		formtext #f #pblank #plat
+		if (color <> "(NONE)")
+			formtext #f #cbutton #color
+		else
+			formtext #f #cbutton white
+		endif
+		local which (which + 1)
+	endwhile
+endprocedure
+
+
+
+!
+! Apply all the changes.
+!
+procedure xyt-pnc-apply
+	local f ui$form
+	local c getftext(f, 'comp')
+
+	local platlist ""
+	local colorlist ""
+
+	local which 0
+	while (which < 4)
+		local pblank concat("plat", string(which))
+		local cbutton concat("color", string(which))
+
+		local plat getftext(f, pblank)
+		local color getftext(f, cbutton)
+
+		if (plat <> "(NONE)")
+			if (which <> 0)
+				local platlist concat(platlist, ",")
+				local colorlist concat(colorlist, ",")
+			endif
+			local platlist concat(platlist, plat)
+			local colorlist concat(colorlist, color)
+		endif
+		local which (which + 1)
+	endwhile
+
+	parameter #c platform #platlist
+	parameter #c field-color #colorlist
+endprocedure
+
+!
+! Form widget for other plot details
+!
+define widget xytrace-details form ' '
+	popup xyt-det-popup
+	noheader
+	label title ' ' width #two_w
+	label comp ' ' color gray95
+	newline
+!
+! options to actually do something.
+!
+	button apply 'Apply' command xyt-det-apply
+	button applyd 'Apply and dismiss' \
+		command 'xyt-det-apply; popdown #ui$form'
+	button dismiss 'Dismiss' command 'popdown #ui$form' color red
+	newline
+!
+! Representation style
+!
+	label rlabel 'Representation style:' width #one_w
+	pulldown repstyle '' width #one_w menu xyrepmenu
+	newline
+!
+! Scale axes
+!
+	label empty_1 ' '
+	newline
+
+	label la_label 'Left scale axis is:' width #one_w
+	button l_axis ' ' command 'fu-toggle-enabled' width #one_w
+	newline
+	label lab_label 'with grid brightness (0.0-1.0):' width #oneandahalf_w
+	blank l_brite '' width #half_w
+	newline
+
+	label empty_2 ' '
+	newline
+
+	label ra_label 'Right scale axis is:' width #one_w
+	button r_axis ' ' command 'fu-toggle-enabled' width #one_w
+	newline
+	label rab_label 'with grid brightness (0.0-1.0):' width #oneandahalf_w
+	blank r_brite '' width #half_w
+	newline
+
+	label empty_3 ' '
+	newline
+
+	label ta_label 'Times in annotation:' width #one_w
+	button ta_button ' ' command 'fu-toggle-enabled' width #one_w
+	newline
+enddef
+
+
+!
+! The xytrace-details form initializer
+!
+procedure xyt-det-popup
+	local f ui$form
+	local c icon_component
+	local yfld PDParam(c,'y-field')
+	local xfld PDParam(c,'x-field')
+
+	formtext #f comp #c
+
+	local ttl quote(concat3(yfld,' vs. ',xfld))
+	formtext #f title #ttl
+!
+! Representation style
+!
+	local rep PDParam(icon_component,'representation-style')
+	if (rep <> 'icon')
+		formtext #f repstyle 'line'
+	else
+		local rep PDParam(icon_component,'point-icon')
+		if (rep = '(Undefined)')
+			local rep 'cross'
+		endif
+		formtext #f repstyle #rep
+	endif
+!
+! Scale axes
+!
+	fu-setenabled #f "l_axis" #c "axis-left" True
+
+	local brite PDParam(c,"axis-l-grid-intensity")
+	if (brite = "(Undefined)")
+		local brite "0.75"
+	endif
+	formtext #f l_brite #brite
+
+	fu-setenabled #f "r_axis" #c "axis-right" True
+
+	local brite PDParam(c,"axis-r-grid-intensity")
+	if (brite = "(Undefined)")
+		local brite "0.75"
+	endif
+	formtext #f r_brite #brite
+!
+! Times in annotation?
+!
+	fu-setenabled #f "ta_button" #c "time-annot" True
+endprocedure
+
+
+
+!
+! Apply all the changes in xyt-details
+!
+procedure xyt-det-apply
+	local f ui$form
+	local c getftext(f, 'comp')
+!
+! Representation style
+!
+	local rep getftext(f,'repstyle')
+	if (rep = 'line')
+		parameter #icon_component representation-style line
+	else
+		parameter #icon_component representation-style icon
+	endif
+	parameter #icon_component point-icon #rep
+!
+! Axis stuff
+!
+	fu-applyenabled #f "l_axis" #c "axis-left"
+
+	local brite getftext(f,"l_brite")
+	parameter #icon_component axis-l-grid-intensity #brite
+
+	fu-applyenabled #f "r_axis" #c "axis-right"
+
+	local brite getftext(f,"r_brite")
+	parameter #icon_component axis-r-grid-intensity #brite
+!
+! Times in annotation?
+!
+	fu-applyenabled #f "ta_button" #c "time-annot"
+endprocedure
+
+
+define widget xysideannot intmenu ' '
+	title 'Side annotation size'
+	line
+	entry 'Small' 'parameter #icon_component sa-scale 9' \
+		(PDParam (icon_component, 'sa-scale') = '9')
+	entry 'Medium' 'parameter #icon_component sa-scale 12' \
+		(PDParam (icon_component, 'sa-scale') = '12')
+	entry 'Large' 'parameter #icon_component sa-scale 16' \
+		(PDParam (icon_component, 'sa-scale') = '16')
+endmenu
+
+
+define widget xyrepmenu intmenu ' '
+	title 'Representation style'
+	line
+	entry 'line' 'formtext #ui$form #ui$formentry line'
+	entry 'point' 'formtext #ui$form #ui$formentry point'
+	entry 'cross' 'formtext #ui$form #ui$formentry cross'
+	entry 'xmark' 'formtext #ui$form #ui$formentry xmark'
+	entry 'tinycircle' 'formtext #ui$form #ui$formentry tinycircle'
+endmenu
+
+define widget grebl intmenu ' '
+	title 'Trace parameters'
+	line
+	submenu 'Line width' linewidth
+	line
+	submenu 'Side annotation size' xysideannot
+	entry 'Show time in side annotation' 'ToggleBoolean time-annot' \
+		(PDParam (icon_component, 'time-annot') = 'true')
+	line
+	entry 'Add new field' xyaddfield
+endmenu
+
+!
+! The field selection procedure.
+!
+procedure xytrace-field field string
+	parameter #icon_component y-field #field
+endprocedure
+
+
+
+
+
+!
+! Zap this trace.
+!
+procedure xytrace-remove 
+	local plats PDParam(icon_component,'platform')
+!
+! If we are the only platform we really want to just zorch the whole
+! component.
+!
+	if (plats = icon_platform)
+		local dmcmd quote(concat4('remove ', window_name, ' ', icon_component))
+		dm #dmcmd
+		return
+	endif
+!
+! Nope, there are others.  Just clean this one out.
+!
+	local pos ListPosition(icon_platform, plats)
+	local plats quote(RmElement(plats,pos))
+	parameter #icon_component platform #plats
+	local clist RmElement(PdParam(icon_component,'field-color'), pos)
+	parameter #icon_component 'field-color' #clist
+endprocedure
+
+
+
+
+define widget xy-an-left intmenu 'x'
+	title 'XY Trace options'
+	line
+	entry 'Remove this trace' 'xytrace-remove'
+	entry 'Pipe trace to ACE/gr' 'xytrace-acegr'
+endmenu
+
+
+!
+! The color tweaker, called out of simple-color
+!
+procedure xytrace-color color string
+	local plats PDParam(icon_component,'platform')
+	local pos ListPosition(icon_platform, plats)
+	local clist PDParam(icon_component,'field-color')
+	local clist ReplElement(clist, pos, color)
+	parameter #icon_component field-color #clist
+endprocedure
+
+
+
+!
+! Adjust limits stuff.
+!
+procedure xytrace-adjust comp string
+	popup xytrace-limits
+endprocedure
+
+
+define widget xytrace-limits form 'xytrace adjuster'
+	popup xyta-popup
+	noheader
+!
+! Title line.
+!
+	label title 'Adjust time series limits'
+	button 'apply' 'Apply' command xyta-apply
+	button 'dismiss' 'Dismiss' color red command 'popdown #ui$form'
+	label comp 'comp' color gray95 width 1
+	newline
+!
+! time period
+!
+	label l1 'Time period:'
+	blank time 'funky' width 60 command xyta-apply
+	label l2 's = seconds, m = minutes, h = hours, d = days'
+	newline
+!
+! Scale mode.
+!
+	label l3 'Scale mode:'
+	button mode 'weird' command 'xyta-ToggleMode' width 70
+!	newline
+!
+! Manual values
+!
+	label l4 'Manual scale min:'
+	blank min 'min' width 60 command xyta-apply
+	label l5 'max:'
+	blank max 'max' width 60 command xyta-apply
+enddef
+
+
+procedure xyta-popup
+	local c icon_component
+	local f PDParam(c,'y-field')
+	formtext #ui$form comp #c
+!
+! Do the time period.
+!
+	local period PDParam('global','xy-series-span')
+	formtext #ui$form time #period
+!
+! Fill in the scale mode.
+!
+	local mode PDSearch(c,'scale-y-mode','xy')
+	if (mode = '(Undefined)')
+		local mode 'autoscale'
+	endif
+	formtext #ui$form mode #mode
+!
+! And the manual values.
+!
+	local min PDSearch(c,'scale-y-min',f)
+	if (min = "(Undefined)")
+		local min "0.0"
+	endif
+	formtext #ui$form min #min
+	local max PDSearch(c,'scale-y-max',f)
+	if (max = "(Undefined)")
+		local max "0.0"
+	endif
+	formtext #ui$form max #max
+endprocedure
+
+
+procedure xyta-apply
+	local c getftext(ui$form,'comp')
+	local t getftext(ui$form,'time')
+	local f PDParam(c,'y-field')
+
+	parameter 'global' 'xy-series-span' #t
+	local mode getftext(ui$form,'mode')
+	parameter #c 'scale-y-mode' #mode
+	local min getftext(ui$form,'min')
+!	local param concat(f,'-scale-y-min')
+	local param 'scale-y-min'
+!	parameter 'global' #param #min
+	parameter #c #param #min
+	local max getftext(ui$form,'max')
+!	local param concat(f,'-scale-y-max')
+	local param 'scale-y-max'
+!	parameter 'global' #param #max
+	parameter #c #param #max
+endprocedure
+
+
+!
+! Tweak autoscale mode.
+!
+procedure xyta-ToggleMode
+	local current getftext(ui$form, 'mode')
+	if (current = 'manual')
+		formtext #ui$form 'mode' 'autoscale'
+	else
+		formtext #ui$form 'mode' 'manual'
+	endif
+endprocedure
+
+
+!
+! Get another field added on to this plot.
+!
+procedure xyaddfield
+	dm 'TSNewField'	! delegate
+endprocedure
+
+
+!
+! Build an xmgrpipe command with this trace
+!
+procedure xytrace-acegr
+
+	local begin PDParam(icon_component,"xyprivate-data-begin")
+	local end PDParam(icon_component,"xyprivate-data-end")
+!	local platform PDParam(icon_component,"platform")
+	local field PDParam(icon_component,"y-field")
+	dm "require xmgr-pipe"
+	local cmd concat4("'xmgr-pipe ", begin, " ", end)
+	local cmd concat3(cmd, " ", icon_platform)
+	local cmd concat4(cmd, " ", field, " '")
+!
+! Now pass it on to dm
+!
+	dm #cmd
+
+endprocedure
+
+
