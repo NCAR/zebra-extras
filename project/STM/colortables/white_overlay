@@ -1,0 +1,9 @@
+!
+! A two-color table for HDF satellite overlay images where zero marks
+! a boundary and everything else should be empty.
+!
+colortable white_overlay
+	xcolor white
+	xcolor black
+endtable
+
