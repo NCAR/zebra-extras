@@ -1,0 +1,38 @@
+! $Id: RadarLimits.ad,v 1.1 1992-08-20 05:49:50 granger Exp $
+!
+! RadarLimits application defaults file
+! Do No Modify if this is the library-installed copy
+! See the original in ingest/RadarLimits
+!
+*left:			chainLeft
+*right:			chainLeft
+*top:			chainBottom
+*bottom:		chainBottom
+*background:		gray90
+*Label.borderWidth:	0
+*Text*height:		20
+*Text*width:		40
+*Text.borderColor:	red
+*Command.borderColor:	red
+! *Store.horizDistance:	44
+*ctl.horizDistance:	15
+*last.width:		150
+*last.justify:		Left
+*Text.translations: #override \n\
+	<Key>Delete:	end-of-line()delete-previous-character() \n\
+	<Key>Return:	no-op() \n\
+	<Key>Linefeed:	no-op()	\n\
+	<Key>0:		kill-to-end-of-line()insert-char() \n\
+	<Key>1:		kill-to-end-of-line()insert-char() \n\
+	<Key>2:		kill-to-end-of-line()insert-char() \n\
+	<Key>3:		kill-to-end-of-line()insert-char() \n\
+	<Key>4:		kill-to-end-of-line()insert-char() \n\
+	<Key>5:		kill-to-end-of-line()insert-char() \n\
+	<Key>6:		kill-to-end-of-line()insert-char() \n\
+	<Key>7:		kill-to-end-of-line()insert-char() \n\
+	<Key>8:		kill-to-end-of-line()insert-char() \n\
+	<Key>9:		kill-to-end-of-line()insert-char() \n\
+	<Key>-:		kill-to-end-of-line()insert-char() \n\
+	<Key>+:		kill-to-end-of-line()insert-char() \n\
+	<Key>.:		kill-to-end-of-line()insert-char() \n\
+	<Key>:		no-op()
