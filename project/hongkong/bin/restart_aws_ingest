@@ -1,0 +1,10 @@
+#! /bin/csh
+#
+# Restart the aws_ingest, since this sometimes hangs
+#
+
+echo "Restarting aws ingest:"
+
+snuff aws_ingest
+
+aws_ingest $ZEB_HOME/paramdir/aws.params aws > /dev/console&

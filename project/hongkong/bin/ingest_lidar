@@ -1,0 +1,22 @@
+#!/bin/csh
+# 
+# Ingest fake lidar data.
+#
+#	set topdir=$0
+#	set topdir=$topdir:h
+#	if ( ! -d $topdir ) then	# in dir already
+#		set topdir=`pwd`
+#	endif
+#	cd $topdir
+#	set topdir=$cwd			# make sure we have abs. path
+#	setenv ZEB_PROJECT $topdir
+#
+# Do everything possible to insure that we start clean.
+#
+#	setenv PATH ${PATH}:/zeb/bin
+#	setenv HOST `hostname`
+#
+# Ingest the fake data.
+#
+	RAP_DsIngest lidar paramdir/lidar.params &
+

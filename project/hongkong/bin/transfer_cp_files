@@ -1,0 +1,226 @@
+#!/usr/local/bin/perl
+#
+# This script should go through all the files copied from
+# the TK-50 tape to ustnet, changing their names to unique ones.
+# The files are then compressed and transferred back to 
+# anteater.rap.ucar.edu at NCAR. 
+# 
+# The file transfers are accomplished by using ftp. The ftp command 
+# files are created, used, and removed inside this script.file.
+#
+
+#
+# force print flushing
+#
+
+$| = 1;
+
+$ingest_dir = "$ENV{HOME}/zeb/data_ingest/cathay_pacific";
+$bin_dir = "$ENV{HOME}/zeb/project/hongkong/bin";
+
+#
+# change to ingest directory
+#
+
+system("clear");
+print "Running transfer_cp_files\n";
+print "=========================\n\n";
+
+chdir ($ingest_dir);
+print "Processing Cathay data in directory: \n";
+system("pwd");
+print "\n\n";
+
+#
+# remove old cathay pacific files
+#
+
+#print "Do you wish to remove the current cathay pacific data files? ";
+#$answer = <STDIN>;
+#chop($answer);
+#if ($answer =~ /^yes/i) {
+#    system("/bin/rm /usr/users/lantex/zeb/data_ingest/cathay_pacific/*.cathay.Z");
+#};
+system("/bin/rm /usr/users/lantex/zeb/data_ingest/cathay_pacific/*.cathay.Z");
+
+#
+# get the files from ustnet
+#
+
+#
+# create an ftp command file to get the file list
+#
+
+print "Transferring files list from ustnet\n\n";
+
+$ftp_commands = "ftp_comm_ustnet";
+open(FTPCOMM,"> $ftp_commands");
+print FTPCOMM "open ustnet\n";
+print FTPCOMM "user GUEST TEPPER\n";
+print FTPCOMM "prompt\n";
+print FTPCOMM "cd [.cathay]\n";
+print FTPCOMM "get file.lst\n";
+print FTPCOMM "quit\n";
+close(FTPCOMM);
+
+#
+# get the file list
+#
+
+system("ftp -n < $ftp_commands > /dev/null");
+unlink($ftp_commands);
+
+#
+# create the ftp command file to get the CP data files
+#
+
+open(FILELIST,"file.lst");
+
+$ftp_commands = "ftp_comm_loop";
+open(FTPCOMM,"> $ftp_commands");
+print FTPCOMM "open ustnet\n";
+print FTPCOMM "user GUEST TEPPER\n";
+print FTPCOMM "prompt\n";
+print FTPCOMM "cd [.cathay]\n";
+print FTPCOMM "case\n";
+
+while ($data_file = <FILELIST>) {
+
+  chop($data_file);
+  $data_name = "\"".$data_file."\"";
+  print FTPCOMM "get ".$data_name."\n";
+
+}  
+
+print FTPCOMM "quit\n";
+close(FTPCOMM);
+
+#
+# transfer the CP data files
+#
+
+print "Transferring  Cathay files from ustnet\n\n\n";
+system("ftp -n < $ftp_commands > /dev/null");
+unlink($ftp_commands);
+unlink("file.lst");
+
+#
+# begin renaming the CP data files
+#
+# get file list
+#
+
+$check_list = "";
+open(FILELIST, "ls cpa* 2> /dev/null |");
+
+#
+# move through the file list
+#
+
+while ($data_file = <FILELIST>) {
+
+  chop($data_file);
+
+#
+# add quotes to allow the ";" to get by the system
+#
+
+  $data_name = "\"".$data_file."\"";
+
+#
+# get the new filename
+#
+
+  open(NEWNAME, "$bin_dir/make_new_name $data_name |");
+  $new_file_name = <NEWNAME>;
+  close(NEWNAME);
+
+#
+# if file name already exists, get a new name
+#
+
+  if ($new_file_name eq "") {
+      print "Processing file $data_file stopped.\n\n";
+  } else {
+      if ($check_list =~ /$new_file_name/) {
+	  print "NOTE: file $new_file_name already exists\n";
+	  $i = 1;
+	  while (1) {
+	      $unique_name = $new_file_name.".".$i;
+	      if (!($check_list =~ /$unique_name/)) {
+		  print "NOTE: unique name $unique_name found\n";
+		  $new_file_name = $unique_name;
+		  goto done_with_name;
+	      } elsif ($i > 1000) {
+		  print "NOTE: cannot find unique name for $new_file_name\n";
+		  $new_file_name = "bad_file";
+		  goto done_with_name;
+	      }
+	      $i++;
+	  }
+      }
+
+done_with_name:
+  
+      print "Processing file $data_file - target $new_file_name\n";
+
+#
+# add file to check list
+#
+
+      $check_list = $check_list." ".$new_file_name;
+
+#
+# rename the file
+#
+      system("mv $data_name $new_file_name");
+
+#
+# compress the file
+#
+      system("compress $new_file_name");
+
+  } # if ($new_file_name ...
+
+
+} # while ($data_file ...
+
+close (FILELIST);
+
+#
+# tar the compressed files
+#
+
+system("tar -cf cp_data.tar *.Z");
+
+#
+# transfer the files back to NCAR
+#
+
+#print "\n\n";
+print "\n\nTransferring files to anteater\n";
+
+#
+# create an ftp command file to get the file list
+#
+
+$ftp_commands = "ftp_comm_rap";
+open(FTPCOMM,"> $ftp_commands");
+print FTPCOMM "open anteater.rap.ucar.edu\n";
+print FTPCOMM "user lantex ncar;land\n";
+print FTPCOMM "prompt\n";
+print FTPCOMM "cd cathay\n";
+print FTPCOMM "put cp_data.tar\n";
+print FTPCOMM "quit\n";
+close(FTPCOMM);
+
+system("ftp -n < $ftp_commands > /dev/null");
+unlink($ftp_commands);
+
+#
+# remove tar file
+#
+
+unlink("cp_data.tar");
+
+exit(0);

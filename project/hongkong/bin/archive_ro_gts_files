@@ -1,0 +1,34 @@
+#! /usr/local/bin/perl 
+
+$datadir = "/zeb/data_ingest/ro_gts";
+$archive = "/zeb/data_ingest/archive/ro_gts/";
+
+chdir ($datadir);
+
+#
+# This script will be executed at the beginning of each day and move all
+# the gts files collected on previous days to their corresponding archive
+# directories.  The archive directory has the format yyddmm.
+#
+
+($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
+$mon = $mon + 1;
+if (length($mon) eq 1) {
+   $mon = "0".$mon;
+}
+if (length($mday) eq 1) {
+   $mday = "0".$mday;
+}
+$currdate = $year.$mon.$mday;
+
+foreach $gtsfile (`ls gts_*.Z`) {
+	$gtsfile = substr($gtsfile,0,16);
+	$recvdate = substr($gtsfile,4,6);
+	if ($recvdate lt $currdate) {
+		$archivedir = $archive.$recvdate;
+		if (!(-e $archivedir)) {
+			system("mkdir $archivedir");
+		}
+		system("mv $gtsfile $archivedir");
+	}
+}

@@ -1,0 +1,29 @@
+#!/bin/csh
+# This script changes the date/time in the archive display configuration files
+# 
+# The previous date/time must be known - put it first in the s/ command
+#
+#
+sed s/7-jun-1994,09:00/8-jun-1994,12:00/ aws_winds-arc.dc > temp.dc
+/bin/mv temp.dc aws_winds-arc.dc
+sed s/7-jun-1994,09:00/8-jun-1994,12:00/ iss-prof2-arc.dc > temp.dc
+/bin/mv temp.dc iss-prof2-arc.dc
+sed s/7-jun-1994,09:00/8-jun-1994,12:00/ iss-sounding-arc.dc > temp.dc
+/bin/mv temp.dc iss-sounding-arc.dc
+sed s/7-jun-1994,09:00/8-jun-1994,12:00/ iss-winds-arc.dc > temp.dc
+/bin/mv temp.dc iss-winds-arc.dc
+sed s/7-jun-1994,09:00/8-jun-1994,12:00/ profilers-arc.dc > temp.dc
+/bin/mv temp.dc profilers-arc.dc
+sed s/7-jun-1994,09:00/8-jun-1994,12:00/ satellite-arc.dc > temp.dc
+/bin/mv temp.dc satellite-arc.dc
+sed s/7-jun-1994,09:00/8-jun-1994,12:00/ shalowan-prof3-arc.dc > temp.dc
+/bin/mv temp.dc shalowan-prof3-arc.dc
+sed s/7-jun-1994,09:00/8-jun-1994,12:00/ soundings-arc.dc > temp.dc
+/bin/mv temp.dc soundings-arc.dc
+sed s/7-jun-1994,09:00/8-jun-1994,12:00/ aws-clk-arc.dc > temp.dc
+/bin/mv temp.dc aws-clk-arc.dc
+sed s/7-jun-1994,09:00/8-jun-1994,12:00/ aws-slw-arc.dc > temp.dc
+/bin/mv temp.dc aws-slw-arc.dc
+sed s/7-jun-1994,09:00/8-jun-1994,12:00/ iss-surface1-arc.dc > temp.dc
+/bin/mv temp.dc iss-surface1-arc.dc
+#

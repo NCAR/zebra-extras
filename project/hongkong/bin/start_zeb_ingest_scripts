@@ -23,3 +23,8 @@ ingest_realtime_radar &
 snuff ingest_realtime_satellite
 echo "	 ro satellite..."
 ingest_realtime_satellite &
+
+snuff ingest_shalowan_profiler
+echo "	 shalowan profiler..."
+ingest_shalowan_profiler &
+

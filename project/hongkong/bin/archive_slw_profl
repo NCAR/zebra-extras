@@ -1,0 +1,37 @@
+#! /usr/local/bin/perl
+
+$datadir = "/zeb/data_ingest/archive/shalowan/profl";
+$archive = "/hkust_prof/profl";
+
+chdir ($datadir);
+
+print("Starting to process HKUST wind profiler profl data ... \n\n");
+
+foreach $file (`ls $datadir`) {
+	$file = substr($file,0,length($file)-1);
+	$yrmth = substr($file,8,4);
+	$day = substr($file,12,2);
+
+	if (length($day) eq 1) {
+		$day = "0".$day;
+	}
+	$archive_dir = join('/',$archive,$yrmth);
+	if (!(-e $archive_dir)) {
+		system("mkdir $archive_dir");
+	}
+	$archive_dir = join('/',$archive,$yrmth,$day);
+	if (!(-e $archive_dir)) {
+		system("mkdir $archive_dir");
+	}
+	$currfile = join('/',$datadir,$file);
+	$destfile = join('/',$archive_dir,$file);
+	print("Processing file ... ");
+	print($file."\n");
+	if (!(-e $destfile)) {
+		system("mv $currfile $archive_dir");
+	}
+	else {
+		print("  already existed ... deleting\n");
+		system("/bin/rm $currfile");
+	}
+}

@@ -11,5 +11,5 @@ else
 	exit 1
 endif
 
-exec xterm -title zeb_readme -g 80x40+200+200 -sb -sl 1000 -bg black -fg pink \
+exec xterm -title zeb_readme -g 80x45+200+200 -sb -sl 1000 -bg black -fg pink \
 	 -e $ZEB_PROJECT/bin/cat_readme

@@ -1,0 +1,159 @@
+#!/usr/local/bin/perl
+
+
+#
+# This script should go through all the files copied from
+# the TK-50 tape to ustcc1, changing their names to unique ones.
+# The files are then compressed and transferred back to 
+# anteater.rap.ucar.edu at NCAR. 
+# 
+# The file transfers are accomplished by using ftp. The file
+# ftp_comm_ustcc1 contains the commands for the file transfers
+# between ustcc1 and owsu1, and the ftp commands for transfers between 
+# owsu1 and anteater are in ftp_comm_rap.
+#
+
+#
+# force print flushing
+#
+
+$| = 1;
+
+$ingest_dir = "$ENV{HOME}/zeb/data_ingest/cathay_pacific";
+$bin_dir = "$ENV{HOME}/zeb/project/hongkong/bin";
+
+#
+# use these directories for testing
+#
+
+#$ingest_dir = "$ENV{HOME}/cathay/data";
+#$bin_dir = "$ENV{HOME}/cathay/bin";
+
+#
+# change to ingest directory
+#
+
+print "Running transfer_cp_files\n";
+print "=========================\n\n";
+
+chdir ($ingest_dir);
+print "Processing Cathay data in directory: \n";
+system("pwd");
+print "\n\n";
+
+#
+# get the files from ustcc1
+#
+print "Transferring files from ustcc1\n\n\n";
+$ftp_commands = $bin_dir."/ftp_comm_ustcc1";
+system("ftp -n < $ftp_commands > /dev/null");
+
+#
+# get file list
+#
+
+$check_list = "";
+open(FILELIST, "ls cpa* 2> /dev/null |");
+
+#
+# move through the file list
+#
+
+while ($data_file = <FILELIST>) {
+
+  chop($data_file);
+
+#
+# add quotes to allow the ";" to get by the system
+#
+
+  $data_name = "\"".$data_file."\"";
+
+#
+# get the new filename
+#
+
+  open(NEWNAME, "$bin_dir/make_new_name $data_name |");
+  $new_file_name = <NEWNAME>;
+  close(NEWNAME);
+
+#
+# if file name already exists, get a new name
+#
+
+  if ($new_file_name eq "") {
+      print "Processing file $data_file stopped.\n\n";
+  } else {
+      if ($check_list =~ /$new_file_name/) {
+	  print "NOTE: file $new_file_name already exists\n";
+	  $i = 1;
+	  while (1) {
+	      $unique_name = $new_file_name.".".$i;
+	      if (!($check_list =~ /$unique_name/)) {
+		  print "NOTE: unique name $unique_name found\n";
+		  $new_file_name = $unique_name;
+		  goto done_with_name;
+	      } elsif ($i > 1000) {
+		  print "NOTE: cannot find unique name for $new_file_name\n";
+		  $new_file_name = "bad_file";
+		  goto done_with_name;
+	      }
+	      $i++;
+	  }
+      }
+
+done_with_name:
+  
+      print "Processing file $data_file - target $new_file_name\n";
+
+#
+# add file to check list
+#
+
+      $check_list = $check_list." ".$new_file_name;
+
+#
+# rename the file
+#
+      system("mv $data_name $new_file_name");
+
+#
+# compress the file
+#
+      system("compress $new_file_name");
+
+  } # if ($new_file_name ...
+
+
+} # while ($data_file ...
+
+close (FILELIST);
+
+#
+# tar the compressed files
+#
+
+system("tar -cf cp_data.tar *.Z");
+
+#
+# remove the files
+#
+
+#system ("rm *.Z");
+
+#
+# transfer the files back to NCAR
+#
+
+print "\n\n";
+print "Transferring files to anteater\n";
+$ftp_commands = $bin_dir."/ftp_comm_rap";
+system("ftp -n < $ftp_commands > /dev/null");
+
+#
+# remove the tar file
+#
+
+system("rm cp_data.tar");
+
+exit(0);

@@ -7,7 +7,8 @@ $archive_topdir = "/zeb/data_ingest/archive/soundings";
 $error_topdir = "$input_dir/bad_files";
 $trans_file = "$param_dir/sounding_site.translation";
 
-$fields = "pres temp rh dp u_wind v_wind wspd wdir pt ept";
+#$fields = "pres temp rh dp u_wind v_wind wspd wdir pt ept";
+$fields = "pres tdry rh dp u_wind v_wind wspd wdir";
 
 $ABORT_PROBLEM = 8;
 $ZEB_PROBLEM = 1;

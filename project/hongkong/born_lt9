@@ -1,0 +1,75 @@
+
+On Jun-23-1995, LT4 was successfully relocated from Tung Chung Au to
+Nei Lak Shan (so there are two AWS stations on Nei Lak Shan now).
+However, the data collected at the new site was still being sent to the
+file "stalt4.dat", and displayed on Zeb as LT4.
+
+In order to avoid confusion, a new station "LT9", was added to Zeb on
+Jul-07-1995.  The raw data is now directed to "stalt9.dat", and ingested
+data is now displaying at the new site - Nei Lak Shan.  LT4 remains on
+Zeb without any data feeding to it.
+
+
+  Jun-23,95	                                  Jul-07,95
+      X-----------------------------------------------X
+  - LT4 relocated				-  new LT9 added
+    to Nei Lak Shan #2				-  data sent to stalt9.dat
+  - data sent to stalt4.dat			-  displayed at new site
+  - displayed as LT4
+
+Special thanks to Mike Dixon for his help on adding the new station.
+
+A copy of this document can be found in /zeb/project/hongkong as "born_lt9".
+
+************************************************************************
+Files that have been created/modified:
+
+On AWS PC:
+
+stalt9.cqr - duplicated from stalt4.cqr
+stalt9.doc - duplicated from stalt4.doc
+stalt9.dld - duplicated from stalt4.dld
+stalt9.stn - duplicated from stalt4.stn
+
+
+On owsu1:
+
+- /zeb/project/hongkong/paramdir/aws.params
+  at the end of the file, added:
+ lt9  CAMPBELL    113.9091  22.2651  700.0   Lantau - Nei Lak Shan #2
+
+- /zeb/project/hongkong/paramdir/aws.locns
+  at the end of the file, added:
+  LT9-location:   22.2651  113.9091  0.7000  #Lantau - Nei Lak Shan #2
+
+- /zeb/project/hongkong/pd/defaults.pd
+  at the section that described AWS station locations, added:
+  LT9-location:   22.2651  113.9091  0.7000  #Lantau - Nei Lak Shan #2
+
+- /zeb/project/hongkong/ds.config
+  'LT9' was added to the following statement:
+  subplatform aws KP SHL PLC KAT EPC SLW SKG WCN TAP LT9
+
+- /zeb/project/hongkong/gp.init
+  added the following statement:
+  entry 'AWS/LT9' 'toggle_plat aws/LT9' \
+  (substring(pd_param(icon_component, "platform","string"),"aws/LT9"))
+
+- /zeb/project/hongkong/IconBar
+  'LT9' was added to the following statement:
+  set lantau_aws_sites "LT1,LT2,LT3,LT4,LT5,LT6,CLK,LT9".
+  added the following statement:
+  entry 'LT9' 'display aws-lt9' \
+	(dm$config = 'aws-lt9')
+
+- /zeb/project/hongkong/ConfigMenu
+  added the following statement:
+  entry 'aws-lt9' 'display aws-lt9' (dm$config = 'aws-lt9')
+
+- /zeb/project/hongkong/dconfig
+  aws-lt9.dc - duplicated from aws-lt4.dc and replaced all lt4/LT4 to
+  lt9/LT9.
+
+
+
+

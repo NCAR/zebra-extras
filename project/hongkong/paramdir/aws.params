@@ -1,9 +1,9 @@
 #data_dir: /zeb/data_ingest/aws
 #history_file: /zeb/data_ingest/aws/history
 #max_retrieval_nmins(secs): 1440
-#max_valid_data_age(secs): 600
-#nstations: 36
-lt1 	CAMPBELL	113.8527  22.2460  15.0		Lantau - Tai O
+#max_valid_data_age(secs): 5400 
+#nstations: 37
+lt1 	CAMPBELL	113.8527  22.2550  15.0		Lantau - Tai O
 lt2 	CAMPBELL	113.9105  22.2596  751.0	Lantau - Nei Lak Shan
 lt3 	CAMPBELL	113.9527  22.2353  15.0		Lantau - Beach house
 lt4 	CAMPBELL	113.9391  22.2493  380.0	Lantau - Saddle
@@ -37,8 +37,6 @@ KAT 	RO		114.3019  22.5363  20.0		Kat O
 EPC 	RO		114.4258  22.5483  10.0		Ping Chau
 SLW 	RO		113.9044  22.2924  70.9		Sha Lo Wan
 SKG 	RO		114.2716  22.3772  31.2		Sai Kung (Tui Min Hoi)
-WCN 	RO		114.1711  22.2813  378.0	Central Plaza (Wan Chai)
+WCN 	RO		114.1711  22.2813  378.0	Central Plaza 
 TAP 	RO		114.3580  22.4727  37.1		Tap Mun
-
-
-
+lt9 	CAMPBELL	113.9091  22.2651  700.0	Lantau - Nei Lak Shan 2

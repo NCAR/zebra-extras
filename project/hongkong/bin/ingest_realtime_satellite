@@ -17,6 +17,7 @@ $forever = 1;
 #
 
 chdir $input_dir;
+$string = "tmp";
 
 #
 # get file list
@@ -33,6 +34,8 @@ while (forever) {
   while ($sat_file = <FILELIST>) {
 
     chop($sat_file);
+
+    if ( index($sat_file, $string) < 0 ) {
 
     $old_size = -1;
     $new_size = 0;
@@ -101,6 +104,7 @@ while (forever) {
        
     } 
 
+    }
     sleep (5);
 
   }

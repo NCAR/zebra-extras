@@ -70,6 +70,14 @@ procedure adjust_tic_interval sideParam string type string
 	endif
 endprocedure
 
+procedure adjust_scale param string type string
+	local fld   pd_param(icon_component,"y-field","string")
+	local param concat(fld,"-scale-y-max")
+	local tint pd_paramsearch(icon_component,"scale-y-min",fld,"string")
+	local tint2 pd_paramsearch(icon_component,"scale-y-max",fld,"string")
+        activate doublefloat #icon_component "scale-y-min" "Y-min: " #tint "scale-y-max" "Y-max: " #tint2
+endprocedure
+
 !
 ! XY-Series Simple
 !
@@ -81,7 +89,7 @@ define widget xy-simple intmenu 'Generic field-alt profile'
 	entry 'X Mark' 'set_representation_style xmark'  (pd_param(icon_component,"representation-style","string") = "xmark")
 	entry 'Cross' 'set_representation_style cross'  (pd_param(icon_component,"representation-style","string") = "cross")
 	line
-	entry 'Adjust Field Scale...' 'adjust_scale adj-scale-dim'
+	entry 'Adjust Field Scale...' 'adjust_scale adj-scale-dim float'
 	entry 'Set Tic Interval...' 'adjust_tic_interval adj-axis-side float'
 	entry 'Grids on/off' 'toggle_grid adj-axis-side'
 	line

@@ -1,0 +1,55 @@
+#! /usr/local/bin/perl
+
+$datadir = "/zeb/data_ingest/archive/shalowan/raw";
+$archive = "/hkust_prof/raw";
+@month = (31,28,31,30,31,30,31,31,30,31,30,31);
+
+chdir ($datadir);
+
+print("Starting to process HKUST wind profiler raw data ... \n\n");
+
+foreach $file (`ls $datadir`) {
+	$file = substr($file,0,length($file)-1);
+	$year = '9'.substr($file,0,1);
+	$jday = substr($file,1,3);
+
+	$yday = 0;
+	for ($i=0; $i<12; $i++) {
+		$yday = $yday + $month[$i];
+		if ($jday <= $yday) {
+			$mth = $i+1;
+			if ($i == 0) {
+				$day = substr($jday,1,2);
+			}
+			else {
+				$day = $jday - ($yday-$month[$i]);
+			}
+			last;
+		}
+	}
+	if (length($mth) eq 1) {
+		$mth = "0".$mth;
+	}
+	if (length($day) eq 1) {
+		$day = "0".$day;
+	}
+	$archive_dir = join('/',$archive,$year.$mth);
+	if (!(-e $archive_dir)) {
+		system("mkdir $archive_dir");
+	}
+	$archive_dir = join('/',$archive,$year.$mth,$day);
+	if (!(-e $archive_dir)) {
+		system("mkdir $archive_dir");
+	}
+	$currfile = join('/',$datadir,$file);
+	$destfile = join('/',$archive_dir,$file);
+	print("Processing file ... ");
+	print($file."\n");
+	if (!(-e $destfile)) {
+		system("mv $currfile $archive_dir");
+	}
+	else {
+		print("  already existed ... deleting\n");
+		system("/bin/rm $currfile");
+	}
+}

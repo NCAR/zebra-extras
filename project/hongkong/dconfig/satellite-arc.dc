@@ -1,0 +1,58 @@
+! Auto-saved display configuration.
+config satellite-arc
+	window 'big' 7 31 828 861 gp gp.init
+		description 'satellite-big'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 844 532 250 31 fccclock
+		description 'satellite-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 844 31 69 470
+endconfig
+
+beginpd 'satellite-big'
+global
+   parameter altitude-label            '?'
+   parameter arrow                     'true'
+   parameter arrow-color               'lavender'
+   parameter buttonmap                 'big'
+   parameter comment                   'Display the satellite data'
+   parameter pd-name                   'satellite-big'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '8-jun-1994,12:00'
+   parameter plot-type                 'CAP'
+   parameter ta-color                  'white'
+   parameter ta-scale                  '0.03'
+   parameter trigger                   'aws'
+   parameter x-max                     '3256'
+   parameter x-min                     '-2256'
+   parameter y-max                     '2256'
+   parameter y-min                     '-2256'
+component c_ro_sat
+   parameter color-table               '16gray'
+   parameter disable                   'false'
+   parameter every-sweep               'true'
+   parameter field                     'ir'
+   parameter icon-middle-menu          'ro_radar-middle'
+   parameter icon-right-menu           'DataAvailable'
+   parameter ir-center                 '127'
+   parameter ir-nsteps                 '32'
+   parameter ir-step                   '8'
+   parameter menu-platform             'ro_sat'
+   parameter platform                  'ro_sat'
+   parameter representation            'raster'
+   parameter trigger                   'ro_sat'
+   parameter trigger-global            'true'
+endpd
+
+beginpd 'satellite-Clock'
+global
+   parameter pd-name                   'satellite-Clock'
+component clock
+   parameter background                'white'
+   parameter foreground                'black'
+   parameter xfont                     '-*-new century schoolbook-bold-r-*-*-25-*-*-*-*-*-*-*'
+endpd
+

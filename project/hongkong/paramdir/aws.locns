@@ -1,7 +1,7 @@
 	LT1-location:  	22.2479 113.8907 0.3000	# Lantau - intersection
 	LT2-location:  	22.2596 113.9105 0.7510	# Lantau - Nei Lak Shan
 	LT3-location:  	22.2353 113.9527 0.0150	# Lantau - Beach house
-	LT4-location:  	22.2493 113.9391 0.3800	# Lantau - Saddle
+	LT4-location:  	22.2493 113.9391 0.3800 # Lantau - Saddle
 	LT5-location:  	22.2827 113.9391 0.0200	# Lantau - Tung Chung
 	LT6-location:  	22.2607 113.9618 0.7420	# Lantau - Stone huts
 	CLK-location:  	22.3224 113.9420 0.0100	# Chep Lap Kok
@@ -34,3 +34,4 @@
 	SKG-location:  	22.3772 114.2716 0.0312	# Sai Kung (Tui Min Hoi)
 	WCN-location:  	22.2813 114.1711 0.3780	# Central Plaza (Wan Chai)
 	TAP-location:  	22.4727 114.3580 0.0371	# Tap Mun
+	LT9-location:  	22.2651 113.9091 0.7000 # Lantau - Nei Lak Shan 2

@@ -24,6 +24,14 @@ rewound and new tape should be inserted.
 
 The EventLogger should also be started up from the menu.
 
+AWS_INGEST
+----------
+
+aws_ingest should be killed before stopping the PC ingest, and
+restarted when the PC ingest has been restarted.
+
+If the aws data seems to have problems, restart using the menu.
+
 DISPLAY
 -------
 

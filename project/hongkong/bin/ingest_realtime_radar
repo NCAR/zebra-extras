@@ -29,7 +29,7 @@ while (forever) {
   # sleep to make sure that all files are completely transferred
   #
   
-  sleep(30);
+  sleep(60);
 
   #
   # move through the file list
@@ -39,9 +39,22 @@ while (forever) {
 
     chop($radar_file);
 
+    $subdir = substr($radar_file, 0, 6);
+    $archive_subdir = $archive_dir."/".$subdir;
+
+    #
+    # create subdirectory if needed
+    # 
+
+    if (!(-e $archive_subdir)) {
+      system ("mkdir $archive_subdir");
+    } 
+
     #
     # run the radar ingest program
     #
+
+    $retval = 0;
 
     $retval = system("RORadarIngest $param_file $radar_file $platform");
     $retval /= 256;
@@ -51,22 +64,22 @@ while (forever) {
       # successful ingest - move file to archive directory
 
       system("compress $radar_file");
-      system("mv $radar_file.Z $archive_dir");
-#      printf (STDERR "ingest_realtime_radar:\n");
-#      printf (STDERR "%s ingested successfully\n", $radar_file);
+      system("mv $radar_file.Z $archive_subdir");
+      printf (STDERR "ingest_realtime_radar:\n");
+      printf (STDERR "%s ingested successfully\n", $radar_file);
 
     } elsif ($retval == $FORMAT_PROBLEM) {
 
       # ingest problem with file - move file to error directory
 
       system ("mv $radar_file $error_dir");
-      printf (STDERR "ingest_realtime_radar:\n");
-      printf (STDERR "%s ingested error - file problem\n", $radar_file);
+#      printf (STDERR "ingest_realtime_radar:\n");
+#      printf (STDERR "%s ingested error - file problem\n", $radar_file);
 
     } elsif ($retval == $ZEB_PROBLEM) {
 
-      printf (STDERR "ingest_realtime_radar:\n");
-      printf (STDERR "%s ingested error - ZEB PROBLEM\n", $radar_file);
+#      printf (STDERR "ingest_realtime_radar:\n");
+#      printf (STDERR "%s ingested error - ZEB PROBLEM\n", $radar_file);
        
       # problem with ZEB - probably ZEB is not running
       # do nothing so file will be there when ZEB starts
@@ -74,16 +87,14 @@ while (forever) {
     } else {
 
       system ("mv $radar_file $error_dir");
-      printf (STDERR "ingest_realtime_radar:\n");
-      printf (STDERR "%s ingested error - UNDEFINED PROBLEM\n", $radar_file);
+#      printf (STDERR "ingest_realtime_radar:\n");
+#      printf (STDERR "%s ingested error - UNDEFINED PROBLEM\n", $radar_file);
        
     } 
 
     sleep (5);
 
   }
-
-  sleep (60);
 
 }
 

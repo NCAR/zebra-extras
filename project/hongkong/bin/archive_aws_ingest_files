@@ -13,7 +13,11 @@ set archivedir="/zeb/data_ingest/archive/aws/`date +%y%m%d`"
 #
 #	first copy the tail of each file to a tmp directory, then
 #	move the file, then mv the tail back in. This is because the
-#	ingest program requires some history
+#	ingest program requires some history.
+#
+#	modified the script to compress the files prior to moving
+#	time. This will save space on disk since the files now
+#	contain one second wind data. 9/19/94 GMC.
 #
 
 if (! -d $archivedir) then
@@ -26,7 +30,8 @@ mkdir tmp
 
 foreach file (*.dat)
 tail -20 $file > tmp/$file
-mv $file $archivedir
+compress $file
+mv $file.Z $archivedir
 mv tmp/$file .
 end
 

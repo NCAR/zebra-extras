@@ -1,0 +1,7 @@
+open ustcc1
+user RCKWANWH lantex
+prompt
+cd cathay
+case
+mget CPAWIND.DAT;*
+quit

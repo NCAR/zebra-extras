@@ -20,7 +20,7 @@ endif
 # Version without realtime archiving for rap
 
 echo "   aws_ingest..."
-aws_ingest $ZEB_HOME/paramdir/aws.params aws &
+aws_ingest $ZEB_HOME/paramdir/aws.params aws > /dev/console&
 
 # Version WITH realtime archiving for rap
 
