@@ -1,15 +1,32 @@
-define widget SiteChange intmenu ' '
+!
+! Site change mechanism for the time series plot.  It becomes a menu button
+! in the "global" component, and since "require" doesn't work from a
+! "global" component, this module should be required by all graphics
+! processes.
+!
+define widget site_change intmenu ' '
 	title 'Anemometer Site'
 	line
-	entry 'Eagle Crest' 'anem_site eagle_crest' \
-		(PDParam ('global', 'platform') = 'eagle_crest')
-	entry 'Sheep Creek' 'anem_site sheep_creek' \
-		(PDParam ('global', 'platform') = 'sheep_creek')
-	entry 'one' 'anem_site one' \
-		(PDParam ('global', 'platform') = 'one')
+	entry 'Eagle Crest' 'anem_site eagle_crest_x' \
+		(PDParam ('global', 'platform') = 'eagle_crest_x')
+	entry 'Sheep Mountain' 'anem_site sheep_mount_x' \
+		(PDParam ('global', 'platform') = 'sheep_mount_x')
+	entry 'Fed. building' 'anem_site fedb_x' \
+		(PDParam ('global', 'platform') = 'fedb_x')
+	entry 'Mayflower' 'anem_site baf1_x' \
+		(PDParam ('global', 'platform') = 'baf1_x')
+	!entry 'West Runway' 'anem_site runway_west' \
+	!	(PDParam ('global', 'platform') = 'runway_west')
+	!entry 'Mid Runway' 'anem_site runway_mid' \
+	!	(PDParam ('global', 'platform') = 'runway_mid')
+	!entry 'East Runway' 'anem_site runway_east' \
+	!	(PDParam ('global', 'platform') = 'runway_east')
+	entry 'Mt. Roberts' 'anem_site mt_roberts' \
+		(PDParam ('global', 'platform') = 'mt_roberts')
 endmenu
 
 procedure anem_site site string
 	parameter global platform #site
 	parameter global icon #site
 endprocedure
+
