@@ -64,3 +64,11 @@ end
 rm -f $flist
 
 echo "created $ncfilename"
+
+echo -n "   copying to bamex-gate..."
+scp -Cp $ncfilename 67.128.247.125:/data/bamex/radar_composite
+if ($status) then
+	echo "FAILED"
+else
+	echo "OK"
+endif
