@@ -5,30 +5,30 @@
 # Do everything possible to insure that we start clean.
 #
 	setenv NO_DM_TIME no
-	setenv HOST `hostname`
-	setenv ZEB_TOPDIR /apps/development
+	setenv HOST `uname -n`
+	setenv ZEB_TOPDIR $ZEBHOME
 	setenv XAPPLRESDIR ${ZEB_TOPDIR}/lib/resources
 	cd $CONFIGHOME
 	zebstop
 	rm -f /tmp/fcc.socket
 	sleep 1
-	set nonomatch; rm -f ${ZEBHOME}/tmp/*
+#	set nonomatch; rm -f ${ZEBHOME}/tmp/*
 #
 # The message system.  Nothing else runs without it.
 #
-	echo -n 'Starting MESSAGE...'
-	$BINHOME/message & 
+	echo 'Starting MESSAGE...'
+	$BINHOME/message
 	sleep 1
 #
 # Wait until message is truly ready.  
 #
-	$BINHOME/mstatus > /dev/null
+#	$BINHOME/mstatus > /dev/null
 #
 # The event logger.
 #
 #setenv EVENT_MASK 31
 	echo -n 'Starting the event logger...'
-	$BINHOME/EventLogger &
+	$BINHOME/EventLogger -w &
 	sleep 1
 #
 # Start the timer.
