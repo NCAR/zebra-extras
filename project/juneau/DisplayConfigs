@@ -1,4 +1,4 @@
-! $Id: DisplayConfigs,v 1.1.1.1 1997-03-25 21:06:29 granger Exp $
+! $Id: DisplayConfigs,v 1.2 1997-03-27 02:37:52 granger Exp $
 !
 ! All of the predefined display configurations live in this file.
 !
@@ -14,15 +14,36 @@ else
 	if (home <> "UNDEFINED")
 	  	set ConfigDir concat(home, "/.zeb_configs")
 		set ConfigPath concat(ConfigDir,",dconfig")
+		if (Admin)
+			set ConfigDir "dconfig"
+		endif
 	else
 		set ConfigDir "dconfig"
+		set ConfigPath "dconfig"
 	endif
 endif
 
 !
-set default_exec 'gp'
-set default_arg1 'gp.init'
-set gp_exec default_exec
+
+!
+! If in administration mode, then we want a different prototype for
+! graphics processes so we can pass a different init file.
+!
+if (Admin)
+	message '	Setting Default prototype to admin/gp.init'
+	set default_exec 'gp'
+	set default_arg1 'admin/gp.init'
+	set gp_exec default_exec
+	prototype 'Default' gp 'admin/gp.init'
+	prototype 'Graphic' gp 'admin/gp.init'
+else
+	set default_exec 'gp'
+	set default_arg1 'gp.init'
+	set gp_exec default_exec
+	prototype 'Default' gp 'gp.init'
+	prototype 'Graphic' gp 'gp.init'
+endif
+
 
 set clock_exec (concat (c$bindir, "/fccclock"))
 
