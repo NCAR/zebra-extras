@@ -12,9 +12,9 @@
 # the settings for the program for the IR and the visible data,
 # respectively.
 #
-/code/burghart/mdv2netCDF \
+~burghart/BAMEX/mdv2netCDF \
 	-params /usr/local/zebra/project/bamex/scripts/mdv2netCDF.bamex_IR >& \
 	/tmp/mdv2netCDF_bamex_IR.log &
-/code/burghart/mdv2netCDF \
+~burghart/BAMEX/mdv2netCDF \
 	-params /usr/local/zebra/project/bamex/scripts/mdv2netCDF.bamex_Vis >& \
 	/tmp/mdv2netCDF_bamex_Vis.log &
