@@ -10,52 +10,82 @@ endclass
 instance SoundingLevel 400mb_snd 450mb_snd 500mb_snd 600mb_snd 650mb_snd
 instance SoundingLevel 700mb_snd 750mb_snd 850mb_snd 900mb_snd 950mb_snd
 
-subplatform 400mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
-subplatform 400mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
-subplatform 400mb_snd	korror kwajalein majuro misima natsu pohnpei 
-subplatform 400mb_snd	santacruz ship5 singapore thursday yap
+subplatform 400mb_snd	ambon biak chuuk darwin davao dc8a dc8b exp3 funafuti
+subplatform 400mb_snd	gove guam hakuho_maru hongkong honiara kanton kapinga
+subplatform 400mb_snd	kavieng keifu_maru korror kota kuching kupang kwajalein
+subplatform 400mb_snd	laoag legaspi mactan madang majuro manus menado misima
+subplatform 400mb_snd	moana_wave n308d_s n42rf_s n43rf_s natsu nauru p3a p3b
+subplatform 400mb_snd	padang pohnpei ujungp vickers santacruz sci1 ship5
+subplatform 400mb_snd	singapore tarawa thursday whoibuoy yap
 
-subplatform 450mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
-subplatform 450mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
-subplatform 450mb_snd	korror kwajalein majuro misima natsu pohnpei 
-subplatform 450mb_snd	santacruz ship5 singapore thursday yap
+subplatform 450mb_snd	ambon biak chuuk darwin davao dc8a dc8b exp3 funafuti
+subplatform 450mb_snd	gove guam hakuho_maru hongkong honiara kanton kapinga
+subplatform 450mb_snd	kavieng keifu_maru korror kota kuching kupang kwajalein
+subplatform 450mb_snd	laoag legaspi mactan madang majuro manus menado misima
+subplatform 450mb_snd	moana_wave n308d_s n42rf_s n43rf_s natsu nauru p3a p3b
+subplatform 450mb_snd	padang pohnpei ujungp vickers santacruz sci1 ship5
+subplatform 450mb_snd	singapore tarawa thursday whoibuoy yap
 
-subplatform 500mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
-subplatform 500mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
-subplatform 500mb_snd	korror kwajalein majuro misima natsu pohnpei 
-subplatform 500mb_snd	santacruz ship5 singapore thursday yap
+subplatform 500mb_snd	ambon biak chuuk darwin davao dc8a dc8b exp3 funafuti
+subplatform 500mb_snd	gove guam hakuho_maru hongkong honiara kanton kapinga
+subplatform 500mb_snd	kavieng keifu_maru korror kota kuching kupang kwajalein
+subplatform 500mb_snd	laoag legaspi mactan madang majuro manus menado misima
+subplatform 500mb_snd	moana_wave n308d_s n42rf_s n43rf_s natsu nauru p3a p3b
+subplatform 500mb_snd	padang pohnpei ujungp vickers santacruz sci1 ship5
+subplatform 500mb_snd	singapore tarawa thursday whoibuoy yap
 
-subplatform 600mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
-subplatform 600mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
-subplatform 600mb_snd	korror kwajalein majuro misima natsu pohnpei 
-subplatform 600mb_snd	santacruz ship5 singapore thursday yap
+subplatform 600mb_snd	ambon biak chuuk darwin davao dc8a dc8b exp3 funafuti
+subplatform 600mb_snd	gove guam hakuho_maru hongkong honiara kanton kapinga
+subplatform 600mb_snd	kavieng keifu_maru korror kota kuching kupang kwajalein
+subplatform 600mb_snd	laoag legaspi mactan madang majuro manus menado misima
+subplatform 600mb_snd	moana_wave n308d_s n42rf_s n43rf_s natsu nauru p3a p3b
+subplatform 600mb_snd	padang pohnpei ujungp vickers santacruz sci1 ship5
+subplatform 600mb_snd	singapore tarawa thursday whoibuoy yap
 
-subplatform 650mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
-subplatform 650mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
-subplatform 650mb_snd	korror kwajalein majuro misima natsu pohnpei 
-subplatform 650mb_snd	santacruz ship5 singapore thursday yap
+subplatform 650mb_snd	ambon biak chuuk darwin davao dc8a dc8b exp3 funafuti
+subplatform 650mb_snd	gove guam hakuho_maru hongkong honiara kanton kapinga
+subplatform 650mb_snd	kavieng keifu_maru korror kota kuching kupang kwajalein
+subplatform 650mb_snd	laoag legaspi mactan madang majuro manus menado misima
+subplatform 650mb_snd	moana_wave n308d_s n42rf_s n43rf_s natsu nauru p3a p3b
+subplatform 650mb_snd	padang pohnpei ujungp vickers santacruz sci1 ship5
+subplatform 650mb_snd	singapore tarawa thursday whoibuoy yap
 
-subplatform 700mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
-subplatform 700mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
-subplatform 700mb_snd	korror kwajalein majuro misima natsu pohnpei 
-subplatform 700mb_snd	santacruz ship5 singapore thursday yap
+subplatform 700mb_snd	ambon biak chuuk darwin davao dc8a dc8b exp3 funafuti
+subplatform 700mb_snd	gove guam hakuho_maru hongkong honiara kanton kapinga
+subplatform 700mb_snd	kavieng keifu_maru korror kota kuching kupang kwajalein
+subplatform 700mb_snd	laoag legaspi mactan madang majuro manus menado misima
+subplatform 700mb_snd	moana_wave n308d_s n42rf_s n43rf_s natsu nauru p3a p3b
+subplatform 700mb_snd	padang pohnpei ujungp vickers santacruz sci1 ship5
+subplatform 700mb_snd	singapore tarawa thursday whoibuoy yap
 
-subplatform 750mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
-subplatform 750mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
-subplatform 750mb_snd	korror kwajalein majuro misima natsu pohnpei 
-subplatform 750mb_snd	santacruz ship5 singapore thursday yap
+subplatform 750mb_snd	ambon biak chuuk darwin davao dc8a dc8b exp3 funafuti
+subplatform 750mb_snd	gove guam hakuho_maru hongkong honiara kanton kapinga
+subplatform 750mb_snd	kavieng keifu_maru korror kota kuching kupang kwajalein
+subplatform 750mb_snd	laoag legaspi mactan madang majuro manus menado misima
+subplatform 750mb_snd	moana_wave n308d_s n42rf_s n43rf_s natsu nauru p3a p3b
+subplatform 750mb_snd	padang pohnpei ujungp vickers santacruz sci1 ship5
+subplatform 750mb_snd	singapore tarawa thursday whoibuoy yap
 
-subplatform 850mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
-subplatform 850mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
-subplatform 850mb_snd	korror kwajalein majuro misima natsu pohnpei 
-subplatform 850mb_snd	santacruz ship5 singapore thursday yap
+subplatform 850mb_snd	ambon biak chuuk darwin davao dc8a dc8b exp3 funafuti
+subplatform 850mb_snd	gove guam hakuho_maru hongkong honiara kanton kapinga
+subplatform 850mb_snd	kavieng keifu_maru korror kota kuching kupang kwajalein
+subplatform 850mb_snd	laoag legaspi mactan madang majuro manus menado misima
+subplatform 850mb_snd	moana_wave n308d_s n42rf_s n43rf_s natsu nauru p3a p3b
+subplatform 850mb_snd	padang pohnpei ujungp vickers santacruz sci1 ship5
+subplatform 850mb_snd	singapore tarawa thursday whoibuoy yap
 
-subplatform 900mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
-subplatform 900mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
-subplatform 900mb_snd	korror kwajalein majuro misima natsu pohnpei 
-subplatform 900mb_snd	santacruz ship5 singapore thursday yap
+subplatform 900mb_snd	ambon biak chuuk darwin davao dc8a dc8b exp3 funafuti
+subplatform 900mb_snd	gove guam hakuho_maru hongkong honiara kanton kapinga
+subplatform 900mb_snd	kavieng keifu_maru korror kota kuching kupang kwajalein
+subplatform 900mb_snd	laoag legaspi mactan madang majuro manus menado misima
+subplatform 900mb_snd	moana_wave n308d_s n42rf_s n43rf_s natsu nauru p3a p3b
+subplatform 900mb_snd	padang pohnpei ujungp vickers santacruz sci1 ship5
+subplatform 900mb_snd	singapore tarawa thursday whoibuoy yap
 
-subplatform 950mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
-subplatform 950mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
-subplatform 950mb_snd	korror kwajalein majuro misima natsu pohnpei 
-subplatform 950mb_snd	santacruz ship5 singapore thursday yap
+subplatform 950mb_snd	ambon biak chuuk darwin davao dc8a dc8b exp3 funafuti
+subplatform 950mb_snd	gove guam hakuho_maru hongkong honiara kanton kapinga
+subplatform 950mb_snd	kavieng keifu_maru korror kota kuching kupang kwajalein
+subplatform 950mb_snd	laoag legaspi mactan madang majuro manus menado misima
+subplatform 950mb_snd	moana_wave n308d_s n42rf_s n43rf_s natsu nauru p3a p3b
+subplatform 950mb_snd	padang pohnpei ujungp vickers santacruz sci1 ship5
+subplatform 950mb_snd	singapore tarawa thursday whoibuoy yap
