@@ -1,0 +1,16 @@
+global
+	pd-name:	cap-template
+	plot-mode:	real-time
+	plot-time:	now
+	plot-type:	CAP
+	radar-space:	true
+p_map
+	color:	yellow
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	0
+	platform:	default
+	representation:	overlay
+	require:	simple-color

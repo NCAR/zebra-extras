@@ -1,0 +1,59 @@
+!
+! Particle-specific stuff, dependent on spol
+!
+
+require spol
+
+
+define widget particle-middle intmenu 'x'
+	title 'Particle discrimination (and related)'
+	line
+	submenu 'Fields' 'part-fields'
+	submenu 'Representation' 'spol-rep'
+	submenu 'Color tables' 'Color-tables'
+	line
+	entry 'Hold angle mode' 'ToggleBoolean every-sweep' \
+		(PDParam (icon_component, "every-sweep") = "false")
+endmenu
+
+
+
+define widget part-fields intmenu 'x'
+	title 'Particle discrimination (and related)'
+	line
+	entry 'NCAR Particle types' 'partfield pd' \
+		(PDParam (icon_component, 'field') = 'pd')
+	entry 'UW Particle types' 'partfield wpd' \
+		(PDParam (icon_component, 'field') = 'wpd')
+	entry 'Hail detection ratio' 'partfield hdr' \
+		(PDParam (icon_component, 'field') = 'hdr')
+	entry 'NKDP' 'partfield nkdp' \
+		(PDParam (icon_component, 'field') = 'nkdp')
+endmenu
+
+
+
+!
+! Switch fields, and handle the details of color tables too
+!
+procedure partfield field string
+	local f PDParam(icon_component, 'field')
+	if (f = field)
+		return
+	endif
+	if (field = 'pd')
+		local svtable PDParam(icon_component, 'color-table')
+		parameter #icon_component field 'pd'
+		parameter #icon_component saved-ctable #svtable
+		parameter #icon_component color-table 'particle'
+	else
+		if (f = 'pd')
+			local svtable PDParam(icon_component, 'color-table')
+			if (svtable = '(Undefined)')
+				local svtable 'wild'
+			endif
+			parameter #icon_component color-table #svtable
+		endif
+		parameter #icon_component field #field
+	endif
+endprocedure
