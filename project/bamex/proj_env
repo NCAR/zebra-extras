@@ -1,10 +1,7 @@
 #!/bin/tcsh
 #
-# Set up environment for SPOL operations.
+# Set up environment
 #
-setenv DEFAULT_DATA_DIR /scr/data/spol
-
-if (! $?DATA_DIR) setenv DATA_DIR $DEFAULT_DATA_DIR
 if (! $?ZEB_EVENTLOGGER) \
     setenv ZEB_EVENTLOGGER "$ZEB_TOPDIR/bin/EventLogger -w"
 if (! $?DEFAULT_CONFIG) setenv DEFAULT_CONFIG empty
