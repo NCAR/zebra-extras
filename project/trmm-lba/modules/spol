@@ -1,5 +1,5 @@
 !
-! $Id: spol,v 1.1 2002-10-17 21:29:28 burghart Exp $
+! $Id: spol,v 1.2 2002-10-18 00:08:59 burghart Exp $
 !
 
 require radar
@@ -64,9 +64,11 @@ define widget spol-fields intmenu 'x'
 	line
 	entry 'Reflectivity' 'param #icon_component field dbz' \
 		(PDParam (icon_component, 'field') = 'dbz')
-	entry 'Velocity' 'param #icon_component field vr' \
+	entry 'Velocity (VR)' 'param #icon_component field vr' \
 		(PDParam (icon_component, 'field') = 'vr')
-	entry 'Log power' 'parameter #icon_component field dm' \
+	entry 'Velocity (VE)' 'param #icon_component field ve' \
+		(PDParam (icon_component, 'field') = 've')
+	entry 'Log power (DM)' 'parameter #icon_component field dm' \
 		(PDParam (icon_component, 'field') = 'dm')
 	entry 'Differential reflectivity' 'param #icon_component field zdr' \
 		(PDParam (icon_component, 'field') = 'zdr')
