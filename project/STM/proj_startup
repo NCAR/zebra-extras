@@ -1,0 +1,17 @@
+#!/bin/csh -f
+#
+# The ARM Science Team Meeting project startup file, 
+# to be run out of "zstart".
+#
+
+echo "Reading proj_startup"
+
+#
+# Provide a reasonable default config and name the directory
+# for frame cache files.
+#
+setenv NO_DM_TIME yes
+if ( ! $?DEFAULT_CONFIG ) setenv DEFAULT_CONFIG empty
+if ( ! $?INITIAL_TIME ) setenv INITIAL_TIME 1-jan-95
+if ( ! $?ZEB_CACHEDIR ) setenv ZEB_CACHEDIR $CONFIGHOME/cache
+

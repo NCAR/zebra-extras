@@ -1,0 +1,155 @@
+!
+! $Id: put_component,v 1.1.1.1 1995-03-17 19:57:45 granger Exp $
+!
+! The 'put component' family of functions, which seems to be stable
+! and ubiquitous enough (if its even used) that it should be included 
+! in the load file.  Until then...
+!
+
+
+!
+! The simple case: add a component to a window with no changes.
+!
+procedure put_component name string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+!
+! If this component is already present in the window, remove it.  Otherwise
+! put it in.
+!
+	if (pd_defined (target_win, name, "platform"))
+		message 'Already there'
+		remove #target_win #name
+	else
+		add #name #name #target_win
+	endif
+endprocedure
+
+
+
+!
+! Add a component to a window, changing the field name.
+!
+procedure PutCompField comp string field string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+!
+! Send the stuff over.
+!
+	parameter #comp #comp "field" #field
+	add #comp #comp #target_win
+endprocedure
+
+
+!
+! Add a component to a window, changing the field name.  This version puts
+! the component at the bottom of the stack.
+!
+procedure PutBCompField comp string field string radarspace string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+!
+! If the component is already in the window, just change the field.
+!
+	if (pd_defined (target_win, comp, "platform"))
+		parameter #target_win #comp "field" #field
+!
+! Otherwise change the field *in DM* to avoid making the GP draw twice,
+! then send it over.
+!
+	else
+		parameter #comp #comp "field" #field
+		add #comp #comp #target_win 1
+	!
+	!  Take care of the radar-space parameter.
+	!
+		parameter #target_win "global" "radar-space" #radarspace
+	endif
+endprocedure
+
+
+!
+! Remove a component from a window.
+!
+procedure ZapComp comp string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+!
+! If this component truly exists in the window, get rid of it.
+!
+	if (pd_defined (target_win, comp, "platform"))
+		remove #target_win #comp
+	endif
+endprocedure
+
+
+!
+! pconfig -- switch between the various 'picture' configs.
+!
+procedure pconfig config string
+!
+! Switch over to the new config.
+!
+	display #config
+!
+! Figure out what we're doing with window boxes.
+!
+!	if (config = 'picture' or config = 'picturex')
+!		parameter big wbox disable false
+!	elseif (config = 'pictures')
+!		parameter big wbox disable true
+!	endif
+endprocedure
+
+
+
+!
+! Add a component to a window, changing an arbitrary parameter.
+!
+procedure PutCompX comp string param string value string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+
+	parameter #comp #comp #param #value
+	add #comp #comp #target_win
+endprocedure
+
+

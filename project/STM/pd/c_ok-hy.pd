@@ -1,0 +1,12 @@
+global
+	pd-name:		c_ok-hy
+c_ok-hy
+	color:			brown
+	icon-color:		brown
+	field:			map
+	icon:			elev
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:		0
+	platform:		ok-hy
+	representation:		overlay

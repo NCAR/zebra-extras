@@ -1,0 +1,18 @@
+GLOBAL
+	pd-name:	xsect-template
+	plot-mode:	real-time
+	plot-type:	xsect
+	trigger:	5m
+	left-endpoint:	-20, 0
+	right-endpoint:	100, 0
+xsect
+	representation:	line-contour
+! no spaces in platform or toggle_xsp breaks.  Sigh.
+	platform:	dun,day,tco,dpk,rus,fel,mobile
+	field:		pt
+	pt-center:	-10
+	pt-step:	10
+	color-table:	Rainbow
+	icon:		xsect
+	icon-middle-menu:	xsect-field-menu
+	icon-right-menu:	xsect-plat

@@ -1,0 +1,38 @@
+!
+! $Id: global,v 1.1.1.1 1995-03-17 19:57:41 granger Exp $
+!
+! Universal menus and procedures needed by all graphics processes.
+! This module is required directly by gp.init and overrides the default
+! global module in the library.
+!
+
+!
+! Left button menu for global components which includes project-specific
+! scale menu.
+!
+define widget global-left intmenu 'Global left menu'
+	title 'Global Options'
+	line
+	entry 'Overlay Times Window...' 'popup overlay'
+	entry 'Movie Controller...' 'popup movie'
+	entry 'Generate Images...' 'popup imagecrank'
+	entry 'Position Readout...' 'popup position'
+	entry 'Model Forecast Times...' 'popup model'
+	line
+	submenu 'Choose Window Region' sgp-scales
+	submenu 'Change Scale' 'global-scale-menu'
+	submenu 'Set Window Range' global-adjust-limits
+	submenu 'Window Operations' global-window-ops
+endmenu
+
+!
+! SGP regions
+!
+define widget sgp-scales intmenu 'scales'
+	title 'SGP Regions'
+	line
+	entry 'Central Facility' 'DoZoom -100 100 -100 100'
+	entry 'Oklahoma' 'DoZoom -470 460 -510 250'
+	entry 'Midwest' 'DoZoom -800 700 -500 200'
+endmenu
+

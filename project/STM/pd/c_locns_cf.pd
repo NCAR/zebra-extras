@@ -1,0 +1,18 @@
+global
+	comment:	Central facility location
+	pd-name:	c_locns_cf
+c_locns_cf
+	active-icon:	true
+	color:	HotPink
+	field:	location
+	icon:	ops-ctr
+	icon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:	none
+	label-size:	12
+	platform:	cf
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-middle-menu:	cf-send-menu
+	posicon-right-menu:	location-options
+	representation:	overlay
+	require:	location, cf-active-loc

@@ -1,0 +1,157 @@
+!
+! Module for GOES-Minnis components which adds ability to change
+! the level by changing the 'dimensions' parameter
+!
+
+!
+! Can't hurt to be sure
+!
+require raster
+
+!
+! The right button menu.
+!
+define widget minnis-raster-right intmenu 'x'
+	title 'GOES-Minnis image options'
+	line
+	entry 'Level 1: Low Clouds' \
+		'parameter #icon_component dimensions "level=0"' \
+		(PDParam (icon_component, 'dimensions') = 'level=0')
+	entry 'Level 2: Mid Clouds' \
+		'parameter #icon_component dimensions "level=1"' \
+		(PDParam (icon_component, 'dimensions') = 'level=1')
+	entry 'Level 3: High Clouds' \
+		'parameter #icon_component dimensions "level=2"' \
+		(PDParam (icon_component, 'dimensions') = 'level=2')
+	entry 'Level 4: All Clouds' \
+		'parameter #icon_component dimensions "level=3"' \
+		(PDParam (icon_component, 'dimensions') = 'level=3')
+	line
+	entry 'View 1: Clear Scene' \
+		'parameter #icon_component dimensions "view=0"' \
+		(PDParam (icon_component, 'dimensions') = 'view=0')
+	entry 'View 2: Total Scene' \
+		'parameter #icon_component dimensions "view=1"' \
+		(PDParam (icon_component, 'dimensions') = 'view=1')
+	line
+	entry 'Highlighting...' 'popup highlight'
+	submenu 'Color tables' Color-tables
+	line
+	entry 'Raster representation' 'raster-rep raster' \
+		(PDParam (icon_component, 'representation') = 'raster')
+	entry 'Contour representation' 'raster-rep contour' \
+		(PDParam (icon_component, 'representation') = 'contour')
+	entry 'Filled contour representation' 'raster-rep filled-contour' \
+		(PDParam (icon_component, 'representation') = 'filled-contour')
+endmenu
+
+!
+! The middle button field menu
+!
+define widget minnis-field-menu intmenu 'x'
+	title 'GOES-Minnis Fields'
+	line
+	entry 'By Level' 'beep'
+	line
+	entry 'Cloud_Amount (percent cloudy)' \
+		'minnis-field-level "Cloud_Amount"' \
+		(PDParam (icon_component, "field") = "Cloud_Amount")
+	entry 'Visible_Optical_Depth (unitless)' \
+		'minnis-field-level "Visible_Optical_Depth"' \
+		(PDParam (icon_component, "field") = "Visible_Optical_Depth")
+	entry 'IR_Optical_Depth (unitless)' \
+		'minnis-field-level "IR_Optical_Depth"' \
+		(PDParam (icon_component, "field") = "IR_Optical_Depth")
+	entry 'Emissivity (unitless)' \
+		'minnis-field-level "Emissivity"' \
+		(PDParam (icon_component, "field") = "Emissivity")
+	entry 'Cloud_Center_Height (kilometers)' \
+		'minnis-field-level "Cloud_Center_Height"' \
+		(PDParam (icon_component, "field") = "Cloud_Center_Height")
+	entry 'Cloud_Top_Height (kilometers)' \
+		'minnis-field-level "Cloud_Top_Height"' \
+		(PDParam (icon_component, "field") = "Cloud_Top_Height")
+	entry 'Cloud_Temperature (Kelvin)' \
+		'minnis-field-level "Cloud_Temperature"' \
+		(PDParam (icon_component, "field") = "Cloud_Temperature")
+	entry 'Cloud_Thickness (kilometers)' \
+		'minnis-field-level "Cloud_Thickness"' \
+		(PDParam (icon_component, "field") = "Cloud_Thickness")
+	entry 'Reflectance (unitless)' \
+		'minnis-field-level "Reflectance"' \
+		(PDParam (icon_component, "field") = "Reflectance")
+	entry 'Albedo (unitless)' \
+		'minnis-field-level "Albedo"' \
+		(PDParam (icon_component, "field") = "Albedo")
+	entry 'Cloud_Center_Temperature (Kelvin)' \
+	   'minnis-field-level "Cloud_Center_Temperature"' \
+	   (PDParam (icon_component, "field") = "Cloud_Center_Temperature")
+	entry 'Cloud_Top_Temperature (Kelvin)' \
+		'minnis-field-level "Cloud_Top_Temperature"' \
+		(PDParam (icon_component, "field") = "Cloud_Top_Temperature")
+	entry 'Visible_Optical_Depth_SD (unitless)' \
+	   'minnis-field-level "Visible_Optical_Depth_SD"' \
+	   (PDParam (icon_component, "field") = "Visible_Optical_Depth_SD")
+	entry 'Cloud_Center_Temperature_SD (Kelvin)' \
+	   'minnis-field-level "Cloud_Center_Temperature_SD"' \
+	   (PDParam (icon_component, "field") = "Cloud_Center_Temperature_SD")
+	line
+	entry 'By View' 'beep'
+	line
+	entry 'Broadband_LW_Flux (watts per meter^2)' \
+		'minnis-field-view "Broadband_LW_Flux"' \
+		(PDParam (icon_component, "field") = "Broadband_LW_Flux")
+	entry 'Narrowband_IR_Flux (watts per meter^2)' \
+		'minnis-field-view "Narrowband_IR_Flux"' \
+		(PDParam (icon_component, "field") = "Narrowband_IR_Flux")
+	entry 'Broadband_SW_Albedo (unitless)' \
+		'minnis-field-view "Broadband_SW_Albedo"' \
+		(PDParam (icon_component, "field") = "Broadband_SW_Albedo")
+	entry 'Narrowband_VIS_Albedo (unitless)' \
+		'minnis-field-view "Narrowband_VIS_Albedo"' \
+		(PDParam (icon_component, "field") = "Narrowband_VIS_Albedo")
+	line
+	entry 'Single Planes' 'beep'
+	line
+	entry 'Clear_Temperature (Kelvin)' \
+	   'minnis-field "Clear_Temperature"' \
+	   (PDParam (icon_component, "field") = "Clear_Temperature")
+	entry 'Clear_Temperature_SD (Kelvin)' \
+	   'minnis-field "Clear_Temperature_SD"' \
+	   (PDParam (icon_component, "field") = "Clear_Temperature_SD")
+	entry 'Narrowband_VIS_Albedo_SD (unitless)' \
+	   'minnis-field "Narrowband_VIS_Albedo_SD"' \
+	   (PDParam (icon_component, "field") = "Narrowband_VIS_Albedo_SD")
+	entry 'Clear_VIS_Reflectance (unitless)' \
+	   'minnis-field "Clear_VIS_Reflectance"' \
+	   (PDParam (icon_component, "field") = "Clear_VIS_Reflectance")
+	entry 'Solar_Zenith_Angle (degrees)' \
+	   'minnis-field "Solar_Zenith_Angle"' \
+	   (PDParam (icon_component, "field") = "Solar_Zenith_Angle")
+	entry 'Viewing_Zenith_Angle (degrees)' \
+	   'minnis-field "Viewing_Zenith_Angle"' \
+	   (PDParam (icon_component, "field") = "Viewing_Zenith_Angle")
+	entry 'Relative_Azimuth_Angle (degrees)' \
+	   'minnis-field "Relative_Azimuth_Angle"' \
+	   (PDParam (icon_component, "field") = "Relative_Azimuth_Angle")
+endmenu
+
+
+procedure minnis-field field string
+	parameter icon_component "field" #field
+	parameter icon_component "dimensions" ''
+endprocedure
+
+procedure minnis-field-view field string
+	parameter icon_component "field" #field
+	parameter icon_component "dimensions" 'view=0'
+endprocedure
+
+procedure minnis-field-level field string
+	parameter icon_component "field" #field
+	parameter icon_component "dimensions" 'level=0'
+endprocedure
+
+
+
+

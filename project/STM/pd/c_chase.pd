@@ -1,0 +1,29 @@
+!
+! Pasted from a UDF2 plot description, but thanks to the new pd syntax
+! the lack of tabs doesn't matter!
+!
+global
+	pd-name:		c_chase
+c_chase
+        disable:                true
+        annot-time:             true
+        annot-time-color:       green
+        annot-time-interval:    2m
+        annot-time-scale:       10
+        arrow:                  false
+        color-table:            Contour
+        field:                  alt
+        icon:                   littleplane2
+        icon-left-menu:         standard-cap-left-menu
+        icon-middle-menu:       uav-field-menu
+        icon-right-menu:        track-right
+        line-width:             3
+        platform:               chase-now
+        position-icon:          circle
+        icon-color:             green
+        data-skip:              10
+        representation:         track
+        require:                simple-color, track, uav-track
+        sa-scale:               0.025
+        show-position:          true
+        time-period:            240s

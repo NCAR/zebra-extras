@@ -1,0 +1,13 @@
+global
+	pd-name:		c_city_labels
+c_city_labels
+	color:			gray80
+	field:			location
+	icon:			littlecircle
+	location-icon:		none
+	icon-color:		gray80
+	icon-middle-menu:	simple-color
+	label:			platform
+	platform:		Tonkawa,Blackwell,Ponca-City,Enid,Stillwater,Tulsa,Arkansas-City,Winfield,Wellington,Wichita,Dodge-City,Oklahoma-City
+	representation:		overlay
+	require:		location

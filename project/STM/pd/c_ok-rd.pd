@@ -1,0 +1,12 @@
+global
+	pd-name:		c_ok-rd
+c_ok-rd
+	color:			gray70
+	icon-color:		gray70
+	field:			map
+	icon:			roads2
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:		0
+	platform:		ok-rd
+	representation:		overlay

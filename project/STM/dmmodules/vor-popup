@@ -1,0 +1,80 @@
+!
+! Define a menu for VOR range rings and locations.
+! 'popup vor-origin' to manually enter VOR locations.
+!
+
+!
+! VOR/DME range ring menu.
+!
+define widget VORRings intmenu 'VOR range rings'
+	title 'VOR/DME Range Rings'
+	line
+	entry 'STJ range rings' 'PutCompX c_vor platform vor-stj'
+	entry 'MKC range rings' 'PutCompX c_vor platform vor-mkc'
+	entry 'PWE range rings' 'PutCompX c_vor platform vor-pwe'
+	entry 'TOP range rings' 'PutCompX c_vor platform vor-top'
+	entry 'DUC range rings' 'PutCompX c_vor platform vor-duc'
+	entry 'IRW range rings' 'PutCompX c_vor platform vor-irw'
+	entry 'HBR range rings' 'PutCompX c_vor platform vor-hbr'
+	entry 'IFI range rings' 'PutCompX c_vor platform vor-ifi'
+	entry 'IRK range rings' 'PutCompX c_vor platform vor-irk'
+	entry 'DSM range rings' 'PutCompX c_vor platform vor-dsm'
+	entry 'FSM range rings' 'PutCompX c_vor platform vor-fsm'	
+	entry 'Other VOR (keyboard entry)' 'popup vor-origin'
+endmenu
+
+!
+! A form widget for manual VOR entry.
+!
+define widget vor-origin form 'VOR origin'
+	noheader
+	popup vor-popup
+	label comp 'component'
+	label l1 'VOR/DME origin:'
+	blank origin 'vor-top' command 'vor_origin_enter' width 100
+	newline
+	button cancel 'Cancel' color red command 'popdown #ui$form'
+	button apply 'Apply' command 'vor_origin_enter'
+	label gripe ' ' color red width 200
+enddef
+
+procedure vor_origin_enter
+!
+! Get some parameters
+!
+	local comp getftext(ui$form,'comp')
+	local origin getftext(ui$form,'origin')
+	local originname concat(origin, '-location')
+	local loc pd_param('defaults', 'defaults', originname, "string")
+!
+! Give them a chance without "vor-"
+!
+	if (loc = '(Undefined)')
+		local origin concat('vor-', origin)
+		local originname concat(origin, '-location')
+		local loc pd_param('defaults', 'defaults', originname, "string")
+	endif
+!
+! Make sure we know about this location.
+!
+		if (loc = '(Undefined)')
+			local complaint quote(concat3('Location ',origin,' unknown'))
+			formtext #ui$form gripe #complaint
+			return
+		endif
+!
+! Looks cool -- let's do it.
+!
+	formtext #ui$form gripe 'Please select window'
+	PutCompX 'c_vordef' 'platform' #origin
+	popdown #ui$form
+endprocedure
+
+!
+! Initialize a VOR form.
+!
+procedure vor-popup
+	formtext #ui$form comp c_vordef
+	formtext #ui$form gripe ' '
+endprocedure
+

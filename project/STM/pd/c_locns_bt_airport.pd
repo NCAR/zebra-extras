@@ -1,0 +1,16 @@
+global
+	pd-name:		c_locns_bt_airport
+c_locns_bt_airport
+        active-icon:            true
+        color:                  green
+        field:                  location
+        icon:                   bt-airport
+        icon-color:             green
+        icon-middle-menu:       simple-color
+        label:                  BT-Airport
+        label-size:             12
+        platform:               BT-Airport
+        posicon:                bt-airport
+        posicon-middle-menu:    simple-color
+        representation:         overlay
+        require:                location

@@ -1,0 +1,17 @@
+
+!
+! Middle icon menu for goes data.
+!
+define widget goes-middle intmenu 'GOES field menu'
+	title 'GOES Fields'
+	line
+	entry 'Visible' 'ChangeGoes sgpgoesvis.tmp vis' \
+		(PDParam(icon_component, "field") = "vis")
+	entry 'Infrared' 'ChangeGoes sgpgoesir.tmp ir'\
+		(PDParam(icon_component, "field") = "ir")
+endmenu
+
+procedure ChangeGoes plat string field string
+	parameter #icon_component platform #plat
+	parameter #icon_component field #field
+endprocedure

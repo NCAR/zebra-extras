@@ -1,0 +1,18 @@
+global
+	comment:	Boundary facility locations
+	pd-name:	c_locns_bf
+c_locns_bf
+	active-icon:	true
+	color:	green
+	field:	location
+	icon:	littlecircle
+	icon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:	platform
+	label-size:	12
+	platform:	B1,B2,B3,B4,B5,B6
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-middle-menu:	bf-send-menu
+	posicon-right-menu:	location-options
+	representation:	overlay
+	require:	location, bf-active-loc

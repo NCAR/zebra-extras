@@ -1,0 +1,12 @@
+global
+	pd-name:		c_ok-dn
+c_ok-dn
+	color:			cyan
+	icon-color:		cyan
+	field:			map
+	icon:			rivers
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:		0
+	platform:		ok-dn
+	representation:		overlay

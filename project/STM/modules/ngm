@@ -1,0 +1,46 @@
+
+define widget ngm-field-menu intmenu 'NGM Field Menu'
+	title 'NGM Predicted Fields'
+	line
+	entry 'Issue Time' 'ngmissue' (PDParam(icon_component,'platform') = 'sgpngm250X1.ns.issue')
+	entry 'Predicted Time' 'ngmvalid' (PDParam(icon_component,'platform') = 'sgpngm250X1.ns.valid')
+	line
+	entry 'Wind Vectors' 'ngmwinds' (PDParam(icon_component,"representation") = "vector")
+	line
+	entry 'Geopotential Height (m above MSL)' 'ngmfield height' ((PDParam(icon_component,'field') = 'height') and (PDParam(icon_component,"representation") <> "vector"))
+	entry 'Temperature (K)' 'ngmfield temperature' ((PDParam(icon_component,'field') = 'temperature') and (PDParam(icon_component,"representation") <> "vector"))
+	entry 'Pressure at MSL and tropopause (mb)' 'ngmfield pressure' ((PDParam(icon_component,'field') = 'pressure') and (PDParam(icon_component,"representation") <> "vector"))
+	entry 'Precipitation (mm)' 'ngmfield precipitation' ((PDParam(icon_component,'field') = 'precipitation') and (PDParam(icon_component,"representation") <> "vector"))
+	entry 'Relative Humidity' 'ngmfield relative_humidity' ((PDParam(icon_component,'field') = 'relative_humidity') and (PDParam(icon_component,"representation") <> "vector"))
+	entry 'Vertical wind (ub/s)' 'ngmfield omega-component' ((PDParam(icon_component,'field') = 'omega-component') and (PDParam(icon_component,"representation") <> "vector"))
+	entry 'Eastward wind (m/s)' 'ngmfield u-component' ((PDParam(icon_component,'field') = 'u-component') and (PDParam(icon_component,"representation") <> "vector"))
+	entry 'Northward wind (m/s)' 'ngmfield v-component' ((PDParam(icon_component,'field') = 'v-component') and (PDParam(icon_component,"representation") <> "vector"))
+endmenu
+
+
+procedure ngmfield field string
+	parameter #icon_component field #field
+	if (PDParam(icon_component,"representation") = "vector")
+		parameter #icon_component "representation" "contour"
+	endif
+endprocedure
+
+procedure ngmwinds
+	parameter #icon_component "u-field" "u-component"
+	parameter #icon_component "v-field" "v-component"
+	parameter #icon_component "arrow-scale" "0.01"
+	if (PDParam(icon_component,"representation") <> "vector")
+		parameter #icon_component "representation" "vector"
+	endif
+endprocedure
+
+procedure ngmissue
+	parameter #icon_component platform 'sgpngm250X1.ns.issue'
+	parameter global forecast-offset 6h
+endprocedure
+
+procedure ngmvalid
+	parameter #icon_component platform 'sgpngm250X1.ns.valid'
+	parameter 'global' 'forecast-offset' 0h
+endprocedure
+

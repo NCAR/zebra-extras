@@ -1,0 +1,25 @@
+global
+	pd-name:		c_road_labels
+c_road_labels
+        color:                  gray70
+        disable:                false
+        field:                  location
+        icon:                   pam-loc
+        location-icon:          none
+        icon-color:             gray70
+        icon-middle-menu:       simple-color
+        label:                  platform
+        platform:               I-35,U-60,U-77,U-177,S-156,S-15
+        representation:         overlay
+c_city_labels
+        color:                  gray80
+        field:                  location
+        icon:                   littlecircle
+        location-icon:          none
+        icon-color:             gray80
+        icon-middle-menu:       simple-color
+        label:                  platform
+        platform:               Tonkawa,Blackwell,Ponca-City,Enid,Stillwater,Tul
+sa,Arkansas-City,Winfield,Wellington,Wichita,Dodge-City,Oklahoma-City
+        representation:         overlay
+        require:                location

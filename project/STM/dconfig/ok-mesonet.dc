@@ -1,0 +1,60 @@
+! Auto-saved display configuration.
+
+prototype fallback Default gp gp.init
+
+config ok-mesonet
+	widget 'iconbar' 1077 108 68 567
+	graphic 'cap' 68 121 512 535 Default
+		description 'ok-mesonet-cap'
+		buttonmap 'big'
+		forcepd
+	endgraphic
+endconfig
+
+beginpd 'ok-mesonet-cap'
+global
+   parameter pd-name                   'ok-mesonet-cap'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '23-Feb-95,0:00:00'
+   parameter plot-type                 'CAP'
+   parameter x-max                     '460'
+   parameter x-min                     '-470'
+   parameter y-max                     '250'
+   parameter y-min                     '-510'
+component p_map
+   parameter color                     'yellow'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'default'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_station
+   parameter active-icon               'true'
+   parameter annot-field-menu-extras   'station|Station Identification,none'
+   parameter annot-left-menu           'FieldMenu'
+   parameter annot-middle-menu         'FieldMenu'
+   parameter arrow-scale               '0.01'
+   parameter disable                   'true'
+   parameter field-select-command      'p_toggle_quadrant'
+   parameter filter-resolution         '100'
+   parameter icon                      'sfc_5min'
+   parameter icon-field-menu-extras    'station|Station Identification'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'FieldMenu'
+   parameter icon-right-menu           'p-station-right'
+   parameter limit-proc                'adj_arrow_scale'
+   parameter platform                  'sgp05okmX1.a1'
+   parameter posicon-middle-menu       'station-send'
+   parameter quad2                     'prec_amt'
+   parameter quad4                     'rh'
+   parameter representation            'station'
+   parameter require                   'station,simple-color'
+   parameter sa-scale                  '11'
+   parameter spatial-filter            'false'
+   parameter u-field                   'u_wind'
+   parameter v-field                   'v_wind'
+endpd
+

@@ -1,0 +1,7 @@
+! Auto-saved display configuration.
+
+
+config empty
+	widget 'iconbar' 1072 79 68 567
+endconfig
+

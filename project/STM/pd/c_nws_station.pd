@@ -1,0 +1,24 @@
+!
+! NWS surface hourly station plot
+!
+global
+	pd-name:	c_nws_station
+c_nws_station
+	platform:	sgpsfchrlyX1.a1
+	representation:	station
+	u-field:	u_wind
+	v-field:	v_wind
+	icon-left-menu:	standard-cap-left-menu
+	posicon-middle-menu:	station-send
+	field-select-command:	p_toggle_quadrant
+	icon:			meso_stations
+	icon-middle-menu:	nws-station-fields
+	icon-right-menu:	p-station-right
+	annot-field-menu-extras:	station|Station Identification,none
+	annot-left-menu:	nws-station-fields
+	annot-middle-menu:	nws-station-fields
+	arrow-scale:		0.01
+	require:		nws-station
+	limit-proc:		adj_arrow_scale
+	active-icon:		true
+	sa-scale:		11

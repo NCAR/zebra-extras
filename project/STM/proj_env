@@ -1,0 +1,17 @@
+#!/bin/csh -f
+#
+# Environment variable settings specific to ARM
+#
+
+echo "Reading proj_env"
+
+setenv CONFIGHOME /apps/development/STM
+setenv ZEBHOME $ZEB_TOPDIR
+setenv DATAHOME /apps/data
+setenv DATA_DIR $DATAHOME
+
+# Set this to enable real-time tasks in ds.config, such as
+# periodic file cleans and cache file updates
+#
+# setenv ARM_REALTIME
+

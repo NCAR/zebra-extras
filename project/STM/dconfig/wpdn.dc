@@ -1,0 +1,58 @@
+! Auto-saved display configuration.
+
+prototype fallback Default gp gp.init
+
+config wpdn
+	widget 'iconbar' 1077 108 68 567
+	graphic 'cap' 97 123 492 516 Default
+		description 'wpdn-cap'
+		buttonmap 'big'
+		forcepd
+	endgraphic
+endconfig
+
+beginpd 'wpdn-cap'
+global
+   parameter pd-name                   'wpdn-cap'
+   parameter plot-mode                 'history'
+   parameter plot-time                 'now'
+   parameter plot-type                 'CAP'
+   parameter x-max                     '460'
+   parameter x-min                     '-470'
+   parameter y-max                     '250'
+   parameter y-min                     '-510'
+component p_map.0
+   parameter color                     'tan'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'state_lines'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_wpdn_station
+   parameter active-icon               'true'
+   parameter altitude-control          'true'
+   parameter annot-field-menu-extras   'station|Station Identification,none'
+   parameter annot-left-menu           'FieldMenu'
+   parameter annot-middle-menu         'FieldMenu'
+   parameter arrow-scale               '0.01'
+   parameter field-select-command      'p_toggle_quadrant'
+   parameter icon                      'wpdn'
+   parameter icon-field-menu-extras    'station|Station Identification'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'FieldMenu'
+   parameter icon-right-menu           'p-station-right'
+   parameter limit-proc                'adj_arrow_scale'
+   parameter platform                  'Dsgp60wpdnwndsX1.a1'
+   parameter posicon-middle-menu       'station-send'
+   parameter quad4                     'none'
+   parameter representation            'station'
+   parameter require                   'station,simple-color'
+   parameter sa-scale                  '11'
+   parameter u-field                   'u_wind_low'
+   parameter v-field                   'v_wind_low'
+endpd
+

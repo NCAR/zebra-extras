@@ -1,0 +1,57 @@
+!
+! Define the field menu for the NWS surface mesonet.
+! Be sure to include units of the fields, since this may be the
+! only place for the user to find them.
+!
+
+require station
+
+define widget nws-surf-fields intmenu 'NWS surface hourly fields'
+	title 'NWS Surface Fields'
+	line
+	entry 'Ambient Temperature (deg C)' \
+		'parameter #icon_component field tdry' \
+		(PDParam(icon_component,"field") = "tdry")
+	entry 'Dewpoint (deg C)' \
+		'parameter #icon_component field dp' \
+		(PDParam(icon_component,"field") = "dp")
+	entry 'Corrected Sea Level Pressure (mb)' \
+		'parameter #icon_component field cpres0' \
+		(PDParam(icon_component,"field") = "cpres0")
+	entry 'Horizontal visibility (meters)' \
+		'parameter #icon_component field horiz_vis' \
+		(PDParam(icon_component,"field") = "horiz_vis")
+	entry 'Wind Direction (degrees)' \
+		'parameter #icon_component field wdir' \
+		(PDParam(icon_component,"field") = "wdir")
+	entry 'Wind Speed (meters/second)' \
+		'parameter #icon_component field wspd' \
+		(PDParam(icon_component,"field") = "wspd")
+	entry 'Max Wind Speed (meters/second)' \
+		'parameter #icon_component field wmax' \
+		(PDParam(icon_component,"field") = "wmax")
+	entry 'Wind, U Component (meters/second)' \
+		'parameter #icon_component field u_wind' \
+		(PDParam(icon_component,"field") = "u_wind")
+	entry 'Wind, V Component (meters/second)' \
+		'parameter #icon_component field v_wind' \
+		(PDParam(icon_component,"field") = "v_wind")
+endmenu
+
+
+define widget nws-station-fields intmenu 'NWS station fields'
+	title 'NWS Station Fields'
+	line
+	entry 'Ambient Temperature (deg C)' 'p_toggle_quadrant "tdry"'
+	entry 'Dewpoint (deg C)' 'p_toggle_quadrant "dp"'
+	entry 'Corrected Sea Level Pressure (mb)' 'p_toggle_quadrant "cpres0"'
+	entry 'Horizontal Visibility (meters)' 'p_toggle_quadrant "horiz_vis"'
+	entry 'Wind Direction (degrees)' 'p_toggle_quadrant "wdir"'
+	entry 'Wind Speed (meters/second)' 'p_toggle_quadrant "wspd"'
+	entry 'Max Wind Speed (meters/second)' 'p_toggle_quadrant "wmax"'
+	entry 'Wind, U Component (meters/second)' 'p_toggle_quadrant "u_wind"'
+	entry 'Wind, V Component (meters/second)' 'p_toggle_quadrant "v_wind"'
+	entry 'Station Name' 'p_toggle_quadrant "station"'
+	entry 'None' 'p_toggle_quadrant "none"'
+endmenu
+

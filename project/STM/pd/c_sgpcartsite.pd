@@ -1,0 +1,14 @@
+global
+	pd-name:		c_sgpcartsite
+c_sgpcartsite
+	active-icon:		true
+	color:			green
+	icon-color:		green
+	field:			location
+	icon:			ops-ctr
+	icon-middle-menu:	simple-color
+	label:			platform
+	platform:		CF
+	posicon:		ops-ctr
+	posicon-middle-menu:	simple-color
+	representation:		overlay

@@ -1,0 +1,12 @@
+global
+	pd-name:		c_ok-rr
+c_ok-rr
+	color:			orange
+	icon-color:		orange
+	field:			map
+	icon:			rails
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:		0
+	platform:		ok-rr
+	representation:		overlay

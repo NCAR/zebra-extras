@@ -1,0 +1,25 @@
+global
+	altitude:	0.0000
+	comment:	Big window post-processing plot description.
+	icon-middle-menu:	DataAvailable
+	pd-name:	midwest-template
+	plot-mode:	history
+	plot-time:	10-Mar-92,12:00:00
+	plot-type:	CAP
+	time-frames:	2
+	trigger:	cp4
+	x-max:	700
+	x-min:	-1000
+	y-max:	200
+	y-min:	-500
+p_map
+	color:	gray60
+	field:	map
+	icon:	map
+	icon-left-menu:	minimal-cap-left-menu
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	0
+	platform:	stormfest
+	representation:	overlay
+	require:	simple-color

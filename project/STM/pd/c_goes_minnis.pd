@@ -1,0 +1,19 @@
+!
+! Raster component for GOES Minnis data, which is several levels of 
+! raster images, but the levels do not correspond directly to altitudes.
+!
+global
+	pd-name:	c_goes_minnis
+c_goes_minnis
+	platform:	sgpgoesminnisX1.c1
+	dimensions:	level=0
+	field:		Visible_Optical_Depth
+	representation:	raster
+	color-table:	16gray
+	icon:		satellite
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	minnis-field-menu
+	icon-right-menu:	minnis-raster-right
+	require:	raster, goes-minnis
+	scale-mode:	auto
+	limit-proc:	raster-limit-proc

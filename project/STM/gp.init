@@ -1,0 +1,19 @@
+!
+! The runtime gp.init, for doing the things that every graphics process
+! must do.  In particular, set the require path, require the project-specific
+! global module, and read the field definitions.  Though what's to keep us
+! from moving all of this into the load file and abolishing gp.int
+! altogether?  Hmmm... a far cry from the five-thousand-line init files of
+! the past...
+!
+
+set RequirePath concat('modules,',RequirePath)
+require 'simple-color'
+require 'global'
+
+!
+! Get our field definitions.
+!
+set DefFile (concat (concat (c$libdir, "/"), "FieldDefs"))
+read #DefFile
+

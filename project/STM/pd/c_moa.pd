@@ -1,0 +1,15 @@
+global
+	pd-name:		c_moa
+c_moa
+        representation:         overlay
+        platform:               moa
+        disable:                true
+        field:                  boundary
+        color:                  red
+        line-width:             3
+        icon:                   boundary
+        icon-middle-menu:       simple-color
+        icon-right-menu:        boundary-control
+        closed-boundary:        true
+        trigger:                platform
+        require:                simple-color

@@ -1,0 +1,20 @@
+
+define widget sondefields intmenu 'Sonde time series fields'
+	title 'Sonde Fields'
+	line
+	entry 'Pressure'  'SetSondeFieldInterval pres 100.0'
+	entry 'Dry Bulb Temperature' 'SetSondeFieldInterval tdry 10.0'
+	entry 'Dewpoint Temperature' 'SetSondeFieldInterval dp 10.0'
+	entry 'Wind Speed' 'SetSondeFieldInterval wspd 10.0'
+	entry 'Wind Direction' 'SetSondeFieldInterval deg 45.0'
+endmenu
+
+procedure SetSondeFieldInterval field string interval string
+	parameter #icon_component y-field #field
+	if (icon_component = 'l_xytrace')
+		parameter #icon_component axis-l-tic-interval #interval
+	else
+		parameter #icon_component axis-r-tic-interval #interval
+	endif
+endprocedure
+
