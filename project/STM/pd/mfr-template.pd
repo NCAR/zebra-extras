@@ -1,0 +1,84 @@
+global
+	add-data-command:	tseries-add
+	altitude-label:	
+	axis-bottom-space:	30
+	axis-left-space:	50
+	axis-right-space:	50
+	axis-top-space:	30
+	pd-name:	mfr-template
+	plot-hold:	false
+	plot-mode:	history
+	plot-time:	8-Sep-95,21:21:00
+	plot-type:	xygraph
+	skip-data-points:	-1111, -2222, -3333, -4444, -9999, -99999, -999, 9999, -444444
+	ta-scale:	20
+	xy-axis-b-font-scale:	10
+	xy-axis-l-font-scale:	10
+	xy-axis-r-font-scale:	12
+	xy-axis-t-font-scale:	10
+	xy-data-mode:	series
+	xy-series-span:	720m
+	zoom-level:	0
+	zoom-xmax:	0.7800
+	zoom-xmin:	0.5625
+	zoom-ymax:	0.2800
+	zoom-ymin:	0.0500
+xy-grid
+	axis-b-label:	Time
+	axis-b-tic-interval:	0
+	axis-bottom:	true
+	axis-left:	false
+	axis-right:	false
+	axis-top:	false
+	do-side-annotation:	false
+	field-color:	red
+	icon:	none
+	line-width:	0
+	platform:	null
+	representation:	simple
+	x-field:	time
+	xyprivate-data-begin:	8-Sep-95,9:21:00
+	xyprivate-data-end:	1-Jan-70,0:00:00
+	xyprivate-x-max:	8-Sep-95,21:39:00
+	xyprivate-x-min:	8-Sep-95,9:21:00
+	xyprivate-x-type:	t
+	xyprivate-y-max:	-10988999680.0000
+	xyprivate-y-min:	10988999680.0000
+	xyprivate-y-type:	f
+	y-field:	nothing
+p_xytrace
+	annot-left-menu:	xy-an-left
+	annot-middle-menu:	FieldMenu
+	annot-right-menu:	simple-color
+	axis-bottom:	false
+	axis-l-grid-intensity:	0.7
+	axis-left:	true
+	axis-r-grid-intensity:	0
+	axis-right:	false
+	axis-top:	false
+	color-tweaker:	xytrace-color
+	dimensions:	channel=0
+	field-color:	rgb:ffff/00/00
+	field-select-command:	xytrace-field
+	icon:	tseries
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	xytrace-right
+	limit-proc:	xytrace-adjust
+	platform:	Dsgpmfr25mC1.a1
+	point-icon:	line
+	representation:	simple
+	representation-style:	line
+	require:	xytrace, simple-color
+	sa-scale:	12
+	time-annot:	true
+	x-field:	time
+	xyprivate-data-begin:	8-Sep-95,9:21:20
+	xyprivate-data-end:	8-Sep-95,21:21:00
+	xyprivate-x-max:	8-Sep-95,21:39:00
+	xyprivate-x-min:	8-Sep-95,9:21:00
+	xyprivate-x-type:	t
+	xyprivate-y-max:	1660.2500
+	xyprivate-y-min:	-61.2500
+	xyprivate-y-type:	f
+	y-field:	mfr_up_hemisp_broadband
+

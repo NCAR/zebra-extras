@@ -1,0 +1,81 @@
+global
+	add-data-command:	tseries-add
+	altitude-label:	
+	axis-bottom-space:	30
+	axis-left-space:	50
+	axis-right-space:	50
+	axis-top-space:	30
+	cloud1-scale-y-max:	0.0
+	cloud1-scale-y-min:	0.0
+	pd-name:	blc-template
+	plot-hold:	false
+	plot-mode:	history
+	plot-time:	5-Sep-95,12:21:00
+	plot-type:	xygraph
+	skip-data-points:	-999, 499376.7
+	ta-scale:	20
+	xy-axis-b-font-scale:	10
+	xy-axis-l-font-scale:	10
+	xy-axis-r-font-scale:	12
+	xy-axis-t-font-scale:	10
+	xy-data-mode:	series
+	xy-series-span:	7d
+xy-grid
+	axis-b-label:	Time
+	axis-b-tic-interval:	0
+	axis-bottom:	true
+	axis-left:	false
+	axis-right:	false
+	axis-top:	false
+	do-side-annotation:	false
+	field-color:	red
+	icon:	none
+	line-width:	0
+	platform:	null
+	representation:	simple
+	x-field:	time
+	xyprivate-data-begin:	29-Aug-95,12:21:00
+	xyprivate-data-end:	1-Jan-70,0:00:00
+	xyprivate-x-max:	5-Sep-95,16:33:00
+	xyprivate-x-min:	29-Aug-95,12:21:00
+	xyprivate-x-type:	t
+	xyprivate-y-max:	-10988999680.0000
+	xyprivate-y-min:	10988999680.0000
+	xyprivate-y-type:	f
+	y-field:	nothing
+p_xytrace
+	annot-left-menu:	xy-an-left
+	annot-middle-menu:	FieldMenu
+	annot-right-menu:	simple-color
+	axis-bottom:	false
+	axis-l-grid-intensity:	0.7
+	axis-left:	true
+	axis-r-grid-intensity:	0
+	axis-right:	false
+	axis-top:	false
+	color-tweaker:	xytrace-color
+	field-color:	rgb:ffff/00/00,green,blue
+	field-select-command:	xytrace-field
+	icon:	tseries
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	xytrace-right
+	limit-proc:	xytrace-adjust
+	platform:	sgpblcC1.a1
+	point-icon:	cross
+	representation:	simple
+	representation-style:	icon
+	require:	xytrace, simple-color
+	sa-scale:	12
+	scale-y-mode:	autoscale
+	time-annot:	true
+	x-field:	time, time, time
+	xyprivate-data-begin:	30-Aug-95,0:00:15
+	xyprivate-data-end:	5-Sep-95,12:18:50
+	xyprivate-x-max:	5-Sep-95,16:33:00
+	xyprivate-x-min:	29-Aug-95,12:21:00
+	xyprivate-x-type:	t
+	xyprivate-y-max:	7272.9092
+	xyprivate-y-min:	-346.3290
+	xyprivate-y-type:	f
+	y-field:	cloud1, cloud2, cloud3
+

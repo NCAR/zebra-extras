@@ -1,0 +1,83 @@
+global
+	altitude:	500
+	pd-name:	goes-template
+	platform:	sgpgoes8X1.a1
+	plot-hold:	false
+	plot-mode:	real-time
+	plot-time:	24-Jun-93,12:00:00
+	plot-type:	CAP
+	proj-topannot-left-menu:	projection
+	projection:	zebra
+	trigger:	platform
+	x-max:	2100.00
+	x-min:	-2400.00
+	y-max:	0
+	y-min:	0
+p_raster
+	color-table:	16gray
+	field:	gvar_ch1
+	gvar_ch1-center:	35
+	gvar_ch1-step:	5
+	gvar_ch2-center:	40
+	gvar_ch2-step:	5
+	gvar_ch3-center:	612.0000
+	gvar_ch3-step:	3.0000
+	gvar_ch4-center:	40
+	gvar_ch4-step:	5
+	gvar_ch5-center:	40
+	gvar_ch5-step:	5
+	icon:	satellite
+	icon-left-menu:	standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	raster-right
+	limit-proc:	raster-limit-proc
+	platform:	sgpgoes8X1.a1
+	rel_azimuth-center:	126.0000
+	rel_azimuth-step:	3.0000
+	representation:	raster
+	require:	raster
+	sat_zenith-center:	48.0000
+	sat_zenith-step:	2.0000
+	scale-mode:	manual
+	sun_zenith-center:	45.0000
+	sun_zenith-step:	0.9000
+p_llgrid
+	color:	yellow
+	field:	grid
+	icon:	grid
+	icon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	llgrid-right
+	lat-lon:	true
+	line-width:	0
+	platform:	irrelevant
+	representation:	overlay
+	require:	grid, simple-color
+	solid:	false
+	x-spacing:	300
+	y-spacing:	300
+c_map_statelines
+	color:	white
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	0
+	platform:	state_lines
+	representation:	overlay
+	require:	simple-color
+p_kmgrid
+	color:	blue
+	disable:	true
+	field:	grid
+	icon:	grid
+	icon-left-menu:	standard-cap-left-menu
+	icon-middle-menu:	kmgrid-origins
+	icon-right-menu:	kmgrid-right
+	lat-lon:	false
+	line-width:	0
+	platform:	irrelevant
+	representation:	overlay
+	require:	grid, simple-color
+	x-spacing:	50
+	y-spacing:	50
+
