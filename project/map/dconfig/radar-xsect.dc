@@ -74,7 +74,7 @@ component p_polar
    parameter icon-middle-menu          'radar-middle'
    parameter icon-right-menu           'DataAvailable'
    parameter limit-proc                'raster-limit-proc'
-   parameter out-of-range-color        'none'
+   parameter out-of-range-color        'black'
    parameter platform                  'spol'
    parameter radar-scan                'sur'
    parameter radar-space               'true'
