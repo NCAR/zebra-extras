@@ -1,0 +1,134 @@
+!
+! The SCMS icon bar
+!
+!
+! Icon directory for the display manager
+!
+set ui$bitmap_directory concat(c$libdir, "/icons")
+
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	noheader
+	location 100 100
+
+	menu help bitmap iconbar-help
+		title 'Zeb Help Access'
+		line
+		entry 'Introduction' 'help intro'
+		entry 'On-line Topics' 'help index'
+!		entry 'Guide to Documentation' 'help documentation'
+		entry 'Starting zeb' 'help start'
+		entry 'Shutting Down' 'help shut-down'
+		entry 'Keys and mouse buttons' 'help keys'
+		entry 'The icon bar' 'help iconbar'
+		entry 'Editing display configurations' 'help editing-configs'
+		line
+		entry 'Horizontal plots' 'help horizontal-plots'
+		entry 'Skew-t plots' 'help skewt'
+		entry 'XYGraph plots' 'help xy-graphs'
+		entry 'Cross section plots' 'help cross-section'
+	endmenu
+	menu tools bitmap tools-big
+		title 'Tools'
+		line
+		entry 'Time Widget'	'popup time'
+		entry 'Print Display Widget' 'popup hardcopy'
+		line
+		entry 'Add Display Window' 'popup newwindow'
+		entry 'Delete Display Window' 'popup zorchwindow'
+		entry 'Save Display Window' 'popup saveconfig'
+		line
+		entry 'Data Store display widget' 'shell "dsdwidget &"'
+		entry 'Data Store management widget' 'shell "dsmanage &"'
+		line
+		entry 'Shut down Zeb system' 'shutdown'
+	endmenu
+	menu configs bitmap configs
+		title 'Display configurations'
+		line
+		entry 'Simple Radar' 'display simple' (dm$config = 'simple')
+		entry 'S + X + SPRINT' 'display s+x+sprint' \
+			(dm$config = 's+x+sprint')
+		entry 'SPRINT display' 'display sprint' (dm$config = 'sprint')
+		line
+		entry 'PAM 1' 'display station1_ts' \
+			(dm$config = 'stations1_ts')
+		entry 'PAM 2' 'display station2_ts' \
+			(dm$config = 'stations2_ts')
+		entry 'PAM 3' 'display station3_ts' \
+			(dm$config = 'stations3_ts')
+		entry 'PAM station plot' 'display pam_station'
+		line
+		entry 'ISS combination' 'display iss-combo' \
+			(dm$config = 'iss-combo')
+		entry 'ISS surface data' 'display iss-tseries' \
+			(dm$config = 'iss-tseries')
+		entry 'ISS/PAM 3 intercomp.' 'display pam-iss' \
+			(dm$config = 'pam-iss')
+		line
+		entry 'Empty screen' 'display empty' (dm$config = 'empty')
+	endmenu
+	menu 'radar' bitmap 'radar'
+		title 'Radar'
+		line
+		entry 'Raw CP2' \
+			'putc0 p_cp2'
+		entry 'Cartesian CP2 (from SPRINT)' \
+			'putc3 p_radar platform cp2_gridded icon cp2_gridded radar-space false'
+	endmenu
+	menu 'aircraft' bitmap 'aircraft'
+		title 'Aircraft'
+		line
+		entry 'C130' \
+			'putc2 p_track platform c130 color yellow'
+		entry 'King Air' \
+			'putc2 p_track platform kingair color brown'
+	endmenu
+	menu 'satellite' bitmap 'satellite'
+		title 'GOES'
+		line
+		entry 'Vis (1 km)' \
+			'putc2 p_raster platform goes_vis icon goes_1km'
+		entry 'Other Fields (4km)' \
+			'putc p_raster platform goes_other icon goes_4km'
+	endmenu
+	menu 'overlays' bitmap overlays
+		title 'Static Overlays'
+		line
+		entry 'X-Y Grid (Nm)' \
+			'putc3 p_nmgrid x-spacing 10 y-spacing 10 color cyan'
+		entry 'Lat/Lon Grid' \
+			'putc3 p_llgrid x-spacing 30 y-spacing 30 color cyan'
+		entry 'Range Rings' 'putc1 p_rings platform cp2'
+		entry 'PAM stations' 'putc1 p_loc platform "pam/1,pam/2,pam/3"'
+		entry 'Photo 1' 'putc1 p_loc platform photo1'
+	endmenu
+enddef
+
+
+
+!
+! Remove a component from a window.
+!
+procedure ZapComp comp string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+!
+! If this component truly exists in the window, get rid of it.
+!
+	if (pd_defined (target_win, comp, "platform"))
+		remove #target_win #comp
+	endif
+endprocedure
+
+
+
