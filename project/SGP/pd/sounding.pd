@@ -1,0 +1,19 @@
+global
+	pd-name:	sounding
+	plot-mode:	real-time
+	plot-type:	skewt
+	trigger:	24h
+skewt
+	trigger:	platform
+	color-table:	Skew-t
+	do-feet:	false
+	data-skip:	5
+	icon:	sonde
+	icon-left-menu:	skewt-left
+	icon-middle-menu:	DataAvailable
+	icon-right-menu:	feet-km
+	platform:	null
+	pres-maxval:	1050.0
+	pres-minval:	100.0
+	representation:	skewt
+!	require:	skewt
