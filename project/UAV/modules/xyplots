@@ -1,0 +1,31 @@
+
+require simple-color
+require xytrace
+
+!
+! The color tweaker for xy components with single fields,
+! which also changes icon-color and the axis color
+!
+procedure xytrace-all-color color string
+	local plats PDParam(icon_component,'platform')
+	local pos ListPosition(icon_platform, plats)
+	local clist PDParam(icon_component,'field-color')
+	local clist ReplElement(clist, pos, color)
+	parameter #icon_component field-color #clist
+	parameter #icon_component icon-color #color
+	if (PDParam(icon_component,"axis-left") = "true")
+		parameter #icon_component "axis-l-color" #color
+	endif
+	if (PDParam(icon_component,"axis-right") = "true")
+		parameter #icon_component "axis-r-color" #color
+	endif
+	if (PDParam(icon_component,"axis-top") = "true")
+		parameter #icon_component "axis-t-color" #color
+	endif
+	if (PDParam(icon_component,"axis-bottom") = "true")
+		parameter #icon_component "axis-b-color" #color
+	endif
+endprocedure
+
+
+

@@ -1,0 +1,13 @@
+
+!
+! Middle icon menu for goes data.
+!
+define widget goes-middle intmenu 'GOES field menu'
+	title 'GOES Fields'
+	line
+	entry 'Visible' 'param #icon_component field vis' \
+		(pd_param(icon_component, "field", "string") = "vis")
+!	entry 'Infrared' 'param #icon_component field ir' \
+!		(pd_param(icon_component, "field", "string") = "ir")
+endmenu
+
