@@ -1,0 +1,31 @@
+
+define widget ngm-field-menu intmenu 'NGM Field Menu'
+	title 'NGM Predicted Fields'
+	line
+	entry 'Issue Time' 'ngmissue' (PDParam(icon_component,'platform') = 'sgpngm250X1.ns.issue')
+	entry 'Predicted Time' 'ngmvalid' (PDParam(icon_component,'platform') = 'sgpngm250X1.ns.valid')
+	line
+	entry 'Temperature (K)' 'ngmfield temperature' (PDParam(icon_component,'field') = 'temperature')
+	entry 'Pressure (mb)' 'ngmfield pressure' (PDParam(icon_component,'field') = 'pressure')
+	entry 'Precipitation (mm)' 'ngmfield precipitation' (PDParam(icon_component,'field') = 'precipitation')
+	entry 'Relative Humidity' 'ngmfield relative_humidity' (PDParam(icon_component,'field') = 'relative_humidity')
+	entry 'Vertical wind (ub/s)' 'ngmfield omega-component' (PDParam(icon_component,'field') = 'omega-component')
+	entry 'Eastward wind (m/s)' 'ngmfield u-component' (PDParam(icon_component,'field') = 'u-component')
+	entry 'Northward wind (m/s)' 'ngmfield v-component' (PDParam(icon_component,'field') = 'v-component')
+endmenu
+
+
+procedure ngmfield field string
+	parameter #icon_component field #field
+endprocedure
+
+procedure ngmissue
+	parameter #icon_component platform 'sgpngm250X1.ns.issue'
+	parameter global forecast-offset 6h
+endprocedure
+
+procedure ngmvalid
+	parameter #icon_component platform 'sgpngm250X1.ns.valid'
+	parameter 'global' 'forecast-offset' 0h
+endprocedure
+

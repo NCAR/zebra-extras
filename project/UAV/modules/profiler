@@ -1,0 +1,10 @@
+
+define widget profiler-power intmenu 'Change profiler power dimension'
+	title 'Profiler Power'
+	line
+	entry 'Low'  'parameter #icon_component dimensions power=0' \
+		(PDParam(icon_component,'dimensions') = 'power=0')
+	entry 'High' 'parameter #icon_component dimensions power=1' \
+		(PDParam(icon_component,'dimensions') = 'power=1')
+endmenu
+
