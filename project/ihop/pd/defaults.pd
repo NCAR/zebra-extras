@@ -26,6 +26,10 @@ defaults
 	spol-icon:		spol
 	null-icon:		null
 !
+! Actually apply the data age limits we set below
+!
+	limit-data-age:		true
+!
 ! Age limits for data (i.e., when to make the icon red)
 ! Although we set a default of 15 minutes, a separate value is generally 
 ! used for each platform.  Example:
