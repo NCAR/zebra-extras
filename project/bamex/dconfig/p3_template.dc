@@ -128,7 +128,7 @@ component p_aircraft
    parameter arrow-interval            '3m'
    parameter arrow-scale               '0.005'
    parameter arrow-style               'arrow'
-   parameter color                     'green4'
+   parameter color                     'blue3'
    parameter color-table               'Contour'
    parameter field-menu-extras         'mono|Monochrome track (no field)'
    parameter field-select-command      'track-field-select'
