@@ -1,5 +1,5 @@
 !
-! Skew-t support stuff.
+! ARM Skew-t support stuff.
 !
 !
 ! The Skewt Adjust Limits submenu
@@ -9,6 +9,7 @@ define widget adjust-skewt-limits intmenu 'Adjust Limits'
 	line
 	entry 'Pressure' 'i_adjust pres-limit-proc'
 	entry 'Temperature' 'i_adjust temp-limit-proc'
+	entry 'Data skip' 'i_adjust data-skip-limit-proc'
 endmenu
 
 !
@@ -24,7 +25,13 @@ define widget skewt-left intmenu 'Skewt left'
 	entry 'Remove' 'i_remove_component'
 endmenu
 
-
+!
+! The skew-t data skip adjuster.
+!
+procedure adj_skewt_data_skip comp string
+	local dskip pd_paramsearch(comp, "data-skip", "skewt", "string")
+	activate singleint #comp "data-skip" "Data Skip: " #dskip
+endprocedure
 
 !
 ! Toggle between ft and km.
