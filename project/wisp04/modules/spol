@@ -1,5 +1,5 @@
 !
-! $Id: spol,v 1.1.1.1 2004-01-13 17:06:25 burghart Exp $
+! $Id: spol,v 1.2 2004-02-19 22:13:48 burghart Exp $
 !
 
 require radar
@@ -74,8 +74,8 @@ define widget spol-fields intmenu 'x'
 		(PDParam (icon_component, 'field') = 'zdr')
 	entry 'LDR' 'param #icon_component field ldr' \
 		(PDParam (icon_component, 'field') = 'ldr')
-	entry 'Spectral width' 'param #icon_component field swidth' \
-		(PDParam (icon_component, 'field') = 'swidth')
+	entry 'Spectral width' 'param #icon_component field sw' \
+		(PDParam (icon_component, 'field') = 'sw')
 	entry 'Phi DP' 'param #icon_component field phidp' \
 		(PDParam (icon_component, 'field') = 'phidp')
 	entry 'Rho HV' 'param #icon_component field rhohv' \
@@ -88,6 +88,21 @@ define widget spol-fields intmenu 'x'
 		(PDParam (icon_component, 'field') = 'ckdp')
 !	entry 'HDR' 'param #icon_component field hdr' \
 !		(PDParam (icon_component, 'field') = 'hdr')
+	line
+	entry 'Z_HH_K' 'param #icon_component field z_hh_k' \
+		(PDParam (icon_component, 'field') = 'z_hh_k')
+ 	entry 'LDR_VH_K' 'param #icon_component field ldr_vh_k' \
+		(PDParam (icon_component, 'field') = 'ldr_vh_k')
+	entry 'NCP_HH_K' 'param #icon_component field ncp_hh_k' \
+		(PDParam (icon_component, 'field') = 'ncp_hh_k')
+	entry 'SW_HH_K' 'param #icon_component field sw_hh_k' \
+		(PDParam (icon_component, 'field') = 'sw_hh_k')
+	entry 'P_HH_K' 'param #icon_component field p_hh_k' \
+		(PDParam (icon_component, 'field') = 'p_hh_k')
+	entry 'P_VH_K' 'param #icon_component field p_vh_k' \
+		(PDParam (icon_component, 'field') = 'p_vh_k')
+	entry 'V_HH_K' 'param #icon_component field v_hh_k' \
+		(PDParam (icon_component, 'field') = 'v_hh_k')
 	line
 	entry 'Pop up field chooser widget' 'popup FChooser'
 endmenu
