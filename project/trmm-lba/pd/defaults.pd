@@ -1,7 +1,7 @@
 !
 ! This file contains the default values for some plot description parameters.
 !
-! $Id: defaults.pd,v 1.8 2002-12-04 00:02:05 burghart Exp $
+! $Id: defaults.pd,v 1.9 2003-03-20 16:55:38 burghart Exp $
 !
 defaults
 	pd-name:			defaults
@@ -127,7 +127,7 @@ defaults
 ! to store in the cache.  This machine has a fair amount of memory, so
 ! set time-frames up everywhere to use it up.
 !
-	file-path:	/dt2/fcache
+	file-path:	/tmp
 	max-frames:	100
 	time-frames:	3
 !
