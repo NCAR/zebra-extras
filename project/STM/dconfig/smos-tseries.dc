@@ -4,13 +4,13 @@ prototype fallback 'Graphic' gp 'gp.init'
 prototype fallback 'Graphic' gp 'gp.init'
 
 config smos-tseries
-	widget 'iconbar' 1077 18 68 567
-	graphic 'cap' 6 6 489 580 'Graphic'
+	widget 'iconbar' 6 6 502 61
+	graphic 'cap' 8 76 501 593 'Graphic'
 		description 'smos-tseries-cap'
 		buttonmap 'big'
 		forcepd
 	endgraphic
-	graphic 'tseries' 503 5 564 581 'Graphic'
+	graphic 'tseries' 517 4 629 664 'Graphic'
 		description 'smos-tseries-tseries'
 		buttonmap 'xyplot'
 		forcepd
@@ -133,7 +133,6 @@ global
    parameter xy-series-span            '720m'
 component xy-grid
    parameter axis-b-label              'Time'
-   parameter axis-b-tic-interval       '0'
    parameter axis-bottom               'true'
    parameter axis-left                 'false'
    parameter axis-right                'false'
@@ -165,7 +164,7 @@ component p_xytrace
    parameter axis-right                'false'
    parameter axis-top                  'false'
    parameter color-tweaker             'xytrace-color'
-   parameter field-color               'rgb:ffff/00/00,rgb:ffff/a5a5/00,rgb:ffff/ffff/00,rgb:00/ffff/00,cyan,rgb:a0a0/2020/f0f0,rgb:eeee/8282/eeee,hot pink,hot pink,hot'
+   parameter field-color               'red,green,yellow,cyan'
    parameter field-select-command      'xytrace-field'
    parameter icon                      'tseries'
    parameter icon-middle-menu          'FieldMenu'
