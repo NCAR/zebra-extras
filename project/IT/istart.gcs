@@ -1,0 +1,31 @@
+#!/bin/csh
+# istart - start zeb ingesting for this project
+# Created: Wed Mar 15 15:08:48 1995 (Sean T. Moore)
+
+#
+# ingest the gcs data - srlsvr should be running on the remote host
+# and depositing data to the NFS shared directory
+#
+set uavfifo = /tmp/.uav-gcs-fifo
+set chasefifo = /tmp/.chase-gcs-fifo
+set uavinput = /home/mercury/uav/data/share/uav-gcs-packets.tmp
+set chaseinput = /home/mercury/uav/data/share/chase-gcs-packets.tmp
+#
+# ------------------------- uav GCS
+rm -f $uavfifo
+### The ingest program creates the pipe
+gcs_ingest -platform uav-gcs -sock $uavfifo &
+### Be sure to sleep before feeding the pipe
+sleep 2
+### Feed it with data from remote host
+tail -32cf $uavinput > $uavfifo &
+### Don't overload the zeb message system - sleep first
+sleep 180
+### ------------------------- chase GCS
+rm -f $chasefifo
+### The ingest program creates the pipe
+gcs_ingest -platform chase-gcs -sock $chasefifo &
+### Be sure to sleep before feeding the pipe
+sleep 2
+### Feed it with data from remote host
+tail -32cf $chaseinput > $chasefifo &

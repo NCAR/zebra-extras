@@ -1,0 +1,650 @@
+!
+! This file contains the default values for all plot description parameters.
+!
+defaults
+	pd-name:			defaults
+!
+! Post processing mode parameters.
+!
+	post-proc-mode:			true
+	pp-dm-time-adjust:		15m
+!
+! Various menus for the icons in the plot windows.
+!
+	icon-left-menu:			minimal-cap-left-menu
+	global-icon-left-menu:		global-left
+	global-icon-right-menu:		globaltopannot
+!
+! Age limits for changing icon color.
+!
+	icon-age-foreground:			pink
+	icon-age-background:			red
+	uav-icon-age-limit:			1m
+!
+! for now, let's put the origin at the ops center.  The coords are taken
+! from Chris's "wsr" coords, on the assumtion that wsr means the nexrad
+! radar.
+!
+	origin-lat:			 36.61
+	origin-lon:			-97.48
+	origin-alt:			315.0
+!	ops-ctr-location:	36.6067 -97.5078 0.315
+!	ops-ctr-location:	36.61 -97.48 0.315
+!
+! Facility locations, taken from rough map estimates.  Note that the
+! altitudes are unknown.
+!
+	BT-Airport-location:		36.74969 -97.348 0	! Blackwell Tonkawa airport
+	CF-location:		36.604 -97.465 0	! Lamont CF1
+	C1-location:		36.604 -97.465 0	! Also EF13
+	C2-location:		36.6 -97.6 0		! Also EF14
+!
+	E1-location:		38.35 -99.55 0		! Larned
+	E2-location:		38.35 -97.25 0		! Hillsboro
+	E3-location:		38.2 -95.6 0		! Le Roy
+	E4-location:		37.952 -98.329 0	! Plevna
+	E5-location:		38.1 -97.5 0		! Hesston
+	E6-location:		37.9 -97.0 0		! Towanda
+	E7-location:		37.4 -96.0 0		! Elk Falls
+	E8-location:		37.332 -99.308 0	! Coldwater
+	E9-location:		37.132 -97.266 0	! Ashton
+	E10-location:		37.05 -95.75 0		! Tyro
+	E11-location:		36.92 -98.3 0		! Byron
+	E12-location:		36.84 -96.43 0		! Pawhuska
+	E13-location:		36.604 -97.465 0	! Lamont CF1
+	E14-location:		36.6 97.6 0		! Lamont CF2
+	E15-location:		36.431 -98.284 0	! Ringwood
+	E16-location:		36.20 -99.30 0		! Vici
+	E17-location:		0 0 0			! not specified
+	E18-location:		35.80 -95.78 0		! Morris
+	E19-location:		35.5 -98.0 0		! El Reno
+	E20-location:		35.565 -96.987 0	! Meeker
+	E21-location:		35.55 -96.05 0		! Okmulgee
+	E22-location:		35.35 -99.0 0		! Cordell
+	E23-location:		36.20 -98.45 0		! Ft Cobb
+	E24-location:		34.9 -98.25 0		! Cyril
+	E25-location:		36.604 -97.485 0	! Cement (Chickasha)
+!
+! Don't know the boundary locations yet.
+!
+!	B1-location:
+!	B2-location:
+!	B3-location:
+!	B5-location:
+!	B5-location:
+!	B6-location:
+!
+!
+! Misc road/river/railroad location labels
+! Added: Mon Aug 15 13:06:40 1994 (Sean T. Moore)
+! umich geographical location server
+	I-35-location:           36.60 -97.33 0
+	U-60-location:           36.699 -97.47 0
+	U-77-location:           36.59 -97.27 0
+	U-177-location:          36.74 -97.27 0
+	S-156-location:          36.5525 -97.24 0
+	S-15-location:           36.5356 -97.42 0
+	Tonkawa-location:       36.67 -97.29 0
+	Blackwell-location:     36.81 -97.29 0
+	Ponca-City-location:         36.71 -97.06 0
+	Enid-location:          36.41 -97.88 0
+	Stillwater-location:          36.12 -97.01 0
+	Tulsa-location:          36.15 -95.9925 0
+	Arkansas-City-location:          37.0619 -97.038 0
+	Winfield-location:          37.2397 -96.9953 0
+	Wellington-location:          37.26528 -97.3714 0
+	Wichita-location:          37.692 -97.3372 0
+	Dodge-City-location:          37.7528 -100.016667 0
+	Oklahoma-City-location:		35.47 -97.516 0
+!
+!
+! The default, big picture zoom locations.
+!
+	x-min:				-225
+	x-max:				75
+	y-min:				-150
+	y-max:				150
+!
+! Where to put the frame cache files.
+!
+	file-path:	/tmp
+!
+! The maximum number of frames to be stored in the file.
+!
+!	max-frames:	50
+!
+! Commands to be executed out of the DataAvailable menu.
+!
+	data-available-command:		DefaultDataAvail
+!
+! The icons to use in the windows, qualified by platform name.
+!
+	global-icon:			global
+	icon-color:			yellow
+	icon-background:		midnight blue
+	disabled-icon-color:		gray90
+	disabled-icon-background:	gray40
+!
+! Some stuff to make the demos look nicer.
+!
+	movie-end-time:			now
+	movie-minutes:			60
+	frame-rate:			 5
+	frame-skip:			10
+	ta-color-match:			true
+!
+! Grid parameters.
+!
+	grid-tic-width:			5
+	grid-solid:			false
+	grid-color:			gray40
+	grid-icon-middle-menu:		simple-color
+	grid-icon-right-menu:		grid_spacing
+	grid-icon:			grid
+	axes-on-top:		false
+!
+! Radar locations.
+!
+	cp3-location:	39.46	-96.05	0.425
+	cp4-location:	39.71	-95.53	0.353
+	mhr-location:	39.88	-104.76	1.604
+	okc-location:	35.33	-97.28	0.383	! Twin Lakes, OK Nexrad
+	fdr-location:	34.36	-98.98	0.396	! Frederick, OK Nexrad
+	cim-location:	35.48	-97.81	0.399	! NSSL Cimarron
+	hot-location:	40.04	-88.28	0.237
+	chill-location:	40.45	-104.64	1.423
+	osk-location:	39.22	-95.25	0.0	! Oskaloosa (aircraft tracks)
+!
+! Aster
+!
+	aster-location:	39.9069	-95.8419	0.410
+!
+! Center of boundary layer array.
+!
+	array-location:	39.8294	-96.1075	0.0
+!
+! CLASS sites
+!
+	slb-location:	42.64	-95.21	0.430	! Storm Lake
+	iow-location:	41.71	-91.61	0.241	! Iowa City
+	ear-location:	40.70	-99.10	0.662	! Kearney
+	3v1-location:	39.24	-102.29	1.286	! Burlington
+	62k-location:	39.83	-96.11	0.384	! Seneca
+	akz-location:	37.05	-97.10	0.377	! Arkansas City
+	irk-location:	40.19	-92.59	0.291	! Kirksville
+	stl-location:	38.64	-90.24	0.161	! Columbia
+!
+! NSSL CLASS sites
+!
+	hys-location:	38.90	-99.32	0.626	! Hays
+	cou-location:	38.82	-92.22	0.268	! Columbia
+	hen-location:	36.38	-92.23	0.175	! Henderson
+	guy-location:	36.70	-101.48	0.939	! Guymon
+!
+!NWS Sounding sites
+!
+	ABQ-location:	35.02	-106.60	1613	!Albuquerque,NM
+	AMA-location:	35.23	-101.70	1099	!Amarillo,TX
+	DDC-location:	37.77	-99.97	790	!Dodge City,KS
+	DEN-location:	39.75	-104.87	1625	!Denver,CO
+	ELP-location:	31.80	-106.40	1194	!El Paso,TX
+	FSI-location:	34.39	-98.24	360	!Fort Sill
+	GGG-location:	32.38	-94.72	111	!Longview,TX
+	GJT-location:	39.12	-108.53	1475	!Grand Junction,CO
+	GRB-location:	44.48	-88.13	214	!Green Bay,WI
+	HON-location:	44.38	-98.22	393	!Huron,SD
+	LBF-location:	41.13	-100.97	849	!North Platte,NE
+	LIT-location:	34.73	-92.23	78	!Little Rock,AR
+	LND-location:	42.82	-108.73	1695	!Lander,WY
+	MAF-location:	31.95	-102.18	872	!Midland,TX
+	OMA-location:	41.30	-95.90	299	!Omaha, OK
+	OUN-location:	35.23	-97.47	362	!Norman, OK
+	PAH-location:	37.07	-88.77	125	!Paducah, KY
+	PIA-location:	40.67	-89.68	202	!Peoria, IL
+	RAP-location:	44.05	-103.07	966	!Rapid City, SD
+	SEP-location:	32.22	-98.18	402	!Stephenville, TX
+	STC-location:	45.55	-94.07	312	!St. Cloud, MN
+	TOP-location:	39.07	-95.62	270	!Topeka, KS
+	UMN-location:	36.88	-93.90	437	!Monett, MO
+	BIS-location:	46.77	-100.75	506	!Bismark, ND
+	DRA-location:	36.62	-116.02	1009	!Mercury/Desert, NV
+	BOI-location:	43.57	-116.22	874	!Boise, ID
+	ELY-location:	39.28	-114.85	1909	!Ely, NV
+	GEG-location:	47.63	-117.53	721	!Spokane, WA
+	GGW-location:	48.22	-106.62	700	!Glascow,MT
+	GTF-location:	47.48	-111.37	1115	!Great Falls,MT
+	INW-location:	35.02	-110.73	1488	!Winslow,AZ
+	SLC-location:	40.78	-111.97	1288	!Salt Lake City, NV
+	TUS-location:	32.12	-110.93	779	!Tucson, AZ
+	WMC-location:	40.90	-117.80	1322	!Winnemucca, NV
+	MFR-location:	42.37	-122.87	405	!Medford, OR
+	MYF-location:	32.82	-117.13	124	!San Diego, CA
+	OAK-location:	37.73	-122.22	3	!Oakland, CA
+	SLE-location:	44.92	-123.00	61	!Salem, OR
+	UIL-location:	47.95	-124.55	62	!Quillayute, WA
+	VBG-location:	34.71	-120.56	100	!Vandenberg AFB, CA
+	ANN-location:	55.03	-131.57	34	!Annette Island, AK
+	OLM-location:	46.97	-122.90	59	!Olympia,WA
+	CGO-location:	43.80	-123.03	195	!Cottage Grove, OR
+	RDD-location:	40.58	-122.40	177	!Redding,CA
+	ILA-location:	39.15	-122.08	25	!Williams, CA
+	NPS-location:	36.60	-121.89	30	!Monterey, CA
+	PRB-location:	35.67	-120.63	249	!Pasarobles, CA
+	NTD-location:	34.11	-119.11	2	!Point Mugu, CA
+	YXY-location:	60.72	-135.07	703	!Whitehorse, YK
+	YYE-location:	58.83	-122.60	382	!Fort Nelson,BC
+	YSM-location:	60.03	-111.93	203	!Fort Smith, NT
+	YXS-location:	53.88	-122.68	69	!Prince George,BC
+	YZT-location:	50.68	-127.37	22	!Port Hardy, BC
+	WIL-location:	40.04	-88.27	218	!Flatlands, Il
+	WVK-location:	50.23	-119.28	555	!Vernon Bridge, BC
+	WSE-location:	53.55	-114.10	766	!Edmonton/SP, NT
+	YVQ-location:	65.28	-126.80	73	!Norman Wells, NT
+	YEV-location:	68.30	-133.48	68	!Inuvik, NT
+!
+!Profiler locations
+!
+	AZCN5-location:	36.84	-107.90	1902	!Aztec, NM 
+	BLMM7-location:	36.88	-89.97	130	!Bloomfield MO
+	BLRW3-location:	43.22	-90.53	226	!Blue River WI
+	CNWM7-location:	37.52	-92.70	390	!Conway MO 
+	DQUA4-location:	34.11	-94.29	195	!DeQueen AR 
+	FBYN1-location:	40.09	-97.34	433	!Fairbury NE
+	GDAC2-location:	37.77	-102.17	1155	!Granada CO 
+	HKLO2-location:	35.81	-95.78	212	!Haskell Ok
+	HVLK1-location:	37.65	-99.09	648	!Haviland KS
+	HBRK1-location:	38.30	-97.29	447	!Hillsboro KS
+	JTNT2-location:	33.02	-100.98	707	!Jayton TX
+	NRCM5-location:	38.96	-94.57	244	!Kansas City MO
+	LMNO2-location:	36.69	-97.48	306	!Lamont OK
+	LTHM7-location:	39.58	-94.19	297	!Lathrop MI
+	RWDN1-location:	40.08	-100.65	800	!McCook NE
+	MBWW4-location:	41.90	-106.18	1997	!Medicine Bow WY
+	MRRN1-location:	42.90	-101.69	991	!Merriman NE
+	NLGN1-location:	42.20	-97.79	524	!Neligh NE
+	NDSK1-location:	37.37	-95.63	255	!Neodesha KS
+	OKOM6-location:	34.08	-88.86	125	!Okolona MS
+	PATT2-location:	31.77	-95.71	119	!Palestine TX
+	PLTC2-location:	40.18	-104.72	1524	!Platteville CO
+	PRCO2-location:	34.97	-97.51	331	!Purcell OK
+	SLAI4-location:	41.90	-93.70	315	!Slater IA
+	TCUN5-location:	35.08	-103.61	1241	!Tucumcari NM 
+	VCIO2-location:	36.07	-99.21	648	!Vici OK
+	WSMN5-location:	32.40	-106.34	1224	!White Sands NM
+	WNCI2-location:	39.66	-90.48	170	!Winchester IL
+	WDLM5-location:	44.67	-95.44	319	!Wood Lake MN
+!
+! Miscellaneous locations.
+!
+	ops-ctr-location:	38.8333	-94.55	0.0
+	rt-location:		39.1442	-95.2683	0.0
+!
+! The maximum number of frames to be stored in the file.
+!
+!	max-frames:	20
+! 
+! Some movie pregeneration fields.
+!
+!	cp4-movie-pregenerate:	reflectivity,velocity
+!	mhr-movie-pregenerate:	reflectivity,velocity
+!
+! Commands to be executed out of the DataAvailable menu.
+!
+!	data-available-command:		DefaultDataAvail
+!	cp4-data-available-command:	CP4Volume
+!
+!
+! Long descriptions of fields, in the absence of a real fields module.
+!
+	velocity-desc:			Radar velocity
+	reflectivity-desc:		Radar reflectivity
+	alt-desc:			altitude
+	rh-desc:			relative humidity
+	rhum-desc:			relative humidity
+	mr-desc:			mixing ratio
+	cpres0-desc:			altitude-corrected pressure
+	raina15-desc:			15-minute rain accum.
+	raina60-desc:			60-minute rain accum.
+	fstrength-desc:			Electric field strength
+	vis-desc:			Visible satellite
+	aaa-desc:			Infrared satellite
+	ir-desc:			Infrared satellite
+!
+! What RBand uses to draw the box/line.  Don't mess with it.
+!
+	xorvalue:			63
+	xor-line-width:			3
+!
+! field-annotation-format to specify an alternative printf format for
+! track side annotation.
+!
+	alt-annotation-format:		%.3f
+!
+! Plotting limits.
+!
+! Representation -> Contour.
+!
+	contour-computed_sea_level_pressure:	1000
+	contour-computed_sea_level_pressure:	2
+	contour-wmax-center:		10
+	contour-wmax-step:		2
+	contour-rain-center:		5
+	contour-rain-step:		1
+	contour-weather_code-center:	500
+	contour-weather_code-step:	100
+	contour-horiz-viz-center:	1000
+	contour-horiz-viz-step:		200
+	contour-ceiling_height-center:	50000
+	contour-ceiling_height-step:	10000
+	contour-ceiling_flag-center:	50
+	contour-ceiling_flag-step:	10
+	contour-cloud_amt-center:	50
+	contour-cloud_amt-step:		10
+	contour-ceiling_height2-center:	50000
+	contour-ceiling_height2-step:	10000
+	contour-ceiling_flag2-center:	50
+	contour-ceiling_flag2-step:	10
+	contour-cloud_amt2-center:	50
+	contour-cloud_amt2-step:		10
+	contour-ceiling_height3-center:	50000
+	contour-ceiling_height3-step:	10000
+	contour-ceiling_flag3-center:	50
+	contour-ceiling_flag3-step:	10
+	contour-cloud_amt3-center:	50
+	contour-cloud_amt3-step:		10
+	contour-u_wind-center:		10
+	contour-u_wind-step:		2
+	contour-v_wind-center:		10
+	contour-v_wind-step:		2
+	contour-alt-center:		1000
+	contour-alt-step:		200
+	contour-wspd-center:		5
+	contour-wspd-step:		1
+	contour-wdir-center:		180
+	contour-wdir-step:		30
+	contour-raina15-center:		8
+	contour-raina15-step:		1
+	contour-raina60-center:		8
+	contour-raina60-step:		1
+	contour-pres-center:		950
+	contour-pres-step:		20
+	contour-cpres0-center:		1013
+	contour-cpres0-step:		2
+	contour-rh-center:		50
+	contour-rh-step:		5
+	contour-dp-center:		5
+	contour-dp-step:		2
+	contour-tdry-center:		0
+	contour-tdry-step:		2
+	contour-ept-center:		280
+	contour-ept-step:		2
+	contour-theta_e-center:		280
+	contour-theta_e-step:		2
+	contour-mr-center:		10
+	contour-mr-step:		1
+	contour-reflectivity-center:	80
+	contour-reflectivity-step:	10
+	contour-velocity-center:	0
+	contour-velocity-step:		5
+	contour-pt-center:		275
+	contour-pt-step:		1
+	contour-w_wind-center:		0
+	contour-w_wind-step:		1
+	contour-div-center:		0
+	contour-div-step:		2
+!
+!Representation -> Raster.
+!
+	raster-reflectivity-center:	30
+	raster-reflectivity-step:	8
+	raster-velocity-center:		0
+	raster-velocity-step:		5
+	raster-reflectivity-nsteps:	11
+	raster-velocity-nsteps:		11
+	raster-vis-center:		100
+	raster-vis-step:		12
+	raster-vis-nsteps:		17
+	raster-visr-center:		100
+	raster-visr-step:		12
+	raster-visr-nsteps:		17
+	raster-ir-center:		100
+	raster-ir-step:			12
+	raster-ir-nsteps:		17
+	raster-intensity-center:	40
+	raster-intensity-step:		20
+	raster-intensity-nsteps:	17
+!
+! Representation -> Track.
+!
+!NCAR Kingair defaults
+!
+	track-theta-center:		250
+	track-theta-step:		10
+	track-psfdc-center:		600
+	track-psfdc-step:		100
+	track-alt-center:		3
+	track-alt-step:			1
+	track-atb-center:		0
+	track-atb-step:			10
+	track-atrf-center:		0
+	track-atrf-step:		10
+	track-ui-center:		0
+	track-ui-step:			5
+	track-vi-center:		0
+	track-vi-step:			5
+	track-wi-center:		0
+	track-wi-step:			0.5
+	track-thetae-center:		300
+	track-thetae-step:		20
+	track-thi-center:		180
+	track-thi-step:			30
+	track-roll-center:		0
+	track-roll-step:		10
+	track-pitch-center:		0
+	track-pitch-step:		10
+	track-vew-center:		0
+	track-vew-step:			5
+	track-vns-center:		0
+	track-vns-step:			5
+	track-tasr-center:		50
+	track-tasr-step:		10
+	track-dptc-center:		0
+	track-dptc-step:		5
+	track-dpbc-center:		0
+	track-dpbc-step:		5
+!
+! time annotations are added to tracks, default the annotation
+! label to time.
+!
+	track-annot-time-label:		time
+!
+! Representation -> Skewt.
+!
+	skewt-pres-minval:		100
+	skewt-pres-maxval:		1050
+	skewt-temp-minval:		-45
+	skewt-temp-maxval:		25
+!
+! Representation -> Time series.
+!
+	tseries-wspd-center:	10
+	tseries-wspd-step:	2
+	tseries-wdir-center:	180
+	tseries-wdir-step:	20
+	tseries-rh-center:	50
+	tseries-rh-step:	20
+	tseries-pres-center:	1020
+	tseries-pres-step:	5
+	tseries-cpres0-center:	120
+	tseries-cpres0-step:	5
+	tseries-ept-center:	355
+	tseries-ept-step:	10
+	tseries-mr-center:	20
+	tseries-mr-step:	10
+	tseries-tdry-center:	0
+	tseries-tdry-step:	5
+	tseries-pt-center:	305
+	tseries-pt-step:	5
+	tseries-dp-center:	26
+	tseries-dp-step:	3
+	tseries-raina15-center:	3
+	tseries-raina15-step:	1
+	tseries-raina60-center:	6
+	tseries-raina60-step:	2
+!
+! Other.
+!
+	winds/arrow-scale:		20
+	winds-representation:		vector
+	winds/arrow-color:		green
+	Xarrow-color:			purple
+!
+! If all else fails, these should prevent things from dying altogether.
+!
+	contour-center:			0
+	contour-step:			25
+	track-center:			10
+	track-step:			10
+	pres-minval:			900
+	pres-maxval:			1100
+	rh-minval:			20
+	rh-maxval:			40
+	dp-minval:			0
+	dp-maxval:			20
+	tdry-minval:			-10
+	tdry-maxval:			10
+!
+! Adjust limit procedures.
+!
+	track-arrow-limit-proc:		adj_arrow_scale
+	track-time-limit-proc:		adj_time_period
+	track-centstep-limit-proc:	adj_center_step
+	raster-highrange-limit-proc:	adj_highlight_range
+	raster-centstep-limit-proc:	adj_center_step
+	raster-limit-proc:		adj_center_step
+	vector-limit-proc:		adj_arrow_scale
+	vector-filter-limit-proc:	adj_filter_scale
+	contour-limit-proc:		adj_center_step
+	filled-contour-limit-proc:	adj_fill_centstep
+	line-contour-limit-proc:	adj_line_centstep
+	skewt-pres-limit-proc:		adj_pres_minmax
+	skewt-temp-limit-proc:		adj_temp_minmax
+	global-x-limit-proc:		adj_x_minmax
+	global-y-limit-proc:		adj_y_minmax
+	lightning-limit-proc:		adj_time_step
+!
+! XY-Graph default parameters.
+!
+	do-color-proc:		change_ta_color
+!
+! XY-Simple defaults.
+!
+	xy-simple-representation-style:	cross
+!
+! XY-Wind defaults.
+!
+	prof-site-alt:			0.0
+	xy-wind-representation-style:	barb
+	xy-wind-coords:			compass
+	xy-wind-wdir-field:		wdir
+	xy-wind-wspd-field:		wspd
+	xy-wind-vec-scale:		5.0
+	xy-wind-barb-scale:		25
+	xy-wind-color-table:		Winds
+	xy-wind-data-skip:		5
+	xy-wind-step:			5.0
+	xy-wind-scale-speed:		25.0
+!
+! XY-Contour defaults.
+!
+	xy-contour-representation-style:	line
+	xy-contour-color-table:		AllWhite
+	xy-contour-x-grid:		25
+	xy-contour-y-grid:		25
+	xy-contour-z-step:		2.5
+	xy-contour-grid-method:		profile-linear
+	xy-contour-do-side-annotation:	false
+!
+! field specific XY defaults
+!
+! x scale min's and max's
+!
+	alt-scale-x-min:	0.0
+	alt-scale-x-max:	1000.0
+	height-scale-x-min:	0.0
+	height-scale-x-max:	1000.0
+	tdry-scale-x-min:	-80.0
+	tdry-scale-x-max:	20.0
+	dp-scale-x-min:		-80.0
+	dp-scale-x-max:		20.0
+	wspd-scale-x-min:	0.0
+	wspd-scale-x-max:	50.0
+	wdir-scale-x-min:	0.0
+	wdir-scale-x-max:	360.0
+	rh-scale-x-min:		0.0
+	rh-scale-x-max:		100.0
+	pres-scale-x-min:	50.0
+	pres-scale-x-max:	800.0
+	u_wind-scale-x-max:	20.0
+	u_wind-scale-x-min:	-20.0
+	v_wind-scale-x-max:	20.0
+	v_wind-scale-x-min:	-20.0
+	tv-scale-x-min:		-80.0
+	tv-scale-x-max:		20.0
+	theta-scale-x-min:	0.0
+	theta-scale-x-max:	500.0
+!
+! y scale min's and max's
+!
+	alt-scale-y-min:	0.0
+	alt-scale-y-max:	10.0
+	height-scale-y-min:	0.0
+	height-scale-y-max:	10000.0
+	wspd-scale-y-min:	0
+	wspd-scale-y-max:	50
+	rh-scale-y-min:		0
+	rh-scale-y-max:		100
+	dp-scale-y-min:		0
+	dp-scale-y-max:		100
+	mr-scale-y-min:		0
+	mr-scale-y-max:		100
+	tdry-scale-y-min:	-20
+	tdry-scale-y-max:	30
+	wdir-scale-y-min:	0
+	wdir-scale-y-max:	360
+	pres-scale-y-min:	830
+	pres-scale-y-max:	850
+	cpres0-scale-y-min:	830
+	cpres0-scale-y-max:	850
+	sol-scale-y-min:	0
+	sol-scale-y-max:	800
+	soldiff-scale-y-min:	0
+	soldiff-scale-y-max:	800
+	netrad-scale-y-min:	-400
+	netrad-scale-y-max:	400
+	batt-scale-y-min:	12
+	batt-scale-y-max:	14
+	tbox-scale-y-min:	-10
+	tbox-scale-y-max:	30
+	rain-scale-y-min:	0
+	rain-scale-y-max:	10
+	theta-scale-y-min:	0.0
+	theta-scale-y-max:	500.0
+	pt-scale-y-min:		0.0
+	pt-scale-y-max:		500.0
+	ept-scale-y-min:	0.0
+	ept-scale-y-max:	500.0
+!
+! Layout sizing factors.
+!
+	axis-bottom-space:	25
+	axis-left-space:	50
+	axis-top-space:		0
+	axis-right-space:	0
+	xy-axis-b-font-scale:	15
+	xy-axis-l-font-scale:	15
+	xy-axis-r-font-scale:	10
+	xy-axis-t-font-scale:	10
+	sa-scale:		12
+	xy-axis-l-grid-intensity: .3
+	xy-axis-b-grid-intensity: .3

@@ -1,0 +1,21 @@
+
+require track
+
+define widget uav-field-menu intmenu 'UAV Track select menu'
+	title 'UAV Track Fields'
+	line
+	entry 'No field, monochrome track' 'track-field-select mono'
+	entry 'Altitude (km MSL)' 'track-field-select "alt"' \
+		(PDParam(icon_component,'field') = 'alt')
+!	entry 'Airspeed (knots)' 'track-field-select "airspeed"' \
+!		(PDParam(icon_component,'field') = 'airspeed')
+!	entry 'Heading (radians)' 'track-field-select "heading"' \
+!		(PDParam(icon_component,'field') = 'heading')
+!	entry 'Pitch, nose up (radians)' 'track-field-select "pitch"' \
+!		(PDParam(icon_component,'field') = 'pitch')
+!	entry 'Roll, right wing down (radians)' 'track-field-select "roll"' \
+!		(PDParam(icon_component,'field') = 'roll')
+endmenu
+
+
+

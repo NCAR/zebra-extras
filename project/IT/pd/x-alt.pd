@@ -1,0 +1,37 @@
+global
+	axis-bottom-space:	50
+	axis-left-space:	100
+	axis-right-space:	5
+	axis-top-space:		0
+	pd-name:		x-alt
+	plot-mode:		real-time
+	plot-type:		xygraph
+	sa-scale:		12
+	xy-axis-b-font-scale:	15
+	xy-axis-l-font-scale:	15
+	xy-axis-r-font-scale:	10
+	xy-axis-t-font-scale:	10
+	xy-axis-l-grid-intensity: .3
+	xy-axis-b-grid-intensity: .3
+	xy-data-mode:		series
+	xy-series-span: 	60m
+	xy-axis-l-label:	Altitude (m)
+	trigger: 		uav-tm
+x-alt
+	x-field:		met_temp
+	y-field:		ins_alt
+	icon-left-menu:		medium-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	xytrace-right
+	annot-left-menu:	xy-an-left
+	annot-middle-menu:	FieldMenu
+	annot-right-menu:	simple-color
+	color-tweaker:		xytrace-color
+	field-color:		green, yellow
+	field-select-command:	select-x-field
+	icon:			x-alt
+	limit-proc:		xytrace-adjust
+	platform:		uav-tm,chase-tm
+	representation:		simple
+	representation-style:	line
+	require:		xytrace, xytrace-uav-enhance, simple-color

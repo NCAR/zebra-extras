@@ -1,0 +1,40 @@
+Failure modes:
+
+------------------------------------------------------------------------------
+Start up zeb session without any recent data
+% msgstart
+% dmstart
+Select Configuration Chase-SSP
+
+Fatal Error:	P chase-ssp   devY: bad coordinate type: '
+Must exit and kill window
+------------------------------------------------------------------------------
+Often happens even when there is data:
+% msgstart
+% ssp_ingest
+% dmstart
+Select Configuration Chase-SSP
+ 
+Fatal Error:    P chase-ssp   devY: bad coordinate type: '
+Must exit and kill window
+------------------------------------------------------------------------------
+Seems to happen more often shortly after ingest starts. 
+Wait a few minutes and try again.
+% ssp_ingest
+% dmstart
+Select Configuration Chase-SSP
+
+If plot comes up, may show lineplot for awhile then stop. gp complains about
+XY: No requested fields for 'sspch1' between 5-May-95,19:21:30 and 5-May-95,19:21:30
+(thinks that the begin and end times are the same even though xy-series-span
+is set)
+------------------------------------------------------------------------------
+Can play around with the xy-series-span parameter (increase time span)
+until a plot shows. The number of samples actually displayed seems to
+vary from one to two to none and so xy-series-span has to be continually
+tweaked, even though the sample input rate is 10 seconds from the ingestor.
+------------------------------------------------------------------------------
+xy plot often incorrectly connects last data point to first data point,
+drawing a line across the plot of interest.
+
+

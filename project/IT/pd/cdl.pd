@@ -1,0 +1,32 @@
+global
+	axis-bottom-space:	50
+	axis-left-space:	100
+	axis-right-space:	5
+	axis-top-space:		0
+	pd-name:		cdl
+	plot-mode:		real-time
+	plot-type:		xygraph
+	xy-axis-b-font-scale:	15
+	xy-axis-l-font-scale:	15
+	xy-axis-r-font-scale:	10
+	xy-axis-t-font-scale:	10
+	xy-data-mode:		series
+	xy-series-span:		10m
+	xy-scale-z-mode:	autoscale
+	xy-axis-l-grid-intensity: .3
+	xy-axis-b-grid-intensity: .3
+	trigger:		cdlpro
+c_cdl
+	axis-b-label:		time
+	color-table:		newgray
+	icon:			iss-contour
+	icon-right-menu:	contour-right
+	platform:		cdlpro
+	representation:		contour
+	representation-style:	filled
+	grid-method:		profile-linear
+	do-side-annotation:	true
+	x-field:		time
+	y-field:		heights
+	z-field:		photons
+	require:	  	cdl-contour

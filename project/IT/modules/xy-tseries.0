@@ -1,0 +1,132 @@
+!
+! XYGraph[simple] support stuff.
+!
+! $Id: xy-tseries.0,v 1.1.1.1 1995-06-02 17:22:56 granger Exp $
+! Modified: Tue Nov 15 19:03:21 1994 (Sean T. Moore)
+! mods to lib module for uav plots
+
+define widget xytrace-ts-right intmenu 'x'
+	title 'XYGraph options'
+	line
+	entry 'Time Span' 'popup xytrace-limits'
+	line
+! want color here but don't know how
+! want line width here but no such option in xygraphs
+	entry 'Line representation' 'xyrep line' \
+		(PDParam (icon_component, 'representation-style') = 'line')
+	entry 'Point representation' 'xyrep point' \
+		(PDParam (icon_component, 'representation-style') = 'point')
+	entry 'Cross representation' 'xyrep cross' \
+		(PDParam (icon_component, 'representation-style') = 'cross')
+	entry 'X-mark representation' 'xyrep xmark' \
+		(PDParam (icon_component, 'representation-style') = 'xmark')
+endmenu
+
+procedure xyrep rep string
+	parameter #icon_component representation-style #rep
+endprocedure
+
+!
+! The field selection procedure.
+!
+procedure xytrace-field field string
+	parameter #icon_component y-field #field
+endprocedure
+
+
+
+!
+! Zap this trace.
+!
+procedure xytrace-remove 
+	local plats PDParam(icon_component,'platform')
+!
+! If we are the only platform we really want to just zorch the whole
+! component.
+!
+	if (plats = icon_platform)
+		local dmcmd quote(concat4('remove ', ourname, ' ', icon_component))
+		dm #dmcmd
+		return
+	endif
+!
+! Nope, there are others.  Just clean this one out.
+!
+	local pos ListPosition(icon_platform, plats)
+	local plats quote(RmElement(plats,pos))
+	parameter #icon_component platform #plats
+	local clist RmElement(PdParam(icon_component,'field-color'), pos)
+	parameter #icon_component 'field-color' #clist
+endprocedure
+
+
+
+
+define widget xy-an-left intmenu 'x'
+	title 'XY Trace options'
+	line
+	entry 'Remove this trace' 'xytrace-remove'
+endmenu
+
+
+!
+! The color tweaker, called out of simple-color
+!
+procedure xytrace-color color string
+	local plats PDParam(icon_component,'platform')
+	local pos ListPosition(icon_platform, plats)
+	local clist PDParam(icon_component,'field-color')
+	local clist ReplElement(clist, pos, color)
+	parameter #icon_component field-color #clist
+endprocedure
+
+
+
+!
+! Adjust limits stuff.
+!
+procedure xytrace-adjust comp string
+	popup xytrace-limits
+endprocedure
+
+
+define widget xytrace-limits form 'xytrace adjuster'
+	popup xyta-popup
+	noheader
+!
+! Title line.
+!
+	label title 'Adjust time series limits'
+	button 'apply' 'Apply' command xyta-apply
+	button 'dismiss' 'Dismiss' color red command 'popdown #ui$form'
+	label comp 'comp' color gray95 width 1
+	newline
+!
+! time period
+!
+	label l1 'Time period:'
+	blank time 'funky' width 60 command xyta-apply
+	label l2 's = seconds, m = minutes, h = hours, d = days'
+	newline
+enddef
+
+
+procedure xyta-popup
+	local c icon_component
+	formtext #ui$form comp #c
+!
+! Do the time period.
+!
+	local period PDParam('global','xy-series-span')
+	formtext #ui$form time #period
+endprocedure
+
+
+procedure xyta-apply
+	local c getftext(ui$form,'comp')
+	local t getftext(ui$form,'time')
+
+	parameter 'global' 'xy-series-span' #t
+endprocedure
+
+

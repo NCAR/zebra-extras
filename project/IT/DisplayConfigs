@@ -1,0 +1,209 @@
+!
+! All of the predefined display configurations live in this file.
+!
+
+set ConfigDir "dconfig"
+!set ConfigPD "dconfig/pd"
+!
+! The initialization file.
+!
+set init_file (concat (getenv("CONFIGHOME"), "/gp.init"))
+
+!
+! Executables.  Use the bin version unless GPDEBUG is defined.
+!
+set default_exec "gp"
+set default_arg1 "gp.init"
+
+set gp_exec concat(getenv("BINHOME"),"/gp")
+set clock_exec concat(getenv("BINHOME"),"/fccclock")
+
+!
+! Generic linked PD to display one window zoomed.
+!
+config zoom 1
+	window 'humungo' 5 5 1100 850 #gp_exec #init_file
+		buttonmap 'big'
+		linkpd 1
+	endwindow
+endconfig
+
+!
+! An empty config just to clear out the screen.
+!
+config empty
+	widget 'iconbar' 0 0 229 61
+endconfig
+!
+! start user configs empty
+! Created: Wed Mar  1 14:24:51 1995 (Sean T. Moore)
+!
+config user1
+	widget 'iconbar' 0 0 229 61
+endconfig
+config user2
+	widget 'iconbar' 0 0 229 61
+endconfig
+
+!
+! the test config
+!
+config test
+	widget 'iconbar' 0 0 229 61
+	window 'test' 5 85 668 636 gp gp.init
+		description 'test'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig
+
+!
+! The preset configs
+!
+config four-tile
+	widget 'iconbar' 0 0 229 61
+	window 'map' 5 65 600 450 gp gp.init
+		description 'sgp-map'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'alt' 5 516 600 450 gp gp.init
+		description 'x-alt'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 't-y' 616 65 600 450 gp gp.init
+		description 't-y'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'tddr' 616 516 600 450 gp gp.init
+		description 'uav-tddr'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig
+
+config sgp-map
+	widget 'iconbar' 0 0 229 61
+	window 'map' 5 85 1000 750 gp gp.init
+		description 'sgp-map'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig
+
+config chase-t-y
+	widget 'iconbar' 0 0 229 61
+	window 't-y' 5 85 668 636 gp gp.init
+		description 'chase-t-y'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig
+
+config uav-t-y
+	widget 'iconbar' 0 0 229 61
+	window 't-y' 5 85 668 636 gp gp.init
+		description 'uav-t-y'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig
+
+config chase-ssp
+	widget 'iconbar' 0 0 229 61
+	window 'chase-ssp' 5 85 668 636 gp gp.init
+		description 'ssp'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig
+
+config cdl
+	widget 'iconbar' 0 0 229 61
+	window 'cdl' 5 85 600 611 gp gp.init
+		description 'cdl'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'alt' 616 85 516 609 gp gp.init
+		description 'cdl-x-alt'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig
+
+config alt-y
+	widget 'iconbar' 0 0 229 61
+	window 'alt' 5 85 668 636 gp gp.init
+		description 'alt-y'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig
+
+config x-alt
+	widget 'iconbar' 0 0 229 61
+	window 'alt' 5 85 668 636 gp gp.init
+		description 'x-alt'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig
+
+config uav-tddr
+	widget 'iconbar' 0 0 229 61
+	window 'tddr' 5 85 1000 750 gp gp.init
+		description 'uav-tddr'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig
+
+config uav-rad
+	widget 'iconbar' 0 0 229 61
+	window 'rad' 5 85 1000 750 gp gp.init
+		description 'uav-rad'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig
+
+config chase-tddr
+	widget 'iconbar' 0 0 229 61
+	window 'tddr' 5 85 1000 750 gp gp.init
+		description 'chase-tddr'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig
+
+config chase-uw-tddr
+	widget 'iconbar' 0 0 229 61
+	window 'tddr' 5 85 1000 750 gp gp.init
+		description 'chase-uw-tddr'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig
+
+config chase-dw-tddr
+	widget 'iconbar' 0 0 229 61
+	window 'tddr' 5 85 1000 750 gp gp.init
+		description 'chase-dw-tddr'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig
+
+config chase-rad
+	widget 'iconbar' 0 0 229 61
+	window 'rad' 5 85 1000 750 gp gp.init
+		description 'chase-rad'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig
+
+

@@ -1,0 +1,34 @@
+global
+	axis-bottom-space:	50
+	axis-left-space:	60
+	axis-right-space:	5
+	axis-top-space:		10
+	pd-name:		chase-tddr
+	plot-mode:		real-time
+	plot-type:		xygraph
+	x-field:		time, time, time, time, time, time, time
+	xy-axis-b-font-scale:	15
+	sa-scale:		12
+	xy-axis-b-grid-intensity: .3
+	xy-axis-b-label: 	zeb time
+	xy-axis-l-font-scale:	15
+	xy-axis-l-grid-intensity: .3
+	xy-axis-l-label: 	TDDR channels (volts)
+	xy-data-mode:		series
+	xy-series-span: 	5m
+	xy-time-annot: 		false
+	trigger: 		chase-tm
+	xy-scale-y-mode:	manual
+	tddr_380nm-scale-y-min:	0
+	tddr_380nm-scale-y-max:	5.5
+chase_tddr
+	field-color:		red, green, orange, violet, pink, yellow, white
+	icon-left-menu:		medium-cap-left-menu
+	icon-right-menu:	xytrace-right
+	icon:			tseries
+	limit-proc:		xytrace-adjust
+	platform:		chase-tm
+	representation-style:	line
+	representation:		simple
+	require:		xytrace, simple-color
+	y-field:		tddr_380nm, tddr_500nm, tddr_675nm, tddr_862nm, tddr_1064nm, tddr_412nm, tddr_1640nm

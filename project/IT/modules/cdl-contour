@@ -1,0 +1,47 @@
+!
+! contour code customized for UAV CDL plots
+!
+
+define widget contour-right intmenu 'contour right'
+	title 'Contour plot options'
+	line
+	submenu 'Label options' 'contour-label-options'
+	submenu 'Color Table' 'con-ctables'
+endmenu
+
+
+define widget contour-label-options intmenu 'label options'
+	title 'Contour labelling'
+	line
+	entry 'Side Legend' 'ToggleBoolean do-side-annotation' \
+		(PDParam(icon_component,'do-side-annotation') <> 'false')
+endmenu
+
+define widget con-ctables intmenu 'color tables'
+	title 'Contour color tables'
+	line
+	entry 'newgray' 'con-setctable newgray' \
+		(PDParam(icon_component, 'color-table') = 'newgray')
+	entry 'scook128' 'con-setctable scook128' \
+		(PDParam(icon_component, 'color-table') = 'scook128')
+	entry 'cook32' 'con-setctable cook32' \
+		(PDParam(icon_component, 'color-table') = 'cook32')
+	entry 'babydop' 'con-setctable babydop' \
+		(PDParam(icon_component, 'color-table') = 'babydop')
+	entry 'Contour' 'con-setctable Contour' \
+		(PDParam(icon_component, 'color-table') = 'Contour')
+	entry 'Rainbow' 'con-setctable Rainbow' \
+		(PDParam(icon_component, 'color-table') = 'Rainbow')
+	entry 'Reverse Rainbow' 'con-setctable RevRainbow' \
+		(PDParam(icon_component, 'color-table') = 'RevRainbow')
+	entry 'Red/Blue' 'con-setctable RedBlue' \
+		(PDParam(icon_component, 'color-table') = 'RedBlue')
+	entry '3-step red/yellow/blue' 'con-setctable SmallRainbow' \
+		(PDParam(icon_component, 'color-table') = 'SmallRainbow')
+endmenu
+
+
+procedure con-setctable table string
+	parameter #icon_component color-table #table
+endprocedure
+

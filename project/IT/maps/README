@@ -1,0 +1,25 @@
+# README for map files
+# Created: Fri Aug  5 16:48:41 1994 (Sean T. Moore)
+
+location key
+------------
+ok - dcw/noamer/overlay/f/j/22
+
+
+overlay key
+-----------
+rd - roads
+rr - railroad
+dn - drainage
+vg - vegetation (indexed per tile in vgarea.aft)
+
+
+vegetation types
+----------------
+Herbaceous rangeland
+Shrub and brush rangeland
+Mixed rangeland
+Deciduous forest
+Coniferous forest
+Mixed forest 
+Alpine tundra

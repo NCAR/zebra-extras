@@ -1,0 +1,35 @@
+global
+	axis-bottom-space:	50
+	axis-left-space:	80
+	axis-right-space:	5
+	axis-top-space:		10
+	pd-name:		uav-rad
+	plot-mode:		real-time
+	plot-type:		xygraph
+	x-field:		time, time, time, time
+	xy-axis-b-font-scale:	15
+	sa-scale:		12
+	xy-axis-b-grid-intensity: .3
+	xy-axis-b-label: 	zeb time
+	xy-axis-l-font-scale:	15
+	xy-axis-l-grid-intensity: .3
+	xy-axis-l-label: 	Irradiance (W/m2)
+	xy-data-mode:		series
+	xy-series-span: 	5m
+	xy-time-annot: 		false
+	trigger: 		uav-tm
+	xy-scale-y-mode:	manual
+	sw_dn_well-scale-y-min:	0
+	sw_dn_well-scale-y-max:	1650
+uav_rad
+	field-color:		red, green, yellow, violet
+	icon-left-menu:		medium-cap-left-menu
+	icon-right-menu:	xytrace-right
+	limit-proc:		xytrace-adjust
+	icon:			tseries
+	platform:		uav-tm
+	representation-style:	line
+	representation:		simple
+	require:		xytrace, simple-color
+	trigger: 		platform
+	y-field:		sw_dn_well, sw_up_well, lw_dn_well, lw_up_well

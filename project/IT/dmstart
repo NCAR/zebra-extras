@@ -1,0 +1,22 @@
+#!/bin/csh -f
+#
+# Start up the Zeb system.
+#
+# Do everything possible to insure that we start clean.
+#
+        setenv CONFIGHOME 	/zeb/proj/${ZEB_PROJECT}
+        setenv ZEBHOME		$ZEB_TOPDIR
+        setenv BINHOME  	$ZEBHOME/bin
+        setenv DATAHOME		$DATA_DIR
+        setenv XAPPLRESDIR 	${ZEBHOME}/lib/resources
+        setenv NO_DM_TIME 	yes
+        setenv HOST 		`hostname`
+        cd $CONFIGHOME
+#        sleep 1
+        $BINHOME/tweakcolor yellow
+#
+# Start the display manager.
+#
+        $BINHOME/dm  $CONFIGHOME/dm.config
+#	xgdb $BINHOME/dm 
+wait

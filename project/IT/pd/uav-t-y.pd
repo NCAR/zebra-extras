@@ -1,0 +1,38 @@
+global
+	axis-bottom-space:	50
+	axis-left-space:	100
+	axis-right-space:	5
+	axis-top-space:		0
+	pd-name:		uav-t-y
+	plot-mode:		real-time
+	plot-type:		xygraph
+	xy-axis-b-font-scale:	15
+	xy-axis-l-font-scale:	15
+	xy-axis-r-font-scale:	10
+	xy-axis-t-font-scale:	10
+	sa-scale:		12
+	xy-data-mode:		series
+	xy-axis-b-label: 	zeb time
+	xy-time-annot: 		false
+	xy-axis-l-grid-intensity: .3
+	xy-axis-b-grid-intensity: .3
+	xy-series-span: 	60m
+	x-field:		time
+	trigger:		uav-tm
+uav-t-y
+	icon-left-menu:		medium-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	xytrace-right
+	annot-left-menu:	xy-an-left
+	annot-middle-menu:	FieldMenu
+	annot-right-menu:	simple-color
+	color-tweaker:		xytrace-color
+	field-color:		green
+	field-select-command:	select-y-field
+	icon:			tseries
+	limit-proc:		xytrace-adjust
+	platform:		uav-tm
+	representation:		simple
+	representation-style:	line
+	require:		xytrace, xytrace-uav-enhance, simple-color
+	y-field:		met_pres

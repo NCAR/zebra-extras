@@ -1,0 +1,44 @@
+#!/bin/csh -f
+# 
+# Start up the Zeb system.
+#
+# Do everything possible to insure that we start clean.
+#
+	setenv HOST `hostname`
+	setenv XAPPLRESDIR ${ZEB_TOPDIR}/lib/resources
+        setenv CONFIGHOME /zeb/proj/${ZEB_PROJECT}
+        setenv BINHOME  $ZEB_TOPDIR/bin
+	cd $CONFIGHOME
+
+	zstop
+	rm -f $ZEB_SOCKET
+	sleep 1
+	set nonomatch
+#
+# The message system.  Nothing else runs without it.
+#
+	echo -n 'Starting MESSAGE...'
+	$BINHOME/message & 
+	sleep 1
+#
+# Wait until message is truly ready.  
+#
+	$BINHOME/mstatus > /dev/null
+#
+# The event logger.
+#
+#setenv EVENT_MASK 31
+	echo -n 'Starting the event logger...'
+	$BINHOME/EventLogger -j 0 -w&
+	sleep 1
+#
+# Start the timer.
+#
+	echo -n 'Starting the timer...'
+	$BINHOME/timer &
+#
+# Data store processes.
+#
+	echo -n '...and the data store daemon...'
+	$BINHOME/dsDaemon $CONFIGHOME/ds.config &
+	sleep 1

@@ -1,0 +1,14 @@
+! xytrace-uav-enhance
+! Created: Thu Feb 16 14:36:11 1995 (Sean T. Moore)
+! add functionality to the xytrace code for uav projects
+
+!
+! New field selection procedures.
+!
+procedure select-x-field field string
+	parameter #icon_component x-field #field
+endprocedure
+
+procedure select-y-field field string
+	parameter #icon_component y-field #field
+endprocedure

@@ -1,0 +1,627 @@
+!
+! All the definitions required to make the iconbar work.
+!
+
+!
+! The right way to do this....
+!
+set ui$bitmap_directory concat(c$libdir, "/icons")
+
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	!
+	! All this stuff tells the system to put it, unadorned by headers and
+	! title bars, where we want it.  DM does "override" by itself now,
+	! since this iconbar appears in the display config, so we don't
+	! bother with it here.
+	!
+	! noheader
+	! size 230 80
+	! location 100 100
+	! vertical
+	! override
+	!
+	! Now we can define the menus themselves.
+	!
+	menu help bitmap iconbar-help
+		title 'Help Access'
+		line
+		entry 'Index to Topics' 'help index'
+		entry 'Introduction' 'help intro'
+		entry 'Starting zeb' 'help start'
+		entry 'Shutting Down' 'help shut-down'
+		entry 'Keys and mouse buttons' 'help keys'
+		entry 'The icon bar' 'help iconbar'
+		entry 'Editing display configurations' 'help editing-configs'
+		line
+		entry 'Horizontal plots' 'help horizontal-plots'
+		entry 'Skew-t plots' 'help skewt'
+		entry 'XYGraph plots' 'help xy-graphs'
+		entry 'Cross section plots' 'help cross-section'
+	endmenu
+	!
+	! the Tools menu
+	!
+	menu tools bitmap tools-big
+		title 'Tools'
+		line
+		entry 'Time Widget'	'popup time'
+!		entry 'Hardcopy Widget' 'popup hardcopy'
+		line
+		entry 'Add Display Window' 'popup newwindow'
+		entry 'Delete Display Window' 'popup zorchwindow'
+		entry 'Save Display Window' 'popup saveconfig'
+!		entry 'Configuration Editing Widget' 'popup ConfigEdit'
+		line
+		entry 'Data Store Widget' 'shell "dsdwidget &"'
+!		entry 'Data Store Management' 'shell "dsmanage &"'
+!		line
+!		entry 'Open Windows Mode' 'ToggleTBSpace' (tbspace > 0)
+		line
+		entry 'Shut Down Zeb System' 'shutdown'
+	endmenu
+	menu global bitmap configs
+		title 'IT Configurations'
+		line
+		entry 'Empty Configuration' \
+			'pconfig empty' (dm$config = "empty")
+		line
+		entry 'SGP Map' 'pconfig sgp-map' (dm$config = "sgp-map")
+		entry 'Cloud Detection Lidar' 'pconfig cdl' (dm$config = "cdl")
+		entry 'Chase SSP' 'pconfig chase-ssp' (dm$config = "chase-ssp")
+		entry 'Chase MET/NAV/RAD Time-Y' 'pconfig chase-t-y' (dm$config = "chase-t-y")
+		entry 'UAV MET/NAV/RAD Time-Y' 'pconfig uav-t-y' (dm$config = "uav-t-y")
+		entry 'UAV TDDR' 'pconfig uav-tddr' (dm$config = "uav-tddr")
+		entry 'Chase UpWell TDDR' 'pconfig chase-uw-tddr' (dm$config = "chase-uw-tddr")
+		entry 'Chase DownWell TDDR' 'pconfig chase-dw-tddr' (dm$config = "chase-dw-tddr")
+		entry 'UAV BB Radiometer' 'pconfig uav-rad' (dm$config = "uav-rad")
+		entry 'Chase BB Radiometer' 'pconfig chase-rad' (dm$config = "chase-rad")
+		line
+		entry 'TEST1' 'pconfig test' (dm$config = "test")
+		entry 'X-Alt' 'pconfig x-alt' (dm$config = "x-alt")
+		entry 'Alt-Y' 'pconfig alt-y' (dm$config = "alt-y")
+!		entry 'Four-Tile' 'pconfig four-tile' (dm$config = "four-tile")
+		line
+		entry 'User Defined 1' \
+			'pconfig user1' (dm$config = "user1")
+		entry 'User Defined 2' \
+			'pconfig user2' (dm$config = "user2")
+		entry 'User Defined 3' \
+			'pconfig user3' (dm$config = "user3")
+	endmenu
+	menu model bitmap model
+		title 'Radiative Transfer Models'
+		line
+		entry 'ESRG DISORT' 'shell "/home/mercury/uav/bin/disort-gui&"'
+	endmenu
+!	menu 'uav_util' bitmap aircraft
+!	title 'UAV Utilities'
+!	line
+!	entry 'Place flight track' 'put_component c_uav'
+!	line
+!	entry 'Mission Log'     \
+!		'shell "/apps/development/mlog/bin/startmlog"'
+!	entry 'Aircraft Profile'        \
+!		'shell "$ACDSP_EXE_HOME/startacdsp&"'
+!	entry 'NWS Surface Hourly'        \
+!		'shell "$OPENWINHOME/bin/xterm -T NWS_Surface_Hourly -sb +aw -g 180x50+0+40 -bg cyan -e /apps/development/bin/sfc&"'
+!
+!	endmenu
+!	menu 'overlays' bitmap overlays
+!		title 'Static Overlays'
+!		line
+!		submenu 'Grids and Range Rings' GridsAndRings
+!		submenu 'Maps' 'Maps'
+!		submenu 'Locations' LocMenu
+!		line
+!		entry 'Window Bounds' 'put_wbounds c_wbounds'
+!	endmenu
+enddef
+
+
+!
+! The various maps.
+!
+define widget Maps intmenu 'Maps'
+	title 'Map overlays'
+	line
+	entry 'State boundaries' 'put_component c_map_statelines'
+	entry 'Roads' 'put_component c_map_roads'
+	entry 'River' 'put_component c_map_rivers'
+	line
+endmenu
+
+
+!
+! Location submenu.
+!
+define widget LocMenu intmenu 'Location menu'
+	title 'Static locations'
+	line
+	entry 'SGP CART Site' 'put_component c_sgpcartsite'
+	entry 'Extended Facilities' 'put_component c_locns_ef'
+	entry 'Boundary Facilities' 'put_component c_locns_bf'
+
+!	submenu 'VOR/DME' 'VORmenu'
+!	entry 'CLASS stations' 'put_component c_sounding_loc'
+!	entry 'NWS soundings' 'put_component c_nwssounding_loc'
+!	entry 'Profilers' 'put_component c_profiler_loc'
+!	entry 'Radio Tower' 'put_component c_rt_loc'
+!	entry 'Aster' 'put_component c_aster_loc'
+!	entry 'Boundary Layer Array' 'put_component c_array_loc'
+endmenu
+
+
+define widget VORmenu intmenu 'Vor Locations'
+	title 'VOR Locations'
+	line
+	entry 'Iowa'		'put_component c_vor_IA'
+	entry 'Western Kansas'	'put_component c_vor_westKS'
+	entry 'Eastern Kansas'	'put_component c_vor_eastKS'
+	entry 'Western Missouri'	'put_component c_vor_westMO'
+	entry 'Eastern Missouri'	'put_component c_vor_eastMO'
+	entry 'Western Nebraska'	'put_component c_vor_westNE'
+	entry 'Eastern Nebraska'	'put_component c_vor_eastNE'
+	entry 'Western Oklahoma'	'put_component c_vor_westOK'
+	entry 'Eastern Oklahoma'	'put_component c_vor_eastOK'
+	entry 'North misc.'	'put_component c_vor_nmisc'
+	entry 'South misc.'	'put_component c_vor_smisc'
+endmenu
+
+!
+! Submenu for grids and range rings.
+!
+define widget GridsAndRings intmenu 'grid and rings and nifty stuff'
+	title 'Grids, rings, etc.'
+	line
+	submenu 'Radar Range Rings' RadarRings
+	line
+	submenu 'VOR/DME Range Rings' VORRings 
+	line
+	entry 'X-Y Grid (km)' \
+			'PutCompX c_cart_grid lat-lon false'
+	entry 'Lat/Lon Grid ' \
+		'PutCompX c_cart_grid lat-lon true'
+endmenu
+
+!
+! Radar range ring menu.
+!
+define widget RadarRings intmenu 'radar range rings'
+	title 'Radar Range Rings'
+	line
+	entry 'CP3 Range Rings' 'PutCompX c_rings platform cp3'
+	entry 'CP4 Range Rings' 'PutCompX c_rings platform cp4'
+	entry 'MHR Range Rings' 'PutCompX c_rings platform mhr'
+	entry 'OKC Range Rings' 'PutCompX c_rings platform okc'
+	entry 'FDR Range Rings' 'PutCompX c_rings platform fdr'
+	entry 'CIM Range Rings' 'PutCompX c_rings platform cim'
+	entry 'HOT Range Rings' 'PutCompX c_rings platform hot'
+	entry 'CHILL Range Rings' 'PutCompX c_rings platform chill'
+endmenu
+
+!
+! VOR/DME range ring menu.
+!
+define widget VORRings intmenu 'VOR range rings'
+	title 'VOR/DME Range Rings'
+	line
+	entry 'STJ range rings' 'PutCompX c_vor platform vor-stj'
+	entry 'MKC range rings' 'PutCompX c_vor platform vor-mkc'
+	entry 'PWE range rings' 'PutCompX c_vor platform vor-pwe'
+	entry 'TOP range rings' 'PutCompX c_vor platform vor-top'
+	entry 'DUC range rings' 'PutCompX c_vor platform vor-duc'
+	entry 'IRW range rings' 'PutCompX c_vor platform vor-irw'
+	entry 'HBR range rings' 'PutCompX c_vor platform vor-hbr'
+	entry 'IFI range rings' 'PutCompX c_vor platform vor-ifi'
+	entry 'IRK range rings' 'PutCompX c_vor platform vor-irk'
+	entry 'DSM range rings' 'PutCompX c_vor platform vor-dsm'
+	entry 'FSM range rings' 'PutCompX c_vor platform vor-fsm'	
+	entry 'Other VOR (keyboard entry)' 'popup vor-origin'
+endmenu
+
+! A form widget for manual VOR entry.
+!
+define widget vor-origin form 'VOR origin'
+	noheader
+	popup vor_popup
+	label comp 'component'
+	label l1 'VOR/DME origin:'
+	blank origin 'vor-top' command 'vor_origin_enter' width 100
+	newline
+	button cancel 'Cancel' color red command 'popdown #ui$form'
+	button apply 'Apply' command 'vor_origin_enter'
+	label gripe ' ' color red width 200
+enddef
+
+!
+! Initialize a VOR form.
+!
+procedure vor_popup
+	formtext #ui$form comp c_vordef
+	formtext #ui$form gripe ' '
+endprocedure
+
+
+!
+! Menus for mesonet contours.  Two completely separate menus required
+! for the filled and line cases, alas.
+!
+define widget FilledMesonet intmenu 'Filled mesonet contour selection'
+	title 'Mesonet data in filled contours'
+	line
+	entry 'Temperature' 		'PutBCompField c_fmesonet tdry false'
+	entry 'Dewpoint Temperature'	'PutBCompField c_fmesonet dp false'
+	entry 'Corrected Pressure' 	'PutBCompField c_fmesonet cpres0 false'
+	entry 'Mixing Ratio'		'PutBCompField c_fmesonet mr false'
+	entry '6 Hour Rain Accumulation' 'PutBCompField c_fmesonet rain6hr false'
+endmenu
+define widget FilledMesonetHourly intmenu 'Filled Contour Selection'
+	title 'Surface Mesonet Contour Fields'
+	line
+	entry 'Station Pressure mb' 'PutBCompField c_sfc_hourly_fcontours pres false'
+	entry 'Reported Sea-level Pressure mb' 'PutBCompField c_sfc_hourly_fcontours cpres0 false'
+	entry 'Calculated Sea-levelPressure mb' 'PutBCompField c_sfc_hourly_fcontours computed_Sea_level_Pressure false'
+	entry 'Temperature C' 'PutBCompField c_sfc_hourly_fcontours tdry false'
+	entry 'Dew Point C' 'PutBCompField c_sfc_hourly_fcontours dp false'
+	entry 'Wind Speed' 'PutBCompField c_sfc_hourly_fcontours wspd false'
+	entry 'Wind Direction' 'PutBCompField c_sfc_hourly_fcontours wdir false'
+	entry 'Wind Maximum m/s' 'PutBCompField c_sfc_hourly_fcontours wmax false'
+	entry 'Rain kg/m2' 'PutBCompField c_sfc_hourly_fcontours rain false'
+	entry 'Weather Code' 'PutBCompField c_sfc_hourly_fcontours weather_code false'
+	entry 'Horizontal Visability m' 'PutBCompField c_sfc_hourly_fcontours horiz_vis__fcontours false'
+	entry 'Ceiling Height (first layer) feet' 'PutBCompField c_sfc_hourly_fcontours ceiling_height false'
+	entry 'Ceiling Flag (first layer)' 'PutBCompField c_sfc_hourly_fcontours ceiling_flag false'
+	entry 'Cloud Amount (first layer)' 'PutBCompField c_sfc_hourly_fcontours cloud_amt false'
+	entry 'Ceiling Height (second layer) feet' 'PutBCompField c_sfc_hourly_fcontours ceiling_height2 false'
+	entry 'Ceiling Flag (second layer)' 'PutBCompField c_sfc_hourly_fcontours ceiling_flag2 false'
+	entry 'Cloud Amount (second layer)' 'PutBCompField c_sfc_hourly_fcontours cloud_amt2 false'
+	entry 'Ceiling Height (third layer) feet' 'PutBCompField c_sfc_hourly_fcontours ceiling_height3 false'
+	entry 'Ceiling Flag (third layer)' 'PutBCompField c_sfc_hourly_fcontours ceiling_flag3 false'
+	entry 'Cloud Amount (third layer)' 'PutBCompField c_sfc_hourly_fcontours cloud_amt3 false'
+	entry 'East Wind Component m/s' 'PutBCompField c_sfc_hourly_fcontours u_wind false'
+	entry 'West Wind Component m/s' 'PutBCompField c_sfc_hourly_fcontours v_wind false'
+	entry 'Station Altitude km' 'PutBCompField c_sfc_hourly_fcontours alt false'
+endmenu
+define widget LineMesonetHourly intmenu 'Line mesonet contour selection'
+	title 'Surface Mesonet Contour Fields'
+	line
+	entry 'Station Pressure mb' 'PutCompField c_sfc_hourly pres'
+	entry 'Reported Sea-level Pressure mb' 'PutCompField c_sfc_hourly cpres0'
+	entry 'Calculated Sea-levelPressure mb' 'PutCompField c_sfc_hourly computed_Sea_level_Pressure'
+	entry 'Temperature C' 'PutCompField c_sfc_hourly tdry'
+	entry 'Dew Point C' 'PutCompField c_sfc_hourly dp'
+	entry 'Wind Speed' 'PutCompField c_sfc_hourly wspd'
+	entry 'Wind Direction' 'PutCompField c_sfc_hourly wdir'
+	entry 'Wind Maximum m/s' 'PutCompField c_sfc_hourly wmax'
+	entry 'Rain kg/m2' 'PutCompField c_sfc_hourly rain'
+	entry 'Weather Code' 'PutCompField c_sfc_hourly weather_code'
+	entry 'Horizontal Visability m' 'PutCompField c_sfc_hourly horiz_vis'
+	entry 'Ceiling Height (first layer) feet' 'PutCompField c_sfc_hourly ceiling_height'
+	entry 'Ceiling Flag (first layer)' 'PutCompField c_sfc_hourly ceiling_flag'
+	entry 'Cloud Amount (first layer)' 'PutCompField c_sfc_hourly cloud_amt'
+	entry 'Ceiling Height (second layer) feet' 'PutCompField c_sfc_hourly ceiling_height2'
+	entry 'Ceiling Flag (second layer)' 'PutCompField c_sfc_hourly ceiling_flag2'
+	entry 'Cloud Amount (second layer)' 'PutCompField c_sfc_hourly cloud_amt2'
+	entry 'Ceiling Height (third layer) feet' 'PutCompField c_sfc_hourly ceiling_height3'
+	entry 'Ceiling Flag (third layer)' 'PutCompField c_sfc_hourly ceiling_flag3'
+	entry 'Cloud Amount (third layer)' 'PutCompField c_sfc_hourly cloud_amt3'
+	entry 'East Wind Component m/s' 'PutCompField c_sfc_hourly u_wind'
+	entry 'West Wind Component m/s' 'PutCompField c_sfc_hourly v_wind'
+	entry 'Station Altitude km' 'PutCompField c_sfc_hourly alt'
+!	
+endmenu
+define widget FilledMesonet5min intmenu 'Filled Contour Selection'
+	title 'Surface Mesonet Contour Fields'
+	line
+	entry 'Station Pressure mb' 'PutBCompField c_sfc_5min_fcontours pres false'
+	entry 'Reported Sea-level Pressure mb' 'PutBCompField c_sfc_5min_fcontours cpres0 false'
+	entry 'Calculated Sea-levelPressure mb' 'PutBCompField c_sfc_5min_fcontours computed_Sea_level_Pressure false'
+	entry 'Temperature C' 'PutBCompField c_sfc_5min_fcontours tdry false'
+	entry 'Dew Point C' 'PutBCompField c_sfc_5min_fcontours dp false'
+	entry 'Wind Speed' 'PutBCompField c_sfc_5min_fcontours wspd false'
+	entry 'Wind Direction' 'PutBCompField c_sfc_5min_fcontours wdir false'
+	entry 'Wind Maximum m/s' 'PutBCompField c_sfc_5min_fcontours wmax false'
+	entry 'Rain kg/m2' 'PutBCompField c_sfc_5min_fcontours rain false'
+	entry 'Weather Code' 'PutBCompField c_sfc_5min_fcontours weather_code false'
+	entry 'Horizontal Visability m' 'PutBCompField c_sfc_5min_fcontours horiz_vis__fcontours false'
+	entry 'Ceiling Height (first layer) feet' 'PutBCompField c_sfc_5min_fcontours ceiling_height false'
+	entry 'Ceiling Flag (first layer)' 'PutBCompField c_sfc_5min_fcontours ceiling_flag false'
+	entry 'Cloud Amount (first layer)' 'PutBCompField c_sfc_5min_fcontours cloud_amt false'
+	entry 'Ceiling Height (second layer) feet' 'PutBCompField c_sfc_5min_fcontours ceiling_height2 false'
+	entry 'Ceiling Flag (second layer)' 'PutBCompField c_sfc_5min_fcontours ceiling_flag2 false'
+	entry 'Cloud Amount (second layer)' 'PutBCompField c_sfc_5min_fcontours cloud_amt2 false'
+	entry 'Ceiling Height (third layer) feet' 'PutBCompField c_sfc_5min_fcontours ceiling_height3 false'
+	entry 'Ceiling Flag (third layer)' 'PutBCompField c_sfc_5min_fcontours ceiling_flag3 false'
+	entry 'Cloud Amount (third layer)' 'PutBCompField c_sfc_5min_fcontours cloud_amt3 false'
+	entry 'East Wind Component m/s' 'PutBCompField c_sfc_5min_fcontours u_wind false'
+	entry 'West Wind Component m/s' 'PutBCompField c_sfc_5min_fcontours v_wind false'
+	entry 'Station Altitude km' 'PutBCompField c_sfc_5min_fcontours alt false'
+endmenu
+define widget LineMesonet5min intmenu 'Line mesonet contour selection'
+	title 'Surface Mesonet Contour Fields'
+	line
+	entry 'Station Pressure mb' 'PutCompField c_sfc_5min pres'
+	entry 'Reported Sea-level Pressure mb' 'PutCompField c_sfc_5min cpres0'
+	entry 'Calculated Sea-levelPressure mb' 'PutCompField c_sfc_5min computed_Sea_level_Pressure'
+	entry 'Temperature C' 'PutCompField c_sfc_5min tdry'
+	entry 'Dew Point C' 'PutCompField c_sfc_5min dp'
+	entry 'Wind Speed' 'PutCompField c_sfc_5min wspd'
+	entry 'Wind Direction' 'PutCompField c_sfc_5min wdir'
+	entry 'Wind Maximum m/s' 'PutCompField c_sfc_5min wmax'
+	entry 'Rain kg/m2' 'PutCompField c_sfc_5min rain'
+	entry 'Weather Code' 'PutCompField c_sfc_5min weather_code'
+	entry 'Horizontal Visability m' 'PutCompField c_sfc_5min horiz_vis'
+	entry 'Ceiling Height (first layer) feet' 'PutCompField c_sfc_5min ceiling_height'
+	entry 'Ceiling Flag (first layer)' 'PutCompField c_sfc_5min ceiling_flag'
+	entry 'Cloud Amount (first layer)' 'PutCompField c_sfc_5min cloud_amt'
+	entry 'Ceiling Height (second layer) feet' 'PutCompField c_sfc_5min ceiling_height2'
+	entry 'Ceiling Flag (second layer)' 'PutCompField c_sfc_5min ceiling_flag2'
+	entry 'Cloud Amount (second layer)' 'PutCompField c_sfc_5min cloud_amt2'
+	entry 'Ceiling Height (third layer) feet' 'PutCompField c_sfc_5min ceiling_height3'
+	entry 'Ceiling Flag (third layer)' 'PutCompField c_sfc_5min ceiling_flag3'
+	entry 'Cloud Amount (third layer)' 'PutCompField c_sfc_5min cloud_amt3'
+	entry 'East Wind Component m/s' 'PutCompField c_sfc_5min u_wind'
+	entry 'West Wind Component m/s' 'PutCompField c_sfc_5min v_wind'
+	entry 'Station Altitude km' 'PutCompField c_sfc_5min alt'
+!	
+endmenu
+
+
+! Menus for dual doppler contours.
+!
+define widget LineDDop intmenu 'Line ddop contour selection'
+	title 'Dual Doppler Data in Line Contours'
+	line
+	entry 'Divergence Contours' 'PutCompX c_ddop_cont field div'
+	entry 'Vertical Velocity Contours' \
+		'PutCompX c_ddop_cont field w_wind'
+	entry 'Cp4 Interpolated Reflectivity' \
+		'PutCompX c_ddop_cont field ref_cp4'
+	entry 'Cp3 Interpolated Reflectivity' \
+		'PutCompX c_ddop_cont field ref_cp3'
+endmenu
+
+define widget FilledDDop intmenu 'Filled ddop contour selection'
+	title 'Dual Doppler Data in Filled Contours'
+	line
+	entry 'Divergence Contours' 'PutBCompField c_ddop_fillcont div false'
+	entry 'Vertical Velocity Contours' \
+		'PutBCompField c_ddop_fillcont w_wind false'
+	entry 'Cp4 Interpolated Reflectivity' \
+		'PutBCompField c_ddop_fillcont ref_cp4 false'
+	entry 'Cp3 Interpolated Reflectivity' \
+	'PutBCompField c_ddop_fillcont ref_cp3 false'
+endmenu
+
+!
+! The simple case: add a component to a window with no changes.
+!
+procedure put_component name string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+!
+! If this component is already present in the window, remove it.  Otherwise
+! put it in.
+!
+	if (pd_defined (target_win, name, "platform"))
+		message 'Already there'
+		remove #target_win #name
+	else
+		add #name #name #target_win
+	endif
+endprocedure
+
+
+
+!
+! Add a component to a window, changing the field name.
+!
+procedure PutCompField comp string field string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+!
+! Send the stuff over.
+!
+	parameter #comp #comp "field" #field
+	add #comp #comp #target_win
+endprocedure
+
+
+!
+! Add a component to a window, changing the field name.  This version puts
+! the component at the bottom of the stack.
+!
+procedure PutBCompField comp string field string radarspace string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+!
+! If the component is already in the window, just change the field.
+!
+	if (pd_defined (target_win, comp, "platform"))
+		parameter #target_win #comp "field" #field
+!
+! Otherwise change the field *in DM* to avoid making the GP draw twice,
+! then send it over.
+!
+	else
+		parameter #comp #comp "field" #field
+		add #comp #comp #target_win 1
+	!
+	!  Take care of the radar-space parameter.
+	!
+		parameter #target_win "global" "radar-space" #radarspace
+	endif
+endprocedure
+
+
+!
+! Remove a component from a window.
+!
+procedure ZapComp comp string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+!
+! If this component truly exists in the window, get rid of it.
+!
+	if (pd_defined (target_win, comp, "platform"))
+		remove #target_win #comp
+	endif
+endprocedure
+
+
+
+!
+! Put in window bounds.
+!
+procedure put_wbounds comp string
+!
+! Get the window we want to see.
+!
+	set wbounds_win "none"
+	pickwin wbounds_win
+	if (wbounds_win = "none")
+		beep
+		return
+	endif
+!
+! And now the place where it goes.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")
+		beep
+		return
+	endif
+!
+! Fix up the component and ship it over.
+!
+	parameter #comp #comp platform #wbounds_win
+	add #comp #comp #target_win
+endprocedure
+
+
+
+
+!
+! pconfig -- switch between the various 'picture' configs.
+!
+procedure pconfig config string
+!
+! Switch over to the new config.
+!
+	display #config
+!
+! Figure out what we're doing with window boxes.
+!
+!	if (config = 'picture' or config = 'picturex')
+!		parameter big wbox disable false
+!	elseif (config = 'pictures')
+!		parameter big wbox disable true
+!	endif
+endprocedure
+
+
+
+!
+! Add a component to a window, changing an arbitrary parameter.
+!
+procedure PutCompX comp string param string value string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+
+	parameter #comp #comp #param #value
+	add #comp #comp #target_win
+endprocedure
+
+
+
+procedure vor_origin_enter
+!
+! Get some parameters
+!
+	local comp getftext(ui$form,'comp')
+	local origin getftext(ui$form,'origin')
+	local originname concat(origin, '-location')
+	local loc pd_param('defaults', 'defaults', originname, "string")
+!
+! Give them a chance without "vor-"
+!
+	if (loc = '(Undefined)')
+		local origin concat('vor-', origin)
+		local originname concat(origin, '-location')
+		local loc pd_param('defaults', 'defaults', originname, "string")
+	endif
+!
+! Make sure we know about this location.
+!
+		if (loc = '(Undefined)')
+			local complaint quote(concat3('Location ',origin,' unknown'))
+			formtext #ui$form gripe #complaint
+			return
+		endif
+!
+! Looks cool -- let's do it.
+!
+	formtext #ui$form gripe 'Please select window'
+	PutCompX 'c_vordef' 'platform' #origin
+	popdown #ui$form
+endprocedure
+
+!
+!decreases the height of the window so that i looks nice with the
+!openwindows top bar
+!
+procedure ToggleTBSpace
+	if (tbspace = 0)
+		set tbspace 25
+	else
+		set tbspace 0
+	endif
+endprocedure
+
+!
+! Once tested and approved, the whole source could be inserted here
+! if necessary
+!
+! read print.widget

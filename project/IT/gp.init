@@ -1,0 +1,209 @@
+!
+! The runtime gp.init.
+!
+
+set RequirePath concat('./modules,',RequirePath)
+set MapPath concat('./maps,','MapPath')
+
+!
+! Left button menu for the global component.
+!
+define widget global-left intmenu 'Global left menu'
+	title 'Global Options'
+	line
+	entry 'Reset window' 'dm "ResetWindow"'
+	entry 'Popup Overlay Times Window' 'popup overlay'
+	entry 'Popup Movie Controller' 'popup movie'
+	line
+	submenu 'Top Annotation' 'top_anno_menu'
+endmenu
+define widget top_anno_menu intmenu 'top_anno'
+	title 'Top Annotation'
+	line
+	entry 'Small' 'TopAnnotSize 12' \
+		(pd_param(icon_component, "ta-scale", "string") = "12")
+	entry 'Medium' 'TopAnnotSize 20' \
+		(pd_param(icon_component, "ta-scale", "string") = "20")
+	entry 'Large' 'TopAnnotSize 24' \
+		(pd_param(icon_component, "ta-scale", "string") = "24")
+endmenu	
+!
+!
+! Left button menu for the base maps
+!
+define widget base-map-left intmenu 'Base Map left menu'
+	title 'Base Map Overlay'
+	line
+	entry 'Popup Position Window' 'popup position'
+!	submenu 'Set Scale' 'ScaleMenu'
+	entry 'UAV flight area' 'DoZoom -15 20 -15 20'
+	entry 'CF 50km radius' 'DoZoom -50 50 -50 50'
+	entry 'CF 100km radius' 'DoZoom -100 100 -100 100'
+	entry 'CF 200km radius' 'DoZoom -200 200 -200 200'
+	entry 'Oklahoma Scale' 'DoZoom -470 460 -510 250'
+	entry 'USA Scale' 'DoZoom -2500 2500 -2500 2500'
+	line
+	entry 'Raise to top' 'move #icon_component 0'
+	entry 'Move to bottom' 'move #icon_component 1'
+	entry 'Disable/reenable' 'ToggleBoolean "disable"' \
+		(PDParam(icon_component,"disable") = "true")
+	entry 'Remove' 'i_remove_component'
+endmenu
+
+!
+! Scales.
+!
+define widget ScaleMenu intmenu 'scales'
+	title 'Scales'
+	line
+	entry 'UAV flight area' 'DoZoom -6.6246 25.3430 -6.1755 16.9191'
+	entry 'CF 50km radius' 'DoZoom -40 43 -35 27'
+	entry 'CF 100km radius' 'DoZoom -100 100 -100 100'
+	entry 'Oklahoma Scale' 'DoZoom -470 460 -510 250'
+	entry 'USA Scale' 'DoZoom -2500 2500 -2500 2500'
+endmenu
+
+!
+! The Global Adjust Limits submenu
+!
+define widget adjust_global_limits intmenu "Adjust Global Limits"
+	entry 'X Limits' 'i_adjust_global x-limit-proc'
+	entry 'Y Limits' 'i_adjust_global y-limit-proc'
+endmenu
+
+!
+! Adjust the limits on the global component.
+!
+procedure i_adjust_global procparam string
+	local proc pd_paramsearch(icon_component,procparam,"global","string")
+	if (proc <> "(Undefined)")
+		#proc "global" "string"
+	else
+		dm "beep"
+	endif
+endprocedure
+
+!
+! Adjust the limits on a component.
+!
+procedure i_adjust procparam string
+	local rep pd_param(icon_component, "representation", "string")
+	local proc pd_paramsearch(icon_component, procparam, rep, "string")
+	if (proc <> "(Undefined)")
+		#proc #icon_component
+	else
+		dm "beep"
+	endif
+endprocedure
+
+
+!
+! The x min max adjuster.
+!
+procedure adj_x_minmax 
+	local xmin pd_paramsearch("global", "x-min", "", "string")
+	local xmax pd_paramsearch("global", "x-max", "", "string")
+	activate doublefloat "global" "x-min" "X Min: " #xmin \
+		"x-max" "X Max: " #xmax
+endprocedure
+
+!
+! The y min max adjuster.
+!
+procedure adj_y_minmax 
+	local ymin pd_paramsearch("global", "y-min", "", "string")
+	local ymax pd_paramsearch("global", "y-max", "", "string")
+	activate doublefloat "global" "y-min" "Y Min: " #ymin \
+		"y-max" "Y Max: " #ymax
+endprocedure
+
+!
+! Left button menu for xsections
+!
+
+define widget xsect-left intmenu 'Xsect left menu'
+	title 'Options'
+	line
+!	entry 'Zoom Window' 'dm "zoom #dm$button_window"'
+	entry 'Popup Overlay Times Window' 'popup overlay'
+endmenu
+
+!
+! Movie control menu.
+!
+define widget movie-control intmenu 'movie control'
+	title 'Movie Control'
+	line
+	entry 'Popup Movie Controller' 'popup movie'
+	entry 'Run Movie' 'movie run'
+	entry 'Stop Movie' 'movie stop'
+endmenu
+
+!
+! Menus for boundaries
+!
+define widget bdry-right intmenu 'boundary right menu'
+	title 'Boundary Options'
+	line
+	submenu 'Line Width' LineWidth
+	submenu 'Labels' LabelOnOff
+endmenu
+
+!
+! A better boundary control widget.
+!
+define widget boundary-control intmenu 'stuff'
+	title 'Boundary/plan options'
+	line
+	submenu 'Line Width' LineWidth
+	entry 'Label' 'ToggleLabels' \
+		(pd_param(icon_component, "label", "string") <> "none")
+	line
+	entry 'Enter Polygon' 'RedrawBoundary'
+endmenu
+
+procedure RedrawBoundary
+	local plat (pd_param (icon_component, "platform", "string"))
+	polyline #plat
+endprocedure
+
+procedure ToggleLabels
+	local enabled (pd_param(icon_component, "label", "string") <> "none")
+	if (enabled)
+		parameter #icon_component label 'none'
+	else
+		parameter #icon_component label 'platform'
+	endif
+endprocedure
+
+!
+! Turn labels on and off.
+!
+define widget LabelOnOff intmenu "labels on/off"
+	title 'Labels'
+	line
+	entry 'On' 'turnlabelon' \
+		(pd_param(icon_component, "label", "string") <> "none")
+	entry 'Off' 'parameter #icon_component label none' \
+		(pd_param(icon_component, "label", "string") = "none")
+endmenu
+
+procedure turnlabelon
+	local worked pd_removeparam(icon_component, "label")
+endprocedure
+
+!
+! Line width menu for maps and such.
+!
+define widget LineWidth intmenu 'line width'
+	title 'Line drawing parameters'
+	line
+	entry 'Thin lines' 'parameter #icon_component line-width 0'  \
+		(pd_param (icon_component, "line-width", "string") = "0" or \
+                 pd_param(icon_component,"line-width","string") ="(Undefined)")
+	entry 'Thicker lines' 'parameter #icon_component line-width 2' \
+		(pd_param (icon_component, "line-width", "string") = "2")
+	entry 'Super-thick lines' 'parameter #icon_component line-width 3' \
+		(pd_param (icon_component, "line-width", "string") = "3")
+endmenu
+

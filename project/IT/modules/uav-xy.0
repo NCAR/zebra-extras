@@ -1,0 +1,12 @@
+
+define widget uav-y-fields intmenu 'UAV time series fields'
+	title 'UAV Time Series Data'
+	line
+	entry 'pitch' 'parameter #icon_component y-field pitch'
+	entry 'roll' 'parameter #icon_component y-field roll'
+	entry 'heading' 'parameter #icon_component y-field heading'
+	entry 'airspeed' 'parameter #icon_component y-field airspeed'
+	entry 'heading' 'parameter #icon_component y-field heading'
+	entry 'altitude' 'parameter #icon_component y-field alt'
+endmenu
+

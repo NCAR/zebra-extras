@@ -1,0 +1,17 @@
+# zebrc - init file for zeb project in current directory
+# Created: Mon Mar  6 13:57:30 1995 (Sean T. Moore)
+# To be sourced by user before starting msgstart or dmstart.
+# If linked to by proj_startup, will be sourced by zstart
+#
+setenv ZEB_TOPDIR	/zeb
+setenv ZEB_PROJECT      IT
+setenv DATA_DIR         /home/data1/it
+setenv DEFAULT_CONFIG	empty
+#unsetenv ZEB_SOCKET
+setenv ZEB_SOCKET 	/tmp/.zeb-$USER-$ZEB_PROJECT
+unsetenv INITIAL_TIME
+#setenv INITIAL_TIME 	"20-Apr-95,19:14:35"
+#setenv INITIAL_TIME  	"20-Apr-94,19:00:00"
+#setenv INITIAL_TIME  	"13-Apr-94,16:00:00"
+#setenv INITIAL_TIME  	"7-Apr-94,16:49:00"
+#setenv PRESERVE_ZEB 	yes

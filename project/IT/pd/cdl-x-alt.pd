@@ -1,0 +1,26 @@
+global
+	axis-bottom-space:	50
+	axis-left-space:	120
+	axis-right-space:	15
+	axis-top-space:		10
+	pd-name:		cdl-x-alt
+	plot-mode:		real-time
+	plot-type:		xygraph
+	trigger:		cdlpro
+	xy-data-mode:		series
+	xy-series-span:         30s
+height_vs_count
+	icon-left-menu:		medium-cap-left-menu
+	icon-right-menu:	xytrace-right
+	annot-left-menu:	xy-an-left
+	annot-right-menu:	simple-color
+	color-tweaker:		xytrace-color
+	field-color:		green
+	icon:			x-alt
+	limit-proc:		xytrace-adjust
+	platform:		cdlpro
+	representation:		simple
+	representation-style:	line
+	require:		xytrace, xytrace-uav-enhance, simple-color
+	x-field:		photons
+	y-field:		heights

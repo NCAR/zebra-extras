@@ -1,0 +1,16 @@
+README for IT project
+Mon Mar  6 17:51:15 1995 (Sean T. Moore)
+----------------------------------------
+
+To initialize environment for csh:
+% source zebrc
+
+To start zeb message system, logger, timer, datastore:
+% msgstart
+
+To start ingest modules:
+% istart
+
+To start zeb display manager:
+% dmstart
+

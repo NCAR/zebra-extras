@@ -1,0 +1,58 @@
+! Auto-saved display configuration.
+config cdl-work
+	widget 'iconbar' -5 -22 229 61
+	window 'cdl' 5 85 668 611 gp gp.init
+		description 'cdl-work-cdl'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig
+
+beginpd 'cdl-work-cdl'
+global
+   parameter altitude-label            ''
+   parameter axis-bottom-space         '40'
+   parameter axis-left-space           '70'
+   parameter axis-right-space          '70'
+   parameter axis-top-space            '20'
+   parameter pd-name                   'cdl-work-cdl'
+   parameter photon-scale-z-center     '180.0000'
+   parameter photon-scale-z-step       '5.0000'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '26-Apr-95,22:15:00'
+   parameter plot-type                 'xygraph'
+   parameter trigger                   'cdlpro'
+   parameter xy-axis-b-font-scale      '10'
+   parameter xy-axis-l-font-scale      '10'
+   parameter xy-axis-r-font-scale      '12'
+   parameter xy-axis-t-font-scale      '12'
+   parameter xy-data-mode              'series'
+   parameter xy-series-span            '2m'
+component c_cdl
+   parameter axis-b-label              'time'
+   parameter axis-left                 'true'
+   parameter color-mono                'false'
+   parameter color-table               'cook32'
+   parameter grid-method               'profile-linear'
+   parameter icon                      'iss-contour'
+   parameter icon-right-menu           'contour-model-right'
+   parameter limit-proc                'contour-putup-adj'
+   parameter platform                  'cdlpro'
+   parameter representation            'filled-contour'
+   parameter representation-style      'filled'
+   parameter require                   'contour'
+   parameter scale-mode                'auto'
+   parameter scale-z-mode              'autoscale'
+   parameter x-field                   'time'
+   parameter xyprivate-data-begin      '26-Apr-95,22:13:00'
+   parameter xyprivate-data-end        '26-Apr-95,22:15:00'
+   parameter xyprivate-x-max           '26-Apr-95,22:15:03'
+   parameter xyprivate-x-min           '26-Apr-95,22:13:00'
+   parameter xyprivate-x-type          't'
+   parameter xyprivate-y-max           '10497.5000'
+   parameter xyprivate-y-min           '-447.5000'
+   parameter xyprivate-y-type          'f'
+   parameter y-field                   'height'
+   parameter z-field                   'photon'
+endpd
+

@@ -1,0 +1,4 @@
+#
+cd $DATA_DIR
+rm -rf chase-gcs
+rm -rf uav-gcs
