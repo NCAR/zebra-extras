@@ -1,0 +1,19 @@
+#!/bin/csh
+
+while (1)
+	sleep 15
+	#
+	# Exit when the Zebra message process quits
+	#
+	mstatus >& /dev/null
+	if ($status) then
+		echo "DSUpdater exiting"
+		exit
+	endif
+	#
+	# Otherwise, do a dsrescan
+	#
+	dsrescan -all >& /dev/null
+end
+
+echo "Unexpected out-of-while-loop exit from DSUpdater"
