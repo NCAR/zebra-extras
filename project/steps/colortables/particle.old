@@ -1,0 +1,20 @@
+!
+! Try to set things up nicely for the particle type displayes
+!
+colortable particle
+	xcolor black		! 0, nothing
+	xcolor gray60		! 1, drizzle
+	xcolor gray80		! 2, cloud
+	xcolor lightblue	! 3, light rain
+	xcolor cyan		! 4, mod rain
+	xcolor royalblue	! 5, heavy rain
+	xcolor red		! 6, hail
+	xcolor purple		! 7, rain/hail mix
+	xcolor hotpink		! 8, graupel small hail
+	xcolor green		! 9, graupel rain
+	xcolor white		! 10, dry snow
+	xcolor bisque	! 11, wet snow
+	xcolor orange		! 12, ice crystals
+	xcolor brown		! 13, irregular ice crystals
+	xcolor yellow		! 14, supercooled liquid
+endtable

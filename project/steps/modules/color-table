@@ -1,0 +1,47 @@
+!
+! A pulldown menu allowing a choice of color tables.
+!
+if (defined ('ui$widget_table:color-tables'))
+	set wname 'default-Color-tables'
+else
+	set wname 'Color-tables'
+endif
+
+define widget #wname intmenu 'ctbl'
+	title 'Color tables'
+	line
+	entry 'Black and white log, 36 steps' 'CTSet newgray' \
+		(PDParam(icon_component, 'color-table') = 'newgray')
+	entry 'Black and white, 16 steps' 'CTSet 16gray' \
+		(PDParam(icon_component, 'color-table') = '16gray')
+	entry 'Five-step gray' 'CTSet fivegray' \
+		(PDParam(icon_component, 'color-table') = 'fivegray')
+	line
+	entry 'scook table' 'CTSet scook' \
+		(PDParam(icon_component, 'color-table') = 'scook')
+	entry 'Hot and cold table' 'CTSet hotcold' \
+		(PDParam (icon_component, 'color-table') = 'hotcold')
+	entry 'Wild color table' 'CTSet wild' \
+		(PDParam (icon_component, 'color-table') = 'wild')
+	entry 'New wild color table' 'CTSet wild_new' \
+		(PDParam (icon_component, 'color-table') = 'wild_new')
+	line
+	entry 'SCMS reflectivity' 'CTSet ncarrefl' \
+		(PDParam(icon_component, 'color-table') = 'ncarrefl')
+	entry 'SCMS velocity' 'CTSet ncarvel' \
+		(PDParam(icon_component, 'color-table') = 'ncarvel')
+	line
+	entry 'Contour 9-step' 'CTSet Contour' \
+		(PDParam(icon_component, 'color-table') = 'Contour')
+	entry 'R.O.Y.G.B.I.V.' 'CTSet Rainbow' \
+		(PDParam(icon_component, 'color-table') = 'Rainbow')
+	entry 'Three-step RYB' 'CTSet SmallRainbow' \
+		(PDParam(icon_component, 'color-table') = 'SmallRainbow')
+	entry 'Five-step color' 'CTSet refcontour' \
+		(PDParam(icon_component, 'color-table') = 'refcontour')
+endmenu
+
+
+procedure CTSet table string
+	parameter #icon_component color-table #table
+endprocedure

@@ -1,0 +1,298 @@
+!
+! $Id: spol,v 1.1 2000-08-11 22:56:11 burghart Exp $
+!
+
+require radar
+require contour
+require color-table
+
+!
+! Simple radar support stuff
+!
+procedure toggle_main
+        local fld PDParam("p_polar", "field")
+        if (fld = "dbz")
+                param p_polar field vr
+!                param p_radar color-table ncarvel
+        else
+                param p_polar field dbz
+!                param p_radar color-table ncarrefl
+        endif
+endprocedure
+
+
+
+
+
+!
+! Support for the p_radar PD component.
+!
+
+define widget spol-middle intmenu 'radar middle'
+	title 'Radar options'
+	line
+	submenu 'Fields' 'spol-fields'
+	submenu 'Representation' 'spol-rep'
+	submenu 'Color tables' Color-tables
+	line
+	submenu 'Scan types' 'spol-stypes'
+	entry 'Hold angle mode' 'ToggleBoolean every-sweep' \
+		(PDParam (icon_component, "every-sweep") = "false")
+	line
+	entry 'Data time chooser' runtimechooser
+	line
+	entry 'Highlighting...' 'popup highlight'
+	entry 'Thresholding...' 'popup pol_threshold'
+endmenu
+
+
+
+define widget spol-stypes intmenu 'Scan types'
+	title 'Scan type selection'
+	line
+	entry 'Surveillance Scans' 'scan_mode sur' \
+		(PDParam (icon_component, "radar-mode") = "sur")
+	entry 'RHI Scans' 'scan_mode rhi' \
+		(PDParam (icon_component, "radar-mode") = "rhi")
+	entry 'PPI Scans' 'scan_mode ppi' \
+		(PDParam (icon_component, "radar-mode") = "ppi")
+	entry 'Any Scan' 'scan_mode any' \
+		(PDParam (icon_component, "radar-mode") = "any")
+endmenu
+
+
+define widget spol-fields intmenu 'x'
+	title 'SPol fields'
+	line
+	entry 'Reflectivity' 'param #icon_component field dbz' \
+		(PDParam (icon_component, 'field') = 'dbz')
+	entry 'Velocity' 'param #icon_component field vr' \
+		(PDParam (icon_component, 'field') = 'vr')
+	entry 'Log power' 'parameter #icon_component field dm' \
+		(PDParam (icon_component, 'field') = 'dm')
+	entry 'Differential reflectivity' 'param #icon_component field zdr' \
+		(PDParam (icon_component, 'field') = 'zdr')
+	entry 'LDR' 'param #icon_component field ldr' \
+		(PDParam (icon_component, 'field') = 'ldr')
+	entry 'Spectral width' 'param #icon_component field swidth' \
+		(PDParam (icon_component, 'field') = 'swidth')
+	entry 'Phi DP' 'param #icon_component field phidp' \
+		(PDParam (icon_component, 'field') = 'phidp')
+	entry 'Rho HV' 'param #icon_component field rhohv' \
+		(PDParam (icon_component, 'field') = 'rhohv')
+	entry 'NCP' 'param #icon_component field ncp' \
+		(PDParam (icon_component, 'field') = 'ncp')
+!	entry 'DL' 'param #icon_component field dl' \
+!		(PDParam (icon_component, 'field') = 'dl')
+	entry 'CSU KDP' 'param #icon_component field ckdp' \
+		(PDParam (icon_component, 'field') = 'ckdp')
+!	entry 'HDR' 'param #icon_component field hdr' \
+!		(PDParam (icon_component, 'field') = 'hdr')
+	line
+	entry 'Pop up field chooser widget' 'popup FChooser'
+endmenu
+
+
+
+
+define widget spol-rep intmenu 'x'
+	line
+	entry 'Polar representation' \
+		'param #icon_component representation polar' \
+		(PDParam (icon_component, 'representation') = 'polar')
+	entry 'Raster representation' \
+		'param #icon_component representation raster' \
+		(PDParam (icon_component, 'representation') = 'raster')
+	entry 'Contour representation' \
+		'param #icon_component representation contour' \
+		(PDParam (icon_component, 'representation') = 'contour')
+	entry 'Filled contour representation' \
+		'param #icon_component representation filled-contour' \
+		(PDParam (icon_component, 'representation') = 'filled-contour')
+	line
+	submenu 'Grid size ratio (for non-polar rep.)' spol-gratio
+	submenu 'Contour plot options' spol-contour
+endmenu
+
+
+define widget spol-contour intmenu 'x'
+	title 'Contour options'
+	line
+	submenu 'Label options' 'contour-label-options'
+	entry 'Color-coded contours' 'ToggleBoolean color-mono' \
+		(PDParam(icon_component,'color-mono') <> 'true')
+	submenu '(Monochrome) contour color' 'simple-color'
+	submenu 'Line width' linewidth
+endmenu
+
+
+define widget spol-gratio intmenu 'x'
+	title 'Grid ratio'
+	line
+	entry '1 (Highest resolution)' \
+		'parameter #icon_component grid-size-ratio 0' \
+		(PDParam (icon_component, 'grid-size-ratio') = '0')
+	entry '3' 'parameter #icon_component grid-size-ratio 3' \
+		(PDParam (icon_component, 'grid-size-ratio') = '3')
+	entry '5' 'parameter #icon_component grid-size-ratio 5' \
+		(PDParam (icon_component, 'grid-size-ratio') = '5')
+	entry '10' 'parameter #icon_component grid-size-ratio 10' \
+		(PDParam (icon_component, 'grid-size-ratio') = '10')
+	entry '20 (Horribly low resolution)' \
+		'parameter #icon_component grid-size-ratio 20' \
+		(PDParam (icon_component, 'grid-size-ratio') = '20')
+endmenu
+
+
+!
+! Run the new time chooser
+!
+procedure runtimechooser
+	local plat PDParam(icon_component, 'platform')
+	local amper "> /dev/null &"
+	local part1 concat3("DataTimes ", myname(), " ")
+	local cmdstring concat3(part1, plat, amper)
+	shell cmdstring
+endprocedure
+
+!
+! Thresholding stuff.
+!
+define widget pol_threshold form 'Polar data thresholding'
+	noheader
+	popup pt-popup
+
+	label title 'Polar data thresholding options'
+	button apply 'Apply' command 'pt-apply'
+	button dismiss 'Dismiss' color red command 'popdown #ui$form'
+	newline
+!
+! The master enable/disable switch
+!
+	label l1 'Thresholding is'
+	button enable 'confused' command pt-thrtoggle
+	label comp 'x' width 1 color gray95
+	newline
+!
+! The rest of the stuff.
+!
+	label l2 'Use field'
+	pulldown tfield 'bogosity' menu pt-fields
+	label l3 '; delete when'
+	button overunder 'around' command pt-overunder
+	blank value 'weird'
+enddef
+
+
+
+
+procedure pt-popup
+	local f ui$form
+	local c icon_component
+
+	formtext #f comp #c
+!
+! Are we doing this or not?
+!
+	if (PDParam (c, 'threshold') = 'true')
+		formtext #f enable 'enabled'
+	else
+		formtext #f enable 'disabled'
+	endif
+!
+! What's the threshold field?
+!
+	local tfield PDParam(c, 'threshold-field')
+	if (tfield = '(Undefined)')
+		formtext #f tfield '?'
+	else
+		formtext #f tfield #tfield
+	endif
+!
+! The test?
+!
+	local ttest PDParam(c, 'threshold-test')
+	if (ttest = 'over')
+		formtext #f overunder 'over'
+	else
+		formtext #f overunder 'under'
+	endif
+!
+! And the value.
+!
+	local tvalue PDParam(c, 'threshold-value')
+	if (tvalue = '(Undefined)')
+		formtext #f value '?'
+	else
+		formtext #f value #tvalue
+	endif
+endprocedure
+
+
+
+procedure pt-thrtoggle
+	if (getftext (ui$form, 'enable') = 'enabled')
+		formtext #ui$form enable 'disabled'
+	else
+		formtext #ui$form enable 'enabled'
+	endif
+endprocedure		
+
+
+
+
+define widget pt-fields intmenu 'x'
+	title 'Threshold field'
+	line
+	entry 'dbz' 'formtext #ui$form tfield dbz'
+	entry 'vr' 'formtext #ui$form tfield vr'
+	entry 'dm' 'formtext #ui$form tfield dm'
+	entry 'zdr' 'formtext #ui$form tfield zdr'
+	entry 'ldr' 'formtext #ui$form tfield ldr'
+	entry 'swidth' 'formtext #ui$form tfield swidth'
+	entry 'phidp' 'formtext #ui$form tfield phidp'
+	entry 'rhohv' 'formtext #ui$form tfield rhohv'
+	entry 'ncp' 'formtext #ui$form tfield ncp'
+	entry 'ckdp' 'formtext #ui$form tfield ckdp'
+endmenu
+
+
+
+
+procedure pt-apply
+	local f ui$form
+	local c getftext(f, 'comp')
+!
+! Make sure that they filled in the important stuff.
+!
+	local tfield getftext(f, 'tfield')
+	local tvalue getftext(f, 'value')
+	if (tfield = '?' or tvalue = '?')
+		dm 'beep'
+		return
+	endif
+!
+! OK, we can proceed.  Set things.
+!
+	parameter #c threshold-field #tfield
+	parameter #c threshold-value #tvalue
+	local p getftext(f, 'overunder')
+	parameter #c threshold-test #p
+	local p getftext(f, 'enable')
+	if (p = 'enabled')
+		parameter #c threshold 'true'
+	else
+		parameter #c threshold 'false'
+	endif
+endprocedure
+
+
+
+procedure pt-overunder
+	local current getftext(ui$form, 'overunder')
+	if (current = 'over')
+		formtext #ui$form overunder 'under'
+	else
+		formtext #ui$form overunder 'over'
+	endif
+endprocedure

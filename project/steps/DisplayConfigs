@@ -1,0 +1,34 @@
+! $Id: DisplayConfigs,v 1.1 2000-08-11 22:52:53 burghart Exp $
+!
+! All of the predefined display configurations live in this file.
+!
+
+!
+! Figure out configuration directories.
+!
+if (getenv ("ZEB_CONFIGS") <> "UNDEFINED")
+   	set ConfigDir getenv("ZEB_CONFIGS")
+	set ConfigPath concat(ConfigDir,",dconfig")
+else
+	set home getenv("HOME")
+	if (home <> "UNDEFINED")
+	  	set ConfigDir concat(home, "/.zeb_configs")
+		set ConfigPath concat(ConfigDir,",dconfig")
+	else
+		set ConfigDir "dconfig"
+	endif
+endif
+
+!
+set default_exec 'gp'
+set default_arg1 'gp.init'
+set gp_exec default_exec
+
+set clock_exec (concat (c$bindir, "/fccclock"))
+
+!
+! An empty config just to clear out the screen.
+!
+config empty
+	widget 'iconbar' 800 50 350 70
+endconfig
