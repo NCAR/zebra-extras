@@ -30,7 +30,7 @@ component p_polar
    parameter color-table               'scook'
    parameter every-sweep               'true'
    parameter every-volume              'true'
-   parameter field                     'dbz'
+   parameter field                     'dz'
    parameter icon                      'radar'
    parameter icon-left-menu            'standard-cap-left-menu'
    parameter icon-middle-menu          'spol-middle'
@@ -48,7 +48,7 @@ component p_polar
    parameter vr-nsteps                 '15'
    parameter vr-step                   '4'
 component p_map.0
-   parameter color                     'cyan'
+   parameter color                     'cyan3'
    parameter field                     'map'
    parameter icon                      'streams'
    parameter icon-left-menu            'minimal-cap-left-menu'
@@ -59,7 +59,7 @@ component p_map.0
    parameter representation            'overlay'
    parameter require                   'simple-color'
 component p_map
-   parameter color                     'yellow'
+   parameter color                     'yellow3'
    parameter field                     'map'
    parameter icon                      'map'
    parameter icon-left-menu            'minimal-cap-left-menu'
