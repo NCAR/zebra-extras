@@ -36,14 +36,17 @@ main (int argc, char *argv[])
 	locs[0].l_lon = -134.95;
 	locs[0].l_alt = 0;
 
-	plats[1] = ds_LookupPlatform ("sheep_creek");
+	plats[1] = ds_LookupPlatform ("sheep_mtn");
 	locs[1].l_lat = 58.25;
 	locs[1].l_lon = -134.41;
 	locs[1].l_alt = 1000;
 
 	nflds = 0;
-	flds[nflds++] = F_DeclareField ("wspd", "wind speed", "m/s");
+	/* flds[nflds++] = F_DeclareField ("wspd", "wind speed", "m/s"); */
+	flds[nflds++] = F_DeclareField ("wspd_k", "wind speed", "knots");
 	flds[nflds++] = F_DeclareField ("wdir", "wind direction", "deg");
+	flds[nflds++] = F_DeclareField ("wdir_mag", "magnetic wind direction", 
+					"deg mag");
 
 	dc_SetScalarFields (dc, nflds, flds);
 	dc_SetBadval (dc, Bad);
@@ -58,7 +61,7 @@ main (int argc, char *argv[])
 		for (i = 0; i < 2; i++)
 		{
 			int	period = (i + 1) * 15;
-			float	wspd, wdir;
+			float	wspd, wdir, wdir_mag;
 
 			if (itime % period)
 				continue;
@@ -70,9 +73,13 @@ main (int argc, char *argv[])
 
 			wspd = drandom (30.0);
 			wdir = drandom (360.0);
+			wdir_mag = wdir + 28.;
+			if (wdir_mag > 360.0)
+			  wdir_mag -= 360.0;
 
 			dc_AddScalar (dc, &t, 0, flds[0], &wspd);
 			dc_AddScalar (dc, &t, 0, flds[1], &wdir);
+			dc_AddScalar (dc, &t, 0, flds[1], &wdir_mag);
 
 			ds_Store (dc, 0, 0, 0);
 		}
