@@ -1,0 +1,12 @@
+#!/bin/csh
+#
+# Generate an hourly precip image.
+#
+# Run this via cron around :17 after the hour, since the hourly sweep file
+# occasionally does not show up until :16.
+#
+set logfile = "/net/ops/run/genimages.log"
+if (! -f $logfile) touch $logfile
+
+set datestring = `date +"%d-%b-%Y,%H:00"`
+zconfig /net/ops/zebra zplotbatch $datestring precip_auto x >>& $logfile

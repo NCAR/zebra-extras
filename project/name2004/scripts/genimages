@@ -7,12 +7,3 @@ set datestring = `date +"%d-%b-%Y,%H:%M"`
 
 zconfig /net/ops/zebra zplotbatch $datestring dbz_auto x >>& $logfile
 zconfig /net/ops/zebra zplotbatch $datestring vr_auto x >>& $logfile
-
-#
-# Do the :00 precip image somewhere around :15, to allow time for the
-# precip sweep file to be generated
-#
-if ($minute > 10 && $minute < 20) then
-  set datestring = `date +"%d-%b-%Y,%H:00"`
-  zconfig /net/ops/zebra zplotbatch $datestring precip_auto x >>& $logfile
-endif
