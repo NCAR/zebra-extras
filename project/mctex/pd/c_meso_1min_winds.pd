@@ -1,0 +1,21 @@
+GLOBAL
+	pd-name:	c_meso_1min_winds
+	pd-comment:	Generic mesonet winds overlay
+c_meso_1min_winds
+	representation:	vector
+	platform:	surface_1min
+	grid-method:		barnes
+	x-points:	35
+	y-points:	20
+	radius:		1.5
+	max-fill:	2.0
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.002
+	color:		red
+	icon-right-menu:	meso-winds-options
+	icon-left-menu:		meso-left-options
+	icon:		grid_5min_vectors
+	limit-proc:	adj_arrow_scale
+	trigger-global:	true
+	trigger:	mesonet

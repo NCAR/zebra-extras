@@ -1,0 +1,26 @@
+GLOBAL
+	pd-name:	c_xytime_air
+	plot-mode:	real-time
+	plot-type:	xygraph
+c_xytime_air
+	do-color-proc:	change_component_color
+	do-side-annotation:	true
+	representation:	simple
+	representation-style:	point
+	platform:	c340
+	icon:		generic
+	field-color:	red
+	icon-color:	red
+	axis-left:	false
+	axis-bottom:	false
+	axis-top:	false
+	axis-right:	true
+	y-field:	ta
+	x-field:	time
+	axis-r-label:	none	
+	axis-r-grid-intensity:	0.0
+	axis-r-color:	red
+	adj-axis-side:	r
+	time-limit-proc:	adj_xy_time
+	icon-left-menu:	xytimegraph-left
+	icon-right-menu:	xy-time-menu

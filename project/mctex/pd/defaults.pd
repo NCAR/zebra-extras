@@ -1,0 +1,263 @@
+!
+! This file contains the default values for some plot description parameters.
+!
+defaults
+	pd-name:			defaults
+!
+! Project origin
+!
+	origin-lat:			-11.7642
+	origin-lon:			130.6161
+	origin-alt:			0.0
+!
+! The default, big picture zoom locations for constant altitude plots.  These
+! values are in km w.r.t. the origin above.  Make 'em smaller for smaller scale
+! projects and bigger for bigger scale projects...
+!
+	x-min:				-250
+	x-max:				250
+	y-min:				-250
+	y-max:				250
+!
+! Icons to use for various platforms.  The icons themselves can be created
+! using the X Window "bitmap" utility, and saved in the <project>/icons 
+! directory.  In general, it is good to have a separate icon for each platform.
+! Example:
+!
+!	cp2-icon:		cp2
+!	goes-icon:		goes
+!
+	kftg-icon:		radar
+	null-icon:		null
+!
+! Age limits for data (i.e., when to make the icon red)
+! Although we set a default of 15 minutes, a separate value is generally 
+! used for each platform.  Example:
+!
+!	icon-age-limit:		15m
+!	cp2-icon-age-limit:	2m
+!	goes-icon-age-limit:	120m
+!
+	icon-age-limit:		15m
+	kftg-age-limit:		15m
+	goes_vis-age-limit:	75m
+	goes_ir-age-limit:	75m
+!
+! Will you be using tracks of mobile platforms?  If so, it can be useful
+! to assign a special color to each one.
+!
+! Example:
+!	electra-color:		orange
+!	kingair-color:		cyan
+!
+	null-color:		white
+!
+! Add named locations to your heart's delight.  
+! Form: 
+!	<sitename>-location:	<lat> <lon> <alt>
+!
+!	boulder-location:	40.0 -105.3 1600.0
+           MULL.-location:     -11.4633 130.2350 20.0
+           RANK.-location:     -11.6205 130.2780 40.0
+           MUNA.-location:     -11.7485 130.3052 20.0
+           NGUI.-location:     -11.7633 130.6250 15.0
+           PIRL.-location:     -11.4033 130.4200 25.0
+           MILL.-location:     -11.4245 130.6525 40.0
+           MAXW.-location:     -11.5503 130.5845 20.0
+           PICK.-location:     -11.7703 130.8823 80.0
+           ANDR.-location:     -11.3592 130.8978 15.0
+           GOOS.-location:     -11.6050 130.9343 60.0
+           BONK.-location:     -11.7975 131.1013 15.0
+           BATH.-location:     -11.5053 131.1392 25.0
+           YUNA.-location:     -11.3150 131.2817 20.0
+           TWAY.-location:     -11.6552 130.7108 85.0
+           COBH.-location:     -11.6000 131.3500 10.0
+!
+! Origins for the get position widget.
+!
+!	pos-origin:	boulder
+ 	pos-origin:	MULL.
+ 	pos-origin:	RANK.
+ 	pos-origin:	MUNA.
+ 	pos-origin:	NGUI.
+ 	pos-origin:	PIRL.
+ 	pos-origin:	MILL.
+ 	pos-origin:	MAXW.
+ 	pos-origin:	PICK.
+ 	pos-origin:	ANDR.
+ 	pos-origin:	GOOS.
+ 	pos-origin:	BONK.
+ 	pos-origin:	BATH.
+ 	pos-origin:	YUNA.
+ 	pos-origin:	TWAY.
+ 	pos-origin:	COBH.
+!
+! Platforms usable in the "insert" widget.
+!
+        user-insert-platforms:   jim1,jim2,jim3,jim4,jim5
+!
+! UNLESS YOU NEED TO TWEAK ONE OR MORE OF THE "SAFE" DEFAULTS BELOW, YOU'RE
+! DONE!
+!
+!****************************************************************************
+! 
+! The parameters below are pretty safe defaults and can almost always be left
+! as they are.  Leave them alone unless you know what you're doing!
+!
+
+!
+! Adjust limit procedures.
+!
+	track-arrow-limit-proc:		adj_arrow_scale
+	track-time-limit-proc:		adj_time_period
+	track-centstep-limit-proc:	adj_center_step
+	raster-highrange-limit-proc:	adj_highlight_range
+	raster-centstep-limit-proc:	adj_center_step
+	raster-limit-proc:		adj_center_step
+	vector-limit-proc:		adj_arrow_scale
+	contour-limit-proc:		adj_center_step
+	filled-contour-limit-proc:	adj_center_step
+	contour-limit-proc:		adj_center_step
+	filled-contour-centstep-limit-proc:	adj_center_step
+	contour-centstep-limit-proc:	adj_center_step
+	skewt-pres-limit-proc:		adj_pres_minmax
+	skewt-temp-limit-proc:		adj_temp_minmax
+	global-x-limit-proc:		adj_x_minmax
+	global-y-limit-proc:		adj_y_minmax
+	lightning-limit-proc:		adj_time_step
+!
+! Leave a little space on the left hand side for axis information
+!
+	axis-left-space:	30
+!
+! Where to put the frame cache files and the maximum number of frames
+! to store in the cache.
+!
+	file-path:	/tmp
+	max-frames:	30
+!
+! Command to be executed out of the DataAvailable menu.
+!
+	data-available-command:		DefaultDataAvail
+!
+! Generic icon stuff
+!
+	global-icon:			global
+	icon-color:			yellow
+	icon-background:		midnight blue
+	disabled-icon-color:		gray90
+	disabled-icon-background:	gray40
+	icon-age-foreground:		pink
+	icon-age-background:		red
+!
+! Various menus for the icons in the plot windows.
+!
+	icon-left-menu:			standard-cap-left-menu
+	global-icon-left-menu:		global-left
+	global-icon-right-menu:		globaltopannot
+!
+! Default to matched top annotation colors where allowed.
+!
+	ta-color-match:			true
+!
+! Post processing mode parameters.
+!
+	post-proc-mode:			true
+	pp-dm-time-adjust:		65m
+!
+! What RBand uses to draw the box/line.  Don't mess with it.
+!
+	xorvalue:			63
+	xor-line-width:			3
+!
+! Where cross sections are done.
+!
+	xsect-window:			all
+	xsect-component:		global
+!
+! Plotting limits.
+!
+! Representation -> Contour.
+!
+	contour-computed_sea_level_pressure:	1000
+	contour-computed_sea_level_pressure:	2
+	contour-wmax-center:		10
+	contour-wmax-step:		2
+	contour-rain-center:		5
+	contour-rain-step:		1
+	contour-weather_code-center:	500
+	contour-weather_code-step:	100
+	contour-horiz-viz-center:	1000
+	contour-horiz-viz-step:		200
+	contour-ceiling_height-center:	50000
+	contour-ceiling_height-step:	10000
+	contour-ceiling_flag-center:	50
+	contour-ceiling_flag-step:	10
+	contour-cloud_amt-center:	50
+	contour-cloud_amt-step:		10
+	contour-ceiling_height2-center:	50000
+	contour-ceiling_height2-step:	10000
+	contour-ceiling_flag2-center:	50
+	contour-ceiling_flag2-step:	10
+	contour-cloud_amt2-center:	50
+	contour-cloud_amt2-step:		10
+	contour-ceiling_height3-center:	50000
+	contour-ceiling_height3-step:	10000
+	contour-ceiling_flag3-center:	50
+	contour-ceiling_flag3-step:	10
+	contour-cloud_amt3-center:	50
+	contour-cloud_amt3-step:		10
+	contour-u_wind-center:		10
+	contour-u_wind-step:		2
+	contour-v_wind-center:		10
+	contour-v_wind-step:		2
+	contour-alt-center:		1000
+	contour-alt-step:		200
+	contour-wspd-center:		5
+	contour-wspd-step:		1
+	contour-wdir-center:		180
+	contour-wdir-step:		30
+	contour-raina15-center:		8
+	contour-raina15-step:		1
+	contour-raina60-center:		8
+	contour-raina60-step:		1
+	contour-pres-center:		950
+	contour-pres-step:		20
+	contour-cpres0-center:		1013
+	contour-cpres0-step:		2
+	contour-rh-center:		50
+	contour-rh-step:		5
+	contour-dp-center:		5
+	contour-dp-step:		2
+	contour-tdry-center:		0
+	contour-tdry-step:		2
+	contour-ept-center:		280
+	contour-ept-step:		2
+	contour-theta_e-center:		280
+	contour-theta_e-step:		2
+	contour-mr-center:		10
+	contour-mr-step:		1
+	contour-reflectivity-center:	80
+	contour-reflectivity-step:	10
+	contour-velocity-center:	0
+	contour-velocity-step:		5
+	contour-pt-center:		275
+	contour-pt-step:		1
+	contour-w_wind-center:		0
+	contour-w_wind-step:		1
+	contour-div-center:		0
+	contour-div-step:		2
+!
+!Profiler locations
+!
+        MAXW_P-location: -11.5503  130.5845  20   !Maxwell Creek
+        PICK_P-location: -11.7703  130.8823  80   !Picker Fire Tower
+        PIRL_P-location: -11.4033  130.4200  25   !Garden Point
+!
+!Radar location
+!
+        NGUI_R-location: -11.7642  130.6161  0.0
+!
+!Profiler altitude
+!
+	prof-site-alt:		0.0

@@ -1,0 +1,1375 @@
+!
+! Set modules path.
+!
+    set requirepath concat("./modules,",requirepath)
+!
+! The raster left button menu.
+!
+define widget raster-left intmenu 'Raster Left'
+        title 'Overlay Operations'
+        line
+        submenu 'Adjust Limits' 'adjust-raster-limits'
+        entry 'Spatial offset options' 'require offsets; popup offsets'
+        line
+        entry 'Raise to top' 'move #icon_component 0'
+        entry 'Move to bottom' 'move #icon_component 1'
+        entry 'Disable/reenable' 'ToggleBoolean "disable"'
+        entry 'Remove' 'i_remove_component'
+endmenu
+
+!
+! The Raster Plot Adjust Limits submenu
+!
+define widget adjust-raster-limits intmenu 'Adjust Limits'
+        title 'Adjust Limits'
+        line
+        entry 'Center/Step' 'require ctr-step; popup center-step'
+        entry 'Highlight/Range' 'require raster; popup highlight'
+endmenu
+
+!
+! Support for GMS satellite image data.
+!
+
+!
+! Middle icon menu for gms data.
+!
+define widget gms-middle intmenu 'GMS field menu'
+	title 'GMS satellite options'
+	line
+! GMS -big has been replaced by McIdas GMS data
+!        entry 'Honiara Wide Area MCIDAS dataset' 'gms_plat gms-big' \
+!                (PDParam(icon_component,"platform") = "gms-big")
+!	entry 'Honiara MCIDAS dataset' 'gms_plat gms' \
+!		(PDParam(icon_component,"platform") = "gms")
+	entry 'GMS IR (MCIDAS)' 'gms_plat gms' \
+		(PDParam(icon_component,"platform") = "gms")
+	entry 'GMS IR (Flament)' 'gms_plat flament_ir' \
+		(PDParam(icon_component,"platform") = "flament_ir")
+	line
+	entry 'black & white; red highlight < 208 K color table'\
+		 'param #icon_component color-table ir_gray' \
+		(PDParam (icon_component,"color-table") = "ir_gray")
+	entry 'black & white; blue highlight < 226 K color table'\
+		 'param #icon_component color-table new_ir_gray' \
+		(PDParam (icon_component,"color-table") = "new_ir_gray")
+	entry 'black & white color table'\
+		 'param #icon_component color-table 16gray' \
+		(PDParam (icon_component,"color-table") = "16gray")
+	entry 'Three-step' 'param #icon_component color-table SmallRainbow' \
+	        (PDParam (icon_component, 'color-table') = 'SmallRainbow')
+	entry 'Rainbow table' 'param #icon_component color-table Rainbow' \
+		(PDParam (icon_component,"color-table") = "cook16")
+	entry 'Contour table' 'param #icon_component color-table Contour' \
+		(PDParam (icon_component,"color-table") = "Contour")
+!	entry 'cook32' 'param #icon_component color-table cook32' \
+!		(PDParam (icon_component,"color-table") = "cook32")
+!	entry 'hotcold' 'param #icon_component color-table hotcold' \
+!		(PDParam (icon_component,"color-table") = "hotcold")
+!	entry 'wild' 'param #icon_component color-table wild' \
+!		(PDParam (icon_component,"color-table") = "wild")
+!	entry 'wild_new' 'param #icon_component color-table wild_new' \
+!		(PDParam (icon_component,"color-table") = "wild_new")
+!	submenu 'Chen Color Tables' ChenColorTables
+	line
+	entry 'Raster representation' 'gms_rep raster' \
+		(PDParam(icon_component, 'representation') = 'raster')
+	entry 'Contour representation' 'gms_rep contour' \
+		(PDParam(icon_component, 'representation') = 'contour')
+	entry 'Filled contour representation' 'gms_rep filled-contour' \
+		(PDParam(icon_component, 'representation') = 'filled-contour')
+	line
+	submenu 'Contour Width' LineWidth
+endmenu
+
+procedure zeb_gms_scale
+	param #icon_component ir-center 280
+	param #icon_component ir-step 12
+	param #icon_component ir-highlight 208
+endprocedure
+
+!
+! Change our representation.
+!
+procedure gms_rep rep string
+!
+! Make sure they aren't wasting our time.
+!
+	local currep PDParam(icon_component, 'representation')
+	if (currep = rep)
+		return
+	endif
+!
+! Switch around color tables.
+!
+	local oldtable PDParam(icon_component, 'color-table')
+	local newtable PDParam(icon_component, concat(rep,'-color-table'))
+	local svname concat(currep,'-color-table')
+	parameter #icon_component #svname #oldtable
+	parameter #icon_component color-table #newtable
+!
+! If we're going back to raster, go ahead and rewire the plot limits.
+!
+	if (rep = 'raster')
+		parameter #icon_component ir-center 280.0
+		parameter #icon_component ir-step 12
+	endif
+!
+! Tweak the representation and we're done.
+!
+	parameter #icon_component representation #rep
+endprocedure
+
+
+
+procedure gms_plat plat string
+	parameter #icon_component platform #plat
+endprocedure
+!
+!default left menu for surface station plots
+!
+define widget left-station intmenu "leftmenu"
+        title 'Overlay Operations'
+        line
+        entry 'Adjust Limits' 'i_adjust limit-proc'
+        entry 'Spatial Offset options' 'require offsets; popup offsets'
+        entry 'Spatial Filter options' 'popup Spacefilter'
+        line
+        entry 'Raise to top' 'move #icon_component 0'
+        entry 'Move to bottom' 'move #icon_component 1'
+        entry 'Disable/reenable' 'ToggleBoolean "disable"'
+        entry 'Remove' 'i_remove_component'
+endmenu
+!
+!Middle icon button menu for composite surface data
+!
+define widget surface-winds-mid intmenu 'Field Control Popup'
+        title 'Surface Station Labels'
+        line
+        entry 'Change Fields' 'popup fieldquads'
+        entry 'Help' 'help fieldquads'
+        entry 'List Weather Codes' 'dm "help weather_codes fest_codes"'
+endmenu
+!
+!Right icon button menu for composite surface data
+!
+define widget meso-winds-options intmenu 'Line Contour Options'
+        title 'Winds Options'
+        line
+        submenu 'Annotation Size' 'side-annot-scale'
+        line
+        submenu 'Arrow Color' 'simple-color'
+        line
+        submenu 'Line Width' 'linewidth'
+endmenu
+!
+!Widget to define quadrants in station  plots so that user doesn't
+!have to wait for redraw after each change.
+!
+define widget fieldquads form 'Surface Field Quadrant Control'
+!
+	popup quad-popup
+	noheader
+!!first line
+	label l0 "Define Fields for Station Plot Labels"
+	label comp "comp" color gray95 width 1
+!!seond line
+	newline
+	button help "Help" command "help fieldquads"
+	button list "List Weather Codes" command 'dm "help weather_codes fest_codes"'
+	button apply "Apply" command quad-adjust
+	button cancel "Dismiss" color red command 'popdown #ui$form'
+!!third line
+	newline
+	label l1 'Quad 1: '
+	pulldown quad1 "quad1" width 120 menu sfcfields1
+	label l2 '  Quad 3: ' 
+	pulldown quad3 "quad3" width 120 menu sfcfields3
+!!fourth line
+	newline
+	label l3 'Quad 2: '
+	pulldown quad2 "quad2" width 120 menu sfcfields2
+	label l4 '  Quad 4: '
+	pulldown quad4 "quad4" width 120 menu sfcfields4
+enddef
+
+procedure quad-popup
+	local f ui$form
+	local plat pd_param(icon_component,'platform','string')
+	formtext #f comp #icon_component
+	local quad1 pd_param(icon_component,'quad1','string')
+		if (quad1 = '(Undefined)')
+			formtext #f quad1 'none'
+		else
+			formtext #f quad1 #quad1
+		endif
+	local quad2 pd_param(icon_component,'quad2','string')
+		if (quad2 = '(Undefined)')
+			formtext #f quad2 'none'
+		else
+			formtext #f quad2 #quad2
+		endif
+	local quad3 pd_param(icon_component,'quad3','string')
+		if (quad3 = '(Undefined)')
+			formtext #f quad3 'none'
+		else
+			formtext #f quad3 #quad3
+		endif
+	local quad4 pd_param(icon_component,'quad4','string')
+		if (quad4 = '(Undefined)')
+			formtext #f quad4 'none'
+		else
+			formtext #f quad4 #quad4
+		endif
+endprocedure
+
+procedure quad-adjust
+	local c getftext(ui$form,'comp')
+	local quad1 getftext(ui$form,'quad1')
+	local quad2 getftext(ui$form,'quad2')
+	local quad3 getftext(ui$form,'quad3')
+	local quad4 getftext(ui$form,'quad4')
+!		if '(quad1 = none) and (quad2 = none) and (quad3=none) and (quad4 = none)'
+!			local junk pd_removeparam(c,'quad4')
+!			local junk pd_removeparam(c,'quad3')
+!			local junk pd_removeparam(c,'quad2')
+!			local junk pd_removeparam(c,'quad1')
+!		endif
+	parameter #c 'quad1' #quad1
+	parameter #c 'quad2' #quad2
+	parameter #c 'quad3' #quad3
+	parameter #c 'quad4' #quad4
+!next
+endprocedure	
+	
+
+define widget sfcfields1 intmenu "Quadrant 1 Options"
+	title 'Surface Station Fields'
+	entry 'Station ID' 'formtext #ui$form quad1 station' 
+	entry 'Station Pressure mb' 'formtext #ui$form quad1 pres' 
+	entry 'Reported Sea-Level Pressure mb' 'formtext #ui$form quad1 cpres0' 
+	entry 'Calculated Sea-Level Pressure mb' 'formtext #ui$form quad1 computed_sea_lev_pres'
+	entry 'Temperature C' 'formtext #ui$form quad1 tdry' 
+	entry 'Dewpoint Temperature C' 'formtext #ui$form quad1 dp'
+	entry 'Wind Speed m/s' 'formtext #ui$form quad1 wspd' 
+	entry 'Wind Direction deg' 'formtext #ui$form quad1 wdir' 
+	entry 'Wind Maximum m/s' 'formtext #ui$form quad1 wmax'
+	entry 'Rain kg/m2' 'formtext #ui$form quad1 rain' 
+	entry 'Weather Code' 'formtext #ui$form quad1 weather_code' 
+	entry 'Horizontal Visability m' 'formtext #ui$form quad1 horiz_vis' 
+	entry 'Ceiling Height (first layer) feet' 'formtext #ui$form quad1 ceiling_height' 
+	entry 'Ceiling Flag (first layer)' 'formtext #ui$form quad1 ceiling_flag' 
+	entry 'Cloud Amount (first layer)' 'formtext #ui$form quad1 cloud_amt'
+	entry 'Ceiling Height (second layer) feet' 'formtext #ui$form quad1 ceiling_height2'
+	entry 'Ceiling Flag (second layer)' 'formtext #ui$form quad1 ceiling_flag2' 
+	entry 'Cloud Amount (second layer)' 'formtext #ui$form quad1 cloud_amt2'
+	entry 'Ceiling Height (third layer) feet' 'formtext #ui$form quad1 ceiling_height3'
+	entry 'Ceiling Flag (third layer)' 'formtext #ui$form quad1 ceiling_flag3' 
+	entry 'Cloud Amount (third layer)' 'formtext #ui$form quad1 cloud_amt3'
+	entry 'East Wind Component m/s' 'formtext #ui$form quad1 u_wind' 
+	entry 'North Wind Component m/s' 'formtext #ui$form quad1 v_wind'
+	entry 'Station Altitude km' 'formtext #ui$form quad1 alt' 
+	entry 'None' 'formtext #ui$form quad1 none' 
+endmenu
+define widget sfcfields2 intmenu "Quadrant 2 Options"
+	title 'Surface Station Fields'
+	entry 'Station ID' 'formtext #ui$form quad2 station' 
+	entry 'Station Pressure mb' 'formtext #ui$form quad2 pres' 
+	entry 'Reported Sea-Level Pressure mb' 'formtext #ui$form quad2 cpres0' 
+	entry 'Calculated Sea-Level Pressure mb' 'formtext #ui$form quad2 computed_sea_lev_pres'
+	entry 'Temperature C' 'formtext #ui$form quad2 tdry' 
+	entry 'Dewpoint Temperature C' 'formtext #ui$form quad2 dp'
+	entry 'Wind Speed m/s' 'formtext #ui$form quad2 wspd' 
+	entry 'Wind Direction deg' 'formtext #ui$form quad2 wdir' 
+	entry 'Wind Maximum m/s' 'formtext #ui$form quad2 wmax'
+	entry 'Rain kg/m2' 'formtext #ui$form quad2 rain' 
+	entry 'Weather Code' 'formtext #ui$form quad2 weather_code' 
+	entry 'Horizontal Visability m' 'formtext #ui$form quad2 horiz_vis' 
+	entry 'Ceiling Height (first layer) feet' 'formtext #ui$form quad2 ceiling_height' 
+	entry 'Ceiling Flag (first layer)' 'formtext #ui$form quad2 ceiling_flag' 
+	entry 'Cloud Amount (first layer)' 'formtext #ui$form quad2 cloud_amt'
+	entry 'Ceiling Height (second layer) feet' 'formtext #ui$form quad2 ceiling_height2'
+	entry 'Ceiling Flag (second layer)' 'formtext #ui$form quad2 ceiling_flag2' 
+	entry 'Cloud Amount (second layer)' 'formtext #ui$form quad2 cloud_amt2'
+	entry 'Ceiling Height (third layer) feet' 'formtext #ui$form quad2 ceiling_height3'
+	entry 'Ceiling Flag (third layer)' 'formtext #ui$form quad2 ceiling_flag3' 
+	entry 'Cloud Amount (third layer)' 'formtext #ui$form quad2 cloud_amt3'
+	entry 'East Wind Component m/s' 'formtext #ui$form quad2 u_wind' 
+	entry 'North Wind Component m/s' 'formtext #ui$form quad2 v_wind'
+	entry 'Station Altitude km' 'formtext #ui$form quad2 alt' 
+	entry 'None' 'formtext #ui$form quad2 none' 
+endmenu
+define widget sfcfields3 intmenu "Quadrant 3 Options"
+	title 'Surface Station Fields'
+	line
+	entry 'Station ID' 'formtext #ui$form quad3 station' 
+	entry 'Station Pressure mb' 'formtext #ui$form quad3 pres' 
+	entry 'Reported Sea-Level Pressure mb' 'formtext #ui$form quad3 cpres0' 
+	entry 'Calculated Sea-Level Pressure mb' 'formtext #ui$form quad3 computed_sea_lev_pres'
+	entry 'Temperature C' 'formtext #ui$form quad3 tdry' 
+	entry 'Dewpoint Temperature C' 'formtext #ui$form quad3 dp'
+	entry 'Wind Speed m/s' 'formtext #ui$form quad3 wspd' 
+	entry 'Wind Direction deg' 'formtext #ui$form quad3 wdir' 
+	entry 'Wind Maximum m/s' 'formtext #ui$form quad3 wmax'
+	entry 'Rain kg/m2' 'formtext #ui$form quad3 rain' 
+	entry 'Weather Code' 'formtext #ui$form quad3 weather_code' 
+	entry 'Horizontal Visability m' 'formtext #ui$form quad3 horiz_vis' 
+	entry 'Ceiling Height (first layer) feet' 'formtext #ui$form quad3 ceiling_height' 
+	entry 'Ceiling Flag (first layer)' 'formtext #ui$form quad3 ceiling_flag' 
+	entry 'Cloud Amount (first layer)' 'formtext #ui$form quad3 cloud_amt'
+	entry 'Ceiling Height (second layer) feet' 'formtext #ui$form quad3 ceiling_height2'
+	entry 'Ceiling Flag (second layer)' 'formtext #ui$form quad3 ceiling_flag2' 
+	entry 'Cloud Amount (second layer)' 'formtext #ui$form quad3 cloud_amt2'
+	entry 'Ceiling Height (third layer) feet' 'formtext #ui$form quad3 ceiling_height3'
+	entry 'Ceiling Flag (third layer)' 'formtext #ui$form quad3 ceiling_flag3' 
+	entry 'Cloud Amount (third layer)' 'formtext #ui$form quad3 cloud_amt3'
+	entry 'East Wind Component m/s' 'formtext #ui$form quad3 u_wind' 
+	entry 'North Wind Component m/s' 'formtext #ui$form quad3 v_wind'
+	entry 'Station Altitude km' 'formtext #ui$form quad3 alt' 
+	entry 'None' 'formtext #ui$form quad3 none' 
+endmenu
+define widget sfcfields4 intmenu "Quadrant 4 Options"
+	title 'Surface Station Fields'
+	line
+	entry 'Station ID' 'formtext #ui$form quad4 station' 
+	entry 'Station Pressure mb' 'formtext #ui$form quad4 pres' 
+	entry 'Reported Sea-Level Pressure mb' 'formtext #ui$form quad4 cpres0' 
+	entry 'Calculated Sea-Level Pressure mb' 'formtext #ui$form quad4 computed_sea_lev_pres'
+	entry 'Temperature C' 'formtext #ui$form quad4 tdry' 
+	entry 'Dewpoint Temperature C' 'formtext #ui$form quad4 dp'
+	entry 'Wind Speed m/s' 'formtext #ui$form quad4 wspd' 
+	entry 'Wind Direction deg' 'formtext #ui$form quad4 wdir' 
+	entry 'Wind Maximum m/s' 'formtext #ui$form quad4 wmax'
+	entry 'Rain kg/m2' 'formtext #ui$form quad4 rain' 
+	entry 'Weather Code' 'formtext #ui$form quad4 weather_code' 
+	entry 'Horizontal Visability m' 'formtext #ui$form quad4 horiz_vis' 
+	entry 'Ceiling Height (first layer) feet' 'formtext #ui$form quad4 ceiling_height' 
+	entry 'Ceiling Flag (first layer)' 'formtext #ui$form quad4 ceiling_flag' 
+	entry 'Cloud Amount (first layer)' 'formtext #ui$form quad4 cloud_amt'
+	entry 'Ceiling Height (second layer) feet' 'formtext #ui$form quad4 ceiling_height2'
+	entry 'Ceiling Flag (second layer)' 'formtext #ui$form quad4 ceiling_flag2' 
+	entry 'Cloud Amount (second layer)' 'formtext #ui$form quad4 cloud_amt2'
+	entry 'Ceiling Height (third layer) feet' 'formtext #ui$form quad4 ceiling_height3'
+	entry 'Ceiling Flag (third layer)' 'formtext #ui$form quad4 ceiling_flag3' 
+	entry 'Cloud Amount (third layer)' 'formtext #ui$form quad4 cloud_amt3'
+	entry 'East Wind Component m/s' 'formtext #ui$form quad4 u_wind' 
+	entry 'North Wind Component m/s' 'formtext #ui$form quad4 v_wind'
+	entry 'Station Altitude km' 'formtext #ui$form quad4 alt' 
+	entry 'None' 'formtext #ui$form quad4 none' 
+endmenu
+
+define widget side-annot-scale intmenu 'Side annotation'
+        title 'Annotation Size'
+        line
+        entry 'Small' 'do_side_annot_size 0.02' \
+                (pd_param(icon_component, "sa-scale", "string") = "0.02")
+        entry 'Medium' 'do_side_annot_size 0.025' \
+                (pd_param(icon_component, "sa-scale", "string") = "0.025")
+        entry 'Large' 'do_side_annot_size 0.03' \
+                (pd_param(icon_component, "sa-scale", "string") = "0.03")
+endmenu
+
+procedure do_side_annot_size size string
+        parameter #icon_component sa-scale #size
+endprocedure
+
+define widget Spacefilter form "Adjust Spatial Filters"
+        popup space-popup
+        noheader
+!!first line
+        label l0 "Adjust Spatial Filter"
+        label comp "comp" color gray95 width 1
+        newline
+!!second line
+        button help "Help" command 'help spatialfilter'
+        button apply "Apply" command space-adjust
+        button cancel "Dismiss" color red command 'popdown #ui$form'
+        newline
+!!third line
+        label l1 "Spatial Filter is "
+        button SpaceEnable "wrong" command 'ToggleEnable SpaceEnable' width 80
+!!fourth line
+        newline
+        label l2 "Spatial Filter:"
+        blank space "space" width 50
+!       label l3 "pixels between stations"
+!       newline
+!       label gripe ' ' color red width 200
+enddef
+procedure space-popup
+        local f ui$form
+        local plat pd_param(icon_component,'platform','string')
+        formtext #f comp #icon_component
+!deal with whether filter is enabled
+        local enabled pd_paramsearch(icon_component,'spatial-filter','platform','string')
+        if (enabled='true')
+                formtext #f SpaceEnable "Enabled"
+        else
+                formtext #f SpaceEnable "Disabled"
+        endif
+!deal with filter
+        local space pd_param(icon_component,'filter-resolution','string')
+        if (space = '(Undefined)')
+                formtext #f space '50'
+        endif
+        formtext #f space #space
+endprocedure
+
+procedure space-adjust
+        local c getftext(ui$form,'comp')
+        local space getftext(ui$form,'space')
+        parameter #c 'filter-resolution' #space
+        local spaceenable getftext(ui$form,'SpaceEnable')
+        if (spaceenable = "Enabled")
+                parameter #c 'spatial-filter' 'true'
+        else
+                parameter #c 'spatial-filter' 'false'
+        endif
+endprocedure
+
+!
+! The default left button for surface interpolated data
+!
+define widget meso-left-options intmenu "leftmenu"
+        title 'Overlay Operations'
+        line
+        entry 'Adjust Limits' 'i_adjust limit-proc'
+        entry 'Spatial offset options' 'require offsets; popup offsets'
+        entry 'Adjust Interpolation' 'require interp; popup InterpParams'
+        line
+        entry 'Raise to top' 'move #icon_component 0'
+        entry 'Move to bottom' 'move #icon_component 1'
+        entry 'Disable/reenable' 'ToggleBoolean "disable"'
+        entry 'Remove' 'i_remove_component'
+endmenu
+!
+! Middle icon button menu for Mesonet.
+!
+define widget surface-middle intmenu 'Field control popup'
+        title 'Surface  Mesonet Contour Fields'
+        line
+        entry 'Station Pressure mb'  'param #icon_component field pres'\
+           (substring(pd_param(icon_component, "field", "string"),"pres"))
+        entry 'Reported Sea-level Pressure mb' 'param #icon_component field cpres0'\
+           (substring(pd_param(icon_component, "field", "string"),"cpres0"))
+        entry 'Calculated Sea-levelPressure mb' 'param #icon_component field computed_Sea_level_Pressure'\
+           (substring(pd_param(icon_component, "field", "string"),"computed_Sea_level_Pressure"))
+        entry 'Temperature C' 'param #icon_component field tdry'\
+           (substring(pd_param(icon_component, "field", "string"),"tdry"))
+        entry 'Dew Point C' 'param #icon_component field dp'\
+           (substring(pd_param(icon_component, "field", "string"),"dp"))
+        entry 'Wind Speed' 'param #icon_component field wspd'\
+           (substring(pd_param(icon_component, "field", "string"),"wspd"))
+        entry 'Wind Direction' 'param #icon_component field wdir'\
+           (substring(pd_param(icon_component, "field", "string"),"wdir"))
+        entry 'Wind Maximum m/s' 'param #icon_component field wmax'\
+           (substring(pd_param(icon_component, "field", "string"),"wmax"))
+        entry 'Rain kg/m2' 'param #icon_component field rain'\
+           (substring(pd_param(icon_component, "field", "string"),"rain"))
+        entry 'Weather Code' 'param #icon_component field weather_code'\
+           (substring(pd_param(icon_component, "field", "string"),"weather_code"))
+        entry 'Horizontal Visability m' 'param #icon_component field horiz-vis'\
+           (substring(pd_param(icon_component, "field", "string"),"horiz-vis"))
+        entry 'Ceiling Height (first layer) feet' 'param #icon_component field ceiling_height'\
+           (substring(pd_param(icon_component, "field", "string"),"ceiling_height"))
+        entry 'Ceiling Flag (first layer)' 'param #icon_component field ceiling_flag'\
+           (substring(pd_param(icon_component, "field", "string"),"ceiling_flag"))
+        entry 'Cloud Amount (first layer)' 'param #icon_component field cloud_amt'\
+           (substring(pd_param(icon_component, "field", "string"),"cloud_amt"))
+        entry 'Ceiling Height (second layer) feet' 'param #icon_component field ceiling_height2'\
+           (substring(pd_param(icon_component, "field", "string"),"ceiling_height2"))
+        entry 'Ceiling Flag (second layer)' 'param #icon_component field ceiling_flag2'\
+           (substring(pd_param(icon_component, "field", "string"),"ceiling_flag2"))
+        entry 'Cloud Amount (second layer)' 'param #icon_component field cloud_amt2'\
+           (substring(pd_param(icon_component, "field", "string"),"cloud_amt2"))
+        entry 'Ceiling Height (third layer) feet' 'param #icon_component field ceiling_height3'\
+           (substring(pd_param(icon_component, "field", "string"),"ceiling_height3"))
+        entry 'Ceiling Flag (third layer)' 'param #icon_component field ceiling_flag3'\
+           (substring(pd_param(icon_component, "field", "string"),"ceiling_flag3"))
+        entry 'Cloud Amount (third layer)' 'param #icon_component field cloud_amt3'\
+           (substring(pd_param(icon_component, "field", "string"),"cloud_amt3"))
+
+        entry 'East Wind Component m/s' 'param #icon_component field u_wind'\
+           (substring(pd_param(icon_component, "field", "string"),"u_wind"))
+        entry 'West Wind Component m/s' 'param #icon_component field v_wind'\
+           (substring(pd_param(icon_component, "field", "string"),"v_wind"))
+        entry 'Station Altitude km' 'param #icon_component field alt'\
+           (substring(pd_param(icon_component, "field", "string"),"alt"))
+        endmenu
+
+define widget contour-options intmenu 'Contour Options'
+        title 'Contour Options'
+        line
+        submenu 'Contour Color' 'contour-color'
+        line
+        submenu 'Label Blanking' 'label-blanking'
+        line
+        submenu 'Line Width' 'linewidth'
+        line
+        submenu 'Show Annotation' 'annot-onoff'
+        line
+        submenu 'Annotation Size' 'side-annot-scale'
+        line
+        submenu 'Annotation Skip' 'annot-skip'
+!       line
+!       submenu 'Toggle Platform' 'toggle-meso-platform'
+endmenu
+
+define widget contour-color intmenu 'Contour Color'
+        title 'Select Color'
+        line
+        entry 'white' 'do_contour_color white'
+        entry 'black' 'do_contour_color black'
+        entry 'gray' 'do_contour_color gray60'
+        entry 'lavender' 'do_contour_color lavender'
+        entry 'blue' 'do_contour_color blue'
+        entry 'cyan' 'do_contour_color cyan'
+        entry 'green' 'do_contour_color green'
+        entry 'khaki' 'do_contour_color khaki'
+        entry 'yellow' 'do_contour_color yellow'
+        entry 'tan' 'do_contour_color tan'
+        entry 'brown' 'do_contour_color brown'
+        entry 'orange' 'do_contour_color orange'
+        entry 'red' 'do_contour_color red'
+        entry 'pink' 'do_contour_color "HotPink"'
+        entry 'violet' 'do_contour_color violet'
+        line
+        entry 'Multi-Colored Contours ' 'do_mono_color'
+endmenu
+
+procedure do_contour_color color string
+        parameter #icon_component color #color
+        parameter #icon_component color-mono true
+endprocedure
+
+define widget label-blanking intmenu 'Contour Label Blanking'
+        title 'Label Blanking'
+        line
+        entry 'On' 'do_blank_label true' \
+                (pd_param (icon_component, "label-blanking", "string") = "true")
+        entry 'Off' 'do_blank_label false' \
+                (pd_param(icon_component, "label-blanking", "string") = "false")
+endmenu
+
+define widget annot-onoff intmenu 'Annotation On/Off'
+        title 'Show Annotation'
+        line
+        entry 'On' 'do_side_annot_show true' \
+                (pd_param (icon_component, "sa-show", "string") = "true")
+        entry 'Off' 'do_side_annot_show false' \
+                (pd_param (icon_component, "sa-show", "string") = "false")
+endmenu
+
+define widget annot-skip intmenu 'Annotation Skipping'
+        title 'Annotation Skip'
+        line
+        entry 'On' 'do_annot_skip 2'
+        entry 'Off' 'do_annot_skip 1'
+endmenu
+
+procedure do_blank_label value string
+        parameter #icon_component label-blanking #value
+endprocedure
+
+procedure do_side_annot_show show string
+        parameter #icon_component sa-show #show
+endprocedure
+
+procedure do_annot_skip skip string
+        parameter #icon_component ct-limit #skip
+endprocedure
+
+!
+! The xy-wind left button menu.
+!
+define widget xywind-left intmenu 'XY-Wind Left'
+        title 'Overlay Operations'
+        line
+        submenu 'Adjust Limits' 'adjust-xywind-limits'
+endmenu
+
+!
+! The XYWind Adjust Limits submenu
+!
+define widget adjust-xywind-limits intmenu 'Adjust Limits'
+        title 'Adjust Limits'
+        line
+        entry 'Time Interval' 'i_adjust time-limit-proc'
+endmenu
+
+define widget prof-platforms intmenu 'Profiler Platforms'
+        title 'Select Profiler Platforms'
+        line
+!       entry 'List Profilers' 'dm "help intro fest_profilers.hlp"'
+        entry 'MAXW_P Maxwell Creek' \
+                'parameter #icon_component platform pro_maxw_l,pro_maxw_h'
+        entry 'PICK_P Picker Fire Tower' \
+                'parameter #icon_component platform pro_pick_l,pro_pick_h'
+        entry 'PIRL_P Garden Point' \
+                'parameter #icon_component platform pro_pirl_l,pro_pirl_h'
+endmenu
+
+define widget xy-wind-menu intmenu 'XY Winds menu'
+        title 'XY Winds Options'
+        line
+        submenu 'Adjust Height' adjust-height
+        submenu 'Select Representation' barb-vec
+endmenu
+
+define widget adjust-height intmenu 'Adjust Vertical Submenu'
+        title 'Scale Height'
+        line
+        entry '0-1000 m/agl' 'adjust_height_scale set 0.0 1000.0'
+        entry '0-4000 m/agl' 'adjust_height_scale set 0.0 4000.0'
+        entry '0-9000 m/agl' 'adjust_height_scale set 0.0 9000.0'
+        entry '0-18000 m/agl' 'adjust_height_scale set 0.0 18000.0'
+        entry 'Manual Adjust...' 'adjust_height_scale get global m/agl'
+endmenu
+
+!
+! The xy-wind time interval adjuster.
+!
+procedure adj_xy_time comp string
+        local time pd_param("global", "xy-series-span", "string")
+        activate singlestring "global" "xy-series-span" \
+                "Time(suffix h or m):" #time
+endprocedure
+
+define widget barb-vec intmenu 'Choose between barb/vector repr.'
+        title 'Select Representation'
+        line
+        entry 'Barb' 'parameter #icon_component representation-style barb'\
+            (pd_param(icon_component,"representation-style","string")="barb")
+        entry 'Vector' 'parameter #icon_component representation-style vector'\
+            (pd_param(icon_component,"representation-style","string")="vector")
+endmenu
+
+procedure adjust_height_scale how string proc1 string proc2 string
+        local alt pd_paramsearch(icon_component, "prof-site-alt", "", "float")
+        if (how = "set")
+            parameter global height-scale-y-min #proc1
+            parameter global height-scale-y-max #proc2
+        else
+            local min pd_param("global", "height-scale-y-min", "string")
+            local max pd_param("global", "height-scale-y-max", "string")
+            activate doublefloat "global" "height-scale-y-min" "Y Min: " #min \
+                "height-scale-y-max" "Y Max: " #max
+        endif
+        local min pd_param("global", "height-scale-y-min", "float")
+        local max pd_param("global", "height-scale-y-max", "float")
+        local minO string((alt/1000) + (min / 1000))
+        local maxO string((alt/1000) + (max / 1000))
+        parameter global alt-scale-y-min #minO
+        parameter global alt-scale-y-max #maxO
+endprocedure
+
+define widget global-xytime-menu intmenu 'Global Fields Menu'
+        title 'Select Fields'
+        line
+!       submenu 'Profiler Fields' time-prof-parts
+!       submenu 'Aster Fields' time-aster-parts
+        submenu 'Aircraft Fields' time-air-parts
+        submenu 'Mesonet Fields' time-meso-parts
+endmenu
+
+define widget time-air-parts intmenu 'Aircraft platforms'
+        title 'Select Aircraft Platforms'
+        line
+        submenu 'FIAMS Cessna 340' 'time-cess-air-parts'
+        submenu 'Aerosonde' 'time-aero-air-parts'
+endmenu
+
+define widget time-cess-air-parts intmenu 'FIAMS Cessna 340'
+        title 'Select Field'
+        line
+        entry 'Radar Altitude (m)' 'add_xy_component c340 "y-field alt" "Radar_Alt_(m)" c_xytime_air'
+        entry 'Pressure Altitude (m)' 'add_xy_component c340 "y-field pa" "Pressure_Alt_(m)" c_xytime_air'
+        entry 'Static Pressure (hPa)' 'add_xy_component c340 "y-field ps" "Static_Pressure(hPa)" c_xytime_air'
+        entry 'True Airspeed (m/s)' 'add_xy_component c340 "y-field tas" "True_Airspeed(m/s)" c_xytime_air'
+        entry 'Ground Speed (m/s)' 'add_xy_component c340 "y-field gs" "Ground_Speed(m/s)" c_xytime_air'
+        entry 'Surface Temperature (C)' 'add_xy_component c340 "y-field tsf" "Surface_Temperature(C)" c_xytime_air'
+        entry 'Temperature (C)' 'add_xy_component c340 "y-field ta" "Temperature(C)" c_xytime_air'
+        entry 'Potential Temperature (C)' 'add_xy_component c340 "y-field th" "Potential_Temperature(C)" c_xytime_air'
+        entry 'Virtual Temperature (C)' 'add_xy_component c340 "y-field tv" "Virtual_Temperature(C)" c_xytime_air'
+        entry 'Virtual Potential Temperature (C)' 'add_xy_component c340 "y-field thv" "Virtual_Pot_Temperature(C)" c_xytime_air'
+        entry 'Equivalent Potential Temperature (C)' 'add_xy_component c340 "y-field the" "Equivalent_Pot_Temperature(C)" c_xytime_air'
+        entry 'Dewpoint Temperature (C)' 'add_xy_component c340 "y-field tw1" "Dewpoint_Temperature(C)" c_xytime_air'
+        entry 'Mixing Ratio (g/kg)' 'add_xy_component c340 "y-field mr" "Mixing_Ratio(g/kg)" c_xytime_air'
+        entry 'Aircraft Pitch (deg)' 'add_xy_component c340 "y-field pitch" "Aircraft_Pitch(deg)" c_xytime_air'
+        entry 'Aircraft Roll (deg)' 'add_xy_component c340 "y-field roll" "Aircraft_Roll(deg)" c_xytime_air'
+        entry 'True Heading (deg)' 'add_xy_component c340 "y-field hdg" "True_Heading(deg)" c_xytime_air'
+        entry 'Aircraft Vertical Velocity (m/s)' 'add_xy_component c340 "y-field was" "Aircraft_Vertical_Velocity(m/s)" c_xytime_air'
+        entry 'U - Wind Component (m/s)' 'add_xy_component c340 "y-field u_wind" "U-Wind_Component(m/s)" c_xytime_air'
+        entry 'V - Wind Component (m/s)' 'add_xy_component c340 "y-field v_wind" "V-Wind_Component(m/s)" c_xytime_air'
+        entry 'Vertical Wind Component (m/s)' 'add_xy_component c340 "y-field wz" "Vertical_Wind_Component(m/s)" c_xytime_air'
+        entry 'Wind Speed (m/s)' 'add_xy_component c340 "y-field ws" "Wind_Speed(m/s)" c_xytime_air'
+        entry 'Wind Direction (deg)' 'add_xy_component c340 "y-field wd" "Wind_Direction(deg)" c_xytime_air'
+        entry 'Latitude (deg)' 'add_xy_component c340 "y-field lat" "Latitude(deg)" c_xytime_air'
+        entry 'Longitude (deg)' 'add_xy_component c340 "y-field lon" "Longitude(deg)" c_xytime_air'
+endmenu
+
+define widget time-aero-air-parts intmenu 'Aerosonde'
+        title 'Select Field'
+        line
+        entry 'Pressure Altitude (m)' 'add_xy_component aeros "y-field pa" "Pressure_Alt_(m)" c_xytime_air'
+        entry 'Static Pressure (hPa)' 'add_xy_component aeros "y-field ps" "Static_Pressure(hPa)" c_xytime_air'
+        entry 'MSL Pressure (hPa)' 'add_xy_component aeros "y-field pmsl" "MSL_Pressure(hPa)" c_xytime_air'
+        entry 'Pressure LCL(hPa)' 'add_xy_component aeros "y-field plcl" "Pressure_LCL(hPa)" c_xytime_air'
+        entry 'Temperature (C)' 'add_xy_component aeros "y-field ta" "Temperature(C)" c_xytime_air'
+        entry 'Potential Temperature (C)' 'add_xy_component aeros "y-field th" "Potential_Temperature(C)" c_xytime_air'
+        entry 'Virtual Temperature (C)' 'add_xy_component aeros "y-field tv" "Virtual_Temperature(C)" c_xytime_air'
+        entry 'Virtual Potential Temperature (C)' 'add_xy_component aeros "y-field thv" "Virtual_Pot_Temperature(C)" c_xytime_air'
+        entry 'Equivalent Potential Temperature (C)' 'add_xy_component aeros "y-field the" "Equivalent_Pot_Temperature(C)" c_xytime_air'
+        entry 'Sat Equ Potential Temperature (C)' 'add_xy_component aeros "y-field thes" "Sat_Equ_Pot_Temperature(C)" c_xytime_air'
+        entry 'Virtual Temperature (C)' 'add_xy_component aeros "y-field tv" "Virtual_Temperature(C)" c_xytime_air'
+        entry 'Virtual Potential Temperature (C)' 'add_xy_component aeros "y-field thv" "Virtual_Pot_Temperature(C)" c_xytime_air'
+        entry 'Dewpoint Temperature (C)' 'add_xy_component aeros "y-field td" "Dewpoint_Temperature(C)" c_xytime_air'
+        entry 'Mixing Ratio (g/kg)' 'add_xy_component aeros "y-field mr" "Mixing_Ratio(g/kg)" c_xytime_air'
+        entry 'Relative Humidity (%)' 'add_xy_component aeros "y-field rh" "Relative_Humidity(%)" c_xytime_air'
+        entry 'Sat Mixing Ratio (g/kg)' 'add_xy_component aeros "y-field wsat" "Sat_Mixing_Ratio(g/kg)" c_xytime_air'
+        entry 'U - Wind Component (m/s)' 'add_xy_component aeros "y-field u_wind" "U-Wind_Component(m/s)" c_xytime_air'
+        entry 'V - Wind Component (m/s)' 'add_xy_component aeros "y-field v_wind" "V-Wind_Component(m/s)" c_xytime_air'
+        entry 'Wind Speed (m/s)' 'add_xy_component aeros "y-field ws" "Wind_Speed(m/s)" c_xytime_air'
+        entry 'Wind Direction (deg)' 'add_xy_component aeros "y-field wd" "Wind_Direction(deg)" c_xytime_air'
+        entry 'Latitude (deg)' 'add_xy_component aeros "y-field lat" "Latitude(deg)" c_xytime_air'
+        entry 'Longitude (deg)' 'add_xy_component aeros "y-field lon" "Longitude(deg)" c_xytime_air'
+endmenu
+
+define widget time-meso-parts intmenu 'Mesonet fields'
+	title 'Select Mesonet Fields'
+	line
+	entry 'Station Pressure mb' 'add_xy_component aws/mull "y-field pres" "Station_Pressure_mb" c_xytime_meso'
+	entry 'MSL Pressure mb' 'add_xy_component aws/mull "y-field pmsl" "MSLPressure_mb" c_xytime_meso'
+	entry 'Pressure LCL mb' 'add_xy_component aws/mull "y-field plcl" "PressureLCL_mb" c_xytime_meso'
+	entry 'Wind Speed' 'add_xy_component aws/mull "y-field wspd" "WindSpeed" c_xytime_meso'
+	entry 'Wind Direction' 'add_xy_component aws/mull "y-field wdir" "WindDirection" c_xytime_meso'
+	entry 'U wind component' 'add_xy_component aws/mull "y-field u_wind" "U_windcomponent" c_xytime_meso'
+	entry 'V wind component' 'add_xy_component aws/mull "y-field v_wind" "V_windcomponent" c_xytime_meso'
+	entry 'Temperature C' 'add_xy_component aws/mull "y-field temperature" "Temperature_C" c_xytime_meso'
+	entry 'Temperature LCL C' 'add_xy_component aws/mull "y-field tlcl" "TemperatureLCL_C" c_xytime_meso'
+ 	entry 'Potential Temperature' 'add_xy_component aws/mull "y-field th" "PotentialTemperature" c_xytime_meso'
+ 	entry 'Equivalent Potential Temperature' 'add_xy_component aws/mull "y-field the" "EquivalentPotentialTemperature" c_xytime_meso'
+ 	entry 'Sat. Equiv. Pot. Temperature' 'add_xy_component aws/mull "y-field thes" "Sat.Equiv.Pot.Temperature" c_xytime_meso'
+ 	entry 'Virtual Temperature' 'add_xy_component aws/mull "y-field tv" "VirtualTemperature" c_xytime_meso'
+ 	entry 'Virtual Potential Temperature' 'add_xy_component aws/mull "y-field thv" "VirtualPotentialTemperature" c_xytime_meso'
+	entry 'Relative Humidity %' 'add_xy_component aws/mull "y-field rhum" "RelativeHumidity" c_xytime_meso'
+	entry 'Mixing Ratio' 'add_xy_component aws/mull "y-field w" "MixingRatio" c_xytime_meso'
+	entry 'Sat. Mixing Ratio' 'add_xy_component aws/mull "y-field wsat" "Sat.MixingRatio" c_xytime_meso'
+	entry 'Dew Point' 'add_xy_component aws/mull "y-field td" "DewPoint" c_xytime_meso'
+	entry 'Rain kg/m2' 'add_xy_component aws/mull "y-field rain" "Rain" c_xytime_meso'
+endmenu
+
+!
+! Add an xy graph component to a plot description (from the global icon).
+!
+procedure add_xy_component platform string field string label string compname string
+	local qlabel quote(label)
+!
+! Set the platform name.
+!
+	dm concat("parameter ",concat(compname,concat(" ",concat(compname,concat(" platform ",platform)))))
+!
+! Set the field name.
+!
+	dm concat("parameter ",concat(compname,concat(" ",concat(compname,concat(" ",field)))))
+!
+! Set all of the axis labels.
+!
+	dm concat("parameter ",concat(compname,concat(" ",concat(compname,concat(" axis-l-label ",qlabel)))))
+	dm concat("parameter ",concat(compname,concat(" ",concat(compname,concat(" axis-r-label ",qlabel)))))
+	dm concat("parameter ",concat(compname,concat(" ",concat(compname,concat(" axis-b-label ",qlabel)))))
+	dm concat("parameter ",concat(compname,concat(" ",concat(compname,concat(" axis-t-label ",qlabel)))))
+!
+! Add the thing.
+!
+	dm concat(concat("add ",compname),concat(concat(" ",compname),concat(" ",ourname)))
+endprocedure
+
+!
+! The xy-timegraph left button menu.
+!
+define widget xytimegraph-left intmenu 'XY-Time Graph Left'
+        title 'Overlay Operations'
+        line
+        submenu 'Adjust Limits' 'adjust-xytimegraph-limits'
+        line
+        entry 'Raise to top' 'move #icon_component 0'
+        entry 'Move to bottom' 'move #icon_component 1'
+        entry 'Disable/reenable' 'toggle_bool "disable" "true"'
+        entry 'Remove' 'i_remove_component'
+endmenu
+
+define widget xy-meso-psel intmenu 'platform sel'
+        title 'Select aws station'
+        line
+        entry 'MULL' 'parameter #icon_component platform mull'
+        entry 'RANK' 'parameter #icon_component platform rank'
+        entry 'MUNA' 'parameter #icon_component platform muna'
+        entry 'PIRL' 'parameter #icon_component platform pirl'
+        entry 'MAXW' 'parameter #icon_component platform maxw'
+        entry 'NGUI' 'parameter #icon_component platform ngui'
+        entry 'MILL' 'parameter #icon_component platform mill'
+        entry 'TWAY' 'parameter #icon_component platform tway'
+        entry 'PICK' 'parameter #icon_component platform pick'
+        entry 'ANDR' 'parameter #icon_component platform andr'
+        entry 'GOOS' 'parameter #icon_component platform goos'
+        entry 'BONK' 'parameter #icon_component platform bonk'
+        entry 'YUNA' 'parameter #icon_component platform yuna'
+        entry 'BATH' 'parameter #icon_component platform bath'
+        entry 'COBH' 'parameter #icon_component platform cobh'
+endmenu
+
+define widget xy-time-menu intmenu 'XY Time menu'
+        title 'XY Graph Options'
+        line
+        submenu 'Select Representation' line-cross
+        submenu 'Change Color' xy-color
+endmenu
+
+define widget xy-color intmenu 'Select XY Color'
+        title 'Select XY Color'
+        line
+        entry 'white' 'do_xy_color white'
+        entry 'gray' 'do_xy_color gray50'
+        entry 'blue' 'do_xy_color blue'
+        entry 'cyan' 'do_xy_color cyan'
+        entry 'green' 'do_xy_color green'
+        entry 'yellow' 'do_xy_color yellow'
+        entry 'orange' 'do_xy_color orange'
+        entry 'red' 'do_xy_color red'
+        entry 'violet' 'do_xy_color violet'
+endmenu
+
+procedure do_xy_color colorname string
+        local temp concat(concat(colorname,","),colorname)
+        parameter #icon_component field-color #temp
+        parameter #icon_component icon-color #colorname
+        parameter #icon_component axis-t-color #colorname
+        parameter #icon_component axis-b-color #colorname
+        parameter #icon_component axis-r-color #colorname
+        parameter #icon_component axis-l-color #colorname
+endprocedure
+
+!
+! The XYGraph (time series) Adjust Limits submenu
+!
+define widget adjust-xytimegraph-limits intmenu 'Adjust Limits'
+        title 'Adjust Limits'
+        line
+        entry 'Time Interval' 'i_adjust time-limit-proc'
+!       entry 'Min/Max' 'adjust_scale adj-scale-dim'
+        entry 'Y Axis' 'popup yminmax'
+        entry 'Tic Interval' 'adjust_tic'
+endmenu
+
+define widget line-cross intmenu 'Select representation'
+        title 'Select Representation'
+        line
+        entry 'Line' 'parameter #icon_component representation-style line'\
+            (pd_param(icon_component,"representation-style","string")="line")
+        entry 'Point' 'parameter #icon_component representation-style point'\
+            (pd_param(icon_component,"representation-style","string")="point")
+        entry 'X Mark' 'parameter #icon_component representation-style xmark'\
+            (pd_param(icon_component,"representation-style","string")="xmark")
+        entry 'Cross' 'parameter #icon_component representation-style cross'\
+            (pd_param(icon_component,"representation-style","string")="cross")
+endmenu
+
+!
+! A "simulated" doublefloat limit widget which also controls auto vs. manual
+! scaling
+!
+define widget yminmax form "Scale Y Axis"
+
+        popup "xyminmax_popup 'y'"
+        noheader
+!       label t1 "Scale Y Axis  "
+!       newline
+        label lmin "lmin" width 150
+        blank vmin "vmin" width 90
+        newline
+        label lmax "lmax" width 150
+        blank vmax "vmax" width 90
+        newline
+        label lmode "Scale mode:" width 150
+        button vmode "vmode" command 'xyminmax_toggle_mode "y"' width 90
+        newline
+        button help "Help" command 'help limitwidgets'
+        button store "Store" command 'xyminmax_store "y"' color green4
+        button cancel "Cancel" command 'popdown #ui$form' color red
+        label comp "comp" color gray95 width 1
+
+enddef
+!
+!Procedure for defining tic-mark intervals
+!
+procedure adjust_tic
+!
+! Get the current tic interval.
+!
+        local axis pd_param(icon_component,"adj-axis-side","string")
+        local tic_param concat3("axis-",axis,"-tic-interval")
+        local tic pd_param(icon_component,tic_param,"string")
+!
+!activate widget
+!
+        activate SingleFloat #icon_component #tic_param "tic-interval" #tic
+endprocedure
+
+procedure xyminmax_popup axis string
+!
+! Get the field name associated with the axis.
+!
+        local qual pd_param(icon_component,concat(axis,"-field"),"string")
+!
+! Get the current min value, first from manual scale, else from current
+! autoscale settings
+!
+        local smin concat3("scale-",axis,"-min")
+        local min pd_paramsearch(icon_component,smin,qual,"string")
+        if (min = '(Undefined)')
+                local min pd_paramsearch(icon_component,concat("auto-",smin),qual,"string")
+        endif
+!
+! Get the current max value.
+!
+        local smax concat3("scale-",axis,"-max")
+        local max pd_paramsearch(icon_component,smax,qual,"string")
+        if (max = '(Undefined)')
+                local max pd_paramsearch(icon_component,concat("auto-",smax),qual,"string")
+        endif
+!
+! Get the current scale mode
+!
+        local sm_param concat3("scale-",axis,"-mode")
+        local scale_mode pd_paramsearch(icon_component,sm_param,"xy","string")
+!
+! Create some labels
+!
+        local fmin concat(qual,"-min:")
+        local fmax concat(qual,"-max:")
+!
+! Setup the widget.
+!              
+        formtext #ui$form lmin #fmin
+        formtext #ui$form lmax #fmax
+        formtext #ui$form vmin #min
+        formtext #ui$form vmax #max
+        formtext #ui$form vmode #scale_mode
+        formtext #ui$form comp #icon_component
+
+endprocedure
+!
+! Basic boolean toggle.
+!
+procedure toggle_bool param string default string
+        local current (pd_param (icon_component, param, "string"))
+        if (current = "(Undefined)")
+                parameter #icon_component #param #default
+        elseif (current = "true")
+                parameter #icon_component #param "false"
+        else
+                parameter #icon_component #param "true"
+        endif
+endprocedure
+!
+! The Skew-t left button menu.
+!
+define widget skewt-left intmenu 'Skewt left'
+        title 'Overlay Operations'
+        line
+        submenu 'Adjust Limits' 'adjust-skewt-limits'
+        entry 'Choose Sounding Sites' 'popup SoundingSites'
+        line
+        entry 'Raise to top' 'move #icon_component 0'
+        entry 'Move to bottom' 'move #icon_component 1'
+        entry 'Remove' 'i_remove_component'
+endmenu
+!
+! Toggle between ft and km.
+!
+define widget feet-km intmenu 'feet/km'
+        title 'Feet/Kilometers'
+        line
+        entry 'Ft' 'do-feet-proc true'
+        entry 'Km' 'do-feet-proc false'
+endmenu
+
+procedure do-feet-proc value string
+        parameter #icon_component do-feet #value
+endprocedure
+!
+! The Skewt Adjust Limits submenu
+!
+define widget adjust-skewt-limits intmenu 'Adjust Limits'
+        title 'Adjust Limits'
+        line
+        entry 'Pressure' 'i_adjust pres-limit-proc'
+        entry 'Temperature' 'i_adjust temp-limit-proc'
+endmenu
+!
+! The pressure minval maxval adjuster.
+!
+procedure adj_pres_minmax comp string
+        local rep pd_param(comp, "representation", "string")
+        local minval pd_paramsearch(comp, "pres-minval", rep, "string")
+        local maxval pd_paramsearch(comp, "pres-maxval", rep, "string")
+        activate doublefloat #comp "pres-minval" "Pressure Minval: " #minval \
+                "pres-maxval" "Pressure Maxval: " #maxval
+endprocedure
+
+!
+! The temperature minval maxval adjuster.
+!
+procedure adj_temp_minmax comp string
+        local rep pd_param(comp, "representation", "string")
+        local minval pd_paramsearch(comp, "temp-minval", rep, "string")
+        local maxval pd_paramsearch(comp, "temp-maxval", rep, "string")
+        activate doublefloat #comp "temp-minval" "Temperature Minval: " \
+                #minval "temp-maxval" "Temperature Maxval: " #maxval
+endprocedure
+
+!
+! Access of sounding data widget
+!
+define widget SoundingSites form 'Sounding platforms'
+        noheader
+        popup ssounding_popup
+        label comp 'component' color gray95 width 1
+        label l1 'Sounding Sites for Skew-t Plots' color brown
+        newline
+        label l2 'Choose sounding sites, then click on the <Apply> button.  Use'
+        newline
+        label l3 'the middle button on the sounding icon in the skew-t window to'
+        newline
+        label l4 'select sounding for display.  Click <Help> for more information.'
+        newline
+        label l5 'Platforms:' color brown
+        blank plat ' ' command 'xsp_enter' width 300
+        newline
+        button help 'Help' command 'help soundingsites'
+        button list 'List Sounding Sites' command 'dm "help intro fest_soundings"'
+!       button current 'Get Current Platforms' command 'xsp_getcurrent'
+        button clear 'Clear' command 'xsp_clear'
+        button apply 'Apply' command 'ssounding_enter'
+        button dismiss 'Dismiss' color red command 'popdown #ui$form'
+        newline
+        button NGUI 'NGUI' command 'xsp_toggle rsnd'
+enddef
+!
+! Initialize an upper-air platform widget
+!
+procedure ssounding_popup
+        formtext #ui$form comp #icon_component
+        local current pd_param(icon_component, 'menu-platform', 'string')
+        if (current = '')
+                formtext #ui$form plat ''
+        else
+                formtext #ui$form plat #current
+        endif
+endprocedure
+!
+! Toggle the presence of a given upper-air platform.
+!
+procedure xsp_toggle platform string
+        local oldplat getftext(ui$form,'plat')
+!
+! See if it's already there.  If so, we remove.
+!
+        if (substring (oldplat, platform))
+                local newplat substr_remove(oldplat, platform)
+!
+! Otherwise we just add it.
+!
+        else
+            if (oldplat = '')
+                local newplat platform
+            else
+                local newplat concat3(oldplat,',',platform)
+            endif
+        endif
+!
+! Update the widget
+!
+        if (newplat = '')
+                formtext #ui$form plat ''
+        else
+                formtext #ui$form plat #newplat
+        endif
+endprocedure
+!
+! Clear the list
+!
+procedure xsp_clear
+        formtext #ui$form plat ''
+endprocedure
+!
+! Actually put this platform list into the plot component
+!
+procedure ssounding_enter
+        local plat getftext(ui$form,'plat')
+        local comp getftext(ui$form,'comp')
+        if (plat = '')
+                parameter #comp 'menu-platform' ''
+        else
+                parameter #comp 'menu-platform' #plat
+        endif
+endprocedure
+
+procedure xyminmax_toggle_mode axis string
+!
+! Knowing our axis, toggle the scale mode for that axis
+!
+        local pmode concat(concat("scale-",axis),"-mode")
+        local comp getftext(ui$form,'comp')
+
+        if (pd_paramsearch(comp,pmode,"xy","string") = "autoscale")
+                parameter #comp #pmode "manual"
+                formtext #ui$form 'vmode' 'manual'
+        else
+                parameter #comp #pmode "autoscale"
+                formtext #ui$form 'vmode' 'autoscale'
+        endif
+
+endprocedure
+
+procedure xyminmax_store axis string
+!
+! Knowing our axis, we can set the min and max for the axis according to
+! the value of the vmin and vmax blanks.
+!
+        local pmax concat(concat("scale-",axis),"-max")
+        local pmin concat(concat("scale-",axis),"-min")
+        local pmode concat(concat("scale-",axis),"-mode")
+        local comp getftext(ui$form,'comp')
+        local max_val getftext(ui$form,'vmax')
+        local min_val getftext(ui$form,'vmin')
+
+        parameter #comp #pmax #max_val
+        parameter #comp #pmin #min_val
+!
+! Make sure we're in manual scale mode, if so keep things as is
+!
+        if (pd_paramsearch(comp,pmode,"xy","string") = "autoscale")
+        !
+        ! Not in manual, so make changes
+        !
+                parameter #comp #pmode "manual"
+                formtext #ui$form 'vmode' 'manual'
+        endif
+endprocedure
+
+define widget global-fields-menu intmenu 'Global Fields Menu'
+        title 'Select Fields'
+        line
+        submenu 'Profiler Fields' prof-parts
+        submenu 'Aircraft Fields' air-parts
+        submenu 'Sounding Fields' sound-parts
+endmenu
+
+define widget prof-parts intmenu 'Profiler fields'
+        title 'Select Profiler Fields'
+        line
+        entry 'Wind Speed' \
+                'add_xy_component "pro_pirl_l,pro_pirl_h" "x-field wspd,wspd" "WindSpeed(m/s)" c_xy_prof'
+        entry 'Wind Direction' \
+                 'add_xy_component "pro_pirl_l,pro_pirl_h" "x-field wdir,wdir" "WindDirection(deg)" c_xy_prof'
+endmenu
+
+define widget sound-parts intmenu 'Sounding fields'
+        title 'Select Sounding Fields'
+        line
+        entry 'Wind Speed' \
+            'add_xy_component "rsnd" "x-field wspd" "WindSpeed" c_xy_sound'
+        entry 'Wind Direction' \
+            'add_xy_component "rsnd" "x-field wdir" "WindDirection" c_xy_sound'
+        entry 'U wind'\
+            'add_xy_component "rsnd" "x-field u_wind" "u_wind" c_xy_sound'
+        entry 'V wind'\
+            'add_xy_component "rsnd" "x-field v_wind" "v_wind" c_xy_sound'
+        entry 'Dew Point' \
+            'add_xy_component "rsnd" "x-field dp" "DewPoint" c_xy_sound'
+        entry 'Mixing Ratio' \
+            'add_xy_component "rsnd" "x-field mr" "MixingRatio" c_xy_sound'
+        entry 'Saturated Mixing Ratio' \
+            'add_xy_component "rsnd" "x-field wsat" "SaturatedMixingRatio" c_xy_sound'
+        entry 'Relative Humidity' \
+            'add_xy_component "rsnd" "x-field rh" "RelativeHumidity" c_xy_sound'
+        entry 'Pressure' \
+            'add_xy_component "rsnd" "x-field pres" "Pressure" c_xy_sound'
+        entry 'Temperature' \
+            'add_xy_component "rsnd" "x-field temp" "Temperature" c_xy_sound'
+        entry 'Virtual Temperature' \
+            'add_xy_component "rsnd" "x-field vt" "VirtualTemperature" c_xy_sound'
+        entry 'Potential Temperature' \
+            'add_xy_component "rsnd" "x-field theta" "PotentialTemperature" c_xy_sound'
+        entry 'Virtual Potential Temperature' \
+            'add_xy_component "rsnd" "x-field thv" "VTheta" c_xy_sound'
+        entry 'Equivalent Potential Temperature' \
+            'add_xy_component "rsnd" "x-field theta_e" "ThetaE" c_xy_sound'
+        entry 'Sat Equ Potential Temperature' \
+            'add_xy_component "rsnd" "x-field thes" "SatThetaE" c_xy_sound'
+        entry 'Pressure LCL' \
+            'add_xy_component "rsnd" "x-field plcl" "PressureLCL" c_xy_sound'
+        entry 'Temperature LCL' \
+            'add_xy_component "rsnd" "x-field tlcl" "TemperatureLCL" c_xy_sound'
+        entry 'Reversible Cape' \
+            'add_xy_component "rsnd" "x-field caper" "ReversibleCape" c_xy_sound'
+        entry 'Pseudo Adiabatic Cape' \
+            'add_xy_component "rsnd" "x-field capep" "PseudoAdCape" c_xy_sound'
+        entry 'Descent Cape' \
+            'add_xy_component "rsnd" "x-field dcape" "DescentCape" c_xy_sound'
+
+endmenu
+
+define widget air-parts intmenu 'Aircraft platforms'
+        title 'Select Aircraft Platforms'
+        line
+        submenu 'FIAMS Cessna 340' 'cess-air-parts'
+        submenu 'Aerosonde' 'aero-air-parts'
+endmenu
+
+define widget cess-air-parts intmenu 'Cessna 340 Fields'
+        title 'Select Field'
+        line
+        entry 'Radar Altitude (m)' 'add_xy_component c340 "x-field alt" "Radar_Alt_(m)" c_xy_air'
+        entry 'Pressure Altitude (m)' 'add_xy_component c340 "x-field pa" "Pressure_Alt_(m)" c_xy_air'
+        entry 'Static Pressure (hPa)' 'add_xy_component c340 "x-field ps" "Static_Pressure(hPa)" c_xy_air'
+        entry 'True Airspeed (m/s)' 'add_xy_component c340 "x-field tas" "True_Airspeed(m/s)" c_xy_air'
+        entry 'Ground Speed (m/s)' 'add_xy_component c340 "x-field gs" "Ground_Speed(m/s)" c_xy_air'
+        entry 'Surface Temperature (C)' 'add_xy_component c340 "x-field tsf" "Surface_Temperature(C)" c_xy_air'
+        entry 'Temperature (C)' 'add_xy_component c340 "x-field ta" "Temperature(C)" c_xy_air'
+        entry 'Potential Temperature (C)' 'add_xy_component c340 "x-field th" "Potential_Temperature(C)" c_xy_air'
+        entry 'Virtual Temperature (C)' 'add_xy_component c340 "x-field tv" "Virtual_Temperature(C)" c_xy_air'
+        entry 'Virtual Potential Temperature (C)' 'add_xy_component c340 "x-field thv" "Virtual_Pot_Temperature(C)" c_xy_air'
+        entry 'Equivalent Potential Temperature (C)' 'add_xy_component c340 "x-field the" "Equivalent_Pot_Temperature(C)" c_xy_air'
+        entry 'Dewpoint Temperature (C)' 'add_xy_component c340 "x-field tw1" "Dewpoint_Temperature(C)" c_xy_air'
+        entry 'Mixing Ratio (g/kg)' 'add_xy_component c340 "x-field mr" "Mixing_Ratio(g/kg)" c_xy_air'
+        entry 'Aircraft Pitch (deg)' 'add_xy_component c340 "x-field pitch" "Aircraft_Pitch(deg)" c_xy_air'
+        entry 'Aircraft Roll (deg)' 'add_xy_component c340 "x-field roll" "Aircraft_Roll(deg)" c_xy_air'
+        entry 'True Heading (deg)' 'add_xy_component c340 "x-field hdg" "True_Heading(deg)" c_xy_air'
+        entry 'Aircraft Vertical Velocity (m/s)' 'add_xy_component c340 "x-field was" "Aircraft_Vertical_Velocity(m/s)" c_xy_air'
+        entry 'U - Wind Component (m/s)' 'add_xy_component c340 "x-field u_wind" "U-Wind_Component(m/s)" c_xy_air'
+        entry 'V - Wind Component (m/s)' 'add_xy_component c340 "x-field v_wind" "V-Wind_Component(m/s)" c_xy_air'
+        entry 'Vertical Wind Component (m/s)' 'add_xy_component c340 "x-field wz" "Vertical_Wind_Component(m/s)" c_xy_air'
+        entry 'Wind Speed (m/s)' 'add_xy_component c340 "x-field ws" "Wind_Speed(m/s)" c_xy_air'
+        entry 'Wind Direction (deg)' 'add_xy_component c340 "x-field wd" "Wind_Direction(deg)" c_xy_air'
+endmenu
+
+define widget aero-air-parts intmenu 'Aerosonde Fields'
+        title 'Select Field'
+        line
+        entry 'Pressure Altitude (m)' 'add_xy_component aeros "x-field pa" "Pressure_Alt_(m)" c_xy_air'
+        entry 'Static Pressure (hPa)' 'add_xy_component aeros "x-field ps" "Static_Pressure(hPa)" c_xy_air'
+        entry 'MSL Pressure (hPa)' 'add_xy_component aeros "x-field pmsl" "MSL_Pressure(hPa)" c_xy_air'
+        entry 'Pressure LCL(hPa)' 'add_xy_component aeros "x-field plcl" "Pressure_LCL(hPa)" c_xy_air'
+        entry 'Temperature (C)' 'add_xy_component aeros "x-field ta" "Temperature(C)" c_xy_air'
+        entry 'Potential Temperature (C)' 'add_xy_component aeros "x-field th" "Potential_Temperature(C)" c_xy_air'
+        entry 'Virtual Temperature (C)' 'add_xy_component aeros "x-field tv" "Virtual_Temperature(C)" c_xy_air'
+        entry 'Virtual Potential Temperature (C)' 'add_xy_component aeros "x-field thv" "Virtual_Pot_Temperature(C)" c_xy_air'
+        entry 'Equivalent Potential Temperature (C)' 'add_xy_component aeros "x-field the" "Equivalent_Pot_Temperature(C)" c_xy_air'
+        entry 'Sat Equ Potential Temperature (C)' 'add_xy_component aeros "x-field thes" "Sat_Equ_Pot_Temperature(C)" c_xy_air'
+        entry 'Virtual Temperature (C)' 'add_xy_component aeros "x-field tv" "Virtual_Temperature(C)" c_xy_air'
+        entry 'Virtual Potential Temperature (C)' 'add_xy_component aeros "x-field thv" "Virtual_Pot_Temperature(C)" c_xy_air'
+        entry 'Dewpoint Temperature (C)' 'add_xy_component aeros "x-field td" "Dewpoint_Temperature(C)" c_xy_air'
+        entry 'Mixing Ratio (g/kg)' 'add_xy_component aeros "x-field mr" "Mixing_Ratio(g/kg)" c_xy_air'
+        entry 'Relative Humidity (%)' 'add_xy_component aeros "x-field rh" "Relative_Humidity(%)" c_xy_air'
+        entry 'Sat Mixing Ratio (g/kg)' 'add_xy_component aeros "x-field wsat" "Sat_Mixing_Ratio(g/kg)" c_xy_air'
+        entry 'U - Wind Component (m/s)' 'add_xy_component aeros "x-field u_wind" "U-Wind_Component(m/s)" c_xy_air'
+        entry 'V - Wind Component (m/s)' 'add_xy_component aeros "x-field v_wind" "V-Wind_Component(m/s)" c_xy_air'
+        entry 'Wind Speed (m/s)' 'add_xy_component aeros "x-field ws" "Wind_Speed(m/s)" c_xy_air'
+        entry 'Wind Direction (deg)' 'add_xy_component aeros "x-field wd" "Wind_Direction(deg)" c_xy_air'
+        entry 'Latitude (deg)' 'add_xy_component aeros "x-field lat" "Latitude(deg)" c_xy_air'
+        entry 'Longitude (deg)' 'add_xy_component aeros "x-field lon" "Longitude(deg)" c_xy_air'
+endmenu
+!
+! The xy-graph left button menu.
+!
+define widget xygraph-left intmenu 'XY-Graph Left'
+        title 'Overlay Operations'
+        line
+        submenu 'Adjust Limits' 'adjust-xygraph-limits'
+        line
+        entry 'Raise to top' 'move #icon_component 0'
+        entry 'Move to bottom' 'move #icon_component 1'
+        entry 'Disable/reenable' 'toggle_bool "disable" "true"'
+        entry 'Remove' 'i_remove_component'
+endmenu
+
+define widget xy-simple-menu intmenu 'XY Simple menu'
+        title 'XY Graph Options'
+        line
+        submenu 'Adjust Height' adjust-height
+        submenu 'Select Representation' line-cross
+        submenu 'Change Color' xy-color
+endmenu
+!
+! The XYGraph Adjust Limits submenu
+!
+define widget adjust-xygraph-limits intmenu 'Adjust Limits'
+        title 'Adjust Limits'
+        line
+        entry 'Time Interval' 'i_adjust time-limit-proc'
+        entry 'X Axis' 'popup xminmax'
+        entry 'Tic Interval' 'adjust_tic'
+endmenu
+!
+! A "simulated" doublefloat limit widget which also controls auto vs. manual
+! scaling
+!
+define widget xminmax form "Scale X Axis"
+
+        popup "xyminmax_popup 'x'"
+        noheader
+!       label t1 "Scale X Axis  "
+!       newline
+        label lmin "lmin" width 150
+        blank vmin "vmin" width 90
+        newline
+        label lmax "lmax" width 150
+        blank vmax "vmax" width 90
+        newline
+        label lmode "Scale mode:" width 150
+        button vmode "vmode" command 'xyminmax_toggle_mode "x"' width 90
+        newline
+        button help "Help" command 'help limitwidgets'
+        button store "Store" command 'xyminmax_store "x"' color green4
+        button cancel "Cancel" command 'popdown #ui$form' color red
+        label comp "comp" color gray95 width 1
+
+enddef
+
+define widget sound-platforms intmenu 'Sounding platforms'
+        title 'Select Sounding Platform'
+        line
+        entry 'Maxwells Creek' \
+                'parameter #icon_component platform rsnd'
+endmenu
+
+define widget color-tables intmenu ''
+        title 'Color tables'
+        line
+        entry 'Black and white' 'CTSet 16gray' \
+                (PDParam(icon_component, 'color-table') = '16gray')
+        entry 'Black and white reversed' 'CTSet revgray' \
+                (PDParam(icon_component, 'color-table') = 'revgray')
+        entry 'scook color table' 'param #icon_component color-table scook' \
+                (pd_param (icon_component,"color-table","string") = "scook")
+        entry 'cook16' 'param #icon_component color-table cook16' \
+                (pd_param (icon_component,"color-table","string") = "cook16")
+        entry 'cook32' 'param #icon_component color-table cook32' \
+                (pd_param (icon_component,"color-table","string") = "cook32")
+        entry 'hotcold' 'param #icon_component color-table hotcold' \
+                (pd_param (icon_component,"color-table","string") = "hotcold")
+        entry 'wild' 'param #icon_component color-table wild' \
+                (pd_param (icon_component,"color-table","string") = "wild")
+        entry 'wild_new' 'param #icon_component color-table wild_new' \
+                (pd_param (icon_component,"color-table","string") = "wild_new")
+!       line
+!       entry 'Raster representation' \
+!               'param #icon_component representation raster'
+!       entry 'Contour representation' \
+!               'param #icon_component representation contour'
+!       entry 'Filled contour representation' \
+!               'param #icon_component representation filled-contour'
+endmenu

@@ -1,0 +1,27 @@
+GLOBAL
+	comment:	Display Sounding data on an xy graph.
+	pd-name:	c_xy_sound
+	plot-mode:	real-time
+	plot-type:	xygraph
+c_xy_sound
+	data-mode:	snapshot
+	do-color-proc:	change_component_color
+	representation:	simple
+	platform:	rsnd
+	icon:		generic
+	field-color:	yellow
+	icon-color:	yellow
+	axis-left:	false
+	axis-right:	false
+	axis-bottom:	true
+	axis-top:	false
+	y-field:	alt
+	x-field:	wdir,wdir
+	axis-b-label:	none	
+	axis-b-grid-intensity:	0.0
+	axis-b-color:	yellow
+	adj-axis-side:	b
+	icon-left-menu:		xygraph-left
+	icon-right-menu:	xy-simple-menu
+	icon-middle-menu:	sound-platforms
+	time-limit-proc:	adj_xy_time

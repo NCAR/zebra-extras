@@ -1,0 +1,344 @@
+! $Id: IconBar,v 1.1.1.1 1997-03-13 20:10:28 granger Exp $
+!
+! Generic IconBar template
+!
+
+set ui$bitmap_directory concat(c$libdir, "/icons")
+
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	noheader
+	!
+	! Define the menus
+	!
+	menu help bitmap iconbar-help
+		title 'Zeb Help Access'
+		line
+		entry 'Introduction' 'help intro'
+		entry 'On-line topics' 'help index'
+		entry 'Starting Zebra' 'help start'
+		entry 'Shutting down' 'help shut-down'
+		entry 'Keys and mouse buttons' 'help keys'
+		entry 'The icon bar' 'help iconbar'
+		entry 'Editing display configurations' 'help editing-configs'
+		line
+		entry 'Horizontal plots' 'help horizontal-plots'
+		entry 'Skew-t plots' 'help skewt'
+		entry 'XYGraph plots' 'help xy-graphs'
+		entry 'Cross-section plots' 'help cross-section'
+	endmenu
+	menu tools bitmap tools-big
+		title 'Tools'
+		line
+		entry 'Time widget'	'popup time'
+		entry 'Make a print' 'popup hardcopy'
+		line
+		entry 'Add display window' 'popup newwindow'
+		entry 'Delete display window' 'popup zorchwindow'
+		entry 'Save current configuration' 'popup saveconfig'
+		line
+		entry 'Data store contents' 'shell "dsdwidget &"'
+		entry 'Data store management' 'shell "dsmanage &"'
+		line
+		entry 'Shut down Zebra' 'shutdown'
+	endmenu
+!
+! The project display configurations are added in this menu
+!
+	menu configs bitmap configs
+		title 'Display configurations'
+		line
+	!
+	! Example:
+	!	entry 'Wide-screen satellite' 'display wide' \
+	!		(dm$config = 'wide')
+	!
+		line
+		entry 'Radar window' 'display Radar' \
+			(dm$config = 'Radar')
+		entry 'Mesonet' 'display mesonet' \
+			(dm$config = 'mesonet')
+		entry 'Time Height' 'display TimeHeight' \
+			(dm$config = 'TimeHeight')
+		entry 'Time Series' 'display xytimegraph' \
+			(dm$config = 'xytimegraph')
+		entry 'Profiler Display' 'display profiler' \
+			(dm$config = 'profiler')
+		entry 'Altitude Plot' 'display Altitude' \
+			(dm$config = 'Altitude')
+		entry 'Aircraft Track' 'display aircraft' \
+			(dm$config = 'aircraft')
+		entry 'Aerosonde' 'display aerosonde' \
+			(dm$config = 'aerosonde')
+		entry 'Radiosonde' 'display Rsonde' \
+			(dm$config = 'Rsonde')
+		entry 'Notjxw' 'display notjxw' \
+			(dm$config = 'notjxw')
+		entry 'Empty screen' 'display empty' (dm$config = 'empty')
+	endmenu
+!
+! General platform/data menus here
+!
+ 	menu aws bitmap mesonet
+ 		title 'AWS Data'
+ 		line
+ 		entry 'Station Plot' AWS_add
+ 		entry 'Contours' \
+                  'putc3 p_contour platform aws icon mesonet field temperature'
+ 	endmenu
+        menu satellite bitmap satellite
+                title 'Satellite Data'
+                line
+                entry 'GMS VIS' \
+                        'putc2 p_raster platform gms field vis'
+                entry 'GMS IR' \
+                        'putc2 p_raster platform gms field ir'
+        endmenu
+	menu radar bitmap radar
+		title 'Radar Data'
+		line
+                entry 'Uncorrected reflectivity' \
+                  'putc3 p_radar platform radar icon radar field ureflectivity'
+                entry 'Corrected reflectivity' \
+                  'putc3 p_radar platform radar icon radar field creflectivity'
+                entry 'Velocity' \
+		  'putc3 p_radar platform radar icon radar field velocity'
+	endmenu
+	menu aircraft bitmap aircraft
+		title 'Aircraft'
+		line
+		entry 'Cessna track' 'PutScalar c340 alt'
+		entry 'Aerosonde track' 'PutScalar aeros alt'
+	endmenu
+!
+! Maps, locations and other informational overlays
+!
+	menu 'overlays' bitmap overlays
+		title 'Static Overlays'
+		line
+		entry 'Default Map' 'putc2 p_map platform default icon map'
+		entry 'X-Y Grid (km)' \
+			'putc3 p_kmgrid x-spacing 100 y-spacing 100 color cyan'
+		entry 'Lat/Lon Grid' \
+			'putc3 p_llgrid x-spacing 60 y-spacing 60 color cyan'
+		entry 'Window Bounds' put_wbounds p_wbounds
+!               entry 'jim_forecast' \
+!                      'putc2 p_boundary platform jim_forecast color yellow'
+!               entry 'All Boundaries' \
+!              'putc2 p_boundary platform jim1,jim2,jim3,jim4,jim5 color yellow'
+                entry 'Boundary 1' \
+               'putc2 p_boundary platform jim1 color yellow'
+                entry 'Boundary 2' \
+               'putc2 p_boundary platform jim2 color green'
+                entry 'Boundary 3' \
+               'putc2 p_boundary platform jim3 color red'
+                entry 'Boundary 4' \
+               'putc2 p_boundary platform jim4 color blue'
+                entry 'Boundary 5' \
+               'putc2 p_boundary platform jim5 color cyan'
+		line
+                submenu 'Locations' LocMenu
+
+	endmenu
+enddef
+
+!
+! Put in window bounds.
+!
+procedure put_wbounds comp string
+!
+! Get the window we want to see.
+!
+	set wbounds_win "none"
+	pickwin wbounds_win
+	if (wbounds_win = "none")
+		beep
+		return
+	endif
+!
+! And now the place where it goes.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")
+		beep
+		return
+	endif
+!
+! Fix up the component and ship it over.
+!
+	parameter #comp #comp platform #wbounds_win
+	add #comp #comp #target_win
+endprocedure
+!
+! Menus for mesonet contours.  Two completely separate menus required
+! for the filled and line cases, alas.
+!
+define widget FilledMesonet intmenu 'Filled mesonet contour selection'
+        title 'Mesonet data in filled contours'
+        line
+        entry 'Temperature'             'PutBCompField c_fmesonet tdry false'
+        entry 'Dewpoint Temperature'    'PutBCompField c_fmesonet dp false'
+        entry 'Relative Humidity'       'PutBCompField c_fmesonet rh false'
+        entry 'Raw Pressure'            'PutBCompField c_fmesonet pres false'
+        entry 'Corrected Pressure'      'PutBCompField c_fmesonet cpres0 false'
+        entry 'Mixing Ratio'            'PutBCompField c_fmesonet mr false'
+        entry 'Potential Temperature'   'PutBCompField c_fmesonet pt false'
+        entry 'Equivalent Potential Temperature' 'PutBCompField c_fmesonet ept false'
+endmenu
+define widget FilledMesonet1min intmenu 'Filled Contour Selection'
+	title 'Surface Mesonet Contour Fields'
+	line
+	entry 'Station Pressure mb' 'PutBCompField c_sfc_1min_fcontours pres false'
+	entry 'Reported Sea-level Pressure mb' 'PutBCompField c_sfc_1min_fcontours cpres0 false'
+	entry 'Calculated Sea-levelPressure mb' 'PutBCompField c_sfc_1min_fcontours computed_Sea_level_Pressure false'
+	entry 'Temperature C' 'PutBCompField c_sfc_1min_fcontours tdry false'
+	entry 'Dew Point C' 'PutBCompField c_sfc_1min_fcontours dp false'
+	entry 'Wind Speed' 'PutBCompField c_sfc_1min_fcontours wspd false'
+	entry 'Wind Direction' 'PutBCompField c_sfc_1min_fcontours wdir false'
+	entry 'Wind Maximum m/s' 'PutBCompField c_sfc_1min_fcontours wmax false'
+	entry 'Rain kg/m2' 'PutBCompField c_sfc_1min_fcontours rain false'
+	entry 'Weather Code' 'PutBCompField c_sfc_1min_fcontours weather_code false'
+	entry 'Horizontal Visability m' 'PutBCompField c_sfc_1min_fcontours horiz_vis__fcontours false'
+	entry 'Ceiling Height (first layer) feet' 'PutBCompField c_sfc_1min_fcontours ceiling_height false'
+	entry 'Ceiling Flag (first layer)' 'PutBCompField c_sfc_1min_fcontours ceiling_flag false'
+	entry 'Cloud Amount (first layer)' 'PutBCompField c_sfc_1min_fcontours cloud_amt false'
+	entry 'Ceiling Height (second layer) feet' 'PutBCompField c_sfc_1min_fcontours ceiling_height2 false'
+	entry 'Ceiling Flag (second layer)' 'PutBCompField c_sfc_1min_fcontours ceiling_flag2 false'
+	entry 'Cloud Amount (second layer)' 'PutBCompField c_sfc_1min_fcontours cloud_amt2 false'
+	entry 'Ceiling Height (third layer) feet' 'PutBCompField c_sfc_1min_fcontours ceiling_height3 false'
+	entry 'Ceiling Flag (third layer)' 'PutBCompField c_sfc_1min_fcontours ceiling_flag3 false'
+	entry 'Cloud Amount (third layer)' 'PutBCompField c_sfc_1min_fcontours cloud_amt3 false'
+	entry 'East Wind Component m/s' 'PutBCompField c_sfc_1min_fcontours u_wind false'
+	entry 'West Wind Component m/s' 'PutBCompField c_sfc_1min_fcontours v_wind false'
+	entry 'Station Altitude km' 'PutBCompField c_sfc_1min_fcontours alt false'
+endmenu
+define widget LineMesonet1min intmenu 'Line mesonet contour selection'
+	title 'Surface Mesonet Contour Fields'
+	line
+	entry 'Station Pressure mb' 'PutCompField c_sfc_1min pres'
+	entry 'Reported Sea-level Pressure mb' 'PutCompField c_sfc_1min cpres0'
+	entry 'Calculated Sea-levelPressure mb' 'PutCompField c_sfc_1min computed_Sea_level_Pressure'
+	entry 'Temperature C' 'PutCompField c_sfc_1min tdry'
+	entry 'Dew Point C' 'PutCompField c_sfc_1min dp'
+	entry 'Wind Speed' 'PutCompField c_sfc_1min wspd'
+	entry 'Wind Direction' 'PutCompField c_sfc_1min wdir'
+	entry 'Wind Maximum m/s' 'PutCompField c_sfc_1min wmax'
+	entry 'Rain kg/m2' 'PutCompField c_sfc_1min rain'
+	entry 'Weather Code' 'PutCompField c_sfc_1min weather_code'
+	entry 'Horizontal Visability m' 'PutCompField c_sfc_1min horiz_vis'
+	entry 'Ceiling Height (first layer) feet' 'PutCompField c_sfc_1min ceiling_height'
+	entry 'Ceiling Flag (first layer)' 'PutCompField c_sfc_1min ceiling_flag'
+	entry 'Cloud Amount (first layer)' 'PutCompField c_sfc_1min cloud_amt'
+	entry 'Ceiling Height (second layer) feet' 'PutCompField c_sfc_1min ceiling_height2'
+	entry 'Ceiling Flag (second layer)' 'PutCompField c_sfc_1min ceiling_flag2'
+	entry 'Cloud Amount (second layer)' 'PutCompField c_sfc_1min cloud_amt2'
+	entry 'Ceiling Height (third layer) feet' 'PutCompField c_sfc_1min ceiling_height3'
+	entry 'Ceiling Flag (third layer)' 'PutCompField c_sfc_1min ceiling_flag3'
+	entry 'Cloud Amount (third layer)' 'PutCompField c_sfc_1min cloud_amt3'
+	entry 'East Wind Component m/s' 'PutCompField c_sfc_1min u_wind'
+	entry 'West Wind Component m/s' 'PutCompField c_sfc_1min v_wind'
+	entry 'Station Altitude km' 'PutCompField c_sfc_1min alt'
+!	
+endmenu
+!
+! Add a component to a window, changing the field name.
+!
+procedure PutCompField comp string field string
+        putc1 #comp field #field
+endprocedure
+
+!
+! Add a component to a window, changing the field name.  This version puts
+! the component at the bottom of the stack.
+!
+procedure PutBCompField comp string field string radarspace string
+!
+! Get the target window.
+!
+        set target_win "none"
+        pickwin target_win
+        if (target_win = "none")        ! They picked root or something
+                beep
+                return
+        endif
+        sound chord
+!
+! If the component is already in the window, just change the field.
+!
+        if (pd_defined (target_win, comp, "platform"))
+                parameter #target_win #comp "field" #field
+!
+! Otherwise change the field *in DM* to avoid making the GP draw twice,
+! then send it over.
+!
+        else
+                parameter #comp #comp "field" #field
+                add #comp #comp #target_win 1
+        !
+        !  Take care of the radar-space parameter.
+        !
+                parameter #target_win "global" "radar-space" #radarspace
+        endif
+endprocedure
+
+! The model pd templates need to be tweaked to require our project-specific
+! module, which basically just pop-up the model widget.  Other tweaks are
+! done here also.
+!
+! Add basic model data: ModelAdd <platform> <color>
+!
+procedure ModelAdd plat string color string
+        parameter p_model p_model require 'contour, simple-color, fest-model'
+        parameter p_model p_model platform #plat
+        parameter p_model p_model icon #plat
+        parameter p_model p_model color #color
+        parameter p_model p_model field tdry
+        parameter p_model p_model altitude-control true
+        sendout p_model 'pick'
+endprocedure
+!
+! Location platform lists
+!
+set AWS_locs 'MULL.,RANK.,MUNA.,NGUI.,PIRL.,MILL.,MAXW.,PICK.,ANDR.,GOOS.,BONK.'
+set AWS_locs concat(AWS_locs,',BATH.,YUNA.,TWAY.,COBH.')
+set Prof_locs 'MAXW_P,PICK_P,PIRL_P'
+set Radar_locs 'NGUI_R'
+
+!
+! Location submenu.
+!
+define widget LocMenu intmenu 'Location menu'
+        title 'Static locations'
+        line
+        entry 'Radar' \
+           'put_locs #Radar_locs khaki radar-loc'
+        entry 'AWS sites' \
+           'put_locs #AWS_locs tan sounding-loc'
+        entry 'Profilers' \
+           'put_locs #Prof_locs tan sounding-loc'
+endmenu
+
+procedure put_locs locs string color string icon string
+        putc3 p_loc platform #locs color #color icon #icon
+endprocedure
+!
+! AWS station plot
+!       default to showing station name, temperature, and pressure
+!
+procedure AWS_add
+        parameter p_station p_station platform aws
+        parameter p_station p_station icon mesonet
+        parameter p_station p_station quad1 wspd
+        parameter p_station p_station quad2 temperature
+        parameter p_station p_station quad3 rhum
+        parameter p_station p_station quad4 pres
+!
+!       AWS wind speed and wind dir fields are "wspd" and "wdir"
+!
+        parameter p_station p_station wspd-field wspd
+        parameter p_station p_station wdir-field wdir
+        sendout p_station 'pick'
+endprocedure

@@ -1,0 +1,34 @@
+!
+! Parameters to read in McTEX UF data
+!
+set radar_lat -11.7642
+set radar_lon 130.6161
+set x_resolution 960
+set y_resolution 900
+set x_radar 450
+set y_radar 450
+set gmt_offset 0
+set platform "radar"
+set minimum_sweep 5
+set pixels_per_km 4
+set ui$pager_mode false
+set nframes 1
+!source file /usr/people/pep/zeb/ufdata/uf0201.tape
+source file /usr/people/pep/zeb/ufdata/uf2243.tape
+!source file /tracy.v02/mrms/rdss/tmp/uftracy.tape
+!source file /usr/people/pep/zeb/ufdata/uf0502.tape
+!source file /temp1/pep/radar/data/uf.zeb
+!source file /temp1/pep/radar/data/uf0001.tape
+field 'reflectivity' offset 1 min -20 max 65
+field 'velocity' offset 2 min -30 max 30
+! field 'swidth' offset 3 min 0 max 20
+! field 'zdr' offset 4 min -10 max 10
+!
+! These UF files use a new volume number for each sweep and have bogus 
+! trailing record lengths
+!
+set trustvol false
+set check_trailer false
+set niceness -5
+set azimuth_fill 0.8
+consumer ds_consumer radar
