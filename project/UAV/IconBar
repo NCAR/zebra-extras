@@ -6,6 +6,7 @@
 ! The right way to do this....
 !
 set ui$bitmap_directory concat(c$libdir, "/icons")
+
 !
 ! This is the iconbar menu itself.....
 !
@@ -24,10 +25,8 @@ define widget iconbar menubar " "
 	!
 	! Now we can define the menus themselves.
 	!
-	!
 	! Throw in a help icon, pick your favorite of the two
 	!
-	!menu help bitmap help
 	menu help bitmap iconbar-help
 		title 'Zeb Help Access'
 		line
@@ -42,34 +41,18 @@ define widget iconbar menubar " "
 	menu global bitmap global
 		title 'Zeb control options'
 		line
-!		entry 'One Window Aircraft Configuration' \
-!			'pconfig one' (dm$config = "one")
-!		entry 'Radar Configuration' \
-!			'pconfig festdemo' (dm$config = "festdemo")
-!		entry 'Surface Data Configuration' \
-!			'pconfig surf' (dm$config = "surf")
-!		entry 'Cross-Section Configuration' \
-!			'pconfig xsect' (dm$config = "xsect")
-!!		entry 'Time Series Configuration'\
-!!			'pconfig tseries' (dm$config = "tseries")
-!		entry 'Profiler Display' \
-!			'pconfig profiler' (dm$config = "profiler")
-!		entry 'Altitude Plot' \
-!			'pconfig xygraph' (dm$config = "xygraph")
-!		entry 'Time Series Plot' \
-!			'pconfig xytimegraph' (dm$config = "xytimegraph")
-!		entry 'Slide Configuration' \
-!			'pconfig slide' (dm$config = "slide")
-!		line
 		entry 'Empty Configuration' \
 			'pconfig empty' (dm$config = "empty")
-!		entry 'Nested Grid Model'
-		submenu 'Radiation Display (by facility)' 'rad_by_facility'
+		entry 'Nested Grid Model' \
+			'pconfig NGM' (dm$config = "NGM")
+		entry 'Profiler Wind and Temperature' \
+			'pconfig Profiler' (dm$config = "Profiler")
 		entry 'Satellite Display' 'pconfig Satellite' (dm$config = "Satellite")
 		entry 'Thermodynamics Display' 'pconfig sonde_config' (dm$config = "sonde_config")
 !		entry 'Surface Meterology Display' 'pconfig surface_met' (dm$config = "surface_met")
-		submenu 'Surface Meterology Display (by facility)' 'surf_by_facility'
 		entry 'Cloud Display' 'pconfig clouds' (dm$config = 'clouds')
+		submenu 'Radiation Display (by facility)' 'rad_by_facility'
+		submenu 'Surface Meterology Display (by facility)' 'surf_by_facility'
 		line
 		entry 'Time Widget'	'popup time'
 		entry 'Hardcopy Widget' 'popup hardcopy'
@@ -93,7 +76,7 @@ define widget iconbar menubar " "
 	entry 'NWS Surface Hourly'        \
 		'shell "$OPENWINHOME/bin/xterm -T NWS_Surface_Hourly -sb +aw -g 150x50+0+40 -bg cyan&"'
 	endmenu
-	menu 'platforms' bitmap boat
+	menu 'platforms' bitmap /apps/development/UAV/icons/extended
 		title 'Platforms for UAV Extented Facilities'
 		line
 		submenu 'siros facilities' 'siros_facilities'
@@ -135,70 +118,7 @@ define widget iconbar menubar " "
 		line
 		entry 'Window Bounds' 'put_wbounds c_wbounds'
 	endmenu
-!	menu 'xygraph' bitmap xygraph
-!		title 'XY Graph Data'
-!	endmenu
-!	menu 'blank' bitmap blank
-!		title 'Blank'
-!	endmenu
 enddef
-
-!
-! Aircraft Coordinator Configurations
-!
-define widget AircraftConfigs intmenu 'Aircraft Configs menu'
-	title 'Aircraft Configurations'
-	line
-	entry 'Radar Configuration' \
-		'pconfig aircraft' (dm$config = "aircraft")
-	entry 'Cross-Section Configuration' \
-		'pconfig aircraft-xsect' (dm$config = "aircraft-xsect")
-	entry 'Time Series Configuration' \
-		'pconfig tseries-aircraft' (dm$config = "tseries-aircraft")
-endmenu
-
-!
-! Nowcaster Configurations
-!
-define widget NowcastConfigs intmenu 'Nowcast Configs menu'
-	title 'Nowcast Configurations'
-	line
-	entry 'Radar Configuration' \
-		'pconfig nowcast' (dm$config = "nowcast")
-	entry 'Cross-Section Configuration' \
-		'pconfig nowcast-xsect' (dm$config = "nowcast-xsect")
-	entry 'Time Series Configuration' \
-		'pconfig tseries-nowcast' (dm$config = "tseries-nowcast")
-endmenu
-
-!
-!
-! Radar Coordinator Configurations
-!
-define widget RadarConfigs intmenu 'Radar Coordinator Configs menu'
-	title 'Radar Coordinator Configurations'
-	line
-	entry 'Radar Configuration' \
-		'pconfig radar' (dm$config = "radar")
-	entry 'Cross-Section Configuration' \
-		'pconfig radar-xsect' (dm$config = "radar-xsect")
-	entry 'Time Series Configuration' \
-		'pconfig tseries-radar' (dm$config = "tseries-radar")
-endmenu
-
-!
-! Ops Director Configurations
-!
-define widget OpsdirConfigs intmenu 'Ops Director Configs menu'
-	title 'Ops Director Configurations'
-	line
-	entry 'Radar Configuration' \
-		'pconfig opsdir' (dm$config = "opsdir")
-	entry 'Cross-Section Configuration' \
-		'pconfig opsdir-xsect' (dm$config = "opsdir-xsect")
-	entry 'Time Series Configuration' \
-		'pconfig tseries-opsdir' (dm$config = "tseries-opsdir")
-endmenu
 
 !
 ! The various maps.
