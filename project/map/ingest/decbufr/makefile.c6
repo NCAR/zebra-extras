@@ -1,0 +1,17 @@
+CFLAGSGEN = /AL /W4
+CC = cl
+CFLAGS = $(CFLAGSGEN)
+LOPTS  = 
+LFLAGS = $(LOPTS) /stack:30000
+
+SRCS    = bufr.c desc.c bitio.c rlenc.c
+OBJS    = bufr.obj desc.obj bitio.obj rlenc.obj
+
+all: encbufr.exe decbufr.exe
+
+encbufr.exe: $(OBJS) encbufr.obj
+        link encbufr.obj $(OBJS),encbufr,, $(LFLAGS) ;
+
+decbufr.exe: $(OBJS) decbufr.obj
+        link decbufr.obj $(OBJS),decbufr,, $(LFLAGS) ;
+

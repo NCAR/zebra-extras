@@ -1,0 +1,312 @@
+#List of data descriptors to be handled by the BUFR-coding and decoding software.
+#see: World Meteorological Organization: Manual on Codes Volume I, International 
+#Codes, Part B: Binary Codes.
+#
+#This File will be read by the coding and decoding software. Therefore all 
+#comment-lines must start with a '#'
+#
+#lines starting with a '.' are command-Lines to enable the coding- and decoding
+#software to read this file
+#
+#
+#                                 PROPOSAL
+#
+#                           K.Koeck, 26 JAN 1994
+#
+#Table Ref. Unit      Scale  Ref.  Data   Element Name                          
+#F X  Y                      Vaule Width                                        
+#-------------------------------------------------------------------------------
+.descriptors
+ 0 01 001   Numeric     0         0   7    WMO block number
+ 0 01 002   Numeric     0         0  10    WMO station number
+ 0 04 001   Year        0         0  12    Time of observation (year)            
+ 0 04 002   Month       0         0   4    Time of observation (month)           
+ 0 04 003   Day         0         0   6    Time of observation (day)             
+ 0 04 004   Hour        0         0   5    Time of observation (hour)            
+ 0 04 005   Minute      0         0   6    Time of observation (minute)          
+ 0 04 006   Second      0         0   6    Time of observation (second)          
+ 0 05 001   Degree      5  -9000000  25    Latitude (high accuracy)            
+ 0 05 002   Degree      2     -9000  15    Latitude (coarse accuracy)            
+ 0 05 021   Degree      2         0  16    Bearing or azimuth
+ 0 05 022   Degree      2         0  16    Solar azimuth
+ 0 05 031   Numeric     0         0  12    Row number                            
+ 0 05 033   m          -1         0  16    Pixel size on horizontal -1 (y)          
+ 0 06 033   m          -1         0  16    Pixel size on horizontal -2 (x)          
+ 0 06 001   Degree      5 -18000000  26    Longitude (high accuracy)           
+ 0 06 002   Degree      2    -18000  16    Longitude (coarse accuracy)           
+ 0 07 001   m           0      -400  15    Height of station           
+ 0 07 002   m          -1       -40  16    Height or altitude           
+ 0 07 006   m           0         0  15    Height above station          
+ 0 07 007   m           0     -1000  17    Height           
+ 0 07 021   Degree      2     -9000  15    Elevation           
+#
+#
+#  Modified codes.
+#
+ 0 21 001   dB          0       -64   8    Horizontal reflectivity
+ 0 21 002   dB          0       -64   8    Vertical reflectivity
+ 0 21 003   dB          1        -5   8    Differential reflectivity
+#
+# 0 21 001   dB          0       -64   7    Horizontal reflectivity
+# 0 21 002   dB          0       -64   7    Vertical reflectivity
+# 0 21 003   dB          1        -5   7    Differential reflectivity
+#
+ 0 21 011   m*s-1       0      -128   8    Doppler mean velocity in X-direction
+ 0 21 012   m*s-1       0      -128   8    Doppler mean velocity in Y-direction
+ 0 21 013   m*s-1       0      -128   8    Doppler mean velocity in Z-direction
+ 0 21 014   m*s-1       1     -4096  13    Doppler mean velocity (radial)
+ 0 21 021   m          -3         0   4    Echo tops
+ 0 21 036   mm*h-1      1         0  12    Radar rainfall intensity (modified !) 
+
+ 0 21 037   mm		0	  0  10    Raintotal (added!)
+ 0 21 038   h		0	  0   6	   Periodo di integrazione (added!)
+
+ 0 25 006   Table       0         0   3    Z to R conversion                     
+ 0 25 007   Numeric     0         0  12    T to R conversion factor              
+ 0 25 008   Numeric     2         0   9    Z to R conversion exponent            
+ 0 25 009   Flag-table  0         0   4    Calibration method                    
+ 0 25 010   Table       0         0   4    Clutter treatment                     
+ 0 25 011   Table       0         0   2    Ground occultation correction         
+ 0 25 012   Table       0         0   2    Range attenuation correction          
+ 0 25 013   Flag-table  0         0   2    Bright band correction                
+ 0 25 015   Flag-table  0         0   2    Radome attenuation correction         
+ 0 25 016   dB*m-1      5         0   6    Clear-air attenuation correction      
+ 0 25 017   Flag-Table  0         0   2    Precipitation attenuation correction  
+ 0 29 001   Table       0         0   3    Projection type                       
+ 0 29 002   Table       0         0   2    Co-ordinate grid type                 
+ 0 30 001   Numeric     0         0   4    Pixel value (4 bits)                  
+ 0 30 002   Numeric     0         0   8    Pixel value (8 bits)                  
+ 0 30 021   Numeric     0         0  12    Number of pixels per row              
+ 0 30 022   Numeric     0         0  12    Number of pixels per column           
+ 0 30 031   Table       0         0   4    Picture type                          
+ 0 30 032   Flag-table  0         0  16    Combination with other data           
+ 0 31 001   Numeric     0         0   8    Delayed descriptor replication factor 
+ 0 31 002   Numeric     0         0  16    Extended delayed descriptor replication factor 
+ 0 31 011   Numeric     0         0   8    Delayed descriptor and data repetition factor
+ 0 31 012   Numeric     0         0  16    Extended delayed descriptor and data repetition factor
+
+
+#Sequence descriptors:
+#-------------------------------------------------------------------------------
+#F  X  Y    F  X  Y
+.sequences
+ 3 01 001   0 01 001
+            0 01 002
+
+ 3 01 011   0 04 001
+            0 04 002
+            0 04 003
+ 
+ 3 01 012   0 04 004
+            0 04 005
+ 
+ 3 01 021   0 05 001
+            0 06 001
+ 
+ 3 01 022   0 05 001
+            0 06 001
+            0 07 001
+ 
+ 3 01 023   0 05 002
+            0 06 002
+ 
+ 3 01 024   0 05 002
+            0 06 002
+            0 07 001
+ 
+ 3 01 192   3 01 011
+            3 01 012
+            3 01 023
+            3 01 023
+            3 01 023
+            3 01 023
+            0 29 001
+            0 05 002
+            0 05 002
+            0 05 033
+            0 06 033
+            0 30 021
+            0 30 022
+
+
+#  Horizontal reflectivity
+ 3 13 009   0 21 001
+            1 01 000
+            0 31 002
+            0 21 001
+
+#  Radar rainfall intensities
+ 3 13 010   0 21 036
+            1 01 000
+            0 31 002
+            0 21 036
+ 
+#  Differential reflectivity
+ 3 13 011   0 21 003
+            1 01 000
+            0 31 002
+            0 21 003
+
+#  Vertical reflectivity
+ 3 13 012   0 21 002
+            1 01 000
+            0 31 002
+            0 21 002
+
+#  Doppler mean velocity
+ 3 13 013   0 21 014
+            1 01 000
+            0 31 002
+            0 21 014
+
+#  Echo tops
+ 3 13 014   0 21 021
+            1 01 000
+            0 31 002
+            0 21 021
+
+
+# Raintotal
+ 3 13 015   0 21 037
+	    1 01 000
+            0 31 002
+            0 21 037
+
+
+ 3 21 007   0 25 009
+            0 25 010
+            0 25 011
+            0 25 012
+            0 25 013
+            0 25 015
+            0 25 016
+            0 25 017
+ 
+ 3 21 008   0 25 006
+            0 25 007
+            0 25 008
+ 
+ 3 21 011   0 30 031
+            0 30 032
+            0 29 002
+
+ 3 21 192   1 10 000
+            0 31 002
+            0 05 031
+            1 07 000
+            0 31 001
+            1 04 000
+            0 31 001
+            2 01 130
+            0 31 011
+            2 01 000
+            0 30 001
+            1 01 000
+            0 31 001
+            0 30 001
+
+#Encode image (run length, 8 bits).
+ 3 21 193   1 12 000
+            0 31 002
+            0 05 031
+            1 09 000
+            0 31 002
+            1 04 000
+            0 31 002
+            2 01 130
+            0 31 011
+            2 01 000
+            0 30 002
+            1 01 000
+            0 31 002
+            0 30 002
+
+#Code Tables:
+#-------------------------------------------------------------------------------
+#Table Ref.   Code   meaning
+#F X  Y
+.tables
+ 0 25 006      0     ZH to R conversion
+               1     (ZH,ZDR) to (NO,DO) to R
+               2     (Z(F1),Z(F2)) to attenuation to R
+               6     Other
+               7     Missing value
+ 
+ 0 25 009      1     None
+               2     Calibration target on signal
+               3     Against raingauges
+               4     Against other instruments (distrometer - attenuation)
+               5     Missing Value
+ 
+ 0 25 010      0     None
+               1     Map
+               2     Insertion of higher elevation data and map
+               3     Analysis of the fluctuating logarithm signal (clutter detection)
+               4     Extraction of the fluctuating part of linear signal (clutter suppression)
+               5     Clutter suppression - Doppler
+               6     Multi-parameter analysis
+              15     Missing value
+ 
+ 0 25 011      0     None
+               1     Map of correction factors
+               2     Interpolation (azimuth and elevation)
+               3     Missing value
+ 
+ 0 25 012      0     Hardware
+               1     Software
+               2     Hardware and Software
+               3     Missing value
+ 
+ 0 25 013      1     Bright-Band correction
+               2     Missing value
+ 
+ 0 25 015      1     Radome attenuation correction
+               2     Missing value
+ 
+ 0 25 017      1     Precipitation attenuation correction
+               2     Missing value
+ 
+ 0 29 001      0     Gnomic projection
+               1     Polar stereographic projection
+               2     Lambert's conformal conical projection
+               3     Mercator's projection
+               7     Missing value
+ 
+ 0 29 002      0     Cartesian
+               1     Polar
+               2     Other
+               3     Missing Value
+ 
+ 0 30 031      0     PPI
+               1     Composite
+               2     CAPPI
+               3     Vertical section
+               4     Alphanumeric data
+               5     Map of subject clutter
+               6     Map
+               7     Test picture
+               8     Comments
+               9     Map of ground occultation
+              10     Map of radar beam height
+              14     Other
+              15     Missing Value
+ 
+ 0 30 032      1     Map
+               2     Satellite IR
+               3     Satellite VIS
+               4     Satellite WV
+               5     Satellite multispectral
+               6     Synoptic observations
+               7     Forecast parameters
+               8     Lightning data
+              15     Other data
+              16     Missing value
+
+0 21 061       1     Horizontal Reflectivity (dB)
+	       2     Vertical Reflectivity (dB)
+	       3     Differential Reflectivity (dB)
+	       4     Doppler mean velocity (m*s-1)
+	       5     Echo Tops (m)
+	       6     Radar rainfall intensity (m*s-1)
+
+#end of file

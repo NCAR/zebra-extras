@@ -1,0 +1,27 @@
+CFLAGSGEN = /stand=portable
+
+CFLAGSDB = /optimize
+LFLAGSDB = 
+
+CC = cc
+CFLAGS = $(CFLAGSDB) $(CFLAGSGEN)
+LOPTS  = $(LFLAGSDB),sys$library:vaxcrtl/lib
+
+# default *.C
+
+*.obj: *.c
+	$(CC) $(CFLAGS) $<
+
+SRCS    = bufr.c desc.c bitio.c rlenc.c
+OBJS    = bufr.obj desc.obj bitio.obj rlenc.obj
+LOBJS   = bufr.obj,desc.obj,bitio.obj,rlenc.obj
+
+all: encbufr decbufr 
+
+encbufr: $(OBJS) encbufr.obj
+	link encbufr.obj,$(LOBJS) $(LOPTS)
+
+decbufr: $(OBJS) decbufr.obj
+	link decbufr.obj,$(LOBJS) $(LOPTS)
+
+

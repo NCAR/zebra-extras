@@ -1,0 +1,21 @@
+CFLAGSGEN = -DNON_ANSI
+
+CFLAGSDB = -g -DDEBUG
+LFLAGSDB = -g
+CC = cc
+CFLAGS = $(CFLAGSDB) $(CFLAGSGEN)
+LOPTS  = $(LFLAGSDB) -lm
+
+SRCS    = bufr.c desc.c bitio.c rlenc.c
+OBJS    = bufr.o desc.o bitio.o rlenc.o
+
+all: encbufr decbufr 
+
+encbufr: $(OBJS) encbufr.o
+	$(CC) encbufr.o $(OBJS) -o encbufr $(LOPTS)
+
+decbufr: $(OBJS) decbufr.o
+	$(CC) decbufr.o $(OBJS) -o decbufr $(LOPTS)
+
+
+

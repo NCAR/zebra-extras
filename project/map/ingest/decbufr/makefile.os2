@@ -1,0 +1,18 @@
+CPU = -DCPU_I386
+CFLAGSGEN = -W3 -q
+CC = icc
+CFLAGS = -c -O- -Ti+ -Gm+ -W3 -Ss+ -Sm -Sp2 -DDEBUG $(OS) $(CPU) $(CFLAGSGEN)
+LOPTS  = /co
+LFLAGS = /noi /pmtype:vio $(LOPTS) /stack:70000
+
+SRCS    = bufr.c desc.c bitio.c rlenc.c
+OBJS    = bufr.obj desc.obj bitio.obj rlenc.obj
+
+all: encbufr.exe decbufr.exe 
+
+encbufr.exe: $(OBJS) encbufr.obj
+        link386 encbufr.obj $(OBJS),encbufr,, $(LFLAGS) ;
+
+decbufr.exe: $(OBJS) decbufr.obj
+        link386 decbufr.obj $(OBJS),decbufr,, $(LFLAGS) ;
+
