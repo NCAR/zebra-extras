@@ -1,0 +1,18 @@
+!
+! Generic location PD component.
+!
+global
+	pd-name:	p_noaa_profiler
+p_noaa_profiler
+	platform:	NOAA_profiler
+	representation:	overlay
+	field:		location
+	color:		yellow
+	icon-left-menu:		minimal-cap-left-menu
+	posicon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	posicon-right-menu:	location-options
+	label:		none
+	active-icon:	false
+	require:	location
+	icon:		NOAA_profiler
