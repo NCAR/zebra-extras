@@ -22,8 +22,8 @@ global
    parameter plot-type                 'CAP'
    parameter proj-topannot-left-menu   'projection'
    parameter radar-space               'false'
-   parameter x-max                     '97.3132'
-   parameter x-min                     '-130.0786'
+   parameter x-max                     '97.6110'
+   parameter x-min                     '-130.3764'
    parameter y-max                     '142.4574'
    parameter y-min                     '-73.0994'
 component p_contour
@@ -78,5 +78,19 @@ component p_station
    parameter wdir-field                'wd'
    parameter wind-style                'vector'
    parameter wspd-field                'ws'
+component p_loc
+   parameter active-icon               'true'
+   parameter color                     'yellow'
+   parameter field                     'location'
+   parameter icon                      'radar-loc'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-right-menu           'location-options'
+   parameter label                     'platform'
+   parameter label-size                '12'
+   parameter platform                  'bao'
+   parameter posicon-left-menu         'minimal-cap-left-menu'
+   parameter posicon-right-menu        'location-options'
+   parameter representation            'overlay'
+   parameter require                   'location'
 endpd
 
