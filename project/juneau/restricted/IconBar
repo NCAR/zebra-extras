@@ -1,0 +1,18 @@
+! $Id: IconBar,v 1.1 1997-03-27 02:33:39 granger Exp $
+!
+
+set ui$bitmap_directory concat(c$libdir, "/icons")
+
+!
+! The restricted, operational iconbar
+!
+define widget iconbar menubar " "
+	noheader
+	!
+	! Define the menus
+	!
+	menu tools bitmap Zebra
+		entry 'Shut down Zebra' 'shutdown'
+	endmenu
+enddef
+	
