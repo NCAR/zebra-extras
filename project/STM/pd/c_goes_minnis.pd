@@ -8,7 +8,7 @@ c_goes_minnis
 	platform:	sgpgoesminnisX1.c1
 	dimensions:	level=0
 	field:		Visible_Optical_Depth
-	representation:	raster
+	representation:	contour
 	color-table:	16gray
 	icon:		satellite
 	icon-left-menu:		standard-cap-left-menu
