@@ -1,0 +1,64 @@
+/*		Copyright (C) 1987,88,89,90,91 by UCAR
+ *	University Corporation for Atmospheric Research
+ *		   All rights reserved
+ *
+ * No part of this work covered by the copyrights herein may be reproduced
+ * or used in any form or by any means -- graphic, electronic, or mechanical,
+ * including photocopying, recording, taping, or information storage and
+ * retrieval systems -- without permission of the copyright owner.
+ * 
+ * This software and any accompanying written materials are provided "as is"
+ * without warranty of any kind.  UCAR expressly disclaims all warranties of
+ * any kind, either express or implied, including but not limited to the
+ * implied warranties of merchantibility and fitness for a particular purpose.
+ * UCAR does not indemnify any infringement of copyright, patent, or trademark
+ * through use or modification of this software.  UCAR does not provide 
+ * maintenance or updates for its software.
+ */
+MFVERSION="$Id: Imakefile,v 1.1 1992-09-11 07:39:52 granger Exp $"
+MFDESC="$Desc$"
+
+/* 
+ * DO NOT COMPILE WITH -O WITH GCC!!!  THERE IS A BUG IN GCC -O WHICH 
+ * WHICH CRASHES PDB_INGEST!!!  The following lines attempt to force the 
+ * avoidance of this option:
+ */
+CCOPTIONS = 
+
+INCLUDES = -I../include
+LIBTOOLS = ../lib/libtools.a
+LIBTOOL2 = ../lib/libtool2.a
+LIBS = $(LIBTOOLS) $(LIBTOOL2) $(LIBZEB) $(LIBRDSS) $(LIBNETCDF) $(XLIBS)
+
+CLIBS = "/usr/local/lib/gcc-lib/sparc-sun-sunos4.1.2/2.2/libgcc.a"
+
+SRCS  = pdblib.c pdbutils.c handlers.c err2el.c \
+	tstracks.c shapes.c ts.c
+
+OBJS1 = pdb_ingest.o pdblib.o pdbutils.o handlers.o err2el.o
+
+OBJS2 = tstracks.o pdbutils.o shapes.o err2el.o ts.o
+
+HEADERS = common.h pdb_ingest.h pdblib.h pdbutils.h
+
+BITMAPS = pdbmenu.xbm rap_pdbs
+
+DATAFILES = products.pdbs rap_services stratus tempest
+
+PROGRAMS = pdbget pdbecho pdb_ingest 
+
+DISTFILES = $(SRCS) $(HEADERS) Imakefile $(DATAFILES) $(BITMAPS)
+
+NormalProgramTarget(pdb_ingest,$(OBJS1),$(DEPLIBS),$(LIBS),$(SYSLIBS))
+NormalProgramTarget(tstracks,$(OBJS2),$(DEPLIBS),$(LIBS),$(SYSLIBS))
+NormalProgramTarget(pdbecho,pdbecho.o,$(DEPLIBS),$(LIBS),$(SYSLIBS))
+
+TestProgramTarget(pdbget,pdbget.o,$(DEPLIBS),$(LIBS),$(SYSLIBS))
+TestProgramTarget(pdbping,pdbping.o,$(DEPLIBS),$(LIBS),$(SYSLIBS))
+
+DependTarget()
+
+LintTarget()
+
+DistfilesTarget($(DISTFILES))
+
