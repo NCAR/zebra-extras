@@ -104,6 +104,7 @@ main( int argc, char *argv[] )
 //
     char line[256];
     float *data = new float[nflds];
+    float prevseconds = 0.0;
     
     for (int samp = 0; fgets( line, sizeof( line ), infile ); samp++)
     {
@@ -118,10 +119,18 @@ main( int argc, char *argv[] )
 	    continue;
 	}
 	
-	data[ins_lon] *= -1;	/* Make 'em *WEST* longitudes, dammit! */
+	data[ins_lon] *= -1;	// Make 'em *WEST* longitudes, dammit!
 	data[gps_lon] *= -1;
 
 	float seconds = data[dayseconds];
+    //
+    // Look out for day rollover
+    //
+	if (seconds < prevseconds)
+	    base.zt_Sec += 86400;
+
+	prevseconds = seconds;
+	    
 	ZebraTime zt = base;
 	zt.zt_Sec += (long) seconds;
 	zt.zt_MicroSec = (long)(1.0e6 * (seconds - (long)seconds));
