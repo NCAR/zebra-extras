@@ -17,13 +17,29 @@ defaults
 !
 ! Age limits for changing icon color.
 !
-!	icon-age-foreground:		pink
-	icon-age-background:		red
+!	icon-age-foreground:			pink
+	icon-age-background:			red
+	sgpgoesvis.tmp-icon-age-limit:		30m
+	sgpsfchrlyX1.a1-icon-age-limit:		30m
+	sgpngm250X1.ns.valid-icon-age-limit:	3h
+	sgpngm250X1.ns.issue-icon-age-limit:	3h
+	sgpngm250X1.c1-icon-age-limit:		3h
+	Dsgp915rwpwindC1.a2-icon-age-limit:	2h
+	Dsgp915rwptempC1.a2-icon-age-limit:	2h
+	Dsgp30smosE15.a1-icon-age-limit:	2h
+	DsgpsirosE13.a1-icon-age-limit:		2h
+	DsgpsirosE15.a1-icon-age-limit:		2h
+	sgp30smosE13.a1-icon-age-limit:		2h
+	DsgpblcC1.a1-icon-age-limit:		24h
+	sgpuavtrack-icon-age-limit:		15m
+	sgpsondeC1.a1-icon-age-limit:		6h
+	Dsgp30smosE9.a1-icon-age-limit:		1h
+	DsgpmwrlosC1.a1-icon-age-limit:		2h
+	DsgpsirosE9.a1-icon-age-limit:		2h
 	mesonet-icon-age-limit:		10m
 	cp4-icon-age-limit:		10m
 	mhr-icon-age-limit:		30m
 	goes-icon-age-limit:		30m
-	sgpgoesvis.tmp-icon-age-limit:	30m
 	nowrad-icon-age-limit:		15m
 	nowrad_f-icon-age-limit:	15m
 	spotlight-icon-age-limit:	15m
