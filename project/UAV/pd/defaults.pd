@@ -34,7 +34,7 @@ defaults
 	sgpuavtrack-icon-age-limit:		15m
 	sgpsondeC1.a1-icon-age-limit:		6h
 	Dsgp30smosE9.a1-icon-age-limit:		1h
-	DsgpmwrlosC1.a1-icon-age-limit:		2h
+	sgpmwrlosC1.a1-icon-age-limit:		2h
 	DsgpsirosE9.a1-icon-age-limit:		2h
 	mesonet-icon-age-limit:		10m
 	cp4-icon-age-limit:		10m
@@ -63,7 +63,8 @@ defaults
 	origin-lat:			 36.61
 	origin-lon:			-97.48
 	origin-alt:			315.0
-	ops-ctr-location:	36.61 -97.48 0.315
+!	ops-ctr-location:	36.6067 -97.5078 0.315
+!	ops-ctr-location:	36.61 -97.48 0.315
 !
 ! Facility locations, taken from rough map estimates.  Note that the
 ! altitudes are unknown.
