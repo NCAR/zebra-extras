@@ -5,7 +5,9 @@
 setenv DEFAULT_DATA_DIR /scr/data/spol
 
 if (! $?ZEB_TOPDIR) setenv ZEB_TOPDIR /net/zebra
-if (! $?ZEB_PROJDIR) setenv ZEB_PROJDIR /net/ops/zebra
+if (! $?ZEB_PROJECT) then
+	setenv ZEB_PROJDIR /net/ops/zebra
+endif
 if (! $?DATA_DIR) setenv DATA_DIR $DEFAULT_DATA_DIR
 if (! $?ZEB_EVENTLOGGER) \
     setenv ZEB_EVENTLOGGER "$ZEB_TOPDIR/bin/EventLogger -w"
@@ -13,13 +15,4 @@ if (! $?DEFAULT_CONFIG) setenv DEFAULT_CONFIG empty
 
 # The spool dir is where images are dumped by batch-plot
 setenv BATCH_IMAGE_SPOOL "/scr/data/spol_images"
-
-## Settings required for ftpplots
-#setenv PLOT_FTP_HOST "ftp.joss.ucar.edu"
-#setenv PLOT_FTP_DIR "/pub/incoming/catalog/cases99"
-#setenv PLOT_FTP_ENABLE 1
-
-# zplotd parameters
-setenv IMAGE_MAIL_LIST " burghart burghart@ucar.edu "
-setenv PLOT_PLATFORMS "Plots"
 
