@@ -6,13 +6,13 @@ defaults
 !
 ! Project origin (S-Pol)
 !
-	origin-location:	39.9500     -105.1939     0
+	origin-location:	39.95026     -105.19512     1737
 !
 ! Add named locations to your heart's delight.  
 ! Form: 
 !	<sitename>-location:	<lat> <lon> <alt>
 !
-	spol-location:		39.9500     -105.1939     0
+	spol-location:		39.95026     -105.19512     1737
 !
 ! NWS radars
 !
