@@ -60,6 +60,7 @@ set sleepfor	4
 !
 set SoundEnabled false
 set ForceHistory true
+set AutoAdvance true
 set itime getenv("INITIAL_TIME")
 if (itime <> "UNDEFINED")
 	history all #itime
