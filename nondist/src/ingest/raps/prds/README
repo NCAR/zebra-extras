@@ -1,0 +1,6 @@
+This dir contains the programs for testing prds.
+prds_test.c is a generic test program, which processes maps in the same
+plane as the products.
+over.c processes maps in different graphics plane. It is more effecient
+if the maps are in defferent planes.
+When test each of them, it must be included in the user.c and maked.

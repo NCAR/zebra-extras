@@ -1,0 +1,198 @@
+
+prds: The product selector.
+
+The product selector, prds, receives products from the product
+server and creates a local product data base in a shared memory
+segment, which is to be used by a display program. Prds processes
+user actions (select and cut), and timeouts the products. The
+graphics updating and movie loop are implemented in display
+programs (not in prds).
+
+prds is a process running independently of the display program.
+One of the advantages of using such a prds is that the products
+data base keeps alive after the display program crashes.
+
+A. Communication:
+
+  Shared memory based communication:
+
+  Display -> prds: Put a message in shm and send signal 31 to prds.
+	           This is used for switching on/off prds window.
+
+  prds -> Display: Put message and data in shm and display polls.
+
+B. The shm contains:
+
+  struct inmsg {/* message from display */
+	char msg[28];  /* a msg string */
+	unsigned int flag; /* flag for communication */
+  }  
+  struct outmsg {
+	int key;  /* a key words, 1234567891*/
+	int pid;   /* pid of prds */
+	unsigned int np;   /* number of products in the data base */
+	int new; /* >1: new data base, 0: processed by display */
+	int loop; /* the loop is on/off (1/0) */
+	char res[12];
+  };
+  N_PROD product structs;
+  The data;
+
+  The size of the shm is SHM_SIZE;
+
+  The product struct:
+
+  struct product {	
+		unsigned char pid;  /* id of the products */
+		unsigned char color;  /* color index 0, 1, 2... */
+		unsigned char line_type;  /* line type, 0, 1, ... */
+		unsigned char tlen;
+			/* text data length in long words */
+		short index;
+			 /* index in a class */
+		short tindex;
+			 /* time index in a time sequence */
+			 /* if <0, this is a map */
+		unsigned short llen;
+			/* # of points for the line drawing */
+		short id; /* a product id from sender */
+		unsigned int time;  /* also used for pointer to
+					map name string */
+		unsigned int lpt; 
+			/* offset (in long int) in data field */
+		unsigned int tpt;
+		unsigned char deleted;
+		unsigned char selected;
+		unsigned char active;   /* used by display */
+		unsigned char display;   /* used by display */
+		unsigned short next_ind; /* next item in the class */
+		unsigned short next_tms; /* next item in the time series */
+		short timer1; /* timer for display */
+		short cf_ind; /* index in configuration file */
+		int timer2; /* timer for life */
+  };
+
+  	deleted= 1/0 means true/false;
+	selected has 4 lower bits used. They represent type, index,
+	 and time are respectively selected (if 1). The last bit is
+	set to 1 if the product is not a time series or group.
+	Thus > 1100(b) means a product is selected.
+
+	next_ind and next_tms are used for efficient data management. 
+	Currently we are use a less efficient exhausted search scheme.
+	
+
+C. Communication:
+
+  1. prds sets and destroys the msg.key when it starts and before
+     it terminates (It catchs necessary signals). Display always checks
+     this key before accessing shm. (key is an integer).
+
+  2. A semaphore is used for locking up the shared memory to avoid
+     partially updated data been used. Call lock_shm(1) to access
+     the shared memory (if it is not available, it is blocked until
+     the shm is available) and call lock_shm(0) to release it in the 
+     display program.
+
+     There is another flag - omsg.new. It is used to indicate that the
+     data base is updated by prds. It is reset to be 0 by display.
+ 
+  3. The message from display helps to remove random signals from other
+     processes other than display.
+
+D. Outline of prds:
+
+   Catch necessary signals to guarantee destroying msg.key before exiting.
+
+   Catch signal 31 and read the inmsg. On/off the window.
+
+   Configuration file: See below.
+
+   Display up/down of products and the number of products available;
+
+   Poll (every second) to receive new products; and the product status;
+
+   process user action: select, cut.
+
+   Process time out.
+
+E. The display program:
+
+   Check msg.key, which indicates that the prds is up.
+
+   write inmsg and send signal 31 to prds to control the prds window
+   (on/off).
+
+   update the graphics, if necessary. The active and display fields in the 
+   product structures may be used to increase graphics efficiency.
+
+F. The configuration file:
+
+
+	# configuration file for prds, named prds.conf
+
+	Rows in lists  10
+	Background color Gray
+	Foreground color Black
+	#Font Courier-Bold-12
+	#Font Courier-Bold-18
+	Font Screen-Bold-10
+	Window at 0 0
+	#Initially closed
+
+	Loop available
+
+#  pid   short_name  full_name   disp_exp_time  life_exp_time  selected tss  dflag
+
+    12      L       Maps              1                  1         7     -1  0
+
+
+    1       MBA     Microburst_A     12            36            1       1   1
+    2       MBB     Microburst_B     120            360          0       2   1
+    3       MBC     Microburst_C     120             3600          0     0   0
+    4       MBD     Microburst_D     120             3600          0     0   0
+    5       GFA     Gustfront_A      120             3600          0     0   0
+
+    6       CVG     Convergence_A    120             3600          0     0   0
+
+
+# tss=-1 mean the item is a map. The fields short_name=L means using local
+#  map file prds_maps. Otherwise, read from the product server. The selected
+#  bits are used for default selected. There can be only one maps row.
+# tss=0 means it is not a time sequence or a grouped product.
+# tss=1 means it is a time sequence. Any products with identical type and index
+# will be assumed to be in the same time sequence.
+# tss=2 means it is a group. Any products with identical type and index
+# will be assumed to be in the same group.
+
+# dflag=1 means that any new product with the same
+# type will deselected the previous one (one time sequence, or group)
+# with the same type.
+     
+
+G. Notes: 
+
+   a sample usage of the prds (the display program is rdi):
+
+      over.c is linked in rdi. It needs prds_user.h.
+
+      Upon "overlay" button action, rdi calls switch_the_window();
+
+      In rdi main loop: call poll_prds();
+
+      rdi calls init_import() initially.
+
+      In rdi, When changing AOI, real <-> movie, and initially
+	call map_all() and over_all() to update the maps and overlays.
+
+      over.c calls draw_text(), draw_graph(), world_to_window() (for text
+      locations), and send_fatal_error() (for display error - prds is not 
+      on and the user try to push button "overlay").
+
+      over.c uses global vars: xradar, yradar, volume_time[] and 
+      currently_displayed_volume. (the later two are used for product movies).
+
+  
+
+
+  
