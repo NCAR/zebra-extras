@@ -32,12 +32,14 @@ rasspigtails
 	 axis-l-color             :  green
 	 axis-l-label             :  915 RASS Altitude (m agl)
 	 data-skip                :  0
+	 field-select-command     :  myset_zfield
 	 icon                     :  iss-tdry
 	 icon-background          :  black
 	 icon-color               :  green
-	 icon-left-menu           :  minimal-cap-left-menu
-	 icon-middle-menu         :  my-xy-obs
+	 icon-left-menu           :  xytrace-left
+	 icon-middle-menu         :  FieldMenu
 	 icon-right-menu          :  DataAvailable
+	 limit-proc               :  adjust_obs_scale
 	 platform                 :  null
 	 representation           :  obs
 	 trigger                  :  platform
