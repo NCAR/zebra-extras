@@ -48,8 +48,8 @@ defaults
 !
 ! origin at 35N 100W (a convenient point near Norman)
 !
-	origin-lat:			35
-	origin-lon:			-100
+	origin-lat:			35.24
+	origin-lon:			-97.46
 	origin-alt:			0.0
 !
 ! The default, big picture zoom locations.
@@ -70,7 +70,11 @@ defaults
 !
 ! Locations.
 !
-	norman-location:	35.0 -100.0 0.0
+	norman-location:	35.24 -97.46 0.00
+	kellerville-location:	35.375 -100.505 0.00
+	allison-location:	35.603 -100.100 0.00
+	friona-location:	34.666 -102.726 0.00
+	dimmitt-location:	34.551 -102.310 0.00
 !
 ! Where to put the frame cache files.
 !

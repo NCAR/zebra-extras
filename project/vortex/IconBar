@@ -114,6 +114,8 @@ define widget iconbar menubar " "
 	menu 'overlays' bitmap overlays
 		title 'Static Overlays'
 		line
+		entry 'Cities' \
+	'putc1 p_loc platform norman,kellerville,allison,friona,dimmitt'
 		entry 'State Boundaries' \
 			'putc2 p_map platform states icon state_map'
 		entry 'County Boundaries' \
