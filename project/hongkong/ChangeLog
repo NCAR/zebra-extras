@@ -1,5 +1,15 @@
 Wed May 25 12:26:21 1994  Gary Granger  (granger@steam)
 
+	* IconBar: add tseries plot-type window template; change xygraph
+	  tseries to xytime-template.pd and make tseries-template.pd
+	  the tseries plot type
+	  
+	* begin adding rcs-ids to configuration files
+
+	* dconfig: remove pd directory altogether, no longer read in
+	  dm.config, save config widget redefined without reference to
+	  configpd variable
+
 	* committed hongkong configuration to CVS
 
 Mon May 16 14:13:20 1994  Gary Granger  (granger@kodiak)
