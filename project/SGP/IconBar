@@ -43,7 +43,7 @@ define widget facilitymenu menubar " "
 		line
 		submenu 'TWR21X' twr21x
 		submenu 'BSRN1' bsrn1
-		submenu 'MWR1' mwr1
+		submenu 'MWR010' mwr10
 		submenu 'SMOS8' smos8
 		submenu 'SONDE1' sonde1
 		submenu 'MFRSR1' mfrsr1
@@ -66,7 +66,9 @@ define widget facilitymenu menubar " "
 	menu 'boundary' bitmap boundary
 		title 'Boundary Facility List'
 		line
-		submenu 'PURCELL' pur 
+		submenu 'HILLSBORO' hills
+		submenu 'MORRIS' morris
+		submenu 'VICI' vici
 	endmenu
 	menu 'auxiliary' bitmap auxiliary
 		title 'Auxiliary Facility List'
@@ -143,7 +145,10 @@ define widget instrumentmenu menubar " "
 	menu 'MWR' bitmap mwr
 		title 'MWR Instruments'
 		line
-		submenu "MWR1 Central" instmwr1
+		submenu "MWR004 Vici" instmwr4
+		submenu "MWR010 Central" instmwr10
+		submenu "MWR011 Hillsboro" instmwr11
+		submenu "MWR012 Morris" instmwr12
 	endmenu
 	menu 'SONDE' bitmap sonde
 		title 'SONDE Instruments'
@@ -228,9 +233,22 @@ define widget ring intmenu 'RINGWOOD'
 	submenu "SMOS5" smos5
 endmenu
 
-define widget pur intmenu 'PURCELL'
-	title 'Purcell Facility Instruments'
+define widget hills intmenu 'HILLSBORO'
+	title 'Hillsboro Facility Instruments'
 	line
+	submenu 'MWR011' mwr11
+endmenu
+
+define widget morris intmenu 'MORRIS'
+	title 'Morris Facility Instruments'
+	line
+	submenu 'MWR012' mwr12
+endmenu
+
+define widget vici intmenu 'VICI'
+	title 'Vici Facility Instruments'
+	line
+	submenu 'MWR004' mwr4
 endmenu
 
 !
@@ -289,8 +307,21 @@ define widget 915rass1 intmenu '915RASS1'
 	title '915 RASS Data'
 endmenu
 
-define widget mwr1 intmenu 'MWR1'
-	title 'Water Vapor Radiometer Data'
+define widget mwr4 intmenu 'MWR004'
+	title 'MicroWave Radiometer Data'
+	line
+	entry 'MWR CF A0: liq, vap, tkxc, tkbb'\
+		'put_4parameters "DsgpmwrlosB4.a0" "liq" "vap" "tkxc" "tkbb"'
+	entry 'MWR CF A0: sky/skyn, tbsky/tbskyn, bb/bbn, '\
+		'put_34parameters "DsgpmwrlosB4.a0,DsgpmwrlosB4.a0,DsgpmwrlosB4.a0,DsgpmwrlosB4.a0" "23sky,23skyn,31sky,31skyn" "23tdbsky,23tbskyn,31sky,31tbskyn" "23bb,23bbn,31bb,31bbn"'
+	entry 'MWR CF A0: 23unoise,31unoise'\
+		'put_2parameters "DsgpmwrlosB4.a0" "23unoise" "31unoise"'
+	entry 'MWR CF B2: vap,dlm_quality_flag'\
+		'put_2parameters "DsgpmwrlosB4.b2" "vap" "dlm_quality_flag"'
+endmenu
+
+define widget mwr10 intmenu 'MWR010'
+	title 'MicroWave Radiometer Data'
 	line
 	entry 'MWR CF A0: liq, vap, tkxc, tkbb'\
 		'put_4parameters "DsgpmwrlosC1.a0" "liq" "vap" "tkxc" "tkbb"'
@@ -300,6 +331,32 @@ define widget mwr1 intmenu 'MWR1'
 		'put_2parameters "DsgpmwrlosC1.a0" "23unoise" "31unoise"'
 	entry 'MWR CF B2: vap,dlm_quality_flag'\
 		'put_2parameters "DsgpmwrlosC1.b2" "vap" "dlm_quality_flag"'
+endmenu
+
+define widget mwr11 intmenu 'MWR011'
+	title 'MicroWave Radiometer Data'
+	line
+	entry 'MWR CF A0: liq, vap, tkxc, tkbb'\
+		'put_4parameters "DsgpmwrlosB1.a0" "liq" "vap" "tkxc" "tkbb"'
+	entry 'MWR CF A0: sky/skyn, tbsky/tbskyn, bb/bbn, '\
+		'put_34parameters "DsgpmwrlosB1.a0,DsgpmwrlosB1.a0,DsgpmwrlosB1.a0,DsgpmwrlosB1.a0" "23sky,23skyn,31sky,31skyn" "23tdbsky,23tbskyn,31sky,31tbskyn" "23bb,23bbn,31bb,31bbn"'
+	entry 'MWR CF A0: 23unoise,31unoise'\
+		'put_2parameters "DsgpmwrlosB1.a0" "23unoise" "31unoise"'
+	entry 'MWR CF B2: vap,dlm_quality_flag'\
+		'put_2parameters "DsgpmwrlosB1.b2" "vap" "dlm_quality_flag"'
+endmenu
+
+define widget mwr12 intmenu 'MWR012'
+	title 'MicroWave Radiometer Data'
+	line
+	entry 'MWR CF A0: liq, vap, tkxc, tkbb'\
+		'put_4parameters "DsgpmwrlosB5.a0" "liq" "vap" "tkxc" "tkbb"'
+	entry 'MWR CF A0: sky/skyn, tbsky/tbskyn, bb/bbn, '\
+		'put_34parameters "DsgpmwrlosB5.a0,DsgpmwrlosB5.a0,DsgpmwrlosB5.a0,DsgpmwrlosB5.a0" "23sky,23skyn,31sky,31skyn" "23tdbsky,23tbskyn,31sky,31tbskyn" "23bb,23bbn,31bb,31bbn"'
+	entry 'MWR CF A0: 23unoise,31unoise'\
+		'put_2parameters "DsgpmwrlosB5.a0" "23unoise" "31unoise"'
+	entry 'MWR CF B2: vap,dlm_quality_flag'\
+		'put_2parameters "DsgpmwrlosB5.b2" "vap" "dlm_quality_flag"'
 endmenu
 
 define widget ebbr1 intmenu 'EBBR1'
@@ -703,8 +760,21 @@ define widget inst915rass1 intmenu '915RASS1'
 	title '915 RASS Data'
 endmenu
 
-define widget instmwr1 intmenu 'MWR1'
-	title 'Water Vapor Radiometer Data'
+define widget instmwr4 intmenu 'MWR004'
+	title 'MicroWave Radiometer Data'
+	line
+	entry 'MWR CF A0: liq, vap, tkxc, tkbb'\
+		'put_4parameters "DsgpmwrlosB4.a0" "liq" "vap" "tkxc" "tkbb"'
+	entry 'MWR CF A0: sky/skyn, tbsky/tbskyn, bb/bbn, '\
+		'put_34parameters "DsgpmwrlosB4.a0,DsgpmwrlosB4.a0,DsgpmwrlosB4.a0,DsgpmwrlosB4.a0" "23sky,23skyn,31sky,31skyn" "23tdbsky,23tbskyn,31sky,31tbskyn" "23bb,23bbn,31bb,31bbn"'
+	entry 'MWR CF A0: 23unoise,31unoise'\
+		'put_2parameters "DsgpmwrlosB4.a0" "23unoise" "31unoise"'
+	entry 'MWR CF B2: vap,dlm_quality_flag'\
+		'put_2parameters "DsgpmwrlosB4.b2" "vap" "dlm_quality_flag"'
+endmenu
+
+define widget instmwr10 intmenu 'MWR010'
+	title 'MicroWave Radiometer Data'
 	line
 	entry 'MWR CF A0: liq, vap, tkxc, tkbb'\
 		'put_4parameters "DsgpmwrlosC1.a0" "liq" "vap" "tkxc" "tkbb"'
@@ -714,6 +784,32 @@ define widget instmwr1 intmenu 'MWR1'
 		'put_2parameters "DsgpmwrlosC1.a0" "23unoise" "31unoise"'
 	entry 'MWR CF B2: vap,dlm_quality_flag'\
 		'put_2parameters "DsgpmwrlosC1.b2" "vap" "dlm_quality_flag"'
+endmenu
+
+define widget instmwr11 intmenu 'MWR011'
+	title 'MicroWave Radiometer Data'
+	line
+	entry 'MWR CF A0: liq, vap, tkxc, tkbb'\
+		'put_4parameters "DsgpmwrlosB1.a0" "liq" "vap" "tkxc" "tkbb"'
+	entry 'MWR CF A0: sky/skyn, tbsky/tbskyn, bb/bbn, '\
+		'put_34parameters "DsgpmwrlosB1.a0,DsgpmwrlosB1.a0,DsgpmwrlosB1.a0,DsgpmwrlosB1.a0" "23sky,23skyn,31sky,31skyn" "23tdbsky,23tbskyn,31sky,31tbskyn" "23bb,23bbn,31bb,31bbn"'
+	entry 'MWR CF A0: 23unoise,31unoise'\
+		'put_2parameters "DsgpmwrlosB1.a0" "23unoise" "31unoise"'
+	entry 'MWR CF B2: vap,dlm_quality_flag'\
+		'put_2parameters "DsgpmwrlosB1.b2" "vap" "dlm_quality_flag"'
+endmenu
+
+define widget instmwr12 intmenu 'MWR012'
+	title 'MicroWave Radiometer Data'
+	line
+	entry 'MWR CF A0: liq, vap, tkxc, tkbb'\
+		'put_4parameters "DsgpmwrlosB5.a0" "liq" "vap" "tkxc" "tkbb"'
+	entry 'MWR CF A0: sky/skyn, tbsky/tbskyn, bb/bbn, '\
+		'put_34parameters "DsgpmwrlosB5.a0,DsgpmwrlosB5.a0,DsgpmwrlosB5.a0,DsgpmwrlosB5.a0" "23sky,23skyn,31sky,31skyn" "23tdbsky,23tbskyn,31sky,31tbskyn" "23bb,23bbn,31bb,31bbn"'
+	entry 'MWR CF A0: 23unoise,31unoise'\
+		'put_2parameters "DsgpmwrlosB5.a0" "23unoise" "31unoise"'
+	entry 'MWR CF B2: vap,dlm_quality_flag'\
+		'put_2parameters "DsgpmwrlosB5.b2" "vap" "dlm_quality_flag"'
 endmenu
 
 define widget instebbr1 intmenu 'EBBR1'
