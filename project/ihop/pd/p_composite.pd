@@ -16,5 +16,5 @@ p_composite
 	out-of-range-color:	none
 	radar-space:	false
 	require:	raster
-	scale-mode:	auto
+	scale-mode:	manual
 	limit-proc:	raster-limit-proc
