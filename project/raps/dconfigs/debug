@@ -1,0 +1,14 @@
+config debug
+	window 'debug' 5 5 700 700 /zeb/bin/xgdb /zeb/bin/gp
+		description 'debug'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 710 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 260 710 550 55
+	window 'Event logger' 5 772 700 125
+		nongraphic
+	endwindow
+endconfig

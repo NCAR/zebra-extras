@@ -1,0 +1,19 @@
+global
+	pd-name:	c_rap_exb
+c_rap_exb
+	representation:	overlay
+	platform:	rap_exb.1,rap_exb.2,rap_exb.3,rap_exb.4,rap_exb.5,rap_exb.6,rap_exb.7,rap_exb.8,rap_exb.9,rap_exb.10,rap_exb.11,rap_exb.12,rap_exb.13,rap_exb.14,rap_exb.15
+	field:		boundary
+	color:		orange
+	num-stations:	15
+	age-limit:	35m
+	base-platform:	rap_exb
+	line-width:	2
+	icon-middle-menu:	rap_pdb-middle
+	icon-right-menu:	bdry-right
+	closed-boundary:	false
+	trigger-global:	true
+	trigger:	rap_exb
+	icon:		rap_exb
+	label-size:	0.020
+	show-icon:	false

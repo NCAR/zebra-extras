@@ -1,0 +1,108 @@
+#!/bin/sh
+#
+# Use sed to make all of the necessary plot description files for RAP's PDBS
+# Uses c_rap.tmpl as the base file.
+# Strings to substitue for:
+# <closed>	true or false for closed-boundary
+# <template>	the base name of the platform, usually the 3-ltr PDB code
+#
+
+# For each plot description, we must create a list of platforms to 
+# substitute for the <platforms> field in the template
+#
+# Cindy wants to use this color scheme:
+# HG boundaries (all the 'real' stuff): purple
+# extrapolations: orange
+# Nowcast regions: 70% gray
+# Whatever doesn`t fall into the above will be white
+
+subs="2 3 4 5 6 7 8 9 10 11 12 13 14 15"
+num=15
+tmpl=c_rap.tmpl
+
+# create_pd() -- create a plot description component file from the template
+#
+# $1 : name of the product
+# $2 : closed value, 'true' or 'false'
+# $3 : color of component
+# $4 : trigger value to use
+#
+create_pd () {
+
+	label=`echo $1 | tr a-z A-Z `
+
+	echo "rm -f c_rap_$1.pd"
+	rm -f c_rap_$1.pd
+	platforms="rap_$1.1"
+	for n in $subs ; do
+		platforms="$platforms,rap_$1.$n"
+	done
+	echo "sed -e s/<template>/$1/g -e s/<closed>/$2/g" \
+	     " -e s/<color>/$3/g" \
+	     " -e s/<label>/$label/g" \
+	     " -e s/<trigger>/$4/g" \
+	     " <$tmpl >c_rap_$1.pd" \
+	     " -e s/<num-stations>/$num/g"
+	sed -e "s/<template>/$1/g" -e "s/<closed>/$2/g" \
+	    -e "s/<platforms>/$platforms/g" \
+	    -e "s/<color>/$3/g" \
+	    -e "s/<label>/$label/g" \
+	    -e "s/<trigger>/$4/g" \
+	    -e "s/<num-stations>/$num/g" \
+		<$tmpl >c_rap_$1.pd
+}
+
+# The defaults:
+#
+pds="mba mbc mbp gfa gfb tvs tvp hal csh ccs tap act acs llw"
+pds="$pds hgb hgc hgn exb exc hbx hbc cbx cbc hbn hcn cbn ccn str stp stf"
+color=violet
+closed=false
+
+
+# The defaults for every platform, in case not over-written below
+#
+for p in $pds ; do
+	create_pd $p $closed $color rap_$p
+done
+
+
+# The closed boundaries, extrapolations
+#
+create_pd hgn true orange rap_hgn
+create_pd exc true orange rap_exc
+
+# Human-generated and present-time purple components:
+#
+create_pd hgb false purple rap_hgb
+create_pd hgc true purple rap_hgc
+create_pd str false red rap_str
+
+# Other extrapolations (orange):
+#
+create_pd exb false orange rap_exb
+create_pd hbx false orange rap_hbx
+create_pd hbc false orange rap_hbc
+create_pd cbx false orange rap_cbx
+create_pd cbc false orange rap_cbc
+
+# Nowcasts, closed boundaries
+#
+create_pd hbn true gray70 rap_hbn
+create_pd hcn true gray70 rap_hcn
+create_pd cbn true gray70 rap_cbn
+create_pd ccn true gray70 rap_ccn
+create_pd hgn true gray70 rap_hgn
+
+# Storm track extrapolations
+#
+create_pd stp false orange rap_stp
+create_pd stf false yellow rap_stf
+
+# Override the trigger for particularly busy platforms
+#
+create_pd act false $color 30s
+create_pd acs false $color 30s
+create_pd hal false $color 30s
+create_pd llw false $color 30s
+

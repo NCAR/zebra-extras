@@ -1,0 +1,11 @@
+GLOBAL
+	comment:	Generic window bounds component
+	pd-name:	c_wbounds
+c_wbounds
+	platform:	unknown
+	representation:	overlay
+	field:		wbounds
+	color:		cyan
+	line-width:	2
+	icon:		wbounds
+	icon-middle-menu:	simple-color

@@ -1,0 +1,47 @@
+!
+! Display configurations.  At this point, there are almost no real configs
+! in this file, but we do set up the parameters that the config files
+! depend on.
+!
+set ConfigDir concat(c$basedir, "/raps/dconfigs")
+set ConfigPD (concat (c$basedir, "/raps/dconfigs/pd"))
+pddir #ConfigPD
+
+!
+! Defaults for dynamically-created windows.
+!
+set default_exec concat(c$bindir, '/gp')
+set default_arg1 concat(c$basedir, '/raps/gp.init')
+
+!
+! GraphProc test window config and color table
+!
+!
+! The initialization file.
+!
+set init_file (concat (c$basedir, "/raps/gp.init"))
+
+!
+! Executables.  Use the bin version unless GPDEBUG is defined.
+!
+if (getenv ("GPDEBUG") = "UNDEFINED")
+	set gp_exec (concat (c$bindir, "/gp"))
+else
+	if (getenv ("GPEXEC") = "UNDEFINED")
+		set gp_exec (concat (c$basedir, "/gp/gp"))
+	else
+		set gp_exec getenv("GPEXEC")
+	endif
+endif
+set clock_exec (concat (c$bindir, "/fccclock"))
+!
+
+!
+! Generic linked PD to display one window zoomed.
+!
+config zoom 1
+	window 'humungo' 5 5 1100 850 #gp_exec #init_file
+		buttonmap 'big'
+		linkpd 1
+	endwindow
+endconfig

@@ -1,0 +1,33 @@
+GLOBAL
+	comment:	Display CP4 data.
+	pd-name:	cp4
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	cp4
+	contour-color-table:	contour
+	raster-color-table:	wild
+	radar-space:	true
+	time-frames:	2
+	altitude:	-1
+	x-min:          -93
+	x-max:		22
+	y-min:		-45
+	y-max:		75
+c_radar
+	platform:	cp4
+	field:		reflectivity
+	representation:	raster
+	icon:		cp4
+	every-sweep:	true
+	icon-middle-menu:	radar-middle
+	icon-right-menu:	DataAvailable
+c_rings
+	platform:	cp4
+	representation:	overlay
+	field:		range-rings
+	color:		white
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-menu
+	icon:		rings
+	ring-interval:	20
+	azimuth-interval:	30

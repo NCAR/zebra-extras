@@ -1,0 +1,12 @@
+!
+! Parameters to ingest cartesian MHR data from RAP's data server.
+!
+set host 'tornado.rap.ucar.edu'
+set port 52000
+set platform 'mhr_grid'
+set frequency 300
+field 'reflectivity' 0
+field 'velocity' 1
+set levels 5
+set firstlevel 3.5
+set levelspacing 1

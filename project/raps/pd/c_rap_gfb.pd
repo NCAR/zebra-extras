@@ -1,0 +1,19 @@
+global
+	pd-name:	c_rap_gfb
+c_rap_gfb
+	representation:	overlay
+	platform:	rap_gfb.1,rap_gfb.2,rap_gfb.3,rap_gfb.4,rap_gfb.5,rap_gfb.6,rap_gfb.7,rap_gfb.8,rap_gfb.9,rap_gfb.10,rap_gfb.11,rap_gfb.12,rap_gfb.13,rap_gfb.14,rap_gfb.15
+	field:		boundary
+	color:		violet
+	num-stations:	15
+	age-limit:	35m
+	base-platform:	rap_gfb
+	line-width:	2
+	icon-middle-menu:	rap_pdb-middle
+	icon-right-menu:	bdry-right
+	closed-boundary:	false
+	trigger-global:	true
+	trigger:	rap_gfb
+	icon:		rap_gfb
+	label-size:	0.020
+	show-icon:	false

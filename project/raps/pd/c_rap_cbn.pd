@@ -1,0 +1,19 @@
+global
+	pd-name:	c_rap_cbn
+c_rap_cbn
+	representation:	overlay
+	platform:	rap_cbn.1,rap_cbn.2,rap_cbn.3,rap_cbn.4,rap_cbn.5,rap_cbn.6,rap_cbn.7,rap_cbn.8,rap_cbn.9,rap_cbn.10,rap_cbn.11,rap_cbn.12,rap_cbn.13,rap_cbn.14,rap_cbn.15
+	field:		boundary
+	color:		gray70
+	num-stations:	15
+	age-limit:	35m
+	base-platform:	rap_cbn
+	line-width:	2
+	icon-middle-menu:	rap_pdb-middle
+	icon-right-menu:	bdry-right
+	closed-boundary:	true
+	trigger-global:	true
+	trigger:	rap_cbn
+	icon:		rap_cbn
+	label-size:	0.020
+	show-icon:	false

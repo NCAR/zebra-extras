@@ -1,0 +1,14 @@
+GLOBAL
+	pd-name:	c_ddop
+	plot-mode:	real-time
+	plot-type:	CAP
+c_ddop
+	platform:	ddop
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.005
+	color:		white
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	icon:		ddop_vector

@@ -1,0 +1,24 @@
+global
+	altitude:	0.0
+	comment:	Display MHR data.
+	pd-name:	trouble-radar
+	plot-mode:	history
+	plot-time:	15-jul-1992,21:15:00
+	plot-type:	CAP
+	radar-space:	false
+	time-frames:	2
+	trigger:	mhr
+	x-max:	70.9831
+	x-min:	-54.5434
+	y-max:	-78.4616
+	y-min:	62.3997
+c_rings
+	azimuth-interval:	30
+	color:	grey70
+	field:	range-rings
+	icon:	rings
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-menu
+	platform:	mhr
+	representation:	overlay
+	ring-interval:	20

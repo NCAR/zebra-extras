@@ -1,0 +1,3015 @@
+
+platform rap_tvs
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvs
+endplatform
+
+
+platform rap_tvs.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvs/tvs.1
+endplatform
+
+platform rap_tvs.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvs/tvs.2
+endplatform
+
+platform rap_tvs.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvs/tvs.3
+endplatform
+
+platform rap_tvs.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvs/tvs.4
+endplatform
+
+platform rap_tvs.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvs/tvs.5
+endplatform
+
+platform rap_tvs.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvs/tvs.6
+endplatform
+
+platform rap_tvs.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvs/tvs.7
+endplatform
+
+platform rap_tvs.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvs/tvs.8
+endplatform
+
+platform rap_tvs.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvs/tvs.9
+endplatform
+
+platform rap_tvs.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvs/tvs.10
+endplatform
+
+platform rap_tvs.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvs/tvs.11
+endplatform
+
+platform rap_tvs.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvs/tvs.12
+endplatform
+
+platform rap_tvs.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvs/tvs.13
+endplatform
+
+platform rap_tvs.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvs/tvs.14
+endplatform
+
+platform rap_tvs.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvs/tvs.15
+endplatform
+
+
+platform rap_tvp
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvp
+endplatform
+
+
+platform rap_tvp.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvp/tvp.1
+endplatform
+
+platform rap_tvp.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvp/tvp.2
+endplatform
+
+platform rap_tvp.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvp/tvp.3
+endplatform
+
+platform rap_tvp.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvp/tvp.4
+endplatform
+
+platform rap_tvp.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvp/tvp.5
+endplatform
+
+platform rap_tvp.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvp/tvp.6
+endplatform
+
+platform rap_tvp.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvp/tvp.7
+endplatform
+
+platform rap_tvp.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvp/tvp.8
+endplatform
+
+platform rap_tvp.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvp/tvp.9
+endplatform
+
+platform rap_tvp.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvp/tvp.10
+endplatform
+
+platform rap_tvp.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvp/tvp.11
+endplatform
+
+platform rap_tvp.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvp/tvp.12
+endplatform
+
+platform rap_tvp.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvp/tvp.13
+endplatform
+
+platform rap_tvp.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvp/tvp.14
+endplatform
+
+platform rap_tvp.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/tvp/tvp.15
+endplatform
+
+
+platform rap_hal
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hal
+endplatform
+
+
+platform rap_hal.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hal/hal.1
+endplatform
+
+platform rap_hal.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hal/hal.2
+endplatform
+
+platform rap_hal.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hal/hal.3
+endplatform
+
+platform rap_hal.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hal/hal.4
+endplatform
+
+platform rap_hal.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hal/hal.5
+endplatform
+
+platform rap_hal.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hal/hal.6
+endplatform
+
+platform rap_hal.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hal/hal.7
+endplatform
+
+platform rap_hal.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hal/hal.8
+endplatform
+
+platform rap_hal.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hal/hal.9
+endplatform
+
+platform rap_hal.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hal/hal.10
+endplatform
+
+platform rap_hal.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hal/hal.11
+endplatform
+
+platform rap_hal.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hal/hal.12
+endplatform
+
+platform rap_hal.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hal/hal.13
+endplatform
+
+platform rap_hal.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hal/hal.14
+endplatform
+
+platform rap_hal.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hal/hal.15
+endplatform
+
+
+platform rap_csh
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/csh
+endplatform
+
+
+platform rap_csh.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/csh/csh.1
+endplatform
+
+platform rap_csh.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/csh/csh.2
+endplatform
+
+platform rap_csh.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/csh/csh.3
+endplatform
+
+platform rap_csh.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/csh/csh.4
+endplatform
+
+platform rap_csh.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/csh/csh.5
+endplatform
+
+platform rap_csh.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/csh/csh.6
+endplatform
+
+platform rap_csh.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/csh/csh.7
+endplatform
+
+platform rap_csh.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/csh/csh.8
+endplatform
+
+platform rap_csh.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/csh/csh.9
+endplatform
+
+platform rap_csh.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/csh/csh.10
+endplatform
+
+platform rap_csh.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/csh/csh.11
+endplatform
+
+platform rap_csh.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/csh/csh.12
+endplatform
+
+platform rap_csh.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/csh/csh.13
+endplatform
+
+platform rap_csh.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/csh/csh.14
+endplatform
+
+platform rap_csh.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/csh/csh.15
+endplatform
+
+
+platform rap_ccs
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccs
+endplatform
+
+
+platform rap_ccs.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccs/ccs.1
+endplatform
+
+platform rap_ccs.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccs/ccs.2
+endplatform
+
+platform rap_ccs.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccs/ccs.3
+endplatform
+
+platform rap_ccs.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccs/ccs.4
+endplatform
+
+platform rap_ccs.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccs/ccs.5
+endplatform
+
+platform rap_ccs.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccs/ccs.6
+endplatform
+
+platform rap_ccs.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccs/ccs.7
+endplatform
+
+platform rap_ccs.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccs/ccs.8
+endplatform
+
+platform rap_ccs.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccs/ccs.9
+endplatform
+
+platform rap_ccs.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccs/ccs.10
+endplatform
+
+platform rap_ccs.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccs/ccs.11
+endplatform
+
+platform rap_ccs.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccs/ccs.12
+endplatform
+
+platform rap_ccs.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccs/ccs.13
+endplatform
+
+platform rap_ccs.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccs/ccs.14
+endplatform
+
+platform rap_ccs.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccs/ccs.15
+endplatform
+
+
+platform rap_act
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/act
+endplatform
+
+
+platform rap_act.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/act/act.1
+endplatform
+
+platform rap_act.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/act/act.2
+endplatform
+
+platform rap_act.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/act/act.3
+endplatform
+
+platform rap_act.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/act/act.4
+endplatform
+
+platform rap_act.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/act/act.5
+endplatform
+
+platform rap_act.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/act/act.6
+endplatform
+
+platform rap_act.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/act/act.7
+endplatform
+
+platform rap_act.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/act/act.8
+endplatform
+
+platform rap_act.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/act/act.9
+endplatform
+
+platform rap_act.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/act/act.10
+endplatform
+
+platform rap_act.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/act/act.11
+endplatform
+
+platform rap_act.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/act/act.12
+endplatform
+
+platform rap_act.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/act/act.13
+endplatform
+
+platform rap_act.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/act/act.14
+endplatform
+
+platform rap_act.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/act/act.15
+endplatform
+
+
+platform rap_acs
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/acs
+endplatform
+
+
+platform rap_acs.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/acs/acs.1
+endplatform
+
+platform rap_acs.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/acs/acs.2
+endplatform
+
+platform rap_acs.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/acs/acs.3
+endplatform
+
+platform rap_acs.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/acs/acs.4
+endplatform
+
+platform rap_acs.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/acs/acs.5
+endplatform
+
+platform rap_acs.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/acs/acs.6
+endplatform
+
+platform rap_acs.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/acs/acs.7
+endplatform
+
+platform rap_acs.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/acs/acs.8
+endplatform
+
+platform rap_acs.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/acs/acs.9
+endplatform
+
+platform rap_acs.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/acs/acs.10
+endplatform
+
+platform rap_acs.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/acs/acs.11
+endplatform
+
+platform rap_acs.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/acs/acs.12
+endplatform
+
+platform rap_acs.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/acs/acs.13
+endplatform
+
+platform rap_acs.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/acs/acs.14
+endplatform
+
+platform rap_acs.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/acs/acs.15
+endplatform
+
+
+platform rap_hgb
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgb
+endplatform
+
+
+platform rap_hgb.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgb/hgb.1
+endplatform
+
+platform rap_hgb.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgb/hgb.2
+endplatform
+
+platform rap_hgb.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgb/hgb.3
+endplatform
+
+platform rap_hgb.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgb/hgb.4
+endplatform
+
+platform rap_hgb.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgb/hgb.5
+endplatform
+
+platform rap_hgb.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgb/hgb.6
+endplatform
+
+platform rap_hgb.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgb/hgb.7
+endplatform
+
+platform rap_hgb.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgb/hgb.8
+endplatform
+
+platform rap_hgb.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgb/hgb.9
+endplatform
+
+platform rap_hgb.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgb/hgb.10
+endplatform
+
+platform rap_hgb.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgb/hgb.11
+endplatform
+
+platform rap_hgb.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgb/hgb.12
+endplatform
+
+platform rap_hgb.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgb/hgb.13
+endplatform
+
+platform rap_hgb.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgb/hgb.14
+endplatform
+
+platform rap_hgb.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgb/hgb.15
+endplatform
+
+
+platform rap_hgc
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgc
+endplatform
+
+
+platform rap_hgc.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgc/hgc.1
+endplatform
+
+platform rap_hgc.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgc/hgc.2
+endplatform
+
+platform rap_hgc.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgc/hgc.3
+endplatform
+
+platform rap_hgc.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgc/hgc.4
+endplatform
+
+platform rap_hgc.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgc/hgc.5
+endplatform
+
+platform rap_hgc.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgc/hgc.6
+endplatform
+
+platform rap_hgc.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgc/hgc.7
+endplatform
+
+platform rap_hgc.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgc/hgc.8
+endplatform
+
+platform rap_hgc.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgc/hgc.9
+endplatform
+
+platform rap_hgc.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgc/hgc.10
+endplatform
+
+platform rap_hgc.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgc/hgc.11
+endplatform
+
+platform rap_hgc.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgc/hgc.12
+endplatform
+
+platform rap_hgc.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgc/hgc.13
+endplatform
+
+platform rap_hgc.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgc/hgc.14
+endplatform
+
+platform rap_hgc.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgc/hgc.15
+endplatform
+
+
+platform rap_hgn
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgn
+endplatform
+
+
+platform rap_hgn.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgn/hgn.1
+endplatform
+
+platform rap_hgn.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgn/hgn.2
+endplatform
+
+platform rap_hgn.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgn/hgn.3
+endplatform
+
+platform rap_hgn.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgn/hgn.4
+endplatform
+
+platform rap_hgn.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgn/hgn.5
+endplatform
+
+platform rap_hgn.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgn/hgn.6
+endplatform
+
+platform rap_hgn.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgn/hgn.7
+endplatform
+
+platform rap_hgn.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgn/hgn.8
+endplatform
+
+platform rap_hgn.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgn/hgn.9
+endplatform
+
+platform rap_hgn.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgn/hgn.10
+endplatform
+
+platform rap_hgn.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgn/hgn.11
+endplatform
+
+platform rap_hgn.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgn/hgn.12
+endplatform
+
+platform rap_hgn.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgn/hgn.13
+endplatform
+
+platform rap_hgn.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgn/hgn.14
+endplatform
+
+platform rap_hgn.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hgn/hgn.15
+endplatform
+
+
+platform rap_exb
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exb
+endplatform
+
+
+platform rap_exb.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exb/exb.1
+endplatform
+
+platform rap_exb.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exb/exb.2
+endplatform
+
+platform rap_exb.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exb/exb.3
+endplatform
+
+platform rap_exb.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exb/exb.4
+endplatform
+
+platform rap_exb.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exb/exb.5
+endplatform
+
+platform rap_exb.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exb/exb.6
+endplatform
+
+platform rap_exb.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exb/exb.7
+endplatform
+
+platform rap_exb.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exb/exb.8
+endplatform
+
+platform rap_exb.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exb/exb.9
+endplatform
+
+platform rap_exb.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exb/exb.10
+endplatform
+
+platform rap_exb.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exb/exb.11
+endplatform
+
+platform rap_exb.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exb/exb.12
+endplatform
+
+platform rap_exb.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exb/exb.13
+endplatform
+
+platform rap_exb.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exb/exb.14
+endplatform
+
+platform rap_exb.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exb/exb.15
+endplatform
+
+
+platform rap_exc
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exc
+endplatform
+
+
+platform rap_exc.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exc/exc.1
+endplatform
+
+platform rap_exc.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exc/exc.2
+endplatform
+
+platform rap_exc.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exc/exc.3
+endplatform
+
+platform rap_exc.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exc/exc.4
+endplatform
+
+platform rap_exc.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exc/exc.5
+endplatform
+
+platform rap_exc.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exc/exc.6
+endplatform
+
+platform rap_exc.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exc/exc.7
+endplatform
+
+platform rap_exc.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exc/exc.8
+endplatform
+
+platform rap_exc.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exc/exc.9
+endplatform
+
+platform rap_exc.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exc/exc.10
+endplatform
+
+platform rap_exc.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exc/exc.11
+endplatform
+
+platform rap_exc.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exc/exc.12
+endplatform
+
+platform rap_exc.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exc/exc.13
+endplatform
+
+platform rap_exc.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exc/exc.14
+endplatform
+
+platform rap_exc.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/exc/exc.15
+endplatform
+
+
+platform rap_hbx
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbx
+endplatform
+
+
+platform rap_hbx.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbx/hbx.1
+endplatform
+
+platform rap_hbx.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbx/hbx.2
+endplatform
+
+platform rap_hbx.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbx/hbx.3
+endplatform
+
+platform rap_hbx.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbx/hbx.4
+endplatform
+
+platform rap_hbx.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbx/hbx.5
+endplatform
+
+platform rap_hbx.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbx/hbx.6
+endplatform
+
+platform rap_hbx.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbx/hbx.7
+endplatform
+
+platform rap_hbx.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbx/hbx.8
+endplatform
+
+platform rap_hbx.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbx/hbx.9
+endplatform
+
+platform rap_hbx.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbx/hbx.10
+endplatform
+
+platform rap_hbx.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbx/hbx.11
+endplatform
+
+platform rap_hbx.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbx/hbx.12
+endplatform
+
+platform rap_hbx.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbx/hbx.13
+endplatform
+
+platform rap_hbx.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbx/hbx.14
+endplatform
+
+platform rap_hbx.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbx/hbx.15
+endplatform
+
+
+platform rap_hbc
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbc
+endplatform
+
+
+platform rap_hbc.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbc/hbc.1
+endplatform
+
+platform rap_hbc.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbc/hbc.2
+endplatform
+
+platform rap_hbc.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbc/hbc.3
+endplatform
+
+platform rap_hbc.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbc/hbc.4
+endplatform
+
+platform rap_hbc.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbc/hbc.5
+endplatform
+
+platform rap_hbc.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbc/hbc.6
+endplatform
+
+platform rap_hbc.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbc/hbc.7
+endplatform
+
+platform rap_hbc.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbc/hbc.8
+endplatform
+
+platform rap_hbc.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbc/hbc.9
+endplatform
+
+platform rap_hbc.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbc/hbc.10
+endplatform
+
+platform rap_hbc.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbc/hbc.11
+endplatform
+
+platform rap_hbc.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbc/hbc.12
+endplatform
+
+platform rap_hbc.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbc/hbc.13
+endplatform
+
+platform rap_hbc.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbc/hbc.14
+endplatform
+
+platform rap_hbc.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbc/hbc.15
+endplatform
+
+
+platform rap_cbx
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbx
+endplatform
+
+
+platform rap_cbx.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbx/cbx.1
+endplatform
+
+platform rap_cbx.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbx/cbx.2
+endplatform
+
+platform rap_cbx.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbx/cbx.3
+endplatform
+
+platform rap_cbx.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbx/cbx.4
+endplatform
+
+platform rap_cbx.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbx/cbx.5
+endplatform
+
+platform rap_cbx.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbx/cbx.6
+endplatform
+
+platform rap_cbx.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbx/cbx.7
+endplatform
+
+platform rap_cbx.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbx/cbx.8
+endplatform
+
+platform rap_cbx.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbx/cbx.9
+endplatform
+
+platform rap_cbx.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbx/cbx.10
+endplatform
+
+platform rap_cbx.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbx/cbx.11
+endplatform
+
+platform rap_cbx.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbx/cbx.12
+endplatform
+
+platform rap_cbx.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbx/cbx.13
+endplatform
+
+platform rap_cbx.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbx/cbx.14
+endplatform
+
+platform rap_cbx.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbx/cbx.15
+endplatform
+
+
+platform rap_cbc
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbc
+endplatform
+
+
+platform rap_cbc.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbc/cbc.1
+endplatform
+
+platform rap_cbc.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbc/cbc.2
+endplatform
+
+platform rap_cbc.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbc/cbc.3
+endplatform
+
+platform rap_cbc.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbc/cbc.4
+endplatform
+
+platform rap_cbc.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbc/cbc.5
+endplatform
+
+platform rap_cbc.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbc/cbc.6
+endplatform
+
+platform rap_cbc.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbc/cbc.7
+endplatform
+
+platform rap_cbc.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbc/cbc.8
+endplatform
+
+platform rap_cbc.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbc/cbc.9
+endplatform
+
+platform rap_cbc.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbc/cbc.10
+endplatform
+
+platform rap_cbc.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbc/cbc.11
+endplatform
+
+platform rap_cbc.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbc/cbc.12
+endplatform
+
+platform rap_cbc.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbc/cbc.13
+endplatform
+
+platform rap_cbc.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbc/cbc.14
+endplatform
+
+platform rap_cbc.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbc/cbc.15
+endplatform
+
+
+platform rap_hbn
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbn
+endplatform
+
+
+platform rap_hbn.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbn/hbn.1
+endplatform
+
+platform rap_hbn.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbn/hbn.2
+endplatform
+
+platform rap_hbn.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbn/hbn.3
+endplatform
+
+platform rap_hbn.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbn/hbn.4
+endplatform
+
+platform rap_hbn.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbn/hbn.5
+endplatform
+
+platform rap_hbn.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbn/hbn.6
+endplatform
+
+platform rap_hbn.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbn/hbn.7
+endplatform
+
+platform rap_hbn.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbn/hbn.8
+endplatform
+
+platform rap_hbn.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbn/hbn.9
+endplatform
+
+platform rap_hbn.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbn/hbn.10
+endplatform
+
+platform rap_hbn.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbn/hbn.11
+endplatform
+
+platform rap_hbn.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbn/hbn.12
+endplatform
+
+platform rap_hbn.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbn/hbn.13
+endplatform
+
+platform rap_hbn.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbn/hbn.14
+endplatform
+
+platform rap_hbn.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hbn/hbn.15
+endplatform
+
+
+platform rap_hcn
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hcn
+endplatform
+
+
+platform rap_hcn.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hcn/hcn.1
+endplatform
+
+platform rap_hcn.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hcn/hcn.2
+endplatform
+
+platform rap_hcn.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hcn/hcn.3
+endplatform
+
+platform rap_hcn.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hcn/hcn.4
+endplatform
+
+platform rap_hcn.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hcn/hcn.5
+endplatform
+
+platform rap_hcn.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hcn/hcn.6
+endplatform
+
+platform rap_hcn.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hcn/hcn.7
+endplatform
+
+platform rap_hcn.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hcn/hcn.8
+endplatform
+
+platform rap_hcn.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hcn/hcn.9
+endplatform
+
+platform rap_hcn.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hcn/hcn.10
+endplatform
+
+platform rap_hcn.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hcn/hcn.11
+endplatform
+
+platform rap_hcn.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hcn/hcn.12
+endplatform
+
+platform rap_hcn.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hcn/hcn.13
+endplatform
+
+platform rap_hcn.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hcn/hcn.14
+endplatform
+
+platform rap_hcn.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/hcn/hcn.15
+endplatform
+
+
+platform rap_cbn
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbn
+endplatform
+
+
+platform rap_cbn.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbn/cbn.1
+endplatform
+
+platform rap_cbn.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbn/cbn.2
+endplatform
+
+platform rap_cbn.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbn/cbn.3
+endplatform
+
+platform rap_cbn.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbn/cbn.4
+endplatform
+
+platform rap_cbn.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbn/cbn.5
+endplatform
+
+platform rap_cbn.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbn/cbn.6
+endplatform
+
+platform rap_cbn.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbn/cbn.7
+endplatform
+
+platform rap_cbn.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbn/cbn.8
+endplatform
+
+platform rap_cbn.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbn/cbn.9
+endplatform
+
+platform rap_cbn.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbn/cbn.10
+endplatform
+
+platform rap_cbn.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbn/cbn.11
+endplatform
+
+platform rap_cbn.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbn/cbn.12
+endplatform
+
+platform rap_cbn.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbn/cbn.13
+endplatform
+
+platform rap_cbn.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbn/cbn.14
+endplatform
+
+platform rap_cbn.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/cbn/cbn.15
+endplatform
+
+
+platform rap_ccn
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccn
+endplatform
+
+
+platform rap_ccn.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccn/ccn.1
+endplatform
+
+platform rap_ccn.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccn/ccn.2
+endplatform
+
+platform rap_ccn.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccn/ccn.3
+endplatform
+
+platform rap_ccn.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccn/ccn.4
+endplatform
+
+platform rap_ccn.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccn/ccn.5
+endplatform
+
+platform rap_ccn.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccn/ccn.6
+endplatform
+
+platform rap_ccn.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccn/ccn.7
+endplatform
+
+platform rap_ccn.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccn/ccn.8
+endplatform
+
+platform rap_ccn.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccn/ccn.9
+endplatform
+
+platform rap_ccn.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccn/ccn.10
+endplatform
+
+platform rap_ccn.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccn/ccn.11
+endplatform
+
+platform rap_ccn.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccn/ccn.12
+endplatform
+
+platform rap_ccn.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccn/ccn.13
+endplatform
+
+platform rap_ccn.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccn/ccn.14
+endplatform
+
+platform rap_ccn.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/ccn/ccn.15
+endplatform
+
+
+platform rap_str
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/str
+endplatform
+
+
+platform rap_str.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/str/str.1
+endplatform
+
+platform rap_str.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/str/str.2
+endplatform
+
+platform rap_str.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/str/str.3
+endplatform
+
+platform rap_str.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/str/str.4
+endplatform
+
+platform rap_str.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/str/str.5
+endplatform
+
+platform rap_str.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/str/str.6
+endplatform
+
+platform rap_str.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/str/str.7
+endplatform
+
+platform rap_str.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/str/str.8
+endplatform
+
+platform rap_str.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/str/str.9
+endplatform
+
+platform rap_str.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/str/str.10
+endplatform
+
+platform rap_str.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/str/str.11
+endplatform
+
+platform rap_str.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/str/str.12
+endplatform
+
+platform rap_str.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/str/str.13
+endplatform
+
+platform rap_str.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/str/str.14
+endplatform
+
+platform rap_str.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/str/str.15
+endplatform
+
+
+platform rap_stp
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stp
+endplatform
+
+
+platform rap_stp.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stp/stp.1
+endplatform
+
+platform rap_stp.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stp/stp.2
+endplatform
+
+platform rap_stp.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stp/stp.3
+endplatform
+
+platform rap_stp.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stp/stp.4
+endplatform
+
+platform rap_stp.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stp/stp.5
+endplatform
+
+platform rap_stp.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stp/stp.6
+endplatform
+
+platform rap_stp.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stp/stp.7
+endplatform
+
+platform rap_stp.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stp/stp.8
+endplatform
+
+platform rap_stp.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stp/stp.9
+endplatform
+
+platform rap_stp.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stp/stp.10
+endplatform
+
+platform rap_stp.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stp/stp.11
+endplatform
+
+platform rap_stp.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stp/stp.12
+endplatform
+
+platform rap_stp.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stp/stp.13
+endplatform
+
+platform rap_stp.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stp/stp.14
+endplatform
+
+platform rap_stp.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stp/stp.15
+endplatform
+
+
+platform rap_stf
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stf
+endplatform
+
+
+platform rap_stf.1
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stf/stf.1
+endplatform
+
+platform rap_stf.2
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stf/stf.2
+endplatform
+
+platform rap_stf.3
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stf/stf.3
+endplatform
+
+platform rap_stf.4
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stf/stf.4
+endplatform
+
+platform rap_stf.5
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stf/stf.5
+endplatform
+
+platform rap_stf.6
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stf/stf.6
+endplatform
+
+platform rap_stf.7
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stf/stf.7
+endplatform
+
+platform rap_stf.8
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stf/stf.8
+endplatform
+
+platform rap_stf.9
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stf/stf.9
+endplatform
+
+platform rap_stf.10
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stf/stf.10
+endplatform
+
+platform rap_stf.11
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stf/stf.11
+endplatform
+
+platform rap_stf.12
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stf/stf.12
+endplatform
+
+platform rap_stf.13
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stf/stf.13
+endplatform
+
+platform rap_stf.14
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stf/stf.14
+endplatform
+
+platform rap_stf.15
+	organization	outline
+	filetype	zeb
+	maxsamples	1000
+	directory	/data/raps/rap_pdb/stf/stf.15
+endplatform
+
+procedure RapProductsTruncate fraction real
+	truncate fraction*1*DAY "rap_tvs"
+	truncate fraction*1*DAY "rap_tvs.1"
+	truncate fraction*1*DAY "rap_tvs.2"
+	truncate fraction*1*DAY "rap_tvs.3"
+	truncate fraction*1*DAY "rap_tvs.4"
+	truncate fraction*1*DAY "rap_tvs.5"
+	truncate fraction*1*DAY "rap_tvs.6"
+	truncate fraction*1*DAY "rap_tvs.7"
+	truncate fraction*1*DAY "rap_tvs.8"
+	truncate fraction*1*DAY "rap_tvs.9"
+	truncate fraction*1*DAY "rap_tvs.10"
+	truncate fraction*1*DAY "rap_tvs.11"
+	truncate fraction*1*DAY "rap_tvs.12"
+	truncate fraction*1*DAY "rap_tvs.13"
+	truncate fraction*1*DAY "rap_tvs.14"
+	truncate fraction*1*DAY "rap_tvs.15"
+
+	truncate fraction*1*DAY "rap_tvp"
+	truncate fraction*1*DAY "rap_tvp.1"
+	truncate fraction*1*DAY "rap_tvp.2"
+	truncate fraction*1*DAY "rap_tvp.3"
+	truncate fraction*1*DAY "rap_tvp.4"
+	truncate fraction*1*DAY "rap_tvp.5"
+	truncate fraction*1*DAY "rap_tvp.6"
+	truncate fraction*1*DAY "rap_tvp.7"
+	truncate fraction*1*DAY "rap_tvp.8"
+	truncate fraction*1*DAY "rap_tvp.9"
+	truncate fraction*1*DAY "rap_tvp.10"
+	truncate fraction*1*DAY "rap_tvp.11"
+	truncate fraction*1*DAY "rap_tvp.12"
+	truncate fraction*1*DAY "rap_tvp.13"
+	truncate fraction*1*DAY "rap_tvp.14"
+	truncate fraction*1*DAY "rap_tvp.15"
+
+	truncate fraction*1*DAY "rap_hal"
+	truncate fraction*1*DAY "rap_hal.1"
+	truncate fraction*1*DAY "rap_hal.2"
+	truncate fraction*1*DAY "rap_hal.3"
+	truncate fraction*1*DAY "rap_hal.4"
+	truncate fraction*1*DAY "rap_hal.5"
+	truncate fraction*1*DAY "rap_hal.6"
+	truncate fraction*1*DAY "rap_hal.7"
+	truncate fraction*1*DAY "rap_hal.8"
+	truncate fraction*1*DAY "rap_hal.9"
+	truncate fraction*1*DAY "rap_hal.10"
+	truncate fraction*1*DAY "rap_hal.11"
+	truncate fraction*1*DAY "rap_hal.12"
+	truncate fraction*1*DAY "rap_hal.13"
+	truncate fraction*1*DAY "rap_hal.14"
+	truncate fraction*1*DAY "rap_hal.15"
+
+	truncate fraction*1*DAY "rap_csh"
+	truncate fraction*1*DAY "rap_csh.1"
+	truncate fraction*1*DAY "rap_csh.2"
+	truncate fraction*1*DAY "rap_csh.3"
+	truncate fraction*1*DAY "rap_csh.4"
+	truncate fraction*1*DAY "rap_csh.5"
+	truncate fraction*1*DAY "rap_csh.6"
+	truncate fraction*1*DAY "rap_csh.7"
+	truncate fraction*1*DAY "rap_csh.8"
+	truncate fraction*1*DAY "rap_csh.9"
+	truncate fraction*1*DAY "rap_csh.10"
+	truncate fraction*1*DAY "rap_csh.11"
+	truncate fraction*1*DAY "rap_csh.12"
+	truncate fraction*1*DAY "rap_csh.13"
+	truncate fraction*1*DAY "rap_csh.14"
+	truncate fraction*1*DAY "rap_csh.15"
+
+	truncate fraction*1*DAY "rap_ccs"
+	truncate fraction*1*DAY "rap_ccs.1"
+	truncate fraction*1*DAY "rap_ccs.2"
+	truncate fraction*1*DAY "rap_ccs.3"
+	truncate fraction*1*DAY "rap_ccs.4"
+	truncate fraction*1*DAY "rap_ccs.5"
+	truncate fraction*1*DAY "rap_ccs.6"
+	truncate fraction*1*DAY "rap_ccs.7"
+	truncate fraction*1*DAY "rap_ccs.8"
+	truncate fraction*1*DAY "rap_ccs.9"
+	truncate fraction*1*DAY "rap_ccs.10"
+	truncate fraction*1*DAY "rap_ccs.11"
+	truncate fraction*1*DAY "rap_ccs.12"
+	truncate fraction*1*DAY "rap_ccs.13"
+	truncate fraction*1*DAY "rap_ccs.14"
+	truncate fraction*1*DAY "rap_ccs.15"
+
+	truncate fraction*1*DAY "rap_act"
+	truncate fraction*1*DAY "rap_act.1"
+	truncate fraction*1*DAY "rap_act.2"
+	truncate fraction*1*DAY "rap_act.3"
+	truncate fraction*1*DAY "rap_act.4"
+	truncate fraction*1*DAY "rap_act.5"
+	truncate fraction*1*DAY "rap_act.6"
+	truncate fraction*1*DAY "rap_act.7"
+	truncate fraction*1*DAY "rap_act.8"
+	truncate fraction*1*DAY "rap_act.9"
+	truncate fraction*1*DAY "rap_act.10"
+	truncate fraction*1*DAY "rap_act.11"
+	truncate fraction*1*DAY "rap_act.12"
+	truncate fraction*1*DAY "rap_act.13"
+	truncate fraction*1*DAY "rap_act.14"
+	truncate fraction*1*DAY "rap_act.15"
+
+	truncate fraction*1*DAY "rap_acs"
+	truncate fraction*1*DAY "rap_acs.1"
+	truncate fraction*1*DAY "rap_acs.2"
+	truncate fraction*1*DAY "rap_acs.3"
+	truncate fraction*1*DAY "rap_acs.4"
+	truncate fraction*1*DAY "rap_acs.5"
+	truncate fraction*1*DAY "rap_acs.6"
+	truncate fraction*1*DAY "rap_acs.7"
+	truncate fraction*1*DAY "rap_acs.8"
+	truncate fraction*1*DAY "rap_acs.9"
+	truncate fraction*1*DAY "rap_acs.10"
+	truncate fraction*1*DAY "rap_acs.11"
+	truncate fraction*1*DAY "rap_acs.12"
+	truncate fraction*1*DAY "rap_acs.13"
+	truncate fraction*1*DAY "rap_acs.14"
+	truncate fraction*1*DAY "rap_acs.15"
+
+	truncate fraction*1*DAY "rap_hgb"
+	truncate fraction*1*DAY "rap_hgb.1"
+	truncate fraction*1*DAY "rap_hgb.2"
+	truncate fraction*1*DAY "rap_hgb.3"
+	truncate fraction*1*DAY "rap_hgb.4"
+	truncate fraction*1*DAY "rap_hgb.5"
+	truncate fraction*1*DAY "rap_hgb.6"
+	truncate fraction*1*DAY "rap_hgb.7"
+	truncate fraction*1*DAY "rap_hgb.8"
+	truncate fraction*1*DAY "rap_hgb.9"
+	truncate fraction*1*DAY "rap_hgb.10"
+	truncate fraction*1*DAY "rap_hgb.11"
+	truncate fraction*1*DAY "rap_hgb.12"
+	truncate fraction*1*DAY "rap_hgb.13"
+	truncate fraction*1*DAY "rap_hgb.14"
+	truncate fraction*1*DAY "rap_hgb.15"
+
+	truncate fraction*1*DAY "rap_hgc"
+	truncate fraction*1*DAY "rap_hgc.1"
+	truncate fraction*1*DAY "rap_hgc.2"
+	truncate fraction*1*DAY "rap_hgc.3"
+	truncate fraction*1*DAY "rap_hgc.4"
+	truncate fraction*1*DAY "rap_hgc.5"
+	truncate fraction*1*DAY "rap_hgc.6"
+	truncate fraction*1*DAY "rap_hgc.7"
+	truncate fraction*1*DAY "rap_hgc.8"
+	truncate fraction*1*DAY "rap_hgc.9"
+	truncate fraction*1*DAY "rap_hgc.10"
+	truncate fraction*1*DAY "rap_hgc.11"
+	truncate fraction*1*DAY "rap_hgc.12"
+	truncate fraction*1*DAY "rap_hgc.13"
+	truncate fraction*1*DAY "rap_hgc.14"
+	truncate fraction*1*DAY "rap_hgc.15"
+
+	truncate fraction*1*DAY "rap_hgn"
+	truncate fraction*1*DAY "rap_hgn.1"
+	truncate fraction*1*DAY "rap_hgn.2"
+	truncate fraction*1*DAY "rap_hgn.3"
+	truncate fraction*1*DAY "rap_hgn.4"
+	truncate fraction*1*DAY "rap_hgn.5"
+	truncate fraction*1*DAY "rap_hgn.6"
+	truncate fraction*1*DAY "rap_hgn.7"
+	truncate fraction*1*DAY "rap_hgn.8"
+	truncate fraction*1*DAY "rap_hgn.9"
+	truncate fraction*1*DAY "rap_hgn.10"
+	truncate fraction*1*DAY "rap_hgn.11"
+	truncate fraction*1*DAY "rap_hgn.12"
+	truncate fraction*1*DAY "rap_hgn.13"
+	truncate fraction*1*DAY "rap_hgn.14"
+	truncate fraction*1*DAY "rap_hgn.15"
+
+	truncate fraction*1*DAY "rap_exb"
+	truncate fraction*1*DAY "rap_exb.1"
+	truncate fraction*1*DAY "rap_exb.2"
+	truncate fraction*1*DAY "rap_exb.3"
+	truncate fraction*1*DAY "rap_exb.4"
+	truncate fraction*1*DAY "rap_exb.5"
+	truncate fraction*1*DAY "rap_exb.6"
+	truncate fraction*1*DAY "rap_exb.7"
+	truncate fraction*1*DAY "rap_exb.8"
+	truncate fraction*1*DAY "rap_exb.9"
+	truncate fraction*1*DAY "rap_exb.10"
+	truncate fraction*1*DAY "rap_exb.11"
+	truncate fraction*1*DAY "rap_exb.12"
+	truncate fraction*1*DAY "rap_exb.13"
+	truncate fraction*1*DAY "rap_exb.14"
+	truncate fraction*1*DAY "rap_exb.15"
+
+	truncate fraction*1*DAY "rap_exc"
+	truncate fraction*1*DAY "rap_exc.1"
+	truncate fraction*1*DAY "rap_exc.2"
+	truncate fraction*1*DAY "rap_exc.3"
+	truncate fraction*1*DAY "rap_exc.4"
+	truncate fraction*1*DAY "rap_exc.5"
+	truncate fraction*1*DAY "rap_exc.6"
+	truncate fraction*1*DAY "rap_exc.7"
+	truncate fraction*1*DAY "rap_exc.8"
+	truncate fraction*1*DAY "rap_exc.9"
+	truncate fraction*1*DAY "rap_exc.10"
+	truncate fraction*1*DAY "rap_exc.11"
+	truncate fraction*1*DAY "rap_exc.12"
+	truncate fraction*1*DAY "rap_exc.13"
+	truncate fraction*1*DAY "rap_exc.14"
+	truncate fraction*1*DAY "rap_exc.15"
+
+	truncate fraction*1*DAY "rap_hbx"
+	truncate fraction*1*DAY "rap_hbx.1"
+	truncate fraction*1*DAY "rap_hbx.2"
+	truncate fraction*1*DAY "rap_hbx.3"
+	truncate fraction*1*DAY "rap_hbx.4"
+	truncate fraction*1*DAY "rap_hbx.5"
+	truncate fraction*1*DAY "rap_hbx.6"
+	truncate fraction*1*DAY "rap_hbx.7"
+	truncate fraction*1*DAY "rap_hbx.8"
+	truncate fraction*1*DAY "rap_hbx.9"
+	truncate fraction*1*DAY "rap_hbx.10"
+	truncate fraction*1*DAY "rap_hbx.11"
+	truncate fraction*1*DAY "rap_hbx.12"
+	truncate fraction*1*DAY "rap_hbx.13"
+	truncate fraction*1*DAY "rap_hbx.14"
+	truncate fraction*1*DAY "rap_hbx.15"
+
+	truncate fraction*1*DAY "rap_hbc"
+	truncate fraction*1*DAY "rap_hbc.1"
+	truncate fraction*1*DAY "rap_hbc.2"
+	truncate fraction*1*DAY "rap_hbc.3"
+	truncate fraction*1*DAY "rap_hbc.4"
+	truncate fraction*1*DAY "rap_hbc.5"
+	truncate fraction*1*DAY "rap_hbc.6"
+	truncate fraction*1*DAY "rap_hbc.7"
+	truncate fraction*1*DAY "rap_hbc.8"
+	truncate fraction*1*DAY "rap_hbc.9"
+	truncate fraction*1*DAY "rap_hbc.10"
+	truncate fraction*1*DAY "rap_hbc.11"
+	truncate fraction*1*DAY "rap_hbc.12"
+	truncate fraction*1*DAY "rap_hbc.13"
+	truncate fraction*1*DAY "rap_hbc.14"
+	truncate fraction*1*DAY "rap_hbc.15"
+
+	truncate fraction*1*DAY "rap_cbx"
+	truncate fraction*1*DAY "rap_cbx.1"
+	truncate fraction*1*DAY "rap_cbx.2"
+	truncate fraction*1*DAY "rap_cbx.3"
+	truncate fraction*1*DAY "rap_cbx.4"
+	truncate fraction*1*DAY "rap_cbx.5"
+	truncate fraction*1*DAY "rap_cbx.6"
+	truncate fraction*1*DAY "rap_cbx.7"
+	truncate fraction*1*DAY "rap_cbx.8"
+	truncate fraction*1*DAY "rap_cbx.9"
+	truncate fraction*1*DAY "rap_cbx.10"
+	truncate fraction*1*DAY "rap_cbx.11"
+	truncate fraction*1*DAY "rap_cbx.12"
+	truncate fraction*1*DAY "rap_cbx.13"
+	truncate fraction*1*DAY "rap_cbx.14"
+	truncate fraction*1*DAY "rap_cbx.15"
+
+	truncate fraction*1*DAY "rap_cbc"
+	truncate fraction*1*DAY "rap_cbc.1"
+	truncate fraction*1*DAY "rap_cbc.2"
+	truncate fraction*1*DAY "rap_cbc.3"
+	truncate fraction*1*DAY "rap_cbc.4"
+	truncate fraction*1*DAY "rap_cbc.5"
+	truncate fraction*1*DAY "rap_cbc.6"
+	truncate fraction*1*DAY "rap_cbc.7"
+	truncate fraction*1*DAY "rap_cbc.8"
+	truncate fraction*1*DAY "rap_cbc.9"
+	truncate fraction*1*DAY "rap_cbc.10"
+	truncate fraction*1*DAY "rap_cbc.11"
+	truncate fraction*1*DAY "rap_cbc.12"
+	truncate fraction*1*DAY "rap_cbc.13"
+	truncate fraction*1*DAY "rap_cbc.14"
+	truncate fraction*1*DAY "rap_cbc.15"
+
+	truncate fraction*1*DAY "rap_hbn"
+	truncate fraction*1*DAY "rap_hbn.1"
+	truncate fraction*1*DAY "rap_hbn.2"
+	truncate fraction*1*DAY "rap_hbn.3"
+	truncate fraction*1*DAY "rap_hbn.4"
+	truncate fraction*1*DAY "rap_hbn.5"
+	truncate fraction*1*DAY "rap_hbn.6"
+	truncate fraction*1*DAY "rap_hbn.7"
+	truncate fraction*1*DAY "rap_hbn.8"
+	truncate fraction*1*DAY "rap_hbn.9"
+	truncate fraction*1*DAY "rap_hbn.10"
+	truncate fraction*1*DAY "rap_hbn.11"
+	truncate fraction*1*DAY "rap_hbn.12"
+	truncate fraction*1*DAY "rap_hbn.13"
+	truncate fraction*1*DAY "rap_hbn.14"
+	truncate fraction*1*DAY "rap_hbn.15"
+
+	truncate fraction*1*DAY "rap_hcn"
+	truncate fraction*1*DAY "rap_hcn.1"
+	truncate fraction*1*DAY "rap_hcn.2"
+	truncate fraction*1*DAY "rap_hcn.3"
+	truncate fraction*1*DAY "rap_hcn.4"
+	truncate fraction*1*DAY "rap_hcn.5"
+	truncate fraction*1*DAY "rap_hcn.6"
+	truncate fraction*1*DAY "rap_hcn.7"
+	truncate fraction*1*DAY "rap_hcn.8"
+	truncate fraction*1*DAY "rap_hcn.9"
+	truncate fraction*1*DAY "rap_hcn.10"
+	truncate fraction*1*DAY "rap_hcn.11"
+	truncate fraction*1*DAY "rap_hcn.12"
+	truncate fraction*1*DAY "rap_hcn.13"
+	truncate fraction*1*DAY "rap_hcn.14"
+	truncate fraction*1*DAY "rap_hcn.15"
+
+	truncate fraction*1*DAY "rap_cbn"
+	truncate fraction*1*DAY "rap_cbn.1"
+	truncate fraction*1*DAY "rap_cbn.2"
+	truncate fraction*1*DAY "rap_cbn.3"
+	truncate fraction*1*DAY "rap_cbn.4"
+	truncate fraction*1*DAY "rap_cbn.5"
+	truncate fraction*1*DAY "rap_cbn.6"
+	truncate fraction*1*DAY "rap_cbn.7"
+	truncate fraction*1*DAY "rap_cbn.8"
+	truncate fraction*1*DAY "rap_cbn.9"
+	truncate fraction*1*DAY "rap_cbn.10"
+	truncate fraction*1*DAY "rap_cbn.11"
+	truncate fraction*1*DAY "rap_cbn.12"
+	truncate fraction*1*DAY "rap_cbn.13"
+	truncate fraction*1*DAY "rap_cbn.14"
+	truncate fraction*1*DAY "rap_cbn.15"
+
+	truncate fraction*1*DAY "rap_ccn"
+	truncate fraction*1*DAY "rap_ccn.1"
+	truncate fraction*1*DAY "rap_ccn.2"
+	truncate fraction*1*DAY "rap_ccn.3"
+	truncate fraction*1*DAY "rap_ccn.4"
+	truncate fraction*1*DAY "rap_ccn.5"
+	truncate fraction*1*DAY "rap_ccn.6"
+	truncate fraction*1*DAY "rap_ccn.7"
+	truncate fraction*1*DAY "rap_ccn.8"
+	truncate fraction*1*DAY "rap_ccn.9"
+	truncate fraction*1*DAY "rap_ccn.10"
+	truncate fraction*1*DAY "rap_ccn.11"
+	truncate fraction*1*DAY "rap_ccn.12"
+	truncate fraction*1*DAY "rap_ccn.13"
+	truncate fraction*1*DAY "rap_ccn.14"
+	truncate fraction*1*DAY "rap_ccn.15"
+
+	truncate fraction*1*DAY "rap_str"
+	truncate fraction*1*DAY "rap_str.1"
+	truncate fraction*1*DAY "rap_str.2"
+	truncate fraction*1*DAY "rap_str.3"
+	truncate fraction*1*DAY "rap_str.4"
+	truncate fraction*1*DAY "rap_str.5"
+	truncate fraction*1*DAY "rap_str.6"
+	truncate fraction*1*DAY "rap_str.7"
+	truncate fraction*1*DAY "rap_str.8"
+	truncate fraction*1*DAY "rap_str.9"
+	truncate fraction*1*DAY "rap_str.10"
+	truncate fraction*1*DAY "rap_str.11"
+	truncate fraction*1*DAY "rap_str.12"
+	truncate fraction*1*DAY "rap_str.13"
+	truncate fraction*1*DAY "rap_str.14"
+	truncate fraction*1*DAY "rap_str.15"
+
+	truncate fraction*1*DAY "rap_stp"
+	truncate fraction*1*DAY "rap_stp.1"
+	truncate fraction*1*DAY "rap_stp.2"
+	truncate fraction*1*DAY "rap_stp.3"
+	truncate fraction*1*DAY "rap_stp.4"
+	truncate fraction*1*DAY "rap_stp.5"
+	truncate fraction*1*DAY "rap_stp.6"
+	truncate fraction*1*DAY "rap_stp.7"
+	truncate fraction*1*DAY "rap_stp.8"
+	truncate fraction*1*DAY "rap_stp.9"
+	truncate fraction*1*DAY "rap_stp.10"
+	truncate fraction*1*DAY "rap_stp.11"
+	truncate fraction*1*DAY "rap_stp.12"
+	truncate fraction*1*DAY "rap_stp.13"
+	truncate fraction*1*DAY "rap_stp.14"
+	truncate fraction*1*DAY "rap_stp.15"
+
+	truncate fraction*1*DAY "rap_stf"
+	truncate fraction*1*DAY "rap_stf.1"
+	truncate fraction*1*DAY "rap_stf.2"
+	truncate fraction*1*DAY "rap_stf.3"
+	truncate fraction*1*DAY "rap_stf.4"
+	truncate fraction*1*DAY "rap_stf.5"
+	truncate fraction*1*DAY "rap_stf.6"
+	truncate fraction*1*DAY "rap_stf.7"
+	truncate fraction*1*DAY "rap_stf.8"
+	truncate fraction*1*DAY "rap_stf.9"
+	truncate fraction*1*DAY "rap_stf.10"
+	truncate fraction*1*DAY "rap_stf.11"
+	truncate fraction*1*DAY "rap_stf.12"
+	truncate fraction*1*DAY "rap_stf.13"
+	truncate fraction*1*DAY "rap_stf.14"
+	truncate fraction*1*DAY "rap_stf.15"
+
+endprocedure

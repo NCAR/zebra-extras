@@ -1,0 +1,10 @@
+GLOBAL
+	pd-name:	c_landmark_loc
+	comment:	landmarks location
+c_landmark_loc
+	platform:	ckm,den
+	representation:	overlay
+	field:		location
+	color:		tan
+	icon-middle-menu:	simple-color
+	icon:		sounding-loc

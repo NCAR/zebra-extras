@@ -1,0 +1,29 @@
+#!/bin/csh
+#
+# Rasterizer startup.
+#
+#
+# Bounce a ping off the data store so they know we're here.
+#
+	msg_ping sundog >& /dev/null &
+#
+# Get an event logger going.
+#
+	cd /zeb/raps
+	echo -n 'Starting the event logger...'
+	EventLogger sundog &
+	sleep 2
+#
+# Other basic utilities needed by the system.
+#
+	echo -n 'Starting the timer...'
+	timer &
+	echo -n '...and the data store daemon...'
+	dsDaemon ds.config &
+#
+# Wait long enough for the data store to be running, and fire up the
+# radar ingest
+#
+	sleep 5
+	echo -n '...and the radar ingest.'
+	radar_ingest cp4.params		! starts NetXfr

@@ -1,0 +1,16 @@
+! Auto-saved display configuration.
+config verification
+	window 'radar' 5 5 700 700 /zeb/bin/gp /zeb/raps/gp.init
+		description 'verification-radar'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 710 250 30 /zeb/bin/fccclock
+		description 'verification-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 10 711 550 55
+	window 'Event logger' 5 772 700 125 graphproc
+		nongraphic
+	endwindow
+endconfig

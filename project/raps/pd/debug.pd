@@ -1,0 +1,31 @@
+GLOBAL
+	comment:	Debug: Start with few components
+	pd-name:	debug
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	rap_trigger
+	radar-space:	true
+	time-frames:	2
+	altitude:	-1
+	x-min:          -50
+	x-max:		150
+	y-min:		-100
+	y-max:		100
+c_rings
+	platform:	mhr
+	representation:	overlay
+	field:		range-rings
+	color:		white
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-menu
+	icon:		rings
+	ring-interval:	20
+	azimuth-interval:	30
+c_map
+	platform:	cinde
+	representation:	overlay
+	field:		map
+	color:		gray60
+	line-width:	1
+	icon-middle-menu:	simple-color
+	icon:		map

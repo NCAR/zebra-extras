@@ -1,0 +1,3 @@
+now_export \
+	nowcast.1 nowcast.2 nowcast.3 nowcast.4 nowcast.5 \
+	nowcast.6 nowcast.7 nowcast.8 nowcast.9 nowcast.10 &

@@ -1,0 +1,26 @@
+#
+# build a template of the satellite ingest stuff that stays the same
+#
+	cat > cmdfile << _EOF_
+		limits 38.8 -106.0 41.3 -103.3
+		set originLat 39.88
+		set platform "goes"
+		set kmResolution 0.5
+		file /scr/framboise/raps/area020 vis
+_EOF_
+#
+# do the ingest
+#
+	/zeb/bin/SatIngest cmdfile
+#
+# remove the config file, template, and the last command file
+#
+rm temp.config
+rm cmdfile
+#zebstop
+
+
+
+
+
+

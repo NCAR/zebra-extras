@@ -1,0 +1,1706 @@
+!
+! The graphics process initialization file.
+!
+
+!
+! Control the spacing of a grid.  Assumes that x and y are equal.
+!
+define widget grid_spacing intmenu 'grid spacing'
+	title 'Cartesian grid parameters'
+	line
+	entry '5 km or minute lines' 'GridSpacing "5"' \
+		(pd_param (icon_component,"x-spacing","string") = "5")
+	entry '10 km or minute lines' 'GridSpacing "10"' \
+		(pd_param (icon_component,"x-spacing","string") = "10")
+	entry '20 km or minute lines' 'GridSpacing "20"' \
+		(pd_param (icon_component,"x-spacing","string") = "20")
+	entry '50 km or minute lines' 'GridSpacing "50"' \
+		(pd_param (icon_component,"x-spacing","string") = "50")
+	line
+	entry 'Latitude/Longitude grid' 'param #icon_component lat-lon true' \
+		(pd_param (icon_component, "lat-lon", "string") = "true")
+	entry 'Kilometer grid' 'param #icon_component lat-lon false' \
+		(pd_param (icon_component, "lat-lon", "string") = "false")
+	line
+	submenu 'Change origin (km grid only)' CGridOrigin
+	entry 'Solid grid lines' 'ToggleBool "solid"' \
+		(pd_param (icon_component, "solid", "string") = "true")
+endmenu
+
+
+define widget CGridOrigin intmenu 'cart grid origin'
+	title 'Cartesian grid origin'
+	line
+	entry 'MHR' 'parameter #icon_component origin mhr'
+	entry 'CP2' 'parameter #icon_component origin cp2'
+	entry 'CP3' 'parameter #icon_component origin cp3'
+	entry 'CP4' 'parameter #icon_component origin cp4'
+endmenu
+
+!
+! Tweak grid spacing.  We enforce equal X and Y spacing.
+!
+procedure GridSpacing spacing string
+	parameter #icon_component x-spacing #spacing
+	parameter #icon_component y-spacing #spacing
+endprocedure
+
+!
+! Zoom to to preset x and y ranges.
+!
+procedure DoZoom xmin string xmax string ymin string ymax string
+	parameter global x-min #xmin
+	parameter global x-max #xmax
+	parameter global y-min #ymin
+	parameter global y-max #ymax
+endprocedure
+
+
+!
+! Toggle an arbitrary boolean parameter.  This guy expects to be called
+! out of a menu, with icon_component set.
+!
+procedure ToggleBool param string
+	local current (pd_param (icon_component, param, "string") = "true")
+	if (current)
+		parameter #icon_component #param false
+	else
+		parameter #icon_component #param true
+	endif
+endprocedure
+
+!
+! The default position icon left menu.
+!
+define widget posleft intmenu "posleft"
+	title 'Position Icon'
+	line
+	entry 'Select for Linking' 'select_data'
+	entry 'Select for Changing' 'select_data'
+endmenu
+
+procedure select_data
+	set compname icon_component
+	set platform icon_platform
+	set datatime icon_time
+endprocedure
+		
+
+! 
+! Get the 'base-platform' parameter of a plot component and use it to
+! activate the stationwidget.  Used for the RAP PDBS products and all of
+! their 'sub-platforms'
+!
+procedure sel_subplatforms
+	local baseplat (pd_param(icon_component, "base-platform", "string"))
+	activate stationwidget #icon_component #baseplat
+endprocedure
+
+
+!
+! Menus for boundaries
+!
+define widget bdry-middle intmenu 'boundary middle menu'
+	title 'Select Platforms'
+	line
+	entry 'Select Outlines' 'activate stationwidget #icon_component nowcast'
+endmenu
+
+define widget bdry-right intmenu 'boundary right menu'
+	title 'Boundary Options'
+	line
+	submenu 'Boundary Color' simple-color
+	submenu 'Line Width' LineWidth
+	submenu 'Labels' LabelOnOff
+	entry 'Icons' 'toggle_bool "show-icon" "false"' (pd_param(icon_component, "show-icon", "string") = "true")
+endmenu
+
+!
+! Menu for rap_pdb boundaries
+!
+define widget rap_pdb-middle intmenu 'middle menu for rap_pdb boundaries'
+	title 'Select Platforms'
+	line
+	entry 'Select Outlines' 'sel_subplatforms'
+endmenu
+
+!
+! Line width menu for maps and such.
+!
+define widget LineWidth intmenu 'line width'
+	title 'Line drawing parameters'
+	line
+	entry 'Thin lines' 'parameter #icon_component line-width 0'  \
+		(pd_param (icon_component, "line-width", "string") = "0" or \
+                 pd_param(icon_component,"line-width","string") ="(Undefined)")
+	entry 'Thicker lines' 'parameter #icon_component line-width 2' \
+		(pd_param (icon_component, "line-width", "string") = "2")
+	entry 'Super-thick lines' 'parameter #icon_component line-width 3' \
+		(pd_param (icon_component, "line-width", "string") = "3")
+endmenu
+
+!
+! Turn labels on and off.
+!
+define widget LabelOnOff intmenu "labels on/off"
+	title 'Labels'
+	line
+	entry 'On' 'turnlabelon'
+	entry 'Off' 'parameter #icon_component label none'
+endmenu
+
+procedure turnlabelon
+	local worked pd_removeparam(icon_component, "label")
+endprocedure
+
+!
+! The default left button menu.
+!
+define widget leftmenu intmenu "leftmenu"
+	title 'Overlay Operations'
+	line
+	entry 'Adjust Limits' 'i_adjust limit-proc'
+	entry 'Spatial offset options' 'popup offsets'
+	line
+	entry 'Raise to top' 'move #icon_component 0'
+	entry 'Move to bottom' 'move #icon_component 1'
+	entry 'Disable/reenable' 'toggle_bool "disable" "true"'
+	entry 'Remove' 'i_remove_component'
+endmenu
+
+
+!
+! Commands to be executed out of the DataAvailable menu.  The invocation
+! sequence is:
+!
+!	DAVCommand  platform  time
+!
+! Where platform and time correspond to the menu entry which was selected.
+!
+! The default action is to switch to the given platform and time, in 
+! history mode.
+!
+
+procedure DefaultDataAvail platform string when string
+!
+! Switch to the given platform; however, let's check to see that we are
+! not already on that one -- we can avoid frame cache invalidations that
+! way.
+!
+	if (pd_param (icon_component, "platform", "string") <> platform)
+		parameter #icon_component platform #platform
+	endif
+!
+! Now drop into history mode and display this time.
+!
+	parameter global plot-mode history
+	parameter global plot-time #when
+endprocedure
+
+!
+! For cp2-az-limits do the regular stuff plut set the platform 
+! to the right thing.
+!
+procedure CP2AzLimitsAvail platform string when string
+!
+! Now drop into history mode and display this time.
+!
+	parameter #icon_component platform cp2
+	parameter global plot-mode history
+	parameter global plot-time #when
+endprocedure
+
+
+!
+! For the CP4 radar, we do pretty much the same thing, but also make
+! sure that we are in fixed sweep mode.
+!
+procedure CP4Volume platform string when string
+!
+! Just set the params.  Don't even bother with the platform seeing as it
+! will not change.
+!
+	parameter global plot-mode history
+	parameter global plot-time #when
+!	parameter #icon_component every-sweep false
+endprocedure
+
+
+!
+! Color tables for lightning displays.
+!
+define widget lightning-color intmenu 'lightning color'
+	title 'Color tables'
+	line
+	entry 'Rainbow colors' 'parameter #icon_component color-table revrainbow'
+	entry 'Gray scale' 'parameter #icon_component color-table smallrevgray'
+endmenu
+
+
+
+!-------------------
+!
+! Old stuff below here.
+!
+!-------------------
+
+!
+! The graphics process initialization file.
+!
+
+
+define widget airfield intmenu 'airfield'
+	title "Aircraft Color Code Fields"
+	line
+	entry 'Aircraft Pressure Altitude' 'fldset "palt"'
+	entry 'Dewpoint Temperature' 'fldset "dp"'
+	entry 'Temperature (Reverse Flow)' 'fldset "tdry"'
+	entry 'Virtual Temperature' 'fldset "tvir"'
+	entry 'Mixing Ratio' 'fldset "mr"'
+	entry 'Vertical Velocity' 'fldset "w_wind"'
+	entry 'Potential Temperature' 'fldset "pt"'
+	entry 'Equavalent Potential Temperature' 'fldset "ept"'
+	line
+	entry 'Show Plane?' 'toggle_bool "show-position" "true"'
+endmenu
+
+!
+!The dual-Doppler menu
+!
+define widget ddop-middle intmenu 'ddop-middle'
+	title 'Dual-Doppler Analysis'
+	line
+	entry 'Divergence contours' 'fldset "div"'
+	entry 'Vertical Velocity contours' 'fldset "w_wind"'
+	entry 'Cp4 interpolated reflectivity' 'fldset "ref_cp4"'
+	entry 'Cp3 interpolated reflectivity' 'fldset "ref_cp3"'
+	entry 'Cp4 interpolated velocity' 'fldset "vt_cp4"'
+	entry 'Cp3 interpolated velocity' 'fldset "vt_cp3"'
+endmenu
+
+!
+! The Dual Doppler left button menu.
+!
+define widget ddop-left intmenu 'ddop-left'
+	title 'Overlay Operations'
+	line
+	entry 'Adjust Limits' 'i_adjust limit-proc'
+	line
+	entry 'Raise to top' 'move #icon_component 0'
+	entry 'Move to bottom' 'move #icon_component 1'
+	entry 'Disable/reenable' 'toggle_bool "disable" "true"'
+	entry 'Remove' 'i_remove_ddop'
+endmenu
+
+procedure i_remove_ddop
+	local dm_cmd concat("parameter ", ourname)
+	dm concat(concat(dm_cmd, " "), "global radar-space true")
+	local dm_cmd concat("remove ",ourname)
+	dm concat(concat (dm_cmd, " "), icon_component)
+endprocedure
+
+!
+! The tseries left button menu.
+!
+define widget tseries-left intmenu 'TSeries Left'
+	title 'Overlay Operations'
+	line
+	submenu 'Adjust Limits' 'adjust-tseries-limits'
+	line
+	entry 'Raise to top' 'move #icon_component 0'
+	entry 'Move to bottom' 'move #icon_component 1'
+	entry 'Remove' 'i_remove_component'
+endmenu
+
+!
+! The track left button menu.
+!
+define widget track-left intmenu 'Track Left'
+	title 'Overlay Operations'
+	line
+	submenu 'Adjust Limits' 'adjust-track-limits'
+	line
+	entry 'Raise to top' 'move #icon_component 0'
+	entry 'Move to bottom' 'move #icon_component 1'
+	entry 'Disable/reenable' 'toggle_bool "disable" "true"'
+	entry 'Remove' 'i_remove_component'
+endmenu
+
+!
+! The raster left button menu.
+!
+define widget raster-left intmenu 'Raster Left'
+	title 'Overlay Operations'
+	line
+	submenu 'Adjust Limits' 'adjust-raster-limits'
+	line
+	entry 'Raise to top' 'move #icon_component 0'
+	entry 'Move to bottom' 'move #icon_component 1'
+	entry 'Disable/reenable' 'toggle_bool "disable" "true"'
+	entry 'Remove' 'i_remove_component'
+endmenu
+
+!
+! The Raster Plot Adjust Limits submenu
+!
+define widget adjust-raster-limits intmenu 'Adjust Limits'
+	title 'Adjust Limits'
+	line
+	entry 'Center/Step' 'i_adjust centstep-limit-proc'
+	entry 'Highlight/Range' 'i_adjust highrange-limit-proc'
+endmenu
+
+!
+! The Track Adjust Limits submenu
+!
+define widget adjust-track-limits intmenu 'Adjust Limits'
+	title 'Adjust Limits'
+	line
+	entry 'Time Period' 'i_adjust time-limit-proc'
+	entry 'Center/Step' 'i_adjust centstep-limit-proc'
+endmenu
+
+!
+! The Skewt Adjust Limits submenu
+!
+define widget adjust-skewt-limits intmenu 'Adjust Limits'
+	title 'Adjust Limits'
+	line
+	entry 'Pressure' 'i_adjust pres-limit-proc'
+	entry 'Temperature' 'i_adjust temp-limit-proc'
+endmenu
+
+!
+! The Skew-t left button menu.
+!
+define widget skewt-left intmenu 'Skewt left'
+	title 'Overlay Operations'
+	line
+	submenu 'Adjust Limits' 'adjust-skewt-limits'
+	line
+	entry 'Raise to top' 'move #icon_component 0'
+	entry 'Move to bottom' 'move #icon_component 1'
+	entry 'Remove' 'i_remove_component'
+endmenu
+
+!
+! The Time Series Adjust Limits submenu
+!
+define widget adjust-tseries-limits intmenu 'Adjust Limits'
+	title 'Adjust Limits'
+	line
+	entry 'Time Interval' 'i_adjust time-limit-proc'
+	entry 'Left Axis' 'i_adjust left-limit-proc'
+	entry 'Right Axis' 'i_adjust right-limit-proc'
+	entry 'Number of Steps' 'i_adjust nstep-limit-proc'
+	entry 'Data Skip' 'i_adjust dskip-limit-proc'
+endmenu
+
+!
+! Middle icon button field for aircraft data.
+!
+define widget aircraft-menu intmenu "Aircraft menu"
+	title "Aircraft color code fields"
+	line
+	entry 'Aircraft altitude' 'fldset "alt"'
+	entry 'Potential temperature' 'fldset "pt"'
+	entry 'Relative humidity' 'fldset "rh"'
+	entry 'Mixing ratio' 'fldset "mr"'
+	entry 'Dewpoint temperature' 'fldset "dp"'
+endmenu
+
+!
+! Middle icon button menu for Mesonet winds.
+!
+define widget meso-winds-mid intmenu 'Field control popup'
+	title 'PAM mesonet winds fields'
+	line
+	entry 'Temperature' 'toggle_quad tdry' \
+	   (substring(pd_param(icon_component, "quadrants", "string"),"tdry"))
+	entry 'Dewpoint Temperature' 'toggle_quad dp' \
+	   (substring(pd_param(icon_component, "quadrants", "string"),"dp"))
+	entry 'Relative Humidity' 'toggle_quad rh' \
+	   (substring(pd_param(icon_component, "quadrants", "string"),"rh"))
+	entry 'Raw Pressure' 'toggle_quad pres' \
+	   (substring(pd_param(icon_component, "quadrants", "string"),"pres"))
+	entry 'Corrected Pressure' 'toggle_quad cpres0' \
+	   (substring(pd_param(icon_component, "quadrants", "string"),"cpres0"))
+	entry 'Mixing Ratio' 'toggle_quad mr' \
+	   (substring(pd_param(icon_component, "quadrants", "string"),"mr"))
+	entry 'Potential Temperature' 'toggle_quad pt' \
+	   (substring(pd_param(icon_component, "quadrants", "string"),"pt"))
+	entry 'Equivalent Potential Temperature' 'toggle_quad ept' \
+	   (substring(pd_param(icon_component, "quadrants", "string"),"ept"))
+	entry '15-Minute Rain Accumulation' 'toggle_quad raina15' \
+	   (substring(pd_param(icon_component, "quadrants","string"),"raina15"))
+	entry '60-Minute Rain Accumulation' 'toggle_quad raina60' \
+	   (substring(pd_param(icon_component, "quadrants","string"),"raina60"))
+endmenu
+
+!
+! Middle icon button menu for Mesonet.
+!
+define widget meso-middle intmenu 'Field control popup'
+	title 'PAM mesonet contour fields'
+	line
+	entry 'Temperature' 		'param #icon_component field tdry'\
+	   (substring(pd_param(icon_component, "field", "string"),"tdry"))
+	entry 'Dewpoint Temperature' 	'param #icon_component field dp'\
+	   (substring(pd_param(icon_component, "field", "string"),"dp"))
+	entry 'Relative Humidity' 	'param #icon_component field rh'\
+	   (substring(pd_param(icon_component, "field", "string"),"rh"))
+	entry 'Raw Pressure' 		'param #icon_component field pres'\
+	   (substring(pd_param(icon_component, "field", "string"),"pres"))
+	entry 'Corrected Pressure'	'param #icon_component field cpres0'\
+	   (substring(pd_param(icon_component, "field", "string"),"cpres0"))
+	entry 'Mixing Ratio' 		'param #icon_component field mr'\
+	   (substring(pd_param(icon_component, "field", "string"),"mr"))
+	entry 'Potential Temperature' 	'param #icon_component field pt'\
+	   (substring(pd_param(icon_component, "field", "string"),"pt"))
+	entry 'Equivalent Potential Temperature'\
+	   'param #icon_component field ept'\
+	   (substring(pd_param(icon_component, "field", "string"),"ept"))
+	entry '15-Minute Rain Accumulation'\
+	    'param #icon_component field raina15'\
+	   (substring(pd_param(icon_component, "field", "string"),"raina15"))
+	entry '60-Minute Rain Accumulation'\
+	   'param #icon_component field raina60'\
+	   (substring(pd_param(icon_component, "field", "string"),"raina60"))
+endmenu
+
+!
+! Cross-section field menu (can't really be extended until we have field
+! derivation)
+!
+define widget xsect-field-menu intmenu 'Field control popup'
+	title 'Field Selection'
+	line
+	entry 'Potential Temperature' 'param #icon_component field pt'\
+	   (substring(pd_param(icon_component, "field", "string"),"pt"))
+	entry 'Mixing Ratio' 'param #icon_component field mr'\
+	   (substring(pd_param(icon_component, "field", "string"),"mr"))
+	entry 'Wind Speed' 'param #icon_component field wspd'\
+	   (substring(pd_param(icon_component, "field", "string"),"wspd"))
+	entry 'Wind Direction' 'param #icon_component field wdir'\
+	   (substring(pd_param(icon_component, "field", "string"),"wdir"))
+	entry 'Relative Humidity' 'param #icon_component field rh'\
+	   (substring(pd_param(icon_component, "field", "string"),"rh"))
+	entry 'Dewpoint Temperature' 'param #icon_component field dp'\
+	   (substring(pd_param(icon_component, "field", "string"),"dp"))
+	entry 'Raw Pressure' 'param #icon_component field pres'\
+	   (substring(pd_param(icon_component, "field", "string"),"pres"))
+	entry 'Temperature' 'param #icon_component field tdry'\
+	   (substring(pd_param(icon_component, "field", "string"),"tdry"))
+endmenu
+
+!
+! Middle icon menu for radar data.
+!
+define widget radar-middle intmenu 'Radar field menu'
+	title 'Radar'
+	line
+	entry 'Reflectivity' 'param #icon_component field reflectivity'
+	entry 'Velocity' 'param #icon_component field velocity'
+	line
+	entry 'Surveillance only mode' 'toggle_sur' \
+		(pd_param("global", "cp4-filter-attribute", "string") = "sur")
+	entry 'Single fixed angle mode' 'ToggleBool every-sweep' \
+		(pd_param (icon_component, "every-sweep", "string") = "false")
+	line
+	entry 'black & white stepped color table'\
+		 'param #icon_component color-table 16gray' \
+		(pd_param ("icon_component","color-table","string") = "16gray")
+	entry 'scook color table' 'param #icon_component color-table scook' \
+		(pd_param ("icon_component","color-table","string") = "scook")
+	entry 'cook16' 'param #icon_component color-table cook16' \
+		(pd_param ("icon_component","color-table","string") = "cook16")
+	entry 'cook32' 'param #icon_component color-table cook32' \
+		(pd_param ("icon_component","color-table","string") = "cook32")
+	entry 'hotcold' 'param #icon_component color-table hotcold' \
+		(pd_param ("icon_component","color-table","string") = "hotcold")
+	entry 'wild' 'param #icon_component color-table wild' \
+		(pd_param ("icon_component","color-table","string") = "wild")
+	entry 'wild_new' 'param #icon_component color-table wild_new' \
+		(pd_param ("icon_component","color-table","string") = "wild_new")
+	entry 'RAP Reflectivity' 'param #icon_component color-table rap_reflectivity' \
+		(pd_param ("icon_component","color-table","string") = "rap_reflectivity")
+	line
+	entry 'Raster representation' \
+		'param #icon_component representation raster'
+	entry 'Contour representation' \
+		'param #icon_component representation contour'
+	entry 'Filled contour representation' \
+		'param #icon_component representation filled-contour'
+endmenu
+
+!
+! Middle icon menu for goes data.
+!
+define widget goes-middle intmenu 'GOES field menu'
+	title 'GOES'
+	line
+	entry 'Visible' 'param #icon_component field vis'
+	entry 'Infra-Red' 'param #icon_component field ir'
+	line
+	entry 'black & white stepped color table'\
+		 'param #icon_component color-table 16gray' \
+		(pd_param ("global","color-table","string") = "16gray")
+	entry 'black & white "log" color table'\
+		 'param #icon_component color-table newgray' \
+		(pd_param ("global","color-table","string") = "newgray")
+	entry 'scook color table' 'param #icon_component color-table scook' \
+		(pd_param ("icon_component","color-table","string") = "scook")
+	entry 'cook16' 'param #icon_component color-table cook16' \
+		(pd_param ("icon_component","color-table","string") = "cook16")
+	entry 'cook32' 'param #icon_component color-table cook32' \
+		(pd_param ("icon_component","color-table","string") = "cook32")
+	entry 'hotcold' 'param #icon_component color-table hotcold' \
+		(pd_param ("icon_component","color-table","string") = "hotcold")
+	entry 'wild' 'param #icon_component color-table wild' \
+		(pd_param ("icon_component","color-table","string") = "wild")
+	entry 'wild_new' 'param #icon_component color-table wild_new' \
+		(pd_param ("icon_component","color-table","string") = "wild_new")
+endmenu
+
+
+procedure toggle_sur
+	if (pd_param ("global", "cp4-filter-attribute", "string") = "sur")
+		param global cp4-filter-attribute "radar"
+	else
+		param global cp4-filter-attribute "sur"
+	endif
+endprocedure
+
+!
+! Left button menu for the global component.
+!
+define widget global-left intmenu 'Global left menu'
+	title 'Global Options'
+	line
+	submenu 'Adjust Global Limits' 'adjust_global_limits'
+	entry 'Zoom window' 'dm "zoom #dm$button_window"'
+	entry 'Radar Space?' 'toggle_bool "radar-space" "true"'
+	entry 'Popup overlay times window' 'popup overlay'
+	submenu 'Movies' movie-control
+	submenu 'Enter boundaries' 'boundary'
+endmenu
+
+define widget movie-control intmenu 'movie control'
+	title 'Movie control'
+	line
+	entry 'Popup movie controller' 'popup movie'
+	entry 'Run movie' 'movie run'
+	entry 'Stop movie' 'movie stop'
+endmenu
+
+define widget boundary intmenu 'boundaries'
+	title 'Boundary entry'
+	line
+	entry 'Enter scan optimizer boundary' 'polyline l_boundary'
+	entry '      spotlight boundary' 'polyline l_spotlight'
+	entry '      nowcast boundary' 'polyline l_nowcast'
+	entry '       second nowcast boundary' 'polyline l_nowcast_2'
+	entry '       third nowcast boundary' 'polyline l_nowcast_3'
+endmenu
+
+!
+! The Global Adjust Limits submenu
+!
+define widget adjust_global_limits intmenu "Adjust Global Limits"
+	entry 'X Limits' 'i_adjust_global x-limit-proc'
+	entry 'Y Limits' 'i_adjust_global y-limit-proc'
+endmenu
+
+!
+! Toggle between ft and km.
+!
+define widget feet-km intmenu 'feet/km'
+	title 'Feet/Kilometers'
+	line
+	entry 'Ft' 'do-feet-proc true'
+	entry 'Km' 'do-feet-proc false'
+endmenu
+
+procedure do-feet-proc value string
+	parameter #icon_component do-feet #value
+endprocedure
+
+!
+! Middle button for soundings.
+!
+define widget skewt-middle intmenu 'sounding middle'
+	title 'Available soundings'
+	line
+	entry 'Byers, 21:30' 'do_sounding byr 870717,21:30'
+	line
+	entry 'Denver, 21:30' 'do_sounding dvr 870717,21:30'
+	entry 'Denver, 21:35' 'do_sounding dvr 870717,21:35'
+	entry 'Denver, 22:42' 'do_sounding dvr 870717,22:42'
+	line
+	entry 'Elizabeth, 21:33' 'do_sounding elz 870717,21:33'
+	entry 'Elizabeth, 22:47' 'do_sounding elz 870717,22:47'
+	line
+	entry 'Golden, 21:30' 'do_sounding gdn 870717,21:30'
+	entry 'Golden, 22:44' 'do_sounding gdn 870717,22:44'
+	line
+	entry 'Hudson, 22:12' 'do_sounding hud 870717,22:12'
+	entry 'Hudson, 22:40' 'do_sounding hud 870717,22:40'
+	line
+	entry 'Mobile 1, 21:32' 'do_sounding mb1 870717,21:32'
+	entry 'Mobile 1, 22:38' 'do_sounding mb1 870717,22:38'
+	entry 'Mobile 2, 21:32' 'do_sounding mb2 870717,21:32'
+	entry 'Mobile 2, 22:36' 'do_sounding mb2 870717,22:36'
+	entry 'Mobile 3, 21:30' 'do_sounding mb3 870717,21:30'
+endmenu
+
+
+
+procedure do_sounding platform string when string
+	parameter skewt platform #platform
+	parameter global plot-time #when
+endprocedure
+
+
+!
+! Adjustments to range rings.
+!
+define widget rings-menu intmenu 'rings adjustment'
+	title 'Range ring parameters'
+	line
+	entry 'CP2 center' 'parameter #icon_component platform cp2' \
+		(pd_param (icon_component, "platform", "string") = 'cp2')
+	entry 'MHR center' 'parameter #icon_component platform mhr' \
+		(pd_param (icon_component, "platform", "string") = 'mhr')
+	entry 'Ops-Center' 'parameter #icon_component platform ops-ctr' \
+		(pd_param (icon_component, "platform", "string") = 'ops-ctr')
+	line
+	entry '10 km rings' 'parameter #icon_component ring-interval 10' \
+		(pd_param (icon_component, "ring-interval", "string") = '10')
+	entry '20 km rings' 'parameter #icon_component ring-interval 20' \
+		(pd_param (icon_component, "ring-interval", "string") = '20')
+	entry '30 km rings' 'parameter #icon_component ring-interval 30' \
+		(pd_param (icon_component, "ring-interval", "string") = '30')
+	entry '40 km rings' 'parameter #icon_component ring-interval 40' \
+		(pd_param (icon_component, "ring-interval", "string") = '40')
+	line
+	entry '10 degree lines' \
+		'parameter #icon_component azimuth-interval 10' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '10')
+	entry '30 degree lines' \
+		'parameter #icon_component azimuth-interval 30' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '30')
+	entry '45 degree lines' \
+		'parameter #icon_component azimuth-interval 45' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '45')
+	entry '90 degree lines' \
+		'parameter #icon_component azimuth-interval 90' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '90')
+	line
+	submenu 'Line Width' linewidth
+endmenu
+
+
+
+!
+! Adjustments to range rings.
+!
+define widget vor-rings-menu intmenu 'rings adjustment'
+	title 'Range ring parameters'
+	line
+        entry 'Melbourne (MLB) VOR' 'parameter #icon_component platform vor-melbourne' \
+	   (pd_param (icon_component, "platform", "string") = 'vor-melbourne')
+        entry 'Orlando (ORL) VOR' 'parameter #icon_component platform vor-orlando' \
+	   (pd_param (icon_component, "platform", "string") = 'vor-orlando')
+        entry 'Ormond (OMN) VOR' 'parameter #icon_component platform vor-ormond' \
+		(pd_param (icon_component, "platform", "string") ='vor-ormond')
+        entry 'Vero Beach (VRB) VOR' 'parameter #icon_component platform vor-vero' \
+		(pd_param (icon_component, "platform", "string") ='vor-vero')
+	line
+! Ugly.  But easy.
+	entry '5 nm rings' 'parameter #icon_component ring-interval 9.27' \
+	      (pd_param (icon_component, "ring-interval", "string") = '9.27')
+	entry '10 nm rings' 'parameter #icon_component ring-interval 18.54' \
+	      (pd_param (icon_component, "ring-interval", "string") = '18.54')
+        entry '20 nm rings' 'parameter #icon_component ring-interval 37.09' \
+	      (pd_param (icon_component, "ring-interval", "string") = '37.09')
+        entry '30 nm rings' 'parameter #icon_component ring-interval 55.63' \
+	      (pd_param (icon_component, "ring-interval", "string") = '55.63')
+	line
+	entry '10 degree lines' \
+		'parameter #icon_component azimuth-interval 10' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '10')
+	entry '30 degree lines' \
+		'parameter #icon_component azimuth-interval 30' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '30')
+	entry '45 degree lines' \
+		'parameter #icon_component azimuth-interval 45' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '45')
+	entry '90 degree lines' \
+		'parameter #icon_component azimuth-interval 90' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '90')
+	line
+	submenu 'Line Width' linewidth
+endmenu
+
+!
+! A color menu for components with a simple "color" component.
+!
+define widget simple-color intmenu 'simple colors'
+	title 'Change Color'
+	line
+	entry 'white' 'do_simple_color white'
+	entry 'black' 'do_simple_color black'
+	entry 'lavender' 'do_simple_color lavender'
+!	entry 'gray' 'do_simple_color gray60'
+	entry 'blue' 'do_simple_color blue'
+	entry 'cyan' 'do_simple_color cyan'
+	entry 'green' 'do_simple_color green'
+	entry 'khaki' 'do_simple_color khaki'
+	entry 'yellow' 'do_simple_color yellow'
+	entry 'tan' 'do_simple_color tan'
+	entry 'brown' 'do_simple_color brown'
+	entry 'orange' 'do_simple_color orange'
+	entry 'red' 'do_simple_color red'
+	entry 'pink' 'do_simple_color "HotPink"'
+	entry 'violet' 'do_simple_color violet'
+	submenu 'Gray scales' 'simple-gray'
+endmenu
+
+define widget simple-gray intmenu 'Grayscale submenu for simple color'
+	title 'Gray scale colors'
+	line
+	entry '10-Percent' 'do_simple_color gray10'
+	entry '20-Percent' 'do_simple_color gray20'
+	entry '30-Percent' 'do_simple_color gray30'
+	entry '40-Percent' 'do_simple_color gray40'
+	entry '50-Percent' 'do_simple_color gray50'
+	entry '60-Percent' 'do_simple_color gray60'
+	entry '70-Percent' 'do_simple_color gray70'
+	entry '80-Percent' 'do_simple_color gray80'
+	entry '90-Percent' 'do_simple_color gray90'
+endmenu
+
+
+define widget line-contour-options intmenu 'Line Contour Options'
+	title 'Line Contour Options'
+	line
+	submenu 'Contour Color' 'contour-color'
+	line
+	submenu 'Label Blanking' 'label-blanking'
+	line
+	submenu	'Line Width' 'linewidth'
+	line
+	submenu 'Show Annotation' 'annot-onoff'
+	line
+	submenu 'Annotation Size' 'side-annot-scale'
+	line
+	submenu 'Annotation Skip' 'annot-skip'
+endmenu
+
+
+define widget meso-winds-options intmenu 'Line Contour Options'
+	title 'Winds Options'
+	line
+	submenu 'Annotation Size' 'side-annot-scale'
+	line
+	submenu 'Arrow Color' 'simple-color'
+	line
+	submenu	'Line Width' 'linewidth'
+endmenu
+
+define widget meso-station-options intmenu 'Line Contour Options'
+	title 'Winds Options'
+	line
+	submenu 'Annotation Size' 'side-annot-scale'
+	line
+	submenu 'Arrow Color' 'simple-color'
+	line
+	submenu	'Line Width' 'linewidth'
+endmenu
+
+
+define widget annot-skip intmenu 'Annotation Skipping'
+	title 'Annotation Skip'
+	line
+	entry 'On' 'do_annot_skip 2'  
+	entry 'Off' 'do_annot_skip 1'   
+endmenu
+
+define widget annot-onoff intmenu 'Annotation On/Off'
+	title 'Show Annotation'
+	line
+	entry 'On' 'do_side_annot_show true' \
+		(pd_param (icon_component, "sa-show", "string") = "true")
+	entry 'Off' 'do_side_annot_show false' \
+		(pd_param (icon_component, "sa-show", "string") = "false")
+endmenu
+
+define widget label-blanking intmenu 'Contour Label Blanking'
+	title 'Label Blanking'
+	line
+	entry 'On' 'do_blank_label true' \
+		(pd_param (icon_component, "label-blanking", "string") = "true")
+	entry 'Off' 'do_blank_label false' \
+		(pd_param(icon_component, "label-blanking", "string") = "false")
+endmenu
+
+define widget contour-color intmenu 'Contour Color'
+	title 'Select Color'
+	line
+	entry 'white' 'do_contour_color white'
+	entry 'black' 'do_contour_color black'
+	entry 'lavender' 'do_contour_color lavender'
+	entry 'gray' 'do_contour_color gray60'
+	entry 'blue' 'do_contour_color blue'
+	entry 'cyan' 'do_contour_color cyan'
+	entry 'green' 'do_contour_color green'
+	entry 'khaki' 'do_contour_color khaki'
+	entry 'yellow' 'do_contour_color yellow'
+	entry 'tan' 'do_contour_color tan'
+	entry 'brown' 'do_contour_color brown'
+	entry 'orange' 'do_contour_color orange'
+	entry 'red' 'do_contour_color red'
+	entry 'pink' 'do_contour_color "HotPink"'
+	entry 'violet' 'do_contour_color violet'
+	line
+	entry 'Multi-Colored Contours ' 'do_mono_color'
+endmenu
+
+define widget track-color intmenu 'Track Color'
+	title 'Select Color'
+	line
+	submenu 'Track Color' 'simple-color'
+	line
+	entry 'Show Plane?' 'toggle_bool "show-position" "true"'
+	entry 'Color Code by Altitude' 'toggle_color_code' \
+	  (pd_param(icon_component, "field", "string") <> "(Undefined)")
+endmenu
+
+define widget quadrant-color intmenu 'Quadrant Color'
+	title 'Select Color'
+	line
+	entry 'white' 'do_quad_color white'
+	entry 'black' 'do_quad_color black'
+	entry 'lavender' 'do_quad_color lavender'
+	entry 'gray' 'do_quad_color gray60'
+	entry 'blue' 'do_quad_color blue'
+	entry 'cyan' 'do_quad_color cyan'
+	entry 'green' 'do_quad_color green'
+	entry 'khaki' 'do_quad_color khaki'
+	entry 'yellow' 'do_quad_color yellow'
+	entry 'tan' 'do_quad_color tan'
+	entry 'brown' 'do_quad_color brown'
+	entry 'orange' 'do_quad_color orange'
+	entry 'red' 'do_quad_color red'
+	entry 'pink' 'do_quad_color "HotPink"'
+	entry 'violet' 'do_quad_color violet'
+endmenu
+
+define widget air-arrow-options intmenu 'Aircraft Arrow Options'
+	title 'Aircraft Options'
+	line
+	submenu 'Arrow Color' 'arrow-color'
+	line
+	submenu 'Annotation Size' 'side-annot-scale'
+	line
+	submenu 'Annotation Skip' 'annot-skip'
+endmenu
+
+define widget arrow-color intmenu 'Arrow Color'
+	title 'Arrow Color'
+	line
+	entry 'white' 'do_air_color white'
+	entry 'black' 'do_air_color black'
+	entry 'lavender' 'do_air_color lavender'
+	entry 'gray' 'do_air_color gray60'
+	entry 'blue' 'do_air_color blue'
+	entry 'cyan' 'do_air_color cyan'
+	entry 'green' 'do_air_color green'
+	entry 'khaki' 'do_air_color khaki'
+	entry 'yellow' 'do_air_color yellow'
+	entry 'tan' 'do_air_color tan'
+	entry 'brown' 'do_air_color brown'
+	entry 'orange' 'do_air_color orange'
+	entry 'red' 'do_air_color red'
+	entry 'pink' 'do_air_color "HotPink"'
+	entry 'violet' 'do_air_color violet'
+	line
+	entry 'No Arrows' 'remove_air_arrows'
+endmenu
+
+define widget annot-color intmenu 'Annotation colors'
+	title 'Top Annotation'
+	line
+	submenu 'Color' 'top-annot-color'
+	line
+	entry 'Small' 'do_annot_size 0.03'
+	entry 'Medium' 'do_annot_size 0.035'
+	entry 'Large' 'do_annot_size 0.04'	
+	line
+	entry 'Color Match On' 'color_match true'  \
+		(pd_param (icon_component, "ta-color-match", "string") = "true")
+	entry 'Color Match Off' 'color_match false'  \
+		(pd_param(icon_component, "ta-color-match", "string") = "false")
+endmenu
+
+define widget top-annot-color intmenu 'Top annotation color'
+	title 'Top annotation color'
+	line
+	entry 'white' 'do_annot_color white'
+	entry 'black' 'do_annot_color black'
+	entry 'lavender' 'do_air_color lavender'
+	entry 'gray' 'do_annot_color gray60'
+	entry 'blue' 'do_annot_color blue'
+	entry 'cyan' 'do_annot_color cyan'
+	entry 'green' 'do_annot_color green'
+	entry 'khaki' 'do_annot_color khaki'
+	entry 'yellow' 'do_annot_color yellow'
+	entry 'tan' 'do_annot_color tan'
+	entry 'brown' 'do_annot_color brown'
+	entry 'orange' 'do_annot_color orange'
+	entry 'red' 'do_annot_color red'
+	entry 'pink' 'do_annot_color "HotPink"'
+	entry 'violet' 'do_annot_color violet'
+endmenu
+
+
+define widget side-annot-scale intmenu 'Side annotation'
+	title 'Annotation Size'
+	line
+	entry 'Small' 'do_side_annot_size 0.02'
+	entry 'Medium' 'do_side_annot_size 0.03'
+	entry 'Large' 'do_side_annot_size 0.04'
+endmenu
+
+procedure do_grid_toggle value string
+	parameter #icon_component grid #value
+endprocedure
+
+procedure do_blank_label value string
+	parameter #icon_component label-blanking #value
+endprocedure
+
+procedure color_match value string
+	parameter #icon_component ta-color-match #value
+endprocedure
+
+procedure do_side_annot_show show string
+	parameter #icon_component sa-show #show
+endprocedure
+
+procedure do_side_annot_size size string
+	parameter #icon_component sa-scale #size
+endprocedure
+
+procedure do_annot_skip skip string
+	parameter #icon_component ct-limit #skip
+endprocedure
+
+procedure do_annot_size size string
+	parameter #icon_component ta-scale #size
+endprocedure
+
+procedure do_annot_color color string
+	parameter #icon_component ta-color #color
+endprocedure
+
+procedure do_mono_color
+	parameter #icon_component color-mono false
+endprocedure
+
+procedure remove_air_arrows
+	parameter #icon_component arrow false
+endprocedure
+
+procedure do_contour_color color string
+	parameter #icon_component color #color
+	parameter #icon_component color-mono true
+endprocedure
+
+procedure do_air_color color string
+	parameter #icon_component arrow-color #color
+	parameter #icon_component arrow true
+endprocedure
+
+procedure do_simple_color color string
+	parameter #icon_component color #color
+endprocedure
+
+procedure do_quad_color color string
+	parameter #icon_component quad-color #color
+endprocedure
+
+procedure toggle_color_code
+	if ((pd_param(icon_component, "field", "string")) <> "(Undefined)")
+		local worked (pd_removeparam(icon_component, "field"))
+		local color (pd_param(icon_component, "color", "string"))
+		if (color = "(Undefined)")
+			parameter #icon_component color yellow
+		else
+			parameter #icon_component color #color
+		endif
+	else
+		parameter #icon_component field alt
+		parameter #icon_component color-table contour
+	endif
+endprocedure
+
+procedure fldset name string
+	parameter #icon_component field #name
+endprocedure
+
+
+!
+! Remove a component.
+!
+procedure i_remove_component
+	local dm_cmd concat("remove ",ourname)
+	dm concat(concat (dm_cmd, " "), icon_component)
+endprocedure
+
+!
+! Toggle the winds overlay.  For now, we have to ask DM to do it for us,
+! since we don't have this stuff around.
+!
+procedure change_winds
+	if (pd_defined ("winds-mesonet", "u-field"))
+		dm "remove #dm$button_window winds-mesonet"
+	else
+		dm "add winds winds-mesonet #dm$button_window"
+	endif
+endprocedure
+
+!
+! Similar stuff for the aircraft overlay.
+!
+procedure change_aircraft
+	if (pd_defined ("aircraft", "platform"))
+		dm "remove #dm$button_window aircraft"
+	else
+		dm "add kingair aircraft #dm$button_window"
+	endif
+endprocedure
+
+!
+! Toggle radar or GOES field, if they're there
+!
+procedure toggle_main
+        if (pd_defined ("c_radar", "field"))
+                if (pd_param ("c_radar", "field", "string") = "reflectivity")
+                        parameter c_radar field "velocity"
+                else
+                        parameter c_radar field "reflectivity"
+                endif
+        elseif (pd_defined ("c_goes", "field"))
+                if (pd_param ("c_goes", "field", "string") = "vis")
+                        parameter c_goes field "ir"
+                else
+                        parameter c_goes field "vis"
+                endif
+        endif
+endprocedure
+
+procedure toggle_radar 
+	if (pd_param ("c_radar", "field", "string") = "reflectivity")
+		parameter c_radar field "velocity"
+	else
+		parameter c_radar field "reflectivity"
+	endif
+endprocedure
+
+!
+! Toggle between satellite and radar or nowrad.
+!
+procedure toggle_satellite
+	local current (pd_param ("c_goes", "disable", "string"))
+	if (current = "(Undefined)")
+		parameter "c_goes" "disable" "true"
+	elseif (current = "true")
+		parameter "c_goes" "disable" "false"
+	else
+		parameter "c_goes" "disable" "true"
+	endif
+
+	if (pd_defined ("c_radar", "representation"))
+		if (current = "(Undefined)")
+			parameter "c_radar" "disable" "false"
+		elseif (current = "true")
+			parameter "c_radar" "disable" "true"
+		else
+			parameter "c_radar" "disable" "false"
+		endif
+	elseif (pd_defined ("c_nowrad", "representation"))
+		if (current = "(Undefined)")
+			parameter "c_nowrad" "disable" "false"
+		elseif (current = "true")
+			parameter "c_nowrad" "disable" "true"
+		else
+			parameter "c_nowrad" "disable" "false"
+		endif
+	endif
+endprocedure
+
+!
+! Adjust the limits on the global component.
+!
+procedure i_adjust_global procparam string
+	local proc pd_paramsearch(icon_component, procparam, "global", "string")
+	if (proc <> "(Undefined)")
+		#proc 
+	else
+		dm "beep"
+	endif
+endprocedure
+
+!
+! Adjust the limits on a component.
+!
+procedure i_adjust procparam string
+	local rep pd_param(icon_component, "representation", "string")
+	local proc pd_paramsearch(icon_component, procparam, rep, "string")
+	if (proc <> "(Undefined)")
+		#proc #icon_component
+	else
+		dm "beep"
+	endif
+endprocedure
+
+!
+! The pressure minval maxval adjuster.
+!
+procedure adj_pres_minmax comp string
+	local rep pd_param(comp, "representation", "string")
+	local minval pd_paramsearch(comp, "pres-minval", rep, "string")
+	local maxval pd_paramsearch(comp, "pres-maxval", rep, "string")
+	activate doublefloat #comp "pres-minval" "Pressure Minval: " #minval \
+		"pres-maxval" "Pressure Maxval: " #maxval
+endprocedure
+
+!
+! The temperature minval maxval adjuster.
+!
+procedure adj_temp_minmax comp string
+	local rep pd_param(comp, "representation", "string")
+	local minval pd_paramsearch(comp, "temp-minval", rep, "string")
+	local maxval pd_paramsearch(comp, "temp-maxval", rep, "string")
+	activate doublefloat #comp "temp-minval" "Temperature Minval: " \
+		#minval "temp-maxval" "Temperature Maxval: " #maxval
+endprocedure
+
+
+!
+! The time series left center step adjuster.
+!
+procedure adj_left_centstep comp string
+	activate timeseries #comp "left" "center" "Center: "  "step" "Step: " 
+endprocedure
+
+!
+! The time series right center step adjuster.
+!
+procedure adj_right_centstep comp string
+	activate timeseries #comp "right" "center" "Center: "  "step" "Step: " 
+endprocedure
+
+!
+! The time series time interval adjuster.
+!
+procedure adj_time_int comp string
+	local time pd_paramsearch(comp, "time-interval", "tseries", "string")
+	activate singlestring #comp "time-interval" "Time Interval: " #time
+endprocedure
+
+!
+! The lightning location time step adjuster.
+!
+procedure adj_time_step comp string
+	local time pd_paramsearch(comp, "time-step", "lightning", "string")
+	activate singlestring #comp "time-step" "Time Step: " #time
+endprocedure
+
+!
+! The track time period adjuster.
+!
+procedure adj_time_period comp string
+	local time pd_paramsearch(comp, "time-period", "track", "string")
+	activate singlestring #comp "time-period" "Time Period: " #time
+endprocedure
+
+!
+! The time series number of steps adjuster.
+!
+procedure adj_num_step comp string
+	local num pd_paramsearch(comp, "nstep", "tseries", "string")
+	activate singleint #comp "nstep" "Number of Steps: " #num
+endprocedure
+
+!
+! The time series data skip adjuster.
+!
+procedure adj_data_skip comp string
+	local dskip pd_paramsearch(comp, "data-skip", "tseries", "string")
+	activate singleint #comp "data-skip" "Data Skip: " #dskip
+endprocedure
+
+!
+! The highlight range adjuster.
+!
+procedure adj_highlight_range comp string
+	local field pd_param(comp, "field", "string")
+	local repr pd_param(comp, "representation", "string")
+	local high_param concat(field, "-highlight")
+	local highlight pd_paramsearch(comp, high_param, repr, "string")
+	local range_param concat(field, "-highlight-range")
+	local range pd_paramsearch(comp, range_param, repr, "string")
+	activate doublefloat #comp #high_param "Highlight: " #highlight \
+		#range_param "Range: " #range
+endprocedure
+
+!
+! The center step adjuster.
+!
+procedure adj_center_step comp string
+	local field pd_param(comp, "field", "string")
+	local repr pd_param(comp, "representation", "string")
+	local center_param concat(field, "-center")
+	local center pd_paramsearch(comp, center_param, repr, "string")
+	local step_param concat(field, "-step")
+	local step pd_paramsearch(comp, step_param, repr, "string")
+	activate doublefloat #comp #center_param "Center: " #center \
+		#step_param "Step: " #step
+endprocedure
+
+!
+! The filled contour center step adjuster.
+!
+procedure adj_fill_centstep comp string
+	local field pd_param(comp, "field", "string")
+	local center_param concat(field, "-center")
+	local center pd_paramsearch(comp, center_param, "contour", "string")
+	local step_param concat(field, "-step")
+	local step pd_paramsearch(comp, step_param, "contour", "string")
+	activate doublefloat #comp #center_param "Center: " #center \
+		#step_param "Step: " #step
+endprocedure
+
+!
+! The x min max adjuster.
+!
+procedure adj_x_minmax 
+	local xmin pd_paramsearch("global", "x-min", "", "string")
+	local xmax pd_paramsearch("global", "x-max", "", "string")
+	activate doublefloat "global" "x-min" "X Min: " #xmin \
+		"x-max" "X Max: " #xmax
+endprocedure
+
+!
+! The y min max adjuster.
+!
+procedure adj_y_minmax 
+	local ymin pd_paramsearch("global", "y-min", "", "string")
+	local ymax pd_paramsearch("global", "y-max", "", "string")
+	activate doublefloat "global" "y-min" "Y Min: " #ymin \
+		"y-max" "Y Max: " #ymax
+endprocedure
+
+!
+! The line contour center step adjuster.
+!
+procedure adj_line_centstep comp string
+	local field pd_param(comp, "field", "string")
+	local center_param concat(field, "-center")
+	local center pd_paramsearch(comp, center_param, "contour", "string")
+	local step concat(field, "-step")
+	local step pd_paramsearch(comp, step_param, "contour", "string")
+	activate doublefloat #comp #center_param "Center: " #center \
+		#step_param "Step: " #step
+endprocedure
+
+!
+! The arrow scale adjuster.
+!
+procedure adj_arrow_scale comp string
+	local current pd_param(icon_component, "arrow-scale", "string")
+	activate singlefloat #comp 'arrow-scale' "Arrow Scale: " #current
+endprocedure
+
+!
+! Time series right button.
+!
+
+define widget tseries-right intmenu 'TSeries Right'
+	title 'Time Series Options'
+	line
+	submenu 'Axis Color' 'tseries-color'
+	line
+	submenu 'Flip Time' 'tseries-flip'
+	line
+	submenu 'Annotation Size' 'side-annot-scale'
+endmenu
+
+define widget tseries-flip intmenu 'TSeries Flip Time'
+	title 'Flip Time'
+	line
+	entry 'On' 'do_flip_time true' \
+		(pd_param (icon_component, "flip-time", "string") = "true")
+	entry 'Off' 'do_flip_time false' \
+		(pd_param (icon_component, "flip-time", "string") = "false")
+endmenu
+
+define widget tseries-color intmenu 'TSeries Axis Color'
+	title 'Axis Color'
+	line
+	entry 'white' 'do_axis_color white'
+	entry 'black' 'do_axis_color black'
+	entry 'lavender' 'do_axis_color lavender'
+	entry 'gray' 'do_axis_color gray60'
+	entry 'blue' 'do_axis_color blue'
+	entry 'cyan' 'do_axis_color cyan'
+	entry 'green' 'do_axis_color green'
+	entry 'khaki' 'do_axis_color khaki'
+	entry 'yellow' 'do_axis_color yellow'
+	entry 'tan' 'do_axis_color tan'
+	entry 'brown' 'do_axis_color brown'
+	entry 'orange' 'do_axis_color orange'
+	entry 'red' 'do_axis_color red'
+	entry 'pink' 'do_axis_color "HotPink"'
+	entry 'violet' 'do_axis_color violet'
+endmenu
+
+procedure do_axis_color value string
+	parameter #icon_component axis-color #value
+endprocedure
+
+procedure do_flip_time value string
+	parameter #icon_component flip-time #value
+endprocedure
+
+define widget capow-bdry-plat intmenu 'CaPOW Boundary Platforms'
+	title 'Select Platforms'
+	line
+	entry 'Boundaries' 'activate stationwidget #icon_component capow_bdry'
+endmenu
+
+define widget capow-core-plat intmenu 'CaPOW Cores Platforms'
+	title 'Select Platforms'
+	line
+	entry 'Cores' 'activate stationwidget #icon_component capow_core'
+endmenu
+
+define widget capow-now-plat intmenu 'CaPOW Nowcast Platforms'
+	title 'Select Platforms'
+	line
+	entry 'Nowcasts' 'activate stationwidget #icon_component capow_now'
+endmenu
+
+
+!
+! A bunch of stuff for dealing with time series platforms and fields.
+!
+define widget tseries-middle intmenu 'TSeries Platforms/Fields'
+	title 'Time Series Options'
+	line
+	submenu 'Select Fields' 'tseries-fields'
+	line
+	submenu 'Select Platforms' 'tseries-plat'
+endmenu
+
+define widget tseries-plat intmenu 'TSeries Platforms'
+	title 'Select Platforms'
+	line
+	submenu 'Aircraft' 'tseries-aircraft'
+	line
+	entry 'Mesonet' 'activate stationwidget #icon_component mesonet'
+endmenu
+
+define widget tseries-aircraft intmenu 'TSeries Aircraft'
+	title 'Select Aircraft'
+	line
+	entry 'N312D_GEN (Storm 1)' 'toggle_plat n312d_gen' \
+	(substring(pd_param(icon_component, "platform", "string"),"n312d_gen"))
+endmenu
+
+
+define widget tseries-fields intmenu 'TSeries Fields'
+	title 'Select Fields'
+	line
+	entry 'Temperature' 'toggle_field tdry' \
+	   (substring(pd_param(icon_component, "field", "string"),"tdry"))
+	entry 'Dewpoint Temperature' 'toggle_field dp' \
+	   (substring(pd_param(icon_component, "field", "string"),"dp"))
+	entry 'Relative Humidity' 'toggle_field rh' \
+	   (substring(pd_param(icon_component, "field", "string"),"rh"))
+	entry 'Raw Pressure' 'toggle_field pres' \
+	   (substring(pd_param(icon_component, "field", "string"),"pres"))
+	entry 'Corrected Pressure' 'toggle_field cpres0' \
+	   (substring(pd_param(icon_component, "field", "string"),"cpres0"))
+	entry 'Mixing Ratio' 'toggle_field mr' \
+	   (substring(pd_param(icon_component,"field","string"),"mr"))
+	entry 'Potential Temperature' 'toggle_field pt' \
+	   (substring(pd_param(icon_component, "field", "string"),"pt"))
+	entry 'Equivalent Potential Temperature' 'toggle_field ept'\
+	   (substring(pd_param(icon_component,"field","string"),"ept"))
+	entry '15-Minute Rain Accumulation' 'toggle_field raina15'\
+	   (substring(pd_param(icon_component,"field","string"),"raina15"))
+	entry '60-Minute Rain Accumulation' 'toggle_field raina60'\
+	   (substring(pd_param(icon_component,"field","string"),"raina60"))
+	entry 'Aircraft Pressure Altitude' 'toggle_field palt'\
+	   (substring(pd_param(icon_component,"field","string"),"palt"))
+	entry 'Aircraft Vertical Velocity' 'toggle_field w_wind'\
+	   (substring(pd_param(icon_component,"field","string"),"w_wind"))
+	entry 'Wind Speed' 'toggle_field wspd'\
+	   (substring(pd_param(icon_component,"field","string"),"wspd"))
+	entry 'Wind Direction' 'toggle_field wdir'\
+	   (substring(pd_param(icon_component,"field","string"),"wdir"))
+endmenu
+!
+! Toggle the presence of a given platform.
+!
+procedure toggle_plat platform string
+	local oldplat (pd_param (icon_component, "platform", "string"))
+!
+! See if it's already there.  If so, we remove.
+!
+	if (substring (oldplat, platform))
+		local newplat substr_remove(oldplat, platform)
+
+! Otherwise we just add it.  If there is a maximum number of platforms,
+! though, we have to enforce it.
+!
+	else
+	    local newplat (concat(oldplat, concat (",",platform)))
+	    local max pd_param(icon_component,"max-platform","string")
+	    if (max <> "(Undefined)")
+	    	local imax pd_param(icon_component,"max-platform","integer")
+		if (n_occur (newplat, ",") >= imax)
+			dm "beep"
+			return
+		endif
+	    endif
+	endif
+!
+! Store the thing.
+!
+	param #icon_component platform #newplat
+endprocedure
+
+
+!
+! Toggle the presence of a given field.
+!
+procedure toggle_field field string
+	local oldfld (pd_param (icon_component, "field", "string"))
+!
+! See if it's already there.  If so, we remove.
+!
+	if (substring (oldfld, field))
+		local newfld substr_remove(oldfld, field)
+!
+! Otherwise we just add it.  If there is a maximum number of fields,
+! though, we have to enforce it.
+!
+	else
+	    local newfld (concat(oldfld, concat (",",field)))
+	    local max pd_param(icon_component,"max-field","string")
+	    if (max <> "(Undefined)")
+	    	local imax pd_param(icon_component,"max-field","integer")
+		if (n_occur (newfld, ",") >= imax)
+			dm "beep"
+			return
+		endif
+	    endif
+	endif
+!
+! Store the thing.
+!
+	param #icon_component field #newfld
+endprocedure
+
+!
+! Toggle the presence of a given field for quadrants.
+!
+procedure toggle_quad field string
+	local oldfld (pd_param (icon_component, "quadrants", "string"))
+!
+! See if it's already there.  If so, we remove.
+!
+	if (substring (oldfld, field))
+		local newfld substr_remove(oldfld, field)
+!
+! Otherwise we just add it.  If there is a maximum number of fields,
+! though, we have to enforce it.
+!
+	else
+	    if (oldfld <> "(Undefined)")
+	        local newfld (concat(oldfld, concat (",",field)))
+	    else
+		local newfld field
+	    endif
+	    local max pd_param(icon_component,"max-field","string")
+	    if (max <> "(Undefined)")
+	    	local imax pd_param(icon_component,"max-field","integer")
+		if (n_occur (newfld, ",") >= imax)
+			dm "beep"
+			return
+		endif
+	    endif
+	endif
+!
+! Store the thing.
+!
+	if (strlength (newfld) = 0)
+		local worked (pd_removeparam (icon_component, "quadrants"))
+	else
+		param #icon_component quadrants #newfld
+	endif
+endprocedure
+
+
+!
+! A bunch of stuff for dealing with cross section platforms.
+!
+define widget xsect-plat intmenu "Cross section platforms"
+	title 'Soundings Used'
+	line
+	entry 'Daytona' 'toggle_xsp day' \
+	   (substring(pd_param(icon_component, "platform", "string"),"day"))
+	entry 'Deerpark' 'toggle_xsp dpk' \
+	   (substring(pd_param(icon_component, "platform", "string"),"dpk"))
+	entry 'Dunellan' 'toggle_xsp dun' \
+	   (substring(pd_param(icon_component, "platform", "string"),"dun"))
+	entry 'Fellsmere' 'toggle_xsp fel' \
+	   (substring(pd_param(icon_component, "platform", "string"),"fel"))
+	entry 'Ruskin' 'toggle_xsp rus' \
+	   (substring(pd_param(icon_component, "platform", "string"),"rus"))
+	entry 'Tico' 'toggle_xsp tco' \
+	   (substring(pd_param(icon_component, "platform", "string"),"tco"))
+	entry 'Mobile' 'toggle_xsp mobile' \
+	   (substring(pd_param(icon_component, "platform", "string"),"mobile"))
+endmenu
+
+!
+! Basic boolean toggle.
+!
+procedure toggle_bool param string default string
+	local current (pd_param (icon_component, param, "string"))
+	if (current = "(Undefined)")
+		parameter #icon_component #param #default
+	elseif (current = "true")
+		parameter #icon_component #param "false"
+	else
+		parameter #icon_component #param "true"
+	endif
+endprocedure
+
+
+!
+! Toggle the presence of a given sounding.
+!
+procedure toggle_xsp platform string
+	local oldplat (pd_param (icon_component, "platform", "string"))
+!
+! See if it's already there.  If so, we remove it.
+!
+	if (substring (oldplat, platform))
+		local newplat substr_remove(oldplat, platform)
+!
+! Otherwise we just add it.  If there is a maximum number of platforms,
+! though, we have to enforce it.
+!
+	else
+	    local newplat (concat(oldplat, concat (",",platform)))
+	    local max pd_param(icon_component,"max-platform","string")
+	    if (max <> "(Undefined)")
+	    	local imax pd_param(icon_component,"max-platform","integer")
+		if (n_occur (newplat, ",") >= imax)
+			dm "beep"
+			return
+		endif
+	    endif
+	endif
+!
+! Store the thing.
+!
+	param #icon_component platform #newplat
+endprocedure
+
+
+!
+! Form widget for entering location.
+!
+define widget enter-loc form 'Enter Location'
+	noheader
+	popup enter-loc-init
+	pulldown format 'Format' menu 'loc-format'
+	label orglabel 'Origin: '
+	blank text-origin 'cp2' width 75 font -*-helvetica-bold-r-*-*-14-140-*-*-*-*-*-*
+	newline
+	label lat-x 'Latitude'
+	blank text-lat-x '0.0' width 75 font -*-helvetica-bold-r-*-*-14-140-*-*-*-*-*-*
+	newline
+	label lon-y 'Longitude'
+	blank text-lon-y '0.0' width 75 font -*-helvetica-bold-r-*-*-14-140-*-*-*-*-*-*
+	newline
+	label alt 'Altitude'
+	blank text-alt '0.0' width 75 font -*-helvetica-bold-r-*-*-14-140-*-*-*-*-*-*
+	newline
+	button done 'Done' command 'enter-loc-done'
+enddef
+
+!
+! Done with entering locations.
+!
+procedure enter-loc-done
+	set locorigin getftext(ui$form, 'text-origin')
+	set loclatx getftext(ui$form, 'text-lat-x')
+	set loclony getftext(ui$form, 'text-lon-y')
+	set localt getftext(ui$form, 'text-alt')
+	popdown #ui$form
+endprocedure
+
+!
+! enter-loc initialization procedure
+!
+procedure enter-loc-init
+	set locformat "latlon"
+	set locorigin "cp2"
+endprocedure
+
+!
+! Format selection menu for entering locations
+!
+define widget loc-format intmenu 'Location Formats'
+	title 'Select a Format'
+	line
+	entry 'Latitude,Longitude' 'save_format "latlon"'
+	entry 'X,Y in Km'       'save_format "km"'
+	entry 'X,Y in Nm'       'save_format "nm"'
+endmenu
+
+!
+! Set enter-loc widget labels to desired format.
+!
+procedure save_format format string
+	if (format = "latlon")
+		formtext #ui$form lat-x 'Latitude'
+		formtext #ui$form lon-y 'Longitude'
+		set locformat format
+	elseif (format = "km")
+		formtext #ui$form lat-x 'X (km)'
+		formtext #ui$form lon-y 'Y (km)'
+		set locformat format
+	elseif (format = "nm")
+		formtext #ui$form lat-x 'X (nm)'
+		formtext #ui$form lon-y 'Y (nm)'
+		set locformat format
+	else
+		dm "beep"
+		set locformat "none"
+	endif
+endprocedure
+
+!
+! Get our field definitions.
+!
+set DefFile (concat (concat (c$libdir, "/"), "FieldDefs"))
+read #DefFile

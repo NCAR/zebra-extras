@@ -1,0 +1,59 @@
+#!/bin/csh
+#
+# Data store processes.
+#
+	cd /zeb/raps
+	echo -n 'Starting the event logger...'
+	setenv ZEB_LOGFILE /zeb/raps/zeb.logfile
+	EventLogger &
+	sleep 1
+#
+# Other basic utilities needed by the system.
+#
+	echo -n 'Starting the timer...'
+	timer &
+	echo -n '...and the data store daemon...'
+	dsDaemon /zeb/raps/ds.config &
+	sleep 5
+	dsdump mesonet >/dev/null
+#
+# Wait long enough for the data store to be running, and fire up the
+# internet data transfer stuff.
+#
+	echo -n '...and the network data grabber.'
+	NetXfr nx.config &
+#
+# Ingest modules.
+#
+	echo -n '...data ingest modules: '
+	ingest_pam &
+	goes_realtime &
+	profs_realtime &
+	class_realtime &
+	pdbstart
+	ds_ingest trec ds.trec.params &
+	ds_ingest mhr ds.mhr.params &
+	echo -n '...and the data archiver...'
+	nice +15 Archiver -z no -time 30 -start 20 >& ../etc/Archiver.log &
+#
+# Nowcast exporting.
+#
+#	echo -n 'Nowcast exporting...'
+#	export_nowcasts &
+#
+# The sound system.
+#
+#	echo -n '...and the sound generator...'
+#	Sound &
+#
+# Widgets.
+#
+	echo -n '...and assorted widgets...'
+	LastData /zeb/raps/LastData.config &
+	sleep 1
+#	zmon /zeb/raps/zmon.config &
+	sleep 1
+#
+# Now get a display going.
+#
+	dm dm.config

@@ -1,0 +1,38 @@
+#!/bin/csh
+# 
+# Start up the Zeb system.
+#
+# Do everything possible to insure that we start clean.
+#
+	setenv XAPPLRESDIR /zeb/lib/resources
+	setenv PATH ${PATH}:/zeb/bin
+	setenv HOST `hostname`
+	zebstop
+	rm -f /tmp/fcc.socket
+	sleep 1; set nonomatch; rm -f /zeb/tmp/*
+#
+# Fill the color map with something other than black
+#
+	tweakcolor yellow
+#
+# The message system.  Nothing else runs without it.
+#
+	echo -n 'Starting MESSAGE...'
+	setenv HOST `hostname`
+	message & 
+	sleep 1
+#
+# Wait until message is truly ready.  
+#
+	mstatus > /dev/null
+#
+# If there was a command line parameter, we try to run that script
+# as well.
+#
+if ( $#argv > 0 ) then
+	if ( -e startup/$1 ) then
+		startup/$1
+	else
+		echo "Startup file startup/$1 missing"
+	endif
+endif

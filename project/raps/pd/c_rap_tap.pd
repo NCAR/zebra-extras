@@ -1,0 +1,19 @@
+global
+	pd-name:	c_rap_tap
+c_rap_tap
+	representation:	overlay
+	platform:	rap_tap.1,rap_tap.2,rap_tap.3,rap_tap.4,rap_tap.5,rap_tap.6,rap_tap.7,rap_tap.8,rap_tap.9,rap_tap.10,rap_tap.11,rap_tap.12,rap_tap.13,rap_tap.14,rap_tap.15
+	field:		boundary
+	color:		violet
+	num-stations:	15
+	age-limit:	35m
+	base-platform:	rap_tap
+	line-width:	2
+	icon-middle-menu:	rap_pdb-middle
+	icon-right-menu:	bdry-right
+	closed-boundary:	false
+	trigger-global:	true
+	trigger:	rap_tap
+	icon:		rap_tap
+	label-size:	0.020
+	show-icon:	false

@@ -1,0 +1,19 @@
+global
+	pd-name:	c_rap_ccs
+c_rap_ccs
+	representation:	overlay
+	platform:	rap_ccs.1,rap_ccs.2,rap_ccs.3,rap_ccs.4,rap_ccs.5,rap_ccs.6,rap_ccs.7,rap_ccs.8,rap_ccs.9,rap_ccs.10,rap_ccs.11,rap_ccs.12,rap_ccs.13,rap_ccs.14,rap_ccs.15
+	field:		boundary
+	color:		violet
+	num-stations:	15
+	age-limit:	35m
+	base-platform:	rap_ccs
+	line-width:	2
+	icon-middle-menu:	rap_pdb-middle
+	icon-right-menu:	bdry-right
+	closed-boundary:	false
+	trigger-global:	true
+	trigger:	rap_ccs
+	icon:		rap_ccs
+	label-size:	0.020
+	show-icon:	false

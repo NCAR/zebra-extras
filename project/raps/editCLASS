@@ -1,0 +1,9 @@
+	set fname getenv("CLASSFILE")
+	file #fname class c
+	threshold pres on qpres > 1.5 and qpres <> 77 and qpres <> 88
+	threshold wspd on qwind > 2.0 and qwind <> 77 and qwind <> 88
+	threshold wdir on wspd bad
+	threshold u_wind on wspd bad
+	threshold v_wind on wspd bad
+	set editfname concat(fname,".edit")
+	write #editfname

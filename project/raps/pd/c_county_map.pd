@@ -1,0 +1,11 @@
+GLOBAL
+	pd-name:	c_county_map
+	comment:	Generic map overlay
+c_county_map
+	platform:	raps_county
+	representation:	overlay
+	field:		map
+	color:		gray60
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	icon:		map

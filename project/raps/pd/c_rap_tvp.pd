@@ -1,0 +1,19 @@
+global
+	pd-name:	c_rap_tvp
+c_rap_tvp
+	representation:	overlay
+	platform:	rap_tvp.1,rap_tvp.2,rap_tvp.3,rap_tvp.4,rap_tvp.5,rap_tvp.6,rap_tvp.7,rap_tvp.8,rap_tvp.9,rap_tvp.10,rap_tvp.11,rap_tvp.12,rap_tvp.13,rap_tvp.14,rap_tvp.15
+	field:		boundary
+	color:		violet
+	num-stations:	15
+	age-limit:	35m
+	base-platform:	rap_tvp
+	line-width:	2
+	icon-middle-menu:	rap_pdb-middle
+	icon-right-menu:	bdry-right
+	closed-boundary:	false
+	trigger-global:	true
+	trigger:	rap_tvp
+	icon:		rap_tvp
+	label-size:	0.020
+	show-icon:	false

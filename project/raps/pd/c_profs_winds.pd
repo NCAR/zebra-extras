@@ -1,0 +1,15 @@
+GLOBAL
+	pd-name:	c_profs_winds
+	pd-comment:	Generic profs winds overlay
+c_profs_winds
+	platform:	profs
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.01
+	color:		red
+	icon-right-menu:	meso-winds-options
+	icon:		meso_winds_profs
+	limit-proc:	adj_arrow_scale
+	trigger-global:	true
+	trigger:	profs

@@ -1,0 +1,34 @@
+GLOBAL
+	comment:	Display gridded radar data.
+	pd-name:	c_radar_grid
+	plot-mode:	real-time
+	plot-type:	CAP
+!	altitude:	2000
+!	raster-velocity-center:	0.0
+!	raster-velocity-step:	5.0
+!	radar-space:	false
+!	time-frames:	2
+!	altitude:	-1
+!	x-min:		-150
+!	x-max:		150
+!	y-min:		-150
+!	y-max:		150
+c_radar_grid
+	platform:	mhr_grid
+	field:		reflectivity
+	representation:	contour
+	reflectivity-step:	10
+	reflectivity-center:	30
+	color-table:	Rainbow
+	every-sweep:	true
+	icon-middle-menu:	radar-middle
+	trigger-global:	true
+	trigger:	mhr_grid
+	icon-right-menu:	DataAvailable
+	menu-platform:	radar_grid
+
+
+
+
+
+

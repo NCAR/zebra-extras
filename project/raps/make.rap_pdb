@@ -1,0 +1,106 @@
+#!/bin/sh
+
+# Create all of the platforms and subplatforms for all of the RAP's
+# PDBS products in a single file that may be included in ds.config
+
+#!
+#! Nowcasts.
+#!
+#platform nowcast
+#	organization	outline
+#	filetype	zeb
+#	maxsamples	10
+#endplatform
+#
+#platform nowcast.1
+#	organization	outline
+#	filetype	zeb
+#	maxsamples	10
+#	directory	/data/raps/nowcast/nowcast.1
+#endplatform
+#
+# First we need one without a number for all the products we'll be ingesting
+# Then for each of those products we need 30 of the .<n> subplatforms
+# Likewise we need to make sure all of the required directories exist
+
+# I have taken out those products that the server is currently not sending
+# to avoid the "Out of Datafile entries" error
+#
+all_products="tvs tvp hal csh ccs act acs"
+all_products="$all_products hgb hgc hgn exb exc hbx hbc cbx cbc hbn hcn"
+all_products="$all_products cbn ccn str stp stf"
+
+#set cards="1 2 3 4 5 6 7 8 9 10"
+#set cards="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20"
+cards="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15"
+
+for p in $all_products; do
+	echo ''
+	echo platform rap_$p
+	echo "	organization	outline"
+	echo "	filetype	zeb"
+	echo "	maxsamples	1000"
+	echo "	directory	/data/raps/rap_pdb/$p"
+	echo "endplatform"
+	echo ""
+
+	mkdir /data/raps/rap_pdb/$p 2> /dev/null
+
+	for n in $cards; do
+		echo ''
+		echo platform rap_$p.$n
+		echo "	organization	outline"
+		echo "	filetype	zeb"
+		echo "	maxsamples	1000"
+		echo "	directory	/data/raps/rap_pdb/$p/$p.$n"
+		echo "endplatform"
+
+		mkdir /data/raps/rap_pdb/$p/$p.$n 2> /dev/null
+
+ 	done
+	echo ""
+done
+
+# NOT USED:::
+# We're also going to add one platform which will serve exclusively
+# as  a trigger for the plot descriptions.  Just send one point at
+# time 0 to this platform when new products have been sent to the
+# datastore.
+#
+# Since it only holds a single point for every trigger, we can put
+# ALOT of samples in a single file
+#
+#echo ""
+#echo platform rap_trigger
+#echo "	organization	outline"
+#echo "	filetype	zeb"
+#echo "	maxsamples	1000"
+#echo "	directory	/data/raps/rap_pdb"
+#echo "endplatform"
+#echo ""
+#
+#
+# That should do it.  Just need to pipe this script to a file (ds.rap_pdb) 
+# and read the file into ds.config
+#
+# Need to define a procedure to truncate data from all of these platforms
+# after one day...
+# The variables HOUR, MINUTE, and DAY are assumed to already be set
+# when this procedure is called
+#
+echo "procedure RapProductsTruncate fraction real"
+
+for p in $all_products; do
+	echo "	truncate fraction*1*DAY \"rap_$p\""
+
+	for n in $cards; do
+		echo "	truncate fraction*1*DAY \"rap_$p.$n\""
+ 	done
+	echo ""
+done
+
+echo "endprocedure"
+
+
+
+

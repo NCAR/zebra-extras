@@ -1,0 +1,11 @@
+#! /bin/csh
+#
+# The invocation of the PAM ingest module.  Here we define the fields we
+# want and such.
+#
+pam_ingest mesonet raps92 \
+	tdry 	twet	hum2/rh	hum2mr/mr	hum2dp/dp	hum2pt/pt \
+	hum2ept/ept	pres \
+	cpres0	wspd	wdir	wmax	u_wind	v_wind	raina15 raina60 \
+	rainr15 >/zeb/tmp/pam_ingest.log &
+

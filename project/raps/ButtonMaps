@@ -1,0 +1,151 @@
+!
+! The file for display manager button maps.
+!
+!
+!
+
+!
+! Basic, vanilla stuff.
+!
+buttonmap basic
+	local	mb-left 'drawbox pushcoord'
+	local	m	'popup movie'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	b	'popcoords'
+	local	h	'help'
+endmap
+
+!
+! Buttons for radar type windows, with radar toggling, xsect control, and
+! so on.
+!
+buttonmap radar
+	local	mb-left 'drawbox pushcoord'
+	local	mb-middle 'drawline sendendpoints'
+	local	mb-right 'toggle_radar'
+	local	F1 	'toggle_radar'
+	local	b	'popcoords'
+	local	g	'popup position'
+	local	i	'popup insert'
+	local	m	'popup movie'
+	local	p	'polyline spotlight'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	t	'popup overlay'
+	local	F29	'altstep 99'
+	local	F35	'altstep -99'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	u	'altstep 1'
+	local	d	'altstep -1'
+	local	h	'help'
+endmap
+
+
+
+buttonmap test
+	local	mb-left 'drawbox pushcoord'
+	local	m	'popup movie'
+	local	F29	'altstep 99'
+	local	F35	'altstep -99'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	u	'altstep 1'
+	local	d	'altstep -1'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	b	'popcoords'
+	local	p	'polyline cp3'
+	local	h	'help'
+	local	i	'popup insert'
+endmap
+
+
+buttonmap big
+	local	mb-s-left 'drawbox pushcoord'
+	local	mb-left	'getposition'
+!	local	mb-middle 'drawline sendendpoints'
+	local	mb-middle 'toggle_main'
+	local	F1 	'toggle_main'
+!	local	a	'popup acwidget'
+	local	b	'popcoords'
+	local	f	'toggle_satellite'
+	local	g	'popup position'
+	local	i	'popup insert'
+	local	m	'popup movie'
+	local	p	'polyline spotlight'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	t	'popup overlay'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	u	'altstep 1'
+	local	d	'altstep -1'
+	local	Left	'DoZoom -50 150 -100 100'
+	local	F31	'toggle_radar'
+	local	Right	'DoZoom -150 150 -100 100'
+	local	F29	'altstep 99'
+	local	F35	'altstep -99'
+	local 	h	'help'
+	local	l	'popup LineWidth'
+	local	F1	'parameter global altitude 0.5'
+	local	F2	'parameter global altitude 1.2'
+	local	F3	'parameter global altitude 2.5'
+	local	F4	'parameter global altitude 4.0'
+	local	F5	'parameter global altitude 5.5'
+	local	F6	'parameter global altitude 7.0'
+	local	F7	'parameter global altitude 8.5'
+	local	F8	'parameter global altitude 10.0'
+	local	F9	'parameter global altitude 13.0'
+	local	F10	'parameter global altitude 17.0'
+	local	F11	'parameter global altitude 22.0'
+endmap
+
+
+buttonmap optimizer
+	local	mb-s-left 'drawbox pushcoord'
+	local	mb-middle 'drawline sendendpoints'
+	local	mb-right 'toggle_radar'
+	local	F1 	'toggle_radar'
+!	local	a	'popup acwidget'
+	local	b	'popcoords'
+	local	i	'popup insert'
+	local	m	'popup movie'
+	local	p	'polyline boundary'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	t	'popup overlay'
+	local	F29	'altstep 99'
+	local	F35	'altstep -99'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	u	'altstep 1'
+	local	d	'altstep -1'
+	local	Left	'DoZoom -50 150 -100 100'
+	local	F31	'toggle_radar'
+	local	Right	'DoZoom -150 150 -100 100'
+	local	h	'help'
+endmap
+
+
+buttonmap sounding
+	local	mb-left 'drawbox pushcoord'
+	local	b	'popcoords'
+	local	m	'popup movie'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	u	'altstep 1'
+	local	d	'altstep -1'
+	local	r	'movie run'
+	local	s	'movie stop'
+	dm	c	'toggle_snd'
+	local	h	'help'
+endmap
+
+buttonmap aircraft
+!	menu mb-left 'airfield'
+	local	m	'popup movie'
+	local	h	'help'
+endmap
+

@@ -1,0 +1,12 @@
+GLOBAL
+	pd-name:	c_vor
+	comment:	Generic range rings overlay
+c_vor
+	platform:	vor-mkc
+	representation:	overlay
+	field:		range-rings
+	color:		white
+	icon-middle-menu:	simple-color
+	icon-right-menu:	vor-rings-menu
+	ring-interval:	18.54
+	azimuth-interval:	30

@@ -1,0 +1,23 @@
+#!/bin/csh
+#
+# Data store processes.
+#
+	cd /zeb/raps
+	echo -n 'Starting the event logger...'
+	setenv ZEB_LOGFILE /zeb/raps/zeb.logfile
+	EventLogger &
+	sleep 1
+#
+# Other basic utilities needed by the system.
+#
+	echo -n 'Starting the timer...'
+	timer &
+	echo -n '...and the data store daemon...'
+	setenv INHIBIT_CLEANUP
+	dsDaemon /zeb/raps/ds.config &
+	sleep 5
+	dsdump mesonet >/dev/null
+#
+# Now get a display going.
+#
+	dm dm.config

@@ -1,0 +1,58 @@
+global
+	altitude:	7.00
+	altitude-label:	Elev: 7.0 deg
+	comment:	Display MHR data.
+	frame-rate:	5
+	frame-skip:	6
+	movie-end-time:	now
+	movie-minutes:	30
+	movie-mode:	False
+	pd-name:	radar_sat_paper-radar
+	plot-mode:	history
+	plot-time:	5-Sep-90,22:38:00
+	plot-type:	CAP
+	radar-space:	true
+	time-frames:	2
+	trigger:	mhr
+	x-max:	72
+	x-min:	-45.
+	y-max:	-65
+	y-min:	75
+c_radar
+	color-table:	16gray
+	disable:	false
+	every-sweep:	false
+	field:	reflectivity
+	icon:	mhr
+	icon-middle-menu:	radar-middle
+	icon-right-menu:	DataAvailable
+	platform:	mhr
+	reflectivity-center:	5.0
+	reflectivity-step:	8
+	representation:	raster
+c_rings
+	azimuth-interval:	45
+	color:	white
+	field:	range-rings
+	icon:	rings
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-menu
+	platform:	mhr
+	representation:	overlay
+	ring-interval:	20
+c_nowcast
+	age-limit:	20m
+	closed-boundary:	false
+	color:	white
+	field:	boundary
+	icon:	nowcast
+	icon-middle-menu:	bdry-middle
+	icon-right-menu:	bdry-right
+	label:	none
+	line-width:	2
+	num-stations:	10
+	platform:	nowcast.1,nowcast.2,nowcast.3,nowcast.4,nowcast.5,nowcast.6,nowcast.7,nowcast.8,nowcast.9,nowcast.10,
+	position-icon:	small-now
+	representation:	overlay
+	trigger:	nowcast.1
+	trigger-global:	true

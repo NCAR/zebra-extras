@@ -1,0 +1,19 @@
+global
+	pd-name:	c_rap_mbc
+c_rap_mbc
+	representation:	overlay
+	platform:	rap_mbc.1,rap_mbc.2,rap_mbc.3,rap_mbc.4,rap_mbc.5,rap_mbc.6,rap_mbc.7,rap_mbc.8,rap_mbc.9,rap_mbc.10,rap_mbc.11,rap_mbc.12,rap_mbc.13,rap_mbc.14,rap_mbc.15
+	field:		boundary
+	color:		violet
+	num-stations:	15
+	age-limit:	35m
+	base-platform:	rap_mbc
+	line-width:	2
+	icon-middle-menu:	rap_pdb-middle
+	icon-right-menu:	bdry-right
+	closed-boundary:	false
+	trigger-global:	true
+	trigger:	rap_mbc
+	icon:		rap_mbc
+	label-size:	0.020
+	show-icon:	false

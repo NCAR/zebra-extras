@@ -1,0 +1,12 @@
+!
+! Parameters to ingest Dual Doppler data from RAP's data server.
+!
+set host 'frost.rap.ucar.edu'
+set port 65014
+set platform 'ddop'
+set frequency 360
+field 'u_wind' 0
+field 'v_wind' 1
+set levels 5
+set firstlevel 1
+set levelspacing .5

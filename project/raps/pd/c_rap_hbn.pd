@@ -1,0 +1,19 @@
+global
+	pd-name:	c_rap_hbn
+c_rap_hbn
+	representation:	overlay
+	platform:	rap_hbn.1,rap_hbn.2,rap_hbn.3,rap_hbn.4,rap_hbn.5,rap_hbn.6,rap_hbn.7,rap_hbn.8,rap_hbn.9,rap_hbn.10,rap_hbn.11,rap_hbn.12,rap_hbn.13,rap_hbn.14,rap_hbn.15
+	field:		boundary
+	color:		gray70
+	num-stations:	15
+	age-limit:	35m
+	base-platform:	rap_hbn
+	line-width:	2
+	icon-middle-menu:	rap_pdb-middle
+	icon-right-menu:	bdry-right
+	closed-boundary:	true
+	trigger-global:	true
+	trigger:	rap_hbn
+	icon:		rap_hbn
+	label-size:	0.020
+	show-icon:	false

@@ -1,0 +1,10 @@
+GLOBAL
+	pd-name:	c_sounding_loc
+	comment:	sounding location
+c_sounding_loc
+	platform:	slb,iow,ear,3v1,hys,62k,akz,irk,cou,stl,hen,guy
+	representation:	overlay
+	field:		location
+	color:		tan
+	icon-middle-menu:	simple-color
+	icon:		sounding-loc

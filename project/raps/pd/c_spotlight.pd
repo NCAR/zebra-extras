@@ -1,0 +1,18 @@
+global
+	comment:	Spotlight overlay
+	pd-name:        c_spotlight
+c_spotlight
+	representation: overlay
+	platform:       spotlight
+	field:          boundary
+	color:          cyan
+	age-limit:	360m
+	line-width:     3
+	icon:           spotlight
+	show-icon:	false
+	icon-middle-menu: simple-color
+	label-size:	0.025
+	icon-right-menu: bdry-right
+	closed-boundary:        false
+	trigger-global:	true
+	trigger:        spotlight

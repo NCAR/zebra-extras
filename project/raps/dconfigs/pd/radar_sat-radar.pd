@@ -1,0 +1,57 @@
+global
+	altitude:	0.50
+	altitude-label:	Elev: 0.5 deg
+	comment:	Display MHR data.
+	frame-rate:	5
+	frame-skip:	6
+	movie-end-time:	now
+	movie-minutes:	30
+	movie-mode:	False
+	pd-name:	radar_sat-radar
+	plot-mode:	history
+	plot-time:	5-sep-1990,21:55:18
+	plot-type:	CAP
+	radar-space:	true
+	time-frames:	2
+	trigger:	mhr
+	x-max:	71.7430
+	x-min:	-45.3345
+	y-max:	-70.9651
+	y-min:	66.3867
+c_radar
+	color-table:	wild_new
+	disable:	false
+	every-sweep:	false
+	field:	reflectivity
+	icon:	mhr
+	icon-middle-menu:	radar-middle
+	icon-right-menu:	DataAvailable
+	platform:	mhr
+	representation:	raster
+c_rings
+	azimuth-interval:	30
+	color:	white
+	field:	range-rings
+	icon:	rings
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-menu
+	platform:	mhr
+	representation:	overlay
+	ring-interval:	20
+c_map
+	color:	gray60
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	line-width:	1
+	platform:	cinde
+	representation:	overlay
+c_raps_now_region
+	color:	yellow
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	2
+	platform:	raps_now_region
+	representation:	overlay

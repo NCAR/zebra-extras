@@ -1,0 +1,17 @@
+global
+	pd-name:	c_nowcast
+c_nowcast
+	representation:	overlay
+	platform:	nowcast.1,nowcast.2,nowcast.3,nowcast.4,nowcast.5,nowcast.6,nowcast.7,nowcast.8,nowcast.9,nowcast.10
+	field:		boundary
+	color:		red
+	num-stations:	10
+	line-width:	2
+	icon:		nowcast
+	age-limit:	20m
+	position-icon:	small-now
+	icon-middle-menu:	bdry-middle
+	icon-right-menu:	bdry-right
+	closed-boundary:	true
+	trigger-global:	true
+	trigger:	nowcast.1

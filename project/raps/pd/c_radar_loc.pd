@@ -1,0 +1,12 @@
+!
+! Radar locations.
+!
+global
+	pd-name:	c_radar_loc
+c_radar_loc
+	platform:		cp2,mhr,chill
+	representation:		overlay
+	field:			location
+	color:			khaki
+	icon-middle-menu:	simple-color
+	icon:			radar-loc

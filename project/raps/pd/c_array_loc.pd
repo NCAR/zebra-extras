@@ -1,0 +1,11 @@
+GLOBAL
+	pd-name:	c_array_loc
+	comment:	Boundary layer array center
+c_array_loc
+	platform:	array
+	representation:	overlay
+	field:		location
+	label:		none
+	color:		yellow
+	icon-middle-menu:	simple-color
+	icon:		sounding-loc

@@ -1,0 +1,13 @@
+GLOBAL
+	pd-name:	c_opt_bdry
+	comment:	Generic optimizer boundary overlay
+c_opt_bdry
+	platform:	boundary
+	representation:	overlay
+	field:		boundary
+	color:		yellow
+	icon-middle-menu:	simple-color
+	icon-right-menu:	bdry-right
+	icon:		opt_bdry
+	trigger-global:	true
+	trigger:	boundary

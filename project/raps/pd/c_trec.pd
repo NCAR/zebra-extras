@@ -1,0 +1,13 @@
+GLOBAL
+	pd-name:	c_trec
+	comment:	TREC winds component
+c_trec
+	platform:	trec
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.005
+	color:		red
+	icon-middle-menu:	simple-color
+	trigger:	trec
+	trigger-global:	true

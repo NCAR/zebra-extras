@@ -1,0 +1,19 @@
+global
+	pd-name:	c_rap_cbx
+c_rap_cbx
+	representation:	overlay
+	platform:	rap_cbx.1,rap_cbx.2,rap_cbx.3,rap_cbx.4,rap_cbx.5,rap_cbx.6,rap_cbx.7,rap_cbx.8,rap_cbx.9,rap_cbx.10,rap_cbx.11,rap_cbx.12,rap_cbx.13,rap_cbx.14,rap_cbx.15
+	field:		boundary
+	color:		orange
+	num-stations:	15
+	age-limit:	35m
+	base-platform:	rap_cbx
+	line-width:	2
+	icon-middle-menu:	rap_pdb-middle
+	icon-right-menu:	bdry-right
+	closed-boundary:	false
+	trigger-global:	true
+	trigger:	rap_cbx
+	icon:		rap_cbx
+	label-size:	0.020
+	show-icon:	false

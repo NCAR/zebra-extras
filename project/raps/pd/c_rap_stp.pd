@@ -1,0 +1,19 @@
+global
+	pd-name:	c_rap_stp
+c_rap_stp
+	representation:	overlay
+	platform:	rap_stp.1,rap_stp.2,rap_stp.3,rap_stp.4,rap_stp.5,rap_stp.6,rap_stp.7,rap_stp.8,rap_stp.9,rap_stp.10,rap_stp.11,rap_stp.12,rap_stp.13,rap_stp.14,rap_stp.15
+	field:		boundary
+	color:		orange
+	num-stations:	15
+	age-limit:	35m
+	base-platform:	rap_stp
+	line-width:	2
+	icon-middle-menu:	rap_pdb-middle
+	icon-right-menu:	bdry-right
+	closed-boundary:	false
+	trigger-global:	true
+	trigger:	rap_stp
+	icon:		rap_stp
+	label-size:	0.020
+	show-icon:	false

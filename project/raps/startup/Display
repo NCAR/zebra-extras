@@ -1,0 +1,36 @@
+#!/bin/csh
+#
+# Display station processes.
+#
+#
+# Bounce a ping off the data store so they know we're here.
+#
+	msg_ping sundog >& /dev/null &
+	msg_ping hurricane >& /dev/null &
+#
+# Get an event logger going.
+#
+	cd /zeb/raps
+	echo -n 'Starting the event logger...'
+	EventLogger sundog &
+	sleep 1
+#
+# Other basic utilities needed by the system.
+#
+	echo -n 'Starting the timer...'
+	timer &
+	echo -n '...and the data store daemon...'
+	dsDaemon ds.config &
+#
+# Wait long enough for the data store to be running, and fire up the
+# internet data transfer stuff.
+#
+	sleep 5
+	dsdump mesonet >/dev/null
+	echo -n '...and the network data grabber.'
+	NetXfr nx.config &
+#
+# The sound system.
+#
+	echo -n '...and the sound generator...'
+	Sound &

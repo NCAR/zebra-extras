@@ -1,0 +1,21 @@
+! Auto-saved display configuration.
+config radar_sat_paper
+	window 'radar' 157 175 324 349 /zeb/bin/gp /zeb/raps/gp.init
+		description 'radar_sat_paper-radar'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 710 250 30 /zeb/bin/fccclock
+		description 'radar_sat_paper-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 274 724 550 55
+	window 'Event logger' 5 772 700 125 graphproc
+		nongraphic
+	endwindow
+	window 'sat' 489 172 324 347 /zeb/bin/gp /zeb/raps/gp.init
+		description 'radar_sat_paper-sat'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig

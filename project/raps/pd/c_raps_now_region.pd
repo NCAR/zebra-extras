@@ -1,0 +1,12 @@
+global
+	pd-name:	c_raps_now_region
+	comment:	RAPS Nowcast Region
+c_raps_now_region
+	representation:	overlay
+	platform:	raps_now_region
+	field:		map
+	color:		yellow
+	line-width:	2
+	icon:		map
+	icon-middle-menu: simple-color
+	icon-right-menu: linewidth

@@ -1,0 +1,13 @@
+#!/bin/csh
+#
+# Run tail on each of the pdb_ingest log files in an indefinite
+# loop (which can be interrupted)
+#
+while (1)
+	echo "---------------------------------------------"
+	tail -12 /zeb/raps/pdb/log.lines
+	echo "---------------------------------------------"
+	tail -12 /zeb/raps/pdb/log.raw
+	sleep 10
+end
+

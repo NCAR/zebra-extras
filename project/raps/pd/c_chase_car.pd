@@ -1,0 +1,11 @@
+GLOBAL
+	pd-name:	c_chase_car
+	comment:	Generic chase car data component
+c_chase_car
+	representation:	lightning
+	platform:	mobile_class
+	trigger:	mobile_class
+	time-step:	10m
+	color-table:	RevRainbow
+	icon-middle-menu:	lightning-color
+	icon:		chase-car

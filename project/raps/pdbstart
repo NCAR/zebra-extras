@@ -1,0 +1,21 @@
+#!/bin/csh
+#
+# Start two pdb_ingest processes: one for lines and one for raw,
+# ingesting only those platforms we're currently supporting one way
+# or another
+#
+
+set rawprods="hgb hgc hgn exb exc hbx hbc cbx cbc hbn hcn cbn ccn"
+#set lineprods="str stf stp act acs hal tvs tvp csh ccs "
+set lineprods="str stf stp"
+
+echo "	Ingesting raw data products: "
+echo "		$rawprods"
+pdb_ingest -log all -raw -rec /zeb/raps/pdb/raw.$$ $rawprods -wait 30 -subs 15 \
+	   >>& /zeb/raps/pdb/log.raw &
+echo "	Ingesting polyline products: "
+echo "		$lineprods"
+pdb_ingest -log all -line -rec /zeb/raps/pdb/line.$$ $lineprods -wait 30 -subs 15 \
+	   >>& /zeb/raps/pdb/log.lines &
+
+# All done!

@@ -1,0 +1,11 @@
+GLOBAL
+	comment:	Generic profs PD component
+	pd-name:	c_fprofs
+c_fprofs
+	platform:	profs
+	representation:	filled-contour
+	field:		rh
+	color-table:	cook16_bk
+	icon-middle-menu:	meso-middle
+	trigger-global:	true
+	trigger:	profs

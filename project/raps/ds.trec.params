@@ -1,0 +1,12 @@
+!
+! Parameters to ingest TREC data from RAP's data server.
+!
+set host 'tempest.rap.ucar.edu'
+set port 65013
+set platform 'trec'
+set frequency 300
+field 'u_wind' 0
+field 'v_wind' 1
+set levels 6
+set firstlevel 1.5
+set levelspacing .5

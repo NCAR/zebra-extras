@@ -1,0 +1,90 @@
+#!/bin/csh
+#
+# Shell script to run class_ingest on a periodic basis for real-time ingest
+#
+
+set classdir = "/data1/rapdmg/raps92/class"
+set last_DEN = ""
+set last_MCL = ""
+
+#
+# SUDS file for editing mobile CLASS soundings
+#
+cat > editCLASS << _EOF_
+	set fname getenv("CLASSFILE")
+	file #fname class c
+	threshold pres on qpres > 1.5 and qpres <> 77 and qpres <> 88
+	threshold wspd on qwind > 2.0 and qwind <> 77 and qwind <> 88
+	threshold wdir on wspd bad
+	threshold u_wind on wspd bad
+	threshold v_wind on wspd bad
+	set editfname concat(fname,".edit")
+	write #editfname
+_EOF_
+
+setenv SUDS_LF /zeb/lib/suds.lf
+setenv COLORNAMES /zeb/lib/rgb.txt
+
+
+#
+# Loop forever looking for new soundings
+#
+while (1)
+	#
+	# Denver NWS sounding
+	#
+	set latest = `ls -t $classdir/DEN* | head -1`
+	if ($latest != $last_DEN) then
+		class_ingest $latest pt mr pres wspd wdir u_wind \
+				v_wind tdry dp rh
+
+		if ($status) then
+			ELog $0 EF_EMERGENCY "Exiting on class_ingest failure"
+			exit (1)
+		endif
+			
+		set last_DEN = $latest
+	endif
+
+	#
+	# Mobile CLASS sounding
+	#
+	set latest = `ls -t $classdir/X*.MCL | head -1`
+	if ($latest != $last_MCL) then
+		#
+		# Wait for the whole file to show up (we just wait until
+		# nobody is accessing the file)
+		#
+		while (`ofiles -p $latest`)
+			sleep 10
+		end
+
+		#
+		# Use SUDS to do some quick threshold editing
+		#
+		setenv CLASSFILE $latest
+		suds < editCLASS >& /dev/null
+
+		#
+		# Ingest the edited file
+		#
+		if (-e $latest.edit) then
+			class_ingest $latest.edit pt mr pres wspd wdir u_wind \
+				v_wind tdry dp rh
+		else
+			ELog $0 EF_PROBLEM "SUDS failure on file #latest"
+		endif
+
+
+		if ($status) then
+			ELog $0 EF_EMERGENCY "Exiting on class_ingest failure"
+			exit (1)
+		endif
+
+		rm -f $latest.edit
+		set last_MCL = $latest
+	endif
+
+	sleep 10
+end
+		

@@ -1,0 +1,19 @@
+global
+	pd-name:	c_rap_mba
+c_rap_mba
+	representation:	overlay
+	platform:	rap_mba.1,rap_mba.2,rap_mba.3,rap_mba.4,rap_mba.5,rap_mba.6,rap_mba.7,rap_mba.8,rap_mba.9,rap_mba.10,rap_mba.11,rap_mba.12,rap_mba.13,rap_mba.14,rap_mba.15
+	field:		boundary
+	color:		violet
+	num-stations:	15
+	age-limit:	35m
+	base-platform:	rap_mba
+	line-width:	2
+	icon-middle-menu:	rap_pdb-middle
+	icon-right-menu:	bdry-right
+	closed-boundary:	false
+	trigger-global:	true
+	trigger:	rap_mba
+	icon:		rap_mba
+	label-size:	0.020
+	show-icon:	false

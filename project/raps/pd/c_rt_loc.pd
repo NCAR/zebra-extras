@@ -1,0 +1,12 @@
+!
+! Put in the ops center location.
+!
+global
+	pd-name:	c_rt_loc
+c_rt_loc
+	platform:	rt
+	representation:	overlay
+	field:		location
+	color:		cyan
+	icon-middle-menu: simple-color
+	icon:		rt-loc

@@ -1,0 +1,16 @@
+! Auto-saved display configuration.
+config trouble
+	window 'radar' 5 5 700 742 /zeb/bin/gp /zeb/raps/gp.init
+		description 'trouble-radar'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 710 250 30 /zeb/bin/fccclock
+		description 'trouble-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 21 768 550 97
+	window 'Event logger' 5 772 700 125 graphproc
+		nongraphic
+	endwindow
+endconfig

@@ -1,0 +1,19 @@
+global
+	pd-name:	c_rap_hbx
+c_rap_hbx
+	representation:	overlay
+	platform:	rap_hbx.1,rap_hbx.2,rap_hbx.3,rap_hbx.4,rap_hbx.5,rap_hbx.6,rap_hbx.7,rap_hbx.8,rap_hbx.9,rap_hbx.10,rap_hbx.11,rap_hbx.12,rap_hbx.13,rap_hbx.14,rap_hbx.15
+	field:		boundary
+	color:		orange
+	num-stations:	15
+	age-limit:	60m
+	base-platform:	rap_hbx
+	line-width:	2
+	icon-middle-menu:	rap_pdb-middle
+	icon-right-menu:	bdry-right
+	closed-boundary:	false
+	trigger-global:	true
+	trigger:	rap_hbx
+	icon:		rap_hbx
+	label-size:	0.020
+	show-icon:	false

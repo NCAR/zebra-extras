@@ -1,0 +1,17 @@
+GLOBAL
+	pd-name:	c_station_plot_profs
+	pd-comment:	Generic station plot overlay
+c_station_plot_profs
+	platform:	profs
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.01
+	grid:		false
+	color:		yellow
+	icon-middle-menu:	meso-winds-mid
+	icon-right-menu:	meso-station-options
+	icon:		meso_stations_profs
+	limit-proc:	adj_arrow_scale
+	trigger-global:	true
+	trigger:	profs

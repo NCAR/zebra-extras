@@ -1,0 +1,31 @@
+#
+# This configuration file specifies the machine connection for
+# the products database server
+# -------------------------------------------------------------------
+#
+#Server			Machine name		Protocol	Port
+#--------------		-----------------	---------	-----
+#
+# Operational Product Database Server:
+#
+product_db              tempest			TCP     	7011
+#
+#
+#laps_data_server	piglet          	TCP     	10080
+#laps_data_server	elvegust          	TCP     	10090
+#
+#
+# Elevation data server:
+#
+#elev_data_server  	elvegust          	TCP     	10091
+#
+#
+#precip_airport_ds  	elvegust          	TCP     	10092
+#precip_tracon_ds	elvegust          	TCP     	10094
+#
+#
+#kavouras_data_server	elvegust         	TCP     	10093
+#
+#  Nowcasts exported from Zeb:
+#
+nowcast_fig		sundog			TCP		5702
