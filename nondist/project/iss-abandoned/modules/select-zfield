@@ -1,6 +1,0 @@
-!
-! A field selector which tweaks z-field.
-!
-procedure select-zfield field string
-	parameter #icon_component z-field #field
-endprocedure
