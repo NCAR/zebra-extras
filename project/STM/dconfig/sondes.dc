@@ -1,0 +1,142 @@
+! Auto-saved display configuration.
+
+prototype fallback 'Default' gp 'gp.init'
+prototype fallback 'Default' gp 'gp.init'
+prototype fallback 'Default' gp 'gp.init'
+
+config sondes
+	widget 'iconbar' 6 5 503 64
+	graphic 'skewt' 7 487 400 400 'Default'
+		description 'sondes-skewt'
+		buttonmap 'sounding'
+		forcepd
+	endgraphic
+	graphic 'cap' 7 78 400 400 'Default'
+		description 'sondes-cap'
+		buttonmap 'big'
+		forcepd
+	endgraphic
+	graphic 'skewt1' 418 80 625 807 'Default'
+		description 'sondes-skewt1'
+		buttonmap 'sounding'
+		forcepd
+	endgraphic
+endconfig
+
+beginpd 'sondes-skewt'
+global
+   parameter add-data-command          'sk-add-data'
+   parameter add-data-mode             'overlay-mode'
+   parameter altitude-label            ''
+   parameter pd-name                   'sondes-skewt'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '9-Sep-95,7:14:17'
+   parameter plot-type                 'skewt'
+   parameter require                   'simple-color, active-time'
+   parameter time-annot-active         'true'
+   parameter time-topannot-left-menu   'global-time-left-menu'
+component skewt
+   parameter annot-time                'true'
+   parameter color-table               'Skew-t'
+   parameter data-skip                 '10'
+   parameter icon                      'sounding'
+   parameter icon-left-menu            'skewt-left'
+   parameter icon-middle-menu          'DataAvailable'
+   parameter icon-right-menu           'skewt-right'
+   parameter overlay-mode              'true'
+   parameter platform                  'sgpsondewrpnB5.a1,sgpsondewrpnB4.a1,sgpsondewrpnB6.a1'
+   parameter representation            'skewt'
+   parameter require                   'skewt'
+   parameter skprivate-thermo-npts     '2332'
+   parameter skprivate-wind-npts       '2332'
+   parameter top-annot-active          'true'
+   parameter topannot-left-menu        'skewt-topannot'
+   parameter trigger                   'platform'
+endpd
+
+beginpd 'sondes-cap'
+global
+   parameter pd-name                   'sondes-cap'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '9-Sep-95,7:14:17'
+   parameter plot-type                 'CAP'
+   parameter x-max                     '460'
+   parameter x-min                     '-470'
+   parameter y-max                     '250'
+   parameter y-min                     '-510'
+component p_map.0
+   parameter color                     'tan'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'state_lines'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_cf_locns
+   parameter active-icon               'true'
+   parameter color                     'HotPink'
+   parameter field                     'location'
+   parameter icon                      'circle'
+   parameter icon-color                'HotPink'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-right-menu           'location-options'
+   parameter label                     'platform'
+   parameter label-size                '12'
+   parameter platform                  'C1'
+   parameter posicon-left-menu         'minimal-cap-left-menu'
+   parameter posicon-middle-menu       'cf-send-menu'
+   parameter posicon-right-menu        'location-options'
+   parameter representation            'overlay'
+   parameter require                   'location, cf-active-loc'
+component p_bf_locns
+   parameter active-icon               'true'
+   parameter color                     'cyan'
+   parameter field                     'location'
+   parameter icon                      'bf-locn'
+   parameter icon-color                'cyan'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-right-menu           'location-options'
+   parameter label                     'platform'
+   parameter label-size                '12'
+   parameter platform                  'B1,B4,B5,B6'
+   parameter posicon-left-menu         'minimal-cap-left-menu'
+   parameter posicon-middle-menu       'bf-send-menu'
+   parameter posicon-right-menu        'location-options'
+   parameter representation            'overlay'
+   parameter require                   'location, bf-active-loc'
+endpd
+
+beginpd 'sondes-skewt1'
+global
+   parameter add-data-command          'sk-add-data'
+   parameter add-data-mode             'overlay-mode'
+   parameter altitude-label            ''
+   parameter pd-name                   'sondes-skewt1'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '9-Sep-95,7:14:17'
+   parameter plot-type                 'skewt'
+   parameter require                   'simple-color, active-time'
+   parameter time-annot-active         'true'
+   parameter time-topannot-left-menu   'global-time-left-menu'
+component skewt
+   parameter annot-time                'true'
+   parameter color-table               'Skew-t'
+   parameter data-skip                 '10'
+   parameter icon                      'sounding'
+   parameter icon-left-menu            'skewt-left'
+   parameter icon-middle-menu          'DataAvailable'
+   parameter icon-right-menu           'skewt-right'
+   parameter overlay-mode              'true'
+   parameter platform                  'sgpsondewrpnC1.a1,sgpsondewrpnB1.a1'
+   parameter representation            'skewt'
+   parameter require                   'skewt'
+   parameter skprivate-thermo-npts     '2005'
+   parameter skprivate-wind-npts       '2005'
+   parameter top-annot-active          'true'
+   parameter topannot-left-menu        'skewt-topannot'
+   parameter trigger                   'platform'
+endpd
+
