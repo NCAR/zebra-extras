@@ -3,6 +3,7 @@
 !
 set iconpath concat3("./icons,", c$libdir, "/icons")
 set mappath concat("./maps,", c$libdir)
+set RequirePath concat('./modules,',RequirePath)
 
 !
 ! Site change mechanism for the time series plot.  I put this here rather

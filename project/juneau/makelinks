@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# $Id: makelinks,v 1.1 1997-03-26 17:58:21 granger Exp $
+# $Id: makelinks,v 1.2 1997-03-26 20:36:17 granger Exp $
 #
 # Make some file links required in this project directory tree
 #
@@ -11,6 +11,7 @@ icons/raw_runway_east runway_east
 icons/raw_runway_mid runway_mid
 icons/raw_runway_west runway_west
 icons/sheep_mtn_x sheep_mtn
+icons/sheep_mount_x sheep_mount
 icons/eagle_crest_x eagle_crest
 EOTABLE
 

@@ -23,3 +23,13 @@ Tag_Merged_JNU_NWS_970325:
 	This is also the point after which Gary started making changes and
 	adding the profiler display.
 
+Added icons/sheep_mount_x link to makelinks.  Added ./modules to require
+path in gp.init.
+
+Added prof_atd/prof915l platform to ds.config and to LastData.config.
+Copied iss and iss-new modules from coare config into juneau/modules.
+Created profiler display configuration and added two new windows using
+rass-template and wind-template library plot descriptions.  Edited the
+window pd's, changing the platforms and a few other parameters.  Saved the
+configuration as dconfig/profiler.dc.
+
