@@ -102,7 +102,6 @@ global
    parameter zoom-ymin                 '0.2425'
 component xy-grid
    parameter axis-b-label              'Time'
-   parameter axis-b-tic-interval       '0'
    parameter axis-bottom               'true'
    parameter axis-left                 'false'
    parameter axis-right                'false'
@@ -221,7 +220,6 @@ global
    parameter zoom-ymin                 '0.2425'
 component xy-grid
    parameter axis-b-label              'Time'
-   parameter axis-b-tic-interval       '0'
    parameter axis-bottom               'true'
    parameter axis-left                 'false'
    parameter axis-right                'false'
