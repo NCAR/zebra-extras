@@ -9,4 +9,4 @@
 		exit 1
 	endif
 
-	exec tcsh 
+	exec tcsh -f
