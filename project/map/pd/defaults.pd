@@ -4,10 +4,10 @@
 defaults
 	pd-name:			defaults
 !
-! Project origin
+! Project origin (at S-Pol)
 !
-	origin-lat:		45.71667
-	origin-lon:		8.73333
+	origin-lat:		45.70906
+	origin-lon:		8.70878
 	origin-alt:		280
 !
 ! The default, big picture zoom locations for constant altitude plots.  These
