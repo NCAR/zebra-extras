@@ -306,7 +306,7 @@ component c_gms
    parameter ir-highlight-range        '6.0'
    parameter ir-step                   '12'
    parameter line-width                '2'
-   parameter platform                  'flament_ir'
+   parameter platform                  'gms'
    parameter representation            'contour'
    parameter require                   'gms'
 endpd
