@@ -1,0 +1,34 @@
+							
+
+HGM		Geometric Altitude				m
+ATB		Ambient Temperature (boom)			deg C
+ATRF		Ambient Temperature (reverse flow)		deg C
+CLAT		Loran C Latitude				deg
+CLON		Loran C Longitude				deg
+CON2C1
+CON2P1
+CONCF		FSSP Probe Concentration			n/cm^3
+DEI		Distance East of Start				km
+DNI		Distance North of Start				km
+DPBC		Dewpoint Temperature (thermoelec)(bottom)	deg C
+EFZR		
+EFYR
+EFX1
+GMLAT
+GMLON
+MR		Mixing Ratio					g/kg
+PALT		NACA Pressure Altitude				m
+PLWCC		Corrected PMS-King Liquid Water Content		g/m^3
+PSFDC		Corrected Static Pressure (fuselage D1)		mb
+RHUM		Relative Humidity				pct
+SPHUM		Specific Humidity				g/kg
+THETA		Potential Temperature				k
+THETAE		Equivalent Potential Temperature		k
+THETAV		Virtual Potential Temperature			k
+THF		True Heading					deg
+UI		Wind East Component				m/s
+VI		Wind North Component				m/s
+WD		Horizontal Wind Direction			deg
+WS		Horizontal Wind Speed				m/s
+
+Total:  30 (This is the maximum allowed.)

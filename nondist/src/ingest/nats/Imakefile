@@ -16,22 +16,28 @@
  * maintenance or updates for its software.
  */
 
-MFVERSION = "$Id: Imakefile,v 1.2 1992-12-22 21:43:45 granger Exp $"
+MFVERSION = "$Id: Imakefile,v 1.3 1993-06-28 07:06:55 granger Exp $"
 
 LIBS = $(LIBZEB) $(LIBNETCDF) $(LIBRDSS)
 
-SRCS = nats_ingest.c
+SRCS = nats_ingest.c nats.c
 OBJS = nats_ingest.o
 
 DISTFILES = Imakefile $(SRCS) README.nats_ingest nats.out nats.out.cape \
 	    natsdata natsdata.cape natsnames natsnames.cape \
 	    ournames ournames.cape ournames.txt.cape
 
+/*---------------------------------------------------------------------*/
+#if BuildNatsIngest && BuildIngest
+
 NormalProgramTarget(nats_ingest,$(OBJS),$(DEPLIBS),$(LIBS),$(SYSLIBS))
-
 LintTarget()
-
 DependTarget()
+
+/*---------------------------------------------------------------------*/
+#else
+OmitBuildRules(nats_ingest)
+#endif
 
 DistfilesTarget($(DISTFILES))
 

@@ -1,0 +1,17 @@
+
+IMPORTANT:  The ournames file must look like this:
+
+#names 		<- The number of names to be found in the file, NOT including
+	   		the latitude, longitude and altitude names.
+latitude	<- The latitude value that will be placed in the do_aloc
+			structure.	
+longitude	<- The longitude value that will be placed in the do_aloc
+			structure.	
+altitude	<- The altitude value that will be placed in the do_aloc
+			structure.	
+name[0]		<- The values corresponding to these variable names are
+ .			stored as data.  The name is used as the field
+ .			name.
+ .
+name[#names - 1]
+
