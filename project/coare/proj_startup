@@ -5,6 +5,12 @@
 #
 
 #
+# For historical reasons, we need a coare.map, but it's the same map as
+# default.map...
+#
+(cd maps; ln -sf default.map coare.map)
+
+#
 # Provide a reasonable default config and that's it.
 #
 if ( ! $?DEFAULT_CONFIG ) setenv DEFAULT_CONFIG wide
