@@ -1,0 +1,13 @@
+! Auto-saved display configuration.
+config Mesonet
+	widget 'iconbar' 10 10 453 68
+	window 'UpperLeft' 7 122 760 585 gp gp.init
+		description 'Mesonet-UpperLeft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 500 10 250 60 fccclock
+		description 'Mesonet-Clock'
+		buttonmap 'default'
+	endwindow
+endconfig

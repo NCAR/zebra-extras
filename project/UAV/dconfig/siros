@@ -1,0 +1,17 @@
+! Auto-saved display configuration.
+config siros
+	widget 'iconbar' 2 7 352 99
+	window Clock 380 7 250 60 #clock_exec
+		description 'whiteclock'
+	endwindow
+	window 'UpperLeft' 0 90 612 812 gp gp.init
+		description 'siros-UpperLeft'
+		buttonmap 'xyplot'
+		forcepd
+	endwindow
+	window 'UpperRight' 600 90 612 812 gp gp.init
+		description 'siros-UpperRight'
+		buttonmap 'xyplot'
+		forcepd
+	endwindow
+endconfig

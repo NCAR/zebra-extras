@@ -1,0 +1,23 @@
+! Auto-saved display configuration.
+config sonde
+	widget 'iconbar' 7 7 459 74
+	window 'Clock' 4 100 250 60 fccclock
+		description 'sonde-Clock'
+		buttonmap 'default'
+	endwindow
+	window 'UpperLeft' 3 220 666 562 gp gp.init
+		description 'sonde-UpperLeft'
+		buttonmap 'sounding'
+		forcepd
+	endwindow
+	window 'UpperRight' 502 15 646 481 gp gp.init
+		description 'sonde-UpperRight'
+		buttonmap 'xyplot'
+		forcepd
+	endwindow
+	window 'LowerRight' 509 506 638 389 gp gp.init
+		description 'sonde-LowerRight'
+		buttonmap 'sounding'
+		forcepd
+	endwindow
+endconfig
