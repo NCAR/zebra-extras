@@ -6,17 +6,17 @@ defaults
 !
 ! Project origin (S-Pol)
 !
-	origin-lat:		46.875
-	origin-lon:		-124.125
+	origin-lat:		46.9047
+	origin-lon:		-124.1313
 	origin-alt:		0
 !
 ! Add named locations to your heart's delight.  
 ! Form: 
 !	<sitename>-location:	<lat> <lon> <alt>
 !
-	spol-location:		46.875      -124.125       0
-	binet_N-location:	47.23       -124.21        0
-	binet_S-location:	46.52       -124.05        0
+	spol-location:		46.9047     -124.1313      0
+	binet_N-location:	47.2126     -124.2047      0
+	binet_S-location:	46.3905     -124.0579      0
 	katx-location:		48.1944     -122.4958      150
 	krtx-location:		45.7147     -122.9653      480
 !
