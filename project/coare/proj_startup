@@ -9,3 +9,4 @@
 #
 if ( ! $?DEFAULT_CONFIG ) setenv DEFAULT_CONFIG wide
 if ( ! $?INITIAL_TIME ) setenv INITIAL_TIME 1-dec-92
+if ( ! $?ZEBRA_CACHEDIR ) setenv ZEBRA_CACHEDIR $cwd/tmp
