@@ -1,13 +1,18 @@
 
 LIBS = $(LIBZEBDS) $(LIBZEB) $(LIBRDSS) $(LIBNETCDF)
+SYSLIBS = $(LIBMATH)
+DEPLIBS = $(LIBZEBDS) $(LIBZEB)
 
 SRCS = ssp_ingest.c
 OBJS = ssp_ingest.o 
 
 DISTFILES = Imakefile $(SRCS) $(HDRS)
 
-NormalProgramTarget(ssp_ingest,ssp_ingest.o,
-		$(DEPLIBS), $(LIBS) ,$(SYSLIBS))
+#ifdef CompleteProgramTarget
+CompleteProgramTarget(ssp_ingest,ssp_ingest.o,$(DEPLIBS),$(LIBS),$(SYSLIBS))
+#else
+NormalProgramTarget(ssp_ingest,ssp_ingest.o,$(DEPLIBS),$(LIBS),$(SYSLIBS))
+#endif
 
 DependTarget()
 

@@ -17,6 +17,8 @@
 # define LON           -120.0
 # define ALT           228.0
 
+# define TRUNC_SECONDS
+
 /*
  * Declare Routines.
  */
@@ -156,6 +158,7 @@ int main (argc, argv)
      */
     dc_HintNSamples (dc, NSAMPLE, TRUE);
     for (i=0; i < NSAMPLE; ++i) {
+      sleep(SLEEPTIME);
       for (j = 0; j < NWAVELEN / 4; j++) {
 	k = (int) (drand48() * NWAVELEN) ;
 	ssprad[k] = ssprad[k] + (float)((drand48() - 0.5) * 100.0);
@@ -166,11 +169,13 @@ int main (argc, argv)
       locn.l_lon = locn.l_lon + 0.001;
       locn.l_alt = locn.l_alt + 1.0;
       tl_Time (&when);		/* use current system time */
+#ifdef TRUNC_SECONDS
+      when.zt_MicroSec = 0;
+#endif
       dc_NSAddSample(dc, &when, i, ssprad_id, ssprad);
       dc_NSAddSample(dc, &when, i, ssplw_id, &ssplw);
       dc_NSAddSample(dc, &when, i, sspsw_id, &sspsw);
       dc_SetLoc (dc, i, &locn);
-      sleep(SLEEPTIME);
     }
     /*
      * Store away datachunk and we are done
