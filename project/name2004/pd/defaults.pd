@@ -45,6 +45,7 @@ defaults
 !	goes-icon-age-limit:	120m
 !
 	icon-age-limit:		15m
+	data-age-limit:		60m
 	spol-icon-age-limit:	20m
 	spol-data-age-limit:	30m
 	refract_storm-icon-age-limit:	20m
@@ -62,7 +63,9 @@ defaults
 	mesonet_15-icon-age-limit:	60m
 	mesonet_15-data-age-limit:	90m
 	elev-icon-age-limit:	20000d
+	elev-data-age-limit:	20000d
 	topo-icon-age-limit:	20000d
+	topo-data-age-limit:	20000d
 !
 ! What color is the time label when we're in history mode
 !
