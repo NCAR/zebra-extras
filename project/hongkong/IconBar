@@ -12,6 +12,9 @@ set ui$bitmap_directory concat(c$libdir, "/icons")
 set sounding_sites "ro_hk_sdg,chenzhou_sdg,ganzhou_sdg,wuzhou_sdg,guangzhou_sdg,shantou_sdg,xisha_sdg,taipei_sdg"
 set lantau_aws_sites "LT1,LT2,LT3,LT4,LT5,LT6,CLK"
 
+set tool_icon concat(c$projdir,"/icons/tools")
+set config_icon concat(c$projdir,"/icons/configs")
+
 !
 ! This is the iconbar menu itself.....
 !
@@ -55,24 +58,25 @@ define widget iconbar menubar " "
 		line
 		entry 'Quit Zeb Display' 'shutdown'
 	endmenu
-	menu global bitmap "/zeb/project/hongkong/icons/configs"
+	menu global bitmap configs
 		title 'Configuration Options'
 		line
-		entry 'Begin new configuration' 'popup newconfig'
+		entry 'Begin new configuration...' 'popup newconfig'
 		line
 		submenu 'Popup new window' 'windows'
 		entry 'Kill window by cursor' 'point-and-shoot'
 		line
-		entry 'Add window by name' 'popup NewWindow'
-		entry 'Kill window by name' 'popup ZorchWindow'
+		entry 'Add window by name...' 'popup NewWindow'
+		entry 'Kill window by name...' 'popup ZorchWindow'
 		line
-		entry 'Save configuration' 'popup SaveConfig'
-		entry 'Remove configuration' 'cfg-remove'
+		entry 'Save this configuration' 'cfgsave #dm$config'
+		entry 'Save this configuration as...' 'popup SaveConfig'
+		entry 'Remove this configuration' 'cfg-remove'
 		line
 		entry 'Configuration Widget' 'popup ConfigEdit'
 		entry 'Help' 'help editdconfig'
 	endmenu
-	menu global bitmap "/zeb/project/hongkong/icons/tools"
+	menu global bitmap tools
 		title 'Zeb Tools and Widgets'
 		line
 		entry 'Time Widget'	'popup time'
@@ -87,7 +91,7 @@ define widget iconbar menubar " "
 		title 'Lidar and Radar Data'
 		line
 		entry 'Lidar' 'sendout c_lidar pick'
-		entry 'RO Radar' 'sendout p_radar platform ro_radar'
+		entry 'RO Radar' 'putc1 p_radar platform ro_radar'
 	endmenu
 	menu 'satellite' bitmap satellite
 		title 'Satellite Data'
@@ -177,7 +181,7 @@ endprocedure
 ! from a single menu entry.
 !
 define widget windows intmenu 'window templates'
-	title 'Popup Windows'
+	title 'Windows Templates'
 	line
 	entry 'Constant altitude plot' \
 		'create-window cap cap-template big'
@@ -192,13 +196,12 @@ endmenu
 
 
 !
-! Use the name given for the window name.  If we can find a plot
-! description with this name, we assume a window exists and try
-! to create a unique name by adding a sequence number
+! Call newwindow with the given parameters.  Pass rename to
+! newwindow so that we'll get a unique name instead of failing.
 !
 procedure create-window name string pdname string bmap string
 
-	newwindow #name #pdname forcepd buttonmap #bmap
+	newwindow #name #pdname forcepd buttonmap #bmap rename
 
 endprocedure
 
