@@ -8,7 +8,7 @@ p_goes
 	field:		albedo
 	altitude-control:	false
 	representation:	raster
-	color-table:	grey64
+	color-table:	gray64
 	icon:		satellite
 	icon-left-menu:		standard-cap-left-menu
 	icon-middle-menu:	FieldMenu
