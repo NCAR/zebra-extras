@@ -2,7 +2,8 @@
 #
 # Set up environment
 #
-setenv DEFAULT_DATA_DIR /data/bamex
+setenv DEFAULT_DATA_DIR /scr/js1/bamex
+#setenv ZEB_SOCKET /tmp/zebra_bamex.socket
 
 if (! $?DATA_DIR) setenv DATA_DIR $DEFAULT_DATA_DIR
 if (! $?ZEB_EVENTLOGGER) \
