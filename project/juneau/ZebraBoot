@@ -1,0 +1,36 @@
+#!/bin/csh -f
+#
+# Boot-time Zebra datastore and ingestor start/stop for Juneau,
+# called from /etc/init.d/Zebra.
+#
+
+setenv ZEB_TOPDIR /zebra
+cd $ZEB_TOPDIR/project/juneau
+switch ($1)
+    case start:
+	setenv DATA_DIR /data/juneau
+	eval $ZEB_TOPDIR/bin/message -internet
+	$ZEB_TOPDIR/bin/EventLogger -n -f /tmp/Zebra &
+	$ZEB_TOPDIR/bin/EventLogger -w &
+	$ZEB_TOPDIR/bin/timer &
+	$ZEB_TOPDIR/bin/dsDaemon ds.config &
+
+	/usr/local/bin/ser_ingest -milos \
+	    -p eagle_crest -lat 58.2586 -lon -134.5339 -alt 1.0 \
+	    -p sheep_mtn -lat 58.2919 -lon -134.2875 -alt 1.2 \
+	    -d /dev/ttyC0 \
+	    -f wspd_max_k -f wspd_min_k -f wspd_k -f wspd_sdev_k \
+	    -f wdir_mag -f wdir_sdev &
+	#
+	# "Added value" field derivation for Vaisala and Handar data
+	#
+	./ingest/VaisalaDer/VaisalaDer &
+	./ingest/HandarDer/HandarDer &
+	breaksw
+    case stop:
+	$ZEB_TOPDIR/bin/zstop
+	breaksw
+    default:
+	echo "Usage: $0 {start|stop}"
+endsw
+

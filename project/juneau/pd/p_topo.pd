@@ -1,0 +1,13 @@
+global
+	pd_name:	p_topo
+p_topo
+	color:	darkgreen
+	field:	map
+	icon:	1000
+	icon-background:	black
+	icon-color:		darkgreen
+	icon-left-menu:		minimal-cap-left-menu
+	icon-right-menu:	linewidth
+	line-width:	0
+	platform:	1000
+	representation:	overlay

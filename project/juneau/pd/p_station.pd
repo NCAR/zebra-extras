@@ -1,0 +1,36 @@
+!
+! Simplified station plot PD for Juneau
+!
+global
+	pd-name:	p_station
+p_station
+	platform:	CHANGE_ME
+	representation:	station
+	u-field:	u_wind
+	v-field:	v_wind
+	wspd-field:	ws
+	wdir-field:	wd
+	icon-left-menu:	standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	simple-color
+	posicon-middle-menu:	FieldMenu
+	field-select-command:	p_toggle_quadrant
+	icon:		CHANGE_ME
+	icon-field-menu-extras:	station|Station Name
+	icon-right-menu:	p-station-right
+	annot-field-menu-extras:	station|Station Name,none
+	annot-left-menu:	FieldMenu
+	annot-middle-menu:	FieldMenu
+	arrow-scale:		0.005
+	barb-scale:		0.1
+	require:		station,simple-color
+	limit-proc:		adj_arrow_scale
+	active-icon:		true
+	sa-scale:		14
+	trigger:	platform
+	trigger-global:	true
+	wind-style:	barb
+	quad1:		none
+	quad2:		station
+	quad3:		none
+	quad4:		wspd

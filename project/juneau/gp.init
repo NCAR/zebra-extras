@@ -1,0 +1,34 @@
+!
+! Check project dirs first for maps and icons
+!
+set iconpath concat3("./icons,", c$libdir, "/icons")
+set mappath concat("./maps,", c$libdir)
+
+!
+! Site change mechanism for the time series plot.  I put this here rather
+! than in a module because it becomes a menu button in the "global"
+! component, and "require" doesn't work fromt a "global" component.
+!
+define widget site_change intmenu ' '
+	title 'Anemometer Site'
+	line
+	entry 'Eagle Crest' 'anem_site eagle_crest_x' \
+		(PDParam ('global', 'platform') = 'eagle_crest_x')
+	entry 'Sheep Mountain' 'anem_site sheep_mtn_x' \
+		(PDParam ('global', 'platform') = 'sheep_mtn_x')
+	entry 'Fed. building' 'anem_site fedb_x' \
+		(PDParam ('global', 'platform') = 'fedb_x')
+	entry 'Mayflower' 'anem_site baf1_x' \
+		(PDParam ('global', 'platform') = 'baf1_x')
+	entry 'West Runway' 'anem_site runway_west' \
+		(PDParam ('global', 'platform') = 'runway_west')
+	entry 'Mid Runway' 'anem_site runway_mid' \
+		(PDParam ('global', 'platform') = 'runway_mid')
+	entry 'East Runway' 'anem_site runway_east' \
+		(PDParam ('global', 'platform') = 'runway_east')
+endmenu
+
+procedure anem_site site string
+	parameter global platform #site
+	parameter global icon #site
+endprocedure

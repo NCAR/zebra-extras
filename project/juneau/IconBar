@@ -1,0 +1,40 @@
+! $Id: IconBar,v 1.1.1.1 1997-03-25 21:06:29 granger Exp $
+!
+
+set ui$bitmap_directory concat(c$libdir, "/icons")
+
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	noheader
+	!
+	! Define the menus
+	!
+	menu tools bitmap Zebra
+!		title 'Tools'
+!		line
+!		entry 'Time widget'	'popup time'
+!		entry 'Make a print' 'popup hardcopy'
+!		line
+!		entry 'Add display window' 'popup newwindow'
+!		entry 'Delete display window' 'popup zorchwindow'
+!		entry 'Save current configuration' 'popup saveconfig'
+!		line
+!		entry 'Data store contents' 'shell "dsdwidget &"'
+!		entry 'Data store management' 'shell "dsmanage &"'
+!		line
+		entry 'Shut down Zebra' 'shutdown'
+	endmenu
+!
+! display configurations
+!
+!	menu configs bitmap configs
+!		title 'Display configurations'
+!		line
+!		entry 'Map display' 'display map' (dm$config = 'map')
+!		entry 'Map + profiler' 'display both' (dm$config = 'both')
+!		entry 'Empty screen' 'display empty' (dm$config = 'empty')
+!	endmenu
+enddef
+	

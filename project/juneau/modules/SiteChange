@@ -1,0 +1,15 @@
+define widget SiteChange intmenu ' '
+	title 'Anemometer Site'
+	line
+	entry 'Eagle Crest' 'anem_site eagle_crest' \
+		(PDParam ('global', 'platform') = 'eagle_crest')
+	entry 'Sheep Creek' 'anem_site sheep_creek' \
+		(PDParam ('global', 'platform') = 'sheep_creek')
+	entry 'one' 'anem_site one' \
+		(PDParam ('global', 'platform') = 'one')
+endmenu
+
+procedure anem_site site string
+	parameter global platform #site
+	parameter global icon #site
+endprocedure
