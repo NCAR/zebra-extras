@@ -5,13 +5,23 @@
 
 echo "Reading proj_env"
 
-setenv CONFIGHOME /apps/development/STM
 setenv ZEBHOME $ZEB_TOPDIR
-setenv DATAHOME /apps/data
-setenv DATA_DIR $DATAHOME
+setenv HOST `uname -n`
+if ($HOST == narnia) then
+	setenv CONFIGHOME /scr/steam/arm/ARESE
+	setenv DATAHOME /dt/granger/uav
+#	setenv DATAHOME /scr/narnia/arm/data
+else
+	setenv CONFIGHOME /apps/development/ARESE
+	setenv DATAHOME /apps/data
+endif
 
-# Set this to enable real-time tasks in ds.config, such as
-# periodic file cleans and cache file updates
+# This is mostly to keep zstart quiet; DATAHOME will take precedence
+# in ds.config
 #
-# setenv ARM_REALTIME
+setenv DATA_DIR $DATAHOME/sgp/platforms
+
+# Force multiple option on dm command line
+#
+#setenv ZEB_DM_CONFIG '-multiple dm.config'
 
