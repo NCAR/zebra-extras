@@ -2,16 +2,16 @@
 
 prototype fallback 'Default' gp 'gp.init'
 
-config p3_image
+config p3_template
 	widget 'iconbar' 9 170 75 378
-	graphic 'x' 96 44 640 640 'Default'
-		description 'p3_image-x'
+	graphic 'auto' 96 44 640 640 'Default'
+		description 'p3_template-auto'
 		buttonmap 'big'
 		forcepd
 	endgraphic
 endconfig
 
-beginpd 'p3_image-x'
+beginpd 'p3_template-auto'
 global
    parameter altitude                  '0.0000'
    parameter altitude-label            ''
