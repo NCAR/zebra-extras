@@ -148,6 +148,21 @@ defaults
 	hdr-center:		-20
 	hdr-nsteps:		10
 	hdr-step:		8
+	albedo-center:		35
+	albedo-nsteps:		14
+	albedo-step:		5
+	3_9_micron-center:	10
+	3_9_micron-nsteps:	10
+	3_9_micron-step:	-10
+	6_7_micron-center:	-40
+	6_7_micron-nsteps:	10
+	6_7_micron-step:	-5
+	11_micron-center:	-20
+	11_micron-nsteps:	14
+	11_micron-step:		-10
+	12_micron-center:	-20
+	12_micron-nsteps:	14
+	12_micron-step:		-10
 !
 ! Various rainfall accumulation fields.
 !
