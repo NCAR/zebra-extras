@@ -1,0 +1,48 @@
+#!/bin/csh
+#
+# Add Dave Parsons/Jeff Smith sounding network isobaric data to a running
+# data store
+#
+	if (! $?ZEB_TOPDIR ) setenv ZEB_TOPDIR /zeb
+#
+# Tweak the path
+#
+	set path=($ZEB_TOPDIR/bin $path)
+#
+# Make sure Zeb is running and we can talk to it
+#
+	mstatus >& /dev/null
+	if ($status != 0) then
+		echo "Zeb must be running and your ZEB_SOCKET environment"
+		echo "variable must be set correctly before running $0"
+		exit 1
+	endif
+#
+# Make the data store read ds.isobaric, loading the XXXmb_snd platforms
+#
+	echo 'Adding isobaric data to the data store.  This will take a '
+	echo 'minute or two...'
+
+	set daemonname = "DS_Daemon"
+	if ($?DS_DAEMON_HOST != 0) then
+		set daemonname = ${daemonname}@$DS_DAEMON_HOST
+	endif
+
+	zrun $daemonname "read ds.isobaric"
+	dsdump 900mb_snd >& /dev/null	! Wait for the ds read to complete
+#
+# New icon bar
+#
+	echo 'Adding isobaric stuff to the icon bar...'
+
+	echo "popdown iconbar"		>  /tmp/newiconbar.cmds
+	echo "read IconBar.isobaric"	>> /tmp/newiconbar.cmds
+	echo "popup iconbar"		>> /tmp/newiconbar.cmds
+
+	zrun Displaymgr "read /tmp/newiconbar.cmds"
+	sleep 3
+	rm /tmp/newiconbar.cmds
+
+	echo 'finished.'
+	echo ' '
+	

@@ -1,0 +1,257 @@
+! $Id: IconBar.isobaric,v 1.1 1995-03-08 18:19:23 burghart Exp $
+!
+! All the definitions required to make the iconbar work.
+!
+!
+! The right way to do this....
+!
+set ui$bitmap_directory concat(c$libdir, "/icons")
+
+
+
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	!
+	! All this stuff tells the system to put it, unadorned by headers and
+	! title bars, where we want it.  DM does "override" by itself now,
+	! since this iconbar appears in the display config, so we don't
+	! bother with it here.
+	!
+	noheader
+	! size 230 80
+	location 100 100
+	! vertical
+	! override
+	!
+	! Now we can define the menus themselves.
+	!
+	menu help bitmap iconbar-help
+		title 'Zeb Help Access'
+		line
+		entry 'Introduction' 'help intro'
+		entry 'On-line Topics' 'help index'
+!		entry 'Guide to Documentation' 'help documentation'
+		entry 'Starting zeb' 'help start'
+		entry 'Shutting Down' 'help shut-down'
+		entry 'Keys and mouse buttons' 'help keys'
+		entry 'The icon bar' 'help iconbar'
+		entry 'Editing display configurations' 'help editing-configs'
+		line
+		entry 'Horizontal plots' 'help horizontal-plots'
+		entry 'Skew-t plots' 'help skewt'
+		entry 'XYGraph plots' 'help xy-graphs'
+		entry 'Cross section plots' 'help cross-section'
+	endmenu
+	menu tools bitmap tools-big
+		title 'Tools'
+		line
+		entry 'Time Widget'	'popup time'
+		entry 'Print Display Widget' 'popup hardcopy'
+		line
+		entry 'Add Display Window' 'popup newwindow'
+		entry 'Delete Display Window' 'popup zorchwindow'
+		entry 'Save Display Window' 'popup saveconfig'
+		line
+		entry 'Data Store display widget' 'shell "dsdwidget &"'
+		entry 'Data Store management widget' 'shell "dsmanage &"'
+		line
+		entry 'Shut down Zeb system' 'shutdown'
+	endmenu
+	menu configs bitmap configs
+		title 'Display configurations'
+		line
+		entry 'Wide-screen satellite' 'display wide' \
+			(dm$config = 'wide')
+		entry 'Sounding skew-t plots' 'display skewt' \
+		        (dm$config = 'skewt')
+		entry 'Satellite + sounding + wind profile' \
+			'display ssp' (dm$config = 'ssp')
+		entry 'Time-Series array' 'display tao' (dm$config = 'tao')
+		entry 'CTD display' 'display ctd' (dm$config = 'ctd')
+		entry 'CTD cross-sections' 'display ctd_xsect' \
+			(dm$config = 'ctd_xsect')
+		entry 'Model cross-sections' 'display model_xsect' \
+			(dm$config = 'model_xsect')
+		entry 'Sounding cross-sections' 'display snd_xsect' \
+			(dm$config = 'snd_xsect')
+		entry 'Flux time series' 'display fluxts' \
+		      	(dm$config = 'fluxts')
+!		entry 'PMS time series' 'display pmsts' \
+!		      	(dm$config = 'pmsts')
+		!!! Added by mindy
+		entry 'ISS Combo' 'display iss-combo' (dm$config = 'iss-combo')
+		entry 'ISS Line Plot' 'display iss-lineplot' \
+			(dm$config = 'iss-lineplot')
+		!!!
+		line
+		entry 'Empty screen' 'display empty' (dm$config = 'empty')
+	endmenu
+	menu satellite bitmap satellite
+		title 'Satellite Data'
+		line
+ 		entry 'Wide Area GMS IR (Honiara/MCIDAS)' \
+			'putc2 c_gms platform gms-big field ir'
+		entry 'GMS IR (Honiara/MCIDAS)' 'PutBCompField c_gms ir true'
+		entry 'GMS IR (Flament)' 'putc1 c_gms platform flament_ir'
+		line
+		entry 'ERS-1 winds' 'putc1 c_satwinds platform ers1'
+		line
+		entry 'CU 10-day SST' 'putc1 tc_sst platform sst/10day'
+		entry 'CU 14-day SST' 'putc1 tc_sst platform sst/14day'
+		entry 'CU monthly SST' 'putc1 tc_sst platform sst/monthly'
+		line
+		submenu 'SSMI F-8 Temperatures' ssmi2_menu
+		submenu 'SSMI F-10 Temperatures' ssmi4_menu
+		submenu 'SSMI F-11 Temperatures' ssmi5_menu
+	endmenu
+	menu aircraft bitmap aircraft
+		title 'Aircraft'
+		line
+		entry 'NOAA N42RF fuselage radar composite' \
+				'PutCompX c_belly platform n42rf_lf'
+		entry 'NOAA N43RF fuselage radar composite' \
+				'PutCompX c_belly platform n43rf_lf'
+		line
+		entry 'N42RF track' 'PutScalar n42rf_st alt'
+		entry 'N43RF track' 'PutScalar n43rf_st alt'
+		entry 'Electra track' 'PutScalar n308d alt'
+		entry 'DC8 track' 'PutScalar nasa_dc8 alt'
+		entry 'ER2 track' 'PutScalar nasa_er2 alt'
+		entry 'C130 track' 'PutScalar c130_st alt'
+		entry 'Cessna track' 'PutScalar c340_st alt'
+	endmenu
+	menu boats bitmap bigboat
+		title 'Ocean Platforms'
+		line
+		entry 'Franklin location track' 'BoatTrack franklin'
+		entry 'Franklin SST' \
+		      'putc2 p_slowtrack platform fr_sst field rsst'
+		entry 'Wecoma location track' 'BoatTrack wecoma'
+		entry 'Moana Wave flux data' \
+		      'putc2 p_slowtrack platform mw_flux field sst'
+		line
+		entry 'CTD data locations' 'putc1 tc_ctdloc platform #CTD'
+		line
+!		entry 'Toga radar reflectivities' 'RadarAdd toga_rad'
+		entry 'Toga radar reflectivities' \
+		     'PutCompX c_ship_radar platform toga_rad'
+		entry 'MIT radar reflectivities' \
+		     'PutCompX c_ship_radar platform mit_rad'
+	endmenu
+	menu surface bitmap surf-buoy
+	     	title 'Surface observations'
+		line
+		entry 'ISS Surface data' \
+      'putc3 p_station platform #isssurf active-icon false icon iss-iss-small'
+		entry 'TAO (hourly) station plot' \
+		      'putc3 p_station platform tao_hr quad1 tdry icon tao_hr'
+		entry 'TAO (24-hour) station plot' \
+		      'putc3 p_station platform tao quad1 tdry icon tao'
+!
+! TAO folks don't want gridding available
+!
+!		entry 'TAO wind vectors' 'sendout c_tao_winds pick'
+!		submenu 'TAO line contours' taoline
+!		submenu 'TAO filled contours' taofilled
+		entry 'WHOI Buoy flux data' \
+		    'putc3 p_station platform whoibuoy icon buoy color violet'
+	endmenu
+	menu model bitmap 3dgrid
+		title 'Gridded datasets'
+		line
+		entry 'NMC MRF synoptic winds' \
+			'ModelWindsAdd nmc/analysis orange 1'
+		entry 'NMC MRF contours' \
+			'ModelAdd nmc/analysis t orange'
+		entry 'NMC sea-level pressure contours' \
+			'SfcModelAdd nmc/slp slp orange'
+		entry 'NMC 12h accumulated precip 12h forecast' \
+		        'SfcModelAdd nmc/precip pp orange'
+		entry 'NMC 12h accumulated precip 24h forecast' \
+		        'SfcModelAdd nmc/precip24 pp orange'
+		entry 'NMC Velocity potential vectors' \
+		        'ModelWindsAdd nmc/velpot orange 1'
+		line
+		entry 'ECMWF contours' 'ModelAdd ecmwf rh yellow'
+		entry 'ECMWF surface contours' 'SfcModelAdd ecmwf_sfc sfc_temp yellow'
+		entry 'ECMWF winds' 'ModelWindsAdd ecmwf yellow 1'
+		entry 'ECMWF surface winds' \
+			'SfcModelWindsAdd ecmwf_sfc yellow 1'
+		line
+		entry 'ECMWF(netCDF) contours' \
+			'ModelAdd ecmwf_netcdf rh yellow'
+		entry 'ECMWF(netCDF) winds' \
+			'ModelWindsAdd ecmwf_netcdf yellow 1'
+		line
+		entry 'FNOC Ocean parameters' \
+			'SfcModelAdd fnoc/ocean sst pink'
+		entry 'FNOC Sea-level pressure' \
+			'SfcModelAdd fnoc/slp slp pink'
+		entry 'FNOC Synoptic winds' 'ModelWindsAdd fnoc/syn pink 1'
+		entry 'FNOC Tropical winds' 'ModelWindsAdd fnoc/winds cyan 1'
+		entry 'FNOC Velocity potential vectors' \
+			'ModelWindsAdd fnoc/velpot green 1'
+		entry 'FNOC 19.5 m winds' \
+			'SfcModelWindsAdd fnoc/syn_vsfc pink 1'
+		entry 'FNOC Clouds fractions' \
+			'SfcModelAdd fnoc/clouds ccl pink'
+		entry 'FNOC 12h accumulated precip 12h forecast' \
+		        'SfcModelAdd fnoc/precip pp orange'
+		entry 'FNOC 12h accumulated precip 24h forecast' \
+		        'SfcModelAdd fnoc/precip24 pp orange'
+	endmenu
+	menu 'upperair' bitmap sounding
+		title 'Upper Air Isobaric Data'
+		line
+		entry '500 mb' \
+			'putc2 c_isobaric platform 500mb_snd icon 500mb_snd'
+		entry '600 mb' \
+			'putc2 c_isobaric platform 600mb_snd icon 600mb_snd'
+		entry '700 mb' \
+			'putc2 c_isobaric platform 700mb_snd icon 700mb_snd'
+		entry '850 mb' \
+			'putc2 c_isobaric platform 850mb_snd icon 850mb_snd'
+		entry '900 mb' \
+			'putc2 c_isobaric platform 900mb_snd icon 900mb_snd'
+		line
+		entry '500 mb winds' \
+		 'putc2 c_isobaric_wind platform 500mb_snd icon 500mb_snd_wind'
+		entry '600 mb winds' \
+		 'putc2 c_isobaric_wind platform 600mb_snd icon 600mb_snd_wind'
+		entry '700 mb winds' \
+		 'putc2 c_isobaric_wind platform 700mb_snd icon 700mb_snd_wind'
+		entry '850 mb winds' \
+		 'putc2 c_isobaric_wind platform 850mb_snd icon 850mb_snd_wind'
+		entry '900 mb winds' \
+		 'putc2 c_isobaric_wind platform 900mb_snd icon 900mb_snd_wind'
+	endmenu
+	menu 'overlays' bitmap overlays
+		title 'Static Overlays'
+		line
+		entry 'Island Map' 'putc2 p_map platform coare icon map'
+		entry 'IFA Boundary' \
+		      'putc3 p_map platform coare-ifa color brown icon ifa'
+		line
+		entry 'Ops Center location' \
+			'putc2 p_loc platform ops-ctr icon ops-ctr'
+		entry 'ISS Stations' 'sendout tc_iss_loc pick'
+		entry 'Imet Location' 'putc2 p_loc platform imet icon diamond'
+		entry 'PCM buoy locations' \
+		      'putc2 p_loc platform pcm_n,pcm_e icon diamond'
+		entry 'Sounding station locations' 'SendLocs sounding'
+		entry 'Profiler locations' 'SendLocs profiler'
+		entry 'RASS locations' 'SendLocs rass'
+		entry 'Willis Island Radar' \
+			'putc2 p_loc platform willis-island icon diamond'
+		entry 'Ports and Airports' \
+		       'putc3 p_loc platform #Ports icon town color blue'
+		line
+		entry 'X-Y Grid (km)' \
+			'putc3 p_kmgrid x-spacing 300 y-spacing 300 color cyan'
+		entry 'Lat/Lon Grid' \
+			'putc3 p_llgrid x-spacing 300 y-spacing 300 color cyan'
+		entry 'One-hour flight rings' 'put_component c_rings'
+	endmenu
+enddef

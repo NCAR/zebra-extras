@@ -1,0 +1,35 @@
+!
+! Dave Parsons' isobaric data extracted from soundings
+!
+class SoundingLevel
+	filetype	netcdf
+	organization	IRGrid
+	composite
+endclass
+
+instance SoundingLevel 500mb_snd 600mb_snd 700mb_snd 850mb_snd 900mb_snd
+
+subplatform 500mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
+subplatform 500mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
+subplatform 500mb_snd	korror kwajalein majuro misima natsu pohnpei 
+subplatform 500mb_snd	santacruz ship5 singapore thursday yap
+
+subplatform 600mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
+subplatform 600mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
+subplatform 600mb_snd	korror kwajalein majuro misima natsu pohnpei 
+subplatform 600mb_snd	santacruz ship5 singapore thursday yap
+
+subplatform 700mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
+subplatform 700mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
+subplatform 700mb_snd	korror kwajalein majuro misima natsu pohnpei 
+subplatform 700mb_snd	santacruz ship5 singapore thursday yap
+
+subplatform 850mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
+subplatform 850mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
+subplatform 850mb_snd	korror kwajalein majuro misima natsu pohnpei 
+subplatform 850mb_snd	santacruz ship5 singapore thursday yap
+
+subplatform 900mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
+subplatform 900mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
+subplatform 900mb_snd	korror kwajalein majuro misima natsu pohnpei 
+subplatform 900mb_snd	santacruz ship5 singapore thursday yap
