@@ -4,10 +4,10 @@
 #
 # Do everything possible to insure that we start clean.
 #
-	setenv XAPPLRESDIR ${ZEBHOME}/lib/resources
 	setenv NO_DM_TIME no
 	setenv HOST `hostname`
 	setenv ZEB_TOPDIR /apps/development
+	setenv XAPPLRESDIR ${ZEB_TOPDIR}/lib/resources
 	cd $CONFIGHOME
 	zebstop
 	rm -f /tmp/fcc.socket
