@@ -1,5 +1,5 @@
 !
-! $Id: refract_storm,v 1.1 2002-05-17 15:14:38 burghart Exp $
+! $Id: refract_storm,v 1.2 2002-05-17 16:12:50 burghart Exp $
 !
 
 require radar
@@ -39,21 +39,21 @@ endmenu
 define widget refract-fields intmenu 'x'
 	title 'Refractivity fields'
 	line
-	entry 'n' 'param #icon_component field n' \
+	entry 'Refractivity N' 'param #icon_component field n' \
 		(PDParam (icon_component, 'field') = 'n')
-	entry 'delta_n' 'param #icon_component field delta_n' \
+	entry 'Refractivity delta N' 'param #icon_component field delta_n' \
 		(PDParam (icon_component, 'field') = 'delta_n')
-	entry 'kac' 'param #icon_component field kac' \
+	entry 'KDP precip accumulation' 'param #icon_component field kac' \
 		(PDParam (icon_component, 'field') = 'kac')
-	entry 'nac' 'param #icon_component field nac' \
+	entry 'NSSL KDP precip accumulation' 'param #icon_component field nac' \
 		(PDParam (icon_component, 'field') = 'nac')
-	entry 'dac' 'param #icon_component field dac' \
+	entry 'ZDR precip accumulation' 'param #icon_component field dac' \
 		(PDParam (icon_component, 'field') = 'dac')
-	entry 'zac' 'param #icon_component field zac' \
+	entry 'Z-R precip accumulation' 'param #icon_component field zac' \
 		(PDParam (icon_component, 'field') = 'zac')
-	entry 'hac' 'param #icon_component field hac' \
+	entry 'Hybrid precip accumulation' 'param #icon_component field hac' \
 		(PDParam (icon_component, 'field') = 'hac')
-	entry 'vr' 'param #icon_component field vr' \
+	entry 'Radial velocity' 'param #icon_component field vr' \
 		(PDParam (icon_component, 'field') = 'vr')
 	line
 	entry 'Pop up field chooser widget' 'popup FChooser'
