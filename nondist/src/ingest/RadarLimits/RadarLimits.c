@@ -1,7 +1,6 @@
 /*
  * Quickie hack to get in and store the limits of a radar's scanning.
  */
-static char *rcsid = "$Id: RadarLimits.c,v 2.2 1991-11-21 22:28:47 kris Exp $";
 /*		Copyright (C) 1987,88,89,90,91 by UCAR
  *	University Corporation for Atmospheric Research
  *		   All rights reserved
@@ -34,6 +33,7 @@ static char *rcsid = "$Id: RadarLimits.c,v 2.2 1991-11-21 22:28:47 kris Exp $";
 # include <message.h>
 # include <DataStore.h>
 # include <dm.h>
+MAKE_RCSID ("$Id: RadarLimits.c,v 2.3 1991-12-05 20:34:36 corbet Exp $")
 
 
 static XtAppContext Appc;
@@ -48,10 +48,10 @@ DataObject DObj;
 
 # ifdef __STDC__
 	static int MsgHandler (Message *);
-	static void Store (void);
+	static void Store ();
 	static int xevent (int);
 	static void CreateWidget (char *);
-	static void wm (void);
+	static void wm ();
 	static void CreateDataObject (char *);
 # else
 	static int MsgHandler ();
