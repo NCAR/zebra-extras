@@ -1,24 +1,34 @@
-XCOMM $Id: Imakefile,v 1.3 1995-09-11 19:06:49 granger Exp $
+XCOMM $Id: Imakefile,v 1.4 1995-09-22 00:16:19 granger Exp $
 
-PROGRAMS = ds.config IconBar dm.config dm.pd \
+CFGFILES = ds.config IconBar dm.config dm.pd \
 	   cf-active-loc ef-active-loc bf-active-loc
 
-CPPSRCS = ds.config.cpp IconBar.cpp dm.config.cpp dm.pd.cpp
+CFGSRCS = ds.config.cpp IconBar.cpp dm.config.cpp dm.pd.cpp
 
-DISTFILES = Imakefile $(CPPSRCS)
+HELPFILES = empty.html arm-iconbar.html arm-index.html \
+	    arm-displays.html tools.html
+
+HELPSRCS = empty.html.cpp arm-iconbar.html.cpp arm-index.html.cpp \
+	    arm-displays.html.cpp tools.html.cpp
+
+DISTFILES = Imakefile $(CFGSRCS) $(HELPSRCS)
 
 DEFDATADIR = /apps/data/sgp/platforms
+DATADEFINE = -DDEFDATADIR=\"$(DEFDATADIR)\" 
+HELPLIBDIR = $(LIBDIR)/help
+HELPDEFINE = -DHELPDIR=$(HELPLIBDIR)
 PROJECT = UAV
+PROJDEFINE = -DPROJECT=$(PROJECT) -D$(PROJECT)
 REALTIME = -DREALTIME
 
-DEFINES = -DPROJECT=$(PROJECT) -D$(PROJECT) \
-	  -DDEFDATADIR=\"$(DEFDATADIR)\" $(REALTIME)
+DEFINES = $(PROJDEFINE) $(HELPDEFINE) $(DATADEFINE) $(REALTIME)
 
 PROJDIR = ..
 MODULEDIR = $(PROJDIR)/modules
+HELPDIR = $(PROJDIR)/help
 DESTDIR = /* we know we don't want to prepend anything to the install dir */
 
-all:: $(PROGRAMS)
+all:: $(CFGFILES) $(HELPFILES)
 
 CppScriptTarget(ds.config,ds.config.cpp,$(DEFINES),/*$(ICONFIGFILES)*/)
 InstallNamedProg(ds.config,ds.config,$(PROJDIR))
@@ -40,6 +50,21 @@ InstallNamedProg(bf-active-loc,bf-active-loc,$(MODULEDIR))
 
 CppScriptTarget(ef-active-loc,ef-active-loc.cpp,$(DEFINES),/*$(ICONFIGFILES)*/)
 InstallNamedProg(ef-active-loc,ef-active-loc,$(MODULEDIR))
+
+CppScriptTarget(empty.html,empty.html.cpp,$(DEFINES),/*$(ICONFIGFILES)*/)
+InstallNamedProg(empty.html,empty.html,$(HELPDIR))
+
+CppScriptTarget(arm-iconbar.html,arm-iconbar.html.cpp,$(DEFINES),/**/)
+InstallNamedProg(arm-iconbar.html,arm-iconbar.html,$(HELPDIR))
+
+CppScriptTarget(arm-index.html,arm-index.html.cpp,$(DEFINES),/**/)
+InstallNamedProg(arm-index.html,arm-index.html,$(HELPDIR))
+
+CppScriptTarget(arm-displays.html,arm-displays.html.cpp,$(DEFINES),/**/)
+InstallNamedProg(arm-displays.html,arm-displays.html,$(HELPDIR))
+
+CppScriptTarget(tools.html,tools.html.cpp,$(DEFINES),/**/)
+InstallNamedProg(tools.html,tools.html,$(HELPDIR))
 
 depend::
 
