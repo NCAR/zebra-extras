@@ -6,6 +6,7 @@
 #
         setenv XAPPLRESDIR ${ZEBHOME}/lib/resources
         setenv ZEB_TOPDIR ${ZEBHOME}
+	setenv ZEB_PROJECT $CONFIGHOME
         setenv NO_DM_TIME yes
         setenv HOST `uname -n`
         cd $CONFIGHOME
@@ -15,7 +16,6 @@
 #
 # Start the display manager.
 #
-		setenv DEFAULT_CONFIG empty
-        $BINHOME/dm  $CONFIGHOME/dm.config
+	setenv DEFAULT_CONFIG empty
 #	xgdb $BINHOME/dm 
-wait
+	exec $BINHOME/dm  $CONFIGHOME/dm.config

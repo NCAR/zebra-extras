@@ -2,10 +2,15 @@
 ! All the definitions required to make the iconbar work.
 !
 
-!
-! The right way to do this....
-!
 set ui$bitmap_directory concat(c$projdir, "/icons")
+
+pdlift p_raster p_raster p_satellite
+parameter p_satellite p_satellite require "raster, satellite"
+parameter p_satellite p_satellite icon-middle-menu satellite-middle
+
+pdlift p_satellite p_satellite p_satoverlay
+parameter p_satoverlay p_satoverlay color-table "green_overlay"
+parameter p_satoverlay p_satoverlay icon-middle-menu satellite-overlay-middle
 
 !
 ! This is the iconbar menu itself.....
@@ -30,10 +35,18 @@ define widget iconbar menubar " "
 	menu help bitmap iconbar-help
 		title 'Zeb Help Access'
 		line
-		entry 'Introduction' 'help'
-		entry 'On-line Topics' 'help tablecontents'
-		entry 'Shutting Down' 'help shutdown'
+		entry 'Introduction' 'help intro'
+		entry 'On-line Topics' 'help index'
+		entry 'Starting zeb' 'help start'
+		entry 'Shutting Down' 'help shut-down'
+		entry 'Keys and mouse buttons' 'help keys'
+		entry 'The icon bar' 'help iconbar'
+		entry 'Editing display configurations' 'help editing-configs'
 		line
+		entry 'Horizontal plots' 'help horizontal-plots'
+		entry 'Skew-t plots' 'help skewt'
+		entry 'XYGraph plots' 'help xy-graphs'
+		entry 'Cross section plots' 'help cross-section'
 	endmenu
 	!
 	! the global menu
@@ -47,7 +60,7 @@ define widget iconbar menubar " "
 			'pconfig NGM' (dm$config = "NGM")
 		entry 'NWS Surface Plot' 'pconfig Mesonet' \
 			(dm$config = "Mesonet")
-		entry 'Satellite Display' 'pconfig Satellite' (dm$config = "Satellite")
+		entry 'Satellite Display' 'pconfig satellite' (dm$config = "satellite")
 !		entry 'Thermodynamics Display' 'pconfig sonde' (dm$config = "sonde")
 		submenu 'Thermodynamic Displays' 'sonde_menu'
 		entry 'Profiler Wind and Temperature' \
@@ -104,10 +117,40 @@ define widget iconbar menubar " "
 !		   'putc2 p_irg_winds platform sgpsfchrlyX1.a1 icon grid_hourly_vectors'
 	endmenu
 	menu satellite bitmap satellite
-		title 'Satellite Data'
+		title 'Satellite Images'
 		line
-		entry 'Vis' 'place_goes vis'
-		entry 'IR' 'place_goes ir'
+		entry 'GOES-7 Visible' \
+		   'putc2 p_satellite platform g7vismerc field vas_visible'
+		entry 'GOES-7 Channel 5 brightness' \
+		   'putc2 p_satellite platform g7irmerc field vas_ir5'
+		entry 'GOES-7 Channel 8 brightness' \
+		   'putc2 p_satellite platform g7ir8merc field vas_ir8'
+		entry 'GOES-7 Channel 12 brightness' \
+		   'putc2 p_satellite platform g7irmerc field vas_ir12'
+		entry 'GOES-7 Channel 5 radiances' \
+		   'putc2 p_satellite platform g7radirmerc field vas_ir5'
+		entry 'GOES-7 Channel 8 radiances' \
+		   'putc2 p_satellite platform g7radir8merc field vas_ir8'
+		entry 'GOES-7 Channel 12 radiances' \
+		   'putc2 p_satellite platform g7radirmerc field vas_ir12'
+		line
+		entry 'NOAA-9 AVHRR Albedo and Brightness' \
+		   'putc2 p_satellite platform n9avhrrmerc field avhrr_ch1'
+		entry 'NOAA-9 AVHRR Radiances' \
+		   'putc2 p_satellite platform n9avhrrradmerc field avhrr_ch3'
+		line
+		entry 'AVHRR State Lines' \
+   'putc2 p_satoverlay platform avhrr_sgp.state_lines field state_line'
+		entry 'AVHRR Lat-Lon Grid' \
+   'putc2 p_satoverlay platform avhrr_sgp.lat_lon field lat_lon_grid'
+		entry 'GOES IR State Lines' \
+   'putc2 p_satoverlay platform goes_ir_sgp.state_lines field state_line'
+		entry 'GOES IR Lat-Lon Grid' \
+   'putc2 p_satoverlay platform goes_ir_sgp.lat_lon field lat_lon_grid'
+		entry 'GOES VIS State Lines' \
+   'putc2 p_satoverlay platform goes_vis_sgp.state_lines field state_line'
+		entry 'GOES VIS Lat-Lon Grid' \
+   'putc2 p_satoverlay platform goes_vis_sgp.lat_lon field lat_lon_grid'
 	endmenu
 	menu model bitmap model
 		title 'Nested Grid Model'
@@ -126,17 +169,6 @@ define widget iconbar menubar " "
 		entry 'Window Bounds' 'put_wbounds c_wbounds'
 	endmenu
 enddef
-
-
-procedure place_goes field string
-	parameter p_raster p_raster require "raster, goes"
-	if (field = "vis")
-		putc3 p_raster platform sgpgoesvis.tmp field #field icon-middle-menu goes-middle
-	else
-		parameter p_raster p_raster platform sgpgoesir.tmp
-		putc3 p_raster platform sgpgoesir.tmp field #field icon-middle-menu goes-middle
-	endif
-endprocedure
 
 
 !

@@ -7,10 +7,15 @@
 	setenv NO_DM_TIME no
 	setenv HOST `uname -n`
 	setenv ZEB_TOPDIR $ZEBHOME
+	setenv ZEB_PROJECT $CONFIGHOME
 	setenv XAPPLRESDIR ${ZEB_TOPDIR}/lib/resources
 	cd $CONFIGHOME
-	zebstop
-	rm -f /tmp/fcc.socket
+	$BINHOME/zstop
+	if ( $?ZEB_SOCKET ) then
+		rm -f $ZEB_SOCKET
+	else
+		rm -f /tmp/fcc.socket
+	endif
 	sleep 1
 #	set nonomatch; rm -f ${ZEBHOME}/tmp/*
 #

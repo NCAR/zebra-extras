@@ -1,0 +1,12 @@
+#
+# This file should be sourced before running the UAV configuration
+#
+
+setenv ZEB_TOPDIR	/scr/steam/granger/zebra
+setenv ZEBHOME		$ZEB_TOPDIR
+setenv DATAHOME		/apps/data
+setenv CONFIGHOME	/scr/steam/arm/UAV
+setenv BINHOME		$ZEB_TOPDIR/bin
+
+set path=($BINHOME $path)
+
