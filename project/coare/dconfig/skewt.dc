@@ -1,9 +1,9 @@
 ! Auto-saved display configuration.
 
-prototype fallback Default gp gp.init
-prototype fallback Default gp gp.init
-prototype fallback Default gp gp.init
-prototype fallback Default gp gp.init
+prototype fallback 'Default' gp 'gp.init'
+prototype fallback 'Default' gp 'gp.init'
+prototype fallback 'Default' gp 'gp.init'
+prototype fallback 'Default' gp 'gp.init'
 
 config skewt
 	graphic 'big' 6 24 704 444 'Default'
@@ -125,6 +125,7 @@ component p_iss_loc
 component p_active_loc
    parameter active-icon               'true'
    parameter color                     'green'
+   parameter exclude                   'kapinga,nauru,manus,kavieng,sci1,exp3'
    parameter field                     'location'
    parameter icon                      'sounding-small'
    parameter icon-left-menu            'minimal-cap-left-menu'
@@ -132,7 +133,7 @@ component p_active_loc
    parameter label                     'platform'
    parameter label-size                '10'
    parameter location-time             'observation'
-   parameter platform                  'chuuk,darwin,gove,guam,ambon,davao,sounding/honiara,kanton,hongkong,hakuho_maru,korror,keifu_maru,kota,kuching,kupang,moana_wave,kwajalein,majuro,laoag,legaspi,mactan,madang,ship5,misima,pohnpei,santacruz,singapore,yap,natsu,dc8a,dc8b,p3a,p3b,menado,padang,ujungp,sounding/vickers,sounding/biak,thursday'
+   parameter platform                  '^sounding/'
    parameter posicon-left-menu         'al-send-other-window'
    parameter posicon-middle-menu       'al-send-other-window'
    parameter posicon-right-menu        'location-options'

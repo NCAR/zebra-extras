@@ -1,31 +1,39 @@
 ! Auto-saved display configuration.
+
+prototype fallback 'Default' gp 'gp.init'
+prototype fallback 'Default' gp 'gp.init'
+prototype fallback 'Default' gp 'gp.init'
+prototype fallback 'Default' gp 'gp.init'
+
 config iss-combo
 	widget 'iconbar' 1065 1 75 467
-	window 'big' 656 495 492 380 gp gp.init
+	graphic 'big' 656 495 492 380 'Default'
 		description 'iss-combo-big'
 		buttonmap 'xyplot'
 		forcepd
-	endwindow
-	window 'w1' 658 1 400 468 gp gp.init
+	endgraphic
+	graphic 'w1' 658 1 400 468 'Default'
 		description 'iss-combo-w1'
 		buttonmap 'sounding'
 		forcepd
-	endwindow
-	window 'w2' 1 1 652 430 gp gp.init
+	endgraphic
+	graphic 'w2' 1 1 652 430 'Default'
 		description 'iss-combo-w2'
 		buttonmap 'xyplot'
 		forcepd
-	endwindow
-	window 'w3' -1 457 652 419 gp gp.init
+	endgraphic
+	graphic 'w3' -1 457 652 419 'Default'
 		description 'iss-combo-w3'
 		buttonmap 'xyplot'
 		forcepd
-	endwindow
+	endgraphic
 endconfig
 
 beginpd 'iss-combo-big'
 global
+   parameter altitude-label            ''
    parameter pd-name                   'iss-combo-big'
+   parameter plot-hold                 'false'
    parameter plot-mode                 'history'
    parameter plot-time                 '12-Jan-93,0:00:00'
    parameter plot-type                 'CAP'
@@ -53,23 +61,6 @@ component p_llgrid
    parameter require                   'grid, simple-color'
    parameter x-spacing                 '300'
    parameter y-spacing                 '300'
-component p_active_loc
-   parameter active-icon               'true'
-   parameter color                     'green'
-   parameter field                     'location'
-   parameter icon                      'sounding-small'
-   parameter icon-left-menu            'minimal-cap-left-menu'
-   parameter icon-right-menu           'location-options'
-   parameter label                     'platform'
-   parameter label-size                '10'
-   parameter location-time             'observation'
-   parameter platform                  'chuuk,darwin,gove,guam,hongkong,hakuho_maru,korror,moana_wave,kwajalein,majuro,misima,pohnpei,santacruz,singapore,yap,natsu,dc8a,dc8b,p3a,p3b'
-   parameter posicon-left-menu         'al-send-other-window'
-   parameter posicon-middle-menu       'al-send-other-window'
-   parameter posicon-right-menu        'location-options'
-   parameter representation            'overlay'
-   parameter require                   'location,active-loc'
-   parameter time-label                'false'
 component p_iss_loc
    parameter active-icon               'true'
    parameter color                     'white'
@@ -121,6 +112,24 @@ component p_active_loc.1
    parameter representation            'overlay'
    parameter require                   'location,active-loc'
    parameter time-label                'false'
+component p_active_loc
+   parameter active-icon               'true'
+   parameter color                     'green'
+   parameter exclude                   'kapinga,nauru,manus,kavieng,sci1,exp3'
+   parameter field                     'location'
+   parameter icon                      'sounding-small'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-right-menu           'location-options'
+   parameter label                     'platform'
+   parameter label-size                '10'
+   parameter location-time             'observation'
+   parameter platform                  '^sounding/'
+   parameter posicon-left-menu         'al-send-other-window'
+   parameter posicon-middle-menu       'al-send-other-window'
+   parameter posicon-right-menu        'location-options'
+   parameter representation            'overlay'
+   parameter require                   'location,active-loc'
+   parameter time-label                'true'
 endpd
 
 beginpd 'iss-combo-w1'
@@ -144,8 +153,8 @@ component skewt
    parameter platform                  'kapinga'
    parameter representation            'skewt'
    parameter require                   'skewt'
-   parameter skprivate-thermo-npts     '198'
-   parameter skprivate-wind-npts       '198'
+   parameter skprivate-thermo-npts     '705'
+   parameter skprivate-wind-npts       '705'
    parameter top-annot-active          'true'
    parameter topannot-left-menu        'skewt-topannot'
    parameter trigger                   'platform'

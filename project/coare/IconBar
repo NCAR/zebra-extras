@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.3 1995-08-03 21:08:11 corbet Exp $
+! $Id: IconBar,v 1.4 1995-10-12 20:58:58 corbet Exp $
 !
 ! All the definitions required to make the iconbar work.
 !
@@ -367,12 +367,17 @@ set isssurf 'kapinga_s,nauru_s,manus_s,kavieng_s,sci1_s,exp3_s'
 set Ports 'honiara-ap,tsv-ap,rabaul,guam,brisbane-ap'
 set Rawin 'ponape,misima,honiara'
 set CTD 'alis_ctd,kexue_ctd,nat_ctd,noroit_ctd,malaita_ctd,moana_ctd,vickers_ctd,wecoma_ctd'
+!
+! These are not used any more.
+!
 set SndLocs1 'chuuk,darwin,gove,guam,ambon,davao,sounding/honiara,kanton,'
 set SndLocs2 'hongkong,hakuho_maru,korror,keifu_maru,kota,kuching,kupang,'
 set SndLocs3 'moana_wave,kwajalein,majuro,laoag,legaspi,mactan,madang,ship5,'
 set SndLocs4 'misima,pohnpei,santacruz,singapore,yap,natsu,dc8a,dc8b,p3a,p3b,'
-set SndLocs5 'menado,padang,ujungp,sounding/vickers,sounding/biak,thursday'
-set SndLocs concat4(SndLocs1,SndLocs2,SndLocs3,concat(SndLocs4,SndLocs5))
+set SndLocs5 'menado,padang,ujungp,sounding/vickers,sounding/biak,thursday,'
+set SndLocs5 concat(SndLocs5,'n308d_s,n42rf_s,n43rf_s,funafuti,tarawa')
+!set SndLocs concat4(SndLocs1,SndLocs2,SndLocs3,concat(SndLocs4,SndLocs5))
+set SndLocs 'sounding/'
 
 ! rass
 set RASSLocs 'moana_r'
@@ -402,9 +407,10 @@ endmenu
 !
 procedure SendLocs type string
 	if (type = 'sounding')
-		parameter p_active_loc p_active_loc location-time observation
-		putc3 p_active_loc platform #SndLocs icon sounding-small \
-			time-label true
+		parameter p_active_loc p_active_loc platform '^sounding/'
+		parameter p_active_loc p_active_loc icon sounding-small
+		putc3 p_active_loc location-time observation exclude #ISSes \
+		        time-label true
 	elseif (type = 'profiler')
 		putc2 p_active_loc platform #ProfLocs icon prof-sm
 	elseif (type = 'rass')
