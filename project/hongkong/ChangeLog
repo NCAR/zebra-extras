@@ -1,3 +1,25 @@
+Sat May 14 03:33:19 1994  Gary Granger  (granger@kodiak)
+
+	* dm: fixed bug in KillProcess which would accidentally remove
+	  windows from a configuration; added 'reuse' and 'rename' options
+	  to dm newwindow command, rename generates unique window names 
+	  automatically
+
+	* IconBar: use 'rename' option to newwindow in create-window
+
+Fri May 13 23:59:03 1994  Gary Granger  (granger@kodiak)
+
+	* IconBar: changed sendout ro_radar to putc1; changed config menu
+	  to use ellipses and provide direct saving and 'save as'
+
+	* added atd.config for running stand-alone on stout clients
+
+	* gp: fixed station plots to correlate with side annotation
+	  quadrant active areas
+
+	* modules/global: added do_side_annot_size menu used by station
+	  library pd
+
 Thu Apr 28 04:56:19 1994  Gary Granger  (lantex@owsu1)
 
 	* Installed the cutting-edge Zeb version, including platform
