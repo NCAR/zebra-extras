@@ -1,4 +1,4 @@
-! $Id: IconBar.isobaric,v 1.2 1997-08-14 18:45:31 burghart Exp $
+! $Id: IconBar.isobaric,v 1.3 1997-08-20 14:30:31 burghart Exp $
 !
 ! All the definitions required to make the iconbar work.
 !
@@ -211,6 +211,8 @@ define widget iconbar menubar " "
 			'putc2 c_isobaric platform 450mb_snd icon 450mb_snd'
 		entry '500 mb' \
 			'putc2 c_isobaric platform 500mb_snd icon 500mb_snd'
+		entry '550 mb' \
+			'putc2 c_isobaric platform 550mb_snd icon 550mb_snd'
 		entry '600 mb' \
 			'putc2 c_isobaric platform 600mb_snd icon 600mb_snd'
 		entry '650 mb' \
@@ -219,6 +221,8 @@ define widget iconbar menubar " "
 			'putc2 c_isobaric platform 700mb_snd icon 700mb_snd'
 		entry '750 mb' \
 			'putc2 c_isobaric platform 750mb_snd icon 750mb_snd'
+		entry '800 mb' \
+			'putc2 c_isobaric platform 800mb_snd icon 800mb_snd'
 		entry '850 mb' \
 			'putc2 c_isobaric platform 850mb_snd icon 850mb_snd'
 		entry '900 mb' \
@@ -232,6 +236,8 @@ define widget iconbar menubar " "
 		 'putc2 c_isobaric_wind platform 450mb_snd icon 450mb_snd_wind'
 		entry '500 mb winds' \
 		 'putc2 c_isobaric_wind platform 500mb_snd icon 500mb_snd_wind'
+		entry '550 mb winds' \
+		 'putc2 c_isobaric_wind platform 550mb_snd icon 550mb_snd_wind'
 		entry '600 mb winds' \
 		 'putc2 c_isobaric_wind platform 600mb_snd icon 600mb_snd_wind'
 		entry '650 mb winds' \
@@ -240,6 +246,8 @@ define widget iconbar menubar " "
 		 'putc2 c_isobaric_wind platform 700mb_snd icon 700mb_snd_wind'
 		entry '750 mb winds' \
 		 'putc2 c_isobaric_wind platform 750mb_snd icon 750mb_snd_wind'
+		entry '800 mb winds' \
+		 'putc2 c_isobaric_wind platform 800mb_snd icon 800mb_snd_wind'
 		entry '850 mb winds' \
 		 'putc2 c_isobaric_wind platform 850mb_snd icon 850mb_snd_wind'
 		entry '900 mb winds' \
