@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.8 2002-05-18 15:23:51 burghart Exp $
+! $Id: IconBar,v 1.9 2002-05-18 15:32:45 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -40,10 +40,10 @@ define widget iconbar menubar " "
 		entry 'Save current configuration' 'popup saveconfig'
 		line
 		entry 'Enter aircraft locations' 'popup enter'
-                entry 'Enter Convair locations (lat,lon,ft)' \
-      'shell "xterm -T convairmanual -e latlon_position convairmanual UW-Convair &"'
-                entry 'Enter File of Convair Locations' \
-                      'shell "xterm -T convair -e batch_track.py &"'
+!                entry 'Enter Convair locations (lat,lon,ft)' \
+!      'shell "xterm -T convairmanual -e latlon_position convairmanual UW-Convair &"'
+!                entry 'Enter File of Convair Locations' \
+!                      'shell "xterm -T convair -e batch_track.py &"'
 		line
 	        
 		entry 'Scan optimizer' 'shell "Optimizer optimizer.config &"'
@@ -54,12 +54,16 @@ define widget iconbar menubar " "
 		entry 'Save Screen Image' 'shell "grabpng &"'
 		entry 'Print Screen Image' 'shell "printWin &"'
 		line
-		entry 'Zero Out Rain Accumulation' 'shell "/ops/bin/reset_rain &" '
+		entry 'Zero Out Rain Accumulation' \
+			'shell "/ops/bin/reset_rain &" '
 		line
-		entry 'Generate Dual Pol Images' 'shell "/zebra/bin/start_dual_pol_images&" '
-		entry 'Generate Single Pol Images' 'shell "/zebra/bin/start_single_pol_images&" '
+		entry 'Generate Dual Pol Images' \
+			'shell "/zebra/bin/start_dual_pol_images&" '
+		entry 'Generate Single Pol Images' \
+			'shell "/zebra/bin/start_single_pol_images&" '
 		line
-		entry 'Stop Image Generation' 'shell "/zebra/bin/stop_zebra_images&" '
+		entry 'Stop Image Generation' \
+			'shell "/zebra/bin/stop_zebra_images&" '
 		line
 		entry 'Shut down Zebra' 'shutdown'
 	endmenu
