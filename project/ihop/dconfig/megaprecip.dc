@@ -7,7 +7,7 @@ prototype fallback 'Default' gp 'gp.init'
 prototype fallback 'Default' gp 'gp.init'
 
 config megaprecip
-	widget 'iconbar' 7 790 345 73
+	widget 'iconbar' 7 790 410 73
 	graphic 'bigradar' 6 22 764 742 'Default'
 		description 'megaprecip-bigradar'
 		buttonmap 'big'
@@ -37,8 +37,8 @@ endconfig
 
 beginpd 'megaprecip-bigradar'
 global
-   parameter altitude                  '4.9988'
-   parameter altitude-label            '5.0 deg'
+   parameter altitude                  '10.2722'
+   parameter altitude-label            '10.3 deg'
    parameter pd-name                   'megaprecip-bigradar'
    parameter plot-mode                 'real-time'
    parameter plot-time                 '29-may-1997,17:55:32'
@@ -57,7 +57,8 @@ component p_polar
    parameter icon-right-menu           'DataAvailable'
    parameter limit-proc                'raster-limit-proc'
    parameter platform                  'spol'
-   parameter radar-scan                'sur'
+   parameter ppi-angle                 '10.2722'
+   parameter radar-scan                'ppi'
    parameter representation            'polar'
    parameter require                   'radar, raster, spol'
    parameter sur-angle                 '4.9988'

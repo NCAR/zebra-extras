@@ -5,7 +5,7 @@ prototype fallback 'Default' gp 'gp.init'
 prototype fallback 'Default' gp 'gp.init'
 
 config radar2win
-	widget 'iconbar' 5 878 340 67
+	widget 'iconbar' 5 878 412 67
 	graphic 'bigradar' 5 22 896 829 'Default'
 		description 'radar2win-bigradar'
 		buttonmap 'big'
@@ -25,8 +25,8 @@ endconfig
 
 beginpd 'radar2win-bigradar'
 global
-   parameter altitude                  '4.9988'
-   parameter altitude-label            '5.0 deg'
+   parameter altitude                  '12.9803'
+   parameter altitude-label            '13.0 deg'
    parameter pd-name                   'radar2win-bigradar'
    parameter plot-mode                 'real-time'
    parameter plot-time                 'now'
@@ -49,7 +49,8 @@ component p_polar
    parameter icon-right-menu           'DataAvailable'
    parameter limit-proc                'raster-limit-proc'
    parameter platform                  'spol'
-   parameter radar-scan                'sur'
+   parameter ppi-angle                 '12.9803'
+   parameter radar-scan                'ppi'
    parameter representation            'polar'
    parameter require                   'radar, raster, spol'
    parameter sur-angle                 '4.9988'
@@ -94,8 +95,8 @@ endpd
 
 beginpd 'radar2win-smallradar'
 global
-   parameter altitude                  '4.9988'
-   parameter altitude-label            '5.0 deg'
+   parameter altitude                  '12.9803'
+   parameter altitude-label            '13.0 deg'
    parameter pd-name                   'radar2win-smallradar'
    parameter plot-mode                 'real-time'
    parameter plot-time                 'now'
@@ -118,7 +119,8 @@ component p_polar
    parameter icon-right-menu           'DataAvailable'
    parameter limit-proc                'raster-limit-proc'
    parameter platform                  'spol'
-   parameter radar-scan                'sur'
+   parameter ppi-angle                 '12.9803'
+   parameter radar-scan                'ppi'
    parameter representation            'polar'
    parameter require                   'radar, raster, spol'
    parameter sur-angle                 '4.9988'
