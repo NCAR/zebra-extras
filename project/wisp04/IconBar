@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.1.1.1 2004-01-13 17:06:20 burghart Exp $
+! $Id: IconBar,v 1.2 2004-02-19 22:18:34 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -117,9 +117,7 @@ define widget iconbar menubar " "
 		title 'Radar Data'
 		line
 		entry 'S-Pol' 'putc2 p_polar platform spol field dbz'
-		entry 'S-Pol (Norman)' 'putc0 p_polar-norman'
 		entry 'Particle types' 'putc0 p_pdesc'
-		entry 'Particle types (Norman)' 'putc1 p_pdesc platform spol'
 		entry 'Precip' 'putc1 c_precip platform precip.basic'
 		entry 'Nexrad composite' 'putc0 p_composite'
 		entry 'Refractivity' \
