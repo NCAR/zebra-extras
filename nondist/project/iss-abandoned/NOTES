@@ -1,4 +1,6 @@
 
+need to split up location strings and combine else too long in iconbar
+
 move zebra build tree from /scr/steam/ to /code/granger 
 
 Steps to do next:
@@ -12,6 +14,46 @@ can we merely override parts of library modules? e.g.:
 	"read c$libdir/gplib/<module>" at top of local module
 
 reconcile heavily changed xywind or rename to iss-xywind or something
+
+make template code handle / in platform names and replace with _: put
+generated configs elsewhere so that entire directory can be cleaned out
+before generating new ones for the runtime platforms?  need run-time
+specific directory to add to config path so we don't collide with others,
+or write dm file or send dm commands to read the generated configs before
+deleting them
+
+	--> just write all configs to one file for dm startp to read,
+	    just like iconbar, but we also need config names for the iconbar
+
+maybe we avoid all the template overhead by just keeping one template,
+which when chosen in iconbar we display, then run each windows add (or a
+set) command to change to that platform
+
+----------------
+
+Display configs:
+
+we have several basic plot templates for an ISS: 
+
+surface time series, wind time-height, rass time-height, [serial moments
+time-height contour], and sounding.  
+
+time series divided into radiation, winds, and met.
+
+time-height contour components for scalar fields like snr, from both
+consensus, rass, and serial moments platforms
+
+rass and wind plots limit themselves to one platform, and their add
+platform command should just change values of all platform parameters in
+all components.  the global icon menu should have options for adding
+components like contours, and winds.
+
+do we need a "current working site" to which all windows automatically
+change when calling up a generic config (e.g., SURFACE, WIND, RASS, ...)?
+or use the templates to generate all those configs at startup?
+
+can we separate the template configs into their window templates, so they
+can be used for window creation and used individually in configs?
 
 
 in dm modules:

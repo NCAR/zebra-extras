@@ -1,5 +1,5 @@
 #! /bin/sh
-# $Id: IconBar.sh,v 1.1 2000-06-06 22:55:35 granger Exp $
+# $Id: IconBar.sh,v 1.2 2000-06-07 23:04:35 granger Exp $
 #
 # This is not UI code but a shell script which generates UI code
 # for an IconBar and writes it to stdout.  It is up to dm.config
@@ -30,7 +30,20 @@ define widget dslistings intmenu 'dsdwidget listings'
 	entry 'Surface Platforms' \
 	   'shell "dsdwidget -a -t Surface\ Platforms surf &"'
 endmenu
+EOF
 
+# Build the list of display configs from the templates for the known platforms
+sites=`cat $platforms | sed -e 's,/[^/]*$,,' | egrep 'iss.$' | uniq`
+configs=`(cd dconfig/template; \
+          tmake ../../tmp/configs '' iss-batch $sites)`
+
+# Echo command to read those configs into dm
+echo read \'tmp/configs\'
+
+# We can't delete the files from here because dm has not yet processed
+# this file, obviously...
+
+cat <<EOF
 !
 ! Project iconbar
 !
@@ -100,21 +113,21 @@ cat <<TOOLS
 	endmenu
 TOOLS
 
+
 cat <<'CONFIGS'
 	menu configs bitmap configs
 		title 'Display configurations'
 		line
-		entry 'ISS 1' 'display iss1' (dm$config = 'iss1')
-		entry 'ISS 2' 'display iss2' (dm$config = 'iss2')
-		entry 'ISS 3' 'display iss3' (dm$config = 'iss3')
-!		entry 'Soundings' 'display soundings' (dm$config = 'soundings')
-		line
-		entry 'Lineplot (ISS 1)' 'display lineplot-iss1' \
-			(dm$config = 'lineplot-iss1')
-		entry 'Lineplot (ISS 2)' 'display lineplot-iss2' \
-			(dm$config = 'lineplot-iss2')
-		entry 'Lineplot (ISS 3)' 'display lineplot-iss3' \
-			(dm$config = 'lineplot-iss3')
+CONFIGS
+
+
+for c in $configs END ; do
+    if [ $c != END ] ; then
+	echo entry \'$c\' \'display $c\' \('dm$config' = \'$c\'\)
+    fi
+done
+
+cat <<'CONFIGS'
 		line
 		entry 'Empty screen' 'display empty' (dm$config = 'empty')
 	endmenu
