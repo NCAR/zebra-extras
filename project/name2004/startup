@@ -1,0 +1,73 @@
+#!/bin/tcsh
+#
+# Get the whole mess going.
+#
+echo $0 started at `date`
+
+#
+# If we're not running on the Zebra master machine, dump off the work there.
+#
+if (! $?ZEBRA_MASTER) then
+    echo "${0}: You must set the ZEBRA_MASTER environment variable!"
+    exit 1
+endif
+
+set execdir = $0:h
+
+if ( `hostname` != $ZEBRA_MASTER ) then
+    echo "${0}: running display only since `hostname` !=" $ZEBRA_MASTER
+    ssh -f $ZEBRA_MASTER $execdir/newdisplay
+    exit 0
+endif
+
+#
+# Otherwise we need to run the real thing.
+#
+setenv XAPPLRESDIR /net/zebra/lib/resources
+setenv ZEB_MESSAGE "message -internet"
+setenv ZEB_EVENTLOGGER "EventLogger -w"
+
+#
+# Start the data store and EventLogger if they aren't running yet
+#
+/net/zebra/bin/mstatus -u >& /dev/null
+set new_zebra = $status
+
+if ($new_zebra) /net/zebra/bin/zstart -ds /net/ops/zebra
+
+#
+# Hang out for a bit, then start a display
+#
+sleep 5
+chmod 777 /tmp/fcc.socket    # Hack!  Kludge!
+$execdir/newdisplay &
+
+#
+# Run some extra stuff if this is a new session
+#
+set logdir = /net/ops/run
+set archiverlog = $logdir/arch.out
+set rainlog = $logdir/rpg_rain.log
+set hyidlog = $logdir/rpg_pid.log
+set distlog = $logdir/dist_products.log
+
+if ($new_zebra) then
+    rm -f $archiverlog	# AAAAARRRRGH!
+    /net/zebra/bin/Archiver -f /dev/st0 -g +5-85 -time 60 \
+		    -database /ops/run/ArcDB \
+		    -tapelimit 10000000 \
+		    -exclude spol >& $archiverlog  &
+    sleep 2
+
+# rain accumulation
+    /bin/mv -f $rainlog $rainlog.save > /dev/null
+    /opt/spol/bin/run_rpg_rain >& $rainlog &
+
+# particle ID
+    /bin/mv -f $hyidlog $hyidlog.save > /dev/null
+    /opt/spol/bin/run_rpg_pid >& $hyidlog &
+
+# Let Zebra know about new data files
+    /bin/mv -f $distlog $distlog.save > /dev/null
+    /opt/spol/bin/dist_products.py >& $distlog &
+endif
