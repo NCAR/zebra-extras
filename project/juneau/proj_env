@@ -1,11 +1,2 @@
-set host = `uname -n`
-
-if ($host == "jnu_nws" || $host == "jnu_afss" || $host == "sirius") then
-	setenv DS_DAEMON_HOST rain
-	setenv DATA_DIR /data/juneau
-else if ($host == "rain") then
-	setenv ZEB_MESSAGE "/zebra/bin/message -internet"
-	setenv DATA_DIR /data/juneau
-endif
-
+if (! $?DATA_DIR) setenv DATA_DIR /data/juneau
 if (! $?DEFAULT_CONFIG) setenv DEFAULT_CONFIG all
