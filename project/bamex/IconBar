@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.5 2003-05-24 18:29:34 burghart Exp $
+! $Id: IconBar,v 1.6 2003-06-06 18:28:47 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -13,22 +13,22 @@ define widget iconbar menubar " "
 	!
 	! Define the menus
 	!
-	menu help bitmap iconbar-help
-		title 'Zeb Help Access'
-		line
-		entry 'Introduction' 'help intro'
-		entry 'On-line topics' 'help index'
-		entry 'Starting Zebra' 'help start'
-		entry 'Shutting down' 'help shut-down'
-		entry 'Keys and mouse buttons' 'help keys'
-		entry 'The icon bar' 'help iconbar'
-		entry 'Editing display configurations' 'help editing-configs'
-		line
-		entry 'Horizontal plots' 'help horizontal-plots'
-		entry 'Skew-t plots' 'help skewt'
-		entry 'XYGraph plots' 'help xy-graphs'
-		entry 'Cross-section plots' 'help cross-section'
-	endmenu
+!	menu help bitmap iconbar-help
+!		title 'Zeb Help Access'
+!		line
+!		entry 'Introduction' 'help intro'
+!		entry 'On-line topics' 'help index'
+!		entry 'Starting Zebra' 'help start'
+!		entry 'Shutting down' 'help shut-down'
+!		entry 'Keys and mouse buttons' 'help keys'
+!		entry 'The icon bar' 'help iconbar'
+!		entry 'Editing display configurations' 'help editing-configs'
+!		line
+!		entry 'Horizontal plots' 'help horizontal-plots'
+!		entry 'Skew-t plots' 'help skewt'
+!		entry 'XYGraph plots' 'help xy-graphs'
+!		entry 'Cross-section plots' 'help cross-section'
+!	endmenu
 	menu tools bitmap tools-big
 		title 'Tools'
 		line
@@ -66,21 +66,21 @@ define widget iconbar menubar " "
 		      	(dm$config = 'rad-pre-pd')
 		entry 'Two radar windows + precip' 'display radar2win' \
 			(dm$config = 'radar2win')
-		line
-		entry 'crystal1' 'display crystal1' (dm$config = 'crystal1')
-		entry 'crystal2' 'display crystal2' (dm$config = 'crystal2')
-		entry 'crystal3' 'display crystal3' (dm$config = 'crystal3')
-		line
-
-		line
-		entry 'jimbig' 'display jimbig' (dm$config = 'jimbig')
-		entry 'jim2' 'display jim2' (dm$config = 'jim2')
-		entry 'jim3' 'display jim3' (dm$config = 'jim3')
-		line
-		entry 'dual_pol_web_images' 'display dual_pol_images1' \
-			(dm$config = 'dual_pol_images1')
-		entry 'single_pol_web_images' 'display single_pol_images1' \
-			(dm$config = 'single_pol_images1')
+!		line
+!		entry 'crystal1' 'display crystal1' (dm$config = 'crystal1')
+!		entry 'crystal2' 'display crystal2' (dm$config = 'crystal2')
+!		entry 'crystal3' 'display crystal3' (dm$config = 'crystal3')
+!		line
+!
+!		line
+!		entry 'jimbig' 'display jimbig' (dm$config = 'jimbig')
+!		entry 'jim2' 'display jim2' (dm$config = 'jim2')
+!		entry 'jim3' 'display jim3' (dm$config = 'jim3')
+!		line
+!		entry 'dual_pol_web_images' 'display dual_pol_images1' \
+!			(dm$config = 'dual_pol_images1')
+!		entry 'single_pol_web_images' 'display single_pol_images1' \
+!			(dm$config = 'single_pol_images1')
 		line
 		entry 'Empty screen' 'display empty' (dm$config = 'empty')
 	endmenu
@@ -118,6 +118,8 @@ define widget iconbar menubar " "
 		line
 		entry 'NRL P3 (alternate)' \
 		    'putc4 p_aircraft platform nrl_p3_fx icon nrl_p3_fx color white field alt'
+		entry 'NOAA P3 (alternate)' \
+		    'putc4 p_aircraft platform noaa_p3_fx icon noaa_p3_fx color pink field alt'
 		entry 'Lear (alternate)' \
 		    'putc4 p_aircraft platform lear_fx icon lear_fx color yellow field alt'
 	endmenu
