@@ -10,10 +10,12 @@ p_topo
 	icon:		topo
 	icon-right-menu:	contour-right
 	limit-proc:	contour-putup-adj
+	out-of-range-color:	none
 	platform:	map_topo
 	representation:	filled-contour
 	require:	contour
+	sa-show:	false
 	scale-mode:	manual
-	topo-center:	5
-	topo-step:	10
+	topo-center:	-50
+	topo-step:	100
 
