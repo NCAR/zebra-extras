@@ -1,0 +1,61 @@
+! $Id: dm.init,v 1.1 2000-06-07 20:00:01 granger Exp $ 
+!
+! The generic and perpetual loading process, encapsulated into a simple
+! module.  At least, I think this is generic enough that someday it could
+! be put in the library.  The only requirements for the project are the
+! existence of the "pd" subdirectory and defaults.pd.  An empty dm.widgets
+! could be put in the library so that the project does not need to
+! override it.
+
+! Initialize some basic variables with defaults:
+
+set SoundEnabled false
+set AutoAdvance true
+set ForceHistory true
+set UseXHelp false
+
+!
+! When and how long to sleep when creating windows.
+! OpenWindows => 1,5	MIT X => 4,1
+! For now, assume the differentiation is no longer needed and see
+! what breaks.
+!
+set sleepafter	4
+set sleepfor	1
+
+!
+! Load in our plot descriptions.
+!
+message 'Loading:'
+message '     ...plot descriptions...'
+
+!----------------------------------------------------------------
+! Grab the ones in the library and project pd directory
+!
+set libpddir concat(c$libdir,'/pd')
+pddir #libpddir
+pddir pd
+
+! Now merge the global defaults from the library with the project
+! defaults. Let the project defaults override the global defaults
+! by first saving the project defaults and then dropping them back in
+! after the global-defaults.
+
+pdcopy defaults save-project-defaults
+pddrop global-defaults defaults defaults defaults    
+pddrop save-project-defaults defaults defaults defaults
+
+!----------------------------------------------------------------
+
+message '     ...modules...'
+require "init-config-path"
+
+message '     ...widgets...'
+require "dm.widgets"
+
+message '     ...button maps...'
+require "ButtonMaps"
+
+message '     ...display configurations...'
+require "DisplayConfigs"
+

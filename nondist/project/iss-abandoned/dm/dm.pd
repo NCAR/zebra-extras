@@ -1,13 +1,11 @@
 !
-! Load, manipulate, and create our plot descriptions
+! Load, manipulate, and create plot descriptions specifically according to
+! the project.
 !
 
-!----------------------------------------------------------------------
-! Grab the ones in the library and project pd directory
+! Set things up for high-depth displays:
 !
-set libpddir concat(c$libdir,'/pd')
-pddir #libpddir
-pddir pd
+require truecolor
 
 !-----------------------------------------------------------------------
 ! Add to the defaults database from the project-specific databases.
@@ -35,16 +33,6 @@ if (cachedir = undef)
 	set cachedir "./tmp"
 endif
 parameter defaults defaults file-path #cachedir
-
-!---------------------------------------------------------------------------
-! The ubiquitous whiteclock pd
-!
-beginpd whiteclock
-component clock
-	parameter background white
-	parameter foreground black
-	parameter xfont '-*-new century schoolbook-bold-r-*-*-25-*-*-*-*-*-*-*'
-endpd
 
 !---------------------------------------------------------------------------
 ! We want the skewt templates to use overlay data mode rather than replace
