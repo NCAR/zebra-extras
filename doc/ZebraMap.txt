@@ -1,0 +1,45 @@
+                Zebra ASCII Map File Format
+                ===========================
+
+The Zebra ASCII map file format was adopted from an old form 
+originally used by NCAR Graphics.  The structure of the files
+is simply a list of polylines following the form:
+
+	<polyline_header>
+	<polyline_data>
+	<polyline_header>
+	<polyline_data>
+	...
+
+The <polyline_header> is a line of the form:
+
+	<npts*2> <maxlat> <minlat> <maxlon> <minlon> [FILL]
+
+where 'npts' is the number of lat/lon pairs in the 
+polyline (the number written in the header is twice this
+count) and 'maxlat', 'minlat', 'maxlon', and 'minlon' 
+define the bounding box of the polyline.  The line 
+may be terminated by the word "FILL" if the polyline
+forms a closed boundary and can be drawn filled.
+
+The <polyline_data> is simply a list of alternating
+latitude and longitude values, which form the pairs
+defining the polyline.  There will typically be four
+pairs per line in the file, but Zebra does not require
+this.  Lines in the data section should be 80
+characters long or shorter.
+
+Negative values are used for west longitudes and for
+south latitudes.
+
+Here is an example Zebra ASCII map file containing
+a 7-point and a 15-point polyline:
+
+  14    40.074    40.073  -104.403  -104.650 
+    40.073  -104.650    40.073  -104.594    40.073  -104.556    40.073  -104.491
+    40.074  -104.447    40.074  -104.421    40.074  -104.403
+  30    40.249    40.067  -104.047  -104.403 
+    40.074  -104.403    40.074  -104.372    40.067  -104.311    40.067  -104.230
+    40.068  -104.155    40.067  -104.102    40.068  -104.077    40.067  -104.063
+    40.069  -104.056    40.073  -104.052    40.082  -104.047    40.102  -104.048
+    40.171  -104.048    40.209  -104.049    40.249  -104.051
