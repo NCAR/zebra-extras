@@ -43,7 +43,15 @@
 #
 	echo '   Timer...'
 	timer &
-
+#
+# The EventLogger if asked for
+#
+	if ($?START_EVENTLOGGER == 1) then
+		start_event_logger
+	endif
+#
+# The daemon if necessary
+#
 	if ($HOST == $ZEB_DATASTORE) then
 	   echo -n '   dsDaemon...'
 	   if ($?ZEB_DEBUG_DS == 1) then
