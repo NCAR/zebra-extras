@@ -10,7 +10,7 @@ setenv XAPPLRESDIR /net/zebra/lib/resources
 #
 # Run a zebra display and wait for it to terminate
 #
-xterm -name zebra -title zebra -iconic -e /net/zebra/bin/zstart -dm -preserve /net/ops/zebra
+/usr/X11R6/bin/xterm -name zebra -title zebra -iconic -e /net/zebra/bin/zstart -dm -preserve /net/ops/zebra
 
 # 
 # Get rid of the LastData, then quit
