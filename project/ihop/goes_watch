@@ -1,0 +1,30 @@
+#!/bin/csh
+#
+# Watch for new GOES files, move them to the appropriate Zebra data
+# directories, and let the data store know about them
+#
+
+echo "$0 started at `date`"
+
+#
+# we only want one of these at a time
+#
+killall $0:t
+
+#
+# loop forever
+#
+while (1)
+    foreach plat (goes_1km goes_4km)
+	set srcdir = /scr/data/${plat}_tmp
+	set destdir = /scr/data/spol/$plat
+
+	cd $srcdir
+	foreach file (*nc)
+	    mv $file $destdir
+	    dsrescan -file $file $plat
+	    echo "New $plat file $file has been made available to Zebra"
+	end
+    end
+    sleep 30
+end
