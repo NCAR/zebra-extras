@@ -1,0 +1,1317 @@
+#!/bin/csh
+#
+# Usage: SHADOW.CD <shadow_dir>
+#
+# Make a shadow directory so we can see STORM-FEST Model CD-ROM files
+# by their "real" names under the non-Rock-Ridge HP-UX ISO9660 file
+# system
+#
+
+	if ($#argv != 1) then
+		echo Usage: SHADOW.CD <shadow_dir>
+		exit (1)
+	endif
+
+#
+# Figure out where the CD is and make sure we start there
+#
+	set cddir=$0
+	set cddir=$cddir:h
+	if ( ! -d $cddir ) then	# in dir already
+		set cddir=`pwd`
+	endif
+	cd $cddir
+	set cddir=$cwd		# make sure we have an absolute path
+#
+# First create the directories
+#
+	echo Making directories...
+	mkdir -p $1
+	mkdir -p $1/bin
+	mkdir -p $1/bin/HP-UX
+	mkdir -p $1/bin/IRIX
+	mkdir -p $1/bin/Solaris
+	mkdir -p $1/bin/SunOS
+	mkdir -p $1/data
+	mkdir -p $1/data/aster
+	mkdir -p $1/data/avnold
+	mkdir -p $1/data/cp4
+	mkdir -p $1/data/eta
+	mkdir -p $1/data/goes_fest
+	mkdir -p $1/data/goes_us
+	mkdir -p $1/data/maps
+	mkdir -p $1/data/ngm
+	mkdir -p $1/data/nowrad
+	mkdir -p $1/data/nowrad_f
+	mkdir -p $1/data/p3
+	mkdir -p $1/data/prof_azcn5_h
+	mkdir -p $1/data/prof_azcn5_l
+	mkdir -p $1/data/prof_blmm7_h
+	mkdir -p $1/data/prof_blmm7_l
+	mkdir -p $1/data/prof_blrw3_h
+	mkdir -p $1/data/prof_blrw3_l
+	mkdir -p $1/data/prof_cnwm7_h
+	mkdir -p $1/data/prof_cnwm7_l
+	mkdir -p $1/data/prof_dqua4_h
+	mkdir -p $1/data/prof_dqua4_l
+	mkdir -p $1/data/prof_fbyn1_h
+	mkdir -p $1/data/prof_fbyn1_l
+	mkdir -p $1/data/prof_gdac2_h
+	mkdir -p $1/data/prof_gdac2_l
+	mkdir -p $1/data/prof_hbrk1_h
+	mkdir -p $1/data/prof_hbrk1_l
+	mkdir -p $1/data/prof_hklo2_h
+	mkdir -p $1/data/prof_hklo2_l
+	mkdir -p $1/data/prof_hvlk1_h
+	mkdir -p $1/data/prof_hvlk1_l
+	mkdir -p $1/data/prof_jtnt2_h
+	mkdir -p $1/data/prof_jtnt2_l
+	mkdir -p $1/data/prof_lmno2_h
+	mkdir -p $1/data/prof_lmno2_l
+	mkdir -p $1/data/prof_lthm7_h
+	mkdir -p $1/data/prof_lthm7_l
+	mkdir -p $1/data/prof_mbww4_h
+	mkdir -p $1/data/prof_mbww4_l
+	mkdir -p $1/data/prof_mrrn1_h
+	mkdir -p $1/data/prof_mrrn1_l
+	mkdir -p $1/data/prof_ndsk1_h
+	mkdir -p $1/data/prof_ndsk1_l
+	mkdir -p $1/data/prof_nlgn1_h
+	mkdir -p $1/data/prof_nlgn1_l
+	mkdir -p $1/data/prof_nrcm5_h
+	mkdir -p $1/data/prof_nrcm5_l
+	mkdir -p $1/data/prof_okom6_h
+	mkdir -p $1/data/prof_okom6_l
+	mkdir -p $1/data/prof_patt2_h
+	mkdir -p $1/data/prof_patt2_l
+	mkdir -p $1/data/prof_pltc2_h
+	mkdir -p $1/data/prof_pltc2_l
+	mkdir -p $1/data/prof_prco2_h
+	mkdir -p $1/data/prof_prco2_l
+	mkdir -p $1/data/prof_rwdn1_h
+	mkdir -p $1/data/prof_rwdn1_l
+	mkdir -p $1/data/prof_slai4_h
+	mkdir -p $1/data/prof_slai4_l
+	mkdir -p $1/data/prof_tcun5_h
+	mkdir -p $1/data/prof_tcun5_l
+	mkdir -p $1/data/prof_vcio2_h
+	mkdir -p $1/data/prof_vcio2_l
+	mkdir -p $1/data/prof_wdlm5_h
+	mkdir -p $1/data/prof_wdlm5_l
+	mkdir -p $1/data/prof_wnci2_h
+	mkdir -p $1/data/prof_wnci2_l
+	mkdir -p $1/data/prof_wsmn5_h
+	mkdir -p $1/data/prof_wsmn5_l
+	mkdir -p $1/data/s3v1
+	mkdir -p $1/data/s62k
+	mkdir -p $1/data/sabq
+	mkdir -p $1/data/sadq
+	mkdir -p $1/data/sakz
+	mkdir -p $1/data/sama
+	mkdir -p $1/data/sann
+	mkdir -p $1/data/saws_a
+	mkdir -p $1/data/saws_b
+	mkdir -p $1/data/sbis
+	mkdir -p $1/data/sboi
+	mkdir -p $1/data/scgo
+	mkdir -p $1/data/scou
+	mkdir -p $1/data/sddc
+	mkdir -p $1/data/sden
+	mkdir -p $1/data/sdra
+	mkdir -p $1/data/sear
+	mkdir -p $1/data/selp
+	mkdir -p $1/data/sely
+	mkdir -p $1/data/sfsi
+	mkdir -p $1/data/sgeg
+	mkdir -p $1/data/sggg
+	mkdir -p $1/data/sggw
+	mkdir -p $1/data/sgjt
+	mkdir -p $1/data/sgrb
+	mkdir -p $1/data/sgtf
+	mkdir -p $1/data/sguy
+	mkdir -p $1/data/shen
+	mkdir -p $1/data/shon
+	mkdir -p $1/data/shys
+	mkdir -p $1/data/sila
+	mkdir -p $1/data/sinw
+	mkdir -p $1/data/siow
+	mkdir -p $1/data/sirk
+	mkdir -p $1/data/sl2d2_p3_a
+	mkdir -p $1/data/sl2d2_p3_b
+	mkdir -p $1/data/sl2d2_s2
+	mkdir -p $1/data/slbf
+	mkdir -p $1/data/slit
+	mkdir -p $1/data/slnd
+	mkdir -p $1/data/smaf
+	mkdir -p $1/data/smfr
+	mkdir -p $1/data/smyf
+	mkdir -p $1/data/snps
+	mkdir -p $1/data/sntd
+	mkdir -p $1/data/soak
+	mkdir -p $1/data/solm
+	mkdir -p $1/data/soma
+	mkdir -p $1/data/soun
+	mkdir -p $1/data/spah
+	mkdir -p $1/data/spia
+	mkdir -p $1/data/sprb
+	mkdir -p $1/data/srap
+	mkdir -p $1/data/srdd
+	mkdir -p $1/data/ssep
+	mkdir -p $1/data/sslb
+	mkdir -p $1/data/sslc
+	mkdir -p $1/data/ssle
+	mkdir -p $1/data/sstc
+	mkdir -p $1/data/sstl
+	mkdir -p $1/data/stop
+	mkdir -p $1/data/storm1
+	mkdir -p $1/data/storm2
+	mkdir -p $1/data/storm4
+	mkdir -p $1/data/stus
+	mkdir -p $1/data/suil
+	mkdir -p $1/data/sumn
+	mkdir -p $1/data/surface_5min
+	mkdir -p $1/data/surface_hourly
+	mkdir -p $1/data/svbg
+	mkdir -p $1/data/swil
+	mkdir -p $1/data/swmc
+	mkdir -p $1/data/swse
+	mkdir -p $1/data/swvk
+	mkdir -p $1/data/syak
+	mkdir -p $1/data/syev
+	mkdir -p $1/data/sysm
+	mkdir -p $1/data/syvq
+	mkdir -p $1/data/syxs
+	mkdir -p $1/data/syxy
+	mkdir -p $1/data/syye
+	mkdir -p $1/data/syzt
+	mkdir -p $1/doc
+	mkdir -p $1/lib
+	mkdir -p $1/lib/audio
+	mkdir -p $1/lib/colortables
+	mkdir -p $1/lib/gplib
+	mkdir -p $1/lib/icons
+	mkdir -p $1/lib/pd
+	mkdir -p $1/lib/resources
+	mkdir -p $1/project
+	mkdir -p $1/project/fest
+	mkdir -p $1/project/fest/cache
+	mkdir -p $1/project/fest/colortables
+	mkdir -p $1/project/fest/dconfig
+	mkdir -p $1/project/fest/dconfig/pd
+	mkdir -p $1/project/fest/icons
+	mkdir -p $1/project/fest/pd
+#
+# Now make the links
+#
+# Bin stuff is common to the two disks
+#
+	echo Links to binaries...
+	cd $1
+	cd bin
+	cd HP-UX
+	ln -s $cddir/BIN/HP_UX/BSDINST.\;1	bsdinst
+	ln -s $cddir/BIN/HP_UX/DM.\;1	dm
+	ln -s $cddir/BIN/HP_UX/DSDAEMON.\;1	dsDaemon
+	ln -s $cddir/BIN/HP_UX/DSDELETE.\;1	dsdelete
+	ln -s $cddir/BIN/HP_UX/DSDUMP.\;1	dsdump
+	ln -s $cddir/BIN/HP_UX/DSDWIDGE.\;1	dsdwidget
+	ln -s $cddir/BIN/HP_UX/DSMANAGE.\;1	dsmanage
+	ln -s $cddir/BIN/HP_UX/DSRESCAN.\;1	dsrescan
+	ln -s $cddir/BIN/HP_UX/EVENTLOG.\;1	EventLogger
+	ln -s $cddir/BIN/HP_UX/FCCCLOCK.\;1	fccclock
+	ln -s $cddir/BIN/HP_UX/GETTIME.\;1	gettime
+	ln -s $cddir/BIN/HP_UX/GP.\;1	gp
+	ln -s $cddir/BIN/HP_UX/GRIBDUMP.\;1	GRIBdump
+	ln -s $cddir/BIN/HP_UX/LNDIR.\;1	lndir
+	ln -s $cddir/BIN/HP_UX/MESSAGE.\;1	message
+	ln -s $cddir/BIN/HP_UX/MKDIRHIE.\;1	mkdirhier
+	ln -s $cddir/BIN/HP_UX/MSG_PING.\;1	msg_ping
+	ln -s $cddir/BIN/HP_UX/MSTATUS.\;1	mstatus
+	ln -s $cddir/BIN/HP_UX/MTAP.\;1	mtap
+	ln -s $cddir/BIN/HP_UX/PDMON.\;1	pdmon
+	ln -s $cddir/BIN/HP_UX/RFDUMP.\;1	rfdump
+	ln -s $cddir/BIN/HP_UX/SETTIME.\;1	settime
+	ln -s $cddir/BIN/HP_UX/SOUND.\;1	Sound
+	ln -s $cddir/BIN/HP_UX/STARTZEB.\;1	startzeb
+	ln -s $cddir/BIN/HP_UX/TAPEINDE.\;1	tapeindex
+	ln -s $cddir/BIN/HP_UX/TIMER.\;1	timer
+	ln -s $cddir/BIN/HP_UX/TWEAKCOL.\;1	tweakcolor
+	ln -s $cddir/BIN/HP_UX/XHELP.\;1	xhelp
+	ln -s $cddir/BIN/HP_UX/XWD2PS.\;1	xwd2ps
+	ln -s $cddir/BIN/HP_UX/ZEBSTOP.\;1	zebstop
+	ln -s $cddir/BIN/HP_UX/ZFDUMP.\;1	zfdump
+	ln -s $cddir/BIN/HP_UX/ZMKMF.\;1	zmkmf
+	ln -s $cddir/BIN/HP_UX/ZMON.\;1	zmon
+	ln -s $cddir/BIN/HP_UX/ZQUERY.\;1	zquery
+	ln -s $cddir/BIN/HP_UX/ZRUN.\;1	zrun
+	cd ..
+	cd IRIX
+	ln -s $cddir/BIN/IRIX/BSDINST.\;1	bsdinst
+	ln -s $cddir/BIN/IRIX/DM.\;1	dm
+	ln -s $cddir/BIN/IRIX/DSCOPY.\;1	dscopy
+	ln -s $cddir/BIN/IRIX/DSDAEMON.\;1	dsDaemon
+	ln -s $cddir/BIN/IRIX/DSDELETE.\;1	dsdelete
+	ln -s $cddir/BIN/IRIX/DSDUMP.\;1	dsdump
+	ln -s $cddir/BIN/IRIX/DSDWIDGE.\;1	dsdwidget
+	ln -s $cddir/BIN/IRIX/DSMANAGE.\;1	dsmanage
+	ln -s $cddir/BIN/IRIX/DSRESCAN.\;1	dsrescan
+	ln -s $cddir/BIN/IRIX/EVENTLOG.\;1	EventLogger
+	ln -s $cddir/BIN/IRIX/FCCCLOCK.\;1	fccclock
+	ln -s $cddir/BIN/IRIX/GETTIME.\;1	gettime
+	ln -s $cddir/BIN/IRIX/GP.\;1	gp
+	ln -s $cddir/BIN/IRIX/GRIBDUMP.\;1	GRIBdump
+	ln -s $cddir/BIN/IRIX/LIBX11_S.1\;1	libX11.so.1
+	ln -s $cddir/BIN/IRIX/LNDIR.\;1	lndir
+	ln -s $cddir/BIN/IRIX/MESSAGE.\;1	message
+	ln -s $cddir/BIN/IRIX/MKDIRHIE.\;1	mkdirhier
+	ln -s $cddir/BIN/IRIX/MSG_PING.\;1	msg_ping
+	ln -s $cddir/BIN/IRIX/MSTATUS.\;1	mstatus
+	ln -s $cddir/BIN/IRIX/MTAP.\;1	mtap
+	ln -s $cddir/BIN/IRIX/PDMON.\;1	pdmon
+	ln -s $cddir/BIN/IRIX/RFDUMP.\;1	rfdump
+	ln -s $cddir/BIN/IRIX/SETTIME.\;1	settime
+	ln -s $cddir/BIN/IRIX/SOUND.\;1	Sound
+	ln -s $cddir/BIN/IRIX/STARTZEB.\;1	startzeb
+	ln -s $cddir/BIN/IRIX/TIMER.\;1	timer
+	ln -s $cddir/BIN/IRIX/TWEAKCOL.\;1	tweakcolor
+	ln -s $cddir/BIN/IRIX/XHELP.\;1	xhelp
+	ln -s $cddir/BIN/IRIX/XWD2PS.\;1	xwd2ps
+	ln -s $cddir/BIN/IRIX/ZEBSTOP.\;1	zebstop
+	ln -s $cddir/BIN/IRIX/ZFDUMP.\;1	zfdump
+	ln -s $cddir/BIN/IRIX/ZMKMF.\;1	zmkmf
+	ln -s $cddir/BIN/IRIX/ZMON.\;1	zmon
+	ln -s $cddir/BIN/IRIX/ZQUERY.\;1	zquery
+	ln -s $cddir/BIN/IRIX/ZRUN.\;1	zrun
+	cd ..
+	cd Solaris
+	ln -s $cddir/BIN/SOLARIS/BSDINST.\;1	bsdinst
+	ln -s $cddir/BIN/SOLARIS/DM.\;1	dm
+	ln -s $cddir/BIN/SOLARIS/DSDAEMON.\;1	dsDaemon
+	ln -s $cddir/BIN/SOLARIS/DSDELETE.\;1	dsdelete
+	ln -s $cddir/BIN/SOLARIS/DSDUMP.\;1	dsdump
+	ln -s $cddir/BIN/SOLARIS/DSDWIDGE.\;1	dsdwidget
+	ln -s $cddir/BIN/SOLARIS/DSMANAGE.\;1	dsmanage
+	ln -s $cddir/BIN/SOLARIS/DSRESCAN.\;1	dsrescan
+	ln -s $cddir/BIN/SOLARIS/EVENTLOG.\;1	EventLogger
+	ln -s $cddir/BIN/SOLARIS/FCCCLOCK.\;1	fccclock
+	ln -s $cddir/BIN/SOLARIS/GETTIME.\;1	gettime
+	ln -s $cddir/BIN/SOLARIS/GP.\;1	gp
+	ln -s $cddir/BIN/SOLARIS/GRIBDUMP.\;1	GRIBdump
+	ln -s $cddir/BIN/SOLARIS/LNDIR.\;1	lndir
+	ln -s $cddir/BIN/SOLARIS/MESSAGE.\;1	message
+	ln -s $cddir/BIN/SOLARIS/MKDIRHIE.\;1	mkdirhier
+	ln -s $cddir/BIN/SOLARIS/MSG_PING.\;1	msg_ping
+	ln -s $cddir/BIN/SOLARIS/MSTATUS.\;1	mstatus
+	ln -s $cddir/BIN/SOLARIS/MTAP.\;1	mtap
+	ln -s $cddir/BIN/SOLARIS/PDMON.\;1	pdmon
+	ln -s $cddir/BIN/SOLARIS/RFDUMP.\;1	rfdump
+	ln -s $cddir/BIN/SOLARIS/SETTIME.\;1	settime
+	ln -s $cddir/BIN/SOLARIS/SOUND.\;1	Sound
+	ln -s $cddir/BIN/SOLARIS/STARTZEB.\;1	startzeb
+	ln -s $cddir/BIN/SOLARIS/TAPEINDE.\;1	tapeindex
+	ln -s $cddir/BIN/SOLARIS/TIMER.\;1	timer
+	ln -s $cddir/BIN/SOLARIS/TWEAKCOL.\;1	tweakcolor
+	ln -s $cddir/BIN/SOLARIS/XHELP.\;1	xhelp
+	ln -s $cddir/BIN/SOLARIS/XWD2PS.\;1	xwd2ps
+	ln -s $cddir/BIN/SOLARIS/ZEBSTOP.\;1	zebstop
+	ln -s $cddir/BIN/SOLARIS/ZFDUMP.\;1	zfdump
+	ln -s $cddir/BIN/SOLARIS/ZMKMF.\;1	zmkmf
+	ln -s $cddir/BIN/SOLARIS/ZMON.\;1	zmon
+	ln -s $cddir/BIN/SOLARIS/ZQUERY.\;1	zquery
+	ln -s $cddir/BIN/SOLARIS/ZRUN.\;1	zrun
+	cd ..
+	cd SunOS
+	ln -s $cddir/BIN/SUNOS/DM.\;1	dm
+	ln -s $cddir/BIN/SUNOS/DSDAEMON.\;1	dsDaemon
+	ln -s $cddir/BIN/SUNOS/DSDELETE.\;1	dsdelete
+	ln -s $cddir/BIN/SUNOS/DSDUMP.\;1	dsdump
+	ln -s $cddir/BIN/SUNOS/DSDWIDGE.\;1	dsdwidget
+	ln -s $cddir/BIN/SUNOS/DSMANAGE.\;1	dsmanage
+	ln -s $cddir/BIN/SUNOS/DSRESCAN.\;1	dsrescan
+	ln -s $cddir/BIN/SUNOS/EVENTLOG.\;1	EventLogger
+	ln -s $cddir/BIN/SUNOS/FCCCLOCK.\;1	fccclock
+	ln -s $cddir/BIN/SUNOS/GETTIME.\;1	gettime
+	ln -s $cddir/BIN/SUNOS/GP.\;1	gp
+	ln -s $cddir/BIN/SUNOS/GRIBDUMP.\;1	GRIBdump
+	ln -s $cddir/BIN/SUNOS/LNDIR.\;1	lndir
+	ln -s $cddir/BIN/SUNOS/MESSAGE.\;1	message
+	ln -s $cddir/BIN/SUNOS/MKDIRHIE.\;1	mkdirhier
+	ln -s $cddir/BIN/SUNOS/MSG_PING.\;1	msg_ping
+	ln -s $cddir/BIN/SUNOS/MSTATUS.\;1	mstatus
+	ln -s $cddir/BIN/SUNOS/MTAP.\;1	mtap
+	ln -s $cddir/BIN/SUNOS/PDMON.\;1	pdmon
+	ln -s $cddir/BIN/SUNOS/RFDUMP.\;1	rfdump
+	ln -s $cddir/BIN/SUNOS/SETTIME.\;1	settime
+	ln -s $cddir/BIN/SUNOS/SOUND.\;1	Sound
+	ln -s $cddir/BIN/SUNOS/STARTZEB.\;1	startzeb
+	ln -s $cddir/BIN/SUNOS/TAPEINDE.\;1	tapeindex
+	ln -s $cddir/BIN/SUNOS/TIMER.\;1	timer
+	ln -s $cddir/BIN/SUNOS/TWEAKCOL.\;1	tweakcolor
+	ln -s $cddir/BIN/SUNOS/XHELP.\;1	xhelp
+	ln -s $cddir/BIN/SUNOS/XWD2PS.\;1	xwd2ps
+	ln -s $cddir/BIN/SUNOS/ZEBSTOP.\;1	zebstop
+	ln -s $cddir/BIN/SUNOS/ZFDUMP.\;1	zfdump
+	ln -s $cddir/BIN/SUNOS/ZMKMF.\;1	zmkmf
+	ln -s $cddir/BIN/SUNOS/ZMON.\;1	zmon
+	ln -s $cddir/BIN/SUNOS/ZQUERY.\;1	zquery
+	ln -s $cddir/BIN/SUNOS/ZRUN.\;1	zrun
+	cd ..
+	cd ..
+#
+# 	CD 1 data files
+#
+	echo Links to data files...
+	cd data
+	cd avnold
+	ln -s $cddir/DATA/AVNOLD/AVNOLD00.GRI\;1	avnold.1992.02.09.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD01.GRI\;1	avnold.1992.02.09.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD02.GRI\;1	avnold.1992.02.10.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD03.GRI\;1	avnold.1992.02.10.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD04.GRI\;1	avnold.1992.02.11.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD05.GRI\;1	avnold.1992.02.11.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD06.GRI\;1	avnold.1992.02.12.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD07.GRI\;1	avnold.1992.02.12.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD08.GRI\;1	avnold.1992.02.13.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD09.GRI\;1	avnold.1992.02.13.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD10.GRI\;1	avnold.1992.02.14.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD11.GRI\;1	avnold.1992.02.14.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD12.GRI\;1	avnold.1992.02.15.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD13.GRI\;1	avnold.1992.02.15.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD14.GRI\;1	avnold.1992.02.16.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD15.GRI\;1	avnold.1992.02.16.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD16.GRI\;1	avnold.1992.02.17.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD17.GRI\;1	avnold.1992.02.17.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD18.GRI\;1	avnold.1992.02.18.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD19.GRI\;1	avnold.1992.02.18.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD20.GRI\;1	avnold.1992.02.19.00.grib
+	cd ..
+	ln -s $cddir/DATA/DEFAULT0.IOP\;1	defaulttime.iop3
+	ln -s $cddir/DATA/DEFAULT1.IOP\;1	defaulttime.iop4
+	ln -s $cddir/DATA/DEFAULT2.IOP\;1	defaulttime.iop5
+	ln -s $cddir/DATA/DEFAULT3.IOP\;1	defaulttime.iop6
+	cd eta
+	ln -s $cddir/DATA/ETA/ETA_1900.GRI\;1	eta.1992.02.09.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1901.GRI\;1	eta.1992.02.09.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1902.GRI\;1	eta.1992.02.10.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1903.GRI\;1	eta.1992.02.10.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1904.GRI\;1	eta.1992.02.11.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1905.GRI\;1	eta.1992.02.11.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1906.GRI\;1	eta.1992.02.12.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1907.GRI\;1	eta.1992.02.12.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1908.GRI\;1	eta.1992.02.13.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1909.GRI\;1	eta.1992.02.13.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1910.GRI\;1	eta.1992.02.14.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1911.GRI\;1	eta.1992.02.14.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1912.GRI\;1	eta.1992.02.15.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1913.GRI\;1	eta.1992.02.15.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1914.GRI\;1	eta.1992.02.16.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1915.GRI\;1	eta.1992.02.16.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1916.GRI\;1	eta.1992.02.17.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1917.GRI\;1	eta.1992.02.17.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1918.GRI\;1	eta.1992.02.18.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1919.GRI\;1	eta.1992.02.18.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1920.GRI\;1	eta.1992.02.19.00.grib
+	cd ..
+	cd maps
+	ln -s $cddir/DATA/MAPS/MAPS_100.GRI\;1	maps.1992.02.09.09.grib
+	ln -s $cddir/DATA/MAPS/MAPS_101.GRI\;1	maps.1992.02.09.18.grib
+	ln -s $cddir/DATA/MAPS/MAPS_102.GRI\;1	maps.1992.02.09.21.grib
+	ln -s $cddir/DATA/MAPS/MAPS_103.GRI\;1	maps.1992.02.10.03.grib
+	ln -s $cddir/DATA/MAPS/MAPS_104.GRI\;1	maps.1992.02.10.06.grib
+	ln -s $cddir/DATA/MAPS/MAPS_105.GRI\;1	maps.1992.02.10.09.grib
+	ln -s $cddir/DATA/MAPS/MAPS_106.GRI\;1	maps.1992.02.10.12.grib
+	ln -s $cddir/DATA/MAPS/MAPS_107.GRI\;1	maps.1992.02.10.18.grib
+	ln -s $cddir/DATA/MAPS/MAPS_108.GRI\;1	maps.1992.02.11.12.grib
+	ln -s $cddir/DATA/MAPS/MAPS_109.GRI\;1	maps.1992.02.11.21.grib
+	ln -s $cddir/DATA/MAPS/MAPS_110.GRI\;1	maps.1992.02.12.03.grib
+	ln -s $cddir/DATA/MAPS/MAPS_111.GRI\;1	maps.1992.02.12.06.grib
+	ln -s $cddir/DATA/MAPS/MAPS_112.GRI\;1	maps.1992.02.12.09.grib
+	ln -s $cddir/DATA/MAPS/MAPS_113.GRI\;1	maps.1992.02.12.18.grib
+	ln -s $cddir/DATA/MAPS/MAPS_114.GRI\;1	maps.1992.02.13.03.grib
+	ln -s $cddir/DATA/MAPS/MAPS_115.GRI\;1	maps.1992.02.13.06.grib
+	ln -s $cddir/DATA/MAPS/MAPS_116.GRI\;1	maps.1992.02.13.09.grib
+	ln -s $cddir/DATA/MAPS/MAPS_117.GRI\;1	maps.1992.02.13.15.grib
+	ln -s $cddir/DATA/MAPS/MAPS_118.GRI\;1	maps.1992.02.13.21.grib
+	ln -s $cddir/DATA/MAPS/MAPS_119.GRI\;1	maps.1992.02.14.00.grib
+	ln -s $cddir/DATA/MAPS/MAPS_120.GRI\;1	maps.1992.02.14.03.grib
+	ln -s $cddir/DATA/MAPS/MAPS_121.GRI\;1	maps.1992.02.14.06.grib
+	ln -s $cddir/DATA/MAPS/MAPS_122.GRI\;1	maps.1992.02.14.09.grib
+	ln -s $cddir/DATA/MAPS/MAPS_123.GRI\;1	maps.1992.02.14.12.grib
+	ln -s $cddir/DATA/MAPS/MAPS_124.GRI\;1	maps.1992.02.14.15.grib
+	ln -s $cddir/DATA/MAPS/MAPS_125.GRI\;1	maps.1992.02.14.18.grib
+	ln -s $cddir/DATA/MAPS/MAPS_126.GRI\;1	maps.1992.02.14.21.grib
+	ln -s $cddir/DATA/MAPS/MAPS_127.GRI\;1	maps.1992.02.15.06.grib
+	ln -s $cddir/DATA/MAPS/MAPS_128.GRI\;1	maps.1992.02.15.09.grib
+	ln -s $cddir/DATA/MAPS/MAPS_129.GRI\;1	maps.1992.02.15.12.grib
+	ln -s $cddir/DATA/MAPS/MAPS_130.GRI\;1	maps.1992.02.15.15.grib
+	ln -s $cddir/DATA/MAPS/MAPS_131.GRI\;1	maps.1992.02.15.18.grib
+	ln -s $cddir/DATA/MAPS/MAPS_132.GRI\;1	maps.1992.02.15.21.grib
+	ln -s $cddir/DATA/MAPS/MAPS_133.GRI\;1	maps.1992.02.16.00.grib
+	ln -s $cddir/DATA/MAPS/MAPS_134.GRI\;1	maps.1992.02.16.03.grib
+	ln -s $cddir/DATA/MAPS/MAPS_135.GRI\;1	maps.1992.02.16.06.grib
+	ln -s $cddir/DATA/MAPS/MAPS_136.GRI\;1	maps.1992.02.16.09.grib
+	ln -s $cddir/DATA/MAPS/MAPS_137.GRI\;1	maps.1992.02.16.12.grib
+	ln -s $cddir/DATA/MAPS/MAPS_138.GRI\;1	maps.1992.02.16.15.grib
+	ln -s $cddir/DATA/MAPS/MAPS_139.GRI\;1	maps.1992.02.16.18.grib
+	ln -s $cddir/DATA/MAPS/MAPS_140.GRI\;1	maps.1992.02.16.21.grib
+	ln -s $cddir/DATA/MAPS/MAPS_141.GRI\;1	maps.1992.02.17.00.grib
+	ln -s $cddir/DATA/MAPS/MAPS_142.GRI\;1	maps.1992.02.17.06.grib
+	cd ..
+	cd ngm
+	ln -s $cddir/DATA/NGM/NGM_1900.GRI\;1	ngm.1992.02.01.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1901.GRI\;1	ngm.1992.02.01.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1902.GRI\;1	ngm.1992.02.02.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1903.GRI\;1	ngm.1992.02.02.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1904.GRI\;1	ngm.1992.02.03.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1905.GRI\;1	ngm.1992.02.03.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1906.GRI\;1	ngm.1992.02.04.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1907.GRI\;1	ngm.1992.02.04.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1908.GRI\;1	ngm.1992.02.05.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1909.GRI\;1	ngm.1992.02.05.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1910.GRI\;1	ngm.1992.02.06.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1911.GRI\;1	ngm.1992.02.06.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1912.GRI\;1	ngm.1992.02.07.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1913.GRI\;1	ngm.1992.02.07.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1914.GRI\;1	ngm.1992.02.08.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1915.GRI\;1	ngm.1992.02.08.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1916.GRI\;1	ngm.1992.02.09.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1917.GRI\;1	ngm.1992.02.09.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1918.GRI\;1	ngm.1992.02.10.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1919.GRI\;1	ngm.1992.02.10.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1920.GRI\;1	ngm.1992.02.11.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1921.GRI\;1	ngm.1992.02.11.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1922.GRI\;1	ngm.1992.02.12.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1923.GRI\;1	ngm.1992.02.12.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1924.GRI\;1	ngm.1992.02.13.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1925.GRI\;1	ngm.1992.02.13.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1926.GRI\;1	ngm.1992.02.14.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1927.GRI\;1	ngm.1992.02.14.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1928.GRI\;1	ngm.1992.02.15.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1929.GRI\;1	ngm.1992.02.15.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1930.GRI\;1	ngm.1992.02.16.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1931.GRI\;1	ngm.1992.02.16.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1932.GRI\;1	ngm.1992.02.17.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1933.GRI\;1	ngm.1992.02.17.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1934.GRI\;1	ngm.1992.02.18.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1935.GRI\;1	ngm.1992.02.18.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1936.GRI\;1	ngm.1992.02.19.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1937.GRI\;1	ngm.1992.02.19.12.grib
+	cd ..
+#
+# 	CD 2 data files
+#
+	cd avnold
+	ln -s $cddir/DATA/AVNOLD/AVNOLD00.GRI\;1	avnold.1992.02.22.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD01.GRI\;1	avnold.1992.02.23.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD02.GRI\;1	avnold.1992.02.23.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD03.GRI\;1	avnold.1992.02.24.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD04.GRI\;1	avnold.1992.02.24.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD05.GRI\;1	avnold.1992.02.25.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD06.GRI\;1	avnold.1992.02.25.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD07.GRI\;1	avnold.1992.02.26.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD08.GRI\;1	avnold.1992.03.03.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD09.GRI\;1	avnold.1992.03.04.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD10.GRI\;1	avnold.1992.03.04.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD11.GRI\;1	avnold.1992.03.05.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD12.GRI\;1	avnold.1992.03.05.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD13.GRI\;1	avnold.1992.03.06.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD14.GRI\;1	avnold.1992.03.06.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD15.GRI\;1	avnold.1992.03.08.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD16.GRI\;1	avnold.1992.03.08.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD17.GRI\;1	avnold.1992.03.09.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD18.GRI\;1	avnold.1992.03.09.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD19.GRI\;1	avnold.1992.03.10.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD20.GRI\;1	avnold.1992.03.10.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD21.GRI\;1	avnold.1992.03.11.00.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD22.GRI\;1	avnold.1992.03.11.12.grib
+	ln -s $cddir/DATA/AVNOLD/AVNOLD23.GRI\;1	avnold.1992.03.12.00.grib
+	cd ..
+	ln -s $cddir/DATA/DEFAULT0.IOP\;1	defaulttime.iop10
+	ln -s $cddir/DATA/DEFAULT1.IOP\;1	defaulttime.iop11
+	ln -s $cddir/DATA/DEFAULT2.IOP\;1	defaulttime.iop12
+	ln -s $cddir/DATA/DEFAULT3.IOP\;1	defaulttime.iop16
+	ln -s $cddir/DATA/DEFAULT4.IOP\;1	defaulttime.iop17
+	ln -s $cddir/DATA/DEFAULT5.IOP\;1	defaulttime.iop18
+	ln -s $cddir/DATA/DEFAULT6.IOP\;1	defaulttime.iop19
+	cd eta
+	ln -s $cddir/DATA/ETA/ETA_1900.GRI\;1	eta.1992.02.22.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1901.GRI\;1	eta.1992.02.23.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1902.GRI\;1	eta.1992.02.23.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1903.GRI\;1	eta.1992.02.24.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1904.GRI\;1	eta.1992.02.24.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1905.GRI\;1	eta.1992.02.25.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1906.GRI\;1	eta.1992.02.25.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1907.GRI\;1	eta.1992.02.26.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1908.GRI\;1	eta.1992.03.03.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1909.GRI\;1	eta.1992.03.04.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1910.GRI\;1	eta.1992.03.05.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1911.GRI\;1	eta.1992.03.05.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1912.GRI\;1	eta.1992.03.06.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1913.GRI\;1	eta.1992.03.06.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1914.GRI\;1	eta.1992.03.08.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1915.GRI\;1	eta.1992.03.08.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1916.GRI\;1	eta.1992.03.09.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1917.GRI\;1	eta.1992.03.09.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1918.GRI\;1	eta.1992.03.10.00.grib
+	ln -s $cddir/DATA/ETA/ETA_1919.GRI\;1	eta.1992.03.11.12.grib
+	ln -s $cddir/DATA/ETA/ETA_1920.GRI\;1	eta.1992.03.12.00.grib
+	cd ..
+	cd maps
+	ln -s $cddir/DATA/MAPS/MAPS_100.GRI\;1	maps.1992.02.22.12.grib
+	ln -s $cddir/DATA/MAPS/MAPS_101.GRI\;1	maps.1992.02.22.21.grib
+	ln -s $cddir/DATA/MAPS/MAPS_102.GRI\;1	maps.1992.02.23.00.grib
+	ln -s $cddir/DATA/MAPS/MAPS_103.GRI\;1	maps.1992.02.23.03.grib
+	ln -s $cddir/DATA/MAPS/MAPS_104.GRI\;1	maps.1992.02.23.06.grib
+	ln -s $cddir/DATA/MAPS/MAPS_105.GRI\;1	maps.1992.02.23.09.grib
+	ln -s $cddir/DATA/MAPS/MAPS_106.GRI\;1	maps.1992.02.23.15.grib
+	ln -s $cddir/DATA/MAPS/MAPS_107.GRI\;1	maps.1992.02.23.21.grib
+	ln -s $cddir/DATA/MAPS/MAPS_108.GRI\;1	maps.1992.02.24.00.grib
+	ln -s $cddir/DATA/MAPS/MAPS_109.GRI\;1	maps.1992.02.24.03.grib
+	ln -s $cddir/DATA/MAPS/MAPS_110.GRI\;1	maps.1992.02.24.06.grib
+	ln -s $cddir/DATA/MAPS/MAPS_111.GRI\;1	maps.1992.02.24.09.grib
+	ln -s $cddir/DATA/MAPS/MAPS_112.GRI\;1	maps.1992.02.24.12.grib
+	ln -s $cddir/DATA/MAPS/MAPS_113.GRI\;1	maps.1992.02.24.15.grib
+	ln -s $cddir/DATA/MAPS/MAPS_114.GRI\;1	maps.1992.02.24.18.grib
+	ln -s $cddir/DATA/MAPS/MAPS_115.GRI\;1	maps.1992.02.24.21.grib
+	ln -s $cddir/DATA/MAPS/MAPS_116.GRI\;1	maps.1992.02.25.00.grib
+	ln -s $cddir/DATA/MAPS/MAPS_117.GRI\;1	maps.1992.02.25.03.grib
+	ln -s $cddir/DATA/MAPS/MAPS_118.GRI\;1	maps.1992.02.25.09.grib
+	ln -s $cddir/DATA/MAPS/MAPS_119.GRI\;1	maps.1992.02.25.12.grib
+	ln -s $cddir/DATA/MAPS/MAPS_120.GRI\;1	maps.1992.02.25.15.grib
+	ln -s $cddir/DATA/MAPS/MAPS_121.GRI\;1	maps.1992.02.25.18.grib
+	ln -s $cddir/DATA/MAPS/MAPS_122.GRI\;1	maps.1992.02.25.21.grib
+	ln -s $cddir/DATA/MAPS/MAPS_123.GRI\;1	maps.1992.02.26.00.grib
+	ln -s $cddir/DATA/MAPS/MAPS_124.GRI\;1	maps.1992.03.03.12.grib
+	ln -s $cddir/DATA/MAPS/MAPS_125.GRI\;1	maps.1992.03.03.15.grib
+	ln -s $cddir/DATA/MAPS/MAPS_126.GRI\;1	maps.1992.03.03.18.grib
+	ln -s $cddir/DATA/MAPS/MAPS_127.GRI\;1	maps.1992.03.04.09.grib
+	ln -s $cddir/DATA/MAPS/MAPS_128.GRI\;1	maps.1992.03.05.15.grib
+	ln -s $cddir/DATA/MAPS/MAPS_129.GRI\;1	maps.1992.03.05.18.grib
+	ln -s $cddir/DATA/MAPS/MAPS_130.GRI\;1	maps.1992.03.05.21.grib
+	ln -s $cddir/DATA/MAPS/MAPS_131.GRI\;1	maps.1992.03.06.00.grib
+	ln -s $cddir/DATA/MAPS/MAPS_132.GRI\;1	maps.1992.03.06.06.grib
+	ln -s $cddir/DATA/MAPS/MAPS_133.GRI\;1	maps.1992.03.06.09.grib
+	ln -s $cddir/DATA/MAPS/MAPS_134.GRI\;1	maps.1992.03.06.18.grib
+	ln -s $cddir/DATA/MAPS/MAPS_135.GRI\;1	maps.1992.03.06.21.grib
+	ln -s $cddir/DATA/MAPS/MAPS_136.GRI\;1	maps.1992.03.08.15.grib
+	ln -s $cddir/DATA/MAPS/MAPS_137.GRI\;1	maps.1992.03.08.18.grib
+	ln -s $cddir/DATA/MAPS/MAPS_138.GRI\;1	maps.1992.03.08.21.grib
+	ln -s $cddir/DATA/MAPS/MAPS_139.GRI\;1	maps.1992.03.09.12.grib
+	ln -s $cddir/DATA/MAPS/MAPS_140.GRI\;1	maps.1992.03.09.15.grib
+	ln -s $cddir/DATA/MAPS/MAPS_141.GRI\;1	maps.1992.03.09.18.grib
+	ln -s $cddir/DATA/MAPS/MAPS_142.GRI\;1	maps.1992.03.09.21.grib
+	ln -s $cddir/DATA/MAPS/MAPS_143.GRI\;1	maps.1992.03.10.00.grib
+	ln -s $cddir/DATA/MAPS/MAPS_144.GRI\;1	maps.1992.03.10.03.grib
+	ln -s $cddir/DATA/MAPS/MAPS_145.GRI\;1	maps.1992.03.10.06.grib
+	ln -s $cddir/DATA/MAPS/MAPS_146.GRI\;1	maps.1992.03.10.21.grib
+	ln -s $cddir/DATA/MAPS/MAPS_147.GRI\;1	maps.1992.03.11.00.grib
+	ln -s $cddir/DATA/MAPS/MAPS_148.GRI\;1	maps.1992.03.11.06.grib
+	ln -s $cddir/DATA/MAPS/MAPS_149.GRI\;1	maps.1992.03.11.09.grib
+	ln -s $cddir/DATA/MAPS/MAPS_150.GRI\;1	maps.1992.03.12.00.grib
+	cd ..
+	cd ngm
+	ln -s $cddir/DATA/NGM/NGM_1900.GRI\;1	ngm.1992.02.20.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1901.GRI\;1	ngm.1992.02.20.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1902.GRI\;1	ngm.1992.02.21.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1903.GRI\;1	ngm.1992.02.21.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1904.GRI\;1	ngm.1992.02.22.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1905.GRI\;1	ngm.1992.02.22.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1906.GRI\;1	ngm.1992.02.23.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1907.GRI\;1	ngm.1992.02.23.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1908.GRI\;1	ngm.1992.02.24.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1909.GRI\;1	ngm.1992.02.24.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1910.GRI\;1	ngm.1992.02.25.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1911.GRI\;1	ngm.1992.02.25.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1912.GRI\;1	ngm.1992.02.26.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1913.GRI\;1	ngm.1992.02.26.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1914.GRI\;1	ngm.1992.02.27.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1915.GRI\;1	ngm.1992.02.27.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1916.GRI\;1	ngm.1992.02.28.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1917.GRI\;1	ngm.1992.02.28.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1918.GRI\;1	ngm.1992.02.29.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1919.GRI\;1	ngm.1992.02.29.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1920.GRI\;1	ngm.1992.03.01.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1921.GRI\;1	ngm.1992.03.01.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1922.GRI\;1	ngm.1992.03.02.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1923.GRI\;1	ngm.1992.03.02.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1924.GRI\;1	ngm.1992.03.03.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1925.GRI\;1	ngm.1992.03.03.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1926.GRI\;1	ngm.1992.03.04.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1927.GRI\;1	ngm.1992.03.04.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1928.GRI\;1	ngm.1992.03.05.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1929.GRI\;1	ngm.1992.03.05.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1930.GRI\;1	ngm.1992.03.06.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1931.GRI\;1	ngm.1992.03.06.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1932.GRI\;1	ngm.1992.03.07.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1933.GRI\;1	ngm.1992.03.07.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1934.GRI\;1	ngm.1992.03.08.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1935.GRI\;1	ngm.1992.03.08.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1936.GRI\;1	ngm.1992.03.09.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1937.GRI\;1	ngm.1992.03.09.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1938.GRI\;1	ngm.1992.03.10.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1939.GRI\;1	ngm.1992.03.10.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1940.GRI\;1	ngm.1992.03.11.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1941.GRI\;1	ngm.1992.03.11.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1942.GRI\;1	ngm.1992.03.12.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1943.GRI\;1	ngm.1992.03.12.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1944.GRI\;1	ngm.1992.03.13.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1945.GRI\;1	ngm.1992.03.13.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1946.GRI\;1	ngm.1992.03.14.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1947.GRI\;1	ngm.1992.03.14.12.grib
+	ln -s $cddir/DATA/NGM/NGM_1948.GRI\;1	ngm.1992.03.15.00.grib
+	ln -s $cddir/DATA/NGM/NGM_1949.GRI\;1	ngm.1992.03.15.12.grib
+	cd ..
+	cd ..
+#
+# doc, lib, and project directories are common between the two CD-ROMs
+#
+	echo Links for the rest...
+	cd doc
+	ln -s $cddir/DOC/ADVUSERS.PS\;1	AdvUsers.ps
+	ln -s $cddir/DOC/INSTALLC.PS\;1	installcd.ps
+	ln -s $cddir/DOC/MODELDAT.PS\;1	ModelData.ps
+	ln -s $cddir/DOC/OBSANDMO.PS\;1	ObsAndModel.ps
+	ln -s $cddir/DOC/OVERVIEW.PS\;1	overview.ps
+	ln -s $cddir/DOC/RUNNINGZ.PS\;1	RunningZeb.ps
+	cd ..
+	cd lib
+	cd audio
+	ln -s $cddir/LIB/AUDIO/CHORD.AU\;1	chord.au
+	ln -s $cddir/LIB/AUDIO/CLICK.AU\;1	click.au
+	ln -s $cddir/LIB/AUDIO/DING.AU\;1	ding.au
+	ln -s $cddir/LIB/AUDIO/FLUSH.AU\;1	flush.au
+	ln -s $cddir/LIB/AUDIO/HALLELUJ.AU\;1	hallelujah.au
+	ln -s $cddir/LIB/AUDIO/INTERCOM.AU\;1	intercom.au
+	cd ..
+	ln -s $cddir/LIB/CAPE.MAP\;1	cape.map
+	ln -s $cddir/LIB/CAPE_AIR.MAP\;1	cape_aircraft.map
+	ln -s $cddir/LIB/CAPE_DDO.MAP\;1	cape_ddop.map
+	ln -s $cddir/LIB/CAPE_LLP.MAP\;1	cape_llpnet.map
+	ln -s $cddir/LIB/CAPE_ROA.MAP\;1	cape_roads.map
+	ln -s $cddir/LIB/CINDE.MAP\;1	cinde.map
+	cd colortables
+	ln -s $cddir/LIB/COLORTAB/16GRAY.\;1	16gray
+	ln -s $cddir/LIB/COLORTAB/ALLWHITE.\;1	AllWhite
+	ln -s $cddir/LIB/COLORTAB/CONTOUR.\;1	Contour
+	ln -s $cddir/LIB/COLORTAB/CONTOURM.\;1	ContourMono
+	ln -s $cddir/LIB/COLORTAB/COOK16.\;1	cook16
+	ln -s $cddir/LIB/COLORTAB/COOK32.\;1	cook32
+	ln -s $cddir/LIB/COLORTAB/FIVEGRAY.\;1	fivegray
+	ln -s $cddir/LIB/COLORTAB/FIVEGREY.\;1	fivegrey
+	ln -s $cddir/LIB/COLORTAB/GCOOK16.\;1	gcook16
+	ln -s $cddir/LIB/COLORTAB/HOTCOLD.\;1	hotcold
+	ln -s $cddir/LIB/COLORTAB/NEWGRAY.\;1	newgray
+	ln -s $cddir/LIB/COLORTAB/RAINBOW.\;1	Rainbow
+	ln -s $cddir/LIB/COLORTAB/REDBLUE.\;1	RedBlue
+	ln -s $cddir/LIB/COLORTAB/REFCONTO.\;1	refcontour
+	ln -s $cddir/LIB/COLORTAB/REVGRAY.\;1	revgray
+	ln -s $cddir/LIB/COLORTAB/REVRAINB.\;1	RevRainbow
+	ln -s $cddir/LIB/COLORTAB/SCOOK.\;1	scook
+	ln -s $cddir/LIB/COLORTAB/SKEW_T.\;1	Skew-t
+	ln -s $cddir/LIB/COLORTAB/SMALLRAI.\;1	SmallRainbow
+	ln -s $cddir/LIB/COLORTAB/SMALLREV.\;1	smallrevgray
+	ln -s $cddir/LIB/COLORTAB/TSERIES.\;1	tseries
+	ln -s $cddir/LIB/COLORTAB/WILD.\;1	wild
+	ln -s $cddir/LIB/COLORTAB/WILD_NEW.\;1	wild_new
+	ln -s $cddir/LIB/COLORTAB/WINDS.\;1	Winds
+	ln -s $cddir/LIB/COLORTAB/XYGRAPH.\;1	xygraph
+	cd ..
+	ln -s $cddir/LIB/CTEX.MAP\;1	ctex.map
+	ln -s $cddir/LIB/DM.LF\;1	dm.lf
+	ln -s $cddir/LIB/DSDAEMON.LF\;1	dsDaemon.lf
+	ln -s $cddir/LIB/FEST_ARR.MAP\;1	fest_array.map
+	ln -s $cddir/LIB/FEST_COD.HLP\;1	fest_codes.hlp
+	ln -s $cddir/LIB/FEST_PRO.HLP\;1	fest_profilers.hlp
+	ln -s $cddir/LIB/FEST_SOU.HLP\;1	fest_soundings.hlp
+	ln -s $cddir/LIB/FEST_STA.HLP\;1	fest_stations.hlp
+	ln -s $cddir/LIB/FIELDDEF.\;1	FieldDefs
+	cd gplib
+	ln -s $cddir/LIB/GPLIB/COLOR_TA.\;1	color-table
+	ln -s $cddir/LIB/GPLIB/CONTOUR.\;1	contour
+	ln -s $cddir/LIB/GPLIB/CTR_STEP.\;1	ctr-step
+	ln -s $cddir/LIB/GPLIB/FORM_COL.\;1	form-color
+	ln -s $cddir/LIB/GPLIB/GRID.\;1	grid
+	ln -s $cddir/LIB/GPLIB/INTERP.\;1	interp
+	ln -s $cddir/LIB/GPLIB/IRG_WIND.\;1	irg_winds
+	ln -s $cddir/LIB/GPLIB/LOCATION.\;1	location
+	ln -s $cddir/LIB/GPLIB/OFFSETS.\;1	offsets
+	ln -s $cddir/LIB/GPLIB/RADAR.\;1	radar
+	ln -s $cddir/LIB/GPLIB/RANGE.\;1	range
+	ln -s $cddir/LIB/GPLIB/RASTER.\;1	raster
+	ln -s $cddir/LIB/GPLIB/RINGS.\;1	rings
+	ln -s $cddir/LIB/GPLIB/SIMPLE_C.\;1	simple-color
+	ln -s $cddir/LIB/GPLIB/SIMPLE_T.\;1	simple-track
+	ln -s $cddir/LIB/GPLIB/SKEWT.\;1	skewt
+	ln -s $cddir/LIB/GPLIB/STATION.\;1	station
+	ln -s $cddir/LIB/GPLIB/TRACK.\;1	track
+	ln -s $cddir/LIB/GPLIB/WINDS.\;1	winds
+	ln -s $cddir/LIB/GPLIB/XYTRACE.\;1	xytrace
+	ln -s $cddir/LIB/GPLIB/XYWIND.\;1	xywind
+	cd ..
+	ln -s $cddir/LIB/GRAPHPRO.LF\;1	graphproc.lf
+	ln -s $cddir/LIB/HARP.MAP\;1	harp.map
+	cd icons
+	ln -s $cddir/LIB/ICONS/ADRAD.\;1	adrad
+	ln -s $cddir/LIB/ICONS/AIRCRAFT.\;1	aircraft
+	ln -s $cddir/LIB/ICONS/AZ_LIMIT.\;1	az-limits
+	ln -s $cddir/LIB/ICONS/BIGBOAT.\;1	bigboat
+	ln -s $cddir/LIB/ICONS/BIGFMILL.\;1	bigfmill
+	ln -s $cddir/LIB/ICONS/BIGLIGHT.\;1	biglightning
+	ln -s $cddir/LIB/ICONS/BLANK.\;1	blank
+	ln -s $cddir/LIB/ICONS/BOAT.\;1	boat
+	ln -s $cddir/LIB/ICONS/BOGUS.\;1	bogus
+	ln -s $cddir/LIB/ICONS/BOUNDARY.\;1	boundary
+	ln -s $cddir/LIB/ICONS/BSRN.\;1	bsrn
+	ln -s $cddir/LIB/ICONS/BYR.\;1	byr
+	ln -s $cddir/LIB/ICONS/CAPOW_BO.\;1	capow_boundary
+	ln -s $cddir/LIB/ICONS/CAPOW_CO.\;1	capow_core
+	ln -s $cddir/LIB/ICONS/CAPOW_NO.\;1	capow_nowcast
+	ln -s $cddir/LIB/ICONS/CHILL_GR.\;1	chill_grid
+	ln -s $cddir/LIB/ICONS/CIRCLE.\;1	circle
+	ln -s $cddir/LIB/ICONS/CP3.\;1	cp3
+	ln -s $cddir/LIB/ICONS/CP4.\;1	cp4
+	ln -s $cddir/LIB/ICONS/CROSS.\;1	cross
+	ln -s $cddir/LIB/ICONS/DDOP.\;1	ddop
+	ln -s $cddir/LIB/ICONS/DDOP_LOB.\;1	ddop-lobes
+	ln -s $cddir/LIB/ICONS/DDOP_VEC.\;1	ddop_vector
+	ln -s $cddir/LIB/ICONS/DUAL.\;1	dual
+	ln -s $cddir/LIB/ICONS/DVR.\;1	dvr
+	ln -s $cddir/LIB/ICONS/ELZ.\;1	elz
+	ln -s $cddir/LIB/ICONS/FMILL.\;1	fmill
+	ln -s $cddir/LIB/ICONS/FMILL_LO.\;1	fmill-loc
+	ln -s $cddir/LIB/ICONS/GDN.\;1	gdn
+	ln -s $cddir/LIB/ICONS/GENERIC.\;1	generic
+	ln -s $cddir/LIB/ICONS/GLOBAL.\;1	global
+	ln -s $cddir/LIB/ICONS/GRID.\;1	grid
+	ln -s $cddir/LIB/ICONS/GRID_5M0.\;1	grid_5min
+	ln -s $cddir/LIB/ICONS/GRID_5M1.\;1	grid_5min_vectors
+	ln -s $cddir/LIB/ICONS/GRID_HO0.\;1	grid_hourly
+	ln -s $cddir/LIB/ICONS/GRID_HO1.\;1	grid_hourly_vectors
+	ln -s $cddir/LIB/ICONS/HELP.\;1	help
+	ln -s $cddir/LIB/ICONS/HUD.\;1	hud
+	ln -s $cddir/LIB/ICONS/ICONBAR_.\;1	iconbar-help
+	ln -s $cddir/LIB/ICONS/IFA.\;1	ifa
+	ln -s $cddir/LIB/ICONS/ISS_BAT0.\;1	iss-batt
+	ln -s $cddir/LIB/ICONS/ISS_BAT1.\;1	iss-batt-small
+	ln -s $cddir/LIB/ICONS/ISS_CLOC.\;1	iss-clock
+	ln -s $cddir/LIB/ICONS/ISS_CON0.\;1	iss-contour
+	ln -s $cddir/LIB/ICONS/ISS_CON1.\;1	iss-contour-small
+	ln -s $cddir/LIB/ICONS/ISS_DATA.\;1	iss-data
+	ln -s $cddir/LIB/ICONS/ISS_DIF0.\;1	iss-difrad
+	ln -s $cddir/LIB/ICONS/ISS_DIF1.\;1	iss-difrad-small
+	ln -s $cddir/LIB/ICONS/ISS_DISP.\;1	iss-display
+	ln -s $cddir/LIB/ICONS/ISS_ISS.\;1	iss-iss
+	ln -s $cddir/LIB/ICONS/ISS_ISS_.\;1	iss-iss-small
+	ln -s $cddir/LIB/ICONS/ISS_MOVI.\;1	iss-movie
+	ln -s $cddir/LIB/ICONS/ISS_NET0.\;1	iss-netrad
+	ln -s $cddir/LIB/ICONS/ISS_NET1.\;1	iss-netrad-small
+	ln -s $cddir/LIB/ICONS/ISS_PRE0.\;1	iss-pres
+	ln -s $cddir/LIB/ICONS/ISS_PRE1.\;1	iss-pres-small
+	ln -s $cddir/LIB/ICONS/ISS_PRO0.\;1	iss-prof
+	ln -s $cddir/LIB/ICONS/ISS_PRO1.\;1	iss-prof-small
+	ln -s $cddir/LIB/ICONS/ISS_PRO2.\;1	iss-profiler
+	ln -s $cddir/LIB/ICONS/ISS_RAI0.\;1	iss-rain
+	ln -s $cddir/LIB/ICONS/ISS_RAI1.\;1	iss-rain-small
+	ln -s $cddir/LIB/ICONS/ISS_RAS0.\;1	iss-rass
+	ln -s $cddir/LIB/ICONS/ISS_RAS1.\;1	iss-rass-small
+	ln -s $cddir/LIB/ICONS/ISS_RH.\;1	iss-rh
+	ln -s $cddir/LIB/ICONS/ISS_RH_S.\;1	iss-rh-small
+	ln -s $cddir/LIB/ICONS/ISS_STOP.\;1	iss-stop
+	ln -s $cddir/LIB/ICONS/ISS_TBO0.\;1	iss-tbox
+	ln -s $cddir/LIB/ICONS/ISS_TBO1.\;1	iss-tbox-small
+	ln -s $cddir/LIB/ICONS/ISS_TDP.\;1	iss-tdp
+	ln -s $cddir/LIB/ICONS/ISS_TDP_.\;1	iss-tdp-small
+	ln -s $cddir/LIB/ICONS/ISS_TDR0.\;1	iss-tdry
+	ln -s $cddir/LIB/ICONS/ISS_TDR1.\;1	iss-tdry-small
+	ln -s $cddir/LIB/ICONS/ISS_TOT0.\;1	iss-totrad
+	ln -s $cddir/LIB/ICONS/ISS_TOT1.\;1	iss-totrad-small
+	ln -s $cddir/LIB/ICONS/ISS_UWI0.\;1	iss-uwind
+	ln -s $cddir/LIB/ICONS/ISS_UWI1.\;1	iss-uwind-small
+	ln -s $cddir/LIB/ICONS/ISS_VWI0.\;1	iss-vwind
+	ln -s $cddir/LIB/ICONS/ISS_VWI1.\;1	iss-vwind-small
+	ln -s $cddir/LIB/ICONS/ISS_WDI0.\;1	iss-wdir
+	ln -s $cddir/LIB/ICONS/ISS_WDI1.\;1	iss-wdir-small
+	ln -s $cddir/LIB/ICONS/ISS_WSP0.\;1	iss-wspd
+	ln -s $cddir/LIB/ICONS/ISS_WSP1.\;1	iss-wspd-small
+	ln -s $cddir/LIB/ICONS/KINGAIR.\;1	kingair
+	ln -s $cddir/LIB/ICONS/LIGHT.\;1	light
+	ln -s $cddir/LIB/ICONS/LITTLECI.\;1	littlecircle
+	ln -s $cddir/LIB/ICONS/LITTLEP0.\;1	littleplane
+	ln -s $cddir/LIB/ICONS/LITTLEP1.\;1	littleplane1
+	ln -s $cddir/LIB/ICONS/LITTLEP2.\;1	littleplane2
+	ln -s $cddir/LIB/ICONS/LITTLEP3.\;1	littleplane3
+	ln -s $cddir/LIB/ICONS/LITTLEP4.\;1	littleplane4
+	ln -s $cddir/LIB/ICONS/LLP_MAP.\;1	llp-map
+	ln -s $cddir/LIB/ICONS/LOC_TEST.\;1	loc-test
+	ln -s $cddir/LIB/ICONS/LOS.\;1	los
+	ln -s $cddir/LIB/ICONS/MAP.\;1	map
+	ln -s $cddir/LIB/ICONS/MB1.\;1	mb1
+	ln -s $cddir/LIB/ICONS/MB2.\;1	mb2
+	ln -s $cddir/LIB/ICONS/MB3.\;1	mb3
+	ln -s $cddir/LIB/ICONS/MESONET.\;1	mesonet
+	ln -s $cddir/LIB/ICONS/MESO_ST0.\;1	meso_stations
+	ln -s $cddir/LIB/ICONS/MESO_ST1.\;1	meso_stations_profs
+	ln -s $cddir/LIB/ICONS/MESO_WIN.\;1	meso_winds
+	ln -s $cddir/LIB/ICONS/MFRSR.\;1	mfrsr
+	ln -s $cddir/LIB/ICONS/MHR.\;1	mhr
+	ln -s $cddir/LIB/ICONS/MHR_GRID.\;1	mhr_grid
+	ln -s $cddir/LIB/ICONS/MICROBOA.\;1	microboat
+	ln -s $cddir/LIB/ICONS/MODEL.\;1	model
+	ln -s $cddir/LIB/ICONS/N42RF.\;1	n42rf
+	ln -s $cddir/LIB/ICONS/N43RF.\;1	n43rf
+	ln -s $cddir/LIB/ICONS/NEXRAD_0.\;1	nexrad-khou
+	ln -s $cddir/LIB/ICONS/NEXRAD_1.\;1	nexrad-kmlb
+	ln -s $cddir/LIB/ICONS/NEXUS_NE.\;1	nexus-nexus
+	ln -s $cddir/LIB/ICONS/NOWCAST0.\;1	nowcast
+	ln -s $cddir/LIB/ICONS/NOWCAST1.\;1	nowcast_2
+	ln -s $cddir/LIB/ICONS/NOWCAST2.\;1	nowcast_3
+	ln -s $cddir/LIB/ICONS/NOWRAD.\;1	nowrad
+	ln -s $cddir/LIB/ICONS/NOWRAD_F.\;1	nowrad_f
+	ln -s $cddir/LIB/ICONS/OLD_SATE.\;1	old_satellite
+	ln -s $cddir/LIB/ICONS/OPS_CTR.\;1	ops-ctr
+	ln -s $cddir/LIB/ICONS/OPT_BDRY.\;1	opt_bdry
+	ln -s $cddir/LIB/ICONS/OVERLAYS.\;1	overlays
+	ln -s $cddir/LIB/ICONS/P3.\;1	p3
+	ln -s $cddir/LIB/ICONS/PAM_LOC.\;1	pam-loc
+	ln -s $cddir/LIB/ICONS/PENCIL.\;1	pencil
+	ln -s $cddir/LIB/ICONS/PENCILMA.\;1	pencilmask
+	ln -s $cddir/LIB/ICONS/POINT.\;1	point
+	ln -s $cddir/LIB/ICONS/PRINTER.\;1	printer
+	ln -s $cddir/LIB/ICONS/RADAR.\;1	radar
+	ln -s $cddir/LIB/ICONS/RADAR_GR.\;1	radar_grid
+	ln -s $cddir/LIB/ICONS/RADAR_LO.\;1	radar-loc
+	ln -s $cddir/LIB/ICONS/RAIN.\;1	rain
+	ln -s $cddir/LIB/ICONS/RAP_ACS.\;1	rap_acs
+	ln -s $cddir/LIB/ICONS/RAP_ACT.\;1	rap_act
+	ln -s $cddir/LIB/ICONS/RAP_CBC.\;1	rap_cbc
+	ln -s $cddir/LIB/ICONS/RAP_CBN.\;1	rap_cbn
+	ln -s $cddir/LIB/ICONS/RAP_CBX.\;1	rap_cbx
+	ln -s $cddir/LIB/ICONS/RAP_CCN.\;1	rap_ccn
+	ln -s $cddir/LIB/ICONS/RAP_CCS.\;1	rap_ccs
+	ln -s $cddir/LIB/ICONS/RAP_CSH.\;1	rap_csh
+	ln -s $cddir/LIB/ICONS/RAP_EXB.\;1	rap_exb
+	ln -s $cddir/LIB/ICONS/RAP_EXC.\;1	rap_exc
+	ln -s $cddir/LIB/ICONS/RAP_GFA.\;1	rap_gfa
+	ln -s $cddir/LIB/ICONS/RAP_GFB.\;1	rap_gfb
+	ln -s $cddir/LIB/ICONS/RAP_HAL.\;1	rap_hal
+	ln -s $cddir/LIB/ICONS/RAP_HBC.\;1	rap_hbc
+	ln -s $cddir/LIB/ICONS/RAP_HBN.\;1	rap_hbn
+	ln -s $cddir/LIB/ICONS/RAP_HBX.\;1	rap_hbx
+	ln -s $cddir/LIB/ICONS/RAP_HCN.\;1	rap_hcn
+	ln -s $cddir/LIB/ICONS/RAP_HGB.\;1	rap_hgb
+	ln -s $cddir/LIB/ICONS/RAP_HGC.\;1	rap_hgc
+	ln -s $cddir/LIB/ICONS/RAP_HGN.\;1	rap_hgn
+	ln -s $cddir/LIB/ICONS/RAP_LLW.\;1	rap_llw
+	ln -s $cddir/LIB/ICONS/RAP_MBA.\;1	rap_mba
+	ln -s $cddir/LIB/ICONS/RAP_MBC.\;1	rap_mbc
+	ln -s $cddir/LIB/ICONS/RAP_MBP.\;1	rap_mbp
+	ln -s $cddir/LIB/ICONS/RAP_PDB0.\;1	rap_pdbs
+	ln -s $cddir/LIB/ICONS/RAP_PDB1.\;1	rap_pdbs_menu
+	ln -s $cddir/LIB/ICONS/RAP_STF.\;1	rap_stf
+	ln -s $cddir/LIB/ICONS/RAP_STP.\;1	rap_stp
+	ln -s $cddir/LIB/ICONS/RAP_STR.\;1	rap_str
+	ln -s $cddir/LIB/ICONS/RAP_TAP.\;1	rap_tap
+	ln -s $cddir/LIB/ICONS/RAP_TVP.\;1	rap_tvp
+	ln -s $cddir/LIB/ICONS/RAP_TVS.\;1	rap_tvs
+	ln -s $cddir/LIB/ICONS/RAWINSON.\;1	rawinsonde
+	ln -s $cddir/LIB/ICONS/RESTRICT.\;1	restricted_area
+	ln -s $cddir/LIB/ICONS/RINGS.\;1	rings
+	ln -s $cddir/LIB/ICONS/RIVERS.\;1	rivers
+	ln -s $cddir/LIB/ICONS/ROADS.\;1	roads
+	ln -s $cddir/LIB/ICONS/RT_LOC.\;1	rt-loc
+	ln -s $cddir/LIB/ICONS/SATELLI0.\;1	satellite
+	ln -s $cddir/LIB/ICONS/SATELLI1.\;1	satellite-gms
+	ln -s $cddir/LIB/ICONS/SATELLI2.\;1	satellite-ssmi
+	ln -s $cddir/LIB/ICONS/SFC_5MIN.\;1	sfc_5min
+	ln -s $cddir/LIB/ICONS/SFC_HOUR.\;1	sfc_hourly
+	ln -s $cddir/LIB/ICONS/SGP.\;1	sgp
+	ln -s $cddir/LIB/ICONS/SND_LOC.\;1	snd_loc
+	ln -s $cddir/LIB/ICONS/SONDE.\;1	sonde
+	ln -s $cddir/LIB/ICONS/SOUNDIN0.\;1	sounding
+	ln -s $cddir/LIB/ICONS/SOUNDIN1.\;1	sounding-loc
+	ln -s $cddir/LIB/ICONS/SOUNDIN2.\;1	sounding-small
+	ln -s $cddir/LIB/ICONS/SPOTLIGH.\;1	spotlight
+	ln -s $cddir/LIB/ICONS/STORM_10.\;1	storm_1
+	ln -s $cddir/LIB/ICONS/STORM_11.\;1	storm_1-data
+	ln -s $cddir/LIB/ICONS/STORM_12.\;1	storm_1-plan
+	ln -s $cddir/LIB/ICONS/STORM_20.\;1	storm_2
+	ln -s $cddir/LIB/ICONS/STORM_21.\;1	storm_2-data
+	ln -s $cddir/LIB/ICONS/STORM_22.\;1	storm_2-plan
+	ln -s $cddir/LIB/ICONS/STORM_3.\;1	storm_3
+	ln -s $cddir/LIB/ICONS/STORM_3_.\;1	storm_3-plan
+	ln -s $cddir/LIB/ICONS/STORM_40.\;1	storm_4
+	ln -s $cddir/LIB/ICONS/STORM_41.\;1	storm_4-data
+	ln -s $cddir/LIB/ICONS/STORM_42.\;1	storm_4-plan
+	ln -s $cddir/LIB/ICONS/STORM_5.\;1	storm_5
+	ln -s $cddir/LIB/ICONS/STORM_5_.\;1	storm_5-plan
+	ln -s $cddir/LIB/ICONS/STORM_6.\;1	storm_6
+	ln -s $cddir/LIB/ICONS/STORM_7.\;1	storm_7
+	ln -s $cddir/LIB/ICONS/STORM_8.\;1	storm_8
+	ln -s $cddir/LIB/ICONS/STORM_9.\;1	storm_9
+	ln -s $cddir/LIB/ICONS/TREC.\;1	trec
+	ln -s $cddir/LIB/ICONS/TSERIES.\;1	tseries
+	ln -s $cddir/LIB/ICONS/VOR.\;1	vor
+	ln -s $cddir/LIB/ICONS/VOR_DSM.\;1	vor-dsm
+	ln -s $cddir/LIB/ICONS/VOR_DUC.\;1	vor-duc
+	ln -s $cddir/LIB/ICONS/VOR_EAS0.\;1	vor-eastKS
+	ln -s $cddir/LIB/ICONS/VOR_EAS1.\;1	vor-eastMO
+	ln -s $cddir/LIB/ICONS/VOR_EAS2.\;1	vor-eastNE
+	ln -s $cddir/LIB/ICONS/VOR_EAS3.\;1	vor-eastOK
+	ln -s $cddir/LIB/ICONS/VOR_FSM.\;1	vor-fsm
+	ln -s $cddir/LIB/ICONS/VOR_HBR.\;1	vor-hbr
+	ln -s $cddir/LIB/ICONS/VOR_IA.\;1	vor-IA
+	ln -s $cddir/LIB/ICONS/VOR_IFI.\;1	vor-ifi
+	ln -s $cddir/LIB/ICONS/VOR_IRK.\;1	vor-irk
+	ln -s $cddir/LIB/ICONS/VOR_IRW.\;1	vor-irw
+	ln -s $cddir/LIB/ICONS/VOR_MKC.\;1	vor-mkc
+	ln -s $cddir/LIB/ICONS/VOR_NMIS.\;1	vor-nmisc
+	ln -s $cddir/LIB/ICONS/VOR_PWE.\;1	vor-pwe
+	ln -s $cddir/LIB/ICONS/VOR_RING.\;1	vor-rings
+	ln -s $cddir/LIB/ICONS/VOR_SMIS.\;1	vor-smisc
+	ln -s $cddir/LIB/ICONS/VOR_STJ.\;1	vor-stj
+	ln -s $cddir/LIB/ICONS/VOR_TOP.\;1	vor-top
+	ln -s $cddir/LIB/ICONS/VOR_WES0.\;1	vor-westKS
+	ln -s $cddir/LIB/ICONS/VOR_WES1.\;1	vor-westMO
+	ln -s $cddir/LIB/ICONS/VOR_WES2.\;1	vor-westNE
+	ln -s $cddir/LIB/ICONS/VOR_WES3.\;1	vor-westOK
+	ln -s $cddir/LIB/ICONS/WBOUNDS.\;1	wbounds
+	ln -s $cddir/LIB/ICONS/WBOX.\;1	wbox
+	ln -s $cddir/LIB/ICONS/WVR.\;1	wvr
+	ln -s $cddir/LIB/ICONS/XMARK.\;1	xmark
+	ln -s $cddir/LIB/ICONS/XSECT.\;1	xsect
+	ln -s $cddir/LIB/ICONS/XYGRAPH.\;1	xygraph
+	cd ..
+	ln -s $cddir/LIB/LIBZEB.A\;1	libZeb.a
+	ln -s $cddir/LIB/LIBZEBDS.A\;1	libZebDS.a
+	ln -s $cddir/LIB/NETXFR.LF\;1	NetXfr.lf
+	ln -s $cddir/LIB/NOWRAD.MAP\;1	nowrad.map
+	cd pd
+	ln -s $cddir/LIB/PD/CAP_TEMP.PD\;1	cap-template.pd
+	ln -s $cddir/LIB/PD/P_CONTOU.PD\;1	p_contour.pd
+	ln -s $cddir/LIB/PD/P_FCONTO.PD\;1	p_fcontour.pd
+	ln -s $cddir/LIB/PD/P_IRG_WI.PD\;1	p_irg_winds.pd
+	ln -s $cddir/LIB/PD/P_ISS_LO.PD\;1	p_iss_loc.pd
+	ln -s $cddir/LIB/PD/P_KMGRID.PD\;1	p_kmgrid.pd
+	ln -s $cddir/LIB/PD/P_LLGRID.PD\;1	p_llgrid.pd
+	ln -s $cddir/LIB/PD/P_LOC.PD\;1	p_loc.pd
+	ln -s $cddir/LIB/PD/P_MAP.PD\;1	p_map.pd
+	ln -s $cddir/LIB/PD/P_MODEL.PD\;1	p_model.pd
+	ln -s $cddir/LIB/PD/P_MODEL_.PD\;1	p_model_winds.pd
+	ln -s $cddir/LIB/PD/P_RADAR.PD\;1	p_radar.pd
+	ln -s $cddir/LIB/PD/P_RASTER.PD\;1	p_raster.pd
+	ln -s $cddir/LIB/PD/P_RINGS.PD\;1	p_rings.pd
+	ln -s $cddir/LIB/PD/P_SIMPLE.PD\;1	p_simple_track.pd
+	ln -s $cddir/LIB/PD/P_STATIO.PD\;1	p_station.pd
+	ln -s $cddir/LIB/PD/P_TRACK.PD\;1	p_track.pd
+	ln -s $cddir/LIB/PD/P_WBOUND.PD\;1	p_wbounds.pd
+	ln -s $cddir/LIB/PD/P_XYTRAC.PD\;1	p_xytrace.pd
+	ln -s $cddir/LIB/PD/SKEWT_TE.PD\;1	skewt-template.pd
+	ln -s $cddir/LIB/PD/TSERIES_.PD\;1	tseries-template.pd
+	ln -s $cddir/LIB/PD/WIND_TEM.PD\;1	wind-template.pd
+	cd ..
+	ln -s $cddir/LIB/PD_UTIL0.EL\;1	pd-utils.el
+	ln -s $cddir/LIB/PD_UTIL1.EL\;1	pd-utils19.el
+	ln -s $cddir/LIB/RAPS_COU.MAP\;1	raps_county.map
+	ln -s $cddir/LIB/RAPS_NOW.MAP\;1	raps_now_region.map
+	cd resources
+	ln -s $cddir/LIB/RESOURCE/ARCHIVER.\;1	Archiver
+	ln -s $cddir/LIB/RESOURCE/DISPLAYM.\;1	DisplayMgr
+	ln -s $cddir/LIB/RESOURCE/DSDWIDGE.\;1	dsdwidget
+	ln -s $cddir/LIB/RESOURCE/DSMANAGE.\;1	dsmanage
+	ln -s $cddir/LIB/RESOURCE/EVENTLOG.\;1	EventLogger
+	ln -s $cddir/LIB/RESOURCE/FCCCLOCK.\;1	FccClock
+	ln -s $cddir/LIB/RESOURCE/GRAPHPRO.\;1	Graphproc
+	ln -s $cddir/LIB/RESOURCE/LASTDATA.\;1	LastData
+	ln -s $cddir/LIB/RESOURCE/XHELP.\;1	XHelp
+	cd ..
+	ln -s $cddir/LIB/STORMFE0.MAP\;1	stormfest.map
+	ln -s $cddir/LIB/STORMFE1.MAP\;1	stormfest_lobes.map
+	ln -s $cddir/LIB/WISP.MAP\;1	wisp.map
+	ln -s $cddir/LIB/WISP91.MAP\;1	wisp91.map
+	ln -s $cddir/LIB/XHELP.HLP\;1	xhelp.hlp
+	ln -s $cddir/LIB/ZEB.HLP\;1	zeb.hlp
+	cd ..
+	cd project
+	cd fest
+	ln -s $cddir/PROJECT/FEST/ADDITION.WID\;1	Additional.widgets
+	ln -s $cddir/PROJECT/FEST/BUTTONMA.\;1	ButtonMaps
+	cd cache
+	ln -s $cddir/PROJECT/FEST/CACHE/CACHE00.IOP\;1	cache.iop10
+	ln -s $cddir/PROJECT/FEST/CACHE/CACHE01.IOP\;1	cache.iop11
+	ln -s $cddir/PROJECT/FEST/CACHE/CACHE02.IOP\;1	cache.iop12
+	ln -s $cddir/PROJECT/FEST/CACHE/CACHE03.IOP\;1	cache.iop13
+	ln -s $cddir/PROJECT/FEST/CACHE/CACHE04.IOP\;1	cache.iop14
+	ln -s $cddir/PROJECT/FEST/CACHE/CACHE05.IOP\;1	cache.iop15
+	ln -s $cddir/PROJECT/FEST/CACHE/CACHE06.IOP\;1	cache.iop16
+	ln -s $cddir/PROJECT/FEST/CACHE/CACHE07.IOP\;1	cache.iop17
+	ln -s $cddir/PROJECT/FEST/CACHE/CACHE08.IOP\;1	cache.iop18
+	ln -s $cddir/PROJECT/FEST/CACHE/CACHE09.IOP\;1	cache.iop19
+	ln -s $cddir/PROJECT/FEST/CACHE/CACHE10.IOP\;1	cache.iop20
+	ln -s $cddir/PROJECT/FEST/CACHE/CACHE11.IOP\;1	cache.iop3
+	ln -s $cddir/PROJECT/FEST/CACHE/CACHE12.IOP\;1	cache.iop4
+	ln -s $cddir/PROJECT/FEST/CACHE/CACHE13.IOP\;1	cache.iop5
+	ln -s $cddir/PROJECT/FEST/CACHE/CACHE14.IOP\;1	cache.iop6
+	ln -s $cddir/PROJECT/FEST/CACHE/CACHE15.IOP\;1	cache.iop7
+	ln -s $cddir/PROJECT/FEST/CACHE/CACHE16.IOP\;1	cache.iop8
+	ln -s $cddir/PROJECT/FEST/CACHE/CACHE17.IOP\;1	cache.iop9
+	cd ..
+	cd colortables
+	ln -s $cddir/PROJECT/FEST/COLORTAB/BABYDOP.\;1	babydop
+	ln -s $cddir/PROJECT/FEST/COLORTAB/CONC.\;1	conc
+	ln -s $cddir/PROJECT/FEST/COLORTAB/COOK16_B.\;1	cook16_bk
+	ln -s $cddir/PROJECT/FEST/COLORTAB/MAP.\;1	map
+	ln -s $cddir/PROJECT/FEST/COLORTAB/NOWRAD.\;1	nowrad
+	ln -s $cddir/PROJECT/FEST/COLORTAB/NOWRAD_O.\;1	nowrad_old
+	cd ..
+	ln -s $cddir/PROJECT/FEST/COLORTAB.\;1	ColorTables
+	ln -s $cddir/PROJECT/FEST/COMPILE_.WID\;1	compile.gp.widgets
+	cd dconfig
+	ln -s $cddir/PROJECT/FEST/DCONFIG/BIG.\;1	big
+	ln -s $cddir/PROJECT/FEST/DCONFIG/BOGUS.\;1	bogus
+	ln -s $cddir/PROJECT/FEST/DCONFIG/CINDY.\;1	cindy
+	ln -s $cddir/PROJECT/FEST/DCONFIG/CTEST.\;1	ctest
+	ln -s $cddir/PROJECT/FEST/DCONFIG/FESTDEMO.\;1	festdemo
+	ln -s $cddir/PROJECT/FEST/DCONFIG/MODEL_XS.\;1	model_xsect
+	ln -s $cddir/PROJECT/FEST/DCONFIG/ONE.\;1	one
+	cd pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/BIG_BIG.PD\;1	big-big.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/BIG_CLOC.PD\;1	big-Clock.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/CTEST_SK.PD\;1	ctest-skewt.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/FESTDEM0.PD\;1	festdemo-Clock.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/FESTDEM1.PD\;1	festdemo-LowerLeft.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/FESTDEM2.PD\;1	festdemo-LowerRight.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/FESTDEM3.PD\;1	festdemo-UpperLeft.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/FESTDEM4.PD\;1	festdemo-UpperRight.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/FESTDEM5.PD\;1	festdemo-xx.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/FEST_JC0.PD\;1	fest-jc-Clock.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/FEST_JC1.PD\;1	fest-jc-big.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/FEST_JC2.PD\;1	fest-jc-little1.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/FEST_JC3.PD\;1	fest-jc-little2.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/MODEL_X0.PD\;1	model_xsect-LowerLeft.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/MODEL_X1.PD\;1	model_xsect-UpperLeft.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/ONE_CLOC.PD\;1	one-Clock.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/ONE_UPPE.PD\;1	one-UpperLeft.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/PROFILE0.PD\;1	profiler-Clock.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/PROFILE1.PD\;1	profiler-LowerRight.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/PROFILE2.PD\;1	profiler-UpperLeft.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/SLIDE_CL.PD\;1	slide-Clock.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/SLIDE_UP.PD\;1	slide-UpperLeft.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/SURF_HO0.PD\;1	surf-hourly-Clock.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/SURF_HO1.PD\;1	surf-hourly-big.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/SURF_LOW.PD\;1	surf-LowerLeft.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/SURF_UPP.PD\;1	surf-UpperLeft.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/TEST.PD\;1	test.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/TEST_BIG.PD\;1	test-big.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/TEST_CLO.PD\;1	test-Clock.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/TSERIES0.PD\;1	tseries-Clock.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/TSERIES1.PD\;1	tseries-little1.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/TSERIES2.PD\;1	tseries-little2.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/TSERIES3.PD\;1	tseries-tseries1.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/TSERIES4.PD\;1	tseries-tseries2.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/TSTEST_T.PD\;1	tstest-tseries1.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/XSECT_CL.PD\;1	xsect-Clock.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/XSECT_LO.PD\;1	xsect-LowerLeft.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/XSECT_U0.PD\;1	xsect-UpperLeft.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/XSECT_U1.PD\;1	xsect-UpperRight.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/XYGRAPH_.PD\;1	xygraph-UpperLeft.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/XYTIMEG0.PD\;1	xytimegraph-LowerRight.pd
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PD/XYTIMEG1.PD\;1	xytimegraph-UpperLeft.pd
+	cd ..
+	ln -s $cddir/PROJECT/FEST/DCONFIG/PROFILER.\;1	profiler
+	ln -s $cddir/PROJECT/FEST/DCONFIG/SATTEST.\;1	sattest
+	ln -s $cddir/PROJECT/FEST/DCONFIG/SLIDE.\;1	slide
+	ln -s $cddir/PROJECT/FEST/DCONFIG/SURF.\;1	surf
+	ln -s $cddir/PROJECT/FEST/DCONFIG/SURF_HOU.\;1	surf-hourly
+	ln -s $cddir/PROJECT/FEST/DCONFIG/TEST.\;1	test
+	ln -s $cddir/PROJECT/FEST/DCONFIG/TRIAD.\;1	triad
+	ln -s $cddir/PROJECT/FEST/DCONFIG/TSERIES.\;1	tseries
+	ln -s $cddir/PROJECT/FEST/DCONFIG/TS_TEST.\;1	ts_test
+	ln -s $cddir/PROJECT/FEST/DCONFIG/XSECT.\;1	xsect
+	ln -s $cddir/PROJECT/FEST/DCONFIG/XSECT_DE.\;1	xsect-debug
+	ln -s $cddir/PROJECT/FEST/DCONFIG/XYGRAPH.\;1	xygraph
+	ln -s $cddir/PROJECT/FEST/DCONFIG/XYTIMEGR.\;1	xytimegraph
+	cd ..
+	ln -s $cddir/PROJECT/FEST/DISPLAYC.\;1	DisplayConfigs
+	ln -s $cddir/PROJECT/FEST/DM_CONFI.\;1	dm.config
+	ln -s $cddir/PROJECT/FEST/DS_CONFI.\;1	ds.config
+	ln -s $cddir/PROJECT/FEST/DS_MODEL.\;1	ds.model
+	ln -s $cddir/PROJECT/FEST/DS_PRECI.\;1	ds.precip
+	ln -s $cddir/PROJECT/FEST/DS_PROFI.\;1	ds.profilers
+	ln -s $cddir/PROJECT/FEST/DS_SOUND.\;1	ds.sounding
+	ln -s $cddir/PROJECT/FEST/DS_SURFA.\;1	ds.surface
+	ln -s $cddir/PROJECT/FEST/GP.LF\;1	gp.lf
+	ln -s $cddir/PROJECT/FEST/GP_INIT.\;1	gp.init
+	ln -s $cddir/PROJECT/FEST/GP_WIDGE.\;1	gp.widgets
+	ln -s $cddir/PROJECT/FEST/ICONBAR.\;1	IconBar
+	cd icons
+	ln -s $cddir/PROJECT/FEST/ICONS/AVN.\;1	avn
+	ln -s $cddir/PROJECT/FEST/ICONS/AVNOLD.\;1	avnold
+	ln -s $cddir/PROJECT/FEST/ICONS/AVNOLD_S.\;1	avnold_sfc
+	ln -s $cddir/PROJECT/FEST/ICONS/AVNOLD_W.\;1	avnold_winds
+	ln -s $cddir/PROJECT/FEST/ICONS/BALLOON.\;1	balloon
+	ln -s $cddir/PROJECT/FEST/ICONS/ETA.\;1	eta
+	ln -s $cddir/PROJECT/FEST/ICONS/ETA_SFC.\;1	eta_sfc
+	ln -s $cddir/PROJECT/FEST/ICONS/ETA_WIND.\;1	eta_winds
+	ln -s $cddir/PROJECT/FEST/ICONS/MAPS.\;1	maps
+	ln -s $cddir/PROJECT/FEST/ICONS/MAPS_WIN.\;1	maps_winds
+	ln -s $cddir/PROJECT/FEST/ICONS/MRF_FLUX.\;1	mrf_flux
+	ln -s $cddir/PROJECT/FEST/ICONS/NGM.\;1	ngm
+	ln -s $cddir/PROJECT/FEST/ICONS/NGM_SFC.\;1	ngm_sfc
+	ln -s $cddir/PROJECT/FEST/ICONS/NGM_WIND.\;1	ngm_winds
+	ln -s $cddir/PROJECT/FEST/ICONS/TRIAD.\;1	triad
+	cd ..
+	ln -s $cddir/PROJECT/FEST/MAKECDCA.\;1	makeCDCache
+	ln -s $cddir/PROJECT/FEST/MAKELIN0.GZ\;1	makelinks.cd1.gz
+	ln -s $cddir/PROJECT/FEST/MAKELIN1.GZ\;1	makelinks.cd2.gz
+	ln -s $cddir/PROJECT/FEST/MAKELIN2.GZ\;1	makelinks.cd3.gz
+	cd pd
+	ln -s $cddir/PROJECT/FEST/PD/AIRCRAF0.PD\;1	aircraft-cp4.pd
+	ln -s $cddir/PROJECT/FEST/PD/AIRCRAF1.PD\;1	aircraft-sat.pd
+	ln -s $cddir/PROJECT/FEST/PD/AIRCRAF2.PD\;1	aircraft-xsect.pd
+	ln -s $cddir/PROJECT/FEST/PD/AIRCRAF3.PD\;1	aircraft.pd
+	ln -s $cddir/PROJECT/FEST/PD/BIG.PD\;1	big.pd
+	ln -s $cddir/PROJECT/FEST/PD/BIG_DDOP.PD\;1	big_ddop.pd
+	ln -s $cddir/PROJECT/FEST/PD/CAPE.PD\;1	cape.pd
+	ln -s $cddir/PROJECT/FEST/PD/CINDY_LO.PD\;1	cindy-LowerLeft.pd
+	ln -s $cddir/PROJECT/FEST/PD/CINDY_UP.PD\;1	cindy-UpperLeft.pd
+	ln -s $cddir/PROJECT/FEST/PD/CP4.PD\;1	cp4.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_ARRAY0.PD\;1	c_array_loc.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_ARRAY1.PD\;1	c_array_map.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_ASTER_.PD\;1	c_aster_loc.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_AZ_LIM.PD\;1	c_az_lims.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_BOUNDA.PD\;1	c_boundary.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_CART_G.PD\;1	c_cart_grid.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_DDOP.PD\;1	c_ddop.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_DDOP_C.PD\;1	c_ddop_cont.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_DDOP_F.PD\;1	c_ddop_fillcont.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_DDOP_M.PD\;1	c_ddop_map.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_FMESON.PD\;1	c_fmesonet.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_FMILL.PD\;1	c_fmill.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_FMILL_.PD\;1	c_fmill_loc.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_GOES.PD\;1	c_goes.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_GOES_F.PD\;1	c_goes_fest.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_GOES_U.PD\;1	c_goes_us.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_INTEN0.PD\;1	c_intensity_contour.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_INTEN1.PD\;1	c_intensity_f_contour.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_LIGHTN.PD\;1	c_lightning.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_LLP_MA.PD\;1	c_llp_map.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_MAP.PD\;1	c_map.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_MESONE.PD\;1	c_mesonet.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_MESO_5.PD\;1	c_meso_5min_winds.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_MESO_W.PD\;1	c_meso_winds.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_MHR.PD\;1	c_mhr.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_N2UW.PD\;1	c_n2uw.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_N2UW_P.PD\;1	c_n2uw-plan.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_N312D0.PD\;1	c_n312d.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_N312D1.PD\;1	c_n312d-plan.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_N312D2.PD\;1	c_n312d_gen.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_N312D3.PD\;1	c_n312d_nats.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_N327U0.PD\;1	c_n327uw-plan.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_N327U1.PD\;1	c_n327uw.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_N42RF.PD\;1	c_n42rf.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_N431NA.PD\;1	c_n431na.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_N43RF.PD\;1	c_n43rf.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_N43RF_.PD\;1	c_n43rf-plan.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_N4706B.PD\;1	c_n4706b.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_N510MH.PD\;1	c_n510mh.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_N566NA.PD\;1	c_n566na.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_N709N0.PD\;1	c_n709na-plan.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_N709N1.PD\;1	c_n709na.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_N9929J.PD\;1	c_n9929j.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_NOWCAS.PD\;1	c_nowcast.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_NOWRA0.PD\;1	c_nowrad.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_NOWRA1.PD\;1	c_nowrad_f.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_NWSSOU.PD\;1	c_nwssounding_loc.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_OPS_CT.PD\;1	c_ops-ctr.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_OPT_BD.PD\;1	c_opt_bdry.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_P3.PD\;1	c_p3.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_PROFIL.PD\;1	c_profiler_loc.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_RADAR.PD\;1	c_radar.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_RADAR_.PD\;1	c_radar_loc.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_RINGS.PD\;1	c_rings.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_ROAD_M.PD\;1	c_road_map.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_RSPACE.PD\;1	c_rspace_map.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_RT_LOC.PD\;1	c_rt_loc.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_SFC_50.PD\;1	c_sfc_5min.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_SFC_51.PD\;1	c_sfc_5min_fcontours.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_SFC_H0.PD\;1	c_sfc_hourly.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_SFC_H1.PD\;1	c_sfc_hourly_fcontours.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_SOUNDI.PD\;1	c_sounding_loc.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_SPOTLI.PD\;1	c_spotlight.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_STATIO.PD\;1	c_station_plot.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_STORM1.PD\;1	c_storm1.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_STORM2.PD\;1	c_storm2.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_STORM4.PD\;1	c_storm4.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_SURFA0.PD\;1	c_surface_5min_plot.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_SURFA1.PD\;1	c_surface_hourly.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_SURFA2.PD\;1	c_surface_hourly_plot.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR.PD\;1	c_vor.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VORDEF.PD\;1	c_vordef.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR_E0.PD\;1	c_vor_eastKS.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR_E1.PD\;1	c_vor_eastMO.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR_E2.PD\;1	c_vor_eastNE.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR_E3.PD\;1	c_vor_eastOK.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR_IA.PD\;1	c_vor_IA.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR_L0.PD\;1	c_vor_loc.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR_L1.PD\;1	c_vor_loc2.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR_L2.PD\;1	c_vor_loc3.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR_L3.PD\;1	c_vor_loc4.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR_L4.PD\;1	c_vor_loc5.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR_L5.PD\;1	c_vor_loc6.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR_L6.PD\;1	c_vor_loc7.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR_LO.NEW\;1	c_vor_loc.new
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR_NM.PD\;1	c_vor_nmisc.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR_SM.PD\;1	c_vor_smisc.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR_W0.PD\;1	c_vor_westKS.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR_W1.PD\;1	c_vor_westMO.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR_W2.PD\;1	c_vor_westNE.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_VOR_W3.PD\;1	c_vor_westOK.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_WBOUND.PD\;1	c_wbounds.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_XYTIM0.PD\;1	c_xytime_air.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_XYTIM1.PD\;1	c_xytime_aster.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_XYTIM2.PD\;1	c_xytime_meso.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_XYTIM3.PD\;1	c_xytime_prof.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_XY_AIR.PD\;1	c_xy_air.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_XY_PRO.PD\;1	c_xy_prof.pd
+	ln -s $cddir/PROJECT/FEST/PD/C_XY_SOU.PD\;1	c_xy_sound.pd
+	ln -s $cddir/PROJECT/FEST/PD/DDOP.PD\;1	ddop.pd
+	ln -s $cddir/PROJECT/FEST/PD/DEFAULTS.PD\;1	defaults.pd
+	ln -s $cddir/PROJECT/FEST/PD/GOES.PD\;1	goes.pd
+	ln -s $cddir/PROJECT/FEST/PD/GREBL_LO.PD\;1	grebl-LowerLeft.pd
+	ln -s $cddir/PROJECT/FEST/PD/GREBL_UP.PD\;1	grebl-UpperLeft.pd
+	ln -s $cddir/PROJECT/FEST/PD/MESONET.PD\;1	mesonet.pd
+	ln -s $cddir/PROJECT/FEST/PD/MHR.PD\;1	mhr.pd
+	ln -s $cddir/PROJECT/FEST/PD/MTEST.PD\;1	mtest.pd
+	ln -s $cddir/PROJECT/FEST/PD/NOWCAST.PD\;1	nowcast.pd
+	ln -s $cddir/PROJECT/FEST/PD/NOWCAST_.PD\;1	nowcast-xsect.pd
+	ln -s $cddir/PROJECT/FEST/PD/NOWRAD.PD\;1	nowrad.pd
+	ln -s $cddir/PROJECT/FEST/PD/OPSDIR.PD\;1	opsdir.pd
+	ln -s $cddir/PROJECT/FEST/PD/OPSDIR_0.PD\;1	opsdir-big.pd
+	ln -s $cddir/PROJECT/FEST/PD/OPSDIR_1.PD\;1	opsdir-Clock.pd
+	ln -s $cddir/PROJECT/FEST/PD/OPSDIR_2.PD\;1	opsdir-little1.pd
+	ln -s $cddir/PROJECT/FEST/PD/OPSDIR_3.PD\;1	opsdir-little2.pd
+	ln -s $cddir/PROJECT/FEST/PD/OPSDIR_4.PD\;1	opsdir-xsect.pd
+	ln -s $cddir/PROJECT/FEST/PD/OPTIMIZE.PD\;1	optimizer.pd
+	ln -s $cddir/PROJECT/FEST/PD/RADAR.PD\;1	radar.pd
+	ln -s $cddir/PROJECT/FEST/PD/RADAR_CP.PD\;1	radar-cp4.pd
+	ln -s $cddir/PROJECT/FEST/PD/RADAR_XS.PD\;1	radar-xsect.pd
+	ln -s $cddir/PROJECT/FEST/PD/SATELLIT.PD\;1	satellite.pd
+	ln -s $cddir/PROJECT/FEST/PD/SATTEST.PD\;1	sattest.pd
+	ln -s $cddir/PROJECT/FEST/PD/SKEWT.PD\;1	skewt.pd
+	ln -s $cddir/PROJECT/FEST/PD/STORMFES.PD\;1	stormfest.pd
+	ln -s $cddir/PROJECT/FEST/PD/TEMPLATE.PD\;1	template.pd
+	ln -s $cddir/PROJECT/FEST/PD/TRIAD_UP.PD\;1	triad-UpperLeft.pd
+	ln -s $cddir/PROJECT/FEST/PD/TSERIES1.PD\;1	tseries1.pd
+	ln -s $cddir/PROJECT/FEST/PD/TSERIES2.PD\;1	tseries2.pd
+	ln -s $cddir/PROJECT/FEST/PD/VOR.LOC\;1	vor.loc
+	ln -s $cddir/PROJECT/FEST/PD/WHITECLO.PD\;1	whiteclock.pd
+	ln -s $cddir/PROJECT/FEST/PD/XSECT.PD\;1	xsect.pd
+	ln -s $cddir/PROJECT/FEST/PD/ZEBRLD.LOG\;1	zebrld.log
+	cd ..
+	ln -s $cddir/PROJECT/FEST/PRINT.WID\;1	print.widget
+	ln -s $cddir/PROJECT/FEST/PROJ_STA.\;1	proj_startup
+	cd ..
+	cd ..
+	ln -s $cddir/RUNZEB.\;1	runzeb
+	ln -s $cddir/SHADOW.CD\;1	SHADOW.CD
+	ln -s $cddir/_CD_INDE.\;1	.cd_index

@@ -1,0 +1,225 @@
+#!/bin/csh -f
+#
+# Install zeb onto a local disk.
+#
+	set TRUE=1
+	set FALSE=0
+#
+# Figure out where the CD is mounted.
+#
+	set topdir=$0
+	set topdir=$topdir:h
+	if ( ! -d $topdir ) then	# in dir already
+		set topdir=`pwd | sed -e 's$^/a/$/$'`
+	endif
+	pushd $topdir
+	set topdir=$cwd			# make sure we have abs. path
+	echo 'CD mounted on' $topdir
+	popd
+#
+# Now give them the messages and continue.
+#
+	cat <<END_OF_OBNOXIOUS_COPYRIGHT
+!
+!		Copyright (C) 1987-1994 by UCAR
+!	University Corporation for Atmospheric Research
+!		   All rights reserved
+!
+! No part of this work covered by the copyrights herein may be reproduced
+! or used in any form or by any means -- graphic, electronic, or mechanical,
+! including photocopying, recording, taping, or information storage and
+! retrieval systems -- without permission of the copyright owner.
+! 
+! This software and any accompanying written materials are provided "as is"
+! without warranty of any kind.  UCAR expressly disclaims all warranties of
+! any kind, either express or implied, including but not limited to the
+! implied warranties of merchantibility and fitness for a particular purpose.
+! UCAR does not indemnify any infringement of copyright, patent, or trademark
+! through use or modification of this software.  UCAR does not provide 
+! maintenance or updates for its software.
+!
+END_OF_OBNOXIOUS_COPYRIGHT
+	echo -n 'Type <RETURN> to continue: '
+	set junk=$<
+#
+# What do we do.
+#
+	inst_opt:
+	cat <<END_OF_MESSAGE
+
+	This script will install the zeb software from the CDROM onto
+	your local disk.  Installing the software in this manner yields
+	better performance, and will allow you to customize the zeb
+	configuration files.  Local installation is required before you
+	can load data locally.
+	
+	There are two installation options.  The first is to install only
+	the configuration files, and run everything else from the CD-ROM.
+	This approach allows customization, uses minimal disk space, but
+	yields no performance improvement.
+	
+	The alternative is to load the zeb binaries and library files
+	onto your disk as well.  This approach requires about 24 mbytes of
+	disk space, but allows you to (conceivably) run without the CDROM
+	altogether.  (You would need to load the data separately in that
+	case).  
+	
+	Please enter "full", "minimal", or "quit" below.
+
+END_OF_MESSAGE
+	echo -n "Which installation option? "
+	set option=$<
+#
+# See what they really wanted.
+#
+	switch ($option)
+		case [fF]ul*:
+			echo "Will do a full installation"
+			set IO_Full=$TRUE
+			breaksw
+		case [mM]in*:
+			echo "Doing minimal installation"
+			set IO_Full=$FALSE
+			breaksw
+		case [qQ]*:
+			echo 'Some other time, maybe?'
+			exit 0
+		default:
+			echo 'Unknown installation option: ' $option
+			goto inst_opt
+	endsw
+#
+# Get the installation directory.
+#
+inst_dir:
+	cat <<END_OF_MESSAGE
+	
+	You need to select a directory into which the zeb files will be
+	installed.  This need *not* be the place where the data will be
+	stored.  This directory can be anywhere in your file system, but
+	you do need to be able to write to it.
+
+END_OF_MESSAGE
+	echo -n 'Installation directory: '
+	set IO_Dir=$<
+#
+# Look into existence issues.
+#
+	if (! -d $IO_Dir) then
+		echo 'Directory' $IO_Dir 'does not exist.'
+		echo -n 'Try to create it? [y] '
+		set ans=$<
+		switch ($ans)
+			case [nN]*:
+				goto inst_dir
+		endsw
+		if ( ! { mkdir -p $IO_Dir } ) then
+			echo ' '
+			echo 'I can not create' $IO_Dir !
+			sleep 2
+			goto inst_dir
+		endif
+	endif
+	set IO_Dir=`(cd $IO_Dir; pwd | sed -e 's$^/a/$/$' )` 
+#
+# Default data directory.
+#
+data_dir:
+	cat <<END_OF_MESSAGE
+
+	Now you need to select a default directory into which you can
+	download data from the CD.  This directory should exist on a
+	device with a substantial amount of free space.
+	
+	You can easily change this directory in the future by modifying
+	the "zeb" shell script.
+
+END_OF_MESSAGE
+	echo -n 'Default data directory: '
+	set IO_DDDir=$<
+#
+# Look into existence issues.
+#
+	if (! -d $IO_DDDir) then
+		echo 'Directory' $IO_DDDir 'does not exist.'
+		echo -n 'Try to create it? [y] '
+		set ans=$<
+		switch ($ans)
+			case [nN]*:
+				goto data_dir
+		endsw
+		if ( ! { mkdir -p $IO_DDDir } ) then
+			echo ' '
+			echo 'I can not create' $IO_DDDir !
+			sleep 2
+			goto inst_dir
+		endif
+	endif
+	set IO_DDDir=`(cd $IO_DDDir; pwd | sed -e 's$^/a/$/$')`
+#
+# OK, it is time to get to work.  Start by loading the configuration
+# directory.
+#
+	echo ' '
+	echo 'Installing configuration files in' $IO_Dir/project/fest
+	cp -R $topdir/project $IO_Dir
+#
+# Make the zeb startup script
+#
+	echo "#\!/bin/csh"			> $IO_Dir/zeb
+	echo "setenv ZEB_TOPDIR $IO_Dir"	>> $IO_Dir/zeb
+	echo "if (\! $?DATA_DIR) setenv DATA_DIR $IO_DDDir" \
+						>> $IO_Dir/zeb
+	echo "$IO_Dir/bin/startzeb fest"	>> $IO_Dir/zeb
+
+	chmod +x $IO_Dir/zeb
+#
+# What kind of machine are we dealing with?
+#
+	set bindir=`uname`
+	if ($bindir == "SunOS") then
+		if ( `uname -r | cut -f1 -d.` >= 5 ) set bindir="Solaris"
+	endif
+#
+# For a minimal installation, put in a fake link so that loadfiles
+# and documentation can be found.  Then we are done.
+#
+	if (! $IO_Full) then
+		ln -s $topdir/lib $IO_Dir/lib
+		ln -s $topdir/bin/$bindir $IO_Dir/bin
+		ln -s $topdir/zeb/doc $IO_Dir/doc
+#
+# Otherwise we need to more more stuff.
+#
+	else
+	#
+	# Do the binary directory.
+	#
+		echo ' '
+		echo Installing $bindir zeb binaries in $IO_Dir/bin
+		mkdir $IO_Dir/bin
+		cp $topdir/bin/$bindir/* $IO_Dir/bin
+	#
+	# Make and populate the library directory.
+	#
+		echo ' '
+		echo 'Installing zeb library files in' $IO_Dir/lib
+		cp -R $topdir/lib $IO_Dir
+	#
+	# Do the documentation so that it's available on-line w/out the CD
+	#
+		echo ' '
+		echo 'Installing documentation in' $IO_Dir/doc
+		cp -R $topdir/doc $IO_Dir
+	endif
+#
+# Done!
+#
+finished:
+	cat <<END_OF_MESSAGE
+
+The installation of zeb in $IO_Dir is complete.  To run your
+newly installed software, run the script $IO_Dir/zeb.
+Good luck!
+
+END_OF_MESSAGE

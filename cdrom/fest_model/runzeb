@@ -1,0 +1,172 @@
+#!/bin/csh -f
+# 
+# Start up the zeb system from a STORM-FEST Model Disk
+#
+
+#
+# Figure out where the CD is mounted.
+#
+	set topdir=$0
+	set topdir=$topdir:h
+	if ( ! -d $topdir ) then	# in dir already
+		set topdir=`pwd`
+	endif
+	cd $topdir
+	set topdir=$cwd			# make sure we have abs. path
+#
+# Which disk?
+#
+	if ( -f $topdir/data/avnold/avnold.1992.02.09.00.grib ) then
+		set disk=1
+	else
+		set disk=2
+	endif
+
+	echo "STORM-FEST Model disk $disk mounted on $topdir"
+
+#
+# Figure out which IOP they want.
+#
+iop_prompt:
+	echo -n 'Which IOP do you want to see? '
+	set iop=$<
+#
+# Verify it.
+#
+	switch ($iop)
+		case [3-7]:
+			if ($disk != 1) then
+				echo ' '
+				echo 'Data for IOP' $iop 'are on Disk 1'
+				echo ' '
+				exit
+			endif
+			breaksw
+		case 1[012]:
+		case 1[6-9]:
+			if ($disk != 2) then
+				echo ' '
+				echo 'Data for IOP' $iop 'are on Disk 2'
+				echo ' '
+				exit
+			endif
+			breaksw
+		default:
+			echo ' '
+			echo 'The CD set has no model runs for IOP' $iop 
+			echo ' '
+			goto iop_prompt
+	endsw
+
+	set datadir=$topdir/data
+	echo 'Data dir is' $datadir
+#
+# Be patient...
+#
+	echo " "
+	echo "IOP $iop startup in progress.  Startup may be slow, so"
+	echo "please be patient."
+	echo " "
+#
+# Set a bunch of environment variables.
+#
+	setenv ZEB_TOPDIR	$topdir
+	if (! $?DATA_DIR ) setenv DATA_DIR		$datadir
+	setenv XAPPLRESDIR	$topdir/lib/resources
+	setenv ZEB_PROJECT	fest
+#
+# Deal with our OS type and make sure the HOST environment variable
+# is set, since "message" needs it
+#
+	set osname = `uname`
+	switch ($osname)
+	#
+	# HP-UX
+	#
+		case "HP-UX":
+			setenv HOST `hostname`
+			breaksw
+	#
+	# For IRIX, we had to link to a shared version of libX11, so the
+	# library's been included and we need to make sure the dynamic
+	# loader finds it.
+	#
+		case "IRIX":
+			setenv LD_LIBRARY_PATH $topdir/bin/IRIX
+			setenv HOST `/usr/bsd/hostname`
+			breaksw
+	#
+	# SunOS binaries apply for SunOS 4.x.  SunOS 5.x is Solaris.
+	#
+		case "SunOS":
+			if ( `uname -r | cut -f1 -d.` < 5 ) then
+				set osname = "SunOS"
+				setenv HOST `hostname`
+			else
+				set osname = "Solaris"
+				setenv HOST `/usr/ucb/hostname`
+			endif
+			breaksw
+	#
+	# Nobody else is supported...
+	#
+		default:
+			echo ' '
+			echo There are no $osname binaries on this disk.
+			echo Only SunOS, Solaris, HP-UX, and IRIX binaries are included.
+			echo ' '
+			exit
+	endsw
+
+	echo Using $osname binaries.
+	setenv ZEB_BINDIR $topdir/bin/$osname
+	set path=($ZEB_BINDIR $path)
+#
+# Fill unused colormap slots
+#
+	tweakcolor yellow
+#
+# Do everything possible to insure that we start clean.
+#
+	zebstop
+	rm -f /tmp/fcc.socket
+	sleep 1
+#
+# The message system.  Nothing else runs without it.
+#
+	echo -n 'Starting MESSAGE...'
+	message & 
+	sleep 1
+#
+# Wait until message is truly ready.  
+#
+	mstatus > /dev/null
+#
+# Data store processes.
+#
+	echo -n 'Starting the event logger...'
+	EventLogger &
+	sleep 1
+#
+# Other basic utilities needed by the system.
+#
+	echo -n 'Starting the timer...'
+	timer &
+	echo -n '...and the data store daemon...'
+	cd $topdir/project/fest
+	dsDaemon ds.config &
+	sleep 10
+	dsdump >& /dev/null	# wait for daemon startup
+	if ( ! $?DEFAULT_CONFIG ) setenv DEFAULT_CONFIG model_xsect
+	setenv INITIAL_TIME `cat $datadir/defaulttime.iop$iop`
+	setenv REMOTE_NAME CDROM # for dsmanage
+	setenv ZEB_XWD2PS_PATH "$ZEB_BINDIR/xwd2ps"
+ 	dm dm.config
+#
+# Once they're done, shut things down.
+#
+	zebstop
+
+
+
+
