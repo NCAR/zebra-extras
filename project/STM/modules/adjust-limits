@@ -1,0 +1,59 @@
+!
+! The set of default limit procedures, from which the defaults pd chooses
+! 
+
+!
+! The pressure minval maxval adjuster.
+!
+procedure adj_pres_minmax comp string
+	local rep pd_param(comp, "representation", "string")
+	local minval pd_paramsearch(comp, "pres-minval", rep, "string")
+	local maxval pd_paramsearch(comp, "pres-maxval", rep, "string")
+	activate doublefloat #comp "pres-minval" "Pressure Minval: " #minval \
+		"pres-maxval" "Pressure Maxval: " #maxval
+endprocedure
+
+!
+! The temperature minval maxval adjuster.
+!
+procedure adj_temp_minmax comp string
+	local rep pd_param(comp, "representation", "string")
+	local minval pd_paramsearch(comp, "temp-minval", rep, "string")
+	local maxval pd_paramsearch(comp, "temp-maxval", rep, "string")
+	activate doublefloat #comp "temp-minval" "Temperature Minval: " \
+		#minval "temp-maxval" "Temperature Maxval: " #maxval
+endprocedure
+
+
+!
+! The highlight range adjuster.
+!
+procedure adj_highlight_range comp string
+	local field pd_param(comp, "field", "string")
+	local repr pd_param(comp, "representation", "string")
+	local high_param concat(field, "-highlight")
+	local highlight pd_paramsearch(comp, high_param, repr, "string")
+	local range_param concat(field, "-highlight-range")
+	local range pd_paramsearch(comp, range_param, repr, "string")
+	activate doublefloat #comp #high_param "Highlight: " #highlight \
+		#range_param "Range: " #range
+endprocedure
+
+!
+! The x-spacing y-spacing adjuster.
+!
+procedure adj_xy_spacing comp string
+	local x pd_param(comp, "x-spacing", "string")
+	local y pd_param(comp, "y-spacing", "string")
+	activate doublefloat #comp "x-spacing" "X-Spacing: " #x \
+		"y-spacing" "Y-Spacing: " #y
+endprocedure
+
+!
+! The following are defined in the gp load file
+!
+! adj_x_minmax
+! adj_y_minmax
+! adj_arrow_scale
+! adj_barb_scale
+
