@@ -1,7 +1,7 @@
 /*
  * Quickie hack to get in and store the limits of a radar's scanning.
  */
-static char *rcsid = "$Id: RadarLimits.c,v 2.1 1991-09-13 15:01:58 corbet Exp $";
+static char *rcsid = "$Id: RadarLimits.c,v 2.2 1991-11-21 22:28:47 kris Exp $";
 /*		Copyright (C) 1987,88,89,90,91 by UCAR
  *	University Corporation for Atmospheric Research
  *		   All rights reserved
@@ -54,6 +54,12 @@ DataObject DObj;
 	static void wm (void);
 	static void CreateDataObject (char *);
 # else
+	static int MsgHandler ();
+	static void Store ();
+	static int xevent ();
+	static void CreateWidget ();
+	static void wm ();
+	static void CreateDataObject ();
 # endif
 
 main (argc, argv)
@@ -244,7 +250,7 @@ int fd;
 
 
 
-
+static int
 MsgHandler (msg)
 struct message *msg;
 /*
