@@ -1,0 +1,124 @@
+!
+! Override some of the built-in menus and widgets for restricted operation.
+!
+! $Id: global,v 1.1 1997-03-27 02:35:48 granger Exp $
+!
+
+!
+! Default left button menu for the global component.
+!
+define widget global-left intmenu 'Global left menu'
+	title 'Global Options'
+	line
+!	entry 'Overlay Times Window...' 'popup overlay'
+	line
+!	submenu 'Change Scale' 'global-scale-menu'
+endmenu
+
+
+define widget global-scale-menu intmenu 'scale by factors'
+	title 'Change Scale'
+	line
+	entry 'Expand View by 100%' 'scale-factor 2.0'
+	entry 'Expand View by 50%' 'scale-factor 1.5'
+	entry 'Expand View by 20%' 'scale-factor 1.2'
+	line
+	entry 'Narrow View by 20%' 'scale-factor 0.8'
+	entry 'Narrow View by 50%' 'scale-factor 0.5'
+	entry 'Narrow View by 75%' 'scale-factor 0.25'
+endmenu
+
+
+
+procedure scale-factor factor real
+	local xmin pd_param("global","x-min","float")
+	local xmax pd_param("global","x-max","float")
+	local ymin pd_param("global","y-min","float")
+	local ymax pd_param("global","y-max","float")
+
+	local xmin (xmin * factor)
+	local xmax (xmax * factor)
+	local ymin (ymin * factor)
+	local ymax (ymax * factor)
+
+	local sxmin string(xmin)
+	local sxmax string(xmax)
+	local symin string(ymin)
+	local symax string(ymax)
+
+	parameter global x-min #sxmin
+	parameter global x-max #sxmax
+	parameter global y-min #symin
+	parameter global y-max #symax
+endprocedure
+
+!
+! The standard left button menu, which should get used for most data
+! components.
+!
+define widget standard-cap-left-menu intmenu "leftmenu"
+	title 'Overlay Operations'
+	line
+!	entry 'Adjust Limits' 'i_adjust limit-proc'
+!	entry 'Spatial Offset options' 'require offsets; popup offsets'
+!	line
+	entry 'Raise to top' 'move #icon_component 0'
+	entry 'Move to bottom' 'move #icon_component 1'
+	entry 'Disable/reenable' 'ToggleBoolean "disable"' \
+		(PDParam(icon_component,"disable") = "true")
+!	entry 'Remove' 'i_remove_component'
+endmenu
+
+!
+! A medium version which doesn't do spatial offsets, but does have adjust
+! 
+!
+define widget medium-cap-left-menu intmenu "leftmenu"
+	title 'Overlay Operations'
+	line
+!	entry 'Adjust Limits' 'i_adjust limit-proc'
+!	line
+	entry 'Raise to top' 'move #icon_component 0'
+	entry 'Move to bottom' 'move #icon_component 1'
+	entry 'Disable/reenable' 'ToggleBoolean "disable"' \
+		(PDParam(icon_component,"disable") = "true")
+!	entry 'Remove' 'i_remove_component'
+endmenu
+
+!
+! A minimal version for places where the other options don't make sense.
+!
+define widget minimal-cap-left-menu intmenu "leftmenu"
+	title 'Overlay Operations'
+	line
+	entry 'Raise to top' 'move #icon_component 0'
+	entry 'Move to bottom' 'move #icon_component 1'
+	entry 'Disable/reenable' 'ToggleBoolean "disable"' \
+		(PDParam(icon_component,"disable") = "true")
+!	entry 'Remove' 'i_remove_component'
+endmenu
+
+
+!
+! Global menu stuff.
+!
+define widget GlobalTopAnnot intmenu 'Annotation colors'
+	title 'Top Annotation'
+	line
+	submenu 'Color' 'simple-color'
+!	line
+!	entry 'Tiny' 'TopAnnotSize 12' \
+!		(PDParam (icon_component, "ta-scale") = "12")
+!	entry 'Small' 'TopAnnotSize 14' \
+!		(PDParam (icon_component, "ta-scale") = "14")
+!	entry 'Medium' 'TopAnnotSize 20' \
+!		(PDParam (icon_component, "ta-scale") = "20")
+!	entry 'Large' 'TopAnnotSize 24' \
+!		(PDParam (icon_component, "ta-scale") = "24")
+!	line
+!	entry 'Color Match' 'ToggleBoolean ta-color-match' \
+!		(PDParam (icon_component, "ta-color-match") = "true")
+!	entry 'Window Name' 'ToggleBoolean ta-show-name' \
+!		(PDParam (icon_component, "ta-show-name") = "true")
+endmenu
+

@@ -1,0 +1,139 @@
+!
+! Restricted version of the xywind library module.
+!
+!
+
+require simple-color
+
+define widget time-height-winds intmenu 'Generic winds'
+	title 'Time-Height Winds'
+	line
+	entry 'Vector' 'adjust_representation_style vector' \
+		(PDParam (icon_component,"representation-style") = "vector")
+	entry 'Barb' 'adjust_representation_style barb' \
+		(PDParam (icon_component,"representation-style") = "barb")
+!	line
+!	entry 'Monochrome' 'ToggleBoolean "color-mono"' \
+!		(PDParam (icon_component, "color-mono") = "true")
+!	submenu 'Mono Color' simple-color
+!	line
+!	submenu 'Data skip interval' 'xywind-data-skip'
+!	line
+!	entry 'Other plot parameters...' 'popup iss-params'
+endmenu
+
+
+
+define widget xywind-data-skip intmenu 'skip data points'
+	title 'Data skip interval'
+	line
+	entry 'Plot every point' \
+		'parameter #icon_component data-skip "1"' \
+		(PDParam (icon_component,"data-skip") = "1")
+	entry 'Every 5th point' \
+		'parameter #icon_component data-skip "5"' \
+		(PDParam (icon_component,"data-skip") = "5")
+	entry 'Every 10th point' \
+		'parameter #icon_component data-skip "10"' \
+		(PDParam (icon_component,"data-skip") = "10")
+	entry 'Every 20th point' \
+		'parameter #icon_component data-skip "20"' \
+		(PDParam (icon_component,"data-skip") = "20")
+	entry 'Every 30th point' \
+		'parameter #icon_component data-skip "30"' \
+		(PDParam (icon_component,"data-skip") = "30")
+endmenu
+
+
+!
+! big damn form widget to tweak all these parameters.
+!
+define widget iss-params form 'ISS parameters'
+	noheader
+	popup 'iss-par-popup'
+
+	label title 'Wind profile display parameters'
+	button apply 'Apply' command 'iss-par-apply'
+	button dismiss 'Dismiss' color red command 'popdown #ui$form'
+	label comp 'x' width 1 color gray95
+	newline
+
+	label l1 'Time period:'
+	blank time 'funky' width 50 command 'iss-par-apply'
+	label l2 '(s = seconds, m = minutes, h = hours)'
+	newline
+
+	label l3 'Height from:'
+	blank minheight 'funky' width 60 command 'iss-par-apply'
+	label l4 'to:'
+	blank maxheight 'funky' width 60 command 'iss-par-apply'
+	label l5 ', with lines every'
+	blank lines 'funky' width 60 command 'iss-par-apply'
+	newline
+
+	label l6 'Vector scale:'
+	blank vscale 'x' width 60 command 'iss-par-apply'
+	label l7 'Barb shaft length:'
+	blank bscale 'x' width 60 command 'iss-par-apply'
+enddef
+
+
+
+procedure iss-par-popup
+	local f ui$form
+	local c icon_component
+	local fld PDParam('global','y-field')
+
+	formtext #f comp #c
+	local t PDParam('global','xy-series-span')
+	formtext #f time #t
+
+	local minheight PDSearch('global','scale-y-min',fld)
+	if (minheight = "(Undefined)")
+		local minheight '0.0'
+	endif
+	formtext #f minheight #minheight
+
+	local maxheight PDSearch('global','scale-y-max',fld)
+	if (maxheight = "(Undefined)")
+		local maxheight '0.0'
+	endif
+	formtext #f maxheight #maxheight
+
+	local l PDParam('global','xy-axis-l-tic-interval')
+	formtext #f lines #l
+	local v PDParam(c,'vec-scale')
+	formtext #f vscale #v
+	local b PDParam(c,'barb-scale')
+	formtext #f bscale #b
+endprocedure
+
+
+procedure iss-par-apply
+	local f ui$form
+	local fld PDParam('global','y-field')
+	local c getftext(f, 'comp')
+
+	local t getftext(f, 'time')
+	parameter global xy-series-span #t
+
+	local minheight getftext(f,'minheight')
+	local par concat(fld,'-scale-y-min')
+	parameter 'global' #par #minheight
+
+	local maxheight getftext(f,'maxheight')
+	local par concat(fld,'-scale-y-max')
+	parameter 'global' #par #maxheight
+
+	local l getftext(f, 'lines')
+	parameter global xy-axis-l-tic-interval #l
+	local v getftext(f, 'vscale')
+	parameter #c vec-scale #v
+	local b getftext(f, 'bscale')
+	parameter #c barb-scale #b
+endprocedure
+
+
+procedure adjust_representation_style style string
+	param #icon_component representation-style #style
+endprocedure
