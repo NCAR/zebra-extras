@@ -6,13 +6,13 @@ defaults
 !
 ! Project origin (S-Pol)
 !
-	origin-location:	17.60       -61.78       0
+	origin-location:	17.60750       -61.82395       0
 !
 ! Add named locations to your heart's delight.  
 ! Form: 
 !	<sitename>-location:	<lat> <lon> <alt>
 !
-	spol-location:		17.60       -61.78       0
+	spol-location:		17.60750       -61.82395       0
 !
 ! Icons to use for various platforms.  The icons themselves can be created
 ! using the X Window "bitmap" utility, and saved in the <project>/icons 
