@@ -1,7 +1,7 @@
 !
 ! This file contains the default values for some plot description parameters.
 !
-! $Id: defaults.pd,v 1.4 2002-10-18 00:00:20 burghart Exp $
+! $Id: defaults.pd,v 1.5 2002-10-18 00:32:52 burghart Exp $
 !
 defaults
 	pd-name:			defaults
@@ -191,6 +191,9 @@ defaults
 	dbz-center:		25
 	dbz-nsteps:		16
 	dbz-step:		5
+	dz-center:		25
+	dz-nsteps:		16
+	dz-step:		5
 	ldr-center:		-17
 	ldr-nsteps:		17
 	ldr-step:		2
