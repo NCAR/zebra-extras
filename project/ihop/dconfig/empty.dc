@@ -2,6 +2,6 @@
 
 
 config empty
-	widget 'iconbar' 800 50 468 70
+	widget 'iconbar' 800 50 469 70
 endconfig
 
