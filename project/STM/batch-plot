@@ -1,6 +1,6 @@
-#! /bin/sh -x
+#! /bin/sh
 #
-# $Id: batch-plot,v 1.1 1997-05-30 19:31:21 granger Exp $
+# $Id: batch-plot,v 1.2 1997-06-02 22:51:14 granger Exp $
 #
 # Start a display manager session with a virtual X server and dump
 # images of its plots.
@@ -21,7 +21,7 @@ ztop="/apps/zebra"
 # Project directory
 project=/apps/zebra/project
 
-# Special path
+# Special path.  xvfb and other utilities are in /home/granger/bin
 PATH=$ztop/bin:/home/granger/bin:$PATH
 
 # Path to Xvfb
@@ -77,6 +77,7 @@ if [ $# -gt 0 ]; then
 fi
 
 PRESERVE_ZEB=1; export PRESERVE_ZEB
+# ZEB_DM=$ztop/bin/dm; export ZEB_DM
 
 # Start our private, virtual X display
 
@@ -90,8 +91,10 @@ x=$!
 sleep 5
 DISPLAY=${display}.0 ; export DISPLAY
 
-# Make sure we have a datastore running
+# Make sure we have a datastore running; we don't need the event logger
+ZEB_EVENTLOGGER=true ; export ZEB_EVENTLOGGER
 
+echo "-- Checking for datastore session:"
 zstart -n -ds $project
 sleep 5
 
@@ -101,16 +104,21 @@ sleep 5
 DEFAULT_CONFIG=$config
 ZEB_DM_CONFIG="-multiple -name Batch dm.config"
 export DEFAULT_CONFIG ZEB_DM_CONFIG
+echo "-- Starting display manager:"
 zstart -dm -preserve $project &
 sleep 5
-zrun Batch 'realtime all'
+# Wait for dm to connect to datastore, then wait for windows to come up
 zquery Batch
-sleep 5
+sleep 10
+zrun Batch 'realtime all'
+# Wait for windows to get to real-time
+sleep 10
 
 # Get a list of the graphics processes appearing in this display
 
+mstatus
 procs=`mstatus | egrep 'group-Batch' | sed -e 's,^.*:,,g' -e 's/,//g'`
-echo Processes: $procs
+echo "Processes: $procs"
 
 # For each process, tell it to dump its plot
 # Put the image in a subdirectory of spool according to the hour of day
@@ -123,7 +131,6 @@ fi
 for plot in $procs ; do
 
     name=`echo $plot | sed -e 's/-Batch.*//'`
-    echo $name
 
     # If we have a specific target, skip this window if it's not it
 
@@ -139,6 +146,7 @@ for plot in $procs ; do
     fi
 
 done
+# Wait for plots to finish
 sleep 15
 
 # Exit the window manager and kill our virtual X server
