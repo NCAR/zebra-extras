@@ -3,13 +3,15 @@
 # Watch for new GOES files, move them to the appropriate Zebra data
 # directories, and let the data store know about them
 #
-
 echo "$0 started at `date`"
+set nonomatch
 
 #
-# we only want one of these at a time
+# we only want one of me; kill any others
 #
-killall $0:t
+onintr -	# ignore the INT we're about to get
+killall -s INT $0:t
+onintr		# listen for signals again
 
 #
 # loop forever
@@ -20,7 +22,11 @@ while (1)
 	set destdir = /scr/data/spol/$plat
 
 	cd $srcdir
-	foreach file (*nc)
+	set pattern = "*nc"
+	set filelist = $pattern
+	if ("$filelist" == "$pattern") continue
+	
+	foreach file ($filelist)
 	    mv $file $destdir
 	    dsrescan -file $file $plat
 	    echo "New $plat file $file has been made available to Zebra"
