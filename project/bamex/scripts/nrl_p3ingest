@@ -11,7 +11,7 @@ service nrl_p3ingest
 	protocol		= udp
 	wait			= yes
 	user			= burghart
-	server			= /code/burghart/bamex/scripts/nrl_p3ingest.sh
+	server			= /code/burghart/bamex/scripts/nrl_p3ingest.csh
 	log_type		= SYSLOG daemon
 	log_on_success		+= DURATION EXIT
 	log_on_failure		+= ATTEMPT
