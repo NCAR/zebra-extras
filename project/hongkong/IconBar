@@ -1,7 +1,7 @@
 !
 ! All the definitions required to make the iconbar work.
 !
-! $Id: IconBar,v 1.4 1994-06-21 17:18:02 granger Exp $
+! $Id: IconBar,v 1.5 1995-04-29 23:20:57 granger Exp $
 
 !
 ! The right way to do this....
@@ -198,12 +198,12 @@ endprocedure
 
 !
 ! Restore configuration to its last saved state.  This amounts to
-! switching to the empty configuration and back to the current one.
+! switching to the none configuration and back to the current one.
 !
 procedure cfg-restore
 	local original dm$config
 
-	display empty
+	display none
 	display #original
 endprocedure
 

@@ -1,7 +1,7 @@
 !
 ! Auto display configurations
 !
-! $Id: DisplayConfigs,v 1.2 1994-06-21 17:16:31 granger Exp $
+! $Id: DisplayConfigs,v 1.3 1995-04-29 23:20:55 granger Exp $
 
 !
 ! The dconfig dir and dconfig pd dir settings were moved to dm.config
@@ -19,13 +19,18 @@ component clock
 endpd
 
 
-! The only configs here are the empty one and the linked zoom one.  The
-! empty one is here as a last resort, in case the one in config directory
-! is deleted by the user.  The zoom is here because links are not handled
-! correctly in saved config files.
+! The only configs here are the empty one, the linked zoom one, and none.
+! The empty one is here as a last resort, in case the one in config
+! directory is deleted by the user.  The zoom is here because links are not
+! handled correctly in saved config files.
 
 config empty
 	widget 'iconbar' 6 27 68 471
+endconfig
+
+! Used to restore a config by first changing to this one
+!
+config none
 endconfig
 
 !
