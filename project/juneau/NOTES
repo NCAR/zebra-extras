@@ -1,0 +1,25 @@
+Documentation of CVS Tags for this project
+------------------------------------------
+
+Project_Juneau: 1.1.1
+
+	The vendor branch onto which Chris copy of the project, from
+	/zeb/chris/juneau, was first imported.
+
+Tag_Juneau_Import: 1.1.1.1
+
+	The tag for the initial import, which corresponds to the copy
+	in /zeb/chris/juneau as of 25 March 1997.
+
+Tag_Merged_JNU_NWS_970325:
+
+	The point at which the copy of the project on jnu_wind, as of 25
+	March 1997, was merged into the trunk.  The project version with
+	this tag is almost an exact copy of the version copied from
+	jnu_wind, except for a couple changes made in /zeb/chris/juneau
+	which looked like they needed to be kept. (I think an example is a
+	call to dc_DestroyDC in one of the derivation programs.)
+
+	This is also the point after which Gary started making changes and
+	adding the profiler display.
+
