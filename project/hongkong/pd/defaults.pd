@@ -34,7 +34,7 @@ defaults
 	ro_radar-icon-age-limit:	15m
 	ro_sat-icon-age-limit:		35m
 	iss/class-icon-age-limit:	60m
-	lantau/profiler-icon-age-limit:	30m
+	lantau/prof-icon-age-limit:	30m
 !
 ! Using the LIDAR (clk station) for the plot origin
 !
@@ -74,8 +74,8 @@ defaults
 	waglan-location:		22.1 114.18 0.321
 	iss-location:			22.1 114.18 0.321
 	iss/class-location:		22.1 114.18 0.321
-	iss/profiler915l-location:	22.1 114.18 0.321
-	iss/profiler915h-location:	22.1 114.18 0.321
+	iss/prof915l-location:		22.1 114.18 0.321
+	iss/prof915h-location:		22.1 114.18 0.321
 	iss/surface_met-location:	22.1 114.18 0.321
 	iss/rass915-location:		22.1 114.18 0.321
 !
@@ -140,7 +140,7 @@ defaults
 !
 ! Possible origins for the position widget.
 !
-	pos-origin:	hkust, clk, waglan, ro_hk_sdg, chenzhou_sdg, ganzhou_sdg, wuzhou_sdg, guangzhou_sdg, shantou_sdg, xisha_sdg, taipei_sdg
+	pos-origin:	hkust, clk, waglan, ro_hk_sdg, LT1, LT2, LT3, LT4, LT5, LT6, chenzhou_sdg, ganzhou_sdg, wuzhou_sdg, guangzhou_sdg, shantou_sdg, xisha_sdg, taipei_sdg
 !
 ! Commands to be executed out of the DataAvailable menu.
 !
@@ -160,7 +160,7 @@ defaults
 !
 ! User insertable data platforms for the insert widget.
 !
-	user-insert-platforms:	spotlight
+	user-insert-platforms:		spotlight
 !
 ! Range limits for Colorado
 !
@@ -254,6 +254,8 @@ defaults
 	contour-dp-step:		1
 	contour-tdry-center:		30
 	contour-tdry-step:		2
+	contour-temp-center:		30
+	contour-temp-step:		2
 	contour-ept-center:		345
 	contour-ept-step:		3
 	contour-mr-center:		20
@@ -264,6 +266,10 @@ defaults
 	contour-velocity-step:		4
 	contour-pt-center:		305
 	contour-pt-step:		1
+	contour-u_wind-center:		0
+	contour-u_wind-step:		1
+	contour-v_wind-center:		0
+	contour-v_wind-step:		1
 	contour-w_wind-center:		0
 	contour-w_wind-step:		1
 	contour-div-center:		0
@@ -395,16 +401,28 @@ defaults
 !
 	tseries-wspd-center:    10
 	tseries-wspd-step:      2
+	tseries-wspd_max-center:    10
+	tseries-wspd_max-step:      2
+	tseries-wspd_min-center:    10
+	tseries-wspd_min-step:      2
+	tseries-wspd_sdev-center:    10
+	tseries-wspd_sdev-step:      2
 	tseries-palt-center:	600
 	tseries-palt-step:	50
 	tseries-w_wind-center:	0
 	tseries-w_wind-step:	1
 	tseries-wdir-center:    180
 	tseries-wdir-step:      20
+	tseries-wdir_sdev-center:    180
+	tseries-wdir_sdev-step:      20
 	tseries-rh-center:      50
 	tseries-rh-step:        15
 	tseries-pres-center:    1020
 	tseries-pres-step:      5
+	tseries-pres_max-center:    1020
+	tseries-pres_max-step:      5
+	tseries-pres_min-center:    1020
+	tseries-pres_min-step:      5
 	tseries-cpres0-center:  120
 	tseries-cpres0-step:    5
 	tseries-ept-center:     355
@@ -413,14 +431,22 @@ defaults
 	tseries-mr-step:        3
 	tseries-tdry-center:    30
 	tseries-tdry-step:      3
+	tseries-twet-center:    30
+	tseries-twet-step:      3
 	tseries-pt-center:      305
 	tseries-pt-step:        5
 	tseries-dp-center:      26
 	tseries-dp-step:        3
 	tseries-raina15-center: 3
 	tseries-raina15-step:   1
+	tseries-raina01-center: 3
+	tseries-raina01-step:   1
 	tseries-raina60-center: 6
 	tseries-raina60-step:   2
+	tseries-solrad-center: 0
+	tseries-solrad-step:   1
+	tseries-vis-center: 0
+	tseries-vis-step:   1
 !
 ! Other.
 !
