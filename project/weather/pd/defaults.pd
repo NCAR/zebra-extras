@@ -1,0 +1,79 @@
+!
+! This file contains the default values for all plot description parameters.
+!
+defaults
+	pd-name:			defaults
+!
+! Various menus for the icons in the plot windows.
+!
+	global-icon-left-menu:		global-left
+!
+! Age limits for changing icon color.
+!
+	icon-age-foreground:		pink
+	icon-age-background:		red
+	stout-icon-age-limit:		15m
+!
+! Origin at (well, near) FL1
+!
+	origin-lat:			40.0000
+	origin-lon:			-105.000
+	origin-alt:			1.600
+	ops-ctr-location:	40.000 -105.000 1.600
+	stout-location:		40.000 -105.000 1.600
+!
+! The default, big picture zoom locations.
+!
+	x-min:				-100
+	x-max:				100
+	y-min:				-100
+	y-max:				100
+	file-path:	/usr/tmp
+!
+! The maximum number of frames to be stored in the file.
+!
+	max-frames:	20
+!
+! Possible origins for the position widget.
+!
+	pos-origin:	stout
+!
+! Commands to be executed out of the DataAvailable menu.
+!
+	data-available-command:		DefaultDataAvail
+!
+! The icons to use in the windows, qualified by platform name.
+!
+	global-icon:			global
+	stout-icon:			generic
+	icon-color:			yellow
+	icon-background:		midnight blue
+	disabled-icon-color:		gray90
+	disabled-icon-background:	gray40
+!
+! Position icon menus.
+!
+	posicon-left-menu:	posleft
+!
+! Long descriptions of fields, in the absence of a real fields module.
+!
+	tdry-desc:			temperature
+	rh-desc:			relative humidity
+!
+! What RBand uses to draw the box/line.  Don't mess with it.
+!
+	xorvalue:			63
+	xor-line-width:			3
+!
+! Some stuff to make the demos look nicer.
+!
+	movie-end-time:			now
+	movie-minutes:			60
+	frame-rate:			 5
+	frame-skip:			10
+	ta-color-match:			true
+!
+! Adjust limit procedures.
+!
+	global-x-limit-proc:		adj_x_minmax
+	global-y-limit-proc:		adj_y_minmax

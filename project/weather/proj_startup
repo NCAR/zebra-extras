@@ -1,0 +1,10 @@
+#!/bin/csh
+#
+# The stout environment project startup file, to be run out of "startzeb".  
+# Nothing too special here.
+#
+
+#
+# Provide a reasonable default config and that's it.
+#
+if ( ! $?DEFAULT_CONFIG ) setenv DEFAULT_CONFIG tseries

@@ -1,0 +1,11 @@
+config tseries
+	window 'Event logger' 10 800 900 95 graphproc
+		nongraphic
+	endwindow
+	window 'UpperLeft' 5 5 800 500 gp gp.init
+		description 'tseries-UpperLeft'
+		buttonmap 'basic'
+		forcepd
+	endwindow
+	widget 'iconbar' 5 550 120 72
+endconfig

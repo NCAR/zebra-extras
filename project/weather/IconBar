@@ -1,0 +1,59 @@
+!
+! All the definitions required to make the iconbar work.
+!
+
+!
+! The right way to do this....
+!
+set ui$bitmap_directory concat(c$libdir, "/icons")
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	noheader
+	location 100 100
+	!
+	! help menu
+	!
+	menu help bitmap iconbar-help
+		title 'Zeb Help Access'
+		line
+		entry 'Introduction' 'help'
+		entry 'On-line Topics' 'help tablecontents'
+		entry 'Guide to Documentation' 'help documentation'
+		entry 'Shutting Down' 'help shutdown'
+	endmenu
+	!
+	! the global menu
+	!
+	menu global bitmap global
+		title 'Zeb control options'
+		line
+		entry 'Time Series Plot' \
+			'display tseries' (dm$config = "tseries")
+		entry 'Empty Configuration' \
+			'display empty' (dm$config = "empty")
+		line
+		entry 'Time Widget'	'popup time'
+		entry 'Hardcopy Widget' 'popup hardcopy'
+		entry 'Configuration Editing Widget' 'popup ConfigEdit'
+		entry 'Data Store Display Widget' 'shell "dsdwidget &"'
+		entry 'Data Store Management Widget' 'shell "dsmanage &"'
+		line
+		entry 'Open Windows Mode' 'ToggleTBSpace' (tbspace > 0)
+		line
+		entry 'Shut Down Zeb' 'shutdown'
+	endmenu
+enddef
+
+!
+! Decrease the height of the window so that it looks nice with the
+! OpenWindows top bar
+!
+procedure ToggleTBSpace
+	if (tbspace = 0)
+		set tbspace 25
+	else
+		set tbspace 0
+	endif
+endprocedure
