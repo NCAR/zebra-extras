@@ -6,7 +6,7 @@ global
 p_pdesc
 	altitude-control: true
 	color:		green
-	platform:	spol_raw
+	platform:	spol
 	do-labels:	false
 	field:		pd
 	grid-size-ratio: 5
