@@ -42,15 +42,15 @@ buttonmap oklahoma.cap
 endmap
  
 buttonmap sounding.cap
-	local	mb-left		'drawbox pushcoord'
-	local	b			'popcoords'
-	local	m			'popup movie'
-	local	Up			'altstep 1'
-	local	Down		'altstep -1'
-	local	u			'altstep 1'
-	local	d			'altstep -1'
-	local	r			'movie run'
-	local	s			'movie stop'
+!	local	mb-left		'drawbox pushcoord'
+!	local	b			'popcoords'
+!	local	m			'popup movie'
+!	local	Up			'altstep 1'
+!	local	Down		'altstep -1'
+!	local	u			'altstep 1'
+!	local	d			'altstep -1'
+!	local	r			'movie run'
+!	local	s			'movie stop'
 	dm		c			'toggle_snd'
 	local	h			'help'
 endmap
