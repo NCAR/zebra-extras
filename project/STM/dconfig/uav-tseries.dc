@@ -1,16 +1,16 @@
 ! Auto-saved display configuration.
 
-prototype fallback Default gp gp.init
-prototype fallback Default gp gp.init
+prototype fallback Graphic gp gp.init
+prototype fallback Graphic gp gp.init
 
 config uav-tseries
 	widget 'iconbar' 19 715 613 69
-	graphic 'cap' 15 36 516 642 Default
+	graphic 'cap' 15 36 516 642 Graphic
 		description 'uav-tseries-cap'
 		buttonmap 'big'
 		forcepd
 	endgraphic
-	graphic 'tseries' 537 35 532 643 Default
+	graphic 'tseries' 537 35 532 643 Graphic
 		description 'uav-tseries-tseries'
 		buttonmap 'xyplot'
 		forcepd

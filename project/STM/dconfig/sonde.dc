@@ -1,21 +1,21 @@
 ! Auto-saved display configuration.
 config sonde
 	widget 'iconbar' 6 7 453 70
-	window 'UpperLeft' 6 83 696 605 gp gp.init
+	graphic 'UpperLeft' 6 83 696 605 gp gp.init
 		description 'sonde-UpperLeft'
 		buttonmap 'sounding'
 		forcepd
-	endwindow
-	window 'UpperRight' 468 6 676 524 gp gp.init
+	endgraphic
+	graphic 'UpperRight' 468 6 676 524 gp gp.init
 		description 'sonde-UpperRight'
 		buttonmap 'xyplot'
 		forcepd
-	endwindow
-	window 'LowerRight' 481 456 668 432 gp gp.init
+	endgraphic
+	graphic 'LowerRight' 481 456 668 432 gp gp.init
 		description 'sonde-LowerRight'
 		buttonmap 'sounding'
 		forcepd
-	endwindow
+	endgraphic
 endconfig
 
 beginpd 'sonde-UpperLeft'

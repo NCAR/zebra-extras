@@ -1,16 +1,16 @@
 ! Auto-saved display configuration.
 
-prototype fallback 'Default' gp 'gp.init'
-prototype fallback 'Default' gp 'gp.init'
+prototype fallback 'Graphic' gp 'gp.init'
+prototype fallback 'Graphic' gp 'gp.init'
 
 config smos-tseries
 	widget 'iconbar' 1077 18 68 567
-	graphic 'cap' 6 6 489 580 'Default'
+	graphic 'cap' 6 6 489 580 'Graphic'
 		description 'smos-tseries-cap'
 		buttonmap 'big'
 		forcepd
 	endgraphic
-	graphic 'tseries' 503 5 564 581 'Default'
+	graphic 'tseries' 503 5 564 581 'Graphic'
 		description 'smos-tseries-tseries'
 		buttonmap 'xyplot'
 		forcepd

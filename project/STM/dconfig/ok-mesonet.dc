@@ -1,22 +1,22 @@
 ! Auto-saved display configuration.
 
-prototype fallback Default gp gp.init
-prototype fallback Default gp gp.init
-prototype fallback Default gp gp.init
+prototype fallback Graphic gp gp.init
+prototype fallback Graphic gp gp.init
+prototype fallback Graphic gp gp.init
 
 config ok-mesonet
 	widget 'iconbar' 1016 489 130 396
-	graphic 'cap' 557 37 588 418 Default
+	graphic 'cap' 557 37 588 418 Graphic
 		description 'ok-mesonet-cap'
 		buttonmap 'big'
 		forcepd
 	endgraphic
-	graphic 'tseries' 8 488 1000 400 Default
+	graphic 'tseries' 8 488 1000 400 Graphic
 		description 'ok-mesonet-tseries'
 		buttonmap 'xyplot'
 		forcepd
 	endgraphic
-	graphic 'tseries1' 7 37 540 419 Default
+	graphic 'tseries1' 7 37 540 419 Graphic
 		description 'ok-mesonet-tseries1'
 		buttonmap 'xyplot'
 		forcepd

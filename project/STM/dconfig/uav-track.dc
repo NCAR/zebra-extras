@@ -1,28 +1,28 @@
 ! Auto-saved display configuration.
 
-prototype fallback Default gp gp.init
-prototype fallback Default gp gp.init
-prototype fallback Default gp gp.init
-prototype fallback Default gp gp.init
+prototype fallback Graphic gp gp.init
+prototype fallback Graphic gp gp.init
+prototype fallback Graphic gp gp.init
+prototype fallback Graphic gp gp.init
 
 config uav-track
 	widget 'iconbar' 24 642 339 116
-	graphic 'cap' 24 45 556 539 Default
+	graphic 'cap' 24 45 556 539 Graphic
 		description 'uav-track-cap'
 		buttonmap 'big'
 		forcepd
 	endgraphic
-	graphic 'tseries' 591 45 552 538 Default
+	graphic 'tseries' 591 45 552 538 Graphic
 		description 'uav-track-tseries'
 		buttonmap 'xyplot'
 		forcepd
 	endgraphic
-	graphic 'tseries1' 374 618 772 276 Default
+	graphic 'tseries1' 374 618 772 276 Graphic
 		description 'uav-track-tseries1'
 		buttonmap 'xyplot'
 		forcepd
 	endgraphic
-	graphic 'tseries2' 224 453 260 179 Default
+	graphic 'tseries2' 224 453 260 179 Graphic
 		description 'uav-track-tseries2'
 		buttonmap 'xyplot'
 		forcepd

@@ -1,10 +1,10 @@
 ! Auto-saved display configuration.
 
-prototype fallback Default gp gp.init
+prototype fallback Graphic gp gp.init
 
 config ruc
 	widget 'iconbar' 750 33 68 567
-	graphic 'cap' 9 33 728 792 Default
+	graphic 'cap' 9 33 728 792 Graphic
 		description 'ruc-cap'
 		buttonmap 'big'
 		forcepd

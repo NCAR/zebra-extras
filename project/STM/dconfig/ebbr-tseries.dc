@@ -1,22 +1,22 @@
 ! Auto-saved display configuration.
 
-prototype fallback Default gp gp.init
-prototype fallback Default gp gp.init
-prototype fallback Default gp gp.init
+prototype fallback Graphic gp gp.init
+prototype fallback Graphic gp gp.init
+prototype fallback Graphic gp gp.init
 
 config ebbr-tseries
 	widget 'iconbar' 1079 85 68 567
-	graphic 'cap' 39 20 400 400 Default
+	graphic 'cap' 39 20 400 400 Graphic
 		description 'ebbr-tseries-cap'
 		buttonmap 'big'
 		forcepd
 	endgraphic
-	graphic 'cap1' 454 20 400 400 Default
+	graphic 'cap1' 454 20 400 400 Graphic
 		description 'ebbr-tseries-cap1'
 		buttonmap 'big'
 		forcepd
 	endgraphic
-	graphic 'tseries' 38 457 428 404 Default
+	graphic 'tseries' 38 457 428 404 Graphic
 		description 'ebbr-tseries-tseries'
 		buttonmap 'xyplot'
 		forcepd

@@ -1,16 +1,16 @@
 ! Auto-saved display configuration.
 
-prototype fallback Default gp gp.init
-prototype fallback Default gp gp.init
+prototype fallback Graphic gp gp.init
+prototype fallback Graphic gp gp.init
 
 config wpdn
 	widget 'iconbar' 14 633 612 64
-	graphic 'skewt' 565 48 504 549 Default
+	graphic 'skewt' 565 48 504 549 Graphic
 		description 'wpdn-skewt'
 		buttonmap 'sounding'
 		forcepd
 	endgraphic
-	graphic 'cap1' 14 49 540 550 Default
+	graphic 'cap1' 14 49 540 550 Graphic
 		description 'wpdn-cap1'
 		buttonmap 'big'
 		forcepd

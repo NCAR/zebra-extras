@@ -1,10 +1,10 @@
 ! Auto-saved display configuration.
 
-prototype fallback Default gp gp.init
+prototype fallback Graphic gp gp.init
 
 config aericlouds
 	widget 'iconbar' 937 7 70 570
-	graphic 'tseries' 7 6 921 594 'Default'
+	graphic 'tseries' 7 6 921 594 'Graphic'
 		description 'aericlouds-tseries'
 		buttonmap 'xyplot'
 		forcepd

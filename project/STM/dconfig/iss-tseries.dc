@@ -1,21 +1,21 @@
 ! Auto-saved display configuration.
 config iss-tseries
-	window 'big' 5 5 604 411 gp gp.init
+	graphic 'big' 5 5 604 411 gp gp.init
 		description 'iss-tseries-big'
 		buttonmap 'big'
 		forcepd
-	endwindow
+	endgraphic
 	widget 'iconbar' 614 352 446 63
-	window 'tseries' 6 444 580 436 gp gp.init
+	graphic 'tseries' 6 444 580 436 gp gp.init
 		description 'iss-tseries-tseries'
 		buttonmap 'xyplot'
 		forcepd
-	endwindow
-	window 'tseries2' 591 444 560 436 gp gp.init
+	endgraphic
+	graphic 'tseries2' 591 444 560 436 gp gp.init
 		description 'iss-tseries-tseries2'
 		buttonmap 'xyplot'
 		forcepd
-	endwindow
+	endgraphic
 endconfig
 
 beginpd 'iss-tseries-big'

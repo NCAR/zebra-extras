@@ -1,22 +1,22 @@
 ! Auto-saved display configuration.
 
-prototype fallback Default gp gp.init
-prototype fallback Default gp gp.init
-prototype fallback Default gp gp.init
+prototype fallback Graphic gp gp.init
+prototype fallback Graphic gp gp.init
+prototype fallback Graphic gp gp.init
 
 config vertical
 	widget 'iconbar' 412 562 617 66
-	graphic 'theight' 5 32 556 497 Default
+	graphic 'theight' 5 32 556 497 Graphic
 		description 'vertical-theight'
 		buttonmap 'xyplot'
 		forcepd
 	endgraphic
-	graphic 'skewt' 571 31 488 498 Default
+	graphic 'skewt' 571 31 488 498 Graphic
 		description 'vertical-skewt'
 		buttonmap 'sounding'
 		forcepd
 	endgraphic
-	graphic 'cap' 5 560 396 335 Default
+	graphic 'cap' 5 560 396 335 Graphic
 		description 'vertical-cap'
 		buttonmap 'big'
 		forcepd

@@ -1,26 +1,26 @@
 ! Auto-saved display configuration.
 config iss-combo
 	widget 'iconbar' 1065 1 75 467
-	window 'big' 656 495 492 380 gp gp.init
+	graphic 'big' 656 495 492 380 gp gp.init
 		description 'iss-combo-big'
 		buttonmap 'xyplot'
 		forcepd
-	endwindow
-	window 'w1' 658 1 400 468 gp gp.init
+	endgraphic
+	graphic 'w1' 658 1 400 468 gp gp.init
 		description 'iss-combo-w1'
 		buttonmap 'sounding'
 		forcepd
-	endwindow
-	window 'w2' 1 1 652 430 gp gp.init
+	endgraphic
+	graphic 'w2' 1 1 652 430 gp gp.init
 		description 'iss-combo-w2'
 		buttonmap 'xyplot'
 		forcepd
-	endwindow
-	window 'w3' -1 457 652 419 gp gp.init
+	endgraphic
+	graphic 'w3' -1 457 652 419 gp gp.init
 		description 'iss-combo-w3'
 		buttonmap 'xyplot'
 		forcepd
-	endwindow
+	endgraphic
 endconfig
 
 beginpd 'iss-combo-big'

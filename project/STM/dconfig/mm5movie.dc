@@ -1,10 +1,10 @@
 ! Auto-saved display configuration.
 
-prototype fallback Default gp gp.init
+prototype fallback Graphic gp gp.init
 
 config mm5movie
 	widget 'iconbar' 1072 79 68 567
-	graphic 'cap' 10 24 536 517 Default
+	graphic 'cap' 10 24 536 517 Graphic
 		description 'mm5movie-cap'
 		buttonmap 'big'
 		forcepd

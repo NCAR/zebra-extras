@@ -1,16 +1,16 @@
 ! Auto-saved display configuration.
 
-prototype fallback Default gp gp.init
-prototype fallback Default gp gp.init
+prototype fallback Graphic gp gp.init
+prototype fallback Graphic gp gp.init
 
 config working
 	widget 'iconbar' 1078 84 68 567
-	graphic 'cap' 38 19 400 400 Default
+	graphic 'cap' 38 19 400 400 Graphic
 		description 'working-cap'
 		buttonmap 'big'
 		forcepd
 	endgraphic
-	graphic 'cap1' 453 19 400 400 Default
+	graphic 'cap1' 453 19 400 400 Graphic
 		description 'working-cap1'
 		buttonmap 'big'
 		forcepd

@@ -1,22 +1,22 @@
 ! Auto-saved display configuration.
 
-prototype fallback Default gp gp.init
-prototype fallback Default gp gp.init
-prototype fallback Default gp gp.init
+prototype fallback Graphic gp gp.init
+prototype fallback Graphic gp gp.init
+prototype fallback Graphic gp gp.init
 
 config mm5-xs
 	widget 'iconbar' 10 666 624 68
-	graphic 'cap' 10 24 644 616 Default
+	graphic 'cap' 10 24 644 616 Graphic
 		description 'mm5-xs-cap'
 		buttonmap 'big'
 		forcepd
 	endgraphic
-	graphic 'skewt' 660 16 488 450 Default
+	graphic 'skewt' 660 16 488 450 Graphic
 		description 'mm5-xs-skewt'
 		buttonmap 'sounding'
 		forcepd
 	endgraphic
-	graphic 'xsect' 662 491 480 405 Default
+	graphic 'xsect' 662 491 480 405 Graphic
 		description 'mm5-xs-xsect'
 		buttonmap 'default'
 		forcepd

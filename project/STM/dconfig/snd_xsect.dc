@@ -3,7 +3,7 @@
 prototype fallback Graphic gp gp.init
 prototype fallback Graphic gp gp.init
 prototype fallback Graphic gp gp.init
-prototype fallback Default gp gp.init
+prototype fallback Graphic gp gp.init
 
 config snd_xsect
 	graphic 'w1' 4 400 788 497 Graphic
@@ -22,7 +22,7 @@ config snd_xsect
 		buttonmap 'sounding'
 		forcepd
 	endgraphic
-	graphic 'cap' 6 26 780 348 Default
+	graphic 'cap' 6 26 780 348 Graphic
 		description 'snd_xsect-cap'
 		buttonmap 'big'
 		forcepd
