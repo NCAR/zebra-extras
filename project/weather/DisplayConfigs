@@ -1,0 +1,42 @@
+!
+! All of the predefined display configurations live in this file.
+!
+
+!
+! The initialization file.
+!
+set init_file (concat (c$projdir, "/gp.init"))
+
+!
+! Required by the newwindow operation
+!
+set default_exec 'gp'
+set default_arg1 'gp.init'
+set gp_exec default_exec
+
+!
+! Generic process classes
+!
+proto Graphic gp gp.init
+proto explicit GPDebug /localbin/xgdb gp
+proto fallback Default gp gp.init
+proto Clock fccclock
+proto EventLogger EventLogger
+proto explicit ClockDebug /localbin/xgdb clock
+proto explicit Debug /localbin/xgdb
+
+set clock_exec (concat (c$bindir, "/fccclock"))
+
+! The only config here is the linked zoom one, since it can't be saved
+! in a file.
+
+!
+! Generic linked PD to display one window zoomed.
+!
+config zoom 1
+	window 'humungo' 5 5 1100 850 #gp_exec #init_file
+		buttonmap 'big'
+		linkpd 1
+	endwindow
+endconfig
+

@@ -6,7 +6,10 @@ defaults
 !
 ! Various menus for the icons in the plot windows.
 !
+	icon-left-menu:			standard-cap-left-menu
 	global-icon-left-menu:		global-left
+	global-icon-right-menu:		globaltopannot
+
 !
 ! Age limits for changing icon color.
 !
@@ -32,7 +35,7 @@ defaults
 !
 ! The maximum number of frames to be stored in the file.
 !
-	max-frames:	20
+	max-frames:	30
 !
 ! Possible origins for the position widget.
 !
@@ -77,3 +80,4 @@ defaults
 !
 	global-x-limit-proc:		adj_x_minmax
 	global-y-limit-proc:		adj_y_minmax
+	xygraph-add-data-command:	xygraph-sound-add

@@ -1,6 +1,7 @@
+! Auto-saved display configuration.
+
+
 config empty
-	window 'Event logger' 10 800 700 100 graphproc
-		nongraphic
-	endwindow
-	widget 'iconbar' 10 10 72 120
+	widget 'iconbar' 859 27 287 64
 endconfig
+

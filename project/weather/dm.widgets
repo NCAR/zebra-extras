@@ -1,0 +1,97 @@
+!
+! Various widgets of interest.
+!
+!
+! Stuff for window creation.
+!
+define widget cw_wintypes intmenu 'fl weather'
+       title 'Window types'
+       line
+       entry 'Time-series' 'cw_type "Time series"'
+endmenu
+
+procedure ProjectNewWindow type string
+	set nw_bmap 'xyplot'
+endprocedure
+
+
+
+!
+! OK, here's stuff for dealing with time-series plots.
+!
+
+procedure TSNewField
+	local w dm$button_window
+	parameter #w global plot-hold true
+!
+! Kludge #1: assume that the third component in the PD is an xytrace.  If
+!	     they don't do anything unusual, that will be the case.
+!
+	local sc NthComp(w, 2)
+!
+! Take the source component, and add it back to the window.  
+!
+	add #w #sc #w 0
+!
+! Kludge #2: we have no easy way to know what name the new component was 
+!	     assigned.  It is certainly different from the source!  So we
+!	     have to simply step through and see.
+!
+! We also count traces (in the older components only) while we are at it.
+!
+	local comps pd_complist(w)
+	local ntrace 0
+	local nlast 0
+	foreach comp #comps
+		local ntrace (ntrace + nlast)
+		local new comp
+		if (comp <> 'global' and comp <> 'xy-grid')
+			local nlast NValue(w, comp, 'platform')
+		endif
+	endfor
+!
+! Time to assign a new set of colors for the new component.
+!
+	local p 0
+	local nplat NValue(w, new, 'platform')
+	while (p < nplat)
+		local color NthColor('xygraph', ntrace+p)
+		if (p = 0)
+			local clist color
+		else
+			local clist concat3(clist, ',', color)
+		endif
+		local p (p + 1)
+	endwhile
+	local clist quote(clist)	! Some joker used "hot pink"
+	parameter #w #new field-color #clist
+!
+! Kludge #3, pick a new field for this trace.  Someday we'll have a nice
+!	     way for the user to do that; for now we just have to choose
+!	     something and let them tweak it.
+!
+	local foundone false
+	foreach field tdry rh dp pt ! that should do it
+		if (not foundone)   ! wish we had "break"
+			local hasit false
+			foreach comp #comps
+				if (PDParam (w, comp, 'y-field') = field)
+					local hasit true
+				endif
+			endfor
+			if (not hasit)
+				local foundone true
+				local newfield field
+			endif
+		endif
+	endfor
+!
+! Store the new field, release the window, and we are done.  Also force
+! the new axis on the right, since there's no room on the left in the
+! tseries template.
+!
+	parameter #w #new y-field #newfield
+	parameter #w #new axis-left false
+	parameter #w #new axis-right true
+	parameter #w global plot-hold false
+endprocedure

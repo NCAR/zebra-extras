@@ -1,59 +1,105 @@
 !
 ! All the definitions required to make the iconbar work.
 !
+set ui$bitmap_directory concat(c$projdir,"/icons")
 
 !
-! The right way to do this....
+! Display manager modules which this IconBar requires
 !
-set ui$bitmap_directory concat(c$libdir, "/icons")
+require "init-config-menu"
+require "cfg-tools"
+require "put_component"
+require "template-menu"
+
 !
 ! This is the iconbar menu itself.....
 !
 define widget iconbar menubar " "
+	!
+	! All this stuff tells the system to put it, unadorned by headers and
+	! title bars, where we want it.  DM does "override" by itself now,
+	! since this iconbar appears in the display config, so we don't
+	! bother with it here.
+	!
 	noheader
+	! size 230 80
 	location 100 100
+	! vertical
+	! override
 	!
-	! help menu
+	! Now we can define the menus themselves.
 	!
-	menu help bitmap iconbar-help
-		title 'Zeb Help Access'
+	menu help bitmap global
+		title 'Zebra Help Access'
 		line
-		entry 'Introduction' 'help'
-		entry 'On-line Topics' 'help tablecontents'
-		entry 'Guide to Documentation' 'help documentation'
-		entry 'Shutting Down' 'help shutdown'
+		entry 'Introduction' 'help intro'
+		entry 'On-line Topics' 'help index'
+		entry 'Starting zeb' 'help start'
+		entry 'Shutting Down' 'help shut-down'
+		entry 'Keys and mouse buttons' 'help keys'
+		entry 'The icon bar' 'help iconbar'
+		entry 'Editing display configurations' 'help editing-configs'
+		line
+		entry 'Horizontal plots' 'help horizontal-plots'
+		entry 'Skew-t plots' 'help skewt'
+		entry 'XYGraph plots' 'help xy-graphs'
+		entry 'Cross section plots' 'help cross-section'
 	endmenu
-	!
-	! the global menu
-	!
-	menu global bitmap global
-		title 'Zeb control options'
+	menu tools bitmap tools-big
+		title 'Tools'
 		line
-		entry 'Time Series Plot' \
-			'display tseries' (dm$config = "tseries")
-		entry 'Empty Configuration' \
-			'display empty' (dm$config = "empty")
+		entry 'Time Control Tool' 'popup time'
+		entry 'Printing Tool' 'popup hardcopy'
+		entry 'Configuration Tool' 'popup ConfigEdit'
+		entry 'XTerm Shell Tool' 'shell \
+  "xterm -T ZebraShell -bg grey90 -fg purple -fn 8x13bold -e zstart -shell &"'
+		entry 'Data Store Listings' \
+		      'shell "dsdwidget -a -t All\ Platforms &"'
+		entry 'Data Store Management' 'shell "dsmanage &"'
 		line
-		entry 'Time Widget'	'popup time'
-		entry 'Hardcopy Widget' 'popup hardcopy'
-		entry 'Configuration Editing Widget' 'popup ConfigEdit'
-		entry 'Data Store Display Widget' 'shell "dsdwidget &"'
-		entry 'Data Store Management Widget' 'shell "dsmanage &"'
+		entry 'Begin new configuration...' 'popup newconfig'
+		submenu 'Add new window' 'template-menu'
+		entry 'Kill window by cursor' 'point-and-shoot'
+		entry 'Add window named...' 'popup NewWindow'
+		entry 'Kill window named...' 'popup ZorchWindow'
 		line
-		entry 'Open Windows Mode' 'ToggleTBSpace' (tbspace > 0)
+		entry 'Save this configuration' 'cfgsave #dm$config'
+		entry 'Save this configuration as...' 'popup SaveConfig'
+		entry 'Remove this configuration' 'cfg-remove'
+		entry 'Restore to original' 'cfg-restore'
 		line
-		entry 'Shut Down Zeb' 'shutdown'
+		entry 'Shutdown Zebra' 'shutdown'
+	endmenu
+	menu configs bitmap configs
+		title 'Display configurations'
+		line
+		entry 'Empty screen' 'display empty' (dm$config = 'empty')
+		entry 'Foothills Weather' 'display wind-tseries' \
+		      (dm$config = 'wind-tseries')
+		entry 'Inside and Outside' 'display fl-mr-tseries' \
+		      (dm$config = 'fl-mr-tseries')
+		entry 'Simple rh and tdry series' 'display tseries' \
+		      (dm$config = 'tseries')
+		line
+		submenu 'Saved Configurations' saved-config-menu
+	endmenu
+	menu outside bitmap foothills 
+		title 'Foothills Weather'
+		line
+		entry 'Relative humidity' 'PutScalar fl rh'
+		entry 'Temperature' 'PutScalar fl tdry'
+		entry 'Pressure' 'PutScalar fl pres'
+		entry 'Sea-level Pressure' 'PutScalar fl cpres0'
+		entry 'Dewpoint' 'PutScalar fl dp'
+		entry 'Wind Direction' 'PutScalar fl wdir'
+		entry 'Wind Speed' 'PutScalar fl wspd'
+		entry 'Wind Gusts' 'PutScalar fl wmax'
+	endmenu
+	menu inside bitmap machines 
+		title 'Machine Room Weather'
+		line
+		entry 'Relative humidity' 'PutScalar mr rh'
+		entry 'Temperature' 'PutScalar mr tdry'
 	endmenu
 enddef
 
-!
-! Decrease the height of the window so that it looks nice with the
-! OpenWindows top bar
-!
-procedure ToggleTBSpace
-	if (tbspace = 0)
-		set tbspace 25
-	else
-		set tbspace 0
-	endif
-endprocedure
