@@ -1,0 +1,13 @@
+GLOBAL
+	pd-name:	c_lightning
+	comment:	Generic lightning data component
+c_lightning
+	representation:	lightning
+	platform:	lightning
+	trigger-global:	true
+	trigger:	lightning
+	time-step:	2m
+	show-icon:	false
+	color-table:	RevRainbow
+	icon-middle-menu:	lightning-color
+	icon:		light
