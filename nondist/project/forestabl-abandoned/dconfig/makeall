@@ -1,11 +1,11 @@
 #! /bin/sh
 #
-# $Id: makeall,v 1.2 1998-01-20 06:57:07 granger Exp $
+# $Id: makeall,v 1.3 1999-02-11 23:37:59 granger Exp $
 #
 # Generate all the template configs in this directory
 
 perl=perl
-$perl ./tmake iss-batch '' iss1 iss2 iss3
-$perl ./tmake lineplot-template 'lineplot-' iss1 iss2 iss3
-$perl ./tmake class-template 'class-' bel bea alg tim own sud
+$perl ./tmake '' iss-batch iss1 iss2 iss3
+$perl ./tmake 'lineplot-' template iss1 iss2 iss3
+$perl ./tmake 'class-' template bel bea alg tim own sud
 
