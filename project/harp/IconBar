@@ -1,0 +1,617 @@
+!
+! All the definitions required to make the iconbar work.
+!
+
+!
+! The right way to do this....
+!
+set ui$bitmap_directory concat(c$libdir, "/icons")
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	!
+	! All this stuff tells the system to put it, unadorned by headers and
+	! title bars, where we want it.  DM does "override" by itself now,
+	! since this iconbar appears in the display config, so we don't
+	! bother with it here.
+	!
+	noheader
+	! size 230 80
+	location 100 100
+	! vertical
+	! override
+	!
+	! Now we can define the menus themselves.
+	!
+	menu global bitmap global
+		title 'Zeb control options'
+		line
+		entry 'One Window Configuration' \
+			'pconfig one' (dm$config = "one")
+		entry 'Radar Configuration' \
+			'pconfig festdemo' (dm$config = "festdemo")
+		entry 'Cross-Section Configuration' \
+			'pconfig xsect' (dm$config = "xsect")
+		entry 'Time Series Configuration' \
+			'pconfig tseries' (dm$config = "tseries")
+		entry 'Profiler Wind Summary' \
+			'pconfig profiler' (dm$config = "profiler")
+		entry 'Generic XY-Graph' \
+			'pconfig xygraph' (dm$config = "xygraph")
+!		submenu 'Aircraft Configurations' AircraftConfigs
+!		submenu 'Nowcast Configurations' NowcastConfigs
+!		submenu 'Ops Director Configurations' OpsdirConfigs
+!		submenu 'Radar Configurations' RadarConfigs
+		line
+		entry 'Time Widget'	'popup time'
+		entry 'Alarm Widget'	'popup alarm'
+		entry 'Radar status widget' 'shell "RadarStatus X &"'
+		entry 'Aircraft status widget' 'shell "ac_status ac_status.config &"'
+		entry 'Configuration editing widget' 'popup ConfigEdit'
+		entry 'Data Store widget' 'shell "dsdwidget &"'
+		line
+		entry 'Shut down Zeb system' 'shutdown'
+	endmenu
+	menu radar bitmap radar
+		title 'Radar'
+		line
+		submenu 'CP4 Radar' 'CP4Radar'
+		submenu 'MHR Radar' 'MHRadar'
+	endmenu
+	menu nowrad bitmap nowrad
+		title 'NOWRAD'
+		line
+		entry 'Fixed'	'PutBCompfield c_nowrad intensity true'
+		entry 'Floater' 'PutBCompfield c_nowrad_f intensity true'
+		line
+		entry 'Fixed Contours' 'put_component c_intensity_contour'
+		entry 'Floater Contours' 'put_component c_intensity_f_contour'
+	endmenu
+	menu mesonet bitmap mesonet
+		title 'PAM Mesonet Data'
+		line
+		submenu 'Line Contoured Data' 'LineMesonet'
+		submenu 'Filled Contour Data' 'FilledMesonet'
+		line
+		entry 'Wind Vectors'		'put_component c_meso_winds'
+		line
+		entry 'Station Plot' 'put_component c_station_plot'
+	endmenu
+	menu satellite bitmap satellite
+		title 'Satellite Data'
+		line
+		entry 'Fest domain: Vis' 'PutBCompField c_goes_fest vis true'
+		entry 'Fest domain: IR' 'PutBCompField c_goes_fest ir true'
+		line
+		entry 'US: Vis' 'PutBCompField c_goes_us vis true'
+		entry 'US: IR' 'PutBCompField c_goes_us ir true'
+	endmenu
+	menu aircraft bitmap aircraft
+		title 'Aircraft'
+		line
+		entry 'N2UW (Storm 1)' 'put_component c_n2uw'
+		entry 'N312D (Storm 2)' 'put_component c_n312d'
+		entry 'N43RF (Storm 3)' 'put_component c_n43rf'
+		entry 'N327UW (Storm 4)' 'put_component c_n327uw'
+		entry 'N709NA (Storm 5)' 'put_component c_n709na'
+		line
+		entry 'P-3' 'put_component c_p3'
+		line
+		entry 'Storm-1' 'put_component c_storm1'
+	endmenu
+	menu 'overlays' bitmap overlays
+		title 'Static Overlays'
+		line
+		submenu 'Grids and Range Rings' GridsAndRings
+		submenu 'Maps' 'Maps'
+		submenu 'Locations' LocMenu
+		submenu 'Boundaries' IBboundary
+		line
+		entry 'Window Bounds' 'put_wbounds c_wbounds'
+	endmenu
+	menu 'blank' bitmap blank
+		title 'Blank'
+	endmenu
+	menu 'blank' bitmap blank
+		title 'Blank'
+	endmenu
+enddef
+
+!
+! CP4 radar.
+!
+define widget CP4Radar intmenu 'cp4 radar'
+	title 'CP4'
+	line
+	entry 'Velocity' 'PutBCompField c_radar velocity true'
+	entry 'Reflectivity' 'PutBCompField c_radar reflectivity true'
+endmenu
+
+!
+! MHR radar.
+!
+define widget MHRadar intmenu 'mhr radar'
+	title 'MHR'
+	line
+	entry 'Velocity' 'PutBCompField c_mhr velocity true'
+	entry 'Reflectivity' 'PutBCompField c_mhr reflectivity true'
+endmenu
+
+!
+! Optimizer configs.
+!
+define widget OptimizerConfigs intmenu 'optimizer configs'
+	title 'Scan Optimizer Configurations'
+	line
+	entry 'Basic optimizer configuration' 'display optimizer' \
+			(dm$config = "optimizer")
+	entry 'Two radar window configuration' 'display optimizer-rt' \
+			(dm$config = "optimizer-rt")
+endmenu
+
+!
+! Aircraft Coordinator Configurations
+!
+define widget AircraftConfigs intmenu 'Aircraft Configs menu'
+	title 'Aircraft Configurations'
+	line
+	entry 'Radar Configuration' \
+		'pconfig aircraft' (dm$config = "aircraft")
+	entry 'Cross-Section Configuration' \
+		'pconfig aircraft-xsect' (dm$config = "aircraft-xsect")
+	entry 'Time Series Configuration' \
+		'pconfig tseries-aircraft' (dm$config = "tseries-aircraft")
+endmenu
+
+!
+! Nowcaster Configurations
+!
+define widget NowcastConfigs intmenu 'Nowcast Configs menu'
+	title 'Nowcast Configurations'
+	line
+	entry 'Radar Configuration' \
+		'pconfig nowcast' (dm$config = "nowcast")
+	entry 'Cross-Section Configuration' \
+		'pconfig nowcast-xsect' (dm$config = "nowcast-xsect")
+	entry 'Time Series Configuration' \
+		'pconfig tseries-nowcast' (dm$config = "tseries-nowcast")
+endmenu
+
+!
+!
+! Radar Coordinator Configurations
+!
+define widget RadarConfigs intmenu 'Radar Coordinator Configs menu'
+	title 'Radar Coordinator Configurations'
+	line
+	entry 'Radar Configuration' \
+		'pconfig radar' (dm$config = "radar")
+	entry 'Cross-Section Configuration' \
+		'pconfig radar-xsect' (dm$config = "radar-xsect")
+	entry 'Time Series Configuration' \
+		'pconfig tseries-radar' (dm$config = "tseries-radar")
+endmenu
+
+!
+! Ops Director Configurations
+!
+define widget OpsdirConfigs intmenu 'Ops Director Configs menu'
+	title 'Ops Director Configurations'
+	line
+	entry 'Radar Configuration' \
+		'pconfig opsdir' (dm$config = "opsdir")
+	entry 'Cross-Section Configuration' \
+		'pconfig opsdir-xsect' (dm$config = "opsdir-xsect")
+	entry 'Time Series Configuration' \
+		'pconfig tseries-opsdir' (dm$config = "tseries-opsdir")
+endmenu
+
+!
+! The various maps.
+!
+define widget Maps intmenu 'Maps'
+	title 'Map overlays'
+	line
+	entry 'State boundaries' 'put_component c_map'
+!	entry 'Roads' 'put_component c_road_map'
+	entry 'Dual Doppler Lobes' 'put_component c_ddop_map'
+	entry 'Boundary Layer Array' 'put_component c_array_map'
+	line
+endmenu
+
+
+!
+! Location submenu.
+!
+define widget LocMenu intmenu 'Location menu'
+	title 'Static locations'
+	line
+	entry 'Ops Center' 'put_component c_ops-ctr'
+	entry 'Radars' 'put_component c_radar_loc'
+	submenu 'VOR/DME' 'VORmenu'
+	entry 'CLASS stations' 'put_component c_sounding_loc'
+	entry 'Radio Tower' 'put_component c_rt_loc'
+	entry 'Aster' 'put_component c_aster_loc'
+	entry 'Boundary Layer Array' 'put_component c_array_loc'
+endmenu
+
+define widget VORmenu intmenu 'Vor Locations'
+	title 'VOR Locations'
+	line
+	entry 'Iowa'		'put_component c_vor_IA'
+	entry 'Western Kansas'	'put_component c_vor_westKS'
+	entry 'Eastern Kansas'	'put_component c_vor_eastKS'
+	entry 'Western Missouri'	'put_component c_vor_westMO'
+	entry 'Eastern Missouri'	'put_component c_vor_eastMO'
+	entry 'Western Nebraska'	'put_component c_vor_westNE'
+	entry 'Eastern Nebraska'	'put_component c_vor_eastNE'
+	entry 'Western Oklahoma'	'put_component c_vor_westOK'
+	entry 'Eastern Oklahoma'	'put_component c_vor_eastOK'
+	entry 'North misc.'	'put_component c_vor_nmisc'
+	entry 'South misc.'	'put_component c_vor_smisc'
+endmenu
+
+!
+! The submenu for boundary selection.
+!
+define widget IBboundary intmenu 'Icon bar boundary menu'
+	title 'Boundary overlays'
+	line
+	entry 'Scan optimizer boundary' 'PutCompX c_opt_bdry platform boundary'
+	entry 'Spotlight' 'put_component c_spotlight'
+	line
+	entry 'Storm 1 flight plan' 'put_component c_n2uw-plan'
+	entry 'Storm 2 flight plan' 'put_component c_n312d-plan'
+	entry 'Storm 3 flight plan' 'put_component c_n43rf-plan'
+	entry 'Storm 4 flight plan' 'put_component c_n327uw-plan'
+	entry 'Storm 5 flight plan' 'put_component c_n709na-plan'
+endmenu
+
+!
+! Submenu for grids and range rings.
+!
+define widget GridsAndRings intmenu 'grid and rings and nifty stuff'
+	title 'Grids, rings, etc.'
+	line
+	submenu 'Radar Range Rings' RadarRings
+	line
+	submenu 'VOR/DME Range Rings' VORRings 
+	line
+	entry 'X-Y Grid (km)' \
+			'PutCompX c_cart_grid lat-lon false'
+	entry 'Lat/Lon Grid ' \
+		'PutCompX c_cart_grid lat-lon true'
+endmenu
+
+!
+! Radar range ring menu.
+!
+define widget RadarRings intmenu 'radar range rings'
+	title 'Radar Range Rings'
+	line
+	entry 'CP3 Range Rings' 'PutCompX c_rings platform cp3'
+	entry 'CP4 Range Rings' 'PutCompX c_rings platform cp4'
+	entry 'MHR Range Rings' 'PutCompX c_rings platform mhr'
+	entry 'OKC Range Rings' 'PutCompX c_rings platform okc'
+	entry 'FDR Range Rings' 'PutCompX c_rings platform fdr'
+	entry 'CIM Range Rings' 'PutCompX c_rings platform cim'
+	entry 'HOT Range Rings' 'PutCompX c_rings platform hot'
+	entry 'CHILL Range Rings' 'PutCompX c_rings platform chill'
+endmenu
+
+!
+! VOR/DME range ring menu.
+!
+define widget VORRings intmenu 'VOR range rings'
+	title 'VOR/DME Range Rings'
+	line
+	entry 'STJ range rings' 'PutCompX c_vor platform vor-stj'
+	entry 'MKC range rings' 'PutCompX c_vor platform vor-mkc'
+	entry 'PWE range rings' 'PutCompX c_vor platform vor-pwe'
+	entry 'TOP range rings' 'PutCompX c_vor platform vor-top'
+	entry 'DUC range rings' 'PutCompX c_vor platform vor-duc'
+	entry 'IRW range rings' 'PutCompX c_vor platform vor-irw'
+	entry 'HBR range rings' 'PutCompX c_vor platform vor-hbr'
+	entry 'IFI range rings' 'PutCompX c_vor platform vor-ifi'
+	entry 'IRK range rings' 'PutCompX c_vor platform vor-irk'
+	entry 'DSM range rings' 'PutCompX c_vor platform vor-dsm'
+	entry 'FSM range rings' 'PutCompX c_vor platform vor-fsm'	
+	entry 'Other VOR (keyboard entry)' 'popup vor-origin'
+endmenu
+
+! A form widget for manual VOR entry.
+!
+define widget vor-origin form 'VOR origin'
+	noheader
+	popup vor_popup
+	label comp 'component'
+	label l1 'VOR/DME origin:'
+	blank origin 'vor-top' command 'vor_origin_enter' width 100
+	newline
+	button cancel 'Cancel' color red command 'popdown #ui$form'
+	button apply 'Apply' command 'vor_origin_enter'
+	label gripe ' ' color red width 200
+enddef
+
+!
+! Initialize a VOR form.
+!
+procedure vor_popup
+        formtext #ui$form comp c_vordef
+        formtext #ui$form gripe ' '
+endprocedure
+
+
+!
+! Menus for mesonet contours.  Two completely separate menus required
+! for the filled and line cases, alas.
+!
+define widget FilledMesonet intmenu 'Filled mesonet contour selection'
+	title 'Mesonet data in filled contours'
+	line
+	entry 'Temperature' 		'PutBCompField c_fmesonet tdry false'
+	entry 'Dewpoint Temperature'	'PutBCompField c_fmesonet dp false'
+	entry 'Relative Humidity'	'PutBCompField c_fmesonet rh false'
+	entry 'Raw Pressure'		'PutBCompField c_fmesonet pres false'
+	entry 'Corrected Pressure' 	'PutBCompField c_fmesonet cpres0 false'
+	entry 'Mixing Ratio'		'PutBCompField c_fmesonet mr false'
+	entry 'Potential Temperature'	'PutBCompField c_fmesonet pt false'
+	entry 'Equivalent Potential Temperature' 'PutBCompField c_fmesonet ept false'
+	entry '15-Minute Rain Accumulation' 'PutBCompField c_fmesonet raina15 false'
+	entry '60-Minute Rain Accumulation' 'PutBCompField c_fmesonet raina60 false'
+endmenu
+
+define widget LineMesonet intmenu 'Line mesonet contour selection'
+	title 'Mesonet data in line contours'
+	line
+	entry 'Temperature' 		'PutCompField c_mesonet tdry'
+	entry 'Dewpoint Temperature'	'PutCompField c_mesonet dp'
+	entry 'Relative Humidity'	'PutCompField c_mesonet rh'
+	entry 'Raw Pressure'		'PutCompField c_mesonet pres'
+	entry 'Corrected Pressure' 	'PutCompField c_mesonet cpres0'
+	entry 'Mixing Ratio'		'PutCompField c_mesonet mr'
+	entry 'Potential Temperature'	'PutCompField c_mesonet pt'
+	entry 'Equivalent Potential Temperature' 'PutCompField c_mesonet ept'
+	entry '15-Minute Rain Accumulation' 'PutCompField c_mesonet raina15'
+	entry '60-Minute Rain Accumulation' 'PutCompField c_mesonet raina60'
+endmenu
+
+!
+! Menus for dual doppler contours.
+!
+define widget LineDDop intmenu 'Line ddop contour selection'
+	title 'Dual Doppler Data in Line Contours'
+	line
+	entry 'Divergence Contours' 'PutCompX c_ddop_cont field div'
+	entry 'Vertical Velocity Contours' \
+		'PutCompX c_ddop_cont field w_wind'
+	entry 'Cp4 Interpolated Reflectivity' \
+		'PutCompX c_ddop_cont field ref_cp4'
+	entry 'Cp3 Interpolated Reflectivity' \
+		'PutCompX c_ddop_cont field ref_cp3'
+endmenu
+
+define widget FilledDDop intmenu 'Filled ddop contour selection'
+	title 'Dual Doppler Data in Filled Contours'
+	line
+	entry 'Divergence Contours' 'PutBCompField c_ddop_fillcont div false'
+	entry 'Vertical Velocity Contours' \
+		'PutBCompField c_ddop_fillcont w_wind false'
+	entry 'Cp4 Interpolated Reflectivity' \
+		'PutBCompField c_ddop_fillcont ref_cp4 false'
+	entry 'Cp3 Interpolated Reflectivity' \
+	'PutBCompField c_ddop_fillcont ref_cp3 false'
+endmenu
+
+!
+! The simple case: add a component to a window with no changes.
+!
+procedure put_component name string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+!
+! If this component is already present in the window, remove it.  Otherwise
+! put it in.
+!
+	if (pd_defined (target_win, name, "platform"))
+		message 'Already there'
+		remove #target_win #name
+	else
+		add #name #name #target_win
+	endif
+endprocedure
+
+
+
+!
+! Add a component to a window, changing the field name.
+!
+procedure PutCompField comp string field string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+!
+! Send the stuff over.
+!
+	parameter #comp #comp "field" #field
+	add #comp #comp #target_win
+endprocedure
+
+
+!
+! Add a component to a window, changing the field name.  This version puts
+! the component at the bottom of the stack.
+!
+procedure PutBCompField comp string field string radarspace string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+!
+! If the component is already in the window, just change the field.
+!
+	if (pd_defined (target_win, comp, "platform"))
+		parameter #target_win #comp "field" #field
+!
+! Otherwise change the field *in DM* to avoid making the GP draw twice,
+! then send it over.
+!
+	else
+		parameter #comp #comp "field" #field
+		add #comp #comp #target_win 1
+	!
+	!  Take care of the radar-space parameter.
+	!
+		parameter #target_win "global" "radar-space" #radarspace
+	endif
+endprocedure
+
+
+!
+! Remove a component from a window.
+!
+procedure ZapComp comp string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+!
+! If this component truly exists in the window, get rid of it.
+!
+	if (pd_defined (target_win, comp, "platform"))
+		remove #target_win #comp
+	endif
+endprocedure
+
+
+
+!
+! Put in window bounds.
+!
+procedure put_wbounds comp string
+!
+! Get the window we want to see.
+!
+	set wbounds_win "none"
+	pickwin wbounds_win
+	if (wbounds_win = "none")
+		beep
+		return
+	endif
+!
+! And now the place where it goes.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")
+		beep
+		return
+	endif
+!
+! Fix up the component and ship it over.
+!
+	parameter #comp #comp platform #wbounds_win
+	add #comp #comp #target_win
+endprocedure
+
+
+
+
+!
+! pconfig -- switch between the various 'picture' configs.
+!
+procedure pconfig config string
+!
+! Switch over to the new config.
+!
+	display #config
+!
+! Figure out what we're doing with window boxes.
+!
+!	if (config = 'picture' or config = 'picturex')
+!		parameter big wbox disable false
+!	elseif (config = 'pictures')
+!		parameter big wbox disable true
+!	endif
+endprocedure
+
+
+
+!
+! Add a component to a window, changing an arbitrary parameter.
+!
+procedure PutCompX comp string param string value string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+
+	parameter #comp #comp #param #value
+	add #comp #comp #target_win
+endprocedure
+
+
+
+procedure vor_origin_enter
+!
+! Get some parameters
+!
+        local comp getftext(ui$form,'comp')
+        local origin getftext(ui$form,'origin')
+	local originname concat(origin, '-location')
+        local loc pd_param('defaults', 'defaults', originname, "string")
+!
+! Give them a chance without "vor-"
+!
+        if (loc = '(Undefined)')
+                local origin concat('vor-', origin)
+		local originname concat(origin, '-location')
+                local loc pd_param('defaults', 'defaults', originname, "string")
+        endif
+!
+! Make sure we know about this location.
+!
+        if (loc = '(Undefined)')
+                local complaint quote(concat3('Location ',origin,' unknown'))
+                formtext #ui$form gripe #complaint
+                return
+        endif
+!
+! Looks cool -- let's do it.
+!
+	formtext #ui$form gripe 'Please select window'
+	PutCompX 'c_vordef' 'platform' #origin
+	popdown #ui$form
+endprocedure

@@ -1,0 +1,16 @@
+! Auto-saved display configuration.
+config sat
+	window 'big' 5 65 750 750 /zeb/gp/gp /zeb/harp/gp.init
+		description 'sat-big'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 825 250 30 /zeb/bin/fccclock
+		description 'sat-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 5 5 500 57
+	window 'Event logger' 5 860 750 120 graphproc
+		nongraphic
+	endwindow
+endconfig

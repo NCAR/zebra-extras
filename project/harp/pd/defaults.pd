@@ -1,0 +1,436 @@
+!
+! This file contains the default values for all plot description parameters.
+!
+defaults
+	pd-name:			defaults
+!
+! Post processing mode parameters.
+!
+	post-proc-mode:			true
+	pp-dm-time-adjust:		15m
+!
+! Various menus for the icons in the plot windows.
+!
+	icon-left-menu:			leftmenu
+	cp4-icon-middle-menu:		radar-middle
+	global-icon-left-menu:		global-left
+	global-icon-right-menu:		annot-color
+	mesonet-icon-right-menu:	contour-options
+	cp4-icon-left-menu:		raster-left
+!
+! Age limits for changing icon color.
+!
+	icon-age-foreground:		pink
+	icon-age-background:		red
+	mesonet-icon-age-limit:		10m
+	cp4-icon-age-limit:		5m
+	goes-icon-age-limit:		30m
+!
+! Origin in Hilo
+!
+	origin-lat:			19.7
+	origin-lon:			-155.1
+	origin-alt:			0.0
+!	origin-lat:			-20.0
+!	origin-lon:			155.0
+!	origin-alt:			0.0
+!
+! The default, big picture zoom locations.
+!
+	x-min:				-750
+	x-max:				250
+	y-min:				-350
+	y-max:				550
+!
+! Locations.
+!
+	cp4-location:	39.71	-95.53	0.353
+	ops-ctr-location:	38.8333	-94.55	0.0
+!
+! Where to put the frame cache files.
+!
+	file-path:	/zeb/tmp
+!
+! The maximum number of frames to be stored in the file.
+!
+	max-frames:	20
+! 
+! Some movie pregeneration fields.
+!
+	cp4-movie-pregenerate:	reflectivity,velocity
+!
+! Commands to be executed out of the DataAvailable menu.
+!
+	data-available-command:		DefaultDataAvail
+	cp4-data-available-command:	CP4Volume
+!
+! The icons to use in the windows, qualified by platform name.
+!
+	global-icon:	global
+	cp3-icon:	cp3
+	cp4-icon:	cp4
+	mesonet-icon:	mesonet
+	icon-color:			yellow
+	icon-background:		midnight blue
+	disabled-icon-color:		gray90
+	disabled-icon-background:	gray40
+!
+! FEST range limits
+!
+	u_wind-range-min:		-25
+	u_wind-range-max:		25
+	v_wind-range-min:		-25
+	v_wind-range-max:		25
+	dp-range-min:			-30
+	dp-range-max:			30
+	tdry-range-min:			-30
+	tdry-range-max:			30
+	pres-range-max:			1040
+	pres-range-min:			800
+	cpres-range-max:		1040
+	cpres-range-min:		800
+	raina15-range-min:		0.0
+	raina15-range-max:		50.0
+	raina60-range-min:		0.0
+	raina60-range-max:		50.0
+!
+! Long descriptions of fields, in the absence of a real fields module.
+!
+	velocity-desc:			Radar velocity
+	reflectivity-desc:		Radar reflectivity
+	alt-desc:			altitude
+	rh-desc:			relative humidity
+	rhum-desc:			relative humidity
+	mr-desc:			mixing ratio
+	cpres0-desc:			altitude-corrected pressure
+	raina15-desc:			15-minute rain accum.
+	raina60-desc:			60-minute rain accum.
+	fstrength-desc:			Electric field strength
+	vis-desc:			Visible satellite
+	aaa-desc:			Infrared satellite
+	ir-desc:			Infrared satellite
+!
+! What RBand uses to draw the box/line.  Don't mess with it.
+!
+	xorvalue:			63
+	xor-line-width:			3
+!
+! field-annotation-format to specify an alternative printf format for
+! track side annotation.
+!
+	alt-annotation-format:		%.3f
+!
+! Some stuff to make the demos look nicer.
+!
+	movie-end-time:			now
+	movie-minutes:			60
+	frame-rate:			 5
+	frame-skip:			10
+	ta-color-match:			true
+!
+! Where cross sections are done.
+!
+	xsect-window:			little2
+	xsect-component:		global
+!
+! Grid parameters.
+!
+	grid-tic-width:			5
+	grid-solid:			false
+	grid-color:			gray40
+	grid-icon-middle-menu:		simple-color
+	grid-icon-right-menu:		grid_spacing
+	grid-icon:			grid
+!
+! Plotting limits.
+!
+! Representation -> Contour.
+!
+	contour-wspd-center:		5
+	contour-wspd-step:		1
+	contour-wdir-center:		180
+	contour-wdir-step:		10
+	contour-raina15-center:		8
+	contour-raina15-step:		1
+	contour-raina60-center:		8
+	contour-raina60-step:		1
+	contour-pres-center:		950
+	contour-pres-step:		5
+	contour-cpres0-center:		1013
+	contour-cpres0-step:		1
+	contour-rh-center:		50
+	contour-rh-step:		5
+	contour-dp-center:		5
+	contour-dp-step:		2
+	contour-tdry-center:		0
+	contour-tdry-step:		2
+	contour-ept-center:		280
+	contour-ept-step:		2
+	contour-mr-center:		10
+	contour-mr-step:		1
+	contour-reflectivity-center:	80
+	contour-reflectivity-step:	10
+	contour-velocity-center:	0
+	contour-velocity-step:		5
+	contour-pt-center:		275
+	contour-pt-step:		1
+	contour-w_wind-center:		0
+	contour-w_wind-step:		1
+	contour-div-center:		0
+	contour-div-step:		2
+!
+! Representation -> Track.
+!
+	track-wspd-center:		5
+	track-wspd-step:		1
+	track-wdir-center:		180
+	track-wdir-step:		45
+	track-dval-center:		0
+	track-dval-step:		250
+	track-alt-center:		4000
+	track-alt-step:			500	
+	track-ralt1-center:		4000
+	track-ralt1-step:		500	
+	track-ralt2-center:		4000
+	track-ralt2-step:		500	
+	track-rh-center:		45
+	track-rh-step:			2
+	track-wir-center:		0
+	track-wir-step:			1
+	track-ept-center:		275
+	track-ept-step:			3
+	track-palt-center:		600
+	track-palt-step:		50
+	track-tvir-center:		300
+	track-tvir-step:		3
+	track-mr-center:		15
+	track-mr-step:			1
+	track-dp-center:		0
+	track-dp-step:			2
+	track-tdry-center:		0
+	track-tdry-step:		2
+	track-w_wind-center:		0
+	track-w_wind-step:		1
+	track-pt-center:		275
+	track-pt-step:			1
+	track-concic-center:		40
+	track-concic-step:		10
+	track-concip-center:		40
+	track-concip-step:		10
+	track-hw-center:		0
+	track-hw-step:			1
+	track-pmb-center:		500
+	track-pmb-step:			100
+	track-trf-center:		0
+	track-trf-step:			5
+	track-trose-center:		0
+	track-trose-step:		5
+	track-tdp-center:		0
+	track-tdp-step:			5
+	track-theta-center:		300
+	track-theta-step:		5
+	track-thetae-center:		300
+	track-thetae-step:		5
+	track-rhov-center:		5
+	track-rhov-step:		1
+	track-rh-center:		50
+	track-rh-step:			10
+	track-onedc-center:		500
+	track-onedc-step:		100
+	track-fssp-center:		500
+	track-fssp-step:		100
+	track-fdbar-center:		500
+	track-fdbar-step:		100
+	track-flwc-center:		500
+	track-flwc-step:		100
+	track-clwc-center:		500
+	track-clwc-step:		100
+	track-jwwc-center:		500
+	track-jwwc-step:		100
+!
+! Representation -> Skewt.
+!
+	skewt-pres-minval:		100
+	skewt-pres-maxval:		1050
+	skewt-temp-minval:		-45
+	skewt-temp-maxval:		25
+!
+!Representation -> Raster.
+!
+	raster-reflectivity-center:	30
+	raster-reflectivity-step:	8
+	raster-velocity-center:		0
+	raster-velocity-step:		5
+	raster-reflectivity-nsteps:	11
+	raster-velocity-nsteps:		11
+	raster-vis-center:		100
+	raster-vis-step:		12
+	raster-vis-nsteps:		17
+	raster-visr-center:		100
+	raster-visr-step:		12
+	raster-visr-nsteps:		17
+	raster-ir-center:		100
+	raster-ir-step:			12
+	raster-ir-nsteps:		17
+	raster-intensity-center:	40
+	raster-intensity-step:		20
+	raster-intensity-nsteps:	17
+!
+! Representation -> Time series.
+!
+	tseries-wspd-center:	10
+	tseries-wspd-step:	2
+	tseries-wdir-center:	180
+	tseries-wdir-step:	20
+	tseries-rh-center:	50
+	tseries-rh-step:	20
+	tseries-pres-center:	1020
+	tseries-pres-step:	5
+	tseries-cpres0-center:	120
+	tseries-cpres0-step:	5
+	tseries-ept-center:	355
+	tseries-ept-step:	10
+	tseries-mr-center:	20
+	tseries-mr-step:	10
+	tseries-tdry-center:	0
+	tseries-tdry-step:	5
+	tseries-pt-center:	305
+	tseries-pt-step:	5
+	tseries-dp-center:	26
+	tseries-dp-step:	3
+	tseries-raina15-center:	3
+	tseries-raina15-step:	1
+	tseries-raina60-center:	6
+	tseries-raina60-step:	2
+!
+! Other.
+!
+	winds/arrow-scale:		20
+	winds-representation:		vector
+	winds/arrow-color:		green
+	Xarrow-color:			purple
+!
+! If all else fails, these should prevent things from dying altogether.
+!
+	contour-center:			0
+	contour-step:			25
+	track-center:			10
+	track-step:			10
+	pres-minval:			900
+	pres-maxval:			1100
+	rh-minval:			20
+	rh-maxval:			40
+	dp-minval:			0
+	dp-maxval:			20
+	tdry-minval:			-10
+	tdry-maxval:			10
+!
+! Adjust limit procedures.
+!
+	track-arrow-limit-proc:		adj_arrow_scale
+	track-time-limit-proc:		adj_time_period
+	track-centstep-limit-proc:	adj_center_step
+	raster-highrange-limit-proc:	adj_highlight_range
+	raster-centstep-limit-proc:	adj_center_step
+	raster-limit-proc:		adj_center_step
+	vector-limit-proc:		adj_arrow_scale
+	contour-limit-proc:		adj_center_step
+	filled-contour-limit-proc:	adj_fill_centstep
+	line-contour-limit-proc:	adj_line_centstep
+	skewt-pres-limit-proc:		adj_pres_minmax
+	skewt-temp-limit-proc:		adj_temp_minmax
+	global-x-limit-proc:		adj_x_minmax
+	global-y-limit-proc:		adj_y_minmax
+	lightning-limit-proc:		adj_time_step
+!
+! XY-Graph default parameters.
+!
+	do-color-proc:		change_ta_color
+!
+! XY-Simple defaults.
+!
+	xy-simple-representation-style:	line
+!
+! XY-Wind defaults.
+!
+	xy-wind-representation-style:	barb
+	xy-wind-coords:			compass
+	xy-wind-wdir-field:		wdir
+	xy-wind-wspd-field:		wspd
+	xy-wind-vec-scale:		5.0
+	xy-wind-barb-scale:		25
+	xy-wind-color-table:		Winds
+	xy-wind-data-skip:		5
+	xy-wind-step:			5.0
+	xy-wind-scale-speed:		25.0
+!
+! XY-Contour defaults.
+!
+	xy-contour-representation-style:	line
+	xy-contour-color-table:		AllWhite
+	xy-contour-x-grid:		25
+	xy-contour-y-grid:		25
+	xy-contour-z-step:		2.5
+	xy-contour-grid-method:		profile-linear
+	xy-contour-do-side-annotation: false
+!
+! field specific XY defaults
+!
+! x scale min's and max's
+!
+	tdry-scale-x-min:	-80.0
+	tdry-scale-x-max:	20.0
+	dp-scale-x-min:		-80.0
+	dp-scale-x-max:		20.0
+	wspd-scale-x-min:	0.0
+	wspd-scale-x-max:	50.0
+	wdir-scale-x-min:	0.0
+	wdir-scale-x-max:	360.0
+	rh-scale-x-min:		0.0
+	rh-scale-x-max:		100.0
+	pres-scale-x-min:	50.0
+	pres-scale-x-max:	800.0
+	u_wind-scale-x-max:	20.0
+	u_wind-scale-x-min:	-20.0
+	v_wind-scale-x-max:	20.0
+	v_wind-scale-x-min:	-20.0
+	tv-scale-x-min:		-80.0
+	tv-scale-x-max:		20.0
+!
+! y scale min's and max's
+!
+	alt-scale-y-min:	0.0
+	alt-scale-y-max:	10.0
+	height-scale-y-min:	0.0
+	height-scale-y-max:	10000.0
+	wspd-scale-y-min:	0
+	wspd-scale-y-max:	10
+	rh-scale-y-min:		0
+	rh-scale-y-max:		100
+	rh-scale-y-min:		0
+	rh-scale-y-max:		100
+	tdry-scale-y-min:	-5
+	tdry-scale-y-max:	20
+	wdir-scale-y-min:	0
+	wdir-scale-y-max:	360
+	pres-scale-y-min:	830
+	pres-scale-y-max:	850
+	sol-scale-y-min:	0
+	sol-scale-y-max:	800
+	soldiff-scale-y-min:	0
+	soldiff-scale-y-max:	800
+	netrad-scale-y-min:	-400
+	netrad-scale-y-max:	400
+	batt-scale-y-min:	12
+	batt-scale-y-max:	14
+	tbox-scale-y-min:	-10
+	tbox-scale-y-max:	30
+	rain-scale-y-min:	0
+	rain-scale-y-max:	10
+!
+! Layout sizing factors.
+!
+	axis-bottom-space:	25
+	axis-left-space:	50
+	axis-top-space:		0
+	axis-right-space:	0
