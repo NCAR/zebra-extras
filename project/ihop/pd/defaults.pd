@@ -13,9 +13,62 @@ defaults
 !	<sitename>-location:	<lat> <lon> <alt>
 !
 	spol-location:		36.57810    -100.78278     0
-	katx-location:		48.1944     -122.4958      150
-	krtx-location:		45.7147     -122.9653      480
 	okc-location:		35.39309     -97.60073     395
+!
+! NWS radars
+!
+	KAMA-location:	35.22000 -101.71722 1099
+	KDDC-location:	37.77278  -99.96972 790
+	KFDR-location:	34.34444  -98.98306 382
+	KFTG-location:	39.78333 -104.55000 1709
+	KFWS-location:	32.56667  -97.30000 233
+	KGLD-location:	39.36750 -101.69305 1114
+	KICT-location:	37.64722  -97.42944 406
+	KINX-location:	36.18333  -95.56667 226
+	KLBB-location:	33.66750 -101.82139 1000
+	KTLX-location:	35.33333  -97.28333 338
+	KVNX-location:	36.74083  -98.12778 0
+!
+! AERI sites
+!
+	Hillsboro-location:	38.305	-97.301	0
+	Lamont-location:	36.605	-97.485	0
+	Vici-location:		36.072	-99.204	0
+	Morris-location:	35.688	-95.856	0
+	Purcell-location:	34.985	-97.523	0
+	AERI_prof-location:	36.558	-100.606	0
+!
+! ISFF sites
+!
+	ISFF1-location:		36.47283	-100.61792	0
+	ISFF2-location:		36.62212	-100.62698	0
+	ISFF3-location:		36.86103	-100.59450	0
+	ISFF4-location:		37.35790	-98.24465	0
+	ISFF5-location:		37.37807	-98.16360	0
+	ISFF6-location:		37.35448	-97.65333	0
+	ISFF7-location:		37.31320	-96.93872	0
+	ISFF8-location:		37.40697	-96.76562	0
+	ISFF9-location:		37.41030	-96.56713	0
+	CU_flux-location:	36.8924		-100.603	0
+!
+! NCAR extra surface station sites
+!
+	NCAR_sfc1-location:	36.71822	-101.06448	0
+	NCAR_sfc2-location:	36.41613	-101.19165	0
+	NCAR_sfc3-location:	36.35378	-100.96740	0
+	NCAR_sfc4-location:	36.29470	-100.77325	0
+	NCAR_sfc5-location:	36.57232	-100.75463	0
+!
+! NWS sites
+!
+	ABQ-location:		35.05	-106.60	0
+	DNR-location:		39.75	-104.87	0
+	FWD-location:		32.83	-97.30	0
+	LBF-location:		41.13	-100.68	0
+	MAF-location:		31.95	-102.18	0
+	QUN-location:		35.21	-97.45	0
+	SHV-location:		32.46	-93.78	0
+	TOP-location:		39.07	-95.62	0
 !
 ! Icons to use for various platforms.  The icons themselves can be created
 ! using the X Window "bitmap" utility, and saved in the <project>/icons 
