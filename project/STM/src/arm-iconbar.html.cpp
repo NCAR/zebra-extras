@@ -86,7 +86,7 @@ the field menu once the platform has been added to the plot.</p>
 
 <p>The overlays menu lists <em>static overlays</em>, fixed-position
 information which can be overlaid in a <a
-href=HELPDIR/horizontal-plot.html>constant-altitude plot</a>, including
+href=HELPDIR/horizontal-plots.html>constant-altitude plot</a>, including
 facility locations, maps, roads, range rings, grids, and so on.  Adding an
 overlay to a window is similar to adding a platform, except the overlay
 does not correspond to an actual data platform, nor does it have any
@@ -129,7 +129,7 @@ the kilometer grid in the projection coordinate space.
 <dt>Lat/Lon Grid <dd>Lines of latitude and longitude with variable spacing.
 
 <dt>Window Bounds <dd>Add the bounds of one window, either a <a
-href=HELPDIR/horizontal-plot.html>horizontal plot</a> or <a
+href=HELPDIR/horizontal-plots.html>horizontal plot</a> or <a
 href=HELPDIR/cross-section.html>cross-section</a>, to a horizontal plot.
 Select the source plot with the first crosshair cursor, and the destination
 plot, which will show the boundaries of the source plot , with the second
@@ -143,4 +143,4 @@ crosshair.
 <li><a href=arm-index.html>ARM Help Index</a>
 <li><i><a href=HELPDIR/index.html> Zebra Help Index</i></a>
 </ul>
-<h6>$Id: arm-iconbar.html.cpp,v 1.2 1995-09-28 13:56:28 granger Exp $</h6>
+<h6>$Id: arm-iconbar.html.cpp,v 1.3 1997-04-10 17:29:19 granger Exp $</h6>

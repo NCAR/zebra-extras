@@ -1,0 +1,16 @@
+#!/bin/csh -f
+#
+# Start a Zebra display for the ARESE project
+#
+
+echo " in dmstart, argv[1] is $argv[1]"
+cd $CONFIGHOME
+source "proj_env"
+set dm="$ZEB_TOPDIR/bin/dm -multiple"
+if (! $?ZEB_DM) setenv ZEB_DM "xterm -T Display_Manager_for_$argv[1] -g 60x15+10+720 -sb -bg grey90 -fg purple -fn 8x13bold -e $dm "
+
+#xterm -T Tmp_EventLogger -g 80x15+540+680 -sb -e tail -f $ZEB_LOGFILE &
+
+$ZEB_TOPDIR/bin/zstart -dm
+
+

@@ -1,5 +1,5 @@
 !
-! $Id: defaults.pd,v 1.6 1995-09-28 13:46:20 granger Exp $
+! $Id: defaults.pd,v 1.7 1997-04-10 17:29:12 granger Exp $
 !
 ! Defaults for defaults.  Older projects will override this 
 ! description completely, while others can use it as a foundation and
@@ -33,6 +33,11 @@ defaults
 !
 	time-annot-active:	true
 	time-topannot-left-menu:	global-time-left-menu
+	sgpsondewrpnC1.a1-topannot-middle-menu:	skewt-topannot-offsets
+	sgpsondewrpnB1.a1-topannot-middle-menu:	skewt-topannot-offsets
+	sgpsondewrpnB4.a1-topannot-middle-menu:	skewt-topannot-offsets
+	sgpsondewrpnB5.a1-topannot-middle-menu:	skewt-topannot-offsets
+	sgpsondewrpnB6.a1-topannot-middle-menu:	skewt-topannot-offsets
 !
 ! Age limits for changing icon color.
 !

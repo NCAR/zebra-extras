@@ -3,7 +3,7 @@
 <h1>Satellite Display Configuration</h1>
 
 <p> The satellite display consists of a single constant-altitude plot
-(<em>cap</em> or <em><a href=HELPDIR/horizontal-plot.html>horizontal
+(<em>cap</em> or <em><a href=HELPDIR/horizontal-plots.html>horizontal
 plot</a></em>) window showing one of the GOES-8 channels at 4-km
 resolution.  
 
@@ -59,4 +59,4 @@ href=HELPDIR/layout.html>layout parameters</a>.
 <li><a href=arm-index.html>ARM Help Index</a>
 <li><i><a href=HELPDIR/index.html> Zebra Help Index</i></a>
 </ul>
-<h6>$Id: satellite.html.cpp,v 1.2 1995-09-28 13:56:31 granger Exp $</h6>
+<h6>$Id: satellite.html.cpp,v 1.3 1997-04-10 17:29:20 granger Exp $</h6>

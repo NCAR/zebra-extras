@@ -1,20 +1,69 @@
 
-define widget sirosfields intmenu 'SIROS time series fields'
-	title 'SIROS Fields'
+define widget siros-fields intmenu 'SIROS time series fields'
+	title 'SIROS Broadband Fields (time)'
 	line
-	entry '10m Upwelling Longwave Hemispheric' \
-		'SetFieldInterval up_long_hemisp 1.0'
-	entry '10m Upwelling Shortwave Hemispheric' \
-		'SetFieldInterval up_short_hemisp 1.0'
-	entry 'Downwelling Longwave Diffuse Hemispheric' \
-		'SetFieldInterval down_long_diffuse_hemisp 10.0'
-	entry 'Downwelling Shortwave Hemispheric' \
-		'SetFieldInterval down_short_hemisp 50.0'
-	entry 'Shortwave Direct Normal' \
-		'SetFieldInterval short_direct_normal 50.0'
-	entry 'Downwelling Shortwave Diffuse Hemispheric' \
-		'SetFieldInterval down_short_diffuse_hemisp 20.0'
+	entry 'Hemispheric Irradiance, W/m2' \
+		'xytrace-field hemisp_broadband'
+	entry 'Diffuse Hemispheric Irradiance, W/m2' \
+		'xytrace-field diffuse_hemisp_broadband'
+	entry 'Direct Normal Irradiance, W/m2' \
+		'xytrace-field direct_norm_broadband'
+	entry 'MFRSR Detector Temperature, deg C' \
+		'xytrace-field mfrsr_temp'
+	entry '10m Upwelling Longwave Hemispheric, W/m2' \
+		'xytrace-field up_long_hemisp'
+	entry '10m Upwelling Shortwave Hemispheric, W/m2' \
+		'xytrace-field up_short_hemisp'
+	entry 'Downwelling Longwave Diffuse Hemispheric, W/m2' \
+		'xytrace-field down_long_diffuse_hemisp'
+	entry 'Downwelling Shortwave Hemispheric, W/m2' \
+		'xytrace-field down_short_hemisp'
+	entry 'Shortwave Direct Normal, W/m2' \
+		'xytrace-field short_direct_normal'
+	entry 'Downwelling Shortwave Diffuse Hemispheric, W/m2' \
+		'xytrace-field down_short_diffuse_hemisp'
+	line
+	entry 'SIROS Narrowband Fields (time, channel)' 'beep'
+	line
+	entry 'Hemsiperic Irradiance, MFRSR (W/(m2 nm))' \
+		'xytrace-field hemisp_narrowband'
+	entry 'Diffuse Hemsiperic Irradiance, MFRSR (W/(m2 nm))' \
+		'xytrace-field diffuse_hemisp_narrowband'
+	entry 'Direct Normal Irradiance, MFRSR (W/(m2 nm))' \
+		'xytrace-field direct_norm_narrowband'
+	entry 'Direct Normal Irradiance, MFRSR (W/(m2 nm))' \
+		'xytrace-field direct_norm_narrowband'
+	entry 'Direct Normal Irradiance, MFRSR (W/(m2 nm))' \
+		'xytrace-field direct_norm_narrowband'
+	entry 'Direct Normal Irradiance, MFRSR (W/(m2 nm))' \
+		'xytrace-field direct_norm_narrowband'
+	line
+	submenu 'SIROS Channels' 'siros-channels'
 endmenu
+
+define widget siros-channels intmenu 'SIROS channels'
+	title 'SIROS Channels'
+	line
+	entry 'Channel 0, 415 nm, aerosol' \
+		'parameter #icon_component dimensions "channel=0"' \
+		(PDParam(icon_component,'dimensions') = "channel=0")
+	entry 'Channel 1, 499 nm, aerosol and ozone' \
+		'parameter #icon_component dimensions "channel=1"' \
+		(PDParam(icon_component,'dimensions') = "channel=1")
+	entry 'Channel 2, 608 nm, ozone and aerosol' \
+		'parameter #icon_component dimensions "channel=2"' \
+		(PDParam(icon_component,'dimensions') = "channel=2")
+	entry 'Channel 3, 664 nm, aerosol and ozone' \
+		'parameter #icon_component dimensions "channel=3"' \
+		(PDParam(icon_component,'dimensions') = "channel=3")
+	entry 'Channel 4, 862 nm, aerosol' \
+		'parameter #icon_component dimensions "channel=4"' \
+		(PDParam(icon_component,'dimensions') = "channel=4")
+	entry 'Channel 5, 936 nm, water vapor' \
+		'parameter #icon_component dimensions "channel=5"' \
+		(PDParam(icon_component,'dimensions') = "channel=5")
+endmenu
+
 
 procedure SetFieldInterval field string interval string
 	parameter #icon_component y-field #field

@@ -3,7 +3,7 @@
 <h1>Sonde Skew-t Configuration</h1>
 
 <p>This display comprises one small, <a
-href=HELPDIR/horizontal-plot.html>horizontal plot</a> window and two <a
+href=HELPDIR/horizontal-plots.html>horizontal plot</a> window and two <a
 href=HELPDIR/skewt.html>skew-t plot</a> windows.  The horizontal plot is
 sometimes called the <em>map</em> window since it basically serves as a
 location reference for the sonde platforms being plotted in the skew-t
@@ -45,4 +45,4 @@ icon.  <img src=HELPDIR/zeb-icon.gif</P>
 <li><a href=arm-index.html>ARM Help Index</a>
 <li><i><a href=HELPDIR/index.html> Zebra Help Index</i></a>
 </ul>
-<h6>$Id: sondes.html.cpp,v 1.2 1995-09-28 13:56:35 granger Exp $</h6>
+<h6>$Id: sondes.html.cpp,v 1.3 1997-04-10 17:29:22 granger Exp $</h6>

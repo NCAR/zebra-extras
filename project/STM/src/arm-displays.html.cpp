@@ -15,14 +15,14 @@ configuration in the left column. </p>
 channels at 4-km resolution.  As this is a <a
 href=HELPDIR/horizontal-plots.html>horizontal plot</a>, any of the static
 overlays, such as facility locations or the Oklahoma road map, can be
-overlaid in the window.
+overlaid in the window.</p>
 
 <dt><a href=smos-tseries.html>SMOS Time series</a>
 
 <dd>Examples of time series plots using a simple dataset like SMOS.  The
 left window is a <a href=HELPDIR/horizontal-plots.html>horizontal plot</a>
 showing a map of state boundaries, facility locations, and a station plot
-of the SMOS network.
+of the SMOS network.</p>
 
 <dt><a href=sondes.html>Sonde skew-t plots</a>
 
@@ -34,11 +34,11 @@ reference for the sonde platforms being plotted in the skew-t windows.
 Sounding sites can be selected from the map window or the <a
 href=arm-iconbar.html>icon bar</a> and added to the skew-t plots.  If
 sounding platforms are added to a horizontal plot, they appear as <a
-href=HELPDIR/hp-aircraft.html>tracks</a>, similar to an aircraft plot.
+href=HELPDIR/hp-aircraft.html>tracks</a>, similar to an aircraft plot.</p>
 
 <dt>Sonde profiles
 
-<dd><p>A different way of looking at sounding data.  The left window uses a
+<dd>A different way of looking at sounding data.  The left window uses a
 time-height <a href=HELPDIR/xy-graphcs.html>xy-graph</a> to plot wind
 profiles versus height.  A background component plots a contour of a scalar
 field, such as temperature or dewpoint.  The contour can be disabled or
@@ -60,7 +60,7 @@ annotation.</p>
 
 <dd>The empty display is useful for temporarily clearing space on the
 screen while still leaving the main icon bar accessible.  It is also useful
-as a starting place for new configurations.
+as a starting place for new configurations.</p>
 
 </dl>
 
@@ -70,4 +70,4 @@ as a starting place for new configurations.
 <li><a href=arm-index.html>ARM Help Index</a>
 <li><i><a href=HELPDIR/index.html> Zebra Help Index</i></a>
 </ul>
-<h6>$Id: arm-displays.html.cpp,v 1.2 1995-09-28 13:56:26 granger Exp $</h6>
+<h6>$Id: arm-displays.html.cpp,v 1.3 1997-04-10 17:29:18 granger Exp $</h6>

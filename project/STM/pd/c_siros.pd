@@ -4,21 +4,23 @@ global
 c_siros
 	platform:	SOMETHING
 	annot-left-menu:	xy-an-left
-	annot-middle-menu:	sirosfields
+	annot-middle-menu:	siros-fields
 	annot-right-menu:	simple-color
 	axis-bottom:	false
 	axis-left:	false
-	axis-r-color:	hotpink
+	axis-r-color:	white
 	axis-r-grid-intensity:	0.5
+	axis-l-grid-intensity:	0.5
 	axis-right:	true
 	axis-top:	false
+	dimensions:	channel=0
 	color-tweaker:	xytrace-color
 	do-side-annotation:	true
-	field-color:	hotpink
+	field:		up_short_hemisp
+	field-color:	green
 	field-select-command:	xytrace-field
 	icon:	tseries
-	icon-color:	hotpink
-	icon-middle-menu:	sirosfields
+	icon-middle-menu:	siros-fields
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
 	platform:	SOMETHING

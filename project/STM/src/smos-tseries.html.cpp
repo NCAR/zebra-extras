@@ -2,7 +2,7 @@
 <title>SMOS Time Series</title>
 <h1>SMOS Time Series</h1>
 
-<p>The left window is a <a href=HELPDIR/horizontal-plot.html>horizontal
+<p>The left window is a <a href=HELPDIR/horizontal-plots.html>horizontal
 plot</a> showing a map of state boundaries, facility locations, and a
 station plot of the SMOS network.  All of the facility locations and
 stations are <em>active areas</em>, meaning they are active input areas
@@ -74,4 +74,4 @@ platform.</p>
 <li><a href=arm-index.html>ARM Help Index</a>
 <li><i><a href=HELPDIR/index.html> Zebra Help Index</i></a>
 </ul>
-<h6>$Id: smos-tseries.html.cpp,v 1.2 1995-09-28 13:56:33 granger Exp $</h6>
+<h6>$Id: smos-tseries.html.cpp,v 1.3 1997-04-10 17:29:21 granger Exp $</h6>

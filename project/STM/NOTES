@@ -1,0 +1,14 @@
+
+The Showcases runtime file should not be version-controlled but generated
+from a master version-controlled file only when it is not present.  The
+proj_env or proj_startup scripts can copy the master to the runtime file if
+the runtime does not exist.  Then there can be an option to reset the
+showcases to the master file, or the master can be updated as new cases
+need to be moved into the master.
+
+
+Try using Chris' imagedump changes to periodically dump plots as xwd even
+if plot window obscured.  Also try using perusal movie code to raise plot
+window and call imagedump on it.
+
+
