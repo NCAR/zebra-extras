@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.1 1999-11-19 20:03:17 burghart Exp $
+! $Id: IconBar,v 1.2 1999-12-06 22:22:42 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -58,8 +58,10 @@ define widget iconbar menubar " "
 	!
 		line
 		entry 'empty screen' 'display empty' (dm$config = 'empty')
-		entry 'radar_xsect' 'display radar-xsect' \
+		entry 'radar cross-section' 'display radar-xsect' \
 			(dm$config = 'radar-xsect')
+		entry 'particle type' 'display pdesc' \
+			(dm$config = 'pdesc')
 	endmenu
 !
 ! General platform/data menus here
