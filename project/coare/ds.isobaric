@@ -7,7 +7,18 @@ class SoundingLevel
 	composite
 endclass
 
-instance SoundingLevel 500mb_snd 600mb_snd 700mb_snd 850mb_snd 900mb_snd
+instance SoundingLevel 400mb_snd 450mb_snd 500mb_snd 600mb_snd 650mb_snd
+instance SoundingLevel 700mb_snd 750mb_snd 850mb_snd 900mb_snd 950mb_snd
+
+subplatform 400mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
+subplatform 400mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
+subplatform 400mb_snd	korror kwajalein majuro misima natsu pohnpei 
+subplatform 400mb_snd	santacruz ship5 singapore thursday yap
+
+subplatform 450mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
+subplatform 450mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
+subplatform 450mb_snd	korror kwajalein majuro misima natsu pohnpei 
+subplatform 450mb_snd	santacruz ship5 singapore thursday yap
 
 subplatform 500mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
 subplatform 500mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
@@ -19,10 +30,20 @@ subplatform 600mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong
 subplatform 600mb_snd	korror kwajalein majuro misima natsu pohnpei 
 subplatform 600mb_snd	santacruz ship5 singapore thursday yap
 
+subplatform 650mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
+subplatform 650mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
+subplatform 650mb_snd	korror kwajalein majuro misima natsu pohnpei 
+subplatform 650mb_snd	santacruz ship5 singapore thursday yap
+
 subplatform 700mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
 subplatform 700mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
 subplatform 700mb_snd	korror kwajalein majuro misima natsu pohnpei 
 subplatform 700mb_snd	santacruz ship5 singapore thursday yap
+
+subplatform 750mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
+subplatform 750mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
+subplatform 750mb_snd	korror kwajalein majuro misima natsu pohnpei 
+subplatform 750mb_snd	santacruz ship5 singapore thursday yap
 
 subplatform 850mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
 subplatform 850mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
@@ -33,3 +54,8 @@ subplatform 900mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
 subplatform 900mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
 subplatform 900mb_snd	korror kwajalein majuro misima natsu pohnpei 
 subplatform 900mb_snd	santacruz ship5 singapore thursday yap
+
+subplatform 950mb_snd	dc8a dc8b exp3 kapinga kavieng manus moana_wave
+subplatform 950mb_snd	nauru noname1 noname2 sci1 chuuk gove guam hongkong 
+subplatform 950mb_snd	korror kwajalein majuro misima natsu pohnpei 
+subplatform 950mb_snd	santacruz ship5 singapore thursday yap

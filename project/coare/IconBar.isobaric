@@ -1,4 +1,4 @@
-! $Id: IconBar.isobaric,v 1.1 1995-03-08 18:19:23 burghart Exp $
+! $Id: IconBar.isobaric,v 1.2 1997-08-14 18:45:31 burghart Exp $
 !
 ! All the definitions required to make the iconbar work.
 !
@@ -205,27 +205,47 @@ define widget iconbar menubar " "
 	menu 'upperair' bitmap sounding
 		title 'Upper Air Isobaric Data'
 		line
+		entry '400 mb' \
+			'putc2 c_isobaric platform 400mb_snd icon 400mb_snd'
+		entry '450 mb' \
+			'putc2 c_isobaric platform 450mb_snd icon 450mb_snd'
 		entry '500 mb' \
 			'putc2 c_isobaric platform 500mb_snd icon 500mb_snd'
 		entry '600 mb' \
 			'putc2 c_isobaric platform 600mb_snd icon 600mb_snd'
+		entry '650 mb' \
+			'putc2 c_isobaric platform 650mb_snd icon 650mb_snd'
 		entry '700 mb' \
 			'putc2 c_isobaric platform 700mb_snd icon 700mb_snd'
+		entry '750 mb' \
+			'putc2 c_isobaric platform 750mb_snd icon 750mb_snd'
 		entry '850 mb' \
 			'putc2 c_isobaric platform 850mb_snd icon 850mb_snd'
 		entry '900 mb' \
 			'putc2 c_isobaric platform 900mb_snd icon 900mb_snd'
+		entry '950 mb' \
+			'putc2 c_isobaric platform 950mb_snd icon 950mb_snd'
 		line
+		entry '400 mb winds' \
+		 'putc2 c_isobaric_wind platform 400mb_snd icon 400mb_snd_wind'
+		entry '450 mb winds' \
+		 'putc2 c_isobaric_wind platform 450mb_snd icon 450mb_snd_wind'
 		entry '500 mb winds' \
 		 'putc2 c_isobaric_wind platform 500mb_snd icon 500mb_snd_wind'
 		entry '600 mb winds' \
 		 'putc2 c_isobaric_wind platform 600mb_snd icon 600mb_snd_wind'
+		entry '650 mb winds' \
+		 'putc2 c_isobaric_wind platform 650mb_snd icon 650mb_snd_wind'
 		entry '700 mb winds' \
 		 'putc2 c_isobaric_wind platform 700mb_snd icon 700mb_snd_wind'
+		entry '750 mb winds' \
+		 'putc2 c_isobaric_wind platform 750mb_snd icon 750mb_snd_wind'
 		entry '850 mb winds' \
 		 'putc2 c_isobaric_wind platform 850mb_snd icon 850mb_snd_wind'
 		entry '900 mb winds' \
 		 'putc2 c_isobaric_wind platform 900mb_snd icon 900mb_snd_wind'
+		entry '950 mb winds' \
+		 'putc2 c_isobaric_wind platform 950mb_snd icon 950mb_snd_wind'
 	endmenu
 	menu 'overlays' bitmap overlays
 		title 'Static Overlays'
