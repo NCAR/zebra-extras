@@ -1,29 +1,67 @@
-#! /bin/sh
+#! /usr/local/bin/perl5
 #
 # Make target display configs from the given template
-# $Id: tmake,v 1.1.1.1 1997-12-04 18:27:40 granger Exp $
+# $Id: tmake,v 1.2 1997-12-16 22:55:49 granger Exp $
 
-template=iss-batch
+if ($#ARGV < 2)
+{
+    print "Usage: $0 <template> <qualifier> <platform> [platform ...]\n";
+    print "Example: $0 iss-batch '' iss1 iss2 iss3\n";
+    print "Example: $0 lineplot-template 'lineplot-' iss1 iss2 iss3\n";
+    print "Example: $0 class-template 'class-' bel bea alg tim own sud\n";
+    exit 1;
+}
 
-for target in iss1 iss2 iss3; do
+$template = shift;
+if (! -f "$template.dc" )
+{
+    print "No such template: $template.dc\n";
+    exit 1;
+}
 
-    dc=$target.dc
-    rm -f $dc
-    echo "Generating $dc from $template..."
+$qual= shift;
+
+$regexp = '(' . join ('|',@ARGV) . ')';
+print "Replacing $regexp\n";
+
+@Warning = 
+("! ================",
+ "! WARNING: Auto-generated display configuration!",
+ "!",
+ "! This display was generated from the template $template, and probably",
+ "! will be again, so any changes made in this file will be forgotten.",
+ "! Permanent changes for all the basic iss configurations should be",
+ "! made in $template, then run tmake to re-generate this display config.",
+ "! ================");
+
+foreach $platform (@ARGV)
+{
+
+    $target = $qual . $platform;
+    $dc="$target.dc";
+    unlink($dc);
+    print "Generating $dc from $template...\n";
     # Warning header:
-    cat > $dc <<EOF
-! ================
-! WARNING: Auto-generated display configuration!
-!
-! This display was generated from the template $template, and probably
-! will be again, so any changes made in this file will be forgotten.
-! Permanent changes for all the basic iss configurations should be
-! made in $template, then run tmake to re-generate this display config.
-! ================
-EOF
-    # Substitute for platform names and the config name
-    sed -e "s/iss[123456789]/$target/g" \
-        -e "s/$template/$target/g" < $template.dc >> $dc
+    open (DC, "> $dc");
+    print DC join("\n",@Warning), "\n";
+    open (TMPL, "$template.dc");
 
-done
+    # Substitute for platform names and the config name
+    while (<TMPL>)
+    {
+	if (/parameter.*platform.*/)
+	{
+	    $_ =~ s/$regexp/$platform/g;
+	    #$_ = " parameter platform '$platform'\n";
+	}
+	if (/description/ || /^config/ || /^beginpd/)
+	{
+	    $_ =~ s/$template/$target/g;
+	}
+	print DC;
+    }
+    close TMPL;
+    close DC;	    
+}
+
 
