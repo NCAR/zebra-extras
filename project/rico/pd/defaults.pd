@@ -13,6 +13,7 @@ defaults
 !	<sitename>-location:	<lat> <lon> <alt>
 !
 	spol-location:		17.60750       -61.82395       0
+	anu-location:		17.12		-61.78		0
 !
 ! Icons to use for various platforms.  The icons themselves can be created
 ! using the X Window "bitmap" utility, and saved in the <project>/icons 
