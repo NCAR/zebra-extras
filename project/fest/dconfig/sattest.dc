@@ -19,6 +19,7 @@ global
    parameter plot-mode                 'real-time'
    parameter plot-type                 'CAP'
    parameter trigger                   'goes'
+   parameter proj-topannot-left-menu   'projection'
 component c_goes
    parameter color-table               '16gray'
    parameter field                     'ir'

@@ -29,6 +29,7 @@ global
    parameter x-min                     '-255'
    parameter y-max                     '4250'
    parameter y-min                     '4230'
+   parameter proj-topannot-left-menu   'projection'
 component c_map
    parameter color-table               'map'
    parameter field                     'height'

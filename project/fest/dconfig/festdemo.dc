@@ -38,6 +38,7 @@ global
    parameter x-min                     '-3849.1379'
    parameter y-max                     '-2221.9851'
    parameter y-min                     '1721.1907'
+   parameter proj-topannot-left-menu   'projection'
 component c_goes_us
    parameter altitude                  '0.0'
    parameter color-table               '16gray'
@@ -92,6 +93,7 @@ global
    parameter x-min                     '-899.8214'
    parameter y-max                     '-683.0397'
    parameter y-min                     '316.6938'
+   parameter proj-topannot-left-menu   'projection'
 component c_goes_fest
    parameter altitude                  '0.0'
    parameter color-table               '16gray'
@@ -160,6 +162,7 @@ global
    parameter x-min                     '-111.9391'
    parameter y-max                     '-122.1998'
    parameter y-min                     '107.9371'
+   parameter proj-topannot-left-menu   'projection'
 component c_radar
    parameter color-table               'wild_new'
    parameter disable                   'false'

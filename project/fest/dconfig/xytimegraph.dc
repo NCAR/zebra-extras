@@ -80,6 +80,7 @@ global
    parameter x-min                     '-800'
    parameter y-max                     '200'
    parameter y-min                     '-500'
+   parameter proj-topannot-left-menu   'projection'
 component c_goes_us
    parameter altitude                  '0.0'
    parameter color-table               '16gray'

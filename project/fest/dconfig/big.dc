@@ -33,6 +33,7 @@ global
    parameter x-min                     '-150.0'
    parameter y-max                     '150.0'
    parameter y-min                     '-150.0'
+   parameter proj-topannot-left-menu   'projection'
 component c_radar
    parameter altitude                  '0.5'
    parameter color-table               'wild_new'

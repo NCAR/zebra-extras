@@ -26,6 +26,7 @@ global
    parameter x-min                     '-581.3679'
    parameter y-max                     '-774.6618'
    parameter y-min                     '736.1482'
+   parameter proj-topannot-left-menu   'projection'
 component c_meso_winds
    parameter arrow-scale               '0.01'
    parameter color                     'cyan'

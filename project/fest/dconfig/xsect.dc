@@ -37,6 +37,7 @@ global
    parameter xsect-window              'LowerLeft'
    parameter y-max                     '-1919.9396'
    parameter y-min                     '2143.5125'
+   parameter proj-topannot-left-menu   'projection'
 component c_goes_us
    parameter altitude                  '0.0'
    parameter color-table               '16gray'

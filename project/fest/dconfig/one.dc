@@ -27,6 +27,7 @@ global
    parameter x-min                     '-1000'
    parameter y-max                     '200'
    parameter y-min                     '-500'
+   parameter proj-topannot-left-menu   'projection'
 component c_goes_fest
    parameter altitude                  '0.0'
    parameter color-table               '16gray'

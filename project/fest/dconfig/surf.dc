@@ -32,6 +32,7 @@ global
    parameter x-min                     '-1000'
    parameter y-max                     '200'
    parameter y-min                     '-500'
+   parameter proj-topannot-left-menu   'projection'
 component c_nowrad
    parameter altitude                  '0.0'
    parameter color-table               'wild_new'
@@ -98,6 +99,7 @@ global
    parameter x-min                     '-1000'
    parameter y-max                     '200'
    parameter y-min                     '-500'
+   parameter proj-topannot-left-menu   'projection'
 component c_sfc_hourly_fcontours
    parameter color                     'cyan'
    parameter color-table               'cook16_bk'
