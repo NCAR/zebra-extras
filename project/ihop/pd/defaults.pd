@@ -37,6 +37,10 @@ defaults
 	icon-age-limit:		15m
 	spol-icon-age-limit:	20m
 	spol-data-age-limit:	20m
+	radar_composite-icon-age-limit:	30m
+	radar_composite-data-age-limit:	30m
+	goes-icon-age-limit:	60m
+	goes-data-age-limit:	90m
 	elev-icon-age-limit:	20000d
 	topo-icon-age-limit:	20000d
 !
@@ -106,6 +110,15 @@ defaults
 	dbz-center:		25
 	dbz-nsteps:		16
 	dbz-step:		5
+	DZ-center:		25
+	DZ-nsteps:		16
+	DZ-step:		5
+	MAX_DZ-center:		25
+	MAX_DZ-nsteps:		16
+	MAX_DZ-step:		5
+	VE-center:		0
+	VE-nsteps:		14
+	VE-step:		4
 	ldr-center:		-17
 	ldr-nsteps:		17
 	ldr-step:		2
@@ -193,7 +206,7 @@ defaults
 ! Where to put the frame cache files and the maximum number of frames
 ! to store in the cache.
 !
-	file-path:	/data/fcache
+	file-path:	/scr/data/zebra_fcache
 	max-frames:	100
 	time-frames:	3
 !
