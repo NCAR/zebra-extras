@@ -1,0 +1,41 @@
+		Starting a new Zebra S-Pol Project
+                ==================================
+
+1) Make a new project directory, copying the contents of the previous
+   project (excluding CVS directories, if any):
+
+    $ mkdir /usr/local/zebra/project/<new_project>
+    $ cd /usr/local/zebra/project/<old_project>
+    $ tar cf - --exclude CVS . | (cd ../<new_project>; tar xvfp -)
+
+2) In the <new_project>/pd directory, edit defaults.pd:
+
+    a) change values of "origin_lat" and "origin_lon" to the
+       values for S-Pol
+
+    b) update "spol-location" similarly
+
+3) Clean out old maps:
+
+    $ cd /usr/local/zebra/project/<new_project>
+    $ rm maps/*
+    $ rm elev/*
+
+4) Extract and install new map files according to the directions
+   in /usr/local/src/zebra/src/maputil/maputil.txt.
+
+5) Make a link so the new project will be used for operational 
+   runs of Zebra:
+
+    $ cd /ops
+    $ rm zebra
+    $ ln -s /zebra/project/<new_project> zebra
+
+6) (KLUGE) Edit the /usr/local/src/zebra/scripts/new_iop script, and
+   make sure the "extraDirs" list includes all extra Zebra platform 
+   directories and other extra data directories that need to be exist
+   for this project.
+
+    $ cd /usr/local/src/zebra/scripts
+    $ (edit new_iop)
+    $ make install
