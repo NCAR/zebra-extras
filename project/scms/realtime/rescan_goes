@@ -1,0 +1,4 @@
+#!/bin/csh
+
+/asterdata/zeb/bin/mstatus >& /dev/null
+if (! $status) /asterdata/zeb/bin/dsrescan goes >& /dev/null

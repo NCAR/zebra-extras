@@ -1,0 +1,272 @@
+#!/bin/csh
+#
+# Script to be executed periodically for automatic ingest of satellite
+# data for SCMS.
+#
+
+set nonomatch
+unset noclobber
+setenv HOST	`uname -n`
+
+setenv NICE	"nice -5"
+
+set AreaDir = /scr/steam/burghart/zebra
+set IngestId = `date +%y%m%d.%H%M`
+set IngestList = /tmp/ingest_list.$IngestId
+rm -f $IngestList
+
+
+#
+# Start a data store daemon for this ingest
+#
+setenv ZEB_SOCKET /tmp/ingest_socket.$IngestId
+
+message >& /dev/null
+mstatus >& /dev/null
+if ($status) then
+	echo "Failed to start zebra message daemon... Exiting."
+	exit (1)
+endif
+
+set EventLog = /tmp/ingest_log.$IngestId
+sh << _EOF_
+	EventLogger -n -f $EventLog &
+	sleep 1
+	timer &
+_EOF_
+
+cat > /tmp/ds.config.scms << _EOF_
+	set DataDir "/dt/burghart/scms"
+	platform goes_vis
+		organization	image
+		filetype	compressed_raster
+		maxsamples	1
+	endplatform
+	platform goes_other
+		organization	image
+		filetype	compressed_raster
+		maxsamples	1
+	endplatform
+_EOF_
+
+echo  "dsDaemon /tmp/ds.config.scms 1>/dev/null 2>&1 &" | sh
+
+set CmdFile = /tmp/ingest_cmds.$IngestId
+
+#
+# The default ingest parameters for vis
+#
+set VisDefaults = /tmp/GOES_Vis.defaults
+cat > $VisDefaults << _EOF_
+	set platform "goes_vis"
+	set kmResolution 1
+	limits 26.25 -83.25 31.25 -78.25
+	set originLat 28.755
+_EOF_
+
+# 
+# The default ingest parameters for the other fields
+#
+set OtherDefaults = /tmp/GOES_Other.defaults
+cat > $OtherDefaults << _EOF_
+	set platform "goes_other"
+	set kmResolution 4
+	limits 26.25 -83.25 31.25 -78.25
+	set originLat 28.755
+_EOF_
+
+
+#		***************************
+#			GOES visible
+#		***************************
+#
+# This one is simple, since we're only doing vis and we don't have to
+# match up files.  Just ingest every vis area file that's there.
+#
+
+cd $AreaDir
+foreach file ( `find . -name "VIS2*" -print` )
+	set areatime = `echo $file | sed 's/VIS2//g'`
+
+	cp $VisDefaults $CmdFile
+
+	$NICE uncompress $file
+	set file = $file:r
+#
+# KLUGE for gvarIngest: filename must be lower case..
+#
+	set newfile = `echo $file | tr "[A-Z]" "[a-z]"`
+	mv $file $newfile
+	set file = $newfile
+
+	echo file $file vis >> $CmdFile
+#
+# We can finally start this ingest
+#
+	$NICE gvarIngest $CmdFile
+	if ($status) then
+		echo Error in $IngestId GOES vis ingest for $areatime
+		echo Leaving area file intact
+	else
+		rm -f $file
+	endif
+
+	rm -f $CmdFile
+end
+
+#
+# These are the pairs of <file prefix>.<field name> we'll use for ingest
+# of the rest of the fields.
+#
+set GOESpairs = "IR1.ir1 IR2.ir2 IR3.ir3 WV.wv"
+
+#
+# Make a 30 minute old file and get a list of GOES area files in 
+# /scr/steam/burghart/zeb that are older than that.  We need this delay 
+# because:
+#	o new files are sent every 15 minutes from OFPS
+#	o there's no guarantee that different images for a given time
+#	  will arrive together (and we have to ingest them together)
+
+set CompFile = /tmp/ingest_compare.$IngestId
+~/makeoldfile $CompFile -30
+
+cd $AreaDir
+foreach pair ($GOESpairs)
+	set prefix = $pair:r
+	find . -name "${prefix}*" \! -newer $CompFile -print >> $IngestList
+end
+
+rm -f $CompFile
+
+#
+# Now reduce the file list to just a list of julian day/time combinations
+# (extracted from the file names)
+#
+foreach pair ($GOESpairs)
+	set prefix = $pair:r
+	cat $IngestList | sed "s/$prefix//g" | sort > $IngestList.new
+	mv $IngestList.new $IngestList
+end
+cat $IngestList | sed 's/[^0-9]//g' | sort > $IngestList.sorted
+uniq $IngestList.sorted $IngestList
+rm -f $IngestList.sorted
+
+#
+# Do each time in our list
+#
+set FinishScript = /tmp/finish.$IngestId
+
+foreach areatime (`cat $IngestList`)
+	cp $OtherDefaults $CmdFile
+
+	foreach pair ($GOESpairs)
+		set fileprefix = $pair:r
+		set fieldname = $pair:e
+
+		foreach file (`ls $AreaDir/${fileprefix}* | fgrep $areatime`)
+			$NICE uncompress $file
+			set file = $file:r
+		#
+		# KLUGE for gvarIngest: filename must be lower case..
+		#
+			set newfile = `echo $file | tr "[A-Z]" "[a-z]"`
+			mv $file $newfile
+			set file = $newfile
+
+			echo file $file $fieldname >> $CmdFile
+			echo rm -f $file >> $FinishScript
+		end
+	end
+
+	#
+	# We can finally start this ingest
+	#
+	$NICE gvarIngest $CmdFile
+	if ($status) then
+		echo Error in $IngestId GOES ingest for $areatime
+		echo Leaving area files intact
+		if (-f $FinishScript) rm -f $FinishScript
+		continue
+	endif
+
+	rm -f $CmdFile
+
+	if (-f $FinishScript) then
+		source $FinishScript
+		rm -f $FinishScript
+	endif
+end
+
+#
+# Finish up
+#
+
+zstop >& /dev/null
+
+rm -f $EventLog
+rm -f $IngestList
+rm -f $VisDefaults
+rm -f $OtherDefaults
+
+rm -f VIS1*
+rm -f FOG*
+#
+# Now do a remote copy to move the ingested images to Florida
+#
+cd /dt/burghart/scms/goes_vis
+foreach image (`find . -name "*.rf" -print`)
+	gzip $image
+	rcp $image.gz 204.215.238.67:/asterdata/satellite/goes_vis/
+	if ($status) then
+		echo "Error copying $image to aster\!"
+	else
+		rm -f $image.gz
+	endif
+	rsh 204.215.238.67 /local/bin/gunzip -f /asterdata/satellite/goes_vis/$image.gz
+end
+
+cd /dt/burghart/scms/goes_other
+foreach image (`find . -name "*.rf" -print`)
+	gzip $image
+	rcp $image.gz 204.215.238.67:/asterdata/satellite/goes_other/
+	if ($status) then
+		echo "Error copying $image to aster"
+	else
+		rm $image.gz
+	endif
+	rsh 204.215.238.67 /local/bin/gunzip -f /asterdata/satellite/goes_other/$image.gz
+end
+
+#
+# Try again on failures (this also tries again for failures from previous
+# executions)
+#
+cd /dt/burghart/scms/goes_vis
+foreach cimage (`find . -name "*.gz" -print`)
+	rcp $cimage 204.215.238.67:/asterdata/satellite/goes_vis/
+	if ($status) then
+		echo "Retry for $cimage failed"
+	else
+		rm $cimage
+	endif
+	rsh 204.215.238.67 /local/bin/gunzip -f /asterdata/satellite/goes_vis/$cimage
+end
+
+cd /dt/burghart/scms/goes_other
+foreach cimage (`find . -name "*.gz" -print`)
+	rcp $cimage 204.215.238.67:/asterdata/satellite/goes_other/
+	if ($status) then
+		echo "Retry for $cimage failed"
+	else
+		rm $cimage
+	endif
+	rsh 204.215.238.67 /local/bin/gunzip -f /asterdata/satellite/goes_other/$cimage
+end
+
+#
+# Finally, if Zebra is running on any of PAM's machines, force rescans
+#
+rsh aster.brevard.com "/asterdata/zeb/project/scms/realtime/rescan_goes"
+rsh parrot.brevard.com "/asterdata/zeb/project/scms/realtime/rescan_goes"
+rsh cocklebur.brevard.com "/asterdata/zeb/project/scms/realtime/rescan_goes"

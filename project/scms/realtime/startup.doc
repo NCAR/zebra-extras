@@ -1,0 +1,66 @@
+
+
+
+
+			===========================
+			Tangerine Startup Procedure
+			===========================
+
+
+
+o Log in as "zebra":
+
+		console login: zebra
+		Password: _zebra
+
+                          |
+                          this is a "space" character
+
+
+o Start X:
+
+		tangerine $ xinit
+
+o From any free terminal window, start up Zebra software:
+
+		tangerine $ zstart scms
+
+  All of the necessary pieces of Zebra should start at this point.
+  The window layout should now look like Figure 1.
+
+o Label and load a blank tape for Zebra's data store archive.  Wait
+  until the drive is ready (i.e., is displaying one solid green light),
+  then press the [Take tape] button in the Archiver widget.
+
+o The system should now be set for normal daily operations.
+
+
+
+
+
+
+			=========================
+			Display Startup Procedure
+			=========================
+
+o Log in as "zebra":
+
+		console login: zebra
+		Password: _zebra
+
+                          |
+                          this is a "space" character
+
+
+o Start X:
+
+		tangerine $ xinit
+
+o Make sure Zebra is already running on tangerine, since that is the
+  "master" data store machine for all displays.  From any free 
+  terminal window, start up Zebra software:
+
+		tangerine $ zstart scms
+
+  All of the necessary pieces of Zebra should start at this point.
+

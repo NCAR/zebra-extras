@@ -1,0 +1,20 @@
+!
+! SCMS-variant radar
+!
+global
+	pd-name:	scms_radar
+scms_radar
+	platform:	cp2
+	field:		reflectivity
+	representation:	raster
+	icon:		cp4
+	color-table:	wild_new
+	every-sweep:	true
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	radar-middle
+	icon-right-menu:	DataAvailable
+	every-sweep:	true
+	scale-mode:	auto
+	limit-proc:	raster-limit-proc
+	radar-space:	true
+	require:	scms_radar, raster

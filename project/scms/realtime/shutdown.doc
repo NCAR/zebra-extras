@@ -1,0 +1,27 @@
+
+
+
+
+			============================
+			Tangerine Shutdown Procedure
+			============================
+
+o Press the [Free tape] button in the Archiver widget.  The tape will be 
+  rewound and eventually ejected from the drive.  Remove the tape from the
+  drive, flip the write-protect tab, and put the tape away.
+
+o Move to the SPRINT window (if SPRINT is running) and kill it by typing a 
+  <Control-C>.
+
+o Shut down Zebra from any free window:
+
+	tangerine $ zstop
+
+o Exit the window system, using the "Exit" entry in the root window, left 
+  mouse button menu.  All windows should go away at this point, and you 
+  will be left with a console prompt.
+
+o Logout:
+
+	tangerine $ exit
+

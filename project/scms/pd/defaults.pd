@@ -1,0 +1,157 @@
+!
+! This file contains the default values for all plot description parameters.
+!
+defaults
+	pd-name:			defaults
+!
+! Make manual scaling the default during operations, so that plot limits
+! don't get changed inadvertently when switching between representations.  
+! (for Jay)
+!
+	scale-mode:			manual
+!
+! Generic min/max for x and y limits
+!
+	x-limit-proc:			adj_x_minmax
+	y-limit-proc:			adj_y_minmax
+!
+! Post processing mode parameters.
+!
+	post-proc-mode:			false
+	pp-dm-time-adjust:		15m
+	sa-scale:			12
+!
+! origin at CP2
+!
+	origin-lat:			 28.7550
+	origin-lon:			-80.7739
+	origin-alt:			0.0
+	ops-ctr-location:	28.7550 -80.7739 0.005
+!
+! Someday, the aircraft will start navigating by metric units.  Until then...
+!
+	getpos-default-units:		nm
+	getpos-default-origin:		cp2
+	range-ring-do-nm:		true
+!
+! The default, big picture zoom locations.
+!
+	x-min:				-225
+	x-max:				75
+	y-min:				150
+	y-max:				150
+!
+! Radar locations.
+!
+	cp2-location:	28.7550 -80.7739 0.005
+!
+! Pseudo-VOR centered at CP2
+!
+	cp2_vor-location:	28.7550 -80.7739 0.005
+	cp2_vor-azimuth-offset:	-5
+!
+! Frame cache file info
+!
+	file-path:	/net/scmsdata
+	max-frames:	100
+!
+! Standard default for data-available-command
+!
+	data-available-command:	DefaultDataAvail
+!
+! Possible origins for the position widget.
+!
+	pos-origin:	cp2_vor,cp2
+!
+	icon-color:			yellow
+	icon-background:		midnight blue
+	disabled-icon-color:		gray90
+	disabled-icon-background:	gray40
+	icon-age-foreground:		pink
+	icon-age-background:		red
+!
+! What RBand uses to draw the box/line.  Don't mess with it.
+!
+	xorvalue:			63
+	xor-line-width:			3
+!
+! field-annotation-format to specify an alternative printf format for
+! track side annotation.
+!
+	alt-annotation-format:		%.3f
+!
+! How long before we mark data as "old"
+!
+	cp2-icon-age-limit:		5m
+	cp2_gridded-icon-age-limit:	10m
+!
+! Plot limits for the radar.
+!
+	raster-reflectivity-center:	0
+	raster-reflectivity-nsteps:	11
+	raster-reflectivity-step:	10
+	raster-xrefl-center:		0
+	raster-xrefl-nsteps:		11
+	raster-xrefl-step:		10
+	raster-velocity-center:		0
+	raster-velocity-nsteps:		17
+	raster-velocity-step:		3
+	raster-zdr-center:		0
+	raster-zdr-nsteps:		17
+	raster-zdr-step:		2
+	raster-sminusx-center:		0
+	raster-sminusx-step:		5
+	raster-sminusx-nsteps:		17
+!
+! SPRINT fields
+!
+	raster-dzsh-center:		0
+	raster-dzsh-step:		10
+	raster-dzsh-nsteps:		11
+	raster-dzxh-center:		0
+	raster-dzxh-step:		10
+	raster-dzxh-nsteps:		11
+	raster-dzs-x-center:		0
+	raster-dzs-x-step:		10
+	raster-dzs-x-nsteps:		11
+	raster-vel-center:		0
+	raster-vel-step:		3
+	raster-vel-nsteps:		17
+	raster-dzs-x-center:		0
+	raster-dzs-x-step:		5
+	raster-dzs-x-nsteps:		17
+	raster-qual-center:		25
+	raster-qual-step:		15
+	raster-qual-nsteps:		11
+	raster-dmne-center:		-20
+	raster-dmne-step:		10
+	raster-dmne-nsteps:		11
+	raster-dbmxh-center:		-20
+	raster-dbmxh-step:		10
+	raster-dbmxh-nsteps:		11
+	raster-velv-center:		0
+	raster-velv-step:		3
+	raster-velv-nsteps:		17
+!
+! PAM III stations
+!
+	pam/1-location:		28.6544 -81.0753 0
+	pam/2-location:		28.6772 -81.0028 0
+	pam/3-location:		28.6222 -80.9417 0
+!
+! Photo site in Ft. Christmas Park
+!
+	photo1-location:	28.5637 -81.0225 0
+!
+! Various locs from the CaPE config
+!
+	location-label-size:		0.02
+	day-location:		29.1942 -81.0522 0
+	fel-location:		27.7372 -80.6406 0
+	rus-location:		27.7    -82.4	 0
+	vor-melbourne-location:	28.1050 -80.6356 0
+	vor-orlando-location:	28.5425 -81.3353 0
+	vor-orlando-azimuth-offset:	-5
+	vor-ormond-location:	29.3031 -81.1131 0
+	vor-vero-location:	27.6781 -80.4897 0
+	ptk-location:		28.2139 -80.5992 0

@@ -1,0 +1,11 @@
+#! /bin/csh
+
+#
+# Clean up shared memory here (keys 0x00950630 and 0x00003039)
+#
+
+#
+# and exec a new sprint
+#
+cd ~anderson
+xterm -n SPRINT -geometry 140x24+10+450 -bg gray80 -e sprint &

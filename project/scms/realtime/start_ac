@@ -1,0 +1,5 @@
+#!/bin/csh
+setenv DS_DAEMON_HOST tangerine
+~burghart/ac_ingest/ac_ingest ac_ingest.params >& /dev/null &
+~burghart/ac_ingest/ac_status status.params >& /dev/null &
+

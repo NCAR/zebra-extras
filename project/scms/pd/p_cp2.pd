@@ -1,0 +1,16 @@
+global
+	pd-name:	p_cp2
+p_radar
+	platform:	cp2
+	field:		reflectivity
+	representation:	raster
+	icon:		cp2
+	color-table:	ncarrefl
+	every-sweep:	true
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	cp2-middle
+	icon-right-menu:	DataAvailable
+	every-sweep:	true
+	scale-mode:	auto
+	limit-proc:	raster-limit-proc
+	require:	radar, raster

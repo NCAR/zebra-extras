@@ -1,0 +1,30 @@
+
+
+
+
+			===========
+			Emergencies
+			===========
+
+
+=========================
+Restarting the Rasterizer
+=========================
+
+o If the rasterizer is still running, kill it with a <Control-C>.
+
+o Start a new rasterizer window:
+
+	tangerine $ rasterizer_window
+
+
+
+=================
+Restarting SPRINT
+=================
+
+o If SPRINT is still running, kill it with a <Control-C>.
+
+o Start a new SPRINT window:
+
+	tangerine $ sprint_window

@@ -1,0 +1,5 @@
+#!/bin/csh
+
+cd /zeb/project/scms/realtime
+radar_ingest radar.config
+

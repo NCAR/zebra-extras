@@ -1,0 +1,14 @@
+#! /bin/csh
+#
+# tangerine: Rasterizer/SPRINT/main data store machine
+#
+
+echo -n "	CP2 Rasterizer "
+realtime/rasterizer_window
+
+sleep 5
+echo -n "	SPRINT "
+realtime/sprint_window
+
+echo -n "	Archiver "
+nice -5 Archiver -f /dev/rmt/0n -z no -geometry +10-10 &

@@ -1,0 +1,46 @@
+#!/bin/csh
+#
+set platforms = "class prof915l rass915 surface_met"
+set local_dir = "/net/sssf3/scms/iss4"
+set remote_host = aster.brevard.com
+set remote_dir = "/asterdata/zebdata"
+
+
+#
+# If one of these is already (still) going, we'll go away and just let that
+# one continue
+#
+@ howmany = `ps -ef | fgrep $0 | fgrep -v "fgrep $0" | wc -l`
+if ($howmany > 1) then
+	echo "ISS transfer exiting since one is still running"
+	exit 0
+endif
+
+#
+# Build the list of files to move
+#
+set listfile = "/tmp/mirror.tarlist"
+
+cd $local_dir
+find $platforms -name '*.cdf' -print  > $listfile
+rsh $remote_host "cd $remote_dir; find $platforms -name '*.cdf' -print" >> $listfile
+
+cat $listfile | sort | uniq -u > $listfile.new
+mv $listfile.new $listfile
+
+#
+# If the list is of non-zero length, copy the files over
+#
+if (! -z $listfile) then
+	tar cf - -I $listfile | gzip > /tmp/mirror.tar.gz
+	rm -f $listfile
+	rcp /tmp/mirror.tar.gz ${remote_host}:${remote_dir}/mirror.tar.gz
+	rm -f /tmp/mirror.tar.gz
+	if ($status) then
+		echo "Mirror data transfer failed"
+		exit 1
+	endif
+	rsh $remote_host "cd $remote_dir; /local/bin/zcat mirror.tar.gz | tar xf -"
+	rsh $remote_host "rm -f /asterdata/zebdata/mirror.tar.gz"
+endif
+

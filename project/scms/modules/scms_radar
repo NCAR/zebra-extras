@@ -1,0 +1,44 @@
+!
+! Support for the p_radar PD component.
+!
+
+define widget radar-middle intmenu 'radar middle'
+	title 'Radar options'
+	line
+!	submenu 'Display field' 'FieldMenu'
+	entry 'S-band Reflectivity' 'param #icon_component field reflectivity' \
+		(PDParam (icon_component, 'field') = 'reflectivity')
+	entry 'X-band reflectivity' 'param #icon_component field xrefl' \
+		(PDParam (icon_component, 'field') = 'xrefl')
+	entry 'S - X' 'param #icon_component field sminusx' \
+		(PDParam (icon_component, 'field') = 'sminusx')
+	entry 'Velocity' 'param #icon_component field velocity' \
+		(PDParam (icon_component, 'field') = 'velocity')
+	entry 'ZDR' 'param #icon_component field zdr' \
+		(PDParam (icon_component, 'field') = 'zdr')
+	entry 'Surveillance only mode' 'toggle_sur' \
+		(PDParam ("global", "cp4-filter-attribute") = "sur")
+	entry 'Single fixed angle mode' 'ToggleBoolean every-sweep' \
+		(PDParam (icon_component, "every-sweep") = "false")
+	line
+	entry 'Raster representation' \
+		'param #icon_component representation raster'
+	entry 'Contour representation' \
+		'param #icon_component representation contour'
+	entry 'Filled contour representation' \
+		'param #icon_component representation filled-contour'
+	line
+	submenu 'Color tables' Color-tables
+endmenu
+
+require color-table
+
+
+procedure toggle_sur
+	set param concat(PDParam(icon_component,'platform'), '-filter-attribute')
+	if (PDParam ("global", param) = "sur")
+		param global #param "radar"
+	else
+		param global #param "sur"
+	endif
+endprocedure

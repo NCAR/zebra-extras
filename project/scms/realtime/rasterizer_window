@@ -1,0 +1,8 @@
+#! /bin/csh
+
+#
+# exec a new rasterizer in a separate window
+#
+	
+cd /zeb/project/scms/realtime
+xterm -n rasterizer -geometry +10+50 -bg gray80 -e "rasterizer" &
