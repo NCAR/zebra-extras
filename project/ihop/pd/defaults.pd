@@ -12,7 +12,7 @@ defaults
 ! Form: 
 !	<sitename>-location:	<lat> <lon> <alt>
 !
-	spol-location:		36.57810    -122.78278     0
+	spol-location:		36.57810    -100.78278     0
 	katx-location:		48.1944     -122.4958      150
 	krtx-location:		45.7147     -122.9653      480
 !
