@@ -1,0 +1,11 @@
+GLOBAL
+	pd-name:	c_array_map
+	comment:	Boundary layer array map overlay
+c_array_map
+	platform:	fest_array
+	representation:	overlay
+	field:		map
+	color:		yellow
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	icon:		map

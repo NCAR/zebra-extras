@@ -1,0 +1,12 @@
+GLOBAL
+	pd-name:	c_aster_loc
+	comment:	aster location
+c_aster_loc
+	platform:	aster	
+	representation:	overlay
+	field:		location
+	color:		white
+	icon-right-menu:	locations-right
+	icon-middle-menu:	simple-color
+	label-size:		0.035
+	icon:		sounding-loc

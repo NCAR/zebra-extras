@@ -1,0 +1,12 @@
+!
+! VOR locations.
+!
+global
+	pd-name:	c_vor_loc4
+c_vor_loc4
+	platform:		vor-lbf,vor-lbl,vor-lit,vor-lmn,vor-lnk,vor-lrf,vor-lse,vor-lts,vor-map,vor-mcm,vor-mcw,vor-mhk,vor-mkc,vor-mlc,vor-obh
+	representation:		overlay
+	field:			location
+	color:			white
+	icon-middle-menu:	simple-color
+	icon:			radar-loc

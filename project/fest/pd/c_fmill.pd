@@ -1,0 +1,14 @@
+GLOBAL
+	pd-name:	c_fmill
+c_fmill
+	platform:	field-mill
+	representation:	contour
+	field:		fstrength
+	color-mono:	true
+	color:		cyan
+	label-blanking:	false
+	color-table:	cook16_bk
+	icon-right-menu:	contour-options
+	trigger-global:	true
+	trigger:	field-mill
+	icon:		fmill

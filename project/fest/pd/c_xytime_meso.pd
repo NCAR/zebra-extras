@@ -1,0 +1,26 @@
+GLOBAL
+	comment:	Display mesonet wind speed on an xy graph.
+	pd-name:	c_xytime_meso
+	plot-mode:	real-time
+	plot-type:	xygraph
+c_xytime_meso
+	do-color-proc:  change_component_color
+	representation: simple
+	platform:	surface_5min/boulder
+	icon:           generic
+	field-color:    green
+	icon-color:     green
+	axis-left:	false
+	axis-top:	false
+	axis-bottom:	false
+	axis-right:	true
+	y-field:        wspd
+	x-field:        time
+	axis-r-label:	none 
+	axis-r-grid-intensity:  0.0
+	axis-r-color:   green
+	adj-axis-side:  r
+	time-limit-proc:	adj_xy_time
+	icon-left-menu:		xytimegraph-left
+	icon-right-menu:        xy-time-menu
+	icon-middle-menu:	xy-meso-psel

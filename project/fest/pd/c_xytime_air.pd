@@ -1,0 +1,26 @@
+GLOBAL
+	pd-name:	c_xytime_air
+	plot-mode:	real-time
+	plot-type:	xygraph
+c_xytime_air
+	do-color-proc:	change_component_color
+	do-side-annotation:	true
+	representation:	simple
+	representation-style:	point
+	platform:	storm1
+	icon:		generic
+	field-color:	pink
+	icon-color:	pink
+	axis-left:	true
+	axis-bottom:	false
+	axis-top:	false
+	axis-right:	false
+	y-field:	theta
+	x-field:	time
+	axis-l-label:	none	
+	axis-l-grid-intensity:	0.0
+	axis-l-color:	pink
+	adj-axis-side:	l
+	time-limit-proc:	adj_xy_time
+	icon-left-menu:	xytimegraph-left
+	icon-right-menu:	xy-time-menu

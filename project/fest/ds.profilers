@@ -1,0 +1,405 @@
+platform prof_azcn5_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_azcn5_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_blmm7_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_blmm7_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_blrw3_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_blrw3_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_cnwm7_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_cnwm7_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_dqua4_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_dqua4_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_fbyn1_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_fbyn1_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_gdac2_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_gdac2_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_hklo2_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_hklo2_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_hvlk1_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_hvlk1_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_hbrk1_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_hbrk1_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_jtnt2_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_jtnt2_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_nrcm5_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_nrcm5_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_lmno2_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_lmno2_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_lthm7_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_lthm7_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_rwdn1_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_rwdn1_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_mbww4_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_mbww4_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_mrrn1_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_mrrn1_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_nlgn1_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_nlgn1_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_ndsk1_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_ndsk1_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_okom6_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_okom6_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_patt2_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_patt2_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_pltc2_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_pltc2_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_prco2_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_prco2_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_slai4_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_slai4_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_tcun5_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_tcun5_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_vcio2_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_vcio2_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_wsmn5_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_wsmn5_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_wnci2_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_wnci2_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_wdlm5_l
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform
+
+platform prof_wdlm5_h
+	organization	1dgrid
+	filetype	netcdf
+	discrete
+	maxsamples	1000
+endplatform

@@ -1,0 +1,36 @@
+GLOBAL
+	comment:	Display CP4 data.
+	pd-name:	c_radar
+	plot-mode:	real-time
+	plot-type:	CAP
+	raster-velocity-center:	0.0
+	raster-velocity-step:	5.0
+	radar-space:	true
+	time-frames:	2
+	altitude:	-1
+	x-min:		-150
+	x-max:		150
+	y-min:		-150
+	y-max:		150
+c_radar
+	platform:	cp4
+	field:		velocity
+	representation:	raster
+	icon:		cp4
+	color-table:	wild_new
+	every-sweep:	true
+	icon-middle-menu:	radar-middle
+	trigger-global:	true
+	trigger:	cp4
+	icon-right-menu:	DataAvailable
+	menu-platform:	cp4
+c_rings
+	platform:	cp4
+	representation:	overlay
+	field:		range-rings
+	color:		white
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-menu
+	icon:		rings
+	ring-interval:	20
+	azimuth-interval:	30

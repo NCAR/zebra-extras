@@ -1,0 +1,12 @@
+!
+! VOR locations.
+!
+global
+	pd-name:	c_vor_loc5
+c_vor_loc5
+	platform:		vor-odg,vor-odi,vor-off,vor-ofk,vor-ojc,vor-olu,vor-oma,vor-onl,vor-osw,vor-otg,vor-otm,vor-pbf,vor-per,vor-pgo,vor-pwe
+	representation:		overlay
+	field:			location
+	color:			white
+	icon-middle-menu:	simple-color
+	icon:			radar-loc

@@ -1,0 +1,40 @@
+GLOBAL
+	comment:	Display CP4 data.
+	pd-name:	mhr
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	mhr
+	radar-space:	true
+	time-frames:	2
+	altitude:	-1
+	x-min:          -93
+	x-max:		22
+	y-min:		-45
+	y-max:		75
+c_radar
+	platform:	mhr
+	field:		reflectivity
+	representation:	raster
+	icon:		mhr
+	color-table:	wild_new
+	every-sweep:	true
+	icon-middle-menu:	radar-middle
+	icon-right-menu:	DataAvailable
+c_rings
+	platform:	mhr
+	representation:	overlay
+	field:		range-rings
+	color:		white
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-menu
+	icon:		rings
+	ring-interval:	20
+	azimuth-interval:	30
+c_map
+	platform:	stormfest
+	representation:	overlay
+	field:		map
+	color:		gray60
+	line-width:	1
+	icon-middle-menu:	simple-color
+	icon:		map

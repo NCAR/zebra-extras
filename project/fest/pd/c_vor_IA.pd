@@ -1,0 +1,13 @@
+!
+! Iowa VOR locations.
+!
+global
+	pd-name:	c_vor_IA
+c_vor_IA
+	platform:	vor-alo,vor-cid,vor-dbq,vor-dsm,vor-eol,vor-fod,vor-iow,vor-lmn,vor-mcw,vor-otm,vor-rty,vor-spw,vor-sux,vor-tnu,vor-ukn
+	representation:		overlay
+	field:			location
+	color:			white
+	icon-middle-menu:	simple-color
+	location-icon:		radar-loc
+	icon:			vor-IA

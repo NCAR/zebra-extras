@@ -1,0 +1,18 @@
+GLOBAL
+	pd-name:	c_az_lims
+	comment:	Generic range rings overlay
+c_az_lims
+	platform:	cp2
+	representation:	overlay
+	field:		azimuth-limits
+	color:		white
+	icon-middle-menu:	simple-color
+!	icon-right-menu:	linewidth
+	menu-platform:		cp2-az-limits
+	icon-right-menu:	DataAvailable
+	line-width:	2
+	trigger-global:	true
+	trigger:	cp2-az-limits
+	icon:		az-limits
+	range:		100
+	age-limit:	20m

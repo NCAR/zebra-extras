@@ -1,0 +1,17 @@
+! Auto-saved display configuration.
+config cindy
+	window 'UpperLeft' -1 0 808 479 /zeb/chris/gp/gp gp.init
+		description 'cindy-UpperLeft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'LowerLeft' 2 461 804 436 /zeb/chris/gp/gp gp.init
+		description 'cindy-LowerLeft'
+		buttonmap 'default'
+		forcepd
+	endwindow
+	widget 'iconbar' 811 2 137 340
+	window 'Event logger' 870 772 270 125 graphproc
+		nongraphic
+	endwindow
+endconfig

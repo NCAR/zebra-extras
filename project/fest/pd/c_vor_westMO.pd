@@ -1,0 +1,13 @@
+!
+! Western Missouri VOR locations (lon < -92.5 deg.)
+!
+global
+	pd-name:	c_vor_westMO
+c_vor_westMO
+	platform:	vor-anx,vor-bum,vor-dgd,vor-eos,vor-gvw,vor-irk,vor-mkc,vor-sgf,vor-shy,vor-stj,vor-szl
+	representation:		overlay
+	field:			location
+	color:			white
+	icon-middle-menu:	simple-color
+	location-icon:		radar-loc
+	icon:			vor-westMO

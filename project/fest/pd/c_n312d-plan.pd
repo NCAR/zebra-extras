@@ -1,0 +1,15 @@
+global
+	pd-name:        c_n312d-plan
+c_n312d-plan
+	representation: overlay
+	platform:       n312d-plan
+	field:          boundary
+	color:          green
+	line-width:     1
+	icon:           storm_2-plan
+	icon-middle-menu: simple-color
+	icon-right-menu:	boundary-control
+	closed-boundary:        false
+	trigger-global:	true
+	trigger:        n312d-plan
+	age-limit:	120m

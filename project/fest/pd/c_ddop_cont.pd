@@ -1,0 +1,15 @@
+GLOBAL
+	pd-name:	c_ddop_cont
+	plot-mode:	real-time
+	plot-type:	CAP
+c_ddop_cont
+	platform:	ddop
+	representation:	contour
+	field:		div
+	trigger:	2m
+	color-moon:	cyan
+	label-blanking:	false
+	color-table:	cook16_bk
+	icon-middle-menu:	ddop-middle
+	icon-right-menu:	contour-options
+	icon:		ddop

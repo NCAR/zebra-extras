@@ -1,0 +1,86 @@
+#!/bin/csh
+#
+# The fest-specific project startup file.  I expect to be run out of 
+# the "startzeb" script.
+#
+set cdpresent=0
+#
+# We need to try to figure out if they have a CD mounted.
+#
+if ( ! $?CDDIR ) setenv CDDIR .
+foreach dir ( $CDDIR /cd /cdrom /zeb /cdrom/cdrom0 )
+	if ( -f $dir/.cd_index) then
+		set cdpresent=1
+		set cddir=$dir
+		setenv ZEB_CDROM $dir
+		echo " "
+		echo "CDROM found on" $dir
+		break
+	endif
+end
+
+#
+# If, in fact, there is a CD, let's get an IOP number from them.
+#
+iop_prompt:
+if ( $cdpresent ) then
+	echo 'The following IOPs are currently mounted:'
+	echo ' '; echo -n '	'
+	(cd $cddir/data; ls -d iop*)
+	echo ' '
+	echo -n 'Which IOP do you want to see (number only)? '
+	set iop=$<
+#
+# Verify it.
+#
+	switch ($iop)
+		case [67]:
+			set cddatadir=$cddir/data/iop6_7
+			breaksw
+		case 13:
+		case 14:
+			set cddatadir=$cddir/data/iop13_14
+			breaksw
+		case [1-9]:
+		case 1[0-9]:
+		case 20:
+			set cddatadir=$cddir/data/iop$iop
+			breaksw;
+		default:
+			echo ' '
+			echo 'Please enter an IOP number from 1-20'
+			echo ' '
+			goto iop_prompt
+	endsw
+	if (! -d $cddatadir) then
+		echo ' '
+		echo "Sorry, IOP $iop is not on this disc"
+		echo ' '
+		goto iop_prompt
+	endif
+#
+# Look for a cache file.
+#
+	if ( -f cache/cache.iop$iop ) then
+		setenv REM_UNIFIED_CACHE cache/cache.iop$iop
+		echo 'Cache file is' $REM_UNIFIED_CACHE
+	else
+		echo 'No cache file'
+		exit
+	endif
+	setenv REM_DATA_DIR $cddatadir
+else
+	echo 'No CDROM present.'
+	set cddatadir junk
+endif
+
+#
+# Do some final tweaking and we're set.
+#
+if ( ! $?DEFAULT_CONFIG ) setenv DEFAULT_CONFIG model_xsect
+if ($cdpresent && -f $cddatadir/defaulttime) then
+	setenv INITIAL_TIME `cat $cddatadir/defaulttime`
+else
+	setenv INITIAL_TIME 9-feb-92,00:01
+endif
+setenv REMOTE_NAME CDROM	 # for dsdwidget

@@ -1,0 +1,33 @@
+global
+	altitude:	-1
+	comment:	Display CP4 data.
+	pd-name:	opsdir-little2
+	plot-mode:	history
+	plot-time:	9-mar-1992,09:35:00
+	plot-type:	CAP
+	radar-space:	true
+	time-frames:	2
+	trigger:	cp4
+	x-max:	150
+	x-min:	-150
+	y-max:	150
+	y-min:	-150
+c_radar
+	color-table:	wild_new
+	every-sweep:	true
+	field:	reflectivity
+	icon:	cp4
+	icon-middle-menu:	radar-middle
+	icon-right-menu:	DataAvailable
+	platform:	cp4
+	representation:	raster
+c_rings
+	azimuth-interval:	30
+	color:	white
+	field:	range-rings
+	icon:	rings
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-menu
+	platform:	cp4
+	representation:	overlay
+	ring-interval:	20

@@ -1,0 +1,11 @@
+GLOBAL
+	pd-name:	c_ddop_map
+	comment:	Dual Doppler map overlay
+c_ddop_map
+	platform:	stormfest_lobes
+	representation:	overlay
+	field:		map
+	color:		red
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	icon:		ddop-lobes

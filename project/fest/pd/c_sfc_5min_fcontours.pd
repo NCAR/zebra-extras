@@ -1,0 +1,31 @@
+GLOBAL
+	comment:	Generic surface hourly PD component
+	pd-name:	c_sfc_5min_fcontours
+c_sfc_5min_fcontours
+	platform:	surface_5min
+	representation:	filled-contour
+	field:		rh
+	color:		cyan
+	label-blanking:	false
+	color-table:	cook16_bk
+	icon-middle-menu:	surface-middle
+	icon-left-menu:	meso-left-options
+	trigger-global:	true
+	trigger:	mesonet
+	grid-method:		barnes
+	x-points:	35
+	y-points:	20
+	radius:		1.5
+	max-fill:	2.0
+	icon:		grid_5min
+
+
+
+
+
+
+
+
+
+
+

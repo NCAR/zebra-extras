@@ -1,0 +1,54 @@
+!
+! VOR locations.
+!
+global
+	pd-name:	c_vor_loc
+c_vor_loc
+	platform:		vor-adm,vor-ael,vor-alo,vor-anw,vor-anx,vor-any,vor-bfv,vor-btr,vor-bum,vor-bvo,vor-cbi,vor-cds,vor-cid,vor-cnu,vor-ddc
+	representation:		overlay
+	field:			location
+	color:			white
+	icon-middle-menu:	simple-color
+	icon:			radar-loc
+c_vor_loc2
+	platform:		vor-dgd,vor-dsm,vor-emp,vor-end,vor-eol,vor-eos,vor-fod,vor-foe,vor-frm,vor-fsd,vor-fsm,vor-gag,vor-gck,vor-gnp,vor-gri
+	representation:		overlay
+	field:			location
+	color:			white
+	icon-middle-menu:	simple-color
+	icon:			radar-loc
+c_vor_loc3
+	platform:		vor-gvw,vor-hbr,vor-hct,vor-hlc,vor-hlv,vor-hsi,vor-hut,vor-hys,vor-iab,vor-ict,vor-ifi,vor-iow,vor-irk,vor-irw,vor-jef
+	representation:		overlay
+	field:			location
+	color:			white
+	icon-middle-menu:	simple-color
+	icon:			radar-loc
+c_vor_loc4
+	platform:		vor-lbf,vor-lbl,vorlit,vor-lmn,vor-lnk,vor-lrf,vor-lse,vor-lts,vor-map,vor-mcm,vor-mcw,vor-mhk,vor-mkc,vor-mlc,vor-obh
+	representation:		overlay
+	field:			location
+	color:			white
+	icon-middle-menu:	simple-color
+	icon:			radar-loc
+c_vor_loc5
+	platform:		vor-odg,vor-odi,vor-off,vor-ofk,vor-ojc,vor-olu,vor-oma,vor-onl,vor-osw,vor-otg,vor-otm,vor-pbf,vor-per,vor-pgo,vor-pwe
+	representation:		overlay
+	field:			location
+	color:			white
+	icon-middle-menu:	simple-color
+	icon:			radar-loc
+c_vor_loc6
+	platform:		vor-rst,vor-rty,vor-rzc,vor-sgf,vor-shy,vor-sln,vor-spw,vor-stj,vor-sux,vor-syo,vor-szl,vor-tdd,vor-tik,vor-tko,vor-tnu
+	representation:		overlay
+	field:			location
+	color:			white
+	icon:			radar-loc
+	icon-middle-menu:	simple-color
+c_vor_loc7
+	platform:		vor-top,vor-tul,vor-uin,vor-ukn,vor-vih,vor-ykn
+	representation:		overlay
+	field:			location
+	color:			white
+	icon:			radar-loc
+	icon-middle-menu:	simple-color

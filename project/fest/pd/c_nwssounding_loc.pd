@@ -1,0 +1,12 @@
+GLOBAL
+	pd-name:	c_nwssounding_loc
+	comment:	sounding location
+c_nwssounding_loc
+	platform:ABQ,AMA,DDC,DEN,ELP,GGG,GJT,GRB,HON,LBF,LIT,LND,MAF,OMA,OUN,PAH,PIA,RAP,SEP,STC,TOP,UMN,BIS,DRA,BOI,ELY,GEG,GGW,GTF,INW,SLC,TUS,WMC,MFR,MYF,OAK,SLE,UIL,VBG,ANN,OLM,CGO,RDD,ILA,NPS,PRB,NTD,YXY,YYE,YSM,YXS,YZT,WVK,WSE,YVQ,YEV
+	representation:	overlay
+	field:		location
+	color:		tan
+	icon-right-menu:	locations-right
+	icon-middle-menu:	simple-color
+	icon:		sounding-loc
+	label-size:	0.035

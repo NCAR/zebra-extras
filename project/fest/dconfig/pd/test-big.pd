@@ -1,0 +1,46 @@
+global
+	comment:	Big window post-processing plot description.
+	icon-middle-menu:	DataAvailable
+	pd-name:	test-big
+	plot-mode:	history
+	plot-time:	3-Feb-92,22:00:00
+	plot-type:	CAP
+	track-annot-time:	true
+	track-annot-time-interval:	10m
+	track-annot-time-scale:	0.01
+	trigger:	surface_hourly
+	x-max:	140.8949
+	x-min:	-53.9246
+	y-max:	-164.0000
+	y-min:	30.6666
+c_map
+	color:	white
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	platform:	stormfest
+	representation:	overlay
+c_storm1
+	arrow:	true
+	arrow-color:	cyan
+	arrow-interval:	10m
+	arrow-invert:	true
+	arrow-scale:	0.003
+	color:	cyan
+	color-table:	Contour
+	icon:	storm_1-data
+	icon-left-menu:	track-left
+	icon-middle-menu:	airfield
+	icon-right-menu:	aircraft-right
+	line-width:	3
+	out-of-range-color:	white
+	platform:	storm1
+	position-icon:	littleplane
+	representation:	track
+	sa-scale:	0.025
+	show-position:	true
+	time-period:	60m
+	trigger:	storm1
+	x-field:	hu
+	y-field:	hv

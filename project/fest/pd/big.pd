@@ -1,0 +1,77 @@
+GLOBAL
+	comment:	Big window post-processing plot description.
+	pd-name:	big
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	cp4
+	raster-velocity-center:	0.0
+	raster-velocity-step:	3.0
+	radar-space:	true
+	time-frames:	2
+	altitude:	-1
+	x-min:		-150.0
+	x-max:		150.0
+	y-min:		-150.0
+	y-max:		150.0
+	icon-middle-menu:	DataAvailable
+	menu-platform:	cp4
+	cp4-filter-attribute:	sur
+c_radar
+	platform:	cp4
+	field:		reflectivity
+	representation:	raster
+	color-table:	wild_new
+	icon:		cp4
+	icon-middle-menu:	radar-middle
+	every-sweep:	false
+	altitude:	0.5
+	sa-scale:	0.025
+c_rings
+	platform:	cp4
+	representation:	overlay
+	field:		range-rings
+	color:		white
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-menu
+	icon:		rings
+	ring-interval:	20
+	azimuth-interval:	30
+c_radar_loc
+	platform:	cp3,cp4,mhr,okc,fdr,cim,hot,chill,osk
+	representation:	overlay
+	field:		location
+	label-size:	0.025
+	color:		khaki
+	icon-middle-menu:	simple-color
+	icon:		radar-loc
+c_map
+	platform:	stormfest
+	representation:	overlay
+	field:		map
+	color:		gray60
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	icon:		map
+c_station_plot
+	platform:	mesonet
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	grid:		false
+	arrow-scale:	0.01
+	color:		white
+	trigger-global:	true
+	trigger:	mesonet
+	icon-middle-menu:	meso-winds-mid
+	icon-right-menu:	meso-station-options
+	icon:		meso_stations
+	limit-proc:	adj_arrow_scale
+c_ddop_map
+	platform:	stormfest_lobes
+	representation:	overlay
+	field:		map
+	color:		red
+	line-width:	2
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	icon:		ddop-lobes

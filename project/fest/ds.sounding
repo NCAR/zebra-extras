@@ -1,0 +1,624 @@
+!
+! Data store configuration file.
+!
+! Platform parameters:
+!	organization 	The expected organization of the data
+!		3dgrid		three dimensional regular grid
+!		2dgrid		two-dimensional regular grid
+!		irgrid		two-dimensional irregular grid (PAM)
+!		scalar		basic scalar point data
+!		outline		Boundaries
+!	filetype 	How this data is stored on the disk.  Only "netcdf"
+!		 	for now; more later.
+!			Later: "boundary" works too.
+!	keep 		The minimum time period of data to keep on the disk if
+!			at all possible.
+!	maxsamples 	The maximum number of data samples to put into one
+!		      	disk file.
+!	mobile		Indicates that the data collection platform moves
+!			through space.  Forsoundings, aircraft.
+!	regular		This platform can be expected to return
+!			regularly-spaced samples at the given interval.
+!	composite	This "platform" is a grouping of several smaller
+!			platforms.  Only irgrid platforms -- groupings of
+!			stationary scalar platforms -- are supported now.
+!	discrete	Observations are clumped together into discrete
+!			chunks.  Used to select the optimal file organization.
+!	directory	The directory in which to find data for this
+!			platform.
+!
+
+!
+! Path to the data directory.
+!
+
+!
+! Sounding platforms
+!
+
+platform s3v1		! Burlington
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform s62k		! Senena
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sabq		! Albuquerque
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sadq		! Kodiak	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sakz		! Arkansas City
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sama		! Amarillo
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sann		! Annette	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform saws		!Air Weather Service Dropsondes
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sbis		! Bismarck	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sboi		! Boise	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform scgo		!Cottage Grove
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform scou		! Columbia
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sddc		! Dodge City
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sden		! Denver	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sdra		! Desert Rock	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sear		! Kearney
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform selp		! El Paso
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sely		! Ely	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sfsi		! Fort Sill
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sgeg		! Spokane	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sggg		! Longview	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sggw		! Glasgow	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+
+platform sgjt		! Grand Junction
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sgrb		! Green Bay	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sgtf		! Great Falls	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sguy		! Guymon	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform shen		! Henderson
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform shon		! Huron	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform shys		! Hays
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+
+platform sila		!Williams CA
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sinw		! Winslow	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform siow		! Iowa City
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sirk		! Kirksville
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform slbf		! North Platte	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform slit		! Little Rock	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform slnd		! Lander	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform smaf		! Midland	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform smfr		! Medford	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform smyf		! San Diego	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform snps		!Monterey
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sntd		!Point Mugu
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform soak		! Oakland	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform solm		!Olympia
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform soma		! Omaha	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform soun		! Norman	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform spah		! Paducah	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform spia		! Peoria	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sprb		!Pasarobles CA
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform srap		! Rapid City	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform srdd		!Redding
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform ssep		! Stephenville	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sslb		! Storm Lake
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sslc		! Salt Lake City	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform ssle		! Salem	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sstc		! St. Cloud	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sstl		! Columbia
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform stop		! Topeka	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform stus		! Tucson	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform suil		! Quillayute	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sumn		! Monett	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform svbg		!Vndenberg AFB
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform swil		!Flatlands, IL
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform swmc		! Winnemucca	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform swse		!Edmonton-Stony Plain
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform swvk		!Vernon
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform syak		! Yakutat	
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform syev		!Inuvik
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform sysm		!Fort Smith
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform syvq		!Norman Wells
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform syxs		!Prince George
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform syxy		!Whitehorse
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform syye		!Fort Nelson
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+
+platform syzt		!Port Hardy
+	organization	scalar
+	filetype	netcdf
+	maxsamples	1000
+	mobile
+	discrete
+endplatform
+

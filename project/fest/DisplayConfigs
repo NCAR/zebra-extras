@@ -1,0 +1,782 @@
+!
+! All of the predefined display configurations live in this file.
+!
+
+!
+! GraphProc test window config and color table
+!
+! Display configurations... added by cindy (it's always cindy's fault!)
+!
+set ConfigDir "dconfig"
+set ConfigPD "pd"
+!pddir #ConfigPD
+!
+!
+! The initialization file.
+!
+!set init_file (concat (c$basedir, "/fest/gp.init"))
+set init_file "gp.init"		! gp will search for it now
+
+!
+! Executables.  Use the bin version unless GPDEBUG is defined.
+!
+set default_exec "gp"
+set default_arg1 "gp.init"
+
+!
+! The following should maybe come out before we go to CDROM.
+!
+if (getenv ("GPDEBUG") = "UNDEFINED")
+	set gp_exec (concat (c$bindir, "/gp"))
+else
+	if (getenv ("GPEXEC") = "UNDEFINED")
+		set gp_exec (concat (c$basedir, "/gp/gp"))
+	else
+		set gp_exec getenv("GPEXEC")
+	endif
+endif
+set clock_exec "fccclock"
+
+!
+! Real STORM-FEST display configurations.  
+! Old MHR stuff follows, for reference.
+!
+
+!
+! GOES
+!
+config goes
+	window big 5 5 700 700 #gp_exec #init_file
+		description 'goes'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window Clock 5 710 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget iconbar 260 760 445 57
+endconfig
+
+!
+! nowrad
+!
+config nowrad
+	window 'big' 5 5 700 700 #gp_exec #init_file
+		description 'nowrad'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 710 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 260 710 445 57
+endconfig
+
+
+!
+! Messing around with dual doppler.
+!
+config ddop
+	window 'big' 5 5 400 400 #gp_exec #init_file
+		description 'cp4'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little1' 410 5 400 400 #gp_exec #init_file
+		description 'ddop'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 410 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 5 445 445 57
+	window 'Event logger' 5 772 700 125
+		nongraphic
+	endwindow
+endconfig
+
+
+!
+! Display the STORM-FEST map
+!
+config fest
+	window 'big' 5 5 700 700 #gp_exec #init_file
+!		description 'stormfest'
+		description 'skewt'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 710 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 260 710 445 57
+	window 'Event logger' 5 772 700 125
+		nongraphic
+	endwindow
+endconfig
+
+config ftest
+	window /zeb/gp/gp 5 5 700 700 /localbin/xterm
+		description 'stormfest'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 710 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 260 710 338 57
+	window 'Event logger' 5 772 700 125
+		nongraphic
+	endwindow
+endconfig
+
+!
+! Display the big post-processing window 
+!
+config big
+	window 'big' 5 5 860 880 #gp_exec #init_file
+		description 'big'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 870 732 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 870 5 70 460
+	window 'Event logger' 870 772 270 125
+		nongraphic
+	endwindow
+endconfig
+
+config saber
+	window 'big' 660 5 400 400 /Saber/bin/xsaber
+		description 'ddop'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 890 732 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 1070 5 70 410
+	window 'Event logger' 890 772 250 125
+		nongraphic
+	endwindow
+endconfig
+
+!
+!	Dual-doppler one window configuration
+!
+config big_ddop
+	window 'big' 5 5 860 880 #gp_exec #init_file
+		description 'big_ddop'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 870 732 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 870 5 70 460
+	window 'Event logger' 870 772 270 125
+		nongraphic
+	endwindow
+endconfig
+
+!
+! Nowcaster initial display configuration.
+!
+config nowcast
+	window 'big' 510 5 640 660 #gp_exec #init_file
+		description 'nowcast'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little1' 5 65 500 412 #gp_exec #init_file
+		description 'satellite'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little2' 5 485 500 412 #gp_exec #init_file
+		description 'cp4'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 510 670 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 5 5 500 57
+	window 'Event logger' 510 750 640 150
+		nongraphic
+	endwindow
+	window 'RadarStatus' 770 670 300 60
+		nongraphic
+	endwindow
+endconfig
+
+!
+! Aircraft coordinator initial display configuration.
+!
+config aircraft
+	window 'big' 510 5 640 660 #gp_exec #init_file
+		description 'aircraft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little1' 5 65 500 412 #gp_exec #init_file
+		description 'aircraft-sat'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little2' 5 485 500 412 #gp_exec #init_file
+		description 'aircraft-cp4'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 510 670 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 5 5 500 57
+	window 'Event logger' 510 750 640 150
+		nongraphic
+	endwindow
+	window 'RadarStatus' 770 670 300 60
+		nongraphic
+	endwindow
+endconfig
+
+
+!
+! Radar coordinator initial display configuration.
+!
+config radar
+	window 'big' 510 5 640 660 #gp_exec #init_file
+		description 'radar'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little1' 5 65 500 412 #gp_exec #init_file
+		description 'nowrad'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little2' 5 485 500 412 #gp_exec #init_file
+		description 'radar-cp4'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 510 670 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 5 5 500 57
+	window 'Event logger' 510 750 640 150
+		nongraphic
+	endwindow
+	window 'RadarStatus' 770 670 300 60
+		nongraphic
+	endwindow
+endconfig
+
+
+!
+! Radar coordinator cross section configuration.
+!
+config radar-xsect
+	window 'big' 510 5 640 660 #gp_exec #init_file
+		description 'radar-xsect'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little1' 5 65 500 412 #gp_exec #init_file
+		description 'skewt'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little2' 5 485 500 412 #gp_exec #init_file
+		description 'xsect'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 510 670 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 5 5 500 57
+	window 'Event logger' 510 750 640 150
+		nongraphic
+	endwindow
+	window 'RadarStatus' 770 670 300 60
+		nongraphic
+	endwindow
+endconfig
+
+
+!
+! Ops Director initial display configuration.
+!
+config opsdir
+	window 'big' 510 5 640 660 #gp_exec #init_file
+		description 'opsdir'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little1' 5 65 500 412 #gp_exec #init_file
+		description 'satellite'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little2' 5 485 500 412 #gp_exec #init_file
+		description 'cp4'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 510 670 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 5 5 500 57
+	window 'Event logger' 510 750 640 150
+		nongraphic
+	endwindow
+	window 'RadarStatus' 770 670 300 60
+		nongraphic
+	endwindow
+endconfig
+
+!
+! Ops dir with mesonet.
+!
+config opsdir-meso
+	window 'big' 510 5 640 660 #gp_exec #init_file
+		description 'opsdir'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little1' 5 65 500 412 #gp_exec #init_file
+		description 'mesonet'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little2' 5 485 500 412 #gp_exec #init_file
+		description 'cp4'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 510 670 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 5 5 500 57
+	window 'Event logger' 510 750 640 150
+		nongraphic
+	endwindow
+	window 'RadarStatus' 770 670 300 60
+		nongraphic
+	endwindow
+endconfig
+
+
+!
+! Ops Director cross-section display configuration.
+!
+config opsdir-xsect
+	window 'big' 510 5 640 660 #gp_exec #init_file
+		description 'opsdir-xsect'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little1' 5 65 500 412 #gp_exec #init_file
+		description 'skewt'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little2' 5 485 500 412 #gp_exec #init_file
+		description 'xsect'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 510 670 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 5 5 500 57
+	window 'Event logger' 510 750 640 150
+		nongraphic
+	endwindow
+endconfig
+
+!
+! Nowcaster cross-section display configuration.
+!
+config nowcast-xsect
+	window 'big' 510 5 640 660 #gp_exec #init_file
+		description 'nowcast-xsect'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little1' 5 65 500 412 #gp_exec #init_file
+		description 'skewt'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little2' 5 485 500 412 #gp_exec #init_file
+		description 'xsect'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 510 670 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 5 5 500 57
+	window 'Event logger' 510 750 640 150
+		nongraphic
+	endwindow
+endconfig
+
+!
+! Aircraft coordinator cross-section display configuration.
+!
+config aircraft-xsect
+	window 'big' 510 5 640 660 #gp_exec #init_file
+		description 'aircraft-xsect'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little1' 5 65 500 412 #gp_exec #init_file
+		description 'skewt'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little2' 5 485 500 412 #gp_exec #init_file
+		description 'xsect'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 510 670 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 5 5 500 57
+	window 'Event logger' 510 750 640 150
+		nongraphic
+	endwindow
+endconfig
+
+
+!
+! Time Series display configuration for the Ops Director.
+!
+config tseries-opsdir
+	window 'tseries1' 510 5 640 330 #gp_exec #init_file
+		description 'tseries1'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'tseries2' 510 340 640 330 #gp_exec #init_file
+		description 'tseries2'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little1' 5 65 500 412 #gp_exec #init_file
+		description 'skewt'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little2' 5 485 500 412 #gp_exec #init_file
+		description 'opsdir'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 510 670 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 5 5 500 57
+	window 'Event logger' 510 750 640 150
+		nongraphic
+	endwindow
+endconfig
+
+
+!
+! Time Series display configuration for the Nowcaster.
+!
+config tseries-nowcast
+	window 'tseries1' 510 5 640 330 #gp_exec #init_file
+		description 'tseries1'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'tseries2' 510 340 640 330 #gp_exec #init_file
+		description 'tseries2'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little1' 5 65  500 412 #gp_exec #init_file
+		description 'skewt'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little2' 5 485 500 412 #gp_exec #init_file
+		description 'nowcast'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 510 670 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 5 5 500 57
+	window 'Event logger' 510 750 640 150
+		nongraphic
+	endwindow
+endconfig
+
+
+!
+! Time Series display configuration for the Aircraft Coordinator.
+!
+config tseries-aircraft
+	window 'tseries1' 510 5 640 330 #gp_exec #init_file
+		description 'tseries1'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'tseries2' 510 340 640 330 #gp_exec #init_file
+		description 'tseries2'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little1' 5 65  500 412 #gp_exec #init_file
+		description 'skewt'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little2' 5 485 500 412 #gp_exec #init_file
+		description 'aircraft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 510 670 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 5 5 500 57
+	window 'Event logger' 510 750 640 150
+		nongraphic
+	endwindow
+endconfig
+
+
+!
+! Time Series display configuration for the Radar Coordinator.
+!
+config tseries-radar
+	window 'tseries1' 510 5 640 330 #gp_exec #init_file
+		description 'tseries1'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'tseries2' 510 340 640 330 #gp_exec #init_file
+		description 'tseries2'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little1' 5 65  500 412 #gp_exec #init_file
+		description 'skewt'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'little2' 5 485 500 412 #gp_exec #init_file
+		description 'radar'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 510 670 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 5 5 500 57
+	window 'Event logger' 510 750 640 150
+		nongraphic
+	endwindow
+endconfig
+
+
+!
+! Scan Optimizer initial display configuration.
+!
+config optimizer
+	window 'big' 510 5 640 640 #gp_exec #init_file
+		description 'optimizer'
+		buttonmap 'optimizer'
+		forcepd
+	endwindow
+	window 'Clock' 510 670 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 5 5 500 57
+	window 'Event logger' 510 750 640 150
+		nongraphic
+	endwindow
+	window 'RadarStatus' 770 670 300 60
+		nongraphic
+	endwindow
+endconfig
+
+
+!
+! Scan optimizer with an updating radar window too.
+!
+config optimizer-rt
+	window 'big' 510 5 640 640 #gp_exec #init_file
+		description 'optimizer'
+		buttonmap 'optimizer'
+		forcepd
+	endwindow
+	window 'little1' 5 480 500 412 #gp_exec #init_file
+		description 'cp4'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 510 670 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 5 5 500 57
+	window 'Event logger' 510 750 640 150
+		nongraphic
+	endwindow
+	window 'RadarStatus' 770 670 300 60
+		nongraphic
+	endwindow
+endconfig
+
+
+config mesonet
+	window 'big' 5 5 700 700 #gp_exec #init_file
+		description 'mesonet'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 710 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 260 710 445 57
+	window 'Event logger' 5 772 700 125
+		nongraphic
+	endwindow
+	window 'RadarStatus' 770 670 300 60
+		nongraphic
+	endwindow
+endconfig
+
+config mtest
+	window 'big' 5 5 600 600 #gp_exec #init_file
+		description 'mtest'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 610 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 260 610 445 57
+	window 'Event logger' 5 672 700 125
+		nongraphic
+	endwindow
+endconfig
+
+config smallradar
+	window 'big' 5 5 400 400 #gp_exec #init_file
+		description 'cp4'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 410 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 5 445 445 57
+	window 'Event logger' 5 772 700 125
+		nongraphic
+	endwindow
+	window 'RadarStatus' 410 540 300 60
+		nongraphic
+	endwindow
+endconfig
+
+
+
+config mradar
+	window 'big' 5 5 600 600 #gp_exec #init_file
+		description 'cp4'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 610 250 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 260 610 445 57
+	window 'Event logger' 5 772 700 125
+		nongraphic
+	endwindow
+	window 'RadarStatus' 610 540 300 60
+		nongraphic
+	endwindow
+endconfig
+
+
+config bigmhrjon
+	window 'radar'	10 10 800 800 #gp_exec #init_file
+		buttonmap 'big'
+		description 'mhr'
+	endwindow
+	window 'Clock' 10 820 300 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar'  820 10 70 260
+endconfig
+
+config mhr
+	window 'radar'	10 10 400 400 #gp_exec #init_file
+		buttonmap 'big'
+		description 'mhr'
+	endwindow
+	window 'Clock' 10 420 300 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+endconfig
+
+config bigmhr
+	window 'radar1' 810 5 280 280 #gp_exec #init_file
+		buttonmap 'big'
+		description 'mhr'
+	endwindow
+	window 'radar2' 5 5 800 800 #gp_exec #init_file
+		buttonmap 'big'
+		description 'mhrfe'
+	endwindow
+	window 'Clock' 810 300 300 30 #clock_exec
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar' 810 350 300 70
+endconfig
+
+config twowin
+        window 'radar1' 5 5 552 550 #gp_exec #init_file
+                buttonmap 'big'
+                description 'mhr'
+        endwindow
+        window 'radar2' 562 5 552 550 #gp_exec #init_file
+                buttonmap 'big'
+                description 'mhrfe'
+        endwindow
+        window 'Clock' 5 560 300 30 #clock_exec
+                description 'whiteclock'
+        endwindow
+        widget 'iconbar' 310 560 300 70
+endconfig
+
+!
+! Generic linked PD to display one window zoomed.
+!
+config zoom 1
+	window 'humungo' 5 5 1100 850 #gp_exec #init_file
+		buttonmap 'big'
+		linkpd 1
+	endwindow
+endconfig
+!
+! An empty config just to clear out the screen.
+!
+config empty
+	widget 'iconbar' 1070 5 80 505
+endconfig

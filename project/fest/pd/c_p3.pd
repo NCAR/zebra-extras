@@ -1,0 +1,35 @@
+GLOBAL
+	pd-name:	c_p3
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	p3
+	altitude:	2000
+c_p3
+	annot-time:	false
+	annot-time-color:	red
+	annot-time-interval:	1h
+	annot-time-scale:	.01
+	arrow:	true
+	arrow-color:	blue
+	arrow-interval:	5m
+	arrow-invert:	true
+	arrow-scale:	0.003
+	color:	blue
+	color-table:	Contour
+	disable:	false
+	icon:	p3
+	icon-left-menu:	track-left
+	icon-middle-menu:	p3-aircraft-menu
+	icon-right-menu:	aircraft-right
+	line-width:	3
+	out-of-range-color:	white
+	platform:	p3
+	position-icon:	littleplane3
+	representation:	track
+	sa-scale:	0.025
+	show-position:	true
+	time-period:	60m
+	trigger:	p3
+	trigger-global:	true
+	x-field:	wx
+	y-field:	wy

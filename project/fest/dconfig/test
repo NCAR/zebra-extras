@@ -1,0 +1,13 @@
+! Auto-saved display configuration.
+config test
+	window 'big' 5 5 800 800 gp gp.init
+		description 'test-big'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 820 250 30 fccclock
+		description 'test-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 822 7 70 505
+endconfig

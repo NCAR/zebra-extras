@@ -1,0 +1,24 @@
+GLOBAL
+	pd-name:	c_n312d_gen
+	plot-mode:	real-time
+	plot-type:	CAP
+	contour-color-table:	ContourMono
+	trigger:	n312d_gen
+	altitude:	2000
+c_n312d_gen
+	representation:	track
+	platform:	n312d_gen
+	field:		alt
+	time-period:	600s
+	trigger:	n312d_gen
+	color-table:	contour
+	line-width:	3
+	arrow:		true
+	arrow-interval:	1m
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.01
+	icon-left-menu:		track-left
+	icon-middle-menu:	airfield
+	icon-right-menu:	linewidth
+	icon:		storm_1

@@ -1,0 +1,16 @@
+GLOBAL
+	comment:	Generic NOWRAD floater plot description
+	pd-name:	c_nowrad
+c_nowrad
+	platform:	nowrad
+	field:		intensity
+	representation:	raster
+	color-table:	wild_new
+	icon:		nowrad
+	altitude:	0.0
+	trigger:	nowrad
+	trigger-global:	true
+	icon-right-menu:	DataAvailable
+	menu-platform:	nowrad
+	intensity-center:	50.0
+	intensity-step:		6.0

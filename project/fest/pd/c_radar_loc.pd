@@ -1,0 +1,14 @@
+!
+! Radar locations.
+!
+global
+	pd-name:	c_radar_loc
+c_radar_loc
+	platform:		cp3, cp4, mhr, okc, fdr, cim, hot, chill, osk
+	representation:		overlay
+	field:			location
+	color:			khaki
+	icon-right-menu:	locations-right
+	icon-middle-menu:	simple-color
+	label-size:		0.035
+	icon:			radar-loc

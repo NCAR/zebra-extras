@@ -1,0 +1,19 @@
+GLOBAL
+	comment:	nowrad contoured reflectivity component.
+	pd-name:	c_intensity_f_contour
+c_intensity_f_contour
+	platform:	nowrad_f
+	representation:	contour
+	field:		intensity
+	color-table:	Rainbow
+	intensity-step:	20
+	intensity-center: 40
+	line-width:	1
+	do-labels:	false
+	icon:		nowrad_f
+	trigger-global:	true
+	icon-right-menu:	DataAvailable
+	icon-middle-menu:	nowrad-middle-contour
+	menu-platform:	nowrad
+
+

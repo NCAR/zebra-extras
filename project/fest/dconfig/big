@@ -1,0 +1,16 @@
+! Auto-saved display configuration.
+config big
+	window 'big' 5 5 860 880 gp gp.init
+		description 'big-big'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 870 732 250 30 fccclock
+		description 'big-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 870 5 70 505
+	window 'Event logger' 870 772 270 125 graphproc
+		nongraphic
+	endwindow
+endconfig

@@ -1,0 +1,21 @@
+GLOBAL
+	pd-name:	c_n431na
+	plot-mode:	real-time
+	plot-type:	CAP
+	contour-color-table:	ContourMono
+	trigger:	n431na
+	altitude:	2000
+c_n431na
+	representation:	track
+	platform:	n431na
+	time-period:	600s
+	trigger:	n431na
+	color:		red
+	show-position:	true
+	position-icon:	littleplane
+	sa-scale:	0.025
+	line-width:	3
+	icon-left-menu:		track-left
+	icon-middle-menu:	track-color
+	icon-right-menu:	linewidth
+	icon:		storm_4

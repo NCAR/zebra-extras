@@ -1,0 +1,34 @@
+GLOBAL
+	pd-name:	c_storm4
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	storm4
+	altitude:	2000
+c_storm4
+	annot-time:	false
+	annot-time-color:	red
+	annot-time-interval:	1h
+	annot-time-scale:	.01
+	arrow:	true
+	arrow-color:	violet
+	arrow-interval:	10m
+	arrow-invert:	true
+	arrow-scale:	0.003
+	color:	violet
+	color-table:	Contour
+	icon:	storm_4-data
+	icon-left-menu:	track-left
+	icon-middle-menu:	airfield
+	icon-right-menu:	aircraft-right
+	line-width:	3
+	out-of-range-color:	white
+	platform:	storm4
+	position-icon:	littleplane4
+	representation:	track
+	sa-scale:	0.025
+	show-position:	true
+	time-period:	60m
+	trigger:	storm4
+	x-field:	hu
+	y-field:	hv
+

@@ -1,0 +1,15 @@
+global
+	pd-name:        c_n43rf-plan
+c_n43rf-plan
+	representation: overlay
+	platform:       n43rf-plan
+	field:          boundary
+	color:          white
+	line-width:     1
+	icon:           storm_3-plan
+	icon-middle-menu: simple-color
+	icon-right-menu:	boundary-control
+	closed-boundary:        false
+	trigger-global:	true
+	trigger:        n43rf-plan
+	age-limit:	120m

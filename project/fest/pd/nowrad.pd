@@ -1,0 +1,43 @@
+GLOBAL
+	comment:	NOWRAD plot description
+	pd-name:	nowrad
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	nowrad
+	radar-space:	true
+	time-frames:	2
+	altitude:	0
+	icon-middle-menu:	DataAvailable
+	menu-platform:	nowrad
+c_nowrad
+	platform:	nowrad
+	field:		intensity	
+	representation:	raster
+	color-table:	nowrad
+	icon:		nowrad
+	icon-middle-menu:	nowrad-middle
+	altitude:	0.0
+	icon-right-menu:	DataAvailable
+	menu-platform:		nowrad
+c_station_plot
+	platform:	mesonet
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.01
+	grid:		false
+	color:		white
+	icon-middle-menu:	meso-winds-mid
+	icon-right-menu:	meso-station-options
+	icon:		meso_stations
+	limit-proc:	adj_arrow_scale
+	trigger-global:	true
+	trigger:	mesonet
+c_map
+	platform:	stormfest
+	representation:	overlay
+	field:		map
+	color:		gray60
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	icon:		map

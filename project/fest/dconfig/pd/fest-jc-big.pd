@@ -1,0 +1,111 @@
+global
+	altitude:	0.3955
+	comment:	Nowcaster big window plot description.
+	icon-middle-menu:	DataAvailable
+	menu-platform:	cp4
+	pd-name:	fest-jc-big
+	plot-mode:	history
+	plot-time:	17-Feb-92,23:00:00
+	plot-type:	CAP
+	radar-space:	true
+	time-frames:	2
+	trigger:	cp4
+	x-max:	147.5960
+	x-min:	21.8003
+	y-max:	-120.3868
+	y-min:	9.7876
+c_nowrad
+	altitude:	0.0
+	color-table:	wild_new
+	disable:	true
+	field:	intensity
+	icon:	nowrad
+	icon-right-menu:	DataAvailable
+	menu-platform:	nowrad
+	platform:	nowrad
+	representation:	raster
+	trigger:	nowrad
+	trigger-global:	true
+c_rings
+	azimuth-interval:	30
+	color:	white
+	field:	range-rings
+	icon:	rings
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-menu
+	platform:	cp4
+	representation:	overlay
+	ring-interval:	20
+c_radar_loc
+	color:	khaki
+	field:	location
+	icon:	radar-loc
+	icon-middle-menu:	simple-color
+	platform:	cp3,cp4,mhr,okc,fdr,cim,hot,chill,osk
+	representation:	overlay
+c_sounding_loc
+	color:	tan
+	field:	location
+	icon:	sounding-loc
+	icon-middle-menu:	simple-color
+	platform:	slb,iow,ear,3v1,hys,62k,akz,irk,cou,stl,hen,guy
+	representation:	overlay
+c_map
+	color:	gray60
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	platform:	stormfest
+	representation:	overlay
+c_ops-ctr
+	color:	green
+	field:	location
+	icon:	ops-ctr
+	icon-middle-menu:	simple-color
+	label:	none
+	platform:	ops-ctr
+	representation:	overlay
+c_array_loc
+	color:	yellow
+	field:	location
+	icon:	sounding-loc
+	icon-middle-menu:	simple-color
+	label:	none
+	platform:	array
+	representation:	overlay
+c_array_map
+	color:	yellow
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	platform:	fest_array
+	representation:	overlay
+c_storm1
+	arrow:	true
+	arrow-color:	cyan
+	arrow-interval:	1m
+	arrow-invert:	true
+	arrow-scale:	0.003
+	color-table:	Contour
+	field:	trose
+	icon:	storm_1-data
+	icon-left-menu:	track-left
+	icon-middle-menu:	airfield
+	icon-right-menu:	linewidth
+	line-width:	3
+	out-of-range-color:	white
+	platform:	storm1
+	position-icon:	littleplane
+	representation:	track
+	sa-scale:	0.025
+	show-position:	true
+	time-period:	60m
+	trigger:	storm1
+	u-field:	hu
+	u_field:	hu
+	v-field:	hv
+	v_field:	hv
+	x-field:	hu
+	y-field:	hv

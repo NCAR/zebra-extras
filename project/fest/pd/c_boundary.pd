@@ -1,0 +1,15 @@
+global
+	pd-name:        c_boundary
+c_boundary
+	representation: overlay
+	platform:       boundary
+	field:          boundary
+	color:          yellow
+	line-width:     2
+	icon:           boundary
+	icon-middle-menu: simple-color
+	label:		opt_bdry
+	closed-boundary:        true
+	trigger-global:	true
+	trigger:        boundary
+	label:		opt_bdry

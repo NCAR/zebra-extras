@@ -1,0 +1,51 @@
+!
+! Model platforms
+!
+
+platform eta
+	organization	scalar
+	filetype	grib
+	model
+endplatform
+
+platform eta_sfc
+	organization	scalar
+	filetype	grib_sfc
+	model
+	! share directory (and files) with eta
+	directory	eta
+endplatform
+
+platform ngm
+	organization	scalar
+	filetype	grib
+	model
+endplatform
+
+platform ngm_sfc
+	organization	scalar
+	filetype	grib_sfc
+	model
+	! share directory (and files) with ngm
+	directory	ngm
+endplatform
+
+platform avnold
+	organization	scalar
+	filetype	grib
+	model
+endplatform
+
+platform avnold_sfc
+	organization	scalar
+	filetype	grib_sfc
+	model
+	! share directory (and files) with avnold
+	directory	avnold
+endplatform
+
+platform maps
+	organization	scalar
+	filetype	grib
+	model
+endplatform

@@ -1,0 +1,15 @@
+global
+	pd-name:	xsect-UpperLeft
+	plot-mode:	history
+	plot-time:	4-Mar-92,21:00:00
+	plot-type:	skewt
+	trigger:	1m
+skewt
+	color-table:	Skew-t
+	icon:	sounding
+	icon-left-menu:	skewt-left
+	icon-middle-menu:	DataAvailable
+	icon-right-menu:	feet-km
+	menu-platform:	sslb,siow,sear,s3v1,shys,s62k,sakz,sirk,scou,sstl,shen,sguy
+	platform:	sslb
+	representation:	skewt

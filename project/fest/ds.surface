@@ -1,0 +1,154 @@
+!
+! National composite surface data
+!
+! Two platforms are included here:  surface_hourly, surface_5min
+!
+
+platform surface_hourly
+	organization	irgrid
+	filetype	netCDF
+	maxsamples	24
+	composite
+endplatform
+
+! PROFS
+subplatform surface_hourly "arvada, co" aurora boulder briggsdale brighton
+subplatform surface_hourly byers elbert erie "estes park" "fort colli"
+subplatform surface_hourly "fort morga" greeley "idaho spri" keenesburg
+subplatform surface_hourly lakewood littleton longmont loveland nunn
+subplatform surface_hourly plattevill rollinsvil ward
+! ISWS
+subplatform surface_hourly frf one siu sll snd mnh orr brs bel rdl icc wfp 
+subplatform surface_hourly cmi llc dxs bnd dek fre scs
+! ASOSH
+subplatform surface_hourly lnk 3km ako als bvo cnk cnu cos ddc dmo foe gck gri
+subplatform surface_hourly hlc ict laa lhx mck mhk mko mlc ojc ppf rsl sln sny
+subplatform surface_hourly stj top tqe wld emp hsi hut sgf pub pwa gld okc pnc
+subplatform surface_hourly swo tul ixd
+! ASOSQ
+subplatform surface_hourly cvn frm aiz auh bie bkx bvx cgz csq cwi dns ear eau
+subplatform surface_hourly ege ewk fet flp fnl fod gbd gxy h00 hde hdn hys lbl
+subplatform surface_hourly lxn mkt mle onl otg rog sgt skx slg sqi sue tad uin
+subplatform surface_hourly ykn mml mvn oga olu mtw
+! HPLAINS
+subplatform surface_hourly ainsworth "ames south" beatrice beresford
+subplatform surface_hourly "castana ex" "central ci" chariton colby crawfordsv
+subplatform surface_hourly "de soto" dickens elgin "garden cit" gibbon gilbert
+subplatform surface_hourly gilmore halsey havelock hays hesston holdrege
+subplatform surface_hourly hutchinson lexington "lincoln ia" manhattan mccook
+subplatform surface_hourly mead "mead turf" nashua "north east" "north plat"
+subplatform surface_hourly "o'neill" oacoma ord ottawa parsons pierre powhattan
+subplatform surface_hourly "red cloud" "rising cit" rockport rossville
+subplatform surface_hourly sandyland scandia shelton "silver lak" "south cent"
+subplatform surface_hourly sutherland tarnov "unsta curt" "west point" wichita
+subplatform surface_hourly akron "alliance n" "alliance w" "arapahoe p" arthur
+subplatform surface_hourly champion cottonwood gordon grant gudmundsen nisland
+subplatform surface_hourly panhandle "pine bluff" scottsbluf sidney silverthor
+subplatform surface_hourly sterling stratton tribune walsh wheatland
+!
+! WDPD (plattevill removed because the name is used in the PROFS stations)
+!
+subplatform surface_hourly palestine "white sand" dequeen purcell haskell vici
+subplatform surface_hourly lamont neodesha haviland granada hillsboro
+subplatform surface_hourly unknown
+!
+! NCDC (the following NCDC station names are duplicated elsewhere:
+!	foe, hut, ojc, 3km, ako, cnk, cnu, ddc, eau, sue, ord, lbl, frm, mml,
+!	hdn, skx, fnl, sny, als, ege, lnk, mck, lhx, tad, pub, cos, hon, ict,
+!	uin, mlc, okc, asg, pnc, mhk, bvo, hlc, sln, tul, pwa)
+!
+subplatform surface_hourly 8y8 ael apa ase atw bih bjc csm fbl gyr lse mkc mtj
+subplatform surface_hourly rhv sck sdl sow u24 bzn ffz lar rbd sba see ttd tvl
+subplatform surface_hourly wjf 75s adm ads anb eph ida psp sac toa 0v1 1k5 9v9
+subplatform surface_hourly acv blu byi cag drt jms mfe mmo sdb sxt vtn wrl 2wx
+subplatform surface_hourly 87q alw bno cez dls e74 flg hvr lws pns smp sns 1o5
+subplatform surface_hourly abr aia alo ama aqq ast bhm bil bis bke blh bna boi
+subplatform surface_hourly bpt bro btr cdc cdr cds cew cid cnm cou cpr crp csv
+subplatform surface_hourly dal dbq dfw dht dlh dsm dvt eat eug evv far fat fca
+subplatform surface_hourly fsd fsm fwa elo ffm inw guc ctb lgd ile sbn sea b23
+subplatform surface_hourly 9bb mke lwt hib awh wmc mce 4lw 4bk jnw 4hv olm 1v1
+subplatform surface_hourly 27u s80 esc 4bl psx hez pib tvf bji dyr mkg 76s cao
+subplatform surface_hourly uil env jac sgu cod sdy mqt gfk sfo uki siy rks rdd
+subplatform surface_hourly ely aty eld 4bq mqm 0e4 dvl 4dg dro 3ht gnt rbl dln
+subplatform surface_hourly esf hqm wey ali hmn bli end sle hou cqv rnd 3du smx
+subplatform surface_hourly rdm dys mcb vct row inl 77m u78 cmx prb bfl lrd aus
+subplatform surface_hourly 4sl nkx abi lru vel tvc buo cvs oth dug ftw 3th nbe
+subplatform surface_hourly ssf iah msn sps act rfd lvs rhi stc auw lax fcm rwf
+subplatform surface_hourly sjn hob 2c2 mwl gup dik mic e23 aff isn lft hon rst
+subplatform surface_hourly mlu sbs pir mld mot 4my bbw sux aex ofk phx off mls
+subplatform surface_hourly mem hro laf dag msy pia mkl tbn beh mwa axn btm huf
+subplatform surface_hourly est bwg nmm lit mei txk 3se dhn mgm hms tcl lxv shr
+subplatform surface_hourly edw mhv lgb nfg tph lol hbr gbn bys mmh eed msl trm
+subplatform surface_hourly fcl ggw gwo hsv gag otm eko bff fmn tex lvm gjt rwl
+subplatform surface_hourly dmn hln lfk aln t62 sli dnv dra tup cha grb mws sep
+subplatform surface_hourly 4lj ink mcw ind sus 5j0 shv pdt tdo anw new cgi auo
+subplatform surface_hourly 3s2 ack bvi hpn jst lyh mfd oqu fpr 3b1 aby aug orh
+subplatform surface_hourly abe agc ags alb and aoo apn atl avl ays bdl bdr bgm
+subplatform surface_hourly bkw bos btv buf cak cdw chh cle cmh con crw csg cxy
+subplatform surface_hourly dca det eri ewr gfl gso gsp htl iad ilg ilm isp jkl
+subplatform surface_hourly jxn lan lex lga luk mco mdt mia miv orf pbi phl pit
+subplatform surface_hourly pkb pwm rdu ric roa ssi syr tlh tol tpa tys vrb cae
+subplatform surface_hourly chs clt dtw ewn ipt pvd tri ahn avp bgr dab day hat
+subplatform surface_hourly hts jax lal roc sav amg car cvg fnt afj fdy gnv mcn
+subplatform surface_hourly uca adw ekn lfi mtc nrb pob rme bid sby mrb fmy apf
+subplatform surface_hourly jfk hff acy fay pou bfd leb art blf flo hky hul mgw
+subplatform surface_hourly mss duj pln een bhb rkd rut wvl mwn hgr ash loz lwm
+subplatform surface_hourly agr mpv mob sjt elp maf tus jan san ckl lbb abq las
+subplatform surface_hourly jln sdf stl lic mci rno den slc lbf oma ovn mfr lnd
+subplatform surface_hourly grr pih rap msp pdx mso gtf geg hdo sat lch s29 vih
+subplatform surface_hourly pkd brl 3oi bny p05 4cr ane
+! AWOSH
+subplatform surface_hourly ftg asg
+! PAM
+subplatform surface_hourly "pam  1" "pam  2" "pam  3" "pam  4" "pam  5"
+subplatform surface_hourly "pam  6" "pam  7" "pam  8" "pam  9" "pam 10"
+subplatform surface_hourly "pam 11" "pam 12" "pam 13" "pam 14" "pam 15"
+subplatform surface_hourly "pam 16" "pam 17" "pam 18" "pam 19" "pam 20"
+subplatform surface_hourly "pam 21" "pam 22" "pam 23" "pam 24" "pam 25"
+subplatform surface_hourly "pam 26" "pam 27" "pam 28" "pam 29" "pam 30"
+subplatform surface_hourly "pam 31" "pam 32" "pam 33" "pam 34" "pam 35"
+! PAM-PBL
+subplatform surface_hourly "pam 37" "pam 39" "pam 40" "pam 41" "pam 42"
+subplatform surface_hourly "pam 43" "pam 44" "pam 45" "pam 46" "pam 47"
+! ASOS1 (top included in ASOSH above)
+!subplatform surface_hourly top
+! AWOS1
+subplatform surface_hourly clinton creston denison
+
+
+
+platform surface_5min
+	organization	irgrid
+	filetype	netCDF
+	maxsamples	24
+	composite
+endplatform
+
+! PROFS
+subplatform surface_5min "arvada, co" aurora boulder briggsdale brighton
+subplatform surface_5min byers elbert erie "estes park" "fort colli"
+subplatform surface_5min "fort morga" greeley "idaho spri" keenesburg
+subplatform surface_5min lakewood littleton longmont loveland nunn
+subplatform surface_5min plattevill rollinsvil ward
+! ISWS
+subplatform surface_5min frf one siu sll snd mnh orr brs bel rdl icc wfp 
+subplatform surface_5min cmi llc dxs bnd dek fre scs
+! PAM
+subplatform surface_5min "pam  1" "pam  2" "pam  3" "pam  4" "pam  5"
+subplatform surface_5min "pam  6" "pam  7" "pam  8" "pam  9" "pam 10"
+subplatform surface_5min "pam 11" "pam 12" "pam 13" "pam 14" "pam 15"
+subplatform surface_5min "pam 16" "pam 17" "pam 18" "pam 19" "pam 20"
+subplatform surface_5min "pam 21" "pam 22" "pam 23" "pam 24" "pam 25"
+subplatform surface_5min "pam 26" "pam 27" "pam 28" "pam 29" "pam 30"
+subplatform surface_5min "pam 31" "pam 32" "pam 33" "pam 34" "pam 35"
+! PAM-PBL
+subplatform surface_5min "pam 37" "pam 39" "pam 40" "pam 41" "pam 42"
+subplatform surface_5min "pam 43" "pam 44" "pam 45" "pam 46" "pam 47"
+! ASOS1 (top included in ASOSH above)
+subplatform surface_5min top lnk 3km ako als bvo cnk cnu cos ddc dmo
+subplatform surface_5min foe gck gri hlc ict laa lhx mck mhk mko mlc
+subplatform surface_5min ojc ppf rsl sln sny stj tqe wld emp hsi hut
+subplatform surface_5min sgf pub pwa gld okc pnc swo tul ixd
+! AWOS1
+subplatform surface_5min clinton creston denison
+

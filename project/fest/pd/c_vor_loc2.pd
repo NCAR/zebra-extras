@@ -1,0 +1,12 @@
+!
+! VOR locations.
+!
+global
+	pd-name:	c_vor_loc2
+c_vor_loc2
+	platform:		vor-dgd,vor-dsm,vor-emp,vor-end,vor-eol,vor-eos,vor-fod,vor-foe,vor-frm,vor-fsd,vor-fsm,vor-gag,vor-gck,vor-gnp,vor-gri
+	representation:		overlay
+	field:			location
+	color:			white
+	icon-middle-menu:	simple-color
+	icon:			radar-loc

@@ -1,0 +1,150 @@
+global
+	altitude:	-1
+	comment:	Aircraft coordinator big window plot description.
+	icon-middle-menu:	DataAvailable
+	menu-platform:	nowrad
+	pd-name:	tseries-little2
+	plot-mode:	real-time
+	plot-type:	CAP
+	radar-space:	false
+	time-frames:	2
+	trigger:	cp4
+c_nowrad
+	altitude:	0.0
+	color-table:	wild_new
+	field:	intensity
+	icon:	nowrad
+	platform:	nowrad
+	representation:	raster
+c_radar_loc
+	color:	khaki
+	field:	location
+	icon:	radar-loc
+	icon-middle-menu:	simple-color
+	platform:	cp3,cp4,mhr,okc,fdr,cim,hot,chill,osk
+	representation:	overlay
+c_map
+	color:	gray60
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	platform:	stormfest
+	representation:	overlay
+c_ops-ctr
+	color:	green
+	field:	location
+	icon:	ops-ctr
+	icon-middle-menu:	simple-color
+	label:	none
+	platform:	ops-ctr
+	representation:	overlay
+c_array_loc
+	color:	yellow
+	field:	location
+	icon:	sounding-loc
+	icon-middle-menu:	simple-color
+	label:	none
+	platform:	array
+	representation:	overlay
+c_array_map
+	color:	yellow
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	platform:	fest_array
+	representation:	overlay
+c_cart_grid
+	color:	gray60
+	field:	grid
+	lat-lon:	true
+	platform:	grid
+	representation:	overlay
+	x-spacing:	50
+	y-spacing:	50
+c_n2uw
+	color:	yellow
+	icon:	storm_1
+	icon-left-menu:	track-left
+	icon-middle-menu:	track-color
+	icon-right-menu:	linewidth
+	line-width:	3
+	platform:	n2uw
+	position-icon:	littleplane
+	representation:	track
+	sa-scale:	0.025
+	show-position:	true
+	time-period:	600s
+	trigger:	n2uw
+c_n312d
+	color:	green
+	icon:	storm_2
+	icon-left-menu:	track-left
+	icon-middle-menu:	track-color
+	icon-right-menu:	linewidth
+	line-width:	3
+	platform:	n312d
+	position-icon:	littleplane
+	representation:	track
+	sa-scale:	0.025
+	show-position:	true
+	time-period:	600s
+	trigger:	n312d
+c_n43rf
+	color:	white
+	icon:	storm_3
+	icon-left-menu:	track-left
+	icon-middle-menu:	track-color
+	icon-right-menu:	linewidth
+	line-width:	3
+	platform:	n43rf
+	position-icon:	littleplane
+	representation:	track
+	sa-scale:	0.025
+	show-position:	true
+	time-period:	600s
+	trigger:	n43rf
+c_n327uw
+	color:	blue
+	icon:	storm_4
+	icon-left-menu:	track-left
+	icon-middle-menu:	track-color
+	icon-right-menu:	linewidth
+	line-width:	3
+	platform:	n327uw
+	position-icon:	littleplane
+	representation:	track
+	sa-scale:	0.025
+	show-position:	true
+	time-period:	600s
+	trigger:	n327uw
+c_n709na
+	color:	blue
+	icon:	storm_5
+	icon-left-menu:	track-left
+	icon-middle-menu:	track-color
+	icon-right-menu:	linewidth
+	line-width:	3
+	platform:	n709na
+	position-icon:	littleplane
+	representation:	track
+	sa-scale:	0.025
+	show-position:	true
+	time-period:	600s
+	trigger:	n709na
+c_station_plot
+	arrow-scale:	0.01
+	color:	white
+	grid:	false
+	icon:	meso_stations
+	icon-middle-menu:	meso-winds-mid
+	icon-right-menu:	meso-station-options
+	limit-proc:	adj_arrow_scale
+	platform:	mesonet
+	quadrants:	tdry,dp
+	representation:	vector
+	trigger:	mesonet
+	trigger-global:	true
+	u-field:	u_wind
+	v-field:	v_wind

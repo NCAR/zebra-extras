@@ -1,0 +1,12 @@
+!
+! VOR locations.
+!
+global
+	pd-name:	c_vor_loc3
+c_vor_loc3
+	platform:		vor-gvw,vor-hbr,vor-hct,vor-hlc,vor-hlv,vor-hsi,vor-hut,vor-hys,vor-iab,vor-ict,vor-ifi,vor-iow,vor-irk,vor-irw,vor-jef
+	representation:		overlay
+	field:			location
+	color:			white
+	icon-middle-menu:	simple-color
+	icon:			radar-loc

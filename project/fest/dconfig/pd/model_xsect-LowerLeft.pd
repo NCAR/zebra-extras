@@ -1,0 +1,54 @@
+global
+	pd-name:	model_xsect-LowerLeft
+	by-altitude:	false
+	forecast-offset:	0h
+	left-endpoint:	-650.0,550.0
+	right-endpoint:	550.0,-550.0
+	plot-hold:	false
+	plot-mode:	history
+	plot-time:	9-Mar-92,00:00:00
+	plot-type:	xsect
+	ta-scale:	12
+	trigger:	5m
+	validation-mode:	true
+	wind-style:	barb
+	z-max:	100
+	z-min:	1000
+c_balloon
+	platform:	srap,slbf,soma,stop,spah
+	field:		tdry
+	color:		white
+	color-mono:	true
+	color-table:	gcook16
+	disable:	true
+	do-labels:	true
+	icon:		balloon
+	icon-left-menu:	standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	xsect-model-balloon
+	label-blanking:	false
+	line-width:	0
+	representation:	line-contour
+	scale-mode:	auto
+	require:	contour, simple-color
+c_avnold
+	platform:	avnold
+	field:		tdry
+	representation:	line-contour
+	color:		green
+	color-mono:	true
+	color-table:	gcook16
+	do-labels:	true
+	grid-method:	bilinear
+	icon:		avnold
+	label-blanking:	false
+	line-width:	2
+	icon-left-menu:	standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	contour-model-right
+	annot-left-menu:	FieldMenu
+	annot-middle-menu:	FieldMenu
+	scale-mode:		auto
+	altitude-control:	true
+	require:		contour, simple-color
+

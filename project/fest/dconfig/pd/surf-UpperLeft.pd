@@ -1,0 +1,64 @@
+global
+	altitude:	0.0000
+	comment:	Big window post-processing plot description.
+	cp4-filter-attribute:	sur
+	icon-middle-menu:	DataAvailable
+	menu-platform:	cp4
+	pd-name:	surf-UpperLeft
+	plot-mode:	history
+	plot-time:	4-Mar-92,21:00:00
+	plot-type:	CAP
+	radar-space:	false
+	raster-velocity-center:	0.0
+	raster-velocity-step:	3.0
+	time-frames:	2
+	trigger:	cp4
+	x-max:	700
+	x-min:	-1000
+	y-max:	200
+	y-min:	-500
+c_nowrad
+	altitude:	0.0
+	color-table:	wild_new
+	field:	intensity
+	icon:	nowrad
+	icon-right-menu:	DataAvailable
+	intensity-center:	50.0
+	intensity-step:	6.0
+	menu-platform:	nowrad
+	platform:	nowrad
+	representation:	raster
+	trigger:	nowrad
+	trigger-global:	true
+c_map
+	color:	gray80
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	platform:	stormfest
+	representation:	overlay
+c_sfc_hourly
+	cloud_amt-center:	50.0
+	cloud_amt-step:	2
+	color:	cyan
+	color-mono:	true
+	color-table:	cook16_bk
+	field:	cpres0
+	grid-method:	barnes
+	icon:	grid_hourly
+	icon-left-menu:	meso-left-options
+	icon-middle-menu:	surface-middle
+	icon-right-menu:	contour-options
+	label-blanking:	false
+	max-fill:	2.0
+	platform:	surface_hourly
+	radius:	1.5
+	rain-center:	5.0
+	rain-step:	.2
+	representation:	contour
+	sa-scale:	0.025
+	trigger:	mesonet
+	trigger-global:	true
+	x-points:	35
+	y-points:	20

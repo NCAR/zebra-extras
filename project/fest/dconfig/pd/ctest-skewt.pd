@@ -1,0 +1,16 @@
+global
+	pd-name:	ctest-skewt
+	plot-mode:	real-time
+	plot-type:	skewt
+	trigger:	none
+skewt
+	color-table:	Skew-t
+	icon:	sounding
+	icon-left-menu:	skewt-left
+	icon-middle-menu:	DataAvailable
+	icon-right-menu:	feet-km
+	menu-platform:	bogus
+	platform:	bogus
+	representation:	skewt
+	trigger:	6s
+

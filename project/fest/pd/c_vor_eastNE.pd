@@ -1,0 +1,13 @@
+!
+! East Nebraska VOR locations.
+!
+global
+	pd-name:	c_vor_eastNE
+c_vor_eastNE
+	platform:	vor-gri,vor-hsi,vor-lnk,vor-obh,vor-off,vor-ofk,vor-olu,vor-oma,vor-onl,vor-pwe
+	representation:		overlay
+	field:			location
+	color:			white
+	icon-middle-menu:	simple-color
+	location-icon:		radar-loc
+	icon:			vor-eastNE

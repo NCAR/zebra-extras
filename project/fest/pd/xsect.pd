@@ -1,0 +1,18 @@
+GLOBAL
+	pd-name:	xsect
+	plot-mode:	real-time
+	plot-type:	xsect
+	trigger:	5m
+	left-endpoint:	-20, 0
+	right-endpoint:	100, 0
+xsect
+	representation:	contour
+! no spaces in platform or toggle_xsp breaks.  Sigh.
+	platform:	slb,iow,ear,3v1,62k,akz,irk,stl
+	color-table:	cook16_bk
+	field:		rh
+	color-mono:	true
+	color:		cyan
+	icon:		xsect
+	icon-middle-menu:	xsect-field-menu
+	icon-right-menu:	xsect-plat

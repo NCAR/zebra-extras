@@ -1,0 +1,21 @@
+GLOBAL
+	pd-name:	ddop
+	plot-mode:	real-time
+	plot-time:	17-jul-87,15:30
+	plot-type:	CAP
+	trigger:	2m
+	time-frames:	4
+c_radar
+	platform:	ddop
+	representation:	raster
+	field:		reflectivity
+	color-table:	wild_new
+	icon:		cp4
+winds
+	platform:	ddop
+	representation:	vector
+	u-field:	u_wind
+	v-field:	v_wind
+	arrow-scale:	0.002
+	arrow-color:	white
+	icon:		ddop

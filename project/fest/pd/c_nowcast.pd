@@ -1,0 +1,13 @@
+global
+	pd-name:        c_nowcast
+c_nowcast
+	representation: overlay
+	platform:       nowcast
+	field:          boundary
+	color:          cyan
+	line-width:     2
+	icon-middle-menu: simple-color
+	icon-right-menu: bdry-right
+	closed-boundary:        false
+	trigger-global:	true
+	trigger:        nowcast
