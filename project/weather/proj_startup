@@ -1,10 +1,14 @@
 #!/bin/csh
 #
-# The stout environment project startup file, to be run out of "startzeb".  
-# Nothing too special here.
+# The weather project startup file, to be run out of "zstart".  
 #
 
 #
-# Provide a reasonable default config and that's it.
+# Start the Sound client
 #
-if ( ! $?DEFAULT_CONFIG ) setenv DEFAULT_CONFIG tseries
+Sound &
+
+#
+# Provide a reasonable default config
+#
+if ( ! $?DEFAULT_CONFIG ) setenv DEFAULT_CONFIG wind-tseries
