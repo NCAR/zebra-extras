@@ -36,7 +36,7 @@ main (int argc, char *argv[])
   ds_Initialize ();
   
   ds_RequestNotify (ds_LookupPlatform ("eagle_crest"), 0, newdata);
-  ds_RequestNotify (ds_LookupPlatform ("sheep_mtn"), 0, newdata);
+  ds_RequestNotify (ds_LookupPlatform ("sheep_mount"), 0, newdata);
 
   msg_await ();
 }
@@ -164,7 +164,7 @@ newdata (PlatformId pid, int index, ZebTime *zt, int nsample, UpdCode ucode)
    * Ship the chunk out to the added value platform
    */
   dc->dc_Platform = (pid == ds_LookupPlatform ("eagle_crest")) ? 
-    ds_LookupPlatform ("eagle_crest_x") : ds_LookupPlatform ("sheep_mtn_x");
+    ds_LookupPlatform ("eagle_crest_x") : ds_LookupPlatform ("sheep_mount_x");
   ds_Store (dc, 0, 0, 0);
 
   msg_ELog (EF_DEBUG, "Wrote to platform %s", 
