@@ -5,6 +5,7 @@
 #
 echo "$0 started at `date`"
 set nonomatch
+unalias cd	# GRRRRRRR
 
 #
 # we only want one of me; kill any others
