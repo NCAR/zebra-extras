@@ -1,0 +1,72 @@
+!
+! A form widget meant to be invoked from other forms to tweak color fields.
+!
+! On popup, this guy wants:
+!
+!	fcParentForm	the name of the form invoking me
+!	fcField		The field to tweak
+!
+! Unresolved: should we also go directly to the PD and provide instant
+! gratification?
+!
+
+set w 90
+define widget form-color form 'colors'
+!
+! beginning boilerplate
+!
+	noheader
+	popup fc-popup
+	label title 'Color selection'
+	button zap 'Dismiss' color red command 'popdown #ui$form'
+	label parent 'mommy' color gray95 width 1
+	label field 'campo' color gray70 width 100
+	newline
+!
+! Now go wild with the colors.
+!
+	button fccbutton 'white' command 'fc-color white' color white width w
+	button fccbutton 'black' command 'fc-color black' color white width w
+	button fccbutton 'blue' color blue command 'fc-color blue' width w
+	button fccbutton 'royal blue' color royalblue2 command \
+			'fc-color royalblue2' width w
+	newline
+	button fccbutton 'cyan' color cyan command 'fc-color cyan' width w
+	button fccbutton 'green' color green command 'fc-color green' width w
+	button fccbutton 'sea green' color seagreen command \
+			 'fc-color seagreen' width w
+	button fccbutton 'khaki' color khaki command 'fc-color khaki' width w
+	newline
+	button fccbutton 'yellow' color yellow command 'fc-color yellow' \
+			 width w
+	button fccbutton 'orange' color orange command 'fc-color orange' \
+			width w
+	button fccbutton 'red' color red command 'fc-color red' width w
+	button fccbutton 'pink' color pink command 'fc-color pink' width w
+	newline
+	button fccbutton 'maroon' color maroon command 'fc-color maroon' \
+			width w
+	button fccbutton 'violet' color violet command 'fc-color violet' \
+			width w
+enddef
+
+
+
+procedure fc-popup
+!
+! Just stash the caller info.
+!
+	formtext #ui$form parent #fcParent
+	formtext #ui$form field #fcField
+endprocedure
+
+
+procedure fc-color color string
+!
+! Apply a color.
+!
+	local form getftext(ui$form, 'parent')
+	local field getftext(ui$form, 'field')
+	formtext #form #field #color
+	popdown #ui$form !desirable?
+endprocedure

@@ -1,0 +1,28 @@
+!
+! A pulldown menu allowing a choice of color tables.
+!
+if (defined ('ui$widget_table:color-tables'))
+	set wname 'default-Color-tables'
+else
+	set wname 'Color-tables'
+endif
+
+define widget #wname intmenu 'ctbl'
+	title 'Color tables'
+	line
+	entry 'Black and white stepped' 'CTSet 16gray' \
+		(PDParam(icon_component, 'color-table') = '16gray')
+	entry 'Black and white log' 'CTSet newgray' \
+		(PDParam(icon_component, 'color-table') = 'newgray')
+	entry 'scook table' 'CTSet scook' \
+		(PDParam(icon_component, 'color-table') = 'scook')
+	entry 'Hot and cold table' 'CTSet hotcold' \
+		(PDParam (icon_component, 'color-table') = 'hotcold')
+	entry 'Wild color table' 'CTSet wild' \
+		(PDParam (icon_component, 'color-table') = 'wild')
+endmenu
+
+
+procedure CTSet table string
+	parameter #icon_component color-table #table
+endprocedure
