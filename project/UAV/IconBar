@@ -45,17 +45,16 @@ define widget iconbar menubar " "
 			'pconfig empty' (dm$config = "empty")
 		entry 'Nested Grid Model' \
 			'pconfig NGM' (dm$config = "NGM")
-		entry 'Profiler Wind and Temperature' \
-			'pconfig Profiler' (dm$config = "Profiler")
-		entry 'Satellite Display' 'pconfig Satellite' (dm$config = "Satellite")
 		entry 'NWS Surface Plot' 'pconfig Mesonet' \
 			(dm$config = "Mesonet")
+		entry 'Satellite Display' 'pconfig Satellite' (dm$config = "Satellite")
 		entry 'Thermodynamics Display' 'pconfig sonde' (dm$config = "sonde")
-!		entry 'Surface Meterology Display' 'pconfig surface_met' (dm$config = "surface_met")
+		entry 'Profiler Wind and Temperature' \
+			'pconfig Profiler' (dm$config = "Profiler")
 		entry 'Cloud Display' 'pconfig clouds' (dm$config = 'clouds')
-		submenu 'Radiation Display (by facility)' 'rad_by_facility'
+		submenu 'Radiation Display (by facility)' 'siros_by_facility'
 		submenu 'Surface Meterology Display (by facility)' 'surf_by_facility'
-		submenu 'SIROS Optical Displays' 'siros_by_facility'
+!		submenu 'SIROS Facilities' 'siros_by_facility'
 		line
 		entry 'Time Widget'	'popup time'
 		entry 'Hardcopy Widget' 'popup hardcopy'
@@ -74,12 +73,11 @@ define widget iconbar menubar " "
 	line
 	entry 'Mission Log'     \
 		'shell "/apps/development/mlog/bin/startmlog"'
-	entry 'Satellite Images'        \
-		'shell "$OPENWINHOME/bin/xterm -T Satellite_Image -sb&"'
 	entry 'Aircraft Profile'        \
 		'shell "$ACDSP_EXE_HOME/startacdsp&"'
 	entry 'NWS Surface Hourly'        \
-		'shell "$OPENWINHOME/bin/xterm -T NWS_Surface_Hourly -sb +aw -g 150x50+0+40 -bg cyan&"'
+		'shell "$OPENWINHOME/bin/xterm -T NWS_Surface_Hourly -sb +aw -g 180x50+0+40 -bg cyan -e /apps/development/bin/sfc&"'
+
 	endmenu
 	menu 'siros' bitmap /apps/development/UAV/icons/siros
 		title 'SIROS Time Series'
@@ -87,9 +85,9 @@ define widget iconbar menubar " "
 		entry 'Central Facility (also E13, Lamont)' \
 			'putc1 c_siros platform DsgpsirosE13.a1'
 		entry 'Extended Facility E9 (also Ashton)' \
-			'putc1 c_siros platform DsgpsirosE13.a1'
+			'putc1 c_siros platform DsgpsirosE9.a1'
 		entry 'Extended Facility E15 (also Ringwood)' \
-			'putc1 c_siros platform DsgpsirosE13.a1'
+			'putc1 c_siros platform DsgpsirosE15.a1'
 	endmenu
 !	menu 'platforms' bitmap /apps/development/UAV/icons/extended
 !		title 'Platforms for UAV Extented Facilities'
@@ -233,11 +231,14 @@ define widget siros_by_facility intmenu 'SIROS by Facility'
 	title 'Radiation Facilities'
 	line
 	entry 'Central Facility (also E13, Lamont)' \
-			'siros-display "DsgpsirosE13.a1"' 
+			'pconfig siros_tseries_cf' (dm$config = "siros_tseries_cf")
+!			'siros-display "DsgpsirosE13.a1"' 
 	entry 'Extended Facility E9 (also Ashton)' \
-			'siros-display "DsgpsirosE9.a1"'
+			'pconfig siros_tseries_E9' (dm$config = "siros_tseries_E9")
+!			'siros-display "DsgpsirosE9.a1"'
 	entry 'Extended Facility E15 (also Ringwood))' \
-			'siros-display "DsgpsirosE15.a1"'
+			'pconfig siros_tseries_E15' (dm$config = "siros_tseries_E15")
+!			'siros-display "DsgpsirosE15.a1"'
 endmenu
 
 !
@@ -262,23 +263,23 @@ endprocedure
 !
 procedure siros-display platform string
 
-	siros-set-platforms 'siros-UpperLeft' #platform
-	siros-set-platforms 'siros-UpperRight' #platform
+	siros-set-platforms 'siros-tseries' #platform
+	siros-set-platforms 'siros-optical' #platform
 	display siros
 
 endprocedure
 
 
-define widget rad_by_facility intmenu 'Radiation by Facility'
-	title 'Facilities'
-	line
-	entry 'Central Facility (also E13, Lamont)' \
-			'pconfig siros_tseries_cf' (dm$config = "siros_tseries_cf")
-	entry 'Extended Facility E9 (also Ashton)' \
-			'pconfig siros_tseries_E9' (dm$config = "siros_tseries_E9")
-	entry 'Extended Facility E15 (also Ringwood))' \
-			'pconfig siros_tseries_E15' (dm$config = "siros_tseries_E15")
-endmenu
+!define widget rad_by_facility intmenu 'Radiation by Facility'
+!	title 'Facilities'
+!	line
+!	entry 'Central Facility (also E13, Lamont)' \
+!			'pconfig siros_tseries_cf' (dm$config = "siros_tseries_cf")
+!	entry 'Extended Facility E9 (also Ashton)' \
+!			'pconfig siros_tseries_E9' (dm$config = "siros_tseries_E9")
+!	entry 'Extended Facility E15 (also Ringwood))' \
+!			'pconfig siros_tseries_E15' (dm$config = "siros_tseries_E15")
+!endmenu
 
 define widget surf_by_facility intmenu 'Surface Meterology by Facility'
 	title 'Facilities'
@@ -506,7 +507,7 @@ define widget LineMesonet5min intmenu 'Line mesonet contour selection'
 !	
 endmenu
 
-!
+
 ! Menus for dual doppler contours.
 !
 define widget LineDDop intmenu 'Line ddop contour selection'
