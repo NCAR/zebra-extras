@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.19 2002-12-23 21:33:01 burghart Exp $
+! $Id: IconBar,v 1.20 2002-12-23 22:24:39 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -193,7 +193,7 @@ define widget iconbar menubar " "
 		entry 'Extra NCAR surface sites' 'putc0 p_ncarsfc_sites'
 		entry 'NWS sites' 'putc0 p_nws'
 		line
-		entry 'User/optimizer boundary' 'putc0 p_opt_boundary'
+		entry 'User boundary' 'putc1 p_boundary platform boundary'
 		entry 'Window Bounds' 'put_wbounds p_wbounds'
 	endmenu
 enddef
