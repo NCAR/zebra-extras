@@ -1,7 +1,7 @@
 !
 ! All the definitions required to make the iconbar work.
 !
-! $Id: IconBar,v 1.5 1995-04-29 23:20:57 granger Exp $
+! $Id: IconBar,v 1.6 1996-01-30 15:48:25 granger Exp $
 
 !
 ! The right way to do this....
@@ -11,7 +11,7 @@ set ui$bitmap_directory concat(c$projdir, "/icons")
 ! No spaces in these lines!
 !
 set sounding_sites "ro_hk_sdg,chenzhou_sdg,ganzhou_sdg,wuzhou_sdg,guangzhou_sdg,shantou_sdg,xisha_sdg,taipei_sdg"
-set lantau_aws_sites "LT1,LT2,LT3,LT4,LT5,LT6,CLK"
+set lantau_aws_sites "LT1,LT2,LT3,LT4,LT5,LT6,CLK,LT9"
 
 set tool_icon concat(c$projdir,"/icons/tools")
 set config_icon concat(c$projdir,"/icons/configs")
@@ -47,7 +47,7 @@ define widget iconbar menubar " "
 		line
 		entry 'Empty' 'display empty' \
 			(dm$config = 'empty')
-		entry 'Hong Kong' 'display hongkong' \
+		entry 'RO Radar' 'display hongkong' \
 			(dm$config = 'hongkong')
 		entry 'Mesonet Contours' 'display aws_contours' \
 			(dm$config = 'lantau_mesonet')
@@ -61,9 +61,15 @@ define widget iconbar menubar " "
 			(dm$config = 'timeseries')
 		entry 'Soundings' 'display soundings' \
 			(dm$config = 'soundings')
+		entry 'Profilers' 'display profilers' \
+			(dm$config = 'profilers')
+		line
+		submenu 'ISS Configurations' iss-display-menu
+		submenu 'HKUST-Pump House' shalowan-display-menu
+		submenu 'AWS TimeSeries' aws-timeseries-menu
+		submenu 'Archived Data Sets' archive-display-menu
 		line
 		submenu 'Saved Configurations' saved-config-menu
-		submenu 'ISS Configurations' iss-display-menu
 		line
 		entry 'Quit Zeb Display' 'shutdown'
 	endmenu
@@ -150,8 +156,16 @@ define widget iss-display-menu intmenu 'ISS displays'
 
 	entry 'ISS sounding' 'display iss-sounding' \
 		(dm$config = 'iss-sounding')
-	entry 'ISS profiler' 'display iss-profiler' \
-		(dm$config = 'iss-profilerh')
+	entry 'ISS profiler' 'display iss-prof2' \
+		(dm$config = 'iss-prof2')
+	entry 'ISS prof high' 'display iss-profh' \
+		(dm$config = 'iss-profh')
+	entry 'ISS prof low' 'display iss-profl' \
+		(dm$config = 'iss-profl')
+	entry 'ISS sounding winds' 'display iss-sndwind' \
+		(dm$config = 'iss-sndwind')
+	entry 'ISS winds' 'display iss-winds' \
+		(dm$config = 'iss-winds')
 	entry 'ISS rass' 'display iss-rassprof' \
 		(dm$config = 'iss-rassprof')
 	entry 'ISS T, RH, WS, WD' 'display iss-surface1' \
@@ -160,6 +174,77 @@ define widget iss-display-menu intmenu 'ISS displays'
 		(dm$config = 'iss-surface2')
 	entry 'ISS P, Rain' 'display iss-surface3' \
 		(dm$config = 'iss-surface3')
+endmenu
+
+define widget archive-display-menu intmenu 'Archived Data displays'
+
+	entry 'ISS sounding' 'display iss-sounding-arc' \
+		(dm$config = 'iss-sounding-arc')
+	entry 'ISS profiler' 'display iss-prof2-arc' \
+		(dm$config = 'iss-prof2-arc')
+	entry 'ISS winds' 'display iss-winds-arc' \
+		(dm$config = 'iss-winds-arc')
+	entry 'HKUST-Pump House Prof low/high' 'display shalowan-prof3-arc' \
+		(dm$config = 'shalowan-prof3-arc')
+	entry 'Mesonet Winds' 'display aws_winds-arc' \
+		(dm$config = 'lantau_winds-arc')
+	entry 'Satellite' 'display satellite-arc' \
+		(dm$config = 'satellite-arc')
+	entry 'Soundings' 'display soundings-arc' \
+		(dm$config = 'soundings-arc')
+	entry 'Profilers' 'display profilers-arc' \
+			(dm$config = 'profilers-arc')
+	entry 'AWS/CLK' 'display aws-clk-arc' \
+			(dm$config = 'aws-clk-arc')
+	entry 'AWS/ISS' 'display iss-surface1-arc' \
+			(dm$config = 'iss-surface1-arc')
+	entry 'AWS/SLW' 'display aws-slw-arc' \
+			(dm$config = 'aws-slw-arc')
+endmenu
+
+define widget aws-timeseries-menu intmenu 'AWS TimeSeries displays'
+
+	entry 'ISS' 'display iss-surface1' \
+		(dm$config = 'iss-surface1')
+	entry 'CLK' 'display aws-clk' \
+		(dm$config = 'aws-clk')
+	entry 'SLW' 'display aws-slw' \
+		(dm$config = 'aws-slw')
+	entry 'TC' 'display aws-tc' \
+		(dm$config = 'aws-tc')
+	entry 'RO' 'display aws-ro' \
+		(dm$config = 'aws-ro')
+	entry 'SKG' 'display aws-skg' \
+		(dm$config = 'aws-skg')
+	entry 'LT1' 'display aws-lt1' \
+		(dm$config = 'aws-lt1')
+	entry 'LT2' 'display aws-lt2' \
+		(dm$config = 'aws-lt2')
+	entry 'LT3' 'display aws-lt3' \
+		(dm$config = 'aws-lt3')
+	entry 'LT4' 'display aws-lt4' \
+		(dm$config = 'aws-lt4')
+	entry 'LT5' 'display aws-lt5' \
+		(dm$config = 'aws-lt5')
+	entry 'LT6' 'display aws-lt6' \
+		(dm$config = 'aws-lt6')
+	entry 'LT9' 'display aws-lt9' \
+		(dm$config = 'aws-lt9')
+endmenu
+
+define widget shalowan-display-menu intmenu 'HKUST-Pump House'
+
+	entry 'HKUST-Pump House Prof high' 'display shalowan-profh' \
+		(dm$config = 'shalowan-profh')
+	entry 'HKUST-Pump House Prof mid' 'display shalowan-profm' \
+		(dm$config = 'shalowan-profm')
+	entry 'HKUST-Pump House Prof low' 'display shalowan-profl' \
+		(dm$config = 'shalowan-profl')
+	entry 'HKUST-Pump House Prof low/med' 'display shalowan-prof2' \
+		(dm$config = 'shalowan-prof2')
+	entry 'HKUST-Pump House Prof low/high' 'display shalowan-prof3' \
+		(dm$config = 'shalowan-prof3')
+
 endmenu
 
 !
@@ -347,10 +432,10 @@ define widget Locations intmenu 'LANTEX location overlays'
 	line
 	entry 'Ops Center, HKUST' \
 		'putc2 p_loc icon ops-ctr platform ops-ctr'
-	entry 'ISS Waglan Location' \
-		'putc1 p_iss_loc platform iss/class'
-	entry 'Lantau Profiler' \
-		'putc1 p_iss_loc platform lantau/profiler'
+	entry 'ISS on Waglan' \
+		'putc1 p_iss_loc platform iss'
+	entry 'HKUST-Pump House Profiler' \
+		'putc1 p_iss_loc platform profiler'
 	entry 'LIDAR on CLK' \
 		'putc2 p_loc icon radar-loc platform lidar'
 	entry 'RO Radar' \
