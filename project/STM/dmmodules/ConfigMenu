@@ -3,5 +3,6 @@ define widget saved-config-menu intmenu 'saved configurations'
 	title 'Saved Configurations'
 	line
 	entry 'empty' 'display empty' (dm$config = 'empty')
+	entry 'smos-realtime' 'display smos-realtime' (dm$config = 'smos-realtime')
 	entry 'uav-track' 'display uav-track' (dm$config = 'uav-track')
 endmenu
