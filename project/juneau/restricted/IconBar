@@ -1,7 +1,11 @@
-! $Id: IconBar,v 1.4 1997-03-31 16:43:17 granger Exp $
+! $Id: IconBar,v 1.5 1997-04-02 22:10:03 granger Exp $
 !
 
-set ui$bitmap_directory concat(c$libdir, "/icons")
+!
+! We only need the big Zebra icon, which is not a standard library
+! icon anyway.
+!
+set ui$bitmap_directory "./icons"
 
 if (EnableTimePopup)
 	set time_entry "entry 'Time Control...' 'popup time'"
