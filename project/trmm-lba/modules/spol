@@ -1,5 +1,5 @@
 !
-! $Id: spol,v 1.2 2002-10-18 00:08:59 burghart Exp $
+! $Id: spol,v 1.3 2002-10-18 00:32:33 burghart Exp $
 !
 
 require radar
@@ -11,11 +11,11 @@ require color-table
 !
 procedure toggle_main
         local fld PDParam("p_polar", "field")
-        if (fld = "dbz")
-                param p_polar field vr
+        if (fld = "dz")
+                param p_polar field ve
 !                param p_radar color-table ncarvel
         else
-                param p_polar field dbz
+                param p_polar field dz
 !                param p_radar color-table ncarrefl
         endif
 endprocedure
@@ -62,10 +62,10 @@ endmenu
 define widget spol-fields intmenu 'x'
 	title 'SPol fields'
 	line
-	entry 'Reflectivity' 'param #icon_component field dbz' \
-		(PDParam (icon_component, 'field') = 'dbz')
-	entry 'Velocity (VR)' 'param #icon_component field vr' \
-		(PDParam (icon_component, 'field') = 'vr')
+	entry 'Reflectivity (DZ)' 'param #icon_component field dz' \
+		(PDParam (icon_component, 'field') = 'dz')
+!	entry 'Velocity (VR)' 'param #icon_component field vr' \
+!		(PDParam (icon_component, 'field') = 'vr')
 	entry 'Velocity (VE)' 'param #icon_component field ve' \
 		(PDParam (icon_component, 'field') = 've')
 	entry 'Log power (DM)' 'parameter #icon_component field dm' \
