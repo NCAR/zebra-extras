@@ -1,0 +1,16 @@
+global
+	pd-name:	p_isff_sites
+p_isff_sites
+	platform:	ISFF1,ISFF2,ISFF3,ISFF4,ISFF5,ISFF6,ISFF7,ISFF8,ISFF9,CU_flux
+	representation:	overlay
+	field:		location
+	color:		white
+	icon-left-menu:		minimal-cap-left-menu
+	posicon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	posicon-right-menu:	location-options
+	label:		platform
+	active-icon:	false
+	require:	location
+	label-size:	12
+	icon:		pam-loc

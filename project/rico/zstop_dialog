@@ -1,0 +1,7 @@
+#!/bin/csh
+if ({ gdialog --yesno "Shut down Zebra (including data store)?" 1 1 }) then
+    gdialog --infobox "Stopping all of Zebra" 1 1
+    /net/zebra/bin/zstop
+    sleep 4
+    gdialog --clear
+endif

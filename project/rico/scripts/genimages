@@ -1,0 +1,8 @@
+#!/bin/csh
+set logfile = "/net/ops/run/genimages.log"
+if (! -f $logfile) touch $logfile
+
+set datestring = `date +"%d-%b-%Y,%H:%M"`
+
+zconfig /net/ops/zebra zplotbatch $datestring dbz_auto x >>& $logfile
+zconfig /net/ops/zebra zplotbatch $datestring vr_auto x >>& $logfile

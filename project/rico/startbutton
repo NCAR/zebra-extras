@@ -1,0 +1,68 @@
+#!/usr/bin/python
+#
+
+from Tkinter import *
+import os
+import sys
+import time
+
+
+class Main (Frame):
+    def __init__ (self, master = None):
+	Frame.__init__ (self, master)
+	self.pack ()
+	self.l = Label (self, bitmap = '@/net/zebra/lib/icons/global',
+			foreground = 'yellow', background = 'darkblue')
+	self.l.pack (side = 'left')
+	#
+	# Redirect stdout to a log file
+	#
+	hostname = os.popen('hostname -a', 'r').readline()[:-2]
+	self.logname = os.environ['HOME'] + '/startbutton.' + hostname + '.log'
+	self.logfile = open(self.logname, 'w')
+	self.logfile.write(sys.argv[0] + ' started at ' + 
+			   time.ctime (time.time()) + '\n')
+	self.logfile.flush()
+
+	#
+	# Make sure that the ZEBRA_MASTER environment variable is set (since
+	# it's needed by startup and newdisplay)
+	#
+	def_zebra_master = "zebu"
+
+	try:
+	    zebra_master = os.environ["ZEBRA_MASTER"]
+	except:
+	    os.environ["ZEBRA_MASTER"] = def_zebra_master
+	    zebra_master = def_zebra_master
+
+	self.label = Label (self, foreground='red',
+			    text = 'Zebra (master is ' + 
+			    zebra_master + ')')
+	self.label.pack (side = 'top')
+	self.button = Button (self, text = 'Click here to start system',
+			      command = self.doit)
+        self.button.pack (side = 'top')
+	self.buttonRPG = Button (self, text = 'Click here to halt RPG',
+			      command = self.killRPG)
+        self.buttonRPG.pack (side = 'top')
+
+
+    def doit (self):
+	self.button['text'] = '...Zebra starting now...'
+	self.button.flash ()
+	#
+	# Run startup, appending its output to our log file
+	#
+	os.environ['STARTBUTTON_USED'] = 'certainly'
+	self.logfile.close()
+	os.system ('/net/ops/zebra/startup >> ' + self.logname + ' 2>&1')
+	sys.exit (0)
+
+    def killRPG(self):
+        cmd = "killall rpg_rain rpg_pid dist_products.py "
+        os.system(cmd)
+
+
+win = Main ()
+win.mainloop ()
