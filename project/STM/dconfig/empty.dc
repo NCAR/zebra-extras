@@ -2,6 +2,6 @@
 
 
 config empty
-	widget 'iconbar' 7 9 505 62
+	widget 'iconbar' 70 80 335 62
 endconfig
 
