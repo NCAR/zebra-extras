@@ -1,0 +1,12 @@
+Make links to platwatch in this directory as appropriate.
+E.g., start_watchers currently assumes existence of 
+platwatch.radar_composite, platwatch.goes_1km, etc.
+The links can be created as:
+
+	$ ln -s platwatch platwatch.radar_composite
+	$ ln -s platwatch platwatch.goes_1km
+	...
+
+Unfortunately, such links cannot be checked into CVS, so
+they cannot be kept in the repository and just checked
+out with the rest of the project.
