@@ -1,0 +1,60 @@
+!
+! $Id: refract_storm,v 1.1.1.1 2004-01-13 17:06:25 burghart Exp $
+!
+
+require radar
+require spol
+require contour
+require color-table
+
+!
+! Simple refractivity support stuff
+!
+procedure toggle_main
+        local fld PDParam("p_refract_storm", "field")
+        if (fld = "n")
+                param p_refract_storm field delta_n
+        else
+                param p_refract_storm field n
+        endif
+endprocedure
+
+!
+! Support for the p_refract_storm PD component.
+!
+
+define widget refract_storm-middle intmenu 'refract middle'
+	title 'Refractivity options'
+	line
+	submenu 'Fields' 'refract-fields'
+	submenu 'Representation' 'spol-rep'
+	submenu 'Color tables' Color-tables
+	line
+	entry 'Data time chooser' runtimechooser
+	line
+	entry 'Highlighting...' 'popup highlight'
+	entry 'Thresholding...' 'popup pol_threshold'
+endmenu
+
+define widget refract-fields intmenu 'x'
+	title 'Refractivity fields'
+	line
+	entry 'Refractivity N' 'param #icon_component field n' \
+		(PDParam (icon_component, 'field') = 'n')
+	entry 'Refractivity delta N' 'param #icon_component field delta_n' \
+		(PDParam (icon_component, 'field') = 'delta_n')
+	entry 'KDP precip accumulation' 'param #icon_component field kac' \
+		(PDParam (icon_component, 'field') = 'kac')
+	entry 'NSSL KDP precip accumulation' 'param #icon_component field nac' \
+		(PDParam (icon_component, 'field') = 'nac')
+	entry 'ZDR precip accumulation' 'param #icon_component field dac' \
+		(PDParam (icon_component, 'field') = 'dac')
+	entry 'Z-R precip accumulation' 'param #icon_component field zac' \
+		(PDParam (icon_component, 'field') = 'zac')
+	entry 'Hybrid precip accumulation' 'param #icon_component field hac' \
+		(PDParam (icon_component, 'field') = 'hac')
+	entry 'Radial velocity' 'param #icon_component field vr' \
+		(PDParam (icon_component, 'field') = 'vr')
+	line
+	entry 'Pop up field chooser widget' 'popup FChooser'
+endmenu

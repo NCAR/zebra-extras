@@ -1,0 +1,291 @@
+! $Id: IconBar,v 1.1.1.1 2004-01-13 17:06:20 burghart Exp $
+!
+! Generic IconBar template
+!
+
+set ui$bitmap_directory concat(c$libdir, "/icons")
+
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	noheader
+	!
+	! Define the menus
+	!
+	menu help bitmap iconbar-help
+		title 'Zeb Help Access'
+		line
+		entry 'Introduction' 'help intro'
+		entry 'On-line topics' 'help index'
+		entry 'Starting Zebra' 'help start'
+		entry 'Shutting down' 'help shut-down'
+		entry 'Keys and mouse buttons' 'help keys'
+		entry 'The icon bar' 'help iconbar'
+		entry 'Editing display configurations' 'help editing-configs'
+		line
+		entry 'Horizontal plots' 'help horizontal-plots'
+		entry 'Skew-t plots' 'help skewt'
+		entry 'XYGraph plots' 'help xy-graphs'
+		entry 'Cross-section plots' 'help cross-section'
+	endmenu
+	menu tools bitmap tools-big
+		title 'Tools'
+		line
+		entry 'Time widget'	'popup time'
+		entry 'Make a print' 'popup hardcopy'
+		line
+		entry 'Add display window' 'popup newwindow'
+		entry 'Delete display window' 'popup zorchwindow'
+		entry 'Save current configuration' 'popup saveconfig'
+		line
+		entry 'Enter aircraft locations' 'popup enter'
+!                entry 'Enter Convair locations (lat,lon,ft)' \
+!      'shell "xterm -T convairmanual -e latlon_position convairmanual UW-Convair &"'
+!                entry 'Enter File of Convair Locations' \
+!                      'shell "xterm -T convair -e batch_track.py &"'
+		line
+	        
+		entry 'Scan optimizer' 'shell "Optimizer optimizer.config &"'
+		line
+		entry 'Data store contents' 'shell "dsdwidget &"'
+		entry 'Data store management' 'shell "dsmanage &"'
+		entry 'Event logger' 'shell "EventLogger -w &"'
+		line
+		entry 'Save Screen Image' 'shell "grabpng &"'
+		entry 'Print Screen Image' 'shell "printWin &"'
+		line
+		entry 'Zero Out Rain Accumulation' \
+			'shell "/ops/bin/reset_rain &" '
+		line
+		entry 'Generate Dual Pol Images' \
+			'shell "/zebra/bin/start_dual_pol_images&" '
+		entry 'Generate Single Pol Images' \
+			'shell "/zebra/bin/start_single_pol_images&" '
+		line
+		entry 'Stop Image Generation' \
+			'shell "/zebra/bin/stop_zebra_images&" '
+		line
+		entry 'Shut down Zebra' 'shutdown'
+	endmenu
+!
+! The project display configurations are added in this menu
+!
+	menu configs bitmap configs
+		title 'Display configurations'
+		line
+		entry 'Single-window basic radar' 'display radaronly' \
+			(dm$config = 'radaronly')
+		entry 'Satellite and radar' 'display sat_and_radar' \
+			(dm$config = 'sat_and_radar')
+		entry 'Four precip windows' 'display megaprecip' \
+			(dm$config = 'megaprecip')
+		entry 'Radar + precip + particle types' 'display rad-pre-pd' \
+		      	(dm$config = 'rad-pre-pd')
+		entry 'Two radar windows + precip' 'display radar2win' \
+			(dm$config = 'radar2win')
+		line
+		entry 'crystal1' 'display crystal1' (dm$config = 'crystal1')
+		entry 'crystal2' 'display crystal2' (dm$config = 'crystal2')
+		entry 'crystal3' 'display crystal3' (dm$config = 'crystal3')
+		line
+
+		line
+		entry 'jimbig' 'display jimbig' (dm$config = 'jimbig')
+		entry 'jim2' 'display jim2' (dm$config = 'jim2')
+		entry 'jim3' 'display jim3' (dm$config = 'jim3')
+		line
+		entry 'dual_pol_web_images' 'display dual_pol_images1' \
+			(dm$config = 'dual_pol_images1')
+		entry 'single_pol_web_images' 'display single_pol_images1' \
+			(dm$config = 'single_pol_images1')
+		line
+		entry 'Empty screen' 'display empty' (dm$config = 'empty')
+	endmenu
+!
+! General platform/data menus here
+!
+! Example:
+!	menu satellite bitmap satellite
+!		title 'Satellite Data'
+!		line
+!		entry 'GOES Visible' 'putc2 c_goes platform goes field vis'
+!		entry 'GOES IR' 'putc2 c_goes platform goes field ir'
+!		line
+!	endmenu
+	menu radar bitmap radar
+		title 'Radar Data'
+		line
+		entry 'S-Pol' 'putc2 p_polar platform spol field dbz'
+		entry 'S-Pol (Norman)' 'putc0 p_polar-norman'
+		entry 'Particle types' 'putc0 p_pdesc'
+		entry 'Particle types (Norman)' 'putc1 p_pdesc platform spol'
+		entry 'Precip' 'putc1 c_precip platform precip.basic'
+		entry 'Nexrad composite' 'putc0 p_composite'
+		entry 'Refractivity' \
+			'putc2 p_refract_storm platform refract_storm field n'
+		entry 'AP' 'putc2 p_polar platform AP field dbz'
+!		submenu 'Nexrad level 2' 'nexrad_level2'
+!		entry 'Binet winds' 'putc0 p_binet_winds'
+	endmenu
+	menu satellite bitmap satellite
+		title 'Satellite Data'
+		line
+!		entry 'GOES 1 km' \
+!			'putc2 p_goes platform goes_1km icon sat_1km'
+!		entry 'GOES 4 km' \
+!			'putc2 p_goes platform goes_4km icon sat_4km'
+	endmenu
+	menu aircraft bitmap aircraft
+		title 'Aircraft'
+		line
+!                entry 'NRL P3' \
+!			'putc3 p_track platform p3 icon p3 color pink'
+!                entry 'NASA DC-8' \
+!			'putc3 p_track platform dc8 icon dc8 color white'
+!	endmenu
+!	menu mesonet bitmap mesonet
+!		title 'Mesonet'
+!		line
+!		entry '15-minute mesonet' 'putc0 p_mesonet'
+	endmenu
+
+!
+! Maps, locations and other informational overlays
+!
+	menu 'overlays' bitmap overlays
+		title 'Static Overlays'
+		line
+		entry 'State borders' \
+		    'putc3 p_map platform state icon state color yellow3'
+		entry 'Rivers and lakes' \
+		    'putc3 p_map platform water icon rivers color cyan3'
+		entry 'Filled lakes' \
+		    'putc3 p_map platform fwater icon lakes color blue3'
+		entry 'Roads' \
+		    'putc3 p_map platform road icon roads color gray30'
+		entry 'County' \
+		    'putc3 p_map platform county icon county color tan'
+		line
+		entry 'X-Y Grid (km)' \
+		    'putc3 p_kmgrid x-spacing 100 y-spacing 100 color cyan'
+		entry 'Lat/Lon Grid' \
+		    'putc3 p_llgrid x-spacing 60 y-spacing 60 color gray70'
+		entry 'Dual-Doppler Lobes' \
+		    'putc3 p_map platform lobes icon ddop-lobes color black'
+		line
+		entry 'Topography (for plan views)' 'putc0 p_elev'
+		line
+		entry 'Radar range rings' 'putc1 p_rings platform spol'
+		entry 'Radar locations' 'do_radar_locs'
+		entry 'Radar composite boundary' \
+    'putc3 p_map platform composite_bounds icon rectangle color cyan4'
+		entry 'Center point' \
+    'putc3 p_loc platform center-point trigger platform trigger-global true'
+		line
+		entry 'AERI sites' 'putc0 p_aeri'
+		entry 'ISFF sites' 'putc0 p_isff_sites'
+		entry 'Extra NCAR surface sites' 'putc0 p_ncarsfc_sites'
+		entry 'NWS sites' 'putc0 p_nws'
+		line
+!		entry 'Optimizer boundary' 'putc0 p_opt_boundary'
+		entry 'Window Bounds' 'put_wbounds p_wbounds'
+	endmenu
+enddef
+
+!
+! Put in window bounds.
+!
+procedure put_wbounds comp string
+!
+! Get the window we want to see.
+!
+	set wbounds_win "none"
+	pickwin wbounds_win
+	if (wbounds_win = "none")
+		beep
+		return
+	endif
+!
+! And now the place where it goes.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")
+		beep
+		return
+	endif
+!
+! Fix up the component and ship it over.
+!
+	parameter #comp #comp platform #wbounds_win
+	add #comp #comp #target_win
+endprocedure
+
+
+!
+! Add radar locations
+!
+procedure do_radar_locs
+	local radars "spol,KAMA,KDDC,KFDR,KFTG,KFWS,KGLD,KICT,KINX,KLBB,KTLX,KVNX"
+	putc2 p_loc active-icon false platform #radars
+endprocedure
+
+
+!
+! Put radar data in a CAP or xsect window
+!
+procedure PutRadar platform string
+    !
+    ! Start by finding a window.
+    !
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+
+	local ptype PDParam(target_win,'global','plot-type')
+    !
+    ! Choose the appropriate pd component template based on the plot type
+    !
+	if (ptype = "xsect")
+		local comp "p_fcontour"
+		parameter #comp #comp grid-method bilinear
+	else
+		local comp "p_raster"
+	endif
+    !
+    ! Tweak it up and send it out
+    !
+	parameter #comp #comp platform #platform
+	parameter #comp #comp icon #platform
+	parameter #comp #comp field maxdz
+	sendout #comp #target_win
+endprocedure
+
+define widget nexrad_level2 intmenu ' '
+	entry 'KAMA (Amarillo)' \
+		'putc2 p_nexrad_l2 platform KAMA icon KAMA'
+	entry 'KDDC (Dodge City)' \
+		'putc2 p_nexrad_l2 platform KDDC icon KDDC'
+	entry 'KFDR (Frederick)' \
+		'putc2 p_nexrad_l2 platform KFDR icon KFDR'
+	entry 'KFTG (Denver)' \
+		'putc2 p_nexrad_l2 platform KFTG icon KFTG'
+	entry 'KFWS (Dallas/Ft. Worth)' \
+		'putc2 p_nexrad_l2 platform KFWS icon KFWS'
+	entry 'KGLD (Goodland)' \
+		'putc2 p_nexrad_l2 platform KGLD icon KGLD'
+	entry 'KICT (Wichita)' \
+		'putc2 p_nexrad_l2 platform KICT icon KICT'
+	entry 'KINX (Tulsa)' \
+		'putc2 p_nexrad_l2 platform KINX icon KINX'
+	entry 'KLBB (Lubbock)' \
+		'putc2 p_nexrad_l2 platform KLBB icon KLBB'
+	entry 'KTLX (Oklahoma City)' \
+		'putc2 p_nexrad_l2 platform KTLX icon KTLX'
+	entry 'KVNX (Vance)' \
+		'putc2 p_nexrad_l2 platform KVNX icon KVNX'
+endmenu

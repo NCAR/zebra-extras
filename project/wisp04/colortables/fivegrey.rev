@@ -1,0 +1,7 @@
+colortable fivegrey.rev
+	xcolor grey90
+	xcolor grey70
+	xcolor grey50
+	xcolor grey30
+	xcolor grey10
+endtable

@@ -1,0 +1,21 @@
+!
+! raster component for map_topo data
+!
+global
+	pd-name:	p_topo
+p_topo
+	color-table:	Topo
+	field:		topo
+	grid-method:	bilinear
+	icon:		topo
+	icon-right-menu:	contour-right
+	limit-proc:	contour-putup-adj
+	out-of-range-color:	none
+	platform:	map_topo
+	representation:	filled-contour
+	require:	contour
+	sa-show:	false
+	scale-mode:	manual
+	topo-center:	-50
+	topo-step:	100
+

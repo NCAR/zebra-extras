@@ -1,0 +1,30 @@
+!
+! $Id: spol-norman,v 1.1.1.1 2004-01-13 17:06:25 burghart Exp $
+!
+
+!
+! Override a couple of things from the normal spol module, since
+! the sweep files look slightly different in Norman.
+!
+
+require spol
+
+procedure toggle_main
+        local fld PDParam("p_polar-norman", "field")
+        if (fld = "dbz")
+                param p_polar-norman field vt
+        else
+                param p_polar-norman field dbz
+        endif
+endprocedure
+
+define widget spol-fields intmenu 'x'
+	title 'SPol fields'
+	line
+	entry 'Reflectivity' 'param #icon_component field dbz' \
+		(PDParam (icon_component, 'field') = 'dbz')
+	entry 'Velocity' 'param #icon_component field vt' \
+		(PDParam (icon_component, 'field') = 'vt')
+	entry 'Differential reflectivity' 'param #icon_component field zdr' \
+		(PDParam (icon_component, 'field') = 'zdr')
+endmenu
