@@ -1,7 +1,7 @@
 ! Auto-saved display configuration.
 config pro_hi_combo24
-	widget 'iconbar' 5 25 74 518
-	window 'sounding' 667 25 476 863 gp gp.init
+	widget 'iconbar' 5 26 74 518
+	window 'sounding' 655 541 488 347 gp gp.init
 		description 'pro_hi_combo24-sounding'
 		buttonmap 'sounding'
 		forcepd
@@ -9,6 +9,11 @@ config pro_hi_combo24
 	window 'wind' 90 25 1052 533 gp gp.init
 		description 'pro_hi_combo24-wind'
 		buttonmap 'xyplot'
+		forcepd
+	endwindow
+	window 'surface_plot' 22 541 484 347 gp gp.init
+		description 'pro_hi_combo24-surface_plot'
+		buttonmap 'default'
 		forcepd
 	endwindow
 endconfig
@@ -99,5 +104,62 @@ component 915prof
    parameter xyprivate-y-min           '0.0000'
    parameter xyprivate-y-type          'f'
    parameter y-field                   'height'
+endpd
+
+beginpd 'pro_hi_combo24-surface_plot'
+global
+   parameter altitude-label            '?'
+   parameter pd-name                   'pro_hi_combo24-surface_plot'
+   parameter plot-mode                 'real-time'
+   parameter plot-time                 'now'
+   parameter plot-type                 'CAP'
+   parameter x-max                     '13.5553'
+   parameter x-min                     '-12.6918'
+   parameter y-max                     '-16.0294'
+   parameter y-min                     '3.7516'
+component p_map
+   parameter color                     'blue'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'hk_terrain'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_map.0
+   parameter color                     'gray40'
+   parameter field                     'map'
+   parameter icon                      'contours'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'hk_contours'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_station
+   parameter active-icon               'true'
+   parameter annot-field-menu-extras   'station|Station Identification,none'
+   parameter annot-left-menu           'FieldMenu'
+   parameter annot-middle-menu         'FieldMenu'
+   parameter arrow-scale               '0.01'
+   parameter color                     'white'
+   parameter do-shape                  'true'
+   parameter field-select-command      'p_toggle_quadrant'
+   parameter icon-field-menu-extras    'station|Station Identification'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'FieldMenu'
+   parameter icon-right-menu           'p-station-right'
+   parameter limit-proc                'adj_arrow_scale'
+   parameter platform                  'aws'
+   parameter posicon-middle-menu       'FieldMenu'
+   parameter quad1                     'none'
+   parameter quad2                     'wspd'
+   parameter quad4                     'station'
+   parameter representation            'station'
+   parameter require                   'station, simple-color'
+   parameter sa-scale                  '0.03'
+   parameter u-field                   'u_wind'
+   parameter v-field                   'v_wind'
 endpd
 
