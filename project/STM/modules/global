@@ -1,5 +1,5 @@
 !
-! $Id: global,v 1.1.1.1 1995-03-17 19:57:41 granger Exp $
+! $Id: global,v 1.2 1995-09-28 13:43:48 granger Exp $
 !
 ! Universal menus and procedures needed by all graphics processes.
 ! This module is required directly by gp.init and overrides the default
@@ -21,9 +21,12 @@ define widget global-left intmenu 'Global left menu'
 	line
 	submenu 'Choose Window Region' sgp-scales
 	submenu 'Change Scale' 'global-scale-menu'
-	submenu 'Set Window Range' global-adjust-limits
 	submenu 'Window Operations' global-window-ops
+	submenu 'Layout Parameters'  global-layout
+	line
+	entry 'Help on this Plot Type' 'plot-type-help'
 endmenu
+
 
 !
 ! SGP regions
