@@ -1,9 +1,96 @@
 #! /bin/csh -f
 #
-if (! $?DATA_DIR) setenv DATA_DIR /net/sssf3/lake_ice
+# We are sourced by zstart as soon as the project directory is known.
+# Our current working directory will be the project directory.  This is the
+# first entry point into project configuration from the generic zstart,
+# so it is where we parse the project name for options and multiple
+# projects.
+#
 
-setenv ZEB_TOPDIR /net/sssf3/lake_ice/zebra
-setenv ZEB_PROJDIR $ZEB_TOPDIR/project/lake_ice
-setenv ZEB_CACHEDIR $ZEB_PROJDIR/tmp
-#setenv PRESERVE_ZEB yes
+# projdir should be internal to zstart and not used here, but it can
+# be a useful diagnostic.
+# echo "Executing proj_env for project $projdir"
+
+# Set some defaults which the site rc files can override.
+unsetenv ZEBRA_REALTIME
+unsetenv ZEBRA_INGEST_ENABLED
+
+setenv ZEB_CACHEDIR tmp
+
+if (! $?DATA_DIR) setenv DATA_DIR /net/sssf2/datastore
+
+# ----- This is an old method, removed in favor of using project options
+# ----- added to zstart.
+# Separate the path into components, eliminating all left of
+# our principal project name (iss), and look for rc files to
+# source for each.
+#set options=(`echo $ZEB_PROJDIR | sed -e 's,^iss/,,' -e 's,.*/iss/,,' -e 's,/, ,g'`)
+
+set options=()
+set options=($options $*)
+echo "Looking for project options: $options"
+
+set projects=""
+set site=""
+
+foreach rc ($options)
+
+    if ("$rc" == "help") then
+	echo "Use the project options to specify the set of field projects"
+	echo "for this session.  These are the known field projects:"
+	\ls projects | egrep -v CVS
+	echo "Multiple field projects can be listed, as long as all have"
+	echo "directories under the top data directory."
+	echo "Press Ctl-C to quit, <enter> to continue."
+	read a
+    endif
+    if ("$rc" == ".") continue
+    set file="rc/$rc.rc"
+    if ( -f $file ) then
+	echo "Source $file..."
+	source $file
+    endif
+    if ( -d projects/"$rc" ) then
+	echo "Adding project $rc."
+	set projects="$projects $rc"
+    endif
+
+end
+
+if ( "x$projects" == "x" ) then
+    set projects="iss"
+else
+    echo "Using projects: $projects"
+endif
+
+# ---- If we're using the 'iss' project, get our projects 
+#      from the immediate subdirectories of the projects subdirectory.
+#
+# Note that we don't know the data directory from zstart at this point,
+# so to use the projects found under the data directory would require
+# something different, and we would still need to know the sites for each
+# project, which we only know if we have a project subdirectory in
+# the project configuration.
+# 
+if ("$projects" == "iss") then
+    echo "Searching projects..."
+    set projects=""
+    set subs=(`\ls projects`)
+    foreach rc ($subs END)
+	if ( -d projects/$rc ) then
+	    echo "Adding project $rc."
+	    set projects="$projects $rc"
+	endif
+    end
+endif
+
+if ("$projects" == "") then
+    echo "No field projects found.  Using 'iss' and hoping for the best."
+    set projects="iss"
+endif
+
+# This is what project.config uses to set the Projects UI variable, which
+# ds uses to assemble the hierarchy of platforms.
+#
+setenv ISS_PROJECTS "$projects"
 

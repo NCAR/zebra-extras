@@ -1,0 +1,26 @@
+#! /bin/csh
+#
+# Start any extra processes for this zebra session which do not need
+# the datastore daemon, since it will not have been started yet.
+# Ingestors are expected to be started elsewhere by other scripts.
+# This script only concerns itself with the display.  The configuration
+# and starting of the datastore daemon remains and should remain the
+# concern of the zstart script.
+#
+
+# This might be useful someday, so keep it around.
+
+#  # ---- If we're using the 'iss' project, get our projects 
+#  #      from the immediate subdirectories of the data directory.
+
+#  if ("$projects" == "iss") then
+#      set projects=""
+#      set subs=(`\ls $DATA_DIR`)
+#      foreach rc ($subs)
+#  	if ( -d projects/$rc ) then
+#  	    echo "Adding project $rc."
+#  	    set projects="$projects $rc"
+#  	endif
+#      end
+#  endif
+

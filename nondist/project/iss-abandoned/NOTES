@@ -1,0 +1,347 @@
+
+Steps to do next:
+
+Copy cap-iss module from library and start over.
+
+reconcile iss-mine and iss-new modules.
+
+can we merely override parts of library modules? e.g.:
+
+	"read c$libdir/gplib/<module>" at top of local module
+
+reconcile heavily changed xywind or rename to iss-xywind or something
+
+
+in dm modules:
+
+
+can now use require for files like buttonmaps, allowing standard ones to be
+found in library (dmlib) if not in project; split ButtonMaps into separate
+maps by buttonmap name, then require then in a basic ButtonMaps file in
+dmlib.  same for standard DisplayConfigs.
+
+define import command to read a file from the library, such as at the head
+of a project module which wants to import the library version and redefine
+only part of it: put import (or inherit?) in global dm.widgets file.
+
+----------------
+
+within the single iss config, allow project-specific changes either on the
+cvs tree, or by inserting a project-specific path for modules, pds, global
+parameter defaults and the like -- this will be similar to approach for
+admin/operator behavior.  
+
+for the iss display config, four combinations of two parameters:
+
+	realtime	IS and ingestors running versus 
+			post-project, no ingestors
+
+	operator	versus admin, which determines capabilities
+			of display
+
+although operator will always be realtime? except for testing?
+does it matter if ingestors are running, as long as no files appear
+in the spool directories for ingesting?  Or cancel the ingesting if
+the spool directories do not exist...
+
+create a "project pd" which contains parameters like realtime, operator,
+site, and so on for use in ui configuration code?  dm.config could read a
+default from the pd path (which includes project-specific directory), then
+add the run-time parameters like realtime or username or overridden site
+name.
+
+Need a sitename-dependent data tree so that one tree can share data for
+multiple sites in either field or post-project mode.
+
+field derivations: can we somehow get the units, description, and type for
+a derived field from the field which was used to derive it?  If units are
+not specified, then they are the units of the source field, but that
+association is not made anywhere.  Application gets an id for a possibly
+incomplete field, then fetches it, which may cause derivations, but we
+can't change the field then.  
+
+Leave a 'FieldId' as just that, something to identify the parameters for a
+field "search", but data in a datachunk need units associated with them
+just like locations, so the derivation field, units, long name, and so on,
+should be stored in the datachunk, perhaps as attributes, and applications
+should call into the datachunk to get the more-fully-qualified, field
+"meta"-identification from the datachunk:
+
+	dc_FieldName (dc, id);
+	dc_FieldLongName (dc, id);
+	dc_FieldUnits (dc, id);
+
+
+i think most, if not all, of the gp/Widgets file can go.  It really should
+be split into modules and the truly global stuff combined with global stuff
+elsewhere.
+
+need a realtime or cleanup variable to disable cleaning in ds.config
+
+put configuration notes into project directory as a README
+
+how hard to get ds to use and provide plot description interface to get
+project variables into ds.config?
+
+if we could attach arbitrary info to platforms, perhaps in the comment, we
+could extract info like time limits and default fields by parsing dsdump
+output, for insertion into defaults pd and use in IconBar.  Add a
+'database' or 'table' option to dsdump, which lists platforms and platform
+fields in a given order:
+
+	dsdump -table 'name class filetype org comment'
+
+Dump the entire database at runtime and parse when generating IconBar and
+tweaking defaults.
+
+Really the determination of the default field should wait until fetching
+data, since it might depend on the organization being fetched.  Define a
+special field named 'default' or 'field' which signals datastore api to
+return a single field which fits requested datachunk org.  This is like a
+derivation in fact, and so it might be specified in the platform's
+derivations:
+
+default[T][][] = tdry;
+
+And we could start asking for fields by type instead of name: [T]
+
+The default field should be part of the platform class: if we had an
+easy way to get the class of a platform, we might be able to plot
+default fields by putting concatenated names in the default deriviations.
+e.g., CLASS-default: [T], Surface-default: [P], Profiler-default: wspd
+
+Fix profiler ingestor to store units, long name, and such with profiler
+data fields.
+
+Displays should really make fields the focus, so field specifications
+should include the platform, rather than putting the platform in a
+separate parameter:
+
+	x-field: time
+	y-field: iss1/surf/default
+
+	field: iss1/prof915l/wspd, iss2/prof915l/wspd, iss3/prof915l/wspd
+	field: iss1/surface_met/[T]
+
+These automatically imply that the plot is dependent on all of the
+platforms listed and that they should be triggers, or "dependencies".
+There is no need for a separate platform parameter, and in labeling there
+would not be any question where the field came from.  (Allow choice between
+labellin with the requested field name instead of the descriptive name.)
+It might also allow pattern matching to select multiple fields, such as
+
+	field: iss1/surf/rad.*
+	field: iss1/surf/
+	field: */surf/tdry
+
+This would be an interesting addition to field menus.
+
+If field 'wind' eventually can mean a vector, then wind/x and wind/y and
+wind/spd and wind/dir can indicate the components of the vector.  if those
+variable components then contained the units indicating compass or
+cartesian, the plot description parameters would no longer be needed.
+
+zstart needs a -force option to force restart of a session rather prompt.
+ --> I did not add this to latest zstart changes, which included project
+     options to get past the project/option/option kludge, because I
+     don't remember why it was all that useful
+
+If we want to look at data from more than one project, can we read each
+project's ds.config file?  Or its just a matter of instantiating platforms
+from a list of multiple projects or sites, and IconBar will include them
+automatically...
+
+Put the ISS definitions in their own ds.iss file, and add other platforms
+like class in separate files, and add the files to a list of files for
+ds.config to include to get all the defns for a project.  Could be like
+includes: if ds.iss, which contains the class definitions, already read,
+skip it, and then another file can instantiate iss platforms.
+
+FieldMenus should be specifiable by platform, such as a defaults parameter
+qualified by platform name (or regexp? or platform class?)
+
+	<platform>-fieldmenu:	profiler-field-menu
+
+Use the set-field parameter and command as usual, but allow the fields to
+be shown nicely, with their units and descriptions (even when not in the
+file), and add derivable fields as well.  Or maybe put that information in
+ds.config, and check for it when getting a field list for a file?  Then any
+application will find out about derivable fields without knowing they're
+being derived.
+
+Before starting dsdaemon, check for ds.config files in each of the project
+directories and add them to the list if there.  There projects can add
+their own platforms and such.
+
+Essentially, each field project has its own sub-configuration parallel to
+usual project configuration: a ds config, a dm config (including pd's),
+perhaps their own iconbar additions, colortables, icons, and so.  How to
+universally and cleanly combine into one display session?  Or should they
+be?  Maybe we only allow one field project at a time for a zebra display,
+but just allow the sub-projects to easily share the global configuration
+and override where needed?  Do we really need to be able to compare data
+from different projects?  Is it enough to be able to run different displays
+for each project while sharing a single datastore? or even one datastore
+per project?  The original goal here was to share the operator and analysis
+configurations used in the field at home, which only requires one field
+project per display, if not just one facility...
+
+Note that because of platform name matching, running the field config with
+the shortened platform names (i.e., not qualified by project and site) will
+still match the correct platforms if the datastore daemon is started with
+only the iss platforms for that project and site.
+
+================================
+All configuration variables have envar counterparts and are put into
+the pd by dm.config
+
+
+
+configuration variables to set in a project pd:
+
+
+
+configuration variables to set for a site pd:
+
+default_datadir
+
+
+configuration variables for the run-time pd:
+
+realtime
+cleanup
+datadir
+windows = X or OW
+
+----------------
+Steps:
+
+
+Start iss configuration for all projects and sites under the given or
+default data directory:
+
+> zstart iss [-data xxx]
+
+Start iss1 site for realtime ingest with default data directory tree:
+
+> zstart -force iss/ingest/lake_ice/iss1
+
+Start iss2 site for realtime ingest with default data directory tree:
+
+> zstart -force iss/ingest/lake_ice/iss2
+
+Start iss1 site without ingest and a different data directory:
+
+> zstart iss/lake_ice/iss1
+
+Start a whole project's configuration for realtime (scans and updates)
+and no ingest:
+
+> zstart iss/realtime/lake_ice
+
+Start a single project without realtime option:
+
+> zstart iss/forestabl
+
+Start a session for multiple projects:
+
+> zstart iss/lake_ice/forestabl
+
+---------------- Sequence of events ----------------
+
+   o	zstart sets up paths and basic environment, finds project
+	directory, and sources proj_env
+
+   o	proj_env tries to source each project option, and checks
+	for components which indicate the project to add.
+
+   o	zstart begins zebra session: makes sure X display connection 
+	possible, and possibly restarts an existing zebra session
+
+   o	zstart sources proj_startup
+
+	   o	creates the runtime directory for this session and sets
+		ZEBRA_RUNTIME
+
+	   o	start datastore daemon
+
+		- ds daemon reads project.config
+
+		- reads each project's config file to collect site names
+		  project- and site-specific settings
+
+		- sets data directory, realtime, operator, ingest, and
+		  cleaning options based on environment and config variables
+
+		- instantiates site platforms
+
+	   o 	proj_startup checks if ingesting enabled
+
+		- starts Archiver and scheduler (is)
+
+		- is reads is.config, which reads project.config, which
+		  reads project-specific and site configs
+
+		- is starts processes in StartSchedules variable
+
+   o	zstart skips dsdaemon start, since daemon executable envariable
+	overridden by proj_startup
+
+   o	zstart starts display manager
+
+	   o	dm reads dm.config, which reads project.config and sets
+		lots of display configuration variables
+
+		- 
+
+		- dm runs the IconBar.sh script and reads the resulting
+		  IconBar UI code
+
+   o	Done.
+
+
+----------------
+How to adjust for operator mode and pick a default set of displays?
+
+Make gif generation a simple thing to add to any project, especially a web
+tree for each project which can be added to the atd web server:
+
+	specify table of (platform, display, window, the dm command to set
+	the window to a particular platform, and frequency of plots for
+	that platform) and use that to generate the gif for that platform.
+	
+Could eliminate display and window if window size were part of the pd, or
+if we were happy with using a single window size for all platforms.
+Perhaps use a special realtime gif pd template which includes the other
+information, such as the window size, dm command to change the platform,
+and frequency, then we don't need special template displays.  Should a
+realtime display just run in the background all the time, triggering on new
+data?  Write a simple program using the archiver db if to generate plots
+for new platforms as they come, given the platform/pd table.
+
+Add an option to zplotd to plot the last time recorded in a time file,
+thereby repeating the last plot instead of looking for anything since
+the time file. E.g. -at LastPlot instead of -since LastPlot.
+
+In datastore scanning, even if dirconst true for a source, the
+ScanDirectory() called by the initial scan tries to open the data directory
+in case delaydatadirs is false.  Shouldn't it all be short-circuited: if
+delaydatadirs is true and the source is dirconst, skip the opendir
+altogether.  should be faster...  in fact, in that case ScanDirectory()
+does not even need to be called for each platform.  we don't even need to
+loop through the platforms in DataScan, just return...  Does dirconst
+work if the cache file does not already exist?  Should that condition
+force a "forced rescan"?
+ --> Change made not committed.
+
+----------------
+
+Incorporate netscape-remote script from iss local into zebra bin and
+set it in dm.config like iss field config.
+
+
+----------------
+
+Eventually be able to "reconfigure": selectively add/remove
+projects/sites/platforms from datastore and then restart dm, regenerating
+new iconbar

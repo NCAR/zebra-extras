@@ -1,10 +1,10 @@
-! $Id: gp.init,v 1.1.1.1 1997-12-04 18:27:37 granger Exp $
+! $Id: gp.init,v 1.2 2000-06-06 22:57:31 granger Exp $
 !
 
 ! Our various path variables.
 !
 set RequirePath concat('./modules,',RequirePath)
-set MapPath concat('./maps,','MapPath')
+set MapPath concat('./maps,',MapPath)
 
 !
 ! We just gotta have this one...
@@ -66,6 +66,6 @@ endprocedure
 ! Get our field definitions.
 !
 !set DefFile (concat (concat (c$libdir, "/"), "FieldDefs"))
-set DefFile "FieldDefs"
-read #DefFile
+!set DefFile "FieldDefs"
+!read #DefFile
 
