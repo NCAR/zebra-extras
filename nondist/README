@@ -1,0 +1,7 @@
+
+This directory contains a source tree of files and programs which are
+pusposely not included in the general Zeb software distribution, either
+because the program will not compile, is not being maintained, is too
+specialized for general use, requires specialized knowledge to use, or
+has outlived its application.
+
