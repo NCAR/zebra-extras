@@ -1,0 +1,71 @@
+!
+! Load in our plot descriptions.
+!
+message 'Loading:'
+message '     ...plot descriptions...'
+pddir pd
+
+!
+! Normally run out of the gp directory, but, if instructed, we'll use the
+! installed version.
+!
+if (not defined("demo"))
+	set gpexec "/fcc/gp/gp"
+else
+	message 'Using INSTALLED gp'
+	set gpexec "/fcc/bin/gp"
+endif
+
+!
+! The graphics process initialization file.
+!
+set init_file "/fcc/etc/gp.init"
+
+!
+! Most of the interesting stuff is in other files -- if you looked here,
+! you lose!
+!
+message '     ...button maps...'
+read ButtonMaps
+message '     ...display configurations ...'
+read DisplayConfigs
+message '     ...color tables...'
+read ColorTables
+message '     ...the icon bar...'
+read IconBar
+message 'ready!'
+
+procedure dotable window string table string
+	parameter #window "base-mesonet" "color-table" #table
+endprocedure
+
+
+!
+! Handle zooming out of window menus.
+!
+procedure zoom window string
+	if (dm$config = "zoom")		! Already zoomed -- go back
+		display #previous_config
+	else
+		set previous_config dm$config
+		display zoom #window
+	endif
+endprocedure
+
+
+set IsSounding false
+
+procedure toggle_snd
+	if (IsSounding)
+		display picture
+	else
+		display pictures
+	endif
+	set IsSounding (not IsSounding)
+endprocedure
+
+!
+! Just come up with the mile high display from the beginning.
+!
+parameter defaults defaults file-path /bitter/dt/mhr
+display bigmhr

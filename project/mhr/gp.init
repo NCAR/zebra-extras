@@ -1,0 +1,434 @@
+!
+! The graphics process initialization file.
+!
+
+!
+! The default left button menu.
+!
+define widget leftmenu intmenu "leftmenu"
+	title 'Overlay Operations'
+	line
+	entry 'Adjust Limits' 'i_adjust'
+	line
+	entry 'Raise to top' 'move #icon_component 0'
+	entry 'Move to bottom' 'move #icon_component 1'
+	entry 'Remove' 'i_remove_component'
+endmenu
+
+
+
+!
+! Left button menu for the global component.
+!
+define widget global-left intmenu 'Global left menu'
+	title 'Global Options'
+	line
+	entry 'Adjust Global Limits' 'popup adjust_global_limits'
+	line 
+	entry 'Zoom window' 'dm "zoom #dm$button_window"'
+	line
+	entry 'Popup overlay times window' 'popup overlay'
+	line
+	entry 'Popup movie controller' 'popup movie'
+	entry 'Run movie' 'movie run'
+	entry 'Stop movie' 'movie stop'
+endmenu
+
+!
+! The Global Adjust Limits submenu
+!
+define widget adjust_global_limits cmenu "Adjust Global Limits"
+	entry 'X Limits' 'i_adj_x'
+	entry 'Y Limits' 'i_adj_y'
+enddef
+
+
+!
+! Label control for locations.
+!
+define widget location-right intmenu 'location'
+	title 'Location options'
+	line
+	entry 'Labels' 'toggle_label #icon_component label' \
+		(pd_param (icon_component, "label", "string") <> "none")
+endmenu
+
+
+!
+! Toggle the labels.
+!
+procedure toggle_label component string param string
+	local current pd_param(component,param,"string")
+	if (current = "none")
+		parameter #component #param platform
+	else
+		parameter #component #param none
+	endif
+endprocedure
+
+!
+! Adjustments to range rings.
+!
+define widget rings-menu intmenu 'rings adjustment'
+	title 'Range ring parameters'
+!	line
+!	entry 'CP4 center' 'parameter #icon_component platform cp4' \
+!		(pd_param (icon_component, "platform", "string") = 'cp4')
+!	entry 'CP3 center' 'parameter #icon_component platform cp3' \
+!		(pd_param (icon_component, "platform", "string") = 'cp3')
+	line
+	entry '10 km rings' 'parameter #icon_component ring-interval 10' \
+		(pd_param (icon_component, "ring-interval", "string") = '10')
+	entry '20 km rings' 'parameter #icon_component ring-interval 20' \
+		(pd_param (icon_component, "ring-interval", "string") = '20')
+	entry '30 km rings' 'parameter #icon_component ring-interval 30' \
+		(pd_param (icon_component, "ring-interval", "string") = '30')
+	entry '40 km rings' 'parameter #icon_component ring-interval 40' \
+		(pd_param (icon_component, "ring-interval", "string") = '40')
+	line
+	entry '30 degree lines' \
+		'parameter #icon_component azimuth-interval 30' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '30')
+	entry '45 degree lines' \
+		'parameter #icon_component azimuth-interval 45' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '45')
+	entry '90 degree lines' \
+		'parameter #icon_component azimuth-interval 90' \
+		(pd_param(icon_component, "azimuth-interval", "string") = '90')
+endmenu
+
+!
+! A color menu for components with a simple "color" component.
+!
+define widget simple-color intmenu 'simple colors'
+	title 'Change Color'
+	line
+	entry 'white' 'do_simple_color white'
+	entry 'black' 'do_simple_color black'
+	entry 'lavender' 'do_simple_color lavender'
+	entry 'gray' 'do_simple_color gray60'
+	entry 'blue' 'do_simple_color blue'
+	entry 'cyan' 'do_simple_color cyan'
+	entry 'green' 'do_simple_color green'
+	entry 'khaki' 'do_simple_color khaki'
+	entry 'yellow' 'do_simple_color yellow'
+	entry 'tan' 'do_simple_color tan'
+	entry 'brown' 'do_simple_color brown'
+	entry 'orange' 'do_simple_color orange'
+	entry 'red' 'do_simple_color red'
+	entry 'pink' 'do_simple_color "HotPink"'
+	entry 'violet' 'do_simple_color violet'
+endmenu
+
+
+
+define widget annot-color intmenu 'Annotation colors'
+	title 'Top Annotation'
+	line
+	entry 'white' 'do_annot_color white'
+	entry 'black' 'do_annot_color black'
+	entry 'lavender' 'do_air_color lavender'
+	entry 'gray' 'do_annot_color gray60'
+	entry 'blue' 'do_annot_color blue'
+	entry 'cyan' 'do_annot_color cyan'
+	entry 'green' 'do_annot_color green'
+	entry 'khaki' 'do_annot_color khaki'
+	entry 'yellow' 'do_annot_color yellow'
+	entry 'tan' 'do_annot_color tan'
+	entry 'brown' 'do_annot_color brown'
+	entry 'orange' 'do_annot_color orange'
+	entry 'red' 'do_annot_color red'
+	entry 'pink' 'do_annot_color "HotPink"'
+	entry 'violet' 'do_annot_color violet'
+	line
+	entry 'Small' 'do_annot_size 0.03'
+	entry 'Medium' 'do_annot_size 0.035'
+	entry 'Large' 'do_annot_size 0.04'	
+	line
+	entry 'Color Match On' 'color_match true'  \
+		(pd_param (icon_component, "ta-color-match", "string") = "true")
+	entry 'Color Match Off' 'color_match false'  \
+		(pd_param(icon_component, "ta-color-match", "string") = "false")
+endmenu
+
+define widget side-annot-scale intmenu 'Side annotation'
+	title 'Side Annotation'
+	line
+	entry 'Small' 'do_side_annot_size 0.02'
+	entry 'Medium' 'do_side_annot_size 0.025'
+	entry 'Large' 'do_side_annot_size 0.03'
+endmenu
+
+procedure do_blank_label value string
+	parameter #icon_component label-blanking #value
+endprocedure
+
+procedure color_match value string
+	parameter #icon_component ta-color-match #value
+endprocedure
+
+procedure do_side_annot_show show string
+	parameter #icon_component sa-show #show
+endprocedure
+
+procedure do_side_annot_size size string
+	parameter #icon_component sa-scale #size
+endprocedure
+
+procedure do_annot_skip skip string
+	parameter #icon_component ct-limit #skip
+endprocedure
+
+procedure do_annot_size size string
+	parameter #icon_component ta-scale #size
+endprocedure
+
+procedure do_annot_color color string
+	parameter #icon_component ta-color #color
+endprocedure
+
+procedure do_mono_color
+	parameter #icon_component color-mono false
+endprocedure
+
+procedure remove_air_arrows
+	parameter #icon_component arrow false
+endprocedure
+
+procedure do_contour_color color string
+	parameter #icon_component color #color
+	parameter #icon_component color-mono true
+endprocedure
+
+procedure do_air_color color string
+	parameter #icon_component arrow-color #color
+	parameter #icon_component arrow true
+endprocedure
+
+procedure do_simple_color color string
+	parameter #icon_component color #color
+endprocedure
+
+procedure fldset name string
+	parameter #icon_component field #name
+endprocedure
+
+
+!
+! Remove a component.
+!
+procedure i_remove_component
+	local dm_cmd concat("remove ",ourname)
+	dm concat(concat (dm_cmd, " "), icon_component)
+endprocedure
+
+
+procedure toggle_radar 
+	if (pd_param ("radar", "field", "string") = "reflectivity")
+		parameter radar field "velocity"
+	else
+		parameter radar field "reflectivity"
+	endif
+endprocedure
+
+!
+! Adjust the limits on x.
+!
+procedure i_adj_x
+	local proc pd_paramsearch("global", "x-limit-proc", "global", "string")
+	if (proc <> "(Undefined)")
+		#proc
+	else
+		dm "beep"
+	endif
+endprocedure
+
+!
+! Adjust the limits on y.
+!
+procedure i_adj_y
+	local proc pd_paramsearch("global", "y-limit-proc", "global", "string")
+	if (proc <> "(Undefined)")
+		#proc 
+	else
+		dm "beep"
+	endif
+endprocedure
+
+
+!
+! Adjust the limits on center/step.
+!
+procedure i_adj_centstep
+	local rep pd_param(icon_component, "representation", "string")
+	local proc pd_paramsearch(icon_component, "centstep-limit-proc", rep, "string")
+	if (proc <> "(Undefined)")
+		#proc #icon_component
+	else
+		dm "beep"
+	endif
+endprocedure
+
+
+!
+! Adjust the limits on a component.
+!
+procedure i_adjust
+	local rep pd_param(icon_component, "representation", "string")
+	if (rep = "track")
+		popup adjust_track_limits
+	else 
+		if (rep = "skewt")
+			popup adjust_skewt_limits
+	     	else 
+			local proc pd_paramsearch(icon_component, "limit-proc", rep, "string")
+			if (proc <> "(Undefined)")
+				#proc #icon_component
+			else
+				dm "beep"
+			endif
+	     	endif
+	endif
+endprocedure
+
+
+
+!
+! The radar minval maxval adjuster.
+!
+procedure adj_radar_minmax comp string
+	local field pd_param(comp, "field", "string")
+	local minval pd_paramsearch(comp, "minval", field, "string")
+	local maxval pd_paramsearch(comp, "maxval", field, "string")
+	activate doublefloat #comp "minval" "Minval: " #minval \
+		"maxval" "Maxval: " #maxval
+endprocedure
+
+!
+! The center step adjuster.
+!
+procedure adj_center_step comp string
+	local field pd_param(comp, "field", "string")
+	local repr pd_param(comp, "representation", "string")
+	local center_param concat(repr, "-center")
+	local center pd_paramsearch(comp, center_param, field, "string")
+	local step_param concat(repr, "-step")
+	local step pd_paramsearch(comp, step_param, field, "string")
+	activate doublefloat #comp #center_param "Center: " #center \
+		#step_param "Step: " #step
+endprocedure
+
+
+!
+! The x min max adjuster.
+!
+procedure adj_x_minmax 
+	local xmin pd_paramsearch("global", "x-min", "", "string")
+	local xmax pd_paramsearch("global", "x-max", "", "string")
+	activate doublefloat "global" "x-min" "X Min: " #xmin \
+		"x-max" "X Max: " #xmax
+endprocedure
+
+!
+! The y min max adjuster.
+!
+procedure adj_y_minmax 
+	local ymin pd_paramsearch("global", "y-min", "", "string")
+	local ymax pd_paramsearch("global", "y-max", "", "string")
+	activate doublefloat "global" "y-min" "Y Min: " #ymin \
+		"y-max" "Y Max: " #ymax
+endprocedure
+
+
+
+procedure DefaultDataAvail platform string when string
+!
+! Switch to the given platform; however, let's check to see that we are
+! not already on that one -- we can avoid frame cache invalidations that
+! way.
+!
+	if (pd_param (icon_component, "platform", "string") <> platform)
+		parameter #icon_component platform #platform
+	endif
+!
+! Now drop into history mode and display this time.
+!
+	parameter global plot-mode history
+	parameter global plot-time #when
+endprocedure
+
+
+!
+! For the radar, we do pretty much the same thing, but also make
+! sure that we are in fixed sweep mode.
+!
+procedure RadarVolume platform string when string
+!
+! Just set the params.  Don't even bother with the platform seeing as it
+! will not change.
+!
+	parameter global plot-mode history
+	parameter global plot-time #when
+!	parameter #icon_component every-sweep false
+endprocedure
+
+
+
+!
+! Middle icon menu for radar data.
+!
+define widget radar-middle intmenu 'Radar field menu'
+	title 'Radar'
+	line
+	entry 'Reflectivity' 'param #icon_component field reflectivity'
+	entry 'Velocity' 'param #icon_component field velocity'
+	line
+	entry 'Surveillance only mode' 'toggle_sur' \
+		(pd_param("global", "cp4-filter-attribute", "string") = "sur")
+	entry 'Single fixed angle mode' 'ToggleBool every-sweep' \
+		(pd_param (icon_component, "every-sweep", "string") = "false")
+	line
+	entry 'scook color table' 'param global raster-color-table scook' \
+		(pd_param ("global","raster-color-table","string") = "scook")
+	entry 'cook16' 'param global raster-color-table cook16' \
+		(pd_param ("global","raster-color-table","string") = "cook16")
+	entry 'cook32' 'param global raster-color-table cook32' \
+		(pd_param ("global","raster-color-table","string") = "cook32")
+	entry 'hotcold' 'param global raster-color-table hotcold' \
+		(pd_param ("global","raster-color-table","string") = "hotcold")
+	entry 'wild' 'param global raster-color-table wild' \
+		(pd_param ("global","raster-color-table","string") = "wild")
+	entry 'wild_new' 'param global raster-color-table wild_new' \
+		(pd_param ("global","raster-color-table","string") = "wild_new")
+	line
+	entry 'Raster representation' \
+		'param #icon_component representation raster'
+	entry 'Contour representation' \
+		'param #icon_component representation contour'
+	entry 'Filled contour representation' \
+		'param #icon_component representation filled-contour'
+endmenu
+
+
+procedure toggle_sur
+	if (pd_param ("global", "cp4-filter-attribute", "string") = "sur")
+		param global cp4-filter-attribute "radar"
+	else
+		param global cp4-filter-attribute "sur"
+	endif
+endprocedure
+
+
+!
+! Toggle an arbitrary boolean parameter.  This guy expects to be called
+! out of a menu, with icon_component set.
+!
+procedure ToggleBool param string
+	local current (pd_param (icon_component, param, "string") = "true")
+	if (current)
+		parameter #icon_component #param false
+	else
+		parameter #icon_component #param true
+	endif
+endprocedure
+

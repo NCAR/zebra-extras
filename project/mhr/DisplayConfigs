@@ -1,0 +1,52 @@
+!
+! All of the predefined display configurations live in this file.
+!
+
+!
+! GraphProc test window config and color table
+!
+!
+! The initialization file.
+!
+set init_file "/fcc/mhr/gp.init"
+
+
+config bigmhr
+	window 'radar'	10 10 800 800 /fcc/bin/gp #init_file
+!	window '/fcc/bin/gp'	10 10 800 800 /localbin/xgdb /fcc/bin/gp
+		buttonmap 'big'
+		description 'mhr'
+	endwindow
+	window 'Clock' 10 820 300 30 '/fcc/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+	widget 'iconbar'  820 10 70 260
+endconfig
+
+config mhr
+	window 'radar'	10 10 400 400 /fcc/gp/gp #init_file
+		buttonmap 'big'
+		description 'mhr'
+	endwindow
+	window 'Clock' 10 420 300 30 '/fcc/bin/fccclock'
+		description 'whiteclock'
+	endwindow
+endconfig
+
+!
+! Generic linked PD to display one window zoomed.
+!
+config zoom 1
+	window 'humungo' 5 5 1100 850 /fcc/gp/gp #init_file
+		buttonmap 'big'
+		linkpd 1
+	endwindow
+endconfig
+
+
+!
+! An empty config just to clear out the screen.
+!
+config empty
+	widget 'iconbar' 1070 5 70 410
+endconfig
