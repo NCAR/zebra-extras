@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.14 2002-05-24 20:40:46 burghart Exp $
+! $Id: IconBar,v 1.15 2002-05-31 00:51:32 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -144,6 +144,10 @@ define widget iconbar menubar " "
                 entry 'NASA DC-8' \
 			'putc3 p_track platform dc8 icon dc8 color white'
 	endmenu
+	menu mesonet bitmap mesonet
+		title 'Mesonet'
+		line
+		entry '15-minute mesonet' 'putc0 p_mesonet'
 
 !
 ! Maps, locations and other informational overlays
