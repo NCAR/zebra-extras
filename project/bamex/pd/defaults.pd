@@ -369,9 +369,9 @@ defaults
 	hdr-center:		-20
 	hdr-nsteps:		10
 	hdr-step:		8
-	albedo-center:		35
-	albedo-nsteps:		14
-	albedo-step:		5
+	albedo-center:		50
+	albedo-nsteps:		10
+	albedo-step:		10
 	vis-center:		128
 	vis-nsteps:		8
 	vis-step:		32
