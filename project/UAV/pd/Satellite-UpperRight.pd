@@ -1,0 +1,75 @@
+global
+	altitude-label:	
+	axis-bottom-space:	30
+	axis-left-space:	50
+	axis-right-space:	50
+	axis-top-space:	30
+	pd-name:	Satellite-UpperRight
+	platform:	sgp30smosE13.a1
+	plot-hold:	false
+	plot-mode:	real-time
+	plot-time:	14-Feb-94,23:10:00
+	plot-type:	xygraph
+	ta-scale:	.037
+	trigger:	platform
+	xy-axis-b-font-scale:	10
+	xy-axis-l-font-scale:	10
+	xy-axis-r-font-scale:	10
+	xy-axis-t-font-scale:	10
+	xy-data-mode:	series
+	xy-series-span:	720m
+xy-grid
+	axis-b-label:	Time
+	axis-bottom:	true
+	axis-left:	false
+	axis-right:	false
+	axis-top:	false
+	do-side-annotation:	false
+	field-color:	red
+	icon:	none
+	platform:	sgp30smosE13.a1
+	representation:	simple
+	representation-style:	line
+	require:	smos, siros, sonde, mwr
+	x-field:	time
+	xyprivate-data-begin:	5-Feb-94,23:30:00
+	xyprivate-data-end:	5-Feb-94,23:30:00
+	xyprivate-x-max:	14-Feb-94,23:28:00
+	xyprivate-x-min:	14-Feb-94,11:10:00
+	xyprivate-x-type:	t
+	xyprivate-y-max:	0.0000
+	xyprivate-y-min:	-0.0000
+	xyprivate-y-type:	f
+	y-field:	nothing
+p_xytrace
+	annot-left-menu:	xy-an-left
+	annot-middle-menu:	mwrfields
+	annot-right-menu:	simple-color
+	axis-bottom:	false
+	axis-l-grid-intensity:	0
+	axis-left:	true
+	axis-r-grid-intensity:	0
+	axis-r-tic-interval:	0.02
+	axis-right:	false
+	axis-top:	false
+	color-tweaker:	xytrace-color
+	field-color:	rgb:ffff/a5a5/00
+	field-select-command:	xytrace-field
+	icon:	tseries
+	icon-middle-menu:	mwrfields
+	icon-right-menu:	xytrace-right
+	limit-proc:	xytrace-adjust
+	platform:	sgpmwrlosC1.a1
+	representation:	simple
+	representation-style:	line
+	require:	xytrace, simple-color
+	x-field:	time
+	xyprivate-data-begin:	5-Feb-94,23:59:40
+	xyprivate-data-end:	5-Feb-94,23:59:40
+	xyprivate-x-max:	14-Feb-94,23:28:00
+	xyprivate-x-min:	14-Feb-94,11:10:00
+	xyprivate-x-type:	t
+	xyprivate-y-max:	0.0504
+	xyprivate-y-min:	-0.0496
+	xyprivate-y-type:	f
+	y-field:	liq

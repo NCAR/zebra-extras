@@ -1,12 +1,17 @@
 global
-	altitude:	0
-	comment:	Satellite test
+	altitude-label:	?
+	comment:	Satellite
+!	frame-rate:	5
+!	frame-skip:	1
 	icon-middle-menu:	DataAvailable
 	menu-platform:	sgpgoesvis.tmp
+!	movie-end-time:	now
+!	movie-minutes:	6
+!	movie-mode:	False
 	pd-name:	Satellite-UpperLeft
 	platform:	sgpgoesvis.tmp
 	plot-mode:	real-time
-	plot-time:	8-Feb-94,22:00:00
+	plot-time:	14-Feb-94,23:10:00
 	plot-type:	CAP
 	ta-scale:	.03
 	time-frames:	2
@@ -15,16 +20,18 @@ global
 	x-min:	-334.0206
 	y-max:	-319.6305
 	y-min:	340.2719
-c_goes
-	altitude:	0.0
+p_raster
 	color-table:	16gray
 	field:	vis
 	icon:	satellite
+	icon-left-menu:	standard-cap-left-menu
 	icon-middle-menu:	goes-middle
-	icon-right-menu:	DataAvailable
-	menu-platform:	goes
+	icon-right-menu:	raster-right
+	limit-proc:	raster-limit-proc
 	platform:	sgpgoesvis.tmp
 	representation:	raster
+	require:	raster, goes
+	scale-mode:	auto
 c_map
 	color:	yellow
 	field:	map
@@ -35,16 +42,16 @@ c_map
 	representation:	overlay
 c_locns_cf
 	active-icon:	true
-	color:	HotPink
-	disable:	false
+	color:	yellow
 	field:	location
-	icon:	ops-ctr
+	icon:	circle
+	icon-color:	yellow
 	icon-left-menu:	minimal-cap-left-menu
 	icon-right-menu:	location-options
 	label:	none
 	label-size:	12
 	platform:	cf
-	posicon:	ops-ctr
+	posicon:	circle
 	posicon-left-menu:	minimal-cap-left-menu
 	posicon-middle-menu:	send-cf
 	posicon-right-menu:	location-options
@@ -55,6 +62,7 @@ c_locns_ef
 	color:	green
 	field:	location
 	icon:	littlecircle
+	icon-color:	green
 	icon-left-menu:	minimal-cap-left-menu
 	icon-right-menu:	location-options
 	label:	platform
@@ -66,3 +74,55 @@ c_locns_ef
 	posicon-right-menu:	location-options
 	representation:	overlay
 	require:	location, ef-cap
+c_locns_uav
+	active-icon:	true
+	color:	HotPink
+	field:	location
+	icon:	littleplane
+	icon-color:	HotPink
+	icon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:	platform
+	label-size:	12
+	platform:	UAV
+	posicon:	littleplane
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-right-menu:	location-options
+	representation:	overlay
+	require:	location
+c_uav
+	active-icon:	true
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-middle-menu:	uav-field-menu
+	posicon-right-menu:	track-right
+	altitude-control:	true
+	representation:	track
+	platform:	sgpuavtrack
+	field:		alt
+	time-period:	1800s
+	trigger:	platform
+	color:		cyan
+	color-table:	Contour
+	scale-mode:	autoscale
+	show-position:	true
+	limit-proc:	gnarly-track-adjust
+	position-icon:	littleplane
+	sa-scale:	0.025
+	line-width:	2
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	uav-field-menu
+	icon-right-menu:	track-right
+	icon:		littleplane
+	data-skip:	5
+	arrow:		false
+	arrow-scale:	0.01
+	arrow-color:	black
+	arrow-line-width:	0
+	arrow-interval:	5m
+	x-field:	u_wind
+	y-field:	v_wind
+	annot-time:	false
+	annot-time-interval:	2m
+	annot-time-color:	red
+	annot-time-scale:	10
+	require:	simple-color, track, uav

@@ -1,0 +1,144 @@
+global
+	altitude:	1000.00
+	altitude-label:	Alt: 1000 mb
+	comment:	NGM CAP
+	forecast-offset:	0h
+	icon-middle-menu:	DataAvailable
+	pd-name:	Mesonet-UpperLeft
+	platform:	sgpsfchrlyX1.00
+	plot-mode:	real-time
+	plot-time:	2-Feb-94,0:00:00
+	plot-type:	CAP
+	ta-scale:	.04
+	time-frames:	2
+	trigger:	platform
+	x-max:	700
+	x-min:	-800
+	y-max:	200
+	y-min:	-500
+p_fcontour
+	color:	cyan
+	color-table:	Contour
+	cpres0-center:	15.0000
+	cpres0-step:	3.0000
+	do-labels:	true
+	field:	cpres0
+	icon:	grid_hourly
+	icon-left-menu:	standard-cap-left-menu
+	icon-middle-menu:	nws-surf-fields
+	icon-right-menu:	contour-right
+	label-blanking:	false
+	limit-proc:	contour-putup-adj
+	platform:	sgpsfchrlyX1.00
+	representation:	filled-contour
+	require:	contour, simple-color, surface
+	scale-mode:	auto
+	tdry-center:	0.0000
+	tdry-step:	2.0000
+p_model
+	active-icon:	true
+	altitude-control:	true
+	annot-left-menu:	ngm-field-menu
+	annot-middle-menu:	ngm-field-menu
+	arrow-scale:	0.01
+	color:	cyan
+	color-mono:	true
+	color-table:	gcook16
+	disable:	true
+	do-labels:	true
+	field:	tdry
+	grid-method:	bilinear
+	icon:	ngm-clock
+	icon-left-menu:	standard-cap-left-menu
+	icon-middle-menu:	ngm-field-menu
+	icon-right-menu:	contour-model-right
+	label-blanking:	false
+	limit-proc:	contour-putup-adj
+	line-width:	2
+	platform:	sgpngm250X1.ns.valid
+	posicon-middle-menu:	ngm-field-menu
+	representation:	vector
+	require:	contour, simple-color, ngm
+	scale-mode:	auto
+	tdry-center:	277.2000
+	tdry-step:	0.6000
+	u-field:	u-component
+	v-field:	v-component
+c_map
+	color:	yellow
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	2
+	platform:	state_lines
+	representation:	overlay
+c_locns_cf
+	active-icon:	true
+	color:	HotPink
+	disable:	false
+	field:	location
+	icon:	ops-ctr
+	icon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:	none
+	label-size:	12
+	platform:	cf
+	posicon:	ops-ctr
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-right-menu:	location-options
+	representation:	overlay
+	require:	location
+c_locns_ef
+	active-icon:	true
+	color:	green
+	field:	location
+	icon:	littlecircle
+	icon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:	platform
+	label-size:	12
+	platform:	E9,E13,E15
+	posicon:	littlecircle
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-right-menu:	location-options
+	representation:	overlay
+	require:	location, ef-cap
+p_irg_winds
+	arrow-scale:	0.01
+	color:	red
+	grid-method:	barnes
+	icon:	grid_hourly_vectors
+	icon-left-menu:	standard-cap-left-menu
+	icon-right-menu:	irg-winds-right
+	limit-proc:	adj_arrow_scale
+	max-fill:	3.0
+	platform:	sgpsfchrlyX1.00
+	radius:	2.0
+	representation:	vector
+	require:	irg_winds, simple-color
+	u-field:	u_wind
+	v-field:	v_wind
+	x-points:	15
+	y-points:	10
+p_station
+	active-icon:	true
+	annot-field-menu-extras:	station|Station Identification,none
+	annot-left-menu:	nws-station-fields
+	annot-middle-menu:	nws-station-fields
+	arrow-scale:	0.01
+	do-shape:	true
+	field-select-command:	p_toggle_quadrant
+	icon:	meso_stations
+	icon-field-menu-extras:	station|Station Identification
+	icon-left-menu:	standard-cap-left-menu
+	icon-middle-menu:	nws-station-fields
+	icon-right-menu:	p-station-right
+	limit-proc:	adj_arrow_scale
+	platform:	sgpsfchrlyX1.00
+	posicon-middle-menu:	nws-station-fields
+	quad4:	none
+	representation:	station
+	require:	station, simple-color, surface
+	u-field:	u_wind
+	v-field:	v_wind

@@ -1,15 +1,17 @@
 global
-	altitude-label:	
 	axis-bottom-space:	30
-	axis-left-space:	100
+	axis-left-space:	50
 	axis-right-space:	100
 	axis-top-space:	30
-	pd-name:	siros_tseries_cf-UpperLeft
-	platform:	DsgpsirosE13.a1
-	plot-mode:	history
-	plot-time:	4-Feb-94,0:37:00
+	cloud2-scale-y-max:	0.0
+	cloud2-scale-y-min:	0.0
+	pd-name:	clouds-UpperRight
+	platform:	DsgpblcC1.a1
+	plot-mode:	real-time
+	plot-time:	20-Jan-94,21:43:00
 	plot-type:	xygraph
-	ta-scale:	.022
+	sa-scale:	.03
+	ta-scale:	.026
 	trigger:	platform
 	xy-axis-b-font-scale:	10
 	xy-axis-l-font-scale:	10
@@ -19,30 +21,28 @@ global
 	xy-series-span:	720m
 xy-grid
 	axis-b-label:	Time
-	axis-b-tic-interval:	7200s
 	axis-bottom:	true
 	axis-left:	false
 	axis-right:	false
-	axis-t-tic-interval:	7200s
 	axis-top:	false
-	field-color:	red
+	do-side-annotation:	false
+	field-color:	white
 	icon:	none
-	platform:	DsgpsirosE13.a1
+	platform:	DsgpblcC1.a1
 	representation:	simple
 	representation-style:	line
 	x-field:	time
-	xyprivate-data-begin:	3-Feb-94,12:36:59
-	xyprivate-data-end:	4-Feb-94,0:36:59
-	xyprivate-x-max:	4-Feb-94,0:55:00
-	xyprivate-x-min:	3-Feb-94,12:37:00
+	xyprivate-data-begin:	20-Jan-94,9:42:55
+	xyprivate-data-end:	20-Jan-94,21:42:50
+	xyprivate-x-max:	20-Jan-94,22:01:00
+	xyprivate-x-min:	20-Jan-94,9:43:00
 	xyprivate-x-type:	t
 	xyprivate-y-max:	-10489499648.0000
 	xyprivate-y-min:	499499968.0000
 	xyprivate-y-type:	f
 	y-field:	nothing
-l_xytrace
+1_xytrace
 	annot-left-menu:	xy-an-left
-	annot-middle-menu:	sirosfields
 	annot-right-menu:	simple-color
 	axis-bottom:	false
 	axis-l-color:	rgb:ffff/00/00
@@ -57,31 +57,29 @@ l_xytrace
 	field-select-command:	xytrace-field
 	icon:	tseries
 	icon-color:	rgb:ffff/00/00
-	icon-middle-menu:	sirosfields
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	DsgpsirosE13.a1
+	platform:	DsgpblcC1.a1
 	representation:	simple
 	representation-style:	line
-	require:	xytrace,simple-color,siros
+	require:	xytrace, simple-color
 	x-field:	time
-	xyprivate-data-begin:	3-Feb-94,12:36:59
-	xyprivate-data-end:	4-Feb-94,0:36:59
-	xyprivate-x-max:	4-Feb-94,0:55:00
-	xyprivate-x-min:	3-Feb-94,12:37:00
+	xyprivate-data-begin:	20-Jan-94,9:42:55
+	xyprivate-data-end:	20-Jan-94,21:42:50
+	xyprivate-x-max:	20-Jan-94,22:01:00
+	xyprivate-x-min:	20-Jan-94,9:43:00
 	xyprivate-x-type:	t
-	xyprivate-y-max:	-9998.9502
-	xyprivate-y-min:	-9999.0498
+	xyprivate-y-max:	1177.6710
+	xyprivate-y-min:	414.9090
 	xyprivate-y-type:	f
-	y-field:	up_short_hemisp
-r_xytrace
+	y-field:	cloud1
+2_xytrace
 	annot-left-menu:	xy-an-left
-	annot-middle-menu:	sirosfields
 	annot-right-menu:	simple-color
 	axis-bottom:	false
 	axis-left:	false
 	axis-r-color:	rgb:ffff/a5a5/00
-	axis-r-grid-intensity:	0.0
+	axis-r-grid-intensity:	0
 	axis-right:	true
 	axis-top:	false
 	color-tweaker:	xytrace-color
@@ -91,53 +89,52 @@ r_xytrace
 	field-select-command:	xytrace-field
 	icon:	tseries
 	icon-color:	rgb:ffff/a5a5/00
-	icon-middle-menu:	sirosfields
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	DsgpsirosE13.a1
+	platform:	DsgpblcC1.a1
 	representation:	simple
-	representation-style:	line
-	require:	xytrace,simple-color,siros
+	representation-style:	xmark
+	require:	xytrace, simple-color
 	x-field:	time
-	xyprivate-data-begin:	3-Feb-94,12:36:59
-	xyprivate-data-end:	4-Feb-94,0:36:59
-	xyprivate-x-max:	4-Feb-94,0:55:00
-	xyprivate-x-min:	3-Feb-94,12:37:00
+	xyprivate-data-begin:	20-Jan-94,9:42:55
+	xyprivate-data-end:	20-Jan-94,21:42:50
+	xyprivate-x-max:	20-Jan-94,22:01:00
+	xyprivate-x-min:	20-Jan-94,9:43:00
 	xyprivate-x-type:	t
-	xyprivate-y-max:	764.1585
-	xyprivate-y-min:	-36.3885
+	xyprivate-y-max:	1187.9580
+	xyprivate-y-min:	701.8020
 	xyprivate-y-type:	f
-	y-field:	down_short_hemisp
-c_ir_temp
+	y-field:	cloud2
+3_xytrace
 	annot-left-menu:	xy-an-left
-	annot-middle-menu:	mwrfields
 	annot-right-menu:	simple-color
 	axis-bottom:	false
-	axis-l-color:	white
-	axis-l-grid-intensity:	0.5
-	axis-left:	true
-	axis-right:	false
+	axis-left:	false
+	axis-r-color:	HotPink
+	axis-r-grid-intensit:	.5
+	axis-r-grid-intensity:	.7
+	axis-right:	true
 	axis-top:	false
 	color-tweaker:	xytrace-color
 	disable:	false
 	do-side-annotation:	true
-	field-color:	white
+	field-color:	HotPink
 	field-select-command:	xytrace-field
 	icon:	tseries
-	icon-color:	white
+	icon-color:	HotPink
 	icon-right-menu:	xytrace-right
 	limit-proc:	xytrace-adjust
-	platform:	sgpmwrlosC1.a1
+	platform:	DsgpblcC1.a1
 	representation:	simple
-	representation-style:	line
-	require:	xytrace,simple-color,mwr
+	representation-style:	xmark
+	require:	xytrace, simple-color
 	x-field:	time
-	xyprivate-data-begin:	23-Mar-94,0:01:00
-	xyprivate-data-end:	1-Jan-70,0:00:00
-	xyprivate-x-max:	4-Feb-94,0:55:00
-	xyprivate-x-min:	3-Feb-94,12:37:00
+	xyprivate-data-begin:	20-Jan-94,9:42:55
+	xyprivate-data-end:	20-Jan-94,21:42:50
+	xyprivate-x-max:	20-Jan-94,22:01:00
+	xyprivate-x-min:	20-Jan-94,9:43:00
 	xyprivate-x-type:	t
-	xyprivate-y-max:	-10988999680.0000
-	xyprivate-y-min:	10988999680.0000
+	xyprivate-y-max:	1234.0590
+	xyprivate-y-min:	1074.8010
 	xyprivate-y-type:	f
-	y-field:	ir_temp
+	y-field:	cloud3

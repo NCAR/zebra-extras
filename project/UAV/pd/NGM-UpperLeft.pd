@@ -1,0 +1,117 @@
+global
+	altitude:	1000.00
+	altitude-label:	Alt: 1000 mb
+	comment:	NGM CAP
+	forecast-offset:	0h
+	icon-middle-menu:	DataAvailable
+	menu-platform:	sgpngm250X1.ns.issue
+	pd-name:	NGM-UpperLeft
+	plot-mode:	real-time
+	plot-time:	2-Feb-94,19:00:00
+	plot-type:	CAP
+	ta-scale:	.04
+	temperature-range-max:	290
+	temperature-range-min:	260
+	time-frames:	2
+	trigger:	sgpngm250X1.ns.issue
+	x-max:	700
+	x-min:	-800
+	y-max:	200
+	y-min:	-500
+p_model.0
+	active-icon:	true
+	altitude-control:	true
+	annot-left-menu:	ngm-field-menu
+	annot-middle-menu:	ngm-field-menu
+	arrow-scale:	0.01
+	color:	cyan
+	color-mono:	true
+	color-table:	gcook16
+	degrade:	0
+	do-labels:	true
+	field:	height
+	grid-method:	bilinear
+	height-center:	60.0000
+	height-step:	10.0000
+	icon:	ngm-clock
+	icon-left-menu:	standard-cap-left-menu
+	icon-middle-menu:	ngm-field-menu
+	icon-right-menu:	contour-model-right
+	label-blanking:	false
+	limit-proc:	contour-putup-adj
+	line-width:	2
+	platform:	sgpngm250X1.ns.valid
+	posicon-middle-menu:	ngm-field-menu
+	representation:	filled-contour
+	require:	contour, simple-color, ngm
+	scale-mode:	auto
+	tdry-center:	248.0000
+	tdry-step:	1.0000
+	u-field:	u-component
+	v-field:	v-component
+c_map
+	color:	yellow
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	platform:	state_lines
+	representation:	overlay
+c_locns_cf
+	active-icon:	true
+	color:	yellow
+	disable:	false
+	field:	location
+	icon:	ops-ctr
+	icon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:	none
+	label-size:	12
+	platform:	cf
+	posicon:	ops-ctr
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-right-menu:	location-options
+	representation:	overlay
+	require:	location
+c_locns_ef
+	active-icon:	true
+	color:	green
+	field:	location
+	icon:	littlecircle
+	icon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:	platform
+	label-size:	12
+	platform:	E9, E13,E15
+	posicon:	littlecircle
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-right-menu:	location-options
+	representation:	overlay
+	require:	location, ef-cap
+p_model
+	active-icon:	true
+	altitude-control:	true
+	annot-left-menu:	ngm-field-menu
+	annot-middle-menu:	ngm-field-menu
+	arrow-scale:	0.002
+	color:	cyan
+	color-mono:	true
+	color-table:	gcook16
+	degrade:	0
+	do-labels:	true
+	field:	tdry
+	grid-method:	bilinear
+	icon:	ngm-clock
+	icon-left-menu:	standard-cap-left-menu
+	icon-middle-menu:	ngm-field-menu
+	icon-right-menu:	contour-model-right
+	label-blanking:	false
+	limit-proc:	adj_arrow_scale
+	line-width:	2
+	platform:	sgpngm250X1.ns.valid
+	posicon-middle-menu:	ngm-field-menu
+	representation:	vector
+	require:	contour, simple-color, ngm
+	scale-mode:	auto
+	u-field:	u-component
+	v-field:	v-component
