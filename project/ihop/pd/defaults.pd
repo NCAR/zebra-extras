@@ -112,6 +112,8 @@ defaults
 	goes_1km-data-age-limit:	90m
 	goes_4km-icon-age-limit:	45m
 	goes_4km-data-age-limit:	90m
+	goes11-icon-age-limit:	45m
+	goes11-data-age-limit:	90m
 	p3-icon-age-limit:	2m
 	p3-data-age-limit:	120m
 	dc8-icon-age-limit:	2m
