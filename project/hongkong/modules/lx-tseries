@@ -341,10 +341,15 @@ procedure toggle_field field string
 ! though, we have to enforce it.
 !
 	else
-	    local newlist concat3(oldlist,",",field)
-	    if (pd_defined (icon_component, "max-field") = true)
+	    if (oldfld <> "(Undefined)")
+	        local newfld (concat(oldfld, concat (",",field)))
+	    else
+		local newfld field
+	    endif
+	    local max pd_param(icon_component,"max-field","string")
+	    if (max <> "(Undefined)")
 	    	local imax pd_param(icon_component,"max-field","integer")
-		if (n_occur (newlist, ",") >= imax)
+		if (n_occur (newfld, ",") >= imax)
 			dm "beep"
 			return
 		endif
@@ -353,7 +358,11 @@ procedure toggle_field field string
 !
 ! Store the thing.
 !
-	parameter #icon_component field #newlist
+	if (strlength (newfld) = 0)
+		local worked (pd_removeparam (icon_component, "quadrants"))
+	else
+		param #icon_component quadrants #newfld
+	endif
 endprocedure
 
 !
@@ -382,3 +391,11 @@ define widget adjust-tseries-limits intmenu 'Adjust Limits'
 	entry 'Data Skip' 'i_adjust dskip-limit-proc'
 endmenu
 
+
+define widget tseries-left intmenu 'TSeries Time Parameters'
+	title 'Adjust Time Parameters'
+	line
+	entry 'Adjust Time Span...' 'adj_time_int tseries'
+	entry 'Adjust Time Step...' 'adj_time_step tseries'
+	entry 'Adjust Data Skip...' 'adj_data_skip tseries'
+endmenu
