@@ -26,7 +26,7 @@ pddrop lake_ice defaults defaults defaults
 !
 set cachedir getenv("ZEB_CACHEDIR")
 if (cachedir = undef)
-	set cachedir concat(c$projdir,"/tmp")
+	set cachedir "./tmp"
 endif
 parameter defaults defaults file-path #cachedir
 

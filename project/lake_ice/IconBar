@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.1.1.1 1997-12-04 18:27:37 granger Exp $
+! $Id: IconBar,v 1.2 1997-12-07 21:08:48 granger Exp $
 !
 ! All the definitions required to make the iconbar work.
 !
@@ -66,6 +66,7 @@ define widget iconbar menubar " "
 		entry 'Montague (ISS 1)' 'display iss1' (dm$config = 'iss1')
 		entry 'Sheboygan (ISS 2)' 'display iss2' (dm$config = 'iss2')
 		entry 'Greenville (ISS 3)' 'display iss3' (dm$config = 'iss3')
+		entry 'Soundings' 'display soundings' (dm$config = 'soundings')
 		line
 		entry 'Empty screen' 'display empty' (dm$config = 'empty')
 	endmenu
@@ -90,6 +91,13 @@ define widget iconbar menubar " "
 		entry 'Montague(1) CLASS' 'PutScalar iss1/class tdry'
 		entry 'Sheboygan(2) CLASS' 'PutScalar iss2/class tdry'
 		entry 'Greenville(3) CLASS' 'PutScalar iss3/class tdry'
+		line
+		entry 'Timmins, Ont (tim)' 'PutScalar tim tdry'
+		entry 'Beattyville, Quebec (bea)' 'PutScalar bea tdry'
+		entry 'Algonquin, Ont (alg)' 'PutScalar alg tdry'
+		entry 'Belleterre, Ont (bel)' 'PutScalar bel tdry'
+		entry 'Owen Sound, Ont (own, mobile)' 'PutScalar own tdry'
+		entry 'Sudbury, Ont (sud)' 'PutScalar sud tdry'
 	endmenu
 
 	menu rass bitmap iss-rass
@@ -123,9 +131,9 @@ define widget iconbar menubar " "
 		entry 'US Map' \
 		      'putc3 p_map platform stormfest color brown icon map'
 		entry 'ISS Stations' 'SendLocs station'
-		entry 'Sounding station locations' 'SendLocs sounding'
 		entry 'Profiler locations' 'SendLocs profiler'
 		entry 'RASS locations' 'SendLocs rass'
+		entry 'Sounding locations' 'SendLocs sounding'
 		line
 		entry 'X-Y Grid (km)' \
 			'putc3 p_kmgrid x-spacing 300 y-spacing 300 color cyan'
@@ -141,7 +149,7 @@ enddef
 !
 set ISSes 'iss1,iss2,iss3,iss4'
 set isssurf 'iss1/surface_met,iss2/surface_met,iss3/surface_met'
-set SndLocs 'iss1/class,iss2/class,iss3/class'
+set SndLocs 'iss1/class,iss2/class,iss3/class,tim,bea,bel,sud,own,alg'
 set RASSLocs 'iss1/rass,iss2/rass,iss3/rass'
 
 !
