@@ -10,6 +10,7 @@
 set RequirePath concat('modules,',RequirePath)
 require 'simple-color'
 require 'adjust-limits'
+require 'active-time'
 require 'global'
 
 procedure ChangeXSect
