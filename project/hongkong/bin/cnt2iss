@@ -1,7 +1,7 @@
 #! /usr/local/bin/perl
 # -*- perl -*-
 #
-# $Id: cnt2iss,v 1.1 1996-01-31 22:26:41 granger Exp $
+# $Id: cnt2iss,v 1.2 1996-02-02 19:56:32 granger Exp $
 #
 # cnt2iss converts Radian consensus temperature files from RASS
 # to files suitable for ingest by 'profiler_ingest',
@@ -34,6 +34,8 @@ sub read_to_token {
     }
     
   }
+  print "bad file $cnt_file_name: missing token: $token\n";
+  exit (1);
 
 }
 
@@ -56,7 +58,8 @@ sub set_token {
     }
   
   }
-
+  print "bad file $cnt_file_name: missing token: $token\n";
+  exit (1);
 }
 
 #
@@ -80,6 +83,7 @@ if ($#ARGV != 1) {
 
 $cnt_file_name = shift(@ARGV);
 $top_dir = shift(@ARGV);
+$dir = "rass";
 
 #
 # Open consensus file
@@ -132,7 +136,6 @@ while ( $end_of_file == 0 ) {
 #     printf( STDERR "Unknown pulse width in $cnt_file_name... exiting.\n");
 #     exit(-1);
 #  }
-  $dir = "rass";
   
 #
 # space forward to header before the data
