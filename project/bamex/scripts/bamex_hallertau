@@ -1,0 +1,41 @@
+#! /bin/sh
+# $Id: bamex_hallertau,v 1.1 2003-05-13 21:55:48 burghart Exp $
+#
+# Copy this file to /etc/rc.d/init.d/bamex_hallertau and execute (as root):
+#
+#     # chkconfig --add bamex_hallertau
+#
+# to start executing it at boot time
+#
+#
+# BAMEX stuff:
+#    mdv2netCDF startup
+#    file watchers
+#
+# chkconfig: 2345 90 10
+# description: BAMEX stuff for hallertau
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+SCRIPTDIR="/code/burghart/bamex/scripts"
+USER="burghart"
+
+case "$1" in
+    'start')
+    	action "Starting mdv2netCDF for BAMEX GOES data:" \
+	    su - $USER -c $SCRIPTDIR/start_mdv2netCDF.csh
+	action "Starting platwatch scripts for BAMEX:" \
+	    su - $USER -c $SCRIPTDIR/start_watchers.csh
+	;;
+    'stop')
+    	action "Stopping mdv2netCDF for BAMEX GOES data:" \
+	    /usr/bin/killall -q mdv2netCDF
+	action "Stopping platwatch scripts for BAMEX:" /bin/true
+	;;
+    'restart')
+	$0 stop
+	$0 start
+	;;
+esac
