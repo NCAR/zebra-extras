@@ -35,6 +35,7 @@ global
    parameter xsect-window              'w1'
    parameter y-max                     '-5318.2939'
    parameter y-min                     '5826.3896'
+   parameter proj-topannot-left-menu   'projection'
 component p_model.1
    parameter active-icon               'true'
    parameter altitude-control          'true'

@@ -24,6 +24,7 @@ global
    parameter x-min                     '-1679.9928'
    parameter y-max                     '1834.3967'
    parameter y-min                     '-242.9527'
+   parameter proj-topannot-left-menu   'projection'
 component c_gms
    parameter altitude                  '0.0'
    parameter color-table               'ir_gray'
