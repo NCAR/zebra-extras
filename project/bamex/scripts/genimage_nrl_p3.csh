@@ -14,8 +14,8 @@ set plottime = `date -u +"%d-%b-%Y,%H:%M"`
 # move the plot location to the current aircraft location
 #
 dc_shiftloc --olat 38.54517 --olon -89.83517 --platform nrl_p3 \
-            --dc     /opt/zebra/project/dconfig/ac_image.dc \
-	    --out_dc /opt/zebra/project/dconfig/ac_image_tmp.dc
+            --dc     /opt/zebra/project/dconfig/p3_image.dc \
+	    --out_dc /opt/zebra/project/dconfig/p3_image_tmp.dc
 #
 # and plot
 #
