@@ -1,6 +1,4 @@
 !
-! $Id: ds.config.cpp,v 1.2 1995-04-07 17:07:57 granger Exp $
-!
 ! Data store configuration file.
 !
 ! Platform parameters:
