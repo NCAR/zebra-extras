@@ -130,3 +130,24 @@ Tag_Juneau_970331_4:
 
 	juneau.4 directory tagged and installed on sea_aops, 970331.
 
+Andrew Weekley wants to be able to plot turbulence in a time-height filled
+contour.  Time to figure out why I couldn't get contouring to work on the
+profiler data.  Answer: need to show more than 4 hours of profiles to get
+enough data to contour.
+
+Phone mail from Bob x8410, 2 Apr:
+
+	Among other things, allow for adjusting lag time in data according
+	to whether we're in alaska or at rap, or freq of rsyncs, or whatever
+
+The age limit parameters are chosen from different components of the ages
+pd and dropped into defaults in dm.config.  The relaxed limits for sync'ing
+data are chosen by adding 'syncdata' to the project path, while the
+shortest limits can be set explicitly by adding 'realtime' to the path,
+though they are the default.  Both names are links to '.' in the project
+directory.
+
+Tag_Juneau_970402_5:
+
+	juneau.5 tagged and installed on sea_aops and jnu_term
+
