@@ -1,5 +1,5 @@
 /*
- * $Id: pdblib.c,v 1.1 1992-07-03 18:23:35 granger Exp $
+ * $Id: pdblib.c,v 1.2 1992-07-22 14:57:02 granger Exp $
  *
  * pdblib.c --- Some useful routines for interfacing with RAP's
  *		products server.  In particular, it provides
@@ -11,7 +11,7 @@
  */
 
 #if !defined(SABER) && !defined(lint)
-static char rcsid[] = "$Id: pdblib.c,v 1.1 1992-07-03 18:23:35 granger Exp $";
+static char rcsid[] = "$Id: pdblib.c,v 1.2 1992-07-22 14:57:02 granger Exp $";
 #endif
 
 #include <sys/param.h>
@@ -280,24 +280,6 @@ PdbResponse(wait_sec, type, msg, mlen)
 
 
 
-time_t 
-Time( tloc )
-	time_t *tloc;
-/*
- * Replicates a call to time() which can't be used because of
- * the 'time' typedef in Zeb's defs.h
- */
-{
-	struct timeval tp;
-
-	gettimeofday(&tp, NULL);
-	if (tloc)
-		*tloc = tp.tv_sec;
-	return(tp.tv_sec);
-}
-	
-
-
 int
 PdbSimulatedResponse(wait_sec, type, msg, mlen)
 	int wait_sec;
@@ -326,7 +308,7 @@ PdbSimulatedResponse(wait_sec, type, msg, mlen)
 		return(0);
 	}
 
-	now = Time(0);
+	now = time(0);
 
 	if (!next)
 	{
@@ -394,7 +376,7 @@ PdbStoreMessage(fd, mtype, msg, mlen)
 	hd.mtype = mtype;
 	hd.mlen = mlen;
 	hd.pdb_format = 0;  /* !!! ignored --- will not be valid !!! */
-	hd.timestamp = Time(0);
+	hd.timestamp = time(0);
 
 	write(fd, (char *)&hd, sizeof(hd));
 	write(fd, msg, mlen);
@@ -684,21 +666,21 @@ PdbUsage()
 {
    fprintf(stderr,"Pdb Options: \n");
    fprintf(stderr,
-      "-svc <file>		Set RAP network services filename\n");
+      "   %-25s Set RAP network services filename\n","-svc <file>");
    fprintf(stderr,
-      "-simulate, -sim <file>	Source file for server reponses\n");
+      "   %-25s Source file for server reponses\n","-simulate,-sim <file>");
    fprintf(stderr,
-      "-record, -rec <file>	Store messages\n");
+      "   %-25s Store messages\n","-record,-rec <file>");
    fprintf(stderr,
-      "-responses, -resp	Echo PDB responses\n");
+      "   %-25s Echo PDB responses\n","-responses,-resp");
    fprintf(stderr,
-      "-requests, -req		Echo PDB requests\n");
+      "   %-25s Echo PDB requests\n","-requests,-req");
    fprintf(stderr,
-      "-fast			Don't simulate 'real time' delays\n");
+      "   %-25s Don't simulate 'real time' delays\n","-fast");
    fprintf(stderr,
-      "-delay			Set delay (secs) between simulated responses\n");
+      "   %-25s Set delay (secs) between simulated responses\n","-delay");
    fprintf(stderr,
-      "-pts			Show points in polyline products\n");
+      "   %-25s Show points in polyline products\n","-pts");
 }
 
    
