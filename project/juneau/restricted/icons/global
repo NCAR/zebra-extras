@@ -1,0 +1,4 @@
+#define tiny_width 2
+#define tiny_height 2
+static unsigned char tiny_bits[] = {
+   0x03, 0x03};
