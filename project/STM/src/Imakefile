@@ -1,4 +1,4 @@
-XCOMM $Id: Imakefile,v 1.4 1995-09-22 00:16:19 granger Exp $
+XCOMM $Id: Imakefile,v 1.5 1995-09-22 00:25:43 granger Exp $
 
 CFGFILES = ds.config IconBar dm.config dm.pd \
 	   cf-active-loc ef-active-loc bf-active-loc
@@ -65,6 +65,18 @@ InstallNamedProg(arm-displays.html,arm-displays.html,$(HELPDIR))
 
 CppScriptTarget(tools.html,tools.html.cpp,$(DEFINES),/**/)
 InstallNamedProg(tools.html,tools.html,$(HELPDIR))
+
+CppScriptTarget(satellite.html,satellite.html.cpp,$(DEFINES),/**/)
+InstallNamedProg(satellite.html,satellite.html,$(HELPDIR))
+
+CppScriptTarget(smos-tseries.html,smos-tseries.html.cpp,$(DEFINES),/**/)
+InstallNamedProg(smos-tseries.html,smos-tseries.html,$(HELPDIR))
+
+CppScriptTarget(sondes.html,sondes.html.cpp,$(DEFINES),/**/)
+InstallNamedProg(sondes.html,sondes.html,$(HELPDIR))
+
+CppScriptTarget(arm-tutorial.html,arm-tutorial.html.cpp,$(DEFINES),/**/)
+InstallNamedProg(arm-tutorial.html,arm-tutorial.html,$(HELPDIR))
 
 depend::
 
