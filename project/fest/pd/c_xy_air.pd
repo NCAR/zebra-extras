@@ -17,7 +17,6 @@ c_xy_air
 	y-field:	alt
 	x-field:	theta
 	axis-t-label:	none
-	axis-t-tic-interval:	5.0
 	axis-t-grid-intensity:	0.0
 	axis-t-color:	pink
 	adj-axis-side:	t

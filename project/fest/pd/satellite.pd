@@ -11,7 +11,6 @@ GLOBAL
 	y-min:		-500.0
 	y-max:		200.0
 	icon-middle-menu:	DataAvailable
-	menu-platform:	goes
 c_goes
 	platform:	goes
 	field:		vis
@@ -21,7 +20,6 @@ c_goes
 	icon-middle-menu:	goes-middle
 	altitude:	0.0
 	icon-right-menu:	DataAvailable
-	menu-platform:		goes
 c_map
 	platform:	stormfest
 	representation:	overlay

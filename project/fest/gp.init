@@ -1,6 +1,16 @@
 !
 ! The (much reduced) runtime gp.init.
 !
+! $Id: gp.init,v 1.2 1994-12-12 20:49:07 burghart Exp $
+!
+
+!
+! Set some search paths.  'iconpath' includes "./icons" by default,
+! so we don't need to set it here.  Likewise 'mappath' includes
+! "./maps".  So here we just need to make sure our local modules
+! directory is in the require path.
+!
+set requirepath concat("./modules,",requirepath)
 
 !
 ! Pull in the compiled widget definitions.
@@ -21,6 +31,7 @@ set DefFile (concat (concat (c$libdir, "/"), "FieldDefs"))
 read #DefFile
 
 !
-! Pop up the model widget
+! Just about any graphics process will need this, so load it now
+! rather than require it everywhere else
 !
-popup model
+require simple-color

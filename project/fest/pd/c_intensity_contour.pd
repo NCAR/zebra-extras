@@ -14,4 +14,3 @@ c_intensity_contour
 	trigger-global:	true
 	icon-right-menu:	DataAvailable
 	icon-middle-menu:	nowrad-middle-contour
-	menu-platform:	nowrad

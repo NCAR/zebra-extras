@@ -11,7 +11,6 @@ c_nowrad_f
 	trigger:	nowrad_f
 	trigger-global:	true
 	icon-right-menu:	DataAvailable
-	menu-platform:	nowrad
 	intensity-center:	50.0
 	intensity-step:		6
 

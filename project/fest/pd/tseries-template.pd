@@ -27,7 +27,6 @@ timescale
 	auto-scale-y-max:	5.0000
 	auto-scale-y-min:	-5.0000
 	axis-b-label:	Time
-	axis-b-tic-interval:	10m
 	axis-bottom:	true
 	axis-left:	false
 	data-begin-time:	14-Feb-92,6:00:00

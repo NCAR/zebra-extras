@@ -3,7 +3,6 @@ global
 	comment:	Big window post-processing plot description.
 	cp4-filter-attribute:	sur
 	icon-middle-menu:	DataAvailable
-	menu-platform:	cp4
 	pd-name:	midwest-template
 	plot-mode:	history
 	plot-time:	10-Mar-92,12:00:00
@@ -26,7 +25,6 @@ c_goes_fest
 	icon-right-menu:	DataAvailable
 	ir-center:	100.0
 	ir-step:	14.0
-	menu-platform:	goes
 	platform:	goes_fest
 	representation:	raster
 c_intensity_contour
@@ -39,7 +37,6 @@ c_intensity_contour
 	intensity-center:	40
 	intensity-step:	20
 	line-width:	1
-	menu-platform:	nowrad
 	platform:	nowrad
 	representation:	contour
 	trigger-global:	true

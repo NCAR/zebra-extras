@@ -1,6 +1,8 @@
 !
 ! All the definitions required to make the iconbar work.
 !
+! $Id: IconBar,v 1.2 1994-12-12 20:48:56 burghart Exp $
+!
 
 !
 ! The right way to do this....
@@ -39,7 +41,7 @@ define widget iconbar menubar " "
 		submenu 'Listings' 'listings_menu'
 		line
 		submenu 'Print Zeb Documents' 'docs_menu'
-		submenu 'Print Dataset Documents' 'data_docs_menu'
+!		submenu 'Print Dataset Documents' 'data_docs_menu'
 !		submenu 'Print WINDS Documents' 'winds_docs_menu'
 	endmenu
 	!
@@ -74,8 +76,9 @@ define widget iconbar menubar " "
 		entry 'Time Widget'	'popup time'
 		entry 'Hardcopy Widget' 'popup hardcopy'
 		entry 'Configuration Editing Widget' 'popup ConfigEdit'
-		entry 'Data Store Widget' 'shell "dsdwidget &"'
+!		entry 'Data Store Widget' 'shell "dsdwidget &"'
 		entry 'Data Store Management' 'shell "dsmanage &"'
+		submenu 'Data Store Listings' 'dslistings'
 		line
 		entry 'Open Windows Mode' 'ToggleTBSpace' (tbspace > 0)
 		line
@@ -92,25 +95,29 @@ define widget iconbar menubar " "
 		entry 'Fixed'	'PutBCompfield c_nowrad intensity false'
 		entry 'Floater' 'PutBCompfield c_nowrad_f intensity false'
 		line
-		entry 'Fixed Contours' 'put_component c_intensity_contour'
-		entry 'Floater Contours' 'put_component c_intensity_f_contour'
+		entry 'Fixed Contours' 'sendout c_intensity_contour "pick"'
+		entry 'Floater Contours' 'sendout c_intensity_f_contour "pick"'
 	endmenu
 	menu mesonet bitmap mesonet
 		title 'Composite Surface Data'
 		line
-		entry 'Hourly Station Plots' 'put_component c_surface_hourly_plot'
-		entry '5-Min Station Plots' 'put_component c_surface_5min_plot'
+		entry 'Hourly Station Plots' \
+			'sendout c_surface_hourly_plot "pick"'
+		entry '5-Min Station Plots' \
+			'sendout c_surface_5min_plot "pick"'
 		line 
 		line
 !		subtitle 'Objective analysis'
 		line
 		submenu 'Line Contoured Hourly Sfc. Data' 'LineMesonetHourly'
 		submenu 'Filled Contour Hourly Sfc. Data' 'FilledMesonetHourly'
-		entry 'Hourly Sfc. Gridded Wind Vectors' 'put_component c_meso_winds'
+		entry 'Hourly Sfc. Gridded Wind Vectors' \
+			'sendout c_meso_winds "pick"'
 		line
 		submenu 'Line Contoured 5-Min Sfc. Data' 'LineMesonet5min'
 		submenu 'Filled Contour 5-Min Sfc. Data' 'FilledMesonet5min'
-		entry '5-Min Sfc. Gridded Wind Vectors' 'put_component c_meso_5min_winds'
+		entry '5-Min Sfc. Gridded Wind Vectors' \
+			'sendout c_meso_5min_winds "pick"'
 	endmenu
 	menu satellite bitmap satellite
 		title 'Satellite Data'
@@ -124,10 +131,10 @@ define widget iconbar menubar " "
 	menu aircraft bitmap aircraft
 		title 'Aircraft'
 		line
-		entry 'Storm-1' 'put_component c_storm1'
-		entry 'Storm-2' 'put_component c_storm2'
-		entry 'P-3' 'put_component c_p3'
-		entry 'Storm-4' 'put_component c_storm4'
+		entry 'Storm-1' 'sendout c_storm1 "pick"'
+		entry 'Storm-2' 'sendout c_storm2 "pick"'
+		entry 'P-3' 'sendout c_p3 "pick"'
+		entry 'Storm-4' 'sendout c_storm4 "pick"'
 	endmenu
 	menu model bitmap model
 		title 'Model Data Contours'
@@ -153,7 +160,7 @@ define widget iconbar menubar " "
 		submenu 'Grids and Range Rings' GridsAndRings
 		submenu 'Maps' 'Maps'
 		submenu 'Locations' LocMenu
-		submenu 'Boundaries' IBboundary
+!		submenu 'Boundaries' IBboundary
 		line
 		entry 'Window Bounds' 'put_wbounds c_wbounds'
 	endmenu
@@ -165,10 +172,14 @@ define widget iconbar menubar " "
 !	endmenu
 enddef
 
+! The model pd templates need to be tweaked to require our project-specific
+! module, which basically just pop-up the model widget.  Other tweaks are
+! done here also.
 !
 ! Add basic model data: ModelAdd <platform> <color>
 !
 procedure ModelAdd plat string color string
+	parameter p_model p_model require 'contour, simple-color, fest-model'
 	parameter p_model p_model platform #plat
 	parameter p_model p_model icon #plat
 	parameter p_model p_model color #color
@@ -182,6 +193,8 @@ endprocedure
 !
 procedure ModelWindsAdd plat string color string degrade string
 	local iconname concat(plat,"_winds")
+	parameter p_model_winds p_model_winds require \
+		 'simple-color, winds, fest-model'
 	parameter p_model_winds p_model_winds platform #plat
 	parameter p_model_winds p_model_winds icon #iconname
 	parameter p_model_winds p_model_winds color #color
@@ -194,6 +207,7 @@ endprocedure
 ! (This is like ModelAdd above, except we turn off altitude-control)
 !
 procedure SfcModelAdd plat string color string
+	parameter p_model p_model require 'contour, simple-color, fest-model'
 	parameter p_model p_model platform #plat
 	parameter p_model p_model icon #plat
 	parameter p_model p_model color #color
@@ -214,7 +228,11 @@ procedure print_doc file string
 		return
 	endif
 
-	set cmd quote(concat4("lpr ",topdir,"/doc/",file))
+	if (SystemType = 'bsd')
+		set cmd quote(concat4("lpr ",topdir,"/doc/",file))
+	else
+                set cmd quote(concat4("lp ",topdir,"/doc/",file))
+	endif
 	message '#' cmd
 	shell #cmd
 
@@ -231,12 +249,12 @@ define widget listings_menu intmenu "Available Help Listings"
 endmenu
 
 
-procedure print_aster
-	print_doc "data/aster/aster_summary.ps"
-	print_doc "data/aster/figure1.ps"
-	print_doc "data/aster/figure2.ps"
-	print_doc "data/aster/figure3.ps"
-endprocedure	
+!procedure print_aster
+!	print_doc "data/aster/aster_summary.ps"
+!	print_doc "data/aster/figure1.ps"
+!	print_doc "data/aster/figure2.ps"
+!	print_doc "data/aster/figure3.ps"
+!endprocedure	
 
 
 !
@@ -245,9 +263,12 @@ endprocedure
 define widget docs_menu intmenu 'Print general Zeb documentation'
 	title 'Print Zeb Documentation'
 	line
-	entry 'Running Zeb (13 pgs)' 'print_doc "zeb/zeb.startup.doc.ps"'
-	entry 'User Manual (8 pgs)' 'print_doc "zeb/user.ps"'
-	entry 'xwd2ps man page (4 pgs)' 'print_doc "man/xwd2ps.ps"'
+	entry 'Advanced User Manual (140 pgs)' 'print_doc "AdvUsers.ps"'
+	entry 'Displaying Observational & Model Data (2 pgs)' 'print_doc "ObsAndModel.ps"'
+	entry 'Installing Zeb from CD-ROM (2 pgs)' 'print_doc "installcd.ps"'
+	entry 'Model Data in Zeb (3 pgs)' 'print_doc "ModelData.ps"'
+	entry 'Running Zeb (12 pgs)' 'print_doc "RunningZeb.ps"' 
+	entry 'Zeb Overview (5 pgs)' 'print_doc "overview.ps"'
 endmenu
 
 
@@ -266,23 +287,41 @@ endmenu
 !
 ! Data-related documents sub-menu
 !
-define widget data_docs_menu intmenu 'Print Data Documentation'
-	title 'Print Data Documents'
-	line
-	entry 'General CD Structure' 'print_doc "data/FileStructure.ps"'
-	entry 'CP4 Radar' 'print_doc "data/Cp4.ps"'
-	entry 'GOES Satellite' 'print_doc "data/Satellite.ps"'
-	entry 'Nowrad' 'print_doc "data/Nowrad.ps"'
-	entry 'Soundings' 'print_doc "data/Sounding.ps"'
-	entry 'Profilers' 'print_doc "data/Profilers.ps"'
-	entry 'Surface Data' 'print_doc "data/Surface.ps"'
-	entry 'Storm-1 (N2UW)' 'print_doc "data/Storm1_N2UW.ps"'
-	entry 'Storm-2 (N312D)' 'print_doc "data/Storm2_N312D.ps"'
-	entry 'P3' 'print_doc "data/P3.ps"'
-	entry 'Storm-4 (C131)' 'print_doc "data/Storm4_C131.ps"'
-	entry 'Aster' 'print_aster'
-endmenu	
+!define widget data_docs_menu intmenu 'Print Data Documentation'
+!	title 'Print Data Documents'
+!	line
+!	entry 'General CD Structure' 'print_doc "data/FileStructure.ps"'
+!	entry 'CP4 Radar' 'print_doc "data/Cp4.ps"'
+!	entry 'GOES Satellite' 'print_doc "data/Satellite.ps"'
+!	entry 'Nowrad' 'print_doc "data/Nowrad.ps"'
+!	entry 'Soundings' 'print_doc "data/Sounding.ps"'
+!	entry 'Profilers' 'print_doc "data/Profilers.ps"'
+!	entry 'Surface Data' 'print_doc "data/Surface.ps"'
+!	entry 'Storm-1 (N2UW)' 'print_doc "data/Storm1_N2UW.ps"'
+!	entry 'Storm-2 (N312D)' 'print_doc "data/Storm2_N312D.ps"'
+!	entry 'P3' 'print_doc "data/P3.ps"'
+!	entry 'Storm-4 (C131)' 'print_doc "data/Storm4_C131.ps"'
+!	entry 'Aster' 'print_aster'
+!endmenu	
 
+
+!
+! DataStore widget listings
+!
+define widget dslistings intmenu 'dsdwidget listings'
+	title 'Data Store Widget Listings'
+	line
+	entry 'All Platforms' \
+	   'shell "dsdwidget -a -t All\ Platforms &"'
+	entry 'Model Platforms' \
+	   'shell "dsdwidget -a -t Model\ Platforms avnold eta maps ngm &"'
+	entry 'Aircraft' \
+	   'shell "dsdwidget -a -t Aircraft \^p3 \^storm. &"'
+	entry 'Sounding Sites' \
+	   'shell "dsdwidget -a -t Sounding\ Sites \^s...\$ \^saws_ &"'
+	entry 'Profilers' \
+	   'shell "dsdwidget -a -t Profilers \^prof_ &"'
+endmenu
 
 !
 ! CP4 radar.
@@ -290,8 +329,8 @@ endmenu
 define widget CP4Radar intmenu 'cp4 radar'
 	title 'CP4'
 	line
-	entry 'Velocity' 'PutBCompField c_radar velocity true'
-	entry 'Reflectivity' 'PutBCompField c_radar reflectivity true'
+	entry 'Velocity' 'put_radar cp4 velocity'
+	entry 'Reflectivity' 'put_radar cp4 reflectivity'
 endmenu
 
 !
@@ -300,8 +339,8 @@ endmenu
 define widget MHRadar intmenu 'mhr radar'
 	title 'MHR'
 	line
-	entry 'Velocity' 'PutBCompField c_mhr velocity true'
-	entry 'Reflectivity' 'PutBCompField c_mhr reflectivity true'
+	entry 'Velocity' 'put_radar mhr velocity'
+	entry 'Reflectivity' 'put_radar mhr reflectivity'
 endmenu
 
 !
@@ -374,18 +413,47 @@ define widget OpsdirConfigs intmenu 'Ops Director Configs menu'
 endmenu
 
 !
+! Adjust the simpler pd's to use minimal left menus
+!
+parameter p_map p_map icon-left-menu minimal-cap-left-menu
+parameter p_loc p_loc icon-left-menu minimal-cap-left-menu
+parameter p_llgrid p_llgrid icon-left-menu minimal-cap-left-menu
+parameter p_kmgrid p_kmgrid icon-left-menu minimal-cap-left-menu
+
+!
 ! The various maps.
 !
 define widget Maps intmenu 'Maps'
 	title 'Map overlays'
 	line
-	entry 'State boundaries' 'put_component c_map'
-!	entry 'Roads' 'put_component c_road_map'
-	entry 'Dual Doppler Lobes' 'put_component c_ddop_map'
-	entry 'Boundary Layer Array' 'put_component c_array_map'
+	entry 'State boundaries' \
+	   'putc3 p_map platform stormfest color gray60 icon map'
+	entry 'Dual Doppler Lobes' \
+	   'putc3 p_map platform stormfest_lobes color red icon ddop-lobes'
+	entry 'Boundary Layer Array' \
+	   'putc3 p_map platform fest_array color yellow icon map'
 	line
 endmenu
 
+
+!
+! Location platform lists
+!
+set NWS_locs 'ABQ,AMA,DDC,DEN,ELP,GGG,GJT,GRB,HON,LBF,LIT,LND,MAF,OMA'
+set NWS_locs concat(NWS_locs,',OUN,PAH,PIA,RAP,SEP,STC,TOP,UMN,BIS,DRA,BOI')
+set NWS_locs concat(NWS_locs,',ELY,GEG,GGW,GTF,INW,SLC,TUS,WMC,MFR,MYF,OAK')
+set NWS_locs concat(NWS_locs,',SLE,UIL,VBG,ANN,OLM,CGO,RDD,ILA,NPS,PRB,NTD')
+set NWS_locs concat(NWS_locs,',YXY,YYE,YSM,YXS,YZT,WVK,WSE,YVQ,YEV')
+set Prof_locs 'AZCN5,BLMM7,BLRW3,CNWM7,DQUA4,FBYN1,GDAC2,HKLO2,HVLK1,HBRK1'
+set Prof_locs concat(Prof_locs,',JTNT2,NRCM5,LMNO2,LTHM7,RWDN1,MBWW4,MRRN1')
+set Prof_locs concat(Prof_locs,',NLGN1,NDSK1,OKOM6,PATT2,PLTC2,PRCO2,SLAI4')
+set Prof_locs concat(Prof_locs,',TCUN5,VCIO2,WSMN5,WNCI2,WDLM5')
+set Radar_locs 'cp3,cp4,mhr,okc,fdr,cim,hot,chill,osk'
+set Sound_locs 'slb,iow,ear,3v1,hys,62k,akz,irk,cou,stl,hen,guy'
+
+procedure put_locs locs string color string icon string
+	putc3 p_loc platform #locs color #color icon #icon
+endprocedure
 
 !
 ! Location submenu.
@@ -393,48 +461,67 @@ endmenu
 define widget LocMenu intmenu 'Location menu'
 	title 'Static locations'
 	line
-	entry 'Ops Center' 'put_component c_ops-ctr'
-	entry 'Radars' 'put_component c_radar_loc'
+	entry 'Ops Center' \
+	   'put_locs ops-ctr green ops-ctr'
+	entry 'Radars' \
+	   'put_locs #Radar_locs khaki radar-loc'
 	submenu 'VOR/DME' 'VORmenu'
-	entry 'CLASS stations' 'put_component c_sounding_loc'
-	entry 'NWS soundings' 'put_component c_nwssounding_loc'
-	entry 'Profilers' 'put_component c_profiler_loc'
-	entry 'Radio Tower' 'put_component c_rt_loc'
-	entry 'Aster' 'put_component c_aster_loc'
-	entry 'Boundary Layer Array' 'put_component c_array_loc'
+	entry 'CLASS stations' 'put_locs #Sound_locs tan sounding-loc'
+	entry 'NWS soundings' \
+	   'put_locs #NWS_locs tan sounding-loc'
+	entry 'Profilers' \
+	   'put_locs #Prof_locs tan sounding-loc'
+	entry 'Radio Tower' \
+	   'put_locs rt cyan rt-loc'
+	entry 'Aster' \
+	   'put_locs aster white sounding-loc'
+	entry 'Boundary Layer Array' \
+	   'put_locs array yellow sounding-loc'
 endmenu
+
+set vor_IA 'vor-alo,vor-cid,vor-dbq,vor-dsm,vor-eol,vor-fod,vor-iow,vor-lmn,vor-mcw,vor-otm,vor-rty,vor-spw,vor-sux,vor-tnu,vor-ukn'
+set vor_westKS 'vor-any,vor-ddc,vor-gck,vor-gld,vor-hlc,vor-hys,vor-lbl,vor-tko'
+set vor_eastKS 'vor-cnu,vor-emp,vor-foe,vor-hut,vor-iab,vor-ict,vor-mhk,vor-ojc,vor-osw,vor-sln,vor-top'
+set vor_eastMO 'vor-cbi,vor-cgi,vor-hlv,vor-jef,vor-map,vor-mcm,vor-stl,vor-vih'
+set vor_westMO 'vor-anx,vor-bum,vor-dgd,vor-eos,vor-gvw,vor-irk,vor-mkc,vor-sgf,vor-shy,vor-stj,vor-szl'
+set vor_eastNE 'vor-gri,vor-hsi,vor-lnk,vor-obh,vor-off,vor-ofk,vor-olu,vor-oma,vor-onl,vor-pwe'
+set vor_westNE 'vor-anw,vor-ear,vor-hct,vor-lbf,vor-tdd'
+set vor_eastOK 'vor-bvo,vor-gnp,vor-mlc,vor-per,vor-pgo,vor-tul'
+set vor_westOK 'vor-adm,vor-bfv,vor-end,vor-gag,vor-hbr,vor-ifi,vor-irw,vor-law,vor-lts,vor-odg,vor-syo,vor-tik'
+set vor_nmisc 'vor-ael,vor-frm,vor-fsd,vor-lse,vor-odi,vor-otg,vor-rst,vor-ykn'
+set vor_smisc 'vor-cds,vor-dak,vor-fsm,vor-hot,vor-hro,vor-lit,vor-lrf,vor-pbf,vor-rzc'
 
 define widget VORmenu intmenu 'Vor Locations'
 	title 'VOR Locations'
 	line
-	entry 'Iowa'		'put_component c_vor_IA'
-	entry 'Western Kansas'	'put_component c_vor_westKS'
-	entry 'Eastern Kansas'	'put_component c_vor_eastKS'
-	entry 'Western Missouri'	'put_component c_vor_westMO'
-	entry 'Eastern Missouri'	'put_component c_vor_eastMO'
-	entry 'Western Nebraska'	'put_component c_vor_westNE'
-	entry 'Eastern Nebraska'	'put_component c_vor_eastNE'
-	entry 'Western Oklahoma'	'put_component c_vor_westOK'
-	entry 'Eastern Oklahoma'	'put_component c_vor_eastOK'
-	entry 'North misc.'	'put_component c_vor_nmisc'
-	entry 'South misc.'	'put_component c_vor_smisc'
+	entry 'Iowa'		  'put_locs #vor_IA white vor-IA'
+	entry 'Western Kansas'	  'put_locs #vor_westKS white vor-westKS'
+	entry 'Eastern Kansas'	  'put_locs #vor_eastKS white vor-eastKS'
+	entry 'Western Missouri'  'put_locs #vor_westMO white vor-westMO'
+	entry 'Eastern Missouri'  'put_locs #vor_eastMO white vor-eastMO'
+	entry 'Western Nebraska'  'put_locs #vor_westNE white vor-westNE'
+	entry 'Eastern Nebraska'  'put_locs #vor_eastNE white vor-eastNE' 
+	entry 'Western Oklahoma'  'put_locs #vor_westOK white vor-westOK'
+	entry 'Eastern Oklahoma'  'put_locs #vor_eastOK white vor-eastOK'
+	entry 'North misc.'	  'put_locs #vor_nmisc white vor-nmisc'
+	entry 'South misc.'	  'put_locs #vor_smisc white vor-smisc'
 endmenu
 
-!
-! The submenu for boundary selection.
-!
-define widget IBboundary intmenu 'Icon bar boundary menu'
-	title 'Boundary overlays'
-	line
-	entry 'Scan optimizer boundary' 'PutCompX c_opt_bdry platform boundary'
-	entry 'Spotlight' 'put_component c_spotlight'
-	line
-	entry 'Storm 1 flight plan' 'put_component c_n2uw-plan'
-	entry 'Storm 2 flight plan' 'put_component c_n312d-plan'
-	entry 'Storm 3 flight plan' 'put_component c_n43rf-plan'
-	entry 'Storm 4 flight plan' 'put_component c_n327uw-plan'
-	entry 'Storm 5 flight plan' 'put_component c_n709na-plan'
-endmenu
+!!
+!! The submenu for boundary selection.
+!!
+!define widget IBboundary intmenu 'Icon bar boundary menu'
+!	title 'Boundary overlays'
+!	line
+!	entry 'Scan optimizer boundary' 'putc1 c_opt_bdry platform boundary'
+!	entry 'Spotlight' 'sendout c_spotlight "pick"'
+!	line
+!	entry 'Storm 1 flight plan' 'sendout c_n2uw-plan "pick"'
+!	entry 'Storm 2 flight plan' 'sendout c_n312d-plan "pick"'
+!	entry 'Storm 3 flight plan' 'sendout c_n43rf-plan "pick"'
+!	entry 'Storm 4 flight plan' 'sendout c_n327uw-plan "pick"'
+!	entry 'Storm 5 flight plan' 'sendout c_n709na-plan "pick"'
+!endmenu
 
 !
 ! Submenu for grids and range rings.
@@ -447,9 +534,9 @@ define widget GridsAndRings intmenu 'grid and rings and nifty stuff'
 	submenu 'VOR/DME Range Rings' VORRings 
 	line
 	entry 'X-Y Grid (km)' \
-			'PutCompX c_cart_grid lat-lon false'
+			'putc1 c_cart_grid lat-lon false'
 	entry 'Lat/Lon Grid ' \
-		'PutCompX c_cart_grid lat-lon true'
+		'putc1 c_cart_grid lat-lon true'
 endmenu
 
 !
@@ -458,14 +545,14 @@ endmenu
 define widget RadarRings intmenu 'radar range rings'
 	title 'Radar Range Rings'
 	line
-	entry 'CP3 Range Rings' 'PutCompX c_rings platform cp3'
-	entry 'CP4 Range Rings' 'PutCompX c_rings platform cp4'
-	entry 'MHR Range Rings' 'PutCompX c_rings platform mhr'
-	entry 'OKC Range Rings' 'PutCompX c_rings platform okc'
-	entry 'FDR Range Rings' 'PutCompX c_rings platform fdr'
-	entry 'CIM Range Rings' 'PutCompX c_rings platform cim'
-	entry 'HOT Range Rings' 'PutCompX c_rings platform hot'
-	entry 'CHILL Range Rings' 'PutCompX c_rings platform chill'
+	entry 'CP3 Range Rings' 'putc1 p_rings platform cp3'
+	entry 'CP4 Range Rings' 'putc1 p_rings platform cp4'
+	entry 'MHR Range Rings' 'putc1 p_rings platform mhr'
+	entry 'OKC Range Rings' 'putc1 p_rings platform okc'
+	entry 'FDR Range Rings' 'putc1 p_rings platform fdr'
+	entry 'CIM Range Rings' 'putc1 p_rings platform cim'
+	entry 'HOT Range Rings' 'putc1 p_rings platform hot'
+	entry 'CHILL Range Rings' 'putc1 p_rings platform chill'
 endmenu
 
 !
@@ -474,17 +561,17 @@ endmenu
 define widget VORRings intmenu 'VOR range rings'
 	title 'VOR/DME Range Rings'
 	line
-	entry 'STJ range rings' 'PutCompX c_vor platform vor-stj'
-	entry 'MKC range rings' 'PutCompX c_vor platform vor-mkc'
-	entry 'PWE range rings' 'PutCompX c_vor platform vor-pwe'
-	entry 'TOP range rings' 'PutCompX c_vor platform vor-top'
-	entry 'DUC range rings' 'PutCompX c_vor platform vor-duc'
-	entry 'IRW range rings' 'PutCompX c_vor platform vor-irw'
-	entry 'HBR range rings' 'PutCompX c_vor platform vor-hbr'
-	entry 'IFI range rings' 'PutCompX c_vor platform vor-ifi'
-	entry 'IRK range rings' 'PutCompX c_vor platform vor-irk'
-	entry 'DSM range rings' 'PutCompX c_vor platform vor-dsm'
-	entry 'FSM range rings' 'PutCompX c_vor platform vor-fsm'	
+	entry 'STJ range rings' 'putc1 c_vor platform vor-stj'
+	entry 'MKC range rings' 'putc1 c_vor platform vor-mkc'
+	entry 'PWE range rings' 'putc1 c_vor platform vor-pwe'
+	entry 'TOP range rings' 'putc1 c_vor platform vor-top'
+	entry 'DUC range rings' 'putc1 c_vor platform vor-duc'
+	entry 'IRW range rings' 'putc1 c_vor platform vor-irw'
+	entry 'HBR range rings' 'putc1 c_vor platform vor-hbr'
+	entry 'IFI range rings' 'putc1 c_vor platform vor-ifi'
+	entry 'IRK range rings' 'putc1 c_vor platform vor-irk'
+	entry 'DSM range rings' 'putc1 c_vor platform vor-dsm'
+	entry 'FSM range rings' 'putc1 c_vor platform vor-fsm'	
 	entry 'Other VOR (keyboard entry)' 'popup vor-origin'
 endmenu
 
@@ -646,13 +733,13 @@ endmenu
 define widget LineDDop intmenu 'Line ddop contour selection'
 	title 'Dual Doppler Data in Line Contours'
 	line
-	entry 'Divergence Contours' 'PutCompX c_ddop_cont field div'
+	entry 'Divergence Contours' 'putc1 c_ddop_cont field div'
 	entry 'Vertical Velocity Contours' \
-		'PutCompX c_ddop_cont field w_wind'
+		'putc1 c_ddop_cont field w_wind'
 	entry 'Cp4 Interpolated Reflectivity' \
-		'PutCompX c_ddop_cont field ref_cp4'
+		'putc1 c_ddop_cont field ref_cp4'
 	entry 'Cp3 Interpolated Reflectivity' \
-		'PutCompX c_ddop_cont field ref_cp3'
+		'putc1 c_ddop_cont field ref_cp3'
 endmenu
 
 define widget FilledDDop intmenu 'Filled ddop contour selection'
@@ -667,52 +754,12 @@ define widget FilledDDop intmenu 'Filled ddop contour selection'
 	'PutBCompField c_ddop_fillcont ref_cp3 false'
 endmenu
 
-!
-! The simple case: add a component to a window with no changes.
-!
-procedure put_component name string
-!
-! Get the target window.
-!
-	set target_win "none"
-	pickwin target_win
-	if (target_win = "none")	! They picked root or something
-		beep
-		return
-	endif
-!
-! If this component is already present in the window, remove it.  Otherwise
-! put it in.
-!
-	if (pd_defined (target_win, name, "platform"))
-		message 'Already there'
-		remove #target_win #name
-	else
-		add #name #name #target_win
-	endif
-endprocedure
-
-
 
 !
 ! Add a component to a window, changing the field name.
 !
 procedure PutCompField comp string field string
-!
-! Get the target window.
-!
-	set target_win "none"
-	pickwin target_win
-	if (target_win = "none")	! They picked root or something
-		beep
-		return
-	endif
-	sound chord
-!
-! Send the stuff over.
-!
-	parameter #comp #comp "field" #field
-	add #comp #comp #target_win
+	putc1 #comp field #field
 endprocedure
 
 
@@ -752,24 +799,12 @@ endprocedure
 
 
 !
-! Remove a component from a window.
+! Tweak the radar platform in the library component and use
+! PutBCompField to place it
 !
-procedure ZapComp comp string
-!
-! Get the target window.
-!
-	set target_win "none"
-	pickwin target_win
-	if (target_win = "none")	! They picked root or something
-		beep
-		return
-	endif
-!
-! If this component truly exists in the window, get rid of it.
-!
-	if (pd_defined (target_win, comp, "platform"))
-		remove #target_win #comp
-	endif
+procedure put_radar platform string field string
+	parameter p_radar p_radar platform #platform
+	PutBCompField p_radar #field true
 endprocedure
 
 
@@ -826,27 +861,6 @@ endprocedure
 
 
 
-!
-! Add a component to a window, changing an arbitrary parameter.
-!
-procedure PutCompX comp string param string value string
-!
-! Get the target window.
-!
-	set target_win "none"
-	pickwin target_win
-	if (target_win = "none")	! They picked root or something
-		beep
-		return
-	endif
-	sound chord
-
-	parameter #comp #comp #param #value
-	add #comp #comp #target_win
-endprocedure
-
-
-
 procedure vor_origin_enter
 !
 ! Get some parameters
@@ -875,12 +889,12 @@ procedure vor_origin_enter
 ! Looks cool -- let's do it.
 !
 	formtext #ui$form gripe 'Please select window'
-	PutCompX 'c_vordef' 'platform' #origin
+	putc2 c_vor platform #origin icon vor
 	popdown #ui$form
 endprocedure
 
 !
-!decreases the height of the window so that i looks nice with the
+!decreases the height of the window so that it looks nice with the
 !openwindows top bar
 !
 procedure ToggleTBSpace
@@ -891,8 +905,3 @@ procedure ToggleTBSpace
 	endif
 endprocedure
 
-!
-! Once tested and approved, the whole source could be inserted here
-! if necessary
-!
-! read print.widget

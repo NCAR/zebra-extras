@@ -1,7 +1,6 @@
 global
 	comment:	Nowcaster big window plot description.
 	icon-middle-menu:	DataAvailable
-	menu-platform:	cp4
 	pd-name:	us-template
 	plot-mode:	history
 	plot-time:	10-Mar-92,12:00:00
@@ -22,7 +21,6 @@ c_goes_us
 	icon-right-menu:	DataAvailable
 	ir-center:	100.0
 	ir-step:	15
-	menu-platform:	goes
 	platform:	goes_us
 	representation:	raster
 c_map

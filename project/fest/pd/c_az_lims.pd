@@ -8,7 +8,6 @@ c_az_lims
 	color:		white
 	icon-middle-menu:	simple-color
 !	icon-right-menu:	linewidth
-	menu-platform:		cp2-az-limits
 	icon-right-menu:	DataAvailable
 	line-width:	2
 	trigger-global:	true

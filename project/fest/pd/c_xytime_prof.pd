@@ -17,7 +17,6 @@ c_xytime_prof
 	y-field:	wdir,wdir
 	x-field:	time,time
 	axis-r-label:	none	
-	axis-r-tic-interval:	5.0
 	axis-r-grid-intensity:	0.0
 	axis-r-color:	violet
 	adj-axis-side:	r

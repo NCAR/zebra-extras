@@ -12,7 +12,6 @@ GLOBAL
 	y-min:		-200.0
 	y-max:		300.0
 	icon-middle-menu:	DataAvailable
-	menu-platform:	goes,cp4
 c_radar
 	platform:	cp4
 	field:		reflectivity
@@ -24,7 +23,6 @@ c_radar
 	disable:	true
 	altitude:	0.3
 	icon-right-menu:	DataAvailable
-	menu-platform:		cp4
 c_goes
 	platform:	goes
 	field:		aaa
@@ -35,7 +33,6 @@ c_goes
 	disable:	false
 	altitude:	0.0
 	icon-right-menu:	DataAvailable
-	menu-platform:	goes
 c_map
 	platform:	stormfest
 	representation:	overlay

@@ -3,7 +3,6 @@ global
 	altitude-label:	Alt: 800 mb
 	forecast-offset:	0h
 	icon-middle-menu:	DataAvailable
-	menu-platform:	cp4
 	pd-name:	cap-template
 	plot-mode:	history
 	plot-time:	9-Mar-92,00:00:00
@@ -21,7 +20,6 @@ c_goes_us
 	icon:	satellite
 	icon-middle-menu:	goes-middle
 	icon-right-menu:	DataAvailable
-	menu-platform:	goes_us
 	platform:	goes_us
 	representation:	raster
 c_map

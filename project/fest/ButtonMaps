@@ -17,6 +17,19 @@ buttonmap basic
 endmap
 
 !
+! Basic, vanilla xygraph stuff
+!
+buttonmap xygraph
+	local	mb-s-left 'drawbox zoom'
+	local	b	'unzoom'
+	local	m	'popup movie'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	t	'popup overlay'
+	local	h	'help'
+endmap
+
+!
 ! Buttons for radar type windows, with radar toggling, xsect control, and
 ! so on.
 !
@@ -41,23 +54,6 @@ buttonmap radar
 	local	h	'help'
 endmap
 
-
-
-buttonmap test
-	local	mb-left 'drawbox pushcoord'
-	local	m	'popup movie'
-	local	F29	'altstep 99'
-	local	F35	'altstep -99'
-	local	Up	'altstep 1'
-	local	Down	'altstep -1'
-	local	u	'altstep 1'
-	local	d	'altstep -1'
-	local	r	'movie run'
-	local	s	'movie stop'
-	local	b	'popcoords'
-	local	p	'polyline cp3'
-	local	h	'help'
-endmap
 
 
 buttonmap big

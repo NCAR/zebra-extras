@@ -11,7 +11,7 @@ c_n312d_nats
 	field:		alt
 	time-period:	600s
 	trigger:	n312d_nats
-	color-table:	contour
+	color-table:	Contour
 	line-width:	3
 	u-field:	ui
 	v-field:	vi

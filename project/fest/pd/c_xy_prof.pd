@@ -17,7 +17,6 @@ c_xy_prof
 	y-field:	height,height
 	x-field:	wdir,wdir
 	axis-b-label:	none	
-	axis-b-tic-interval:	5.0
 	axis-b-grid-intensity:	0.0
 	axis-b-color:	orange
 	adj-axis-side:	b

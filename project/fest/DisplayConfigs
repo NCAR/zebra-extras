@@ -1,6 +1,8 @@
 !
 ! All of the predefined display configurations live in this file.
 !
+! $Id: DisplayConfigs,v 1.2 1994-12-12 20:48:54 burghart Exp $
+!
 
 !
 ! GraphProc test window config and color table

@@ -14,6 +14,7 @@ platform eta_sfc
 	model
 	! share directory (and files) with eta
 	directory	eta
+	remote		eta
 endplatform
 
 platform ngm
@@ -28,6 +29,7 @@ platform ngm_sfc
 	model
 	! share directory (and files) with ngm
 	directory	ngm
+	remote		ngm
 endplatform
 
 platform avnold
@@ -42,6 +44,7 @@ platform avnold_sfc
 	model
 	! share directory (and files) with avnold
 	directory	avnold
+	remote		avnold
 endplatform
 
 platform maps

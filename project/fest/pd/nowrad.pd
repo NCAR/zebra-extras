@@ -8,7 +8,6 @@ GLOBAL
 	time-frames:	2
 	altitude:	0
 	icon-middle-menu:	DataAvailable
-	menu-platform:	nowrad
 c_nowrad
 	platform:	nowrad
 	field:		intensity	
@@ -18,7 +17,6 @@ c_nowrad
 	icon-middle-menu:	nowrad-middle
 	altitude:	0.0
 	icon-right-menu:	DataAvailable
-	menu-platform:		nowrad
 c_station_plot
 	platform:	mesonet
 	representation:	vector

@@ -4,7 +4,6 @@ GLOBAL
 	plot-type:	CAP
 	trigger:	goes
 	icon-middle-menu:	DataAvailable
-	menu-platform:	goes
 c_goes
 	platform:	goes_8km
 	representation:	raster

@@ -2,10 +2,8 @@
 #
 # Generate a new set of cache files for a STORM-FEST CD.
 #
-# Files /zeb/project/fest/cache/cache.iopX will be generated for the
-# IOPs on the currently mounted CD.  The previous versions of the cache
-# files will be retained with a .old extension.  EventLogger information
-# will be written to /zeb/project/fest/makeCDCache.log.
+# Files ./cache.iopX will be generated for the IOPs on the currently mounted 
+# CD.  EventLogger information will be written to ./makeCDCache.log.
 #
 # Usage: makeCDCache <cd_directory>
 #
@@ -15,13 +13,14 @@ if ($#argv != 1) then
 	exit 1
 endif
 
+set startdir = $cwd
+
 #
 # Start up the zeb basics
 #
 setenv ZEB_SOCKET /tmp/zeb.makecache
 
-message &
-mstatus >& /dev/null	# wait until message is started
+message
 timer &
 EventLogger -n -f makeCDCache.log &
 
@@ -33,8 +32,7 @@ foreach iop (iop*)
 	echo -n Doing $iop...
 	setenv DATA_DIR $1/data/$iop
 
-	set cachefile = "/zeb/project/fest/cache/cache.$iop"
-	if (-f $cachefile) mv $cachefile $cachefile.old
+	set cachefile = "$startdir/cache.$iop"
 
 	#
 	# Build a dsDaemon input file (ds.config + scan + write cache + exit)
@@ -60,25 +58,4 @@ foreach iop (iop*)
 end
 
 zebstop
-
-#
-# Duplicate (and rename) the cache files for the "double" IOPs
-#
-cd /zeb/project/fest/cache
-
-if (-f cache.iop6_7) then
-	echo "Splitting iop6_7 cache into iop6 and iop7"
-	if (-f cache.iop6) mv cache.iop6 cache.iop6.old
-	if (-f cache.iop7) mv cache.iop7 cache.iop7.old
-	mv cache.iop6_7 cache.iop6
-	cp cache.iop6 cache.iop7
-endif
-
-if (-f cache.iop13_14) then
-	echo "Splitting iop13_14 cache into iop13 and iop14"
-	if (-f cache.iop13) mv cache.iop13 cache.iop13.old
-	if (-f cache.iop14) mv cache.iop14 cache.iop14.old
-	mv cache.iop13_14 cache.iop13
-	cp cache.iop13 cache.iop14
-endif
 

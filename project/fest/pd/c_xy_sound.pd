@@ -18,7 +18,6 @@ c_xy_sound
 	y-field:	alt
 	x-field:	wdir,wdir
 	axis-b-label:	none	
-	axis-b-tic-interval:	5.0
 	axis-b-grid-intensity:	0.0
 	axis-b-color:	yellow
 	adj-axis-side:	b

@@ -4,7 +4,7 @@
 #
 uic <<\END_OF_UIC
 	message 'Loading graphproc state file'
-	load /zeb/lib/graphproc.lf
+	load ../../lib/graphproc.lf
 	set ui$initial_state 'initial'
 	message 'Loading graphproc widgets and procedures'
 	read gp.widgets

@@ -2,7 +2,7 @@
 config xygraph
 	window 'UpperLeft' 10 10 1000 785 gp gp.init
 		description 'xygraph-UpperLeft'
-		buttonmap 'basic'
+		buttonmap 'xygraph'
 		forcepd
 	endwindow
 	widget 'iconbar' 1016 10 80 505

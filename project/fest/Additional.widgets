@@ -20,8 +20,10 @@ define widget tr-adjust form "Aircraft Track Parameters"
 !Field, center and step used for color-coded tracks
 !
 	newline
-	label l2 'Field for color-coded tracks:'
-	pulldown field "field" width 120 menu tr-field-s2
+	label l2 'Field for color-coded tracks (select from either menu):'
+	newline
+	pulldown field-1 "field-1" width 150 menu tr-field-s2-1
+	pulldown field-2 "field-2" width 150 menu tr-field-s2-2
 	newline
 	label l3 " Center:" width 50
 	blank center "center" width 50
@@ -96,23 +98,27 @@ procedure tra-popup
 !
 	formtext #f comp #icon_component
 		if (plat = 'storm1')
-			formmenu #f field tr-field-s1
+			formmenu #f field-1 tr-field-s1-1
+			formmenu #f field-2 tr-field-s1-2
 		endif
 		if (plat = 'storm2')
-			formmenu #f field tr-field-s2
+			formmenu #f field-1 tr-field-s2-1
+			formmenu #f field-2 tr-field-s2-2
 		endif
 		if (plat = 'p3')
-			formmenu #f field tr-field-p3
+			formmenu #f field-1 tr-field-p3-1
+			formmenu #f field-2 tr-field-p3-2
 		endif
 		if (plat = 'storm4')
-			formmenu #f field tr-field-s4
+			formmenu #f field-1 tr-field-s4
+			formmenu #f field-2 tr-field-s4
 		endif
 !
 !Deal with the color of the track
 !
-	local field pd_param(icon_component,'field','string')
+	local field PDParam(icon_component,'field')
 		if (field = '(Undefined)')
-			local color pd_param(icon_component,'color','string')
+			local color PDParam(icon_component,'color')
 				if (color ='(Undefined)')
 					local color pd_paramsearch(icon_component,'arrow-color','platform','string')
 				endif
@@ -124,7 +130,8 @@ procedure tra-popup
 !
 !Deal with field center and step
 !
-	formtext #f field #field
+	formtext #f field-1 #field
+	formtext #f field-2 #field
 	local center_param concat(field, "-center")
 	local center pd_paramsearch(icon_component,center_param,'track','string')
 	formtext #f center #center
@@ -199,7 +206,7 @@ procedure tra-adjust
 	local c getftext(ui$form,'comp')
 	local color getftext(ui$form,'color')
 		if (color="Color-Coded")
-			local field getftext(ui$form,'field')
+			local field getftext(ui$form,'field-1')
 			local track concat("track-",field)
 			local center getftext(ui$form,'center')
 			local centertrack concat(track,"-center")
@@ -322,7 +329,8 @@ define widget arrow-col intmenu 'arrow color'
 endmenu
 
 procedure ChangeField field string
-	formtext #ui$form field #field
+	formtext #ui$form field-1 #field
+	formtext #ui$form field-2 #field
 	local center_param concat(field, "-center")
 	local center pd_paramsearch(icon_component,center_param,'track','string')
 	formtext #ui$form center #center
@@ -331,7 +339,7 @@ procedure ChangeField field string
 	formtext #ui$form step #step
 endprocedure
 	
-define widget tr-field-s1 intmenu 'track field'
+define widget tr-field-s1-1 intmenu 'track field'
 	title 'Aircraft Field'
 	line
 	entry 'Pressure Altitude KM' 'ChangeField "alt"'
@@ -350,6 +358,11 @@ define widget tr-field-s1 intmenu 'track field'
 	entry 'True Airspeed m/s' 'ChangeField "tas"'
 	entry 'Radar Altimeter 1 (m)'  'ChangeField "ralt1"'
 	entry 'Radar Altimeter 2 (m)'  'ChangeField "ralt2"'
+endmenu
+
+define widget tr-field-s1-2 intmenu 'track field'
+	title 'Aircraft Field'
+	line
 	entry '1D-C Concentration (#/liter)'  'ChangeField "onedc"'
 	entry 'FSSP Concentration (#/cm3)'  'ChangeField "fssp"'
 	entry 'FSSP Average Diameter (um)'  'ChangeField "fdbar"'
@@ -370,7 +383,7 @@ define widget tr-field-s1 intmenu 'track field'
 	entry 'Roll' 'ChangeField "hroll"'
 endmenu
 
-define widget tr-field-s2 intmenu 'track field'
+define widget tr-field-s2-1 intmenu 'track field'
 	title 'Aircraft Field'
 	line
 	entry 'Potential Temperature (K)' 'ChangeField "THETA"'
@@ -395,6 +408,11 @@ define widget tr-field-s2 intmenu 'track field'
 	entry 'Absolute humidity (thermoelec) (bot) G/M3' 'ChangeField "RHODB"'
 	entry 'Mixing Ratio G/KG' 'ChangeField "MR"'
 	entry 'Specific Humidity G/KG' 'ChangeField "SPHUM"'
+endmenu
+
+define widget tr-field-s2-2 intmenu 'track field'
+	title 'Aircraft Field'
+	line
 	entry 'Corrected PMS-KING Liquid Water Content G/M3' 'ChangeField "PLWCCZ"'
 	entry 'Corrected C-T Liquid Water Content G/M3' 'ChangeField "LWCCZ"'
 	entry 'PMS 2DC Particle Concentrations N/L' 'ChangeField "CON2C1"'
@@ -411,17 +429,18 @@ define widget tr-field-s2 intmenu 'track field'
 	entry 'FSSP Range' 'ChangeField "FRANGE"'
 	entry 'PMS 260X Probe (Total Counts) CNTS' 'ChangeField "XSUMX6"'
 	entry '260X Total Concentration N/LTR' 'ChangeField "XCONC6"'
-	entry 'Corrected Ozone Concentration PPB' 'ChangeField TEO3C"'
+	entry 'Corrected Ozone Concentration PPB' 'ChangeField "TEO3C"'
 	entry 'Chemiluminescence Ozone Temperature C' 'ChangeField "O3CT"'
 	entry 'Chemiluminescence Ozone Pressure mb' 'ChangeField "O3CP"'
 	entry 'Chemiluminescence Ozone Flow Rate slpm' 'ChangeField "O3CF"'
 	entry 'Chemiluminescence Ozone Voltage vdc' 'ChangeField "O3CS"'
 	entry 'Raw Lyman-Alpha Voltage vdc' 'ChangeField "VLA"'
 endmenu
+
 !
 ! P3 fields
 !
-define widget tr-field-p3 intmenu 'track field'
+define widget tr-field-p3-1 intmenu 'track field'
 	title "P-3 Aircaft Color Code Fields"
 	line
 	entry 'Radar Altitude km' 'ChangeField "alt"'
@@ -452,6 +471,11 @@ define widget tr-field-p3 intmenu 'track field'
 	entry 'Height Standard Pres Surface m' 'ChangeField "ht"'
 	entry 'Surface Pressure mb' 'ChangeField "sp"'
 	entry 'Relative Humidity %' 'ChangeField "rh"'
+endmenu
+
+define widget tr-field-p3-2 intmenu 'track field'
+	title "P-3 Aircaft Color Code Fields"
+	line
 	entry 'Virtual Temperature K' 'ChangeField "tv"'
 	entry 'Vertical Airspeed m/s' 'ChangeField "was"'
 	entry 'Ratio Specific Heats' 'ChangeField "gm"'
@@ -499,155 +523,8 @@ define widget tr-field-s4 intmenu 'track field'
 	entry 'FSSP Particle Rate N/cm3'  'ChangeField "fsprt"'
 	entry 'Turbulence cm2/s' 'ChangeField "turb"'
 endmenu
-!
-! Toggle an arbitrary boolean parameter.  This guy expects to be called
-! out of a menu, with icon_component set.
-!
-procedure ToggleBool param string
-	local current (pd_param (icon_component, param, "string") = "true")
-	if (current)
-		parameter #icon_component #param false
-	else
-		parameter #icon_component #param true
-	endif
-endprocedure
 
-!
-! Menus for boundaries
-!
-define widget bdry-right intmenu 'boundary right menu'
-	title 'Boundary Options'
-	line
-	submenu 'Line Width' LineWidth
-	submenu 'Labels' LabelOnOff
-endmenu
 
-!
-! A better boundary control widget.
-!
-define widget boundary-control intmenu 'stuff'
-	title 'Boundary/plan options'
-	line
-	submenu 'Line Width' LineWidth
-	entry 'Label' 'ToggleLabels' \
-		(pd_param(icon_component, "label", "string") <> "none")
-	line
-	entry 'Redraw' 'RedrawBoundary'
-endmenu
-
-procedure RedrawBoundary
-	local plat concat('l_',pd_param (icon_component, "platform", "string"))
-	polyline #plat
-endprocedure
-
-procedure ToggleLabels
-	local enabled (pd_param(icon_component, "label", "string") <> "none")
-	if (enabled)
-		parameter #icon_component label 'none'
-	else
-		parameter #icon_component label 'platform'
-	endif
-endprocedure
-
-!
-! Scales.
-!
-define widget ScaleMenu intmenu 'scales'
-	title 'Scales'
-	line
-	entry 'CP4 Scale' 'DoZoom -150 150 -150 150'
-	entry 'Missouri Scale' 'DoZoom -100 600 -500 200'
-	entry 'Midwest Scale' 'DoZoom -800 700 -500 200'
-endmenu
-
-!
-! Turn labels on and off.
-!
-define widget LabelOnOff intmenu "labels on/off"
-	title 'Labels'
-	line
-	entry 'On' 'turnlabelon' \
-		(pd_param(icon_component, "label", "string") <> "none")
-	entry 'Off' 'parameter #icon_component label none' \
-		(pd_param(icon_component, "label", "string") = "none")
-endmenu
-
-procedure turnlabelon
-	local worked pd_removeparam(icon_component, "label")
-endprocedure
-
-!
-! The default left button menu.
-!
-define widget leftmenu intmenu "leftmenu"
-	title 'Overlay Operations'
-	line
-	entry 'Adjust Limits' 'i_adjust limit-proc'
-	entry 'Spatial offset options' 'popup offsets'
-	line
-	entry 'Raise to top' 'move #icon_component 0'
-	entry 'Move to bottom' 'move #icon_component 1'
-	entry 'Disable/reenable' 'toggle_bool "disable" "true"'
-	entry 'Remove' 'i_remove_component'
-endmenu
-!
-!default left menu for surface station plots
-!
-define widget left-station intmenu "leftmenu"
-	title 'Overlay Operations'
-	line
-	entry 'Adjust Limits' 'i_adjust limit-proc'
-	entry 'Spatial Offset options' 'popup offsets'
-	entry 'Spatial Filter options' 'popup Spacefilter'
-	line
-	entry 'Raise to top' 'move #icon_component 0'
-	entry 'Move to bottom' 'move #icon_component 1'
-	entry 'Disable/reenable' 'toggle_bool "disable" "true"'
-	entry 'Remove' 'i_remove_component'
-endmenu
-!
-! The default left button for surface interpelated data
-!
-define widget meso-left-options intmenu "leftmenu"
-	title 'Overlay Operations'
-	line
-	entry 'Adjust Limits' 'i_adjust limit-proc'
-	entry 'Spatial offset options' 'popup offsets'
-	entry 'Adjust Interpelation' 'popup InterpParams'
-	line
-	entry 'Raise to top' 'move #icon_component 0'
-	entry 'Move to bottom' 'move #icon_component 1'
-	entry 'Disable/reenable' 'toggle_bool "disable" "true"'
-	entry 'Remove' 'i_remove_component'
-endmenu
-
-!
-! Commands to be executed out of the DataAvailable menu.  The invocation
-! sequence is:
-!
-!	DAVCommand  platform  time
-!
-! Where platform and time correspond to the menu entry which was selected.
-!
-! The default action is to switch to the given platform and time, in 
-! history mode.
-!
-
-procedure DefaultDataAvail platform string when string
-!
-! Switch to the given platform; however, let's check to see that we are
-! not already on that one -- we can avoid frame cache invalidations that
-! way.
-!
-	if (pd_param (icon_component, "platform", "string") <> platform)
-		parameter #icon_component platform #platform
-	endif
-!
-! Now drop into history mode and display this time.
-!
-	parameter global plot-mode history
-	parameter global plot-time #when
-endprocedure
 
 !
 ! For cp2-az-limits do the regular stuff plut set the platform 
@@ -684,94 +561,11 @@ endprocedure
 define widget lightning-color intmenu 'lightning color'
 	title 'Color tables'
 	line
-	entry 'Rainbow colors' 'parameter #icon_component color-table revrainbow'
+	entry 'Rainbow colors' 'parameter #icon_component color-table RevRainbow'
 	entry 'Gray scale' 'parameter #icon_component color-table smallrevgray'
 endmenu
 
-!
-! Aircraft fields.
-!
-define widget airfield intmenu 'airfield'
-	title "Aircraft Color Code Fields"
-	line
-	entry '2D-C Concentration - Ice' 'fldset "concic"'
-	entry '2D-P Concentration - Ice' 'fldset "concip"'
-	entry 'IRS Vertical Wind Speed (m/s)' 'fldset "hw"'
-	entry 'Pressure (mb)' 'fldset "pmb"'
-	entry 'Reverse Flow Temperature (C)' 'fldset "trf"'
-	entry 'Rosemont Temperature (C)' 'fldset "trose"'
-	entry 'Dewpoint Temperature (C)' 'fldset "tdp"'
-	entry 'Potential Temperature (K)' 'fldset "theta"'
-	entry 'Equavalent Potential Temperature (K)' 'fldset "thetae"'
-	entry 'Mixing Ratio (gm/kg)' 'fldset "w_gkg"'
-	entry 'Relative Humidity (%)' 'fldset "rh"'
-	entry 'Absolute humidity (g/m3)' 'fldset "rhov"'
-	entry 'GPS Altitude' 'fldset "alt"'
-	entry 'Radar Altimeter 1 (m)' 'fldset "ralt1"'
-	entry 'Radar Altimeter 2 (m)' 'fldset "ralt2"'
-	entry '1D-C Concentration (#/liter)' 'fldset "onedc"'
-	entry 'FSSP Concentration (#/cm3)' 'fldset "fssp"'
-	entry 'FSSP Average Diameter (um)' 'fldset "fdbar"'
-	entry 'FSSP Liquid Water Content (g/m3)' 'fldset "flwc"'
-	entry 'CSIRO Liquid Water Content (g/m3)' 'fldset "clwc"'
-	entry 'JW Liquid Water Content (g/m3)' 'fldset "jwwc"'
-	line
-	entry 'Show Plane?' 'toggle_bool "show-position" "true"' \
-		(pd_param (icon_component, "show-position", "string") = "true") 
-endmenu
-define widget tr-adjust-middle intmenu 'airfield-storm2'
-	title "Aircraft Color Code Fields"
-	line
-	entry 'Adjust Track Parameters' 'popup tr-adjust'
-	line
-	entry 'Potential Temperature (K)' 'fldset "THETA"'
-	entry 'Corrected static pressure (fuselage DI) mb' 'fldset "PSFDC"'
-	entry 'Geometric (radio) altitude M' 'fldset "HGM"'
-	entry 'NACA Pressure Altitude M' 'fldset "alt"'
-	entry 'Ambient Temperature (Boom) C' 'fldset "ATB"'
-	entry 'Ambient Temperature (Reverse Flow) C' 'fldset "ATRF"'
-	entry 'Wind East Component m/s' 'fldset "UI"'
-	entry 'Wind North Component m/s' 'fldset "VI"'
-	entry 'Wind Vertical Component m/s' 'fldset "WI"'
-	entry 'Equivalent Potential Temperature K' 'fldset "THETAE"'
-	entry 'IRS Aircraft True Heading deg' 'fldset "THI"'
-	entry 'IRS Aircraft Roll Attitude Angle deg' 'fldset "ROLL"'
-	entry 'IRS Aircraft Pitch Attitude Angle deg' 'fldset "PITCH"'
-	entry 'IRS Ground Speed East Component m/s' 'fldset "VEW"'
-	entry 'IRS Ground Speed North Component m/s' 'fldset "VNS"'
-	entry 'Aircraft True Airspeed (Radome) m/s' 'fldset "TASR"'
-	entry 'Dewpoint temperature (thermoelec) (top) C' 'fldset "DPTC"'
-	entry 'Dewpoint temperature (thermoelec) (bot) C' 'fldset "DPBC"'
-	entry 'Absolute humidity (thermoelec) (top) G/M3' 'fldset "RHODT"'
-	entry 'Absolute humidity (thermoelec) (bot) G/M3' 'fldset "RHODB"'
-	entry 'Mixing Ratio G/KG' 'fldset "MR"'
-	entry 'Specific Humidity G/KG' 'fldset "SPHUM"'
-	entry 'Corrected PMS-KING Liquid Water Content G/M3' 'fldset "PLWCCZ"'
-	entry 'Corrected C-T Liquid Water Content G/M3' 'fldset "LWCCZ"'
-	entry 'PMS 2DC Particle Concentrations N/L' 'fldset "CON2C1"'
-	entry 'PMS 2DP Particle Concentrations N/L' 'fldset "CON2P1"'
-	entry 'Raw Icing Rate Indicator	VDC' 'fldset "RICE"'
-	entry 'Top Shortwave Irradiance W/M2' 'fldset "SWT"'
-	entry 'Bottom Shortwave Irradiance W/M2' 'fldset "SWB"'
-	entry 'Top Infrafed Corrected Irradiance W/M2' 'fldset "IRTC"'
-	entry 'Bottom Infrared Corrected Irradiance W/M2' 'fldset "IRBC"'
-	entry 'Radiometric Surface Temperature C' 'fldset "RSTB"'
-	entry 'Radiometric Cloud-Base Temperature C' 'fldset "RSTT"'
-	entry 'FSSP Liquid Water Content G/M3' 'fldset "PLWCF"'
-	entry 'PMS FSSP Probe (Total Counts) CNTS' 'fldset "SUM15F"'
-	entry 'FSSP Range' 'fldset "FRANGE"'
-	entry 'PMS 260X Probe (Total Counts) CNTS' 'fldset "XSUMX6"'
-	entry '260X Total Concentration N/LTR' 'fldset "XCONC6"'
-	entry 'Corrected Ozone Concentration PPB' 'fldset TEO3C"'
-	entry 'Chemiluminescence Ozone Temperature C' 'fldset "O3CT"'
-	entry 'Chemiluminescence Ozone Pressure mb' 'fldset "O3CP"'
-	entry 'Chemiluminescence Ozone Flow Rate slpm' 'fldset "O3CF"'
-	entry 'Chemiluminescence Ozone Voltage vdc' 'fldset "O3CS"'
-	entry 'Raw Lyman-Alpha Voltage vdc' 'fldset "VLA"'
-	line
-	entry 'Show Plane?' 'toggle_bool "show-position" "true"' \
-		(pd_param (icon_component, "show-position", "string") = "true") 
-endmenu
+
 
 !
 ! P-3 fields.
@@ -810,199 +604,6 @@ define widget p3-right intmenu 'P-3 right menu'
 	submenu 'Track Color' 'simple-color'
 	line
 	submenu 'Line Width' 'LineWidth'
-endmenu
-!
-! Aircraft right menu.
-!
-define widget Aircraft-right intmenu 'Aircraft right menu'
-	title 'Aircraft Menu'
-	line
-	submenu 'Track Color' 'simple-color'
-	line
-	submenu 'Line Width' 'LineWidth'
-endmenu
-
-!
-!The dual-Doppler middle button menu.
-!
-define widget ddop-middle intmenu 'ddop-middle'
-	title 'Dual-Doppler Analysis'
-	line
-	entry 'Divergence contours' 'fldset "div"'
-	entry 'Vertical Velocity contours' 'fldset "w_wind"'
-	entry 'Cp4 interpelated reflectivity' 'fldset "ref_cp4"'
-	entry 'Cp3 interpelated reflectivity' 'fldset "ref_cp3"'
-endmenu
-
-!
-! The Dual Doppler left button menu.
-!
-define widget ddop-left intmenu 'ddop-left'
-	title 'Overlay Operations'
-	line
-	entry 'Adjust Limits' 'i_adjust limit-proc'
-	line
-	entry 'Raise to top' 'move #icon_component 0'
-	entry 'Move to bottom' 'move #icon_component 1'
-	entry 'Disable/reenable' 'toggle_bool "disable" "true"'
-	entry 'Remove' 'i_remove_ddop'
-endmenu
-
-procedure i_remove_ddop
-	local dm_cmd concat("parameter ", ourname)
-	dm concat(concat(dm_cmd, " "), "global radar-space true")
-	local dm_cmd concat("remove ",ourname)
-	dm concat(concat (dm_cmd, " "), icon_component)
-endprocedure
-
-!
-! The tseries left button menu.
-!
-define widget tseries-left intmenu 'TSeries Left'
-	title 'Overlay Operations'
-	line
-	submenu 'Adjust Limits' 'adjust-tseries-limits'
-	line
-	entry 'Raise to top' 'move #icon_component 0'
-	entry 'Move to bottom' 'move #icon_component 1'
-	entry 'Remove' 'i_remove_component'
-endmenu
-
-!
-! The xy-wind left button menu.
-!
-define widget xywind-left intmenu 'XY-Wind Left'
-	title 'Overlay Operations'
-	line
-	submenu 'Adjust Limits' 'adjust-xywind-limits'
-endmenu
-
-!
-! The xy-timegraph left button menu.
-!
-define widget xytimegraph-left intmenu 'XY-Graph Left'
-	title 'Overlay Operations'
-	line
-	submenu 'Adjust Limits' 'adjust-xygraph-limits'
-	line
-	entry 'Raise to top' 'move #icon_component 0'
-	entry 'Move to bottom' 'move #icon_component 1'
-	entry 'Disable/reenable' 'toggle_bool "disable" "true"'
-	entry 'Remove' 'i_remove_component'
-endmenu
-
-!
-! The track left button menu.
-!
-define widget track-left intmenu 'Track Left'
-	title 'Overlay Operations'
-	line
-	submenu 'Adjust Limits' 'adjust-track-limits'
-	entry 'Spatial offset options' 'popup offsets'
-	line
-	entry 'Raise to top' 'move #icon_component 0'
-	entry 'Move to bottom' 'move #icon_component 1'
-	entry 'Disable/reenable' 'toggle_bool "disable" "true"'
-	entry 'Remove' 'i_remove_component'
-endmenu
-
-!
-! The raster left button menu.
-!
-define widget raster-left intmenu 'Raster Left'
-	title 'Overlay Operations'
-	line
-	submenu 'Adjust Limits' 'adjust-raster-limits'
-	line
-	entry 'Raise to top' 'move #icon_component 0'
-	entry 'Move to bottom' 'move #icon_component 1'
-	entry 'Disable/reenable' 'toggle_bool "disable" "true"'
-	entry 'Remove' 'i_remove_component'
-endmenu
-
-!
-! The Raster Plot Adjust Limits submenu
-!
-define widget adjust-raster-limits intmenu 'Adjust Limits'
-	title 'Adjust Limits'
-	line
-	entry 'Center/Step' 'i_adjust centstep-limit-proc'
-	entry 'Highlight/Range' 'i_adjust highrange-limit-proc'
-endmenu
-!
-! The Vector Plot Adjust Limits submenu
-!
-define widget adjust-vector-limits intmenu 'Adjust Limits'
-	title 'Adjust Limits'
-	line
-	entry 'Arrow Scale' 'i_adjust vector-limit-proc'
-	entry 'Spatial Filter Scale' 'i_adjust vector-filter-limit-proc'
-endmenu
-
-!
-! The Track Adjust Limits submenu
-!
-define widget adjust-track-limits intmenu 'Adjust Limits'
-	title 'Adjust Limits'
-	line
-	entry 'Time Period' 'i_adjust time-limit-proc'
-	entry 'Center/Step' 'i_adjust centstep-limit-proc'
-endmenu
-
-!
-! The Skewt Adjust Limits submenu
-!
-define widget adjust-skewt-limits intmenu 'Adjust Limits'
-	title 'Adjust Limits'
-	line
-	entry 'Pressure' 'i_adjust pres-limit-proc'
-	entry 'Temperature' 'i_adjust temp-limit-proc'
-endmenu
-
-!
-! The Skew-t left button menu.
-!
-define widget skewt-left intmenu 'Skewt left'
-	title 'Overlay Operations'
-	line
-	submenu 'Adjust Limits' 'adjust-skewt-limits'
-	line
-	entry 'Raise to top' 'move #icon_component 0'
-	entry 'Move to bottom' 'move #icon_component 1'
-	entry 'Remove' 'i_remove_component'
-endmenu
-
-!
-! The Time Series Adjust Limits submenu
-!
-define widget adjust-tseries-limits intmenu 'Adjust Limits'
-	title 'Adjust Limits'
-	line
-	entry 'Time Interval' 'i_adjust time-limit-proc'
-	entry 'Left Axis' 'i_adjust left-limit-proc'
-	entry 'Right Axis' 'i_adjust right-limit-proc'
-	entry 'Number of Steps' 'i_adjust nstep-limit-proc'
-	entry 'Data Skip' 'i_adjust dskip-limit-proc'
-endmenu
-
-!
-! The XYWind Adjust Limits submenu
-!
-define widget adjust-xywind-limits intmenu 'Adjust Limits'
-	title 'Adjust Limits'
-	line
-	entry 'Time Interval' 'i_adjust time-limit-proc'
-endmenu
-
-!
-! The XYGraph Adjust Limits submenu
-!
-define widget adjust-xygraph-limits intmenu 'Adjust Limits'
-	title 'Adjust Limits'
-	line
-	entry 'Time Interval' 'i_adjust time-limit-proc'
-	entry 'Min/Max' 'adjust_scale adj-scale-dim'
-	entry 'Tic Interval' 'adjust_tic'
 endmenu
 
 procedure adjust_scale dimParam string
@@ -1047,19 +648,6 @@ procedure adjust_scale dimParam string
 endprocedure
 
 !
-!Procedure for defining tic-mark intervals
-!
-procedure adjust_tic 
-!!
-! Get the current tic inteval.
-!	
-	local tic pd_param(icon_component,"axis-r-tic-interval","string")
-!
-!activate widget	
-!
-	activate SingleFloat #icon_component "axis-r-tic-interval" "tic-interval" #tic
-endprocedure
-!
 ! Middle icon button field for aircraft data.
 !
 define widget aircraft-menu intmenu "Aircraft menu"
@@ -1072,168 +660,6 @@ define widget aircraft-menu intmenu "Aircraft menu"
 	entry 'Dewpoint temperature' 'fldset "dp"'
 endmenu
 
-!
-!Middle icon button menu for composite surface data
-!
-define widget surface-winds-mid intmenu 'Field Control Popup'
-	title 'Surface Station Labels'
-	line
-	entry 'Change Fields' 'popup fieldquads'
-	entry 'Help' 'help fieldquads'
-	entry 'List Weather Codes' 'dm "help weather_codes fest_codes"'
-endmenu
-define widget surface-winds-mid-old intmenu 'Field control popup'
-	title 'Surface Composite Fields'
-	line
-	entry 'Station ID' 'toggle_quad station' (substring(pd_param(icon_component, "quadrants", "string"),"station"))
-	entry 'Station Pressure mb' 'toggle_quad pres' (substring(pd_param(icon_component, "quadrants", "string"),"pres"))
-	entry 'Reported Sea-Level Pressure mb' 'toggle_quad cpres0' (substring(pd_param(icon_component, "quadrants", "string"), "cpres0"))
-	entry 'Calculated Sea-Level Pressure mb' 'toggle_quad computed_sea_lev_pres' (substring(pd_param(icon_component, "quadrants", "string"),"computed_sea_lev_pres"))
-	entry 'Temperature C' 'toggle_quad tdry' (substring(pd_param(icon_component, "quadrants", "string"),"tdry"))
-	entry 'Dewpoint Temperature C' 'toggle_quad dp' (substring(pd_param(icon_component, "quadrants", "string"),"dp"))
-	entry 'Wind Speed m/s' 'toggle_quad wspd' (substring(pd_param(icon_component, "quadrants", "string"),"wspd"))
-	entry 'Wind Direction deg' 'toggle_quad wdir' (substring(pd_param(icon_component, "quadrants", "string"),"wdir"))
-	entry 'Wind Maximum m/s' 'toggle_quad wmax' (substring(pd_param(icon_component, "quadrants", "string"),"wmax"))
-	entry 'Rain kg/m2' 'toggle_quad rain' (substring(pd_param(icon_component, "quadrants", "string"),"rain"))
-	entry 'Weather Code' 'toggle_quad weather_code' (substring(pd_param(icon_component, "quadrants", "string"),"weather_code"))
-	entry 'Horizontal Visability m' 'toggle_quad horiz_vis' (substring(pd_param(icon_component, "quadrants", "string"),"horiz_vis"))
-	entry 'Ceiling Height (first layer) feet' 'toggle_quad ceiling_height' (substring(pd_param(icon_component, "quadrants", "string"),"ceiling_height"))
-	entry 'Ceiling Flag (first layer)' 'toggle_quad ceiling_flag' (substring(pd_param(icon_component, "quadrants", "string"),"ceiling_flag"))
-	entry 'Cloud Amount (first layer)' 'toggle_quad cloud_amt' (substring(pd_param(icon_component, "quadrants", "string"),"cloud_amt"))
-	entry 'Ceiling Height (second layer) feet' 'toggle_quad ceiling_height2' (substring(pd_param(icon_component, "quadrants", "string"),"ceiling_height2"))
-	entry 'Ceiling Flag (second layer)' 'toggle_quad ceiling_flag2' (substring(pd_param(icon_component, "quadrants", "string"),"ceiling_flag2"))
-	entry 'Cloud Amount (second layer)' 'toggle_quad cloud_amt2' (substring(pd_param(icon_component, "quadrants", "string"),"cloud_amt2"))
-	entry 'Ceiling Height (third layer) feet' 'toggle_quad ceiling_height3' (substring(pd_param(icon_component, "quadrants", "string"),"ceiling_height3"))
-	entry 'Ceiling Flag (third layer)' 'toggle_quad ceiling_flag3' (substring(pd_param(icon_component, "quadrants", "string"),"ceiling_flag3"))
-	entry 'Cloud Amount (third layer)' 'toggle_quad cloud_amt3' (substring(pd_param(icon_component, "quadrants", "string"),"cloud_amt3"))
-	entry 'East Wind Component m/s' 'toggle_quad u_wind' (substring(pd_param(icon_component, "quadrants", "string"),"u_wind"))
-	entry 'North Wind Component m/s' 'toggle_quad v_wind' (substring(pd_param(icon_component, "quadrants", "string"),"v_wind"))
-	entry 'Station Altitude km' 'toggle_quad alt' (substring(pd_param(icon_component, "quadrants", "string"),"alt"))
-endmenu
-!
-! Middle icon button menu for station plots.
-!
-define widget meso-winds-mid intmenu 'Field control popup'
-	title 'PAM Mesonet Winds Fields'
-	line
-	entry 'Temperature' 'toggle_quad tdry' \
-	   (substring(pd_param(icon_component, "quadrants", "string"),"tdry"))
-	entry 'Dewpoint Temperature' 'toggle_quad dp' \
-	   (substring(pd_param(icon_component, "quadrants", "string"),"dp"))
-	entry 'Relative Humidity' 'toggle_quad rh' \
-	   (substring(pd_param(icon_component, "quadrants", "string"),"rh"))
-	entry 'Raw Pressure' 'toggle_quad pres' \
-	   (substring(pd_param(icon_component, "quadrants", "string"),"pres"))
-	entry 'Corrected Pressure' 'toggle_quad cpres0' \
-	   (substring(pd_param(icon_component, "quadrants", "string"),"cpres0"))
-	entry 'Mixing Ratio' 'toggle_quad mr' \
-	   (substring(pd_param(icon_component, "quadrants", "string"),"mr"))
-	entry 'Potential Temperature' 'toggle_quad pt' \
-	   (substring(pd_param(icon_component, "quadrants", "string"),"pt"))
-	entry 'Equivalent Potential Temperature' 'toggle_quad ept' \
-	   (substring(pd_param(icon_component, "quadrants", "string"),"ept"))
-	entry '15-Minute Rain Accumulation' 'toggle_quad raina15' \
-	   (substring(pd_param(icon_component, "quadrants","string"),"raina15"))
-	entry '60-Minute Rain Accumulation' 'toggle_quad raina60' \
-	   (substring(pd_param(icon_component, "quadrants","string"),"raina60"))
-endmenu
-
-!
-! Middle icon button menu for Mesonet.
-!
-define widget meso-middle intmenu 'Field control popup'
-	title 'PAM Mesonet Contour Fields'
-	line
-	entry 'Temperature' 		'param #icon_component field tdry'\
-	   (substring(pd_param(icon_component, "field", "string"),"tdry"))
-	entry 'Dewpoint Temperature' 	'param #icon_component field dp'\
-	   (substring(pd_param(icon_component, "field", "string"),"dp"))
-	entry 'Relative Humidity' 	'param #icon_component field rh'\
-	   (substring(pd_param(icon_component, "field", "string"),"rh"))
-	entry 'Raw Pressure' 		'param #icon_component field pres'\
-	   (substring(pd_param(icon_component, "field", "string"),"pres"))
-	entry 'Corrected Pressure'	'param #icon_component field cpres0'\
-	   (substring(pd_param(icon_component, "field", "string"),"cpres0"))
-	entry 'Mixing Ratio' 		'param #icon_component field mr'\
-	   (substring(pd_param(icon_component, "field", "string"),"mr"))
-	entry 'Potential Temperature' 	'param #icon_component field pt'\
-	   (substring(pd_param(icon_component, "field", "string"),"pt"))
-	entry 'Equivalent Potential Temperature'\
-	   'param #icon_component field ept'\
-	   (substring(pd_param(icon_component, "field", "string"),"ept"))
-	entry '15-Minute Rain Accumulation'\
-	    'param #icon_component field raina15'\
-	   (substring(pd_param(icon_component, "field", "string"),"raina15"))
-	entry '60-Minute Rain Accumulation'\
-	   'param #icon_component field raina60'\
-	   (substring(pd_param(icon_component, "field", "string"),"raina60"))
-endmenu
-!
-! Middle icon button menu for Mesonet.
-!
-define widget surface-middle intmenu 'Field control popup'
-	title 'Surface  Mesonet Contour Fields'
-	line
-	entry 'Station Pressure mb'  'param #icon_component field pres'\
-	   (substring(pd_param(icon_component, "field", "string"),"pres"))
-	entry 'Reported Sea-level Pressure mb' 'param #icon_component field cpres0'\
-	   (substring(pd_param(icon_component, "field", "string"),"cpres0"))
-	entry 'Calculated Sea-levelPressure mb' 'param #icon_component field computed_Sea_level_Pressure'\
-	   (substring(pd_param(icon_component, "field", "string"),"computed_Sea_level_Pressure"))
-	entry 'Temperature C' 'param #icon_component field tdry'\
-	   (substring(pd_param(icon_component, "field", "string"),"tdry"))
-	entry 'Dew Point C' 'param #icon_component field dp'\
-	   (substring(pd_param(icon_component, "field", "string"),"dp"))
-	entry 'Wind Speed' 'param #icon_component field wspd'\
-	   (substring(pd_param(icon_component, "field", "string"),"wspd"))
-	entry 'Wind Direction' 'param #icon_component field wdir'\
-	   (substring(pd_param(icon_component, "field", "string"),"wdir"))
-	entry 'Wind Maximum m/s' 'param #icon_component field wmax'\
-	   (substring(pd_param(icon_component, "field", "string"),"wmax"))
-	entry 'Rain kg/m2' 'param #icon_component field rain'\
-	   (substring(pd_param(icon_component, "field", "string"),"rain"))
-	entry 'Weather Code' 'param #icon_component field weather_code'\
-	   (substring(pd_param(icon_component, "field", "string"),"weather_code"))
-	entry 'Horizontal Visability m' 'param #icon_component field horiz-vis'\
-	   (substring(pd_param(icon_component, "field", "string"),"horiz-vis"))
-	entry 'Ceiling Height (first layer) feet' 'param #icon_component field ceiling_height'\
-	   (substring(pd_param(icon_component, "field", "string"),"ceiling_height"))
-	entry 'Ceiling Flag (first layer)' 'param #icon_component field ceiling_flag'\
-	   (substring(pd_param(icon_component, "field", "string"),"ceiling_flag"))
-	entry 'Cloud Amount (first layer)' 'param #icon_component field cloud_amt'\
-	   (substring(pd_param(icon_component, "field", "string"),"cloud_amt"))
-	entry 'Ceiling Height (second layer) feet' 'param #icon_component field ceiling_height2'\
-	   (substring(pd_param(icon_component, "field", "string"),"ceiling_height2"))
-	entry 'Ceiling Flag (second layer)' 'param #icon_component field ceiling_flag2'\
-	   (substring(pd_param(icon_component, "field", "string"),"ceiling_flag2"))
-	entry 'Cloud Amount (second layer)' 'param #icon_component field cloud_amt2'\
-	   (substring(pd_param(icon_component, "field", "string"),"cloud_amt2"))
-	entry 'Ceiling Height (third layer) feet' 'param #icon_component field ceiling_height3'\
-	   (substring(pd_param(icon_component, "field", "string"),"ceiling_height3"))
-	entry 'Ceiling Flag (third layer)' 'param #icon_component field ceiling_flag3'\
-	   (substring(pd_param(icon_component, "field", "string"),"ceiling_flag3"))
-	entry 'Cloud Amount (third layer)' 'param #icon_component field cloud_amt3'\
-	   (substring(pd_param(icon_component, "field", "string"),"cloud_amt3"))
-	entry 'East Wind Component m/s' 'param #icon_component field u_wind'\
-	   (substring(pd_param(icon_component, "field", "string"),"u_wind"))
-	entry 'West Wind Component m/s' 'param #icon_component field v_wind'\
-	   (substring(pd_param(icon_component, "field", "string"),"v_wind"))
-	entry 'Station Altitude km' 'param #icon_component field alt'\
-	   (substring(pd_param(icon_component, "field", "string"),"alt"))
-	endmenu
-
-!
-! The Time Series Adjust Limits submenu
-!
-define widget adjust-tseries-limits intmenu 'Adjust Limits'
-	title 'Adjust Limits'
-	line
-	entry 'Time Interval' 'i_adjust time-limit-proc'
-	entry 'Left Axis' 'i_adjust left-limit-proc'
-	entry 'Right Axis' 'i_adjust right-limit-proc'
-	entry 'Number of Steps' 'i_adjust nstep-limit-proc'
-	entry 'Data Skip' 'i_adjust dskip-limit-proc'
-endmenu
 
 !
 ! Middle icon button field for aircraft data.

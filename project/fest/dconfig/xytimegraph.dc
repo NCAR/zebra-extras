@@ -2,7 +2,7 @@
 config xytimegraph
 	window 'UpperLeft' 4 4 940 696 gp gp.init
 		description 'xytimegraph-UpperLeft'
-		buttonmap 'basic'
+		buttonmap 'xygraph'
 		forcepd
 	endwindow
 	widget 'iconbar' 950 10 80 505
@@ -69,7 +69,6 @@ beginpd 'xytimegraph-LowerRight'
 global
    parameter comment                   'Nowcaster big window plot description.'
    parameter icon-middle-menu          'DataAvailable'
-   parameter menu-platform             'cp4'
    parameter pd-name                   'xytimegraph-LowerRight'
    parameter plot-mode                 'history'
    parameter plot-time                 '14-Feb-92,18:01:00'
@@ -90,13 +89,13 @@ component c_goes_us
    parameter icon-right-menu           'DataAvailable'
    parameter ir-center                 '100.0'
    parameter ir-step                   '15'
-   parameter menu-platform             'goes'
    parameter platform                  'goes_us'
    parameter representation            'raster'
 component c_map
    parameter color                     'cyan'
    parameter field                     'map'
    parameter icon                      'map'
+   parameter icon-left-menu		'minimal-cap-left-menu'
    parameter icon-middle-menu          'simple-color'
    parameter icon-right-menu           'linewidth'
    parameter platform                  'stormfest'

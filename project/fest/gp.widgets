@@ -1,4 +1,5 @@
-
+! $Id: gp.widgets,v 1.2 1994-12-12 20:49:11 burghart Exp $
+!
 ! The STORM-FEST graphics process initialization file.
 !
 
@@ -42,7 +43,7 @@ define widget grid_spacing intmenu 'grid spacing'
 		(pd_param (icon_component, "lat-lon", "string") = "false")
 	line
 	submenu 'Change origin (km grid only)' CGridOrigin
-	entry 'Solid grid lines' 'ToggleBool "solid"' \
+	entry 'Solid grid lines' 'ToggleBoolean "solid"' \
 		(pd_param (icon_component, "solid", "string") = "true")
 endmenu
 
@@ -71,29 +72,6 @@ procedure GridSpacing spacing string
 endprocedure
 
 !
-! Zoom to to preset x and y ranges.
-!
-procedure DoZoom xmin string xmax string ymin string ymax string
-	parameter global x-min #xmin
-	parameter global x-max #xmax
-	parameter global y-min #ymin
-	parameter global y-max #ymax
-endprocedure
-
-!
-! Toggle an arbitrary boolean parameter.  This guy expects to be called
-! out of a menu, with icon_component set.
-!
-procedure ToggleBool param string
-	local current (pd_param (icon_component, param, "string") = "true")
-	if (current)
-		parameter #icon_component #param false
-	else
-		parameter #icon_component #param true
-	endif
-endprocedure
-
-!
 ! Menus for boundaries
 !
 define widget bdry-right intmenu 'boundary right menu'
@@ -111,7 +89,7 @@ define widget boundary-control intmenu 'stuff'
 	line
 	submenu 'Line Width' LineWidth
 	entry 'Label' 'ToggleLabels' \
-		(pd_param(icon_component, "label", "string") <> "none")
+		(PDParam(icon_component, "label") <> "none")
 	line
 	entry 'Redraw' 'RedrawBoundary'
 endmenu
@@ -122,7 +100,7 @@ procedure RedrawBoundary
 endprocedure
 
 procedure ToggleLabels
-	local enabled (pd_param(icon_component, "label", "string") <> "none")
+	local enabled (PDParam(icon_component, "label") <> "none")
 	if (enabled)
 		parameter #icon_component label 'none'
 	else
@@ -139,6 +117,7 @@ define widget ScaleMenu intmenu 'scales'
 	entry 'CP4 Scale' 'DoZoom -150 150 -150 150'
 	entry 'Missouri Scale' 'DoZoom -100 600 -500 200'
 	entry 'Midwest Scale' 'DoZoom -800 700 -500 200'
+	entry 'US Scale' 'DoZoom -3000 2500 -2300 1800'
 endmenu
 
 !
@@ -148,9 +127,9 @@ define widget LabelOnOff intmenu "labels on/off"
 	title 'Labels'
 	line
 	entry 'On' 'turnlabelon' \
-		(pd_param(icon_component, "label", "string") <> "none")
+		(PDParam(icon_component, "label") <> "none")
 	entry 'Off' 'parameter #icon_component label none' \
-		(pd_param(icon_component, "label", "string") = "none")
+		(PDParam(icon_component, "label") = "none")
 endmenu
 
 procedure turnlabelon
@@ -164,13 +143,14 @@ define widget leftmenu intmenu "leftmenu"
 	title 'Overlay Operations'
 	line
 	entry 'Adjust Limits' 'i_adjust limit-proc'
-	entry 'Spatial offset options' 'popup offsets'
+	entry 'Spatial offset options' 'require offsets; popup offsets'
 	line
 	entry 'Raise to top' 'move #icon_component 0'
 	entry 'Move to bottom' 'move #icon_component 1'
-	entry 'Disable/reenable' 'toggle_bool "disable" "true"'
+	entry 'Disable/reenable' 'ToggleBoolean "disable"'
 	entry 'Remove' 'i_remove_component'
 endmenu
+
 !
 !default left menu for surface station plots
 !
@@ -178,14 +158,15 @@ define widget left-station intmenu "leftmenu"
 	title 'Overlay Operations'
 	line
 	entry 'Adjust Limits' 'i_adjust limit-proc'
-	entry 'Spatial Offset options' 'popup offsets'
+	entry 'Spatial Offset options' 'require offsets; popup offsets'
 	entry 'Spatial Filter options' 'popup Spacefilter'
 	line
 	entry 'Raise to top' 'move #icon_component 0'
 	entry 'Move to bottom' 'move #icon_component 1'
-	entry 'Disable/reenable' 'toggle_bool "disable" "true"'
+	entry 'Disable/reenable' 'ToggleBoolean "disable"'
 	entry 'Remove' 'i_remove_component'
 endmenu
+
 !
 ! The default left button for surface interpolated data
 !
@@ -193,81 +174,16 @@ define widget meso-left-options intmenu "leftmenu"
 	title 'Overlay Operations'
 	line
 	entry 'Adjust Limits' 'i_adjust limit-proc'
-	entry 'Spatial offset options' 'popup offsets'
-	entry 'Adjust Interpolation' 'popup InterpParams'
+	entry 'Spatial offset options' 'require offsets; popup offsets'
+	entry 'Adjust Interpolation' 'require interp; popup InterpParams'
 	line
 	entry 'Raise to top' 'move #icon_component 0'
 	entry 'Move to bottom' 'move #icon_component 1'
-	entry 'Disable/reenable' 'toggle_bool "disable" "true"'
+	entry 'Disable/reenable' 'ToggleBoolean "disable"'
 	entry 'Remove' 'i_remove_component'
 endmenu
 
-!
-! Commands to be executed out of the DataAvailable menu.  The invocation
-! sequence is:
-!
-!	DAVCommand  platform  time
-!
-! Where platform and time correspond to the menu entry which was selected.
-!
-! The default action is to switch to the given platform and time, in 
-! history mode.
-!
 
-procedure DefaultDataAvail platform string when string
-!
-! Switch to the given platform; however, let's check to see that we are
-! not already on that one -- we can avoid frame cache invalidations that
-! way.
-!
-	if (pd_param (icon_component, "platform", "string") <> platform)
-		parameter #icon_component platform #platform
-	endif
-!
-! Now drop into history mode and display this time.
-!
-	parameter global plot-mode history
-	parameter global plot-time #when
-endprocedure
-
-!
-! For cp2-az-limits do the regular stuff plut set the platform 
-! to the right thing.
-!
-procedure CP2AzLimitsAvail platform string when string
-!
-! Now drop into history mode and display this time.
-!
-	parameter #icon_component platform cp2
-	parameter global plot-mode history
-	parameter global plot-time #when
-endprocedure
-
-
-!
-! For the CP4 radar, we do pretty much the same thing, but also make
-! sure that we are in fixed sweep mode.
-!
-procedure CP4Volume platform string when string
-!
-! Just set the params.  Don't even bother with the platform seeing as it
-! will not change.
-!
-	parameter global plot-mode history
-	parameter global plot-time #when
-!	parameter #icon_component every-sweep false
-endprocedure
-
-
-!
-! Color tables for lightning displays.
-!
-define widget lightning-color intmenu 'lightning color'
-	title 'Color tables'
-	line
-	entry 'Rainbow colors' 'parameter #icon_component color-table revrainbow'
-	entry 'Gray scale' 'parameter #icon_component color-table smallrevgray'
-endmenu
 
 !
 ! Aircraft fields.
@@ -299,46 +215,9 @@ define widget p3-aircraft-menu intmenu "P-3 Aircraft Menu"
 	entry 'Adjust Track Parameters' 'popup tr-adjust'
 	line
 	entry 'Show Plane?' 'toggle_bool "show-position" "true"' \
-		(pd_param (icon_component, "show-position", "string") = "true") 
-endmenu
-!
-! P-3 fields.
-!
-define widget p3-field intmenu 'P-3 fields'
-	title "P-3 Color Code Fields"
-	line
-	entry 'Altitude' 'fldset "alt"' \
-		(pd_param(icon_component, "field", "string") = "alt")
-	entry 'D-Value' 'fldset "dval"' \
-		(pd_param(icon_component, "field", "string") = "dval")
-	entry 'Temperature' 'fldset "tdry"' \
-		(pd_param(icon_component, "field", "string") = "tdry")
-	entry 'Dewpoint Temperature' 'fldset "dp"' \
-		(pd_param(icon_component, "field", "string") = "dp")
-!	entry 'Wind Speed' 'fldset "wspd"' \
-!		(pd_param(icon_component, "field", "string") = "wspd")
-!	entry 'Wind Direction' 'fldset "wdir"' \
-!		(pd_param(icon_component, "field", "string") = "wdir")
-	line
-	entry 'Color Code by Field?' 'toggle_color_code' \
-		(pd_param (icon_component, "field", "string") <> "(Undefined)")
-	entry 'Wind arrows?' 'toggle_bool "arrow" "true"' \
-		(pd_param (icon_component, "arrow", "string") = "true") 
-	line
-	entry 'Show Plane?' 'toggle_bool "show-position" "true"' \
-		(pd_param (icon_component, "show-position", "string") = "true") 
+		(PDParam (icon_component, "show-position") = "true") 
 endmenu
 
-!
-! P-3 right menu.
-!
-define widget p3-right intmenu 'P-3 right menu'
-	title 'P-3 Menu'
-	line
-	submenu 'Track Color' 'simple-color'
-	line
-	submenu 'Line Width' 'LineWidth'
-endmenu
 !
 ! Aircraft right menu.
 !
@@ -440,7 +319,7 @@ define widget track-left intmenu 'Track Left'
 	title 'Overlay Operations'
 	line
 	submenu 'Adjust Limits' 'adjust-track-limits'
-	entry 'Spatial offset options' 'popup offsets'
+	entry 'Spatial offset options' 'require offsets; popup offsets'
 	entry 'Adjust Track Parameters' 'popup tr-adjust'
 	line
 	entry 'Raise to top' 'move #icon_component 0'
@@ -561,48 +440,6 @@ define widget adjust-xygraph-limits intmenu 'Adjust Limits'
 	entry 'X Axis' 'popup xminmax'
 	entry 'Tic Interval' 'adjust_tic'
 endmenu
-
-
-!procedure adjust_scale dimParam string
-!!
-!! Which axis should be scaled?
-!!
-!	local dim pd_paramsearch(icon_component,dimParam,"xy","string")
-!!
-!! Get the field name associated with this axis.
-!!
-!	local param concat(dim,"-field")
-!	local qual pd_param(icon_component,param,"string")
-!!
-!! Get the current min value.
-!!	
-!	local smin  concat(concat("scale-",dim),"-min")
-!	local min pd_paramsearch(icon_component,smin,qual,"string")
-!	if (min = '(Undefined)')
-!		local asmin  concat(concat("auto-scale-",dim),"-min")
-!		local min pd_paramsearch(icon_component,asmin,qual,"string")
-!	endif
-!!
-!! Get the current max value.
-!!
-!	local smax  concat(concat("scale-",dim),"-max")
-!	local max pd_paramsearch(icon_component,smax,qual,"string")
-!	if (max = '(Undefined)')
-!		local asmax  concat(concat("auto-scale-",dim),"-max")
-!		local max pd_paramsearch(icon_component,asmax,qual,"string")
-!	endif
-!!
-!! Activate the widget.
-!!		
-!	local fmin concat(qual,"-min:")
-!	local fmax concat(qual,"-max:")
-!	activate doublefloat #icon_component #smin #fmin #min #smax #fmax #max
-!!
-!! Change to manual scaling (and hope the limit widget wasn't cancelled).
-!!
-!	local mode_param concat("scale-",concat(dim,"-mode"))
-!	parameter #icon_component #mode_param 'manual'
-!endprocedure
 
 
 
@@ -769,36 +606,6 @@ procedure adjust_tic
 endprocedure
 
 
-!!
-!! Procedure for defining tic-mark intervals on both top and bottom axes
-!!
-!procedure adjust_x_tic
-!!
-!! Get the current tic inteval.
-!!	
-!	local tic pd_param(icon_component,"axis-b-tic-interval","string")
-!!
-!! Activate widget	
-!!
-!	activate SingleFloat #icon_component "axis-b-tic-interval" \
-!		"tic-interval" #tic
-!	local tic pd_param(icon_component,"axis-b-tic-interval","string")
-!	parameter #icon_component "axis-t-tic-interval" #tic
-!endprocedure
-
-
-!
-! Middle icon button field for aircraft data.
-!
-define widget aircraft-menu intmenu "Aircraft menu"
-	title "Aircraft Color Code Fields"
-	line
-	entry 'Aircraft altitude' 'fldset "alt"'
-	entry 'Potential temperature' 'fldset "pt"'
-	entry 'Relative humidity' 'fldset "rh"'
-	entry 'Mixing ratio' 'fldset "mr"'
-	entry 'Dewpoint temperature' 'fldset "dp"'
-endmenu
 
 !
 !Middle icon button menu for composite surface data
@@ -838,64 +645,9 @@ define widget surface-winds-mid-old intmenu 'Field control popup'
 	entry 'North Wind Component m/s' 'toggle_quad v_wind' (substring(pd_param(icon_component, "quadrants", "string"),"v_wind"))
 	entry 'Station Altitude km' 'toggle_quad alt' (substring(pd_param(icon_component, "quadrants", "string"),"alt"))
 endmenu
-!
-! Middle icon button menu for station plots.
-!
-define widget meso-winds-mid intmenu 'Field control popup'
-	title 'PAM Mesonet Winds Fields'
-	line
-	entry 'Temperature' 'toggle_quad tdry' \
-	   (substring(pd_param(icon_component, "quadrants", "string"),"tdry"))
-	entry 'Dewpoint Temperature' 'toggle_quad dp' \
-	   (substring(pd_param(icon_component, "quadrants", "string"),"dp"))
-	entry 'Relative Humidity' 'toggle_quad rh' \
-	   (substring(pd_param(icon_component, "quadrants", "string"),"rh"))
-	entry 'Raw Pressure' 'toggle_quad pres' \
-	   (substring(pd_param(icon_component, "quadrants", "string"),"pres"))
-	entry 'Corrected Pressure' 'toggle_quad cpres0' \
-	   (substring(pd_param(icon_component, "quadrants", "string"),"cpres0"))
-	entry 'Mixing Ratio' 'toggle_quad mr' \
-	   (substring(pd_param(icon_component, "quadrants", "string"),"mr"))
-	entry 'Potential Temperature' 'toggle_quad pt' \
-	   (substring(pd_param(icon_component, "quadrants", "string"),"pt"))
-	entry 'Equivalent Potential Temperature' 'toggle_quad ept' \
-	   (substring(pd_param(icon_component, "quadrants", "string"),"ept"))
-	entry '15-Minute Rain Accumulation' 'toggle_quad raina15' \
-	   (substring(pd_param(icon_component, "quadrants","string"),"raina15"))
-	entry '60-Minute Rain Accumulation' 'toggle_quad raina60' \
-	   (substring(pd_param(icon_component, "quadrants","string"),"raina60"))
-endmenu
 
-!
-! Middle icon button menu for Mesonet.
-!
-define widget meso-middle intmenu 'Field control popup'
-	title 'PAM Mesonet Contour Fields'
-	line
-	entry 'Temperature' 		'param #icon_component field tdry'\
-	   (substring(pd_param(icon_component, "field", "string"),"tdry"))
-	entry 'Dewpoint Temperature' 	'param #icon_component field dp'\
-	   (substring(pd_param(icon_component, "field", "string"),"dp"))
-	entry 'Relative Humidity' 	'param #icon_component field rh'\
-	   (substring(pd_param(icon_component, "field", "string"),"rh"))
-	entry 'Raw Pressure' 		'param #icon_component field pres'\
-	   (substring(pd_param(icon_component, "field", "string"),"pres"))
-	entry 'Corrected Pressure'	'param #icon_component field cpres0'\
-	   (substring(pd_param(icon_component, "field", "string"),"cpres0"))
-	entry 'Mixing Ratio' 		'param #icon_component field mr'\
-	   (substring(pd_param(icon_component, "field", "string"),"mr"))
-	entry 'Potential Temperature' 	'param #icon_component field pt'\
-	   (substring(pd_param(icon_component, "field", "string"),"pt"))
-	entry 'Equivalent Potential Temperature'\
-	   'param #icon_component field ept'\
-	   (substring(pd_param(icon_component, "field", "string"),"ept"))
-	entry '15-Minute Rain Accumulation'\
-	    'param #icon_component field raina15'\
-	   (substring(pd_param(icon_component, "field", "string"),"raina15"))
-	entry '60-Minute Rain Accumulation'\
-	   'param #icon_component field raina60'\
-	   (substring(pd_param(icon_component, "field", "string"),"raina60"))
-endmenu
+
+
 !
 ! Middle icon button menu for Mesonet.
 !
@@ -963,18 +715,6 @@ define widget adjust-tseries-limits intmenu 'Adjust Limits'
 	entry 'Data Skip' 'i_adjust dskip-limit-proc'
 endmenu
 
-!
-! Middle icon button field for aircraft data.
-!
-define widget aircraft-menu intmenu "Aircraft menu"
-	title "Aircraft Color Code Fields"
-	line
-	entry 'Aircraft altitude' 'fldset "alt"'
-	entry 'Potential temperature' 'fldset "pt"'
-	entry 'Relative humidity' 'fldset "rh"'
-	entry 'Mixing ratio' 'fldset "mr"'
-	entry 'Dewpoint temperature' 'fldset "dp"'
-endmenu
 !
 ! Middle icon button menu for station plots.
 !
@@ -1075,7 +815,7 @@ define widget radar-middle intmenu 'Radar field menu'
 	line
 	entry 'Surveillance only mode' 'toggle_sur' \
 		(pd_param("global", "cp4-filter-attribute", "string") = "sur")
-	entry 'Single fixed angle mode' 'ToggleBool every-sweep' \
+	entry 'Single fixed angle mode' 'ToggleBoolean every-sweep' \
 		(pd_param (icon_component, "every-sweep", "string") = "false")
 	line
 	entry 'black & white color table'\
@@ -1109,27 +849,27 @@ endmenu
 define widget nowrad-middle intmenu 'NOWRAD field menu'
 	title 'NOWRAD'
 	line
-	entry 'Rainbow colors' 'parameter #icon_component color-table revrainbow'
-	entry 'Gray scale' 'parameter #icon_component color-table smallrevgray'
 	entry 'Rainbow colors' \
-		'param #icon_component color-table revrainbow' \
-		(pd_param (icon_component,"color-table","string") = "revrainbow")
-	entry 'black & white color table' \
+		'param #icon_component color-table RevRainbow' \
+		(PDParam (icon_component,"color-table") = "RevRainbow")
+	entry 'Gray scale' \
 		'param #icon_component color-table smallrevgray' \
-		(pd_param (icon_component,"color-table","string") = "smallrevgray")
+		(PDParam (icon_component,"color-table") = "smallrevgray")
 	entry 'scook color table' 'param #icon_component color-table scook' \
-		(pd_param (icon_component,"color-table","string") = "scook")
+		(PDParam (icon_component,"color-table") = "scook")
 	entry 'cook16' 'param #icon_component color-table cook16' \
-		(pd_param (icon_component,"color-table","string") = "cook16")
+		(PDParam (icon_component,"color-table") = "cook16")
 	entry 'hotcold' 'param #icon_component color-table hotcold' \
-		(pd_param (icon_component,"color-table","string") = "hotcold")
+		(PDParam (icon_component,"color-table") = "hotcold")
 	entry 'wild_new' 'param #icon_component color-table wild_new' \
-		(pd_param (icon_component,"color-table","string") = "wild_new")
+		(PDParam (icon_component,"color-table") = "wild_new")
 	line
 	entry 'Raster representation' \
-		'param #icon_component representation raster'
+		'param #icon_component representation raster' \
+		(PDParam (icon_component, "representation") = "raster")
 	entry 'Contour representation' \
-		'param #icon_component representation contour'
+		'param #icon_component representation contour' \
+		(PDParam (icon_component, "representation") = "contour")
 endmenu
 !
 !Annotation size, right menu for locations
@@ -1150,27 +890,27 @@ endmenu
 define widget nowrad-middle-contour intmenu 'NOWRAD field menu'
 	title 'NOWRAD'
 	line
-	entry 'Rainbow colors' 'parameter #icon_component color-table revrainbow'
-	entry 'Gray scale' 'parameter #icon_component color-table smallrevgray'
 	entry 'Rainbow colors' \
-		'param #icon_component color-table revrainbow' \
-		(pd_param (icon_component,"color-table","string") = "revrainbow")
-	entry 'black & white color table' \
+		'param #icon_component color-table RevRainbow' \
+		(PDParam (icon_component,"color-table") = "RevRainbow")
+	entry 'Gray scale' \
 		'param #icon_component color-table smallrevgray' \
-		(pd_param (icon_component,"color-table","string") = "smallrevgray")
+		(PDParam (icon_component,"color-table") = "smallrevgray")
 	entry 'scook color table' 'param #icon_component color-table scook' \
-		(pd_param (icon_component,"color-table","string") = "scook")
+		(PDParam (icon_component,"color-table") = "scook")
 	entry 'cook16' 'param #icon_component color-table cook16' \
-		(pd_param (icon_component,"color-table","string") = "cook16")
+		(PDParam (icon_component,"color-table") = "cook16")
 	entry 'hotcold' 'param #icon_component color-table hotcold' \
-		(pd_param (icon_component,"color-table","string") = "hotcold")
+		(PDParam (icon_component,"color-table") = "hotcold")
 	entry 'wild_new' 'param #icon_component color-table wild_new' \
-		(pd_param (icon_component,"color-table","string") = "wild_new")
+		(PDParam (icon_component,"color-table") = "wild_new")
 	line
 	entry 'Raster representation' \
-		'param #icon_component representation raster'
+		'param #icon_component representation raster' \
+		(PDParam (icon_component, "representation") = "raster")
 	entry 'Contour representation' \
-		'param #icon_component representation contour'
+		'param #icon_component representation contour' \
+		(PDParam (icon_component, "representation") = "contour")
 endmenu
 !
 !
@@ -1493,42 +1233,6 @@ procedure vor_origin_enter
 endprocedure
 
 
-!
-! A color menu for components with a simple 'color' component.
-!
-define widget simple-color intmenu 'simple colors'
-	title 'Change Color'
-	line
-	entry 'white' 'do_simple_color white'
-	entry 'black' 'do_simple_color black'
-	entry 'lavender' 'do_simple_color lavender'
-	entry 'blue' 'do_simple_color blue'
-	entry 'cyan' 'do_simple_color cyan'
-	entry 'green' 'do_simple_color green'
-	entry 'khaki' 'do_simple_color khaki'
-	entry 'yellow' 'do_simple_color yellow'
-	entry 'tan' 'do_simple_color tan'
-	entry 'brown' 'do_simple_color brown'
-	entry 'orange' 'do_simple_color orange'
-	entry 'red' 'do_simple_color red'
-	entry 'pink' 'do_simple_color "HotPink"'
-	entry 'violet' 'do_simple_color violet'
-	submenu 'Gray scales' 'simple-gray'
-endmenu
-
-define widget simple-gray intmenu 'Grayscale submenu for simple color'
-	title 'Gray scale colors'
-	line
-	entry '10-Percent' 'do_simple_color gray10'
-	entry '20-Percent' 'do_simple_color gray20'
-	entry '30-Percent' 'do_simple_color gray30'
-	entry '40-Percent' 'do_simple_color gray40'
-	entry '50-Percent' 'do_simple_color gray50'
-	entry '60-Percent' 'do_simple_color gray60'
-	entry '70-Percent' 'do_simple_color gray70'
-	entry '80-Percent' 'do_simple_color gray80'
-	entry '90-Percent' 'do_simple_color gray90'
-endmenu
 
 define widget contour-options intmenu 'Contour Options'
 	title 'Contour Options'
@@ -1826,14 +1530,6 @@ endprocedure
 
 
 !
-! Remove a component.
-!
-procedure i_remove_component
-	local dm_cmd concat("remove ",ourname)
-	dm concat(concat (dm_cmd, " "), icon_component)
-endprocedure
-
-!
 ! Toggle the winds overlay.  For now, we have to ask DM to do it for us,
 ! since we don't have this stuff around.
 !
@@ -1937,19 +1633,6 @@ procedure i_adjust_global procparam string
 	local proc pd_paramsearch(icon_component, procparam, "global", "string")
 	if (proc <> "(Undefined)")
 		#proc 
-	else
-		dm "beep"
-	endif
-endprocedure
-
-!
-! Adjust the limits on a component.
-!
-procedure i_adjust procparam string
-	local rep pd_param(icon_component, "representation", "string")
-	local proc pd_paramsearch(icon_component, procparam, rep, "string")
-	if (proc <> "(Undefined)")
-		#proc #icon_component
 	else
 		dm "beep"
 	endif
@@ -2110,13 +1793,6 @@ endprocedure
 !endprocedure
 
 !
-! The arrow scale adjuster.
-!
-procedure adj_arrow_scale comp string
-	local current pd_param(comp, "arrow-scale", "string")
-	activate singlefloat #comp 'arrow-scale' "Arrow Scale: " #current
-endprocedure
-!
 ! The arrow spatial filter adjuster.
 !
 procedure adj_filter_scale comp string
@@ -2127,7 +1803,6 @@ endprocedure
 !
 ! Time series right button.
 !
-
 define widget tseries-right intmenu 'TSeries Right'
 	title 'Time Series Options'
 	line
@@ -3077,18 +2752,22 @@ define widget air-parts intmenu 'Aircraft platforms'
 	title 'Select Aircraft Platforms'
 	line
 	submenu 'Storm1-Wyoming King Air' 'wka-air-parts'
-	submenu 'P3' 'p3-air-parts'
+	submenu 'P3-Fields' 'p3-air-parts-1'
+	submenu 'P3-More Fields' 'p3-air-parts-2'
 	submenu 'Storm4-U of Washington C131' 'c130-air-parts'
-	submenu 'Storm2-NCAR King Air' 'nca-air-parts'
+	submenu 'Storm2-NCAR King Air' 'nca-air-parts-1'
+	submenu	'Storm2-More Fields' 'nca-air-parts-2'
 endmenu
 
 define widget time-air-parts intmenu 'Aircraft platforms'
 	title 'Select Aircraft Platforms'
 	line
 	submenu 'Storm1-Wyoming King Air' 'time-wka-air-parts'
-	submenu 'P3' 'time-p3-air-parts'
+	submenu 'P3-Fields' 'time-p3-air-parts-1'
+	submenu 'P3-More Fields' 'time-p3-air-parts-2'
 	submenu 'Storm4-U of Washington C131' 'time-c130-air-parts'
-	submenu 'Storm2-NCAR King Air' 'time-nca-air-parts'
+	submenu 'Storm2-NCAR King Air' 'time-nca-air-parts-1'
+	submenu 'Storm2-More Fields' 'time-nca-air-parts-2'
 endmenu
 
 define widget c130-air-parts intmenu 'C130 Air Fields'
@@ -3128,7 +2807,7 @@ define widget time-c130-air-parts intmenu 'C130 Air Fields'
 endmenu
 
 
-define widget p3-air-parts intmenu 'P3 Air Fields'
+define widget p3-air-parts-1 intmenu 'P3 Air Fields'
 	title 'Select Field'
 	line
 	entry 'Radar Altitude km' 'add_xy_component p3 "x-field alt" "Radar_Altitude" c_xy_air'
@@ -3161,6 +2840,11 @@ define widget p3-air-parts intmenu 'P3 Air Fields'
 	entry 'Relative Humidity %' 'add_xy_component p3 "x-field rh" "Relative_Humidity" c_xy_air'
 	entry 'Virtual Temperature K' 'add_xy_component p3 "x-field tv" "Virtual_Temperature" c_xy_air'
 	entry 'Vertical Airspeed m/s' 'add_xy_component p3 "x-field was" "Vertical_Airspeed" c_xy_air'
+endmenu
+
+define widget p3-air-parts-2 intmenu 'P3 Air Fields'
+	title 'Select Field'
+	line
 	entry 'Ratio Specific Heats ' 'add_xy_component p3 "x-field gm" "Ratio_Specific_Heats" c_xy_air'
 	entry 'Mach Number dim' 'add_xy_component p3 "x-field ama" "Mach_Number" c_xy_air'
 	entry 'Drift Angle deg' 'add_xy_component p3 "x-field da" "Drift_Angle" c_xy_air'
@@ -3189,7 +2873,7 @@ define widget p3-air-parts intmenu 'P3 Air Fields'
 	entry 'AXBT3 unknown' 'add_xy_component p3 "x-field bt3" "AXBT3" c_xy_air'
 endmenu
 
-define widget time-p3-air-parts intmenu 'P3 Air Fields'
+define widget time-p3-air-parts-1 intmenu 'P3 Air Fields'
 	title 'Select Field'
 	line
 	entry 'Radar Altitude km' 'add_xy_component p3 "y-field alt" "Radar_Altitude" c_xytime_air'
@@ -3222,6 +2906,11 @@ define widget time-p3-air-parts intmenu 'P3 Air Fields'
 	entry 'Relative Humidity %' 'add_xy_component p3 "y-field rh" "Relative_Humidity" c_xytime_air'
 	entry 'Virtual Temperature K' 'add_xy_component p3 "y-field tv" "Virtual_Temperature" c_xytime_air'
 	entry 'Vertical Airspeed m/s' 'add_xy_component p3 "y-field was" "Vertical_Airspeed" c_xytime_air'
+endmenu
+
+define widget time-p3-air-parts-2 intmenu 'P3 Air Fields'
+	title 'Select Field'
+	line
 	entry 'Ratio Specific Heats ' 'add_xy_component p3 "y-field gm" "Ratio_Specific_Heats" c_xytime_air'
 	entry 'Mach Number dim' 'add_xy_component p3 "y-field ama" "Mach_Number" c_xytime_air'
 	entry 'Drift Angle deg' 'add_xy_component p3 "y-field da" "Drift_Angle" c_xytime_air'
@@ -3328,7 +3017,7 @@ define widget time-wka-air-parts intmenu 'Wyoming King Air Fields'
 	entry 'Roll' 'add_xy_component storm1 "y-field hroll" "Roll_deg" c_xytime_air'
 endmenu
 
-define widget nca-air-parts intmenu 'NCAR King Air Fields'
+define widget nca-air-parts-1 intmenu 'NCAR King Air Fields'
 	title 'Select Field'
 	line
 	entry 'Potential Temperature' 'add_xy_component storm2 "x-field THETA" "PotentialTemperature" c_xy_air'
@@ -3358,6 +3047,11 @@ define widget nca-air-parts intmenu 'NCAR King Air Fields'
 	entry 'PMS 2DC Particle Concentrations N/L' 'add_xy_component storm2 "x-field CON2C1" "PMS_2DC_Particle_Concentrations_N/L" c_xy_air'
 	entry 'PMS 2DP Particle Concentrations N/L' 'add_xy_component storm2 "x-field CON2P1" "PMS_2DP_Particle_Concentration_N/L" c_xy_air'
 	entry 'Raw Icing Rate Indicator	VDC' 'add_xy_component storm2 "x-field RICE" "Raw_Icing_Rate_Indicator_VDC" c_xy_air'
+endmenu
+
+define widget nca-air-parts-2 intmenu 'NCAR King Air Fields'
+	title 'Select Field'
+	line
 	entry 'Top Shortwave Irradiance W/M2' 'add_xy_component storm2 "x-field SWT" "Top_Shortwave_Irradiance_W/M2" c_xy_air'
 	entry 'Bottom Shortwave Irradiance W/M2' 'add_xy_component storm2 "x-field SWB" "Bottom_Shortwave_Irradiance_W/M2" c_xy_air'
 	entry 'Top Infrafed Corrected Irradiance W/M2' 'add_xy_component storm2 "x-field IRTC" "Top_Infrafed_Corrected_Irradiance_W/M2" c_xy_air'
@@ -3378,7 +3072,7 @@ define widget nca-air-parts intmenu 'NCAR King Air Fields'
 endmenu 
 
 
-define widget time-nca-air-parts intmenu 'NCAR King Air Fields'
+define widget time-nca-air-parts-1 intmenu 'NCAR King Air Fields'
 	title 'Select Field'
 	line
 	entry 'Potential Temperature' 'add_xy_component storm2 "y-field THETA" "PotentialTemperature" c_xytime_air'
@@ -3441,6 +3135,11 @@ define widget time-nca-air-parts intmenu 'NCAR King Air Fields'
 !
 	entry 'Bottom Shortwave Irradiance W/M2' 'add_xy_component storm2 "y-field SWB" "Bottom_Shortwave_Irradiance_W/M2" c_xytime_air'
 !
+endmenu
+
+define widget time-nca-air-parts-2 intmenu 'NCAR King Air Fields'
+	title 'Select Field'
+	line
 	entry 'Top Infrafed Corrected Irradiance W/M2' 'add_xy_component storm2 "y-field IRTC" "Top_Infrafed_Corrected_Irradiance_W/M2" c_xytime_air'
 !
 	entry 'Bottom Infrared Corrected Irradiance W/M2' 'add_xy_component storm2 "y-field IRBC" "Bottom_Infrared_Corrected_Irradiance_W/M2" c_xytime_air'

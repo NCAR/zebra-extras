@@ -11,7 +11,7 @@ c_n312d_gen
 	field:		alt
 	time-period:	600s
 	trigger:	n312d_gen
-	color-table:	contour
+	color-table:	Contour
 	line-width:	3
 	arrow:		true
 	arrow-interval:	1m
