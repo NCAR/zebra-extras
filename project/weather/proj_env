@@ -1,0 +1,5 @@
+# This is just a default to keep zstart from asking, since the
+# actual platform directories are hard-coded in ds.config
+#
+setenv DATA_DIR /scr/steam/weather
+
