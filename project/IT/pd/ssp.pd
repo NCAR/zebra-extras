@@ -8,7 +8,7 @@ global
 	plot-type:		xygraph
 	trigger:		sspch1
 	xy-data-mode:		series
-	xy-series-span:         15s
+	xy-series-span:         5s
 wave-rad
 	icon-left-menu:		medium-cap-left-menu
 	icon-right-menu:	xytrace-right

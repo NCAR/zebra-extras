@@ -2,7 +2,7 @@ global
 	pd-name:	sgp-map
 	plot-mode:	real-time
 	plot-type:	CAP
-	trigger:	uav-tm
+	trigger:	1m
 	x-max:		20
 	x-min:		-15
 	y-max:		20
@@ -208,12 +208,13 @@ c_uav-gcs
 	line-width:		3
 	platform:		uav-gcs
 	position-icon:  	uavicon-l
-	data-skip: 		10
+	data-skip: 		1
 	representation:		track
 	require:		simple-color, track, uav-track
 	sa-scale:		15
 	show-position:		true
 	time-period:		10m
+	trigger:		platform
 	arrow:			false
 	arrow-scale:		0.05
 	arrow-type:     	heading
@@ -239,9 +240,10 @@ c_chase-gcs
 	line-width:		3
 	platform:		chase-gcs
 	position-icon:		chaseicon-l
-	data-skip: 		10
+	data-skip: 		1
 	representation:		track
 	require:		simple-color, track, uav-track
 	sa-scale:		0.025
 	show-position:		true
 	time-period:		240s
+	trigger:		platform
