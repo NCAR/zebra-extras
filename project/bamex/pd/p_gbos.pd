@@ -1,0 +1,20 @@
+!
+! GBOS location PD component.
+!
+global
+	pd-name:	p_gbos
+p_gbos
+	platform:	gbos
+	representation:	overlay
+	field:		location
+	color:		green
+	icon-left-menu:		minimal-cap-left-menu
+	posicon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:		platform
+	active-icon:	false
+	require:	location
+	label-size:	12
+	icon:		gbos
+	trigger:	platform
+	trigger-global:	true

@@ -1,0 +1,20 @@
+!
+! Airport location PD component.
+!
+global
+	pd-name:	p_airport
+p_airport
+	platform:	BLV
+	representation:	overlay
+	field:		location
+	color:		yellow3
+	icon-left-menu:		minimal-cap-left-menu
+	posicon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:		platform
+	active-icon:	false
+	require:	location
+	label-size:	12
+	icon:		airport
+	trigger:	platform
+	trigger-global:	true
