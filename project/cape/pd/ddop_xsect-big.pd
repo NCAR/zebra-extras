@@ -79,7 +79,7 @@ c_station_plot
 	icon-right-menu:	meso-station-options
 	limit-proc:	adj_arrow_scale
 	line-width:	3
-	platform:	sfc
+	platform:	mesonet
 	representation:	vector
 	u-field:	u_wind
 	v-field:	v_wind
