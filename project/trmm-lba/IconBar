@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.1 2002-10-17 21:29:20 burghart Exp $
+! $Id: IconBar,v 1.2 2002-10-17 23:01:41 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -84,6 +84,14 @@ define widget iconbar menubar " "
 		entry 'S-Pol radar' 'putc1 p_polar platform spol'
 	endmenu
 !
+! Satellite
+!
+	menu satellite bitmap satellite
+		title 'Satellite data'
+		line
+		entry 'GOES 1km vis' 'putc0 p_goes'
+	endmenu
+!
 ! Precip
 !
 	menu precip bitmap iss-rain
@@ -105,29 +113,27 @@ define widget iconbar menubar " "
 		line
 		entry 'Particle types' 'putc1 c_pdesc field pd'
 	endmenu
-	menu 'actracks' bitmap aircraft
-		title 'A/C Tracks'
-		line
-		entry 'Citation' \
-		    'putc3 p_track platform citation icon citation color yellow'
-		entry 'DC-8' \
-		    'putc3 p_track platform dc8 icon dc8 color green'
-		entry 'ER-2' \
-		    'putc3 p_track platform er2 icon er2 color pink'
-	endmenu
+!	menu 'actracks' bitmap aircraft
+!		title 'A/C Tracks'
+!		line
+!		entry 'Citation' \
+!		    'putc3 p_track platform citation icon citation color yellow'
+!		entry 'DC-8' \
+!		    'putc3 p_track platform dc8 icon dc8 color green'
+!		entry 'ER-2' \
+!		    'putc3 p_track platform er2 icon er2 color pink'
+!	endmenu
 !
 ! Maps, locations and other informational overlays
 !
 	menu 'overlays' bitmap overlays
 		title 'Static Overlays'
 		line
-		entry 'State border map' 'putc2 p_map platform state icon map'
-		entry 'County lines map' \
-			'putc2 p_map platform county icon map'
+		entry 'Country map' 'putc2 p_map platform default icon map'
 		entry 'Lake map' \
-			'putc3 p_map platform fwater icon lakes color cyan'
+			'putc3 p_map platform lakes icon lakes color blue2'
 		entry 'Streams and rivers map' \
-			'putc3 p_map platform water icon streams color cyan'
+			'putc3 p_map platform water icon streams color cyan3'
 		entry 'Roads and highways map' \
 			'putc3 p_map platform road icon roadmap color green'
 		line
@@ -145,18 +151,6 @@ define widget iconbar menubar " "
 			'putc3 p_llgrid x-spacing 60 y-spacing 60 color cyan'
 !		entry 'Window Bounds' put_wbounds p_wbounds
 		line
-		entry 'AL Wind profiler location' \
-		        'putc3 p_loc platform c_101 icon prof-sm color red'
-		entry 'SWF gauge locations' \
-		      'putc3 p_station platform swf color red icon fmill-loc'
-		entry 'STJ gauge locations' \
-		      'putc3 p_station platform stj color red icon fmill-loc'
-		entry 'SFL gauge locations' \
-		      'putc3 p_station platform sfl color red icon fmill-loc'
-		entry 'KSC gauge locations' \
-		      'putc3 p_station platform ksc color red icon fmill-loc'
-		entry 'Cluster gauge locations' \
-		      'putc3 p_station platform cluster color red icon fmill-loc'
 	endmenu
 
 
