@@ -1,0 +1,17 @@
+#
+# Start wmi_ingest when packets come in the ac data port (25003)
+#
+service wmi_ingest
+{
+	disable	= no
+        type                    = UNLISTED
+        port                    = 25003
+        socket_type             = dgram
+        protocol                = udp
+        wait                    = yes
+        user                    = maclean
+        server                  = /h/atd/maclean/work/bamex/wmi_ingest.csh
+        log_type                = SYSLOG daemon
+        log_on_success          += DURATION EXIT
+        log_on_failure          += ATTEMPT
+}
