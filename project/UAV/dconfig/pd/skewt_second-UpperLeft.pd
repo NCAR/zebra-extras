@@ -1,0 +1,18 @@
+global
+	pd-name:	skewt_second-UpperLeft
+	plot-mode:	history
+	plot-time:	6-feb-1994,14:34:00
+	plot-type:	skewt
+	trigger:	platform
+skewt
+	color-table:	Skew-t
+	icon:	sounding
+	icon-left-menu:	skewt-left
+	icon-middle-menu:	DataAvailable
+	icon-right-menu:	feet-km
+	menu-platform:	sgpsondeC1.a1
+	platform:	sgpsondeC1.a1
+	representation:	skewt
+	require:	skewt
+	skprivate-thermo-npts:	2286
+	skprivate-wind-npts:	2286

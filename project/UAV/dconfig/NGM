@@ -1,0 +1,9 @@
+! Auto-saved display configuration.
+config NGM
+	widget 'iconbar' 8 8 336 64
+	window 'UpperLeft' 8 87 760 635 gp gp.init
+		description 'NGM-UpperLeft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig

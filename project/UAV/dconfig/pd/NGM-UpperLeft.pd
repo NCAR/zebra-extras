@@ -1,0 +1,76 @@
+global
+	altitude:	1000.00
+	altitude-label:	Alt: 1000 mb
+	comment:	NGM CAP
+	forecast-offset:	6h
+	icon-middle-menu:	DataAvailable
+	menu-platform:	sgpngm250X1.ns.issue
+	pd-name:	NGM-UpperLeft
+	plot-mode:	history
+	plot-time:	2-Feb-94,0:00:00
+	plot-type:	CAP
+	ta-scale:	.04
+	time-frames:	2
+	trigger:	sgpngm250X1.ns.issue
+	x-max:	440.9472
+	x-min:	-334.0206
+	y-max:	-319.6305
+	y-min:	340.2719
+c_ngm
+	altitude-control:	true
+	color-table:	RedBlue
+	do-labels:	false
+	field:	temperature
+	icon:	ngm
+	icon-middle-menu:	ngm-field-menu
+	icon-right-menu:	contour-right
+	platform:	sgpngm250X1.ns.issue
+	pressure-center:	0.0000
+	pressure-step:	20000.0000
+	relative_humidity-center:	0.0000
+	relative_humidity-step:	20000.0000
+	representation:	filled-contour
+	require:	color-table, contour, ngm
+	scale-mode:	auto
+	temperature-center:	275.0000
+	temperature-step:	1.0000
+c_map
+	color:	yellow
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	platform:	state_lines
+	representation:	overlay
+c_locns_cf
+	active-icon:	true
+	color:	HotPink
+	disable:	false
+	field:	location
+	icon:	ops-ctr
+	icon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:	none
+	label-size:	12
+	platform:	cf
+	posicon:	ops-ctr
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-right-menu:	location-options
+	representation:	overlay
+	require:	location
+c_locns_ef
+	active-icon:	true
+	color:	green
+	field:	location
+	icon:	littlecircle
+	icon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:	platform
+	label-size:	12
+	platform:	E1,E2,E3,E4,E5,E6,E7,E8,E9,E10,E11,E12,E15,E16,E17,E18,E19,E20,E21,E22,E23,E24,E25
+	posicon:	littlecircle
+	posicon-left-menu:	minimal-cap-left-menu
+	posicon-middle-menu:	ef-iss
+	posicon-right-menu:	location-options
+	representation:	overlay
+	require:	location, ef-cap

@@ -1,0 +1,14 @@
+! Auto-saved display configuration.
+config Profiler
+	widget 'iconbar' 672 5 337 65
+	window 'UpperLeft' 5 5 660 390 gp gp.init
+		description 'Profiler-UpperLeft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'LowerLeft' 5 450 660 390 gp gp.init
+		description 'Profiler-LowerLeft'
+		buttonmap 'big'
+		forcepd
+	endwindow
+endconfig
