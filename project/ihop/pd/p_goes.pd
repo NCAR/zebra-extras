@@ -16,7 +16,7 @@ p_goes
 	out-of-range-color:	none
 	radar-space:	false
 	require:	raster
-	scale-mode:	auto
+	scale-mode:	manual
 	trigger:	platform
 	trigger-global:	true
 	limit-proc:	raster-limit-proc
