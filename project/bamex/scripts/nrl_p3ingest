@@ -1,0 +1,18 @@
+#
+# Start nrl_p3ingest when packets come in the nrl_p3 data port (25001)
+# (copy this file to the /etc/xinetd.d directory)
+#
+service nrl_p3ingest
+{
+	disable	= no
+	type			= UNLISTED
+	port			= 25001
+	socket_type		= dgram
+	protocol		= udp
+	wait			= yes
+	user			= burghart
+	server			= /code/burghart/bamex/scripts/nrl_p3ingest.sh
+	log_type		= SYSLOG daemon
+	log_on_success		+= DURATION EXIT
+	log_on_failure		+= ATTEMPT
+}
