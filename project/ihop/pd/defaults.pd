@@ -97,6 +97,11 @@ defaults
 !	goes-icon-age-limit:	120m
 !
 	icon-age-limit:		15m
+	jim1-age-limit:		25m
+	jim2-age-limit:		25m
+	jim3-age-limit:		25m
+	jim4-age-limit:		25m
+	jim5-age-limit:		25m
 	spol-icon-age-limit:	20m
 	spol-data-age-limit:	20m
 	refract_storm-icon-age-limit:	20m
