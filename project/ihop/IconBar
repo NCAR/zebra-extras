@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.2 2002-04-20 21:51:31 burghart Exp $
+! $Id: IconBar,v 1.3 2002-04-26 19:05:58 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -107,6 +107,7 @@ define widget iconbar menubar " "
 		entry 'Particle types' 'putc0 p_pdesc'
 		entry 'Precip' 'putc1 c_precip platform precip.basic'
 		entry 'Nexrad composite' 'putc0 p_composite'
+		submenu 'Nexrad level 2' 'nexrad_level2'
 !		entry 'Binet winds' 'putc0 p_binet_winds'
 	endmenu
 	menu satellite bitmap satellite
@@ -231,3 +232,28 @@ procedure PutRadar platform string
 	parameter #comp #comp field maxdz
 	sendout #comp #target_win
 endprocedure
+
+define widget nexrad_level2 intmenu ' '
+	entry 'KAMA (Amarillo)' \
+		'putc2 p_nexrad_l2 platform KAMA icon KAMA'
+	entry 'KDDC (Dodge City)' \
+		'putc2 p_nexrad_l2 platform KDDC icon KDDC'
+	entry 'KFDR (Frederick)' \
+		'putc2 p_nexrad_l2 platform KFDR icon KFDR'
+	entry 'KFTG (Denver)' \
+		'putc2 p_nexrad_l2 platform KFTG icon KFTG'
+	entry 'KFWS (Dallas/Ft. Worth)' \
+		'putc2 p_nexrad_l2 platform KFWS icon KFWS'
+	entry 'KGLD (Goodland)' \
+		'putc2 p_nexrad_l2 platform KGLD icon KGLD'
+	entry 'KICT (Wichita)' \
+		'putc2 p_nexrad_l2 platform KICT icon KICT'
+	entry 'KINX (Tulsa)' \
+		'putc2 p_nexrad_l2 platform KINX icon KINX'
+	entry 'KLBB (Lubbock)' \
+		'putc2 p_nexrad_l2 platform KLBB icon KLBB'
+	entry 'KTLX (Oklahoma City)' \
+		'putc2 p_nexrad_l2 platform KTLX icon KTLX'
+	entry 'KVNX (Vance)' \
+		'putc2 p_nexrad_l2 platform KVNX icon KVNX'
+endmenu
