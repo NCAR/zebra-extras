@@ -114,7 +114,7 @@ main(int argc, char **argv)
 /*
  * Zebra setup
  */
-    usy_init ();
+    zl_usy_init ();
     msg_connect (MsgHandler, "van_input");
     ds_Initialize ();
     msg_ELog (EF_INFO, "van_input: Ingesting van position");
