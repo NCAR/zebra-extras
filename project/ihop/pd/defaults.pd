@@ -165,6 +165,16 @@ defaults
 	nac-nsteps:		12
 	nac-step:		10
 !
+! Refractivity fields
+! 
+	N-center:		250
+	N-nsteps:		12
+	N-step:			3
+	DELTA_N-center:		0
+	DELTA_N-nsteps:		13
+	DELTA_N-step:		1
+
+!
 ! Start with movies ending "now"
 !
 	movie-end-time:		now
