@@ -11,7 +11,7 @@ class Main (Frame):
     def __init__ (self, master = None):
 	Frame.__init__ (self, master)
 	self.pack ()
-	self.l = Label (self, bitmap = '@/net/ops/zebra/global',
+	self.l = Label (self, bitmap = '@/net/zebra/lib/icons/global',
 			foreground = 'yellow', background = 'darkblue')
 	self.l.pack (side = 'left')
 	#
