@@ -45,11 +45,12 @@ $execdir/newdisplay &
 #
 # Run some extra stuff if this is a new session
 #
-set logdir = /net/ops/run
-set archiverlog = $logdir/arch.out
-set rainlog = $logdir/rpg_rain.log
-set hyidlog = $logdir/rpg_pid.log
-set distlog = $logdir/dist_products.log
+set logdir       = /net/ops/run
+set archiverlog  = $logdir/arch.out
+set rainlog      = $logdir/rpg_rain.log
+set hyidlog      = $logdir/rpg_pid.log
+set distlog      = $logdir/dist_products.log
+set cpSwpVarslog = $logdir/cpSwpVars.log
 
 if ($new_zebra) then
     rm -f $archiverlog	# AAAAARRRRGH!
@@ -74,6 +75,13 @@ set pid_pid = `pgrep run_rpg_pid`
 if ( ! $pid_pid ) then
     /bin/mv -f $hyidlog $hyidlog.save > /dev/null
     /opt/spol/bin/run_rpg_pid >& $hyidlog &
+endif
+
+# cpSwpVars  - Sorry, no s at the end of var in runCpSwpVar.py
+set rcsv_pid = `pgrep runCpSwpVar.py`
+if ( ! $rcsv_pid ) then
+    /bin/mv -f $cpSwpVarslog $cpSwpVarslog.save > /dev/null
+    /opt/spol/bin/runCpSwpVar.py >& $cpSwpVarslog &
 endif
 
 # Let Zebra know about new data files
