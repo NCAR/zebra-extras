@@ -1,6 +1,7 @@
 !
 ! All the definitions required to make the iconbar work.
 !
+! $Id: IconBar,v 1.4 1994-06-21 17:18:02 granger Exp $
 
 !
 ! The right way to do this....
@@ -33,6 +34,14 @@ define widget iconbar menubar " "
 	!
 	! Now we can define the menus themselves.
 	!
+	menu help bitmap help
+		title 'Zeb Help Access'
+		line
+		entry 'Introduction' 'help'
+		entry 'On-line Topics' 'help tablecontents'
+		entry 'Guide to Documentation' 'help documentation'
+		entry 'Shutting Down' 'help shutdown'
+	endmenu
 	menu global bitmap global
 		title 'Display Configurations'
 		line
@@ -208,8 +217,10 @@ define widget windows intmenu 'window templates'
 	line
 	entry 'Constant altitude plot' \
 		'create-window cap cap-template big'
-	entry 'Time-series plot' \
+	entry 'Time-series strip chart' \
 		'create-window tseries tseries-template xyplot'
+	entry 'XYGraph time-series plot' \
+		'create-window xytime xytime-template xyplot'
 	entry 'Skew-t plot' \
 		'create-window skewt skewt-template sounding'
 	entry 'Wind profile' 'create-window wind wind-template xyplot'
