@@ -45,10 +45,11 @@ $execdir/newdisplay &
 #
 # Run some extra stuff if this is a new session
 #
-set logdir = /ops/run
+set logdir = /net/ops/run
 set archiverlog = $logdir/arch.out
-set rainlog = $logdir/rain.out
-set hyidlog = $logdir/hyid.out
+set rainlog = $logdir/rpg_rain.log
+set hyidlog = $logdir/rpg_pid.log
+set distlog = $logdir/dist_products.log
 
 if ($new_zebra) then
     rm -f $archiverlog	# AAAAARRRRGH!
@@ -58,8 +59,15 @@ if ($new_zebra) then
 		    -exclude spol >& $archiverlog  &
     sleep 2
 
+# rain accumulation
     /bin/mv -f $rainlog $rainlog.save > /dev/null
-    /ops/bin/startboth >& $rainlog
+    /opt/spol/bin/run_rpg_rain >& $rainlog &
+
+# particle ID
     /bin/mv -f $hyidlog $hyidlog.save > /dev/null
-    /ops/bin/starthyid < /dev/null >& $hyidlog &
+    /opt/spol/bin/run_rpg_pid >& $hyidlog &
+
+# Let Zebra know about new data files
+    /bin/mv -f $distlog $distlog.save > /dev/null
+    /opt/spol/bin/dist_products.py >& $distlog &
 endif
