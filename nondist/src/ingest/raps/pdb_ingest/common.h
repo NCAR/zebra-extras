@@ -1,5 +1,5 @@
 /*
- * $Id: common.h,v 1.1 1992-07-03 18:38:34 granger Exp $
+ * $Id: common.h,v 1.2 1992-07-22 14:58:20 granger Exp $
  *
  * The commonly included files for PDB handlers and ingestors
  * 'byte' symbol defined as unsigned char must be undef'ed here
@@ -30,6 +30,3 @@
 #define DEG_TO_RAD 0.017453293
 #define NMH_MS  1.9438445   /* Nautical Miles per hour per meters/sec */
 
-extern char *Stime6();
-extern char *St6_time();
-extern long Ctime6();
