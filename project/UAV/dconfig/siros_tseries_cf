@@ -1,0 +1,20 @@
+! Auto-saved display configuration.
+config siros_tseries_cf
+	widget 'iconbar'	0 802 370 80
+!	window Clock 380 7 250 60 #clock_exec
+!		description 'whiteclock'
+!	window Clock 380 7 250 60 fccclock
+!		description 'siros_tseries_cf-Clock'
+!		buttonmap 'default'
+!	endwindow
+	window 'UpperLeft' 0 164 640 621 gp gp.init
+		description 'siros_tseries_cf-UpperLeft'
+		buttonmap 'xyplot'
+		forcepd
+	endwindow
+!	window 'UpperRight' 600 90 612 812 gp gp.init
+!		description 'siros-UpperRight'
+!		buttonmap 'xyplot'
+!		forcepd
+!	endwindow
+endconfig
