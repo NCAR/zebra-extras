@@ -29,6 +29,13 @@ if ($status) then
 endif
 
 #
+# Get the latest NOAA P3 files from Mid America
+#
+rsync -rtze ssh bmxgate.cust.qwest.net:/data/bamex/noaa_p3/ \
+    /scr/js1/bamex/noaa_p3
+dsrescan noaa_p3 >>& $logfile
+
+#
 # and plot
 #
 zplotbatch $plottime p3 auto >>& $logfile
