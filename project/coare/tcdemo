@@ -1,0 +1,9 @@
+#!/bin/csh
+#
+# Run the COARE demo
+#
+setenv DATA_DIR /net/demo/coare
+setenv INITIAL_TIME 10-feb-93,20
+setenv DEFAULT_CONFIG wide
+
+zstart .
