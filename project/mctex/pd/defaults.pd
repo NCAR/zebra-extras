@@ -135,10 +135,14 @@ defaults
 !
 	file-path:	/tmp
 	max-frames:	30
+	time-frames:	2
 !
-! Command to be executed out of the DataAvailable menu.
+! Commands to be executed out of the DataAvailable menu.
 !
 	data-available-command:		DefaultDataAvail
+	radar-data-available-times:	samples
+	radar-data-available-command:	require radar; RadarDataAvailable
+	radar-real-time-hook:		require radar; RadarRealTime
 !
 ! Generic icon stuff
 !
