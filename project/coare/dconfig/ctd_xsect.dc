@@ -1,67 +1,31 @@
 ! Auto-saved display configuration.
 config ctd_xsect
-	window 'big' 3 3 800 576 gp gp.init
-		description 'ctd_xsect-big'
+	window 'big' 10 10 800 576 gp gp.init
+		description 'ctd_xsect-UpperLeft'
 		buttonmap 'default'
 		forcepd
 	endwindow
-	window 'w1' 2 605 428 270 gp gp.init
-		description 'ctd_xsect-w1'
+	window 'w1' 10 625 428 340 gp gp.init
+		description 'ctd_xsect-LowerLeft'
 		buttonmap 'big'
 		forcepd
 	endwindow
-	widget 'iconbar' 807 5 75 505
+	widget 'iconbar' 850 10 75 505
 	window 'Event logger' 475 650 600 150 graphproc
 		nongraphic
 	endwindow
 endconfig
 
-beginpd 'ctd_xsect-big'
-global
-   parameter altitude                  '0.00'
-   parameter altitude-label            'Alt: 0.00 km MSL'
-   parameter left-endpoint             '0.0,0.0'
-   parameter pd-name                   'ctd_xsect-big'
-   parameter platform                  'kexue_ctd,vickers_ctd,alis_ctd,wecoma_ctd'
-   parameter plot-mode                 'history'
-   parameter plot-time                 '11-Feb-93,0:00:00'
-   parameter plot-type                 'xsect'
-   parameter right-endpoint            '300.0,300.0'
-   parameter ta-scale                  '0.025'
-   parameter trigger                   'alis_ctd'
-   parameter z-field                   'depth'
-   parameter z-max                     '0.0'
-   parameter z-min                     '-0.5'
-   parameter zig-zag                   'true'
-component p_xsect
-   parameter color                     'cyan'
-   parameter color-mono                'true'
-   parameter color-table               'cook32'
-   parameter field                     'tdry'
-   parameter icon                      'xsect'
-   parameter icon-left-menu            'standard-cap-left-menu'
-   parameter icon-middle-menu          'FieldMenu'
-   parameter icon-right-menu           'ctd-right'
-   parameter limit-proc                'contour-putup-adj'
-   parameter menu-platform             'nat_ctd,vickers_ctd,wecoma_ctd,moana_ctd,alis_ctd,malaita_ctd,noroit_ctd,kexue_ctd'
-   parameter platform                  'kexue_ctd,vickers_ctd,alis_ctd,wecoma_ctd'
-   parameter representation            'filled-contour'
-   parameter require                   'ctd_xsect, contour'
-   parameter scale-mode                'auto'
-   parameter tdry-center               '23.4000'
-   parameter tdry-step                 '0.9000'
-endpd
-
-beginpd 'ctd_xsect-w1'
+beginpd 'ctd_xsect-LowerLeft'
 global
    parameter altitude-label            '?'
    parameter frame-rate                '10'
    parameter frame-skip                '60'
    parameter movie-end-time            'now'
    parameter movie-minutes             '300'
-   parameter pd-name                   'ctd_xsect-w1'
+   parameter pd-name                   'ctd_xsect-LowerLeft'
    parameter plot-mode                 'history'
-   parameter plot-time                 '11-Feb-93,0:00:00'
+   parameter plot-time                 '15-Dec-92,20:00:00'
    parameter plot-type                 'CAP'
    parameter ta-scale                  '0.035'
    parameter trigger                   'gms'
@@ -104,5 +68,37 @@ component tc_ctdloc
    parameter representation            'overlay'
    parameter require                   'location, ctdloc'
    parameter time-label                'false'
+endpd
+
+beginpd 'ctd_xsect-UpperLeft'
+global
+   parameter left-endpoint             '0.0,0.0'
+   parameter pd-name                   'ctd_xsect-UpperLeft'
+   parameter platform                  'kexue_ctd,vickers_ctd,alis_ctd,wecoma_ctd'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '15-Dec-92,20:00:00'
+   parameter plot-type                 'xsect'
+   parameter right-endpoint            '300.0,300.0'
+   parameter ta-scale                  '0.025'
+   parameter trigger                   'alis_ctd'
+   parameter z-field                   'depth'
+   parameter z-max                     '0.0'
+   parameter z-min                     '-0.5'
+   parameter zig-zag                   'true'
+component p_xsect
+   parameter color                     'cyan'
+   parameter color-mono                'true'
+   parameter color-table               'cook32'
+   parameter field                     'tdry'
+   parameter icon                      'xsect'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'FieldMenu'
+   parameter icon-right-menu           'ctd-right'
+   parameter limit-proc                'contour-putup-adj'
+   parameter menu-platform             'nat_ctd,vickers_ctd,wecoma_ctd,moana_ctd,alis_ctd,malaita_ctd,noroit_ctd,kexue_ctd'
+   parameter platform                  'kexue_ctd,vickers_ctd,alis_ctd,wecoma_ctd'
+   parameter representation            'filled-contour'
+   parameter require                   'ctd_xsect, contour'
+   parameter scale-mode                'auto'
 endpd
 
