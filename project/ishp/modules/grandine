@@ -1,0 +1,37 @@
+!
+! Menus for the hail display
+!
+
+define widget hail-menu intmenu x
+	title 'hail options'
+	line
+	entry '1  Min step' 'SethailStep 1'
+	entry '10 Min step' 'SethailStep 10'
+	entry '30 Min step' 'SethailStep 30'
+	entry '1  Hour step' 'SethailStep 1*60'
+	entry '2  Hour step' 'SethailStep 2*60'
+	entry '3  Hour step' 'SethailStep 3*60'
+	entry '6  Hours step' 'SethailStep 6*60'
+	entry '12 Hours step' 'SethailStep 12*60'
+        entry '1  Day step' 'SethailStep 24*60'
+        entry '7  Days step' 'SethailStep 1440*7'
+        entry '30 Days step' 'SethailStep 1440*30'
+!	entry '365 Days step 'SethailStep 1440*365'
+endmenu
+
+
+procedure SethailStep step integer
+	local astep string(step*60)
+	parameter #icon_component time-step #astep
+endprocedure
+
+
+procedure SetHailField field string
+	if (field = 'none')
+		parameter #icon_component annot-field 'byebye'
+		local junk pd_removeparam(icon_component, 'annot-field')
+	else
+		local qfield quote(field)
+		parameter #icon_component annot-field #qfield
+	endif
+endprocedure

@@ -1,0 +1,30 @@
+!
+! Add another [set of] xy trace to an xygraph.
+!
+global
+	pd-name:		pads
+pads
+	representation:		simple
+	platform:		SOMETHING
+	x-field:		time
+	y-field:		SOMETHING
+	axis-left:		false
+	axis-right:		true
+	axis-bottom:		false
+	axis-top:		false
+	field-color:		white
+	axis-l-grid-intensity:	0
+	axis-r-grid-intensity:	0
+	representation-style:	tinycircle
+	require:		myxytrace, simple-color
+	icon:			tseries
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	xytrace-right
+	field-select-command:	xytrace-field
+	annot-left-menu:	xy-an-left
+	annot-middle-menu:	FieldMenu
+	annot-right-menu:	simple-color
+	color-tweaker:		xytrace-color
+	limit-proc:		xytrace-adjust
+	time-annot:		true
+	sa-scale:		12

@@ -1,0 +1,36 @@
+!
+! Generic CAP or cross-section plot description for model data.  Needs to 
+! have the platform and icon filled in.
+!
+global
+	pd-name:	p_model
+      !trigger-global: true
+	trigger:	radar_grb
+p_model
+	platform:	SOMETHING
+	field:		rh
+	representation:	line-contour
+	require:	mycontour, simple-color
+	color:		red
+	color-mono:	true
+!	cambio
+!	color-table:	gcook16
+	color-table:	TinoRedBlue
+	out-of-range-color:	none
+	do-labels:	true
+	grid-method:	bilinear
+	icon:		SOMETHING
+	label-blanking:	false
+	line-width:	2
+	limit-proc:	contour-putup-adj
+	icon-left-menu:	standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	posicon-middle-menu:	FieldMenu
+	icon-right-menu:	contour-model-right
+	annot-left-menu:	FieldMenu
+	annot-middle-menu:	FieldMenu
+	scale-mode:		auto
+	altitude-control:	true
+	active-icon:		true
+! modifiche mie:
+	field-menu-extras:	wspd|wind speed ! , theta|potential temperature, theta-e|equivalent potential temperature

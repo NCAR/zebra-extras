@@ -1,0 +1,14 @@
+global
+	pd-name:	grandine
+grandine
+	annot-field:	totmass
+	color-table:	TinoRainbow   !RevRainbow
+	icon:		hail.ico
+	platform:	grandine
+	representation:	lightning
+	icon-right-menu:	hail-menu
+	icon-middle-menu:	FieldMenu
+	field-select-command:	SetHailField
+	field-menu-extras:	lat, lon, none
+	require:	grandine
+

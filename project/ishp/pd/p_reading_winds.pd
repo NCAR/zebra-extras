@@ -1,0 +1,26 @@
+global
+	pd-name:	p_reading_winds
+p_reading_winds
+	altitude-control:	false   !true ! altrimenti non controllo piu' i livelli
+	arrow-scale:	0.002
+	barb-scale:	0.03
+	color:	white
+	color-mono:	true
+! cambio la scala:
+!	color-table:	gcook16
+	color-table:	RedBlue
+	degrade:	1
+	grid-method:	bilinear
+	hgrid:	21
+	icon:	model
+	icon-left-menu:	standard-cap-left-menu
+	icon-middle-menu:	simple-color
+	icon-right-menu:	winds-model-right
+	limit-proc:	adj_arrow_scale
+	line-width:	2
+	platform:	reading41x21_sfc
+	representation:	vector
+	require:	simple-color, winds
+	u-field:	u_wind_10m
+	v-field:	v_wind_10m
+	vgrid:	19

@@ -1,0 +1,12 @@
+colortable TinoSat
+	xcolor DarkSlateGray
+	xcolor DarkGreen
+	xcolor ForestGreen
+	!xcolor Green3 !Brown2
+	xcolor LimeGreen
+	xcolor SeaGreen
+	xcolor MediumSeaGreen
+	xcolor SpringGreen
+	xcolor MediumSpringGreen
+	xcolor PaleGreen
+endtable

@@ -1,0 +1,8 @@
+colortable Tinogray
+	xcolor white
+	xcolor gray90
+	xcolor gray80
+	xcolor gray60
+	xcolor gray40
+	xcolor gray20
+endtable

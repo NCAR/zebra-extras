@@ -1,0 +1,14 @@
+global
+	pd-name:	hail
+hail
+	annot-field:	false ! totmass
+	color-table:	TinoRainbow  !RevRainbow
+	icon:		hail.ico
+	platform:	hail
+	representation:	lightning
+	icon-right-menu:	hail-menu
+	icon-middle-menu:	FieldMenu
+	field-select-command:	SetHailField
+	field-menu-extras:	lat, lon, none
+	require:	hail
+

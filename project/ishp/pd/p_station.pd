@@ -1,0 +1,44 @@
+!
+! Generic plot description for station plots.  Needs to have the platform
+! filled in (unless it happens to be "mesonet") but otherwise self contained.
+!
+global
+	pd-name:	p_station
+	trigger-global:	true
+p_station
+	platform:	mesonet
+	representation:	station
+	u-field:	u_wind
+	v-field:	v_wind
+	wspd-field:	ws
+	wdir-field:	wd
+	trigger:	platform
+!	posicon-middle-menu:	FieldMenu
+	posicon-middle-menu:	station-send
+	field-select-command:	p_toggle_quadrant
+	field-menu-extras:	theta|potential temperature, theta-e|equivalent potential temperature, station|Station Identification, lat, lon, none
+!	field-menu-extras:	theta|potential temperature, station|Station Identification, lat, lon, none
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	p-station-right
+!	icon-field-menu-extras:	station|Station Identification,
+!	annot-field-menu-extras: station|Station Identification,none
+	annot-left-menu:	FieldMenu
+	annot-middle-menu:	FieldMenu
+	arrow-scale:		0.01
+	require:		station, simple-color
+	limit-proc:		adj_arrow_scale
+	active-icon:		true
+	sa-scale:		11
+! modifiche per le stazioni orarie del Friuli
+	parameter:		0.01
+!	quad0-format:		%d		! no digits
+	quad1-format:		%.0f		! no digits
+	quad2-format:		%.1f		! one digit
+	quad3-format:		%.1f		! one digit
+	quad4-format:		%.0f		! no digits
+!	add-field:		theta,theta-e,t180
+!	grid-method:		barnes
+
+
+

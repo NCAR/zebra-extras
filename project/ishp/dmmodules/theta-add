@@ -1,0 +1,9 @@
+!
+! Add data to a theta plot.  Easy.
+!
+! $Id: theta-add,v 1.1.1.1 2001-04-16 18:19:03 granger Exp $
+!
+procedure theta-add platform string field string window string
+	local comp NthComp(window, 1)
+	parameter #window #comp platform #platform
+endprocedure

@@ -1,0 +1,14 @@
+colortable TinoRevGray
+	xcolor Black
+!	xcolor gray20
+	xcolor gray35
+	xcolor gray50
+	xcolor gray65
+	xcolor gray75
+	xcolor gray85
+	xcolor gray95
+!	xcolor gray88
+!	xcolor gray91
+!	xcolor gray94
+!	xcolor gray97
+endtable

@@ -1,0 +1,10 @@
+[T][degC] = t180;
+[T][degC][temperature] = t50;
+[T][degC][temperature @ 0.2] = t20;
+[T][degC][temperature @ -0.1] = t-10;
+[T][degC][temperature @ -0.2] = t-20;
+[theta_e][K][Equivalent potential temperature]=thetae;
+
+[P][hPa] = pres;
+[rh][%] = rh;
+[w][g/kg] = mr;

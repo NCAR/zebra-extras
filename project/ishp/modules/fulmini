@@ -1,0 +1,40 @@
+!
+! Menus for the lightning display
+!
+
+define widget lightning-menu intmenu x
+	title 'Lightning options'
+	line
+	entry ' 1  Minute unit' 'LightningStep 1'
+	entry ' 2  Minute unit' 'LightningStep 2'
+	entry ' 5  Minute unit' 'LightningStep 5'
+	entry '10  Minute unit' 'LightningStep 10'
+	entry '30  Minute unit' 'LightningStep 30'
+	entry ' 1  Hour unit' 'LightningStep 60'
+	entry ' 2  Hour unit' 'LightningStep 60*2'
+	entry ' 3  Hour unit' 'LightningStep 60*3'
+	entry ' 6  Hour unit' 'LightningStep 60*6'
+	entry '12  Hour unit' 'LightningStep 60*12'
+	entry ' 1  Day  unit' 'LightningStep 60*24'
+	entry ' 7  Days unit' 'LightningStep 60*24*7'
+	entry '30  Days unit' 'LightningStep 60*24*30'
+endmenu
+
+
+procedure LightningStep step integer
+	local astep string(step*60)
+	parameter #icon_component time-step #astep
+endprocedure
+
+
+! Ho aggiunto questo...
+!
+procedure LightningField field string
+	if (field = 'none')
+		parameter #icon_component annot-field 'byebye'
+		local junk pd_removeparam(icon_component, 'annot-field')
+	else
+		local qfield quote(field)
+		parameter #icon_component annot-field #qfield
+	endif
+endprocedure

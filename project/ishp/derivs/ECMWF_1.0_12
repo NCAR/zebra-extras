@@ -1,0 +1,12 @@
+/* Definizioni nuove variabili */
+[uwind][m/s] = u_wind;
+[vwind][m/s] = v_wind;
+/* [P][hPa] = alt; */
+
+/* Alias */
+/* theta=[theta][K]; */
+/* theta-e=[theta_e][K]; */
+wspd=[wspd][m/s];
+
+[w][g/kg]=mr;
+[rh][%]=rh;

@@ -1,0 +1,122 @@
+!
+! Useful stuff for contours.
+!
+
+
+!
+! The right button menu (for CAP contours of IRGrid data).
+!
+define widget contour-right intmenu 'contour right'
+	title 'Contour plot options'
+	line
+	submenu 'Contour type' 'contour-types'
+	submenu 'Label options' 'contour-label-options'
+	entry 'Color-coded contours' 'ToggleBoolean color-mono' \
+		(PDParam(icon_component,'color-mono') <> 'true')
+	submenu 'Contour color (when mono)' 'simple-color'
+	submenu 'Color table (when coded)' 'con-ctables'
+	submenu 'Line width' linewidth
+	entry 'Interpolation...' 'require interp; popup InterpParams'
+	entry 'Adjust range limits...' 'require range; popup range-limits'
+endmenu
+
+!
+! The right button menu for model data.
+!
+define widget contour-model-right intmenu 'contour right'
+	title 'Model contour plot options'
+	line
+	entry 'Pop up model widget' 'popup model'
+	line
+	submenu 'Contour type' 'contour-types'
+	submenu 'Label options' 'contour-label-options'
+	entry 'Color-coded contours' 'ToggleBoolean color-mono' \
+		(PDParam(icon_component,'color-mono') <> 'true')
+	submenu 'Contour color (when mono)' 'simple-color'
+	submenu 'Color table (when coded)' 'con-ctables'
+	submenu 'Line width' linewidth
+	entry 'Adjust range limits...' 'require range; popup range-limits'
+endmenu
+
+!
+! Various right button submenus
+!
+define widget contour-types intmenu 'contour types'
+	title 'Contour representation'
+	line
+	entry 'Line contours' 'ContourType "contour"' \
+	     (PDParam(icon_component,'representation') = 'contour')
+	entry 'Solid contours' 'ContourType "filled-contour"' \
+	     (PDParam(icon_component,'representation') = 'filled-contour')
+	entry 'Raster pixel' 'ContourType "raster"' \
+	     (PDParam(icon_component,'representation') = 'raster')
+endmenu
+
+
+procedure ContourType type string
+	parameter #icon_component representation #type
+!
+! Move filled contours to the bottom
+!
+	if (type = "filled-contour")
+		move #icon_component 1
+	endif
+endprocedure
+
+
+define widget contour-label-options intmenu 'label options'
+	title 'Contour labelling'
+	line
+	entry 'Label contours' 'ToggleBoolean do-labels' \
+		(PDParam(icon_component,'do-labels') <> 'false')
+	entry 'Blank data under labels' 'ToggleBoolean label-blanking' \
+		(PDParam(icon_component,'label-blanking') <> 'false')
+endmenu
+
+
+
+define widget con-ctables intmenu 'color tables'
+	title 'Contour color tables'
+	line
+	entry 'All white' 'con-setctable AllWhite' \
+		(PDParam(icon_component, 'color-table') = 'AllWhite')
+	entry 'Gray scale' 'con-setctable TinoRevGray' \
+		(PDParam(icon_component, 'color-table') = 'TinoRevGray')
+	entry 'Satelite Gray scale' 'con-setctable TinoSatGray' \
+		(PDParam(icon_component, 'color-table') = 'TinoSatGray')
+	entry 'Satelite Colors' 'con-setctable TinoSat' \
+		(PDParam(icon_component, 'color-table') = 'TinoSat')
+	entry 'Radar' 'con-setctable TinoRadar' \
+		(PDParam(icon_component, 'color-table') = 'TinoRadar')
+	entry 'Contour' 'con-setctable Contour' \
+		(PDParam(icon_component, 'color-table') = 'Contour')
+	entry 'Red/Blue' 'con-setctable TinoRedBlue' \
+		(PDParam(icon_component, 'color-table') = 'TinoRedBlue')
+	entry 'Umidity Red/Blue' 'con-setctable RevRedBlue' \
+		(PDParam(icon_component, 'color-table') = 'RevRedBlue')
+	entry 'Ncar Red/Blue' 'con-setctable RedBlue' \
+		(PDParam(icon_component, 'color-table') = 'RedBlue')
+	entry 'Orography' 'con-setctable Tino_oro' \
+		(PDParam(icon_component, 'color-table') = 'Tino_oro')
+	entry 'Green Winds' 'con-setctable Tino_wind' \
+		(PDParam(icon_component, 'color-table') = 'Tino_wind')
+	entry '3-step red/yellow/blue' 'con-setctable SmallRainbow' \
+		(PDParam(icon_component, 'color-table') = 'SmallRainbow')
+	entry '2-step Red/Black' 'con-setctable Red' \
+		(PDParam(icon_component, 'color-table') = 'Red')
+endmenu
+
+
+procedure con-setctable table string
+	parameter #icon_component color-table #table
+endprocedure
+
+
+
+!
+! A procedure to put up the center/step adjuster.
+!
+procedure contour-putup-adj comp string
+	require ctr-step
+	popup center-step
+endprocedure

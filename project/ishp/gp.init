@@ -1,0 +1,11 @@
+!
+! gp init file for fastex
+!
+
+set RequirePath concat('./modules,',RequirePath)
+set MapPath concat('./maps,','MapPath')
+
+! Da levare a causa della derivazione dei campi:
+! 1999/06/09
+!set DefFile "FieldDefs"
+!read FieldDefs

@@ -1,0 +1,28 @@
+global
+	pd-name:		tc-sndcontour
+	trigger-global:	true
+tc-sndcontour
+	axis-bottom:		false
+	axis-left:		false
+	color-table:		Contour
+	disable:		false
+	do-side-annotation:	true
+	field-select-command:	zfield-set
+	grid-method:		profile-linear
+	icon:			iss-contour
+	icon-left-menu:		medium-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	contour-right
+	limit-proc:		thc-climits
+	platform:		null
+	representation:		contour
+	require:		mycontour, time-height
+	trigger:		platform !null
+	x-field:		time
+	y-field:		alt
+	z-field:		temperature
+! modifiche mie:
+!	z-min:			0
+!	z-max:			10000
+	field-menu-extras:	theta|potential temperature, theta-e|equivalent potential temperature
+

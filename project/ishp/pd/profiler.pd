@@ -1,0 +1,124 @@
+GLOBAL
+	pd-name:	profiler
+	plot-mode:	real-time
+	plot-type:	xygraph
+	trigger:	30m
+	xy-data-mode:		snapshot
+	xy-scale-y-mode:	manual
+	xy-scale-x-mode:	manual
+	xy-axis-b-font-scale:	0.013
+	xy-axis-l-font-scale:	0.013
+	xy-axis-r-font-scale:	0.013
+	xy-axis-t-font-scale:	0.013
+	axis-top-space:		200
+	axis-bottom-space:	30
+	axis-left-space:	50
+	axis-right-space:	70
+	ta-scale:		0.03
+!
+! menus
+	global-icon-left-menu:		iss-global-util
+	global-icon-middle-menu:	DataAvailable   ! ho invertito il middle-menu con right-menu
+	xy-adj-scale-dim:	x
+	xy-adj-axis-side:  t
+	component-list:	altScale,otdry
+!
+! List of components that can be toggle on this plot
+!
+	otdry-pd:	omega_parts
+	otdry-comp:	otdry
+	owspd-pd:	omega_parts
+	owspd-comp:	owspd
+	owdir-pd:	omega_parts
+	owdir-comp:	owdir
+	odp-pd:		omega_parts
+	odp-comp:	odp
+	opres-pd:	omega_parts
+	opres-comp:	opres
+	orh-pd:		omega_parts
+	orh-comp:	orh
+	ou_wind-pd:	omega_parts
+	ou_wind-comp:	ou_wind
+	ov_wind-pd:	omega_parts
+	ov_wind-comp:	ov_wind
+	rtv-pd:	rass_parts
+	rtv-comp:	rtv
+	hwspd-pd:	prof_parts
+	hwspd-comp:	hwspd
+	hwdir-pd:	prof_parts
+	hwdir-comp:	hwdir
+	lwspd-pd:	prof_parts
+	lwspd-comp:	lwspd
+	lwdir-pd:	prof_parts
+	lwdir-comp:	lwdir
+altScale
+	representation:	simple
+	representation-style:	cross
+	x-field:	nothing
+	field-color:	black
+	platform:	kapinga/omega
+	axis-bottom:	false
+! left axis:
+	y-field:	alt
+	axis-l-label:	altitude (kmsl)
+	axis-l-tic-interval:	1.0
+	axis-l-grid-intensity:	0.0
+heightScale
+	representation:	simple
+	representation-style:	cross
+	x-field:	nothing
+	field-color:	black
+	platform:	kapinga/prof915h
+	axis-bottom:	false
+	axis-left:	false
+	y-field:	height
+	axis-r-label:	height (m > ground)
+	axis-r-tic-interval:	500.0
+	axis-r-grid-intensity:	0.0
+	axis-right:	true
+hwdir
+	trigger:	prof915h
+	do-color-proc:	change_component_color
+	representation:	simple
+	representation-style:	cross
+	platform:	kapinga/prof915h
+	icon:		iss-wdir
+	icon-background:	black
+	field-color:	yellow
+	icon-color:	yellow
+	axis-left:	false
+	axis-bottom:	false
+	axis-top:	true
+	y-field:	height
+! bottom axis:
+	x-field:	wdir
+	axis-t-label:	wind direction (degrees)
+	axis-t-tic-interval:	5.0
+	axis-t-grid-intensity:	0.0
+	axis-t-color:	yellow
+	icon-right-menu:	DataAvailable
+	icon-left-menu:		xy-simple
+	adj-axis-side: t
+hwspd
+	trigger:	prof915h
+	do-color-proc:	change_component_color
+	representation:	simple
+	representation-style:	cross
+	platform:	kapinga/prof915h
+	icon:		iss-wspd
+	icon-background:	black
+	field-color:	green
+	icon-color:	green
+	axis-left:	false
+	axis-bottom:	false
+	axis-top:	true
+	y-field:	height
+! bottom axis:
+	x-field:	wspd
+	axis-t-label:	wind speed (m/s)
+	axis-t-tic-interval:	5.0
+	axis-t-grid-intensity:	0.0
+	axis-t-color:	green
+	icon-right-menu:	iss-global-profile
+	icon-left-menu:	xy-simple
+	adj-axis-side: t

@@ -1,0 +1,105 @@
+! $Id: theight-add,v 1.1.1.1 2001-04-16 18:19:02 granger Exp $
+!
+! The brains behind giving the user the choice of how to add a platform
+! to a time-height window.
+!
+! Here are the component options:
+!
+!   contour
+!   wind
+!
+! We don't tell the user they can't add a wind display of rass, even though
+! it probably wouldn't display anything, because there is no sure way of
+! determining that it's a rass platform.
+
+
+procedure theight-add platform string field string window string
+
+! This is somewhat of a kludge in that we expect the ui$form variable
+! to be set after the popup, so that we can set the state parameters
+! from our arguments.
+
+	popup tha-form
+	local f ui$form
+	formtext #f platform #platform
+	formtext #f field #field
+	formtext #f window #window
+
+endprocedure
+
+!
+! The foundation of the interface: a popup widget which gives the options
+! for adding a given platform to the plot.
+!
+define widget tha-form form 'time-height platform put'
+	noheader
+	popup tha-popup
+
+	label title 'Add Platform to Time-height Plot'
+	button dismiss 'Dismiss' color red command 'popdown #ui$form'
+	newline
+	
+	! Store our 'state' parameters at popup in labels
+	label lplat 'Platform:' width 80
+	label platform 'null' width 200
+	newline
+	label lfield 'Field:' width 80
+	label field 'null' width 200
+	newline
+	label lwindow 'Window:' width 80
+	label window 'null' width 200
+	newline
+
+	! ******** Tino Modify:
+	! Modifiche mie 10/04/2001:
+	! per avere tc-sndcontour e tc-sndwinds
+	!button addc 'Add Contour' command 'tha-add-comp contour'
+	!button addw 'Add Wind Profile' command 'tha-add-comp winds'
+	button addc 'Add Contour' command 'tino-theight-add tc-sndcontour'
+        button addw 'Add Wind Profile' command 'tino-theight-add tc-sndwinds'
+enddef
+
+procedure tino-theight-add comp string
+	local f ui$form
+	local plat getftext(f,'platform')
+	local field getftext(f,'field')
+	local window getftext(f,'window')
+ 
+	parameter #comp #comp platform #plat
+	add #comp #comp #window
+	!parameter tc-sndcontour tc-sndcontour platform #plat
+	!add tc-sndcontour tc-sndcontour #window
+	!th-cadd tc-sndwinds   #plat #window !evita di rifare le barbe per ogni aggiunta
+endprocedure
+! fine modifiche mie
+
+
+!
+! This is only called so that the ui$form variable is set
+! on popup for the time-height-add procedure to reference.
+!
+procedure tha-popup
+	local f ui$form
+endprocedure
+
+
+procedure tha-add-comp comp string
+
+	local f ui$form
+	local plat getftext(f,'platform')
+	local field getftext(f,'field')
+	local window getftext(f,'window')
+!
+! Change the template component directly before adding it.
+! This would also be where we might query the platform database
+! for the default y-field...
+!
+	parameter theight-components #comp platform #plat
+
+	if (comp = 'contour')
+		parameter theight-components #comp z-field #field
+	endif
+	add theight-components #comp #window
+
+endprocedure
+

@@ -1,0 +1,8 @@
+colortable TinoRainbow
+	xcolor Yellow
+	xcolor Orange
+	xcolor Coral
+	xcolor Violet
+	xcolor Purple
+	xcolor Blue
+endtable

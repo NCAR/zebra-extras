@@ -1,0 +1,253 @@
+!
+! This file contains the default values for some plot description parameters.
+!
+defaults
+	pd-name:			defaults
+!
+!	definizione delle cifre significative per variabili condivise:
+!	24/06/07: ne metto 3 dopo la virgola.
+!
+	lat-printf-format:		%.3f
+	lon-printf-format:		%.3f
+!
+!
+! Project origin
+!
+	origin-lat:			45
+	origin-lon:			13.0
+	origin-alt:			10.0
+!
+! The default, big picture zoom locations for constant altitude plots.  These
+! values are in km w.r.t. the origin above.  Make 'em smaller for smaller scale
+! projects and bigger for bigger scale projects...
+!
+	x-min:				-1800
+	x-max:				1800
+	y-min:				-750
+	y-max:				750
+!
+! Icons to use for various platforms.  The icons themselves can be created
+! using the X Window "bitmap" utility, and saved in the <project>/icons 
+! directory.  In general, it is good to have a separate icon for each platform.
+! Example:
+!
+!	cp2-icon:		cp2
+!	goes-icon:		goes
+!
+	null-icon:		null
+!
+! Age limits for data (i.e., when to make the icon red)
+! Although we set a default of 15 minutes, a separate value is generally 
+! used for each platform.  Example:
+!
+	icon-age-limit:		12h
+!	cp2-icon-age-limit:	2m
+!	goes-icon-age-limit:	120m
+!
+
+!
+! Will you be using tracks of mobile platforms?  If so, it can be useful
+! to assign a special color to each one.
+!
+! Example:
+!	electra-color:		orange
+!	kingair-color:		cyan
+!
+	null-color:		white
+!
+! Add named locations to your heart's delight.  
+! Form: 
+!	<sitename>-location:	<lat> <lon> <alt>
+!
+!	SITI METEO
+	boulder-location:	40.0   -105.3  1600.0
+	radar-location:		45.727  13.478   5.0
+	csa-location:		45.82   13.36   10.0
+	S_Quirino-location:	46.013  12.670  100.0
+
+!	PROVINCIE FRIULI
+	Trieste-location:	45.65   13.78   15.0
+	Udine-location:		46.06   13.23  106
+	Gorizia-location:	45.94   13.62   86
+	Pordenone-location:	45.97   12.67   23		
+
+!	CITTA' FRIULI 
+	Cervignano-location:	45.83   13.33    0
+	Codroipo-location:	45.96   12.98    0
+	Cormons-location:	45.97	13.47	 0
+	Cividale-location:	46.09   13.42  135
+	Gemona-location:	46.28   13.14  215
+	Gradisca-location:	45.88	13.50	 0
+	Grado-location:		45.676  13.38    1
+	Latisana-location:	45.78   13.00	 0
+	Lignano-location:	45.68	13.13    1
+	Maniago-location:	46.17	12.72  283
+	Monfalcone-location:	45.80   13.53    6
+	Palmanova-location:	45.92   13.32    0
+	San_Daniele-location:	46.17   13.02	 0
+	San_Giorgio-location:	45.83	13.20	 0
+	Tarvisio-location:	46.50   13.60    0
+	Tolmezzo-location:	46.40   13.02    0
+
+!	CITTA' VENETO
+	Belluno-location:	46.14	12.20	 0
+	Conegliano-location:	45.88	12.30	 0
+	Cortina-location:	46.54	12.12	 0
+	Mestre-location:	45.47	12.23	 0
+	Padova-location:	45.42	11.85	 0
+	Portogruaro-location:	45.76	12.85	 0
+	San_Dona-location:	45.63	12.56	 0
+	Treviso-location:	45.60	12.23	 0
+	Venezia-location:	45.43	12.33	 0
+	Verona-location:	45.42	11.00	 0
+	Vicenza-location:	45.53	11.52	 0
+
+!	CITTA' TRENTINO-ALTO ADIGE
+	Bolzano-location:	46.49	11.33	 0	
+	Bressanone-location:	46.70	11.64	 0
+	Trento-location:	46.06	11.13	 0
+	
+!	CITTA EMILIA-ROMAGNA
+	Bologna-location:	44.5	11.3	 0
+	Ferrara-location:	44.8	11.6	 0
+	Modena-location:	44.6	10.9	 0
+	Parma-location:		44.7	10.4	 0
+	Ravenna-location:	44.4	12.2	 0
+	Piacenza-location:	45.05	9.67	 70
+
+!	CITTA LOMBARDIA
+	Bergamo-location:	45.70	9.67	 227
+	Brescia-location:	45.55	10.22	 462
+	Como-location:		45.81	9.08	 200
+	Lecco-location:		45.85	9.39	 207
+	Milano-location:	45.47	9.20	 103
+	Pavia-location:		45.18	9.17	 77
+	Sondrio-location:	46.17	9.87	 300
+	Varese-location:	45.82	8.79	 416
+
+
+!	CITTA' SLOVENIJA
+	Ljubljana-location:	46.067  14.517  299	
+	Ajdovscina-location:	45.88   13.88     0
+	Bled-location:		46.37   14.12	  0
+	Bovec-location:		46.33   13.55	  0
+	Brnik-location:		46.217  14.483  362	
+	Celje-location:		46.25   15.25	244
+	Idrija-location:	46.00	14.03	  0
+	Ilirska_Bistrica-location: 45.567  14.25	413
+	Jesenice-location:	46.43   14.08	  0
+	Koper-location:		45.55	13.73	  5
+	Kranj-location:		46.23   14.37	  0
+	Krsko-location:		45.97	15.50	  0
+	Logatec-location:	45.92   14.23   450
+	Maribor-location:	46.533  15.65   275
+	Murska_Sobota-location:	46.65   16.183  188
+	Nova_Gorica-location:	45.95   13.65	113
+	Novo_Mesto-location:	45.80   15.183  220
+	Postojna-location:	45.78   14.22     0
+	Tolmin-location:	46.17	13.73	  0
+	Trbovlje-location:	46.15   15.05	  0
+	Velenje-location:	46.37   15.12     0
+
+!	CITTA AUSTRIA
+!	Lienz-location:		46.83	11.75	  0
+	Linz-location:		48.3	14.3	  0
+	Innsbruck-location:	47.26	11.38	  0
+	Klagenfurt-location:	46.63	14.36	  0
+	Salzburg-location:	47.80	13.06	  0
+	Villach-location:	46.62	13.85	  0
+	Wien-location:		48.2	16.3	  0
+
+!	CITTA CROAZIA
+!	Banja_Luka-location:	44.4	16.6	  0
+	Osijek-location:	45.5	18.8	  0
+	Karlovac-location:	45.5	15.5	  0
+	Pula-location:		44.87	13.84	  0
+	Rijeka-location:	45.32	14.44	  0
+	Split-location:		43.8	16.2	  0
+	Varazdin-location:	46.3	16.3	  0
+	Zagreb-location:	45.8	15.9	  0
+
+!
+! Origins for the get position widget.
+!
+	pos-origin:	boulder
+!
+! UNLESS YOU NEED TO TWEAK ONE OR MORE OF THE "SAFE" DEFAULTS BELOW, YOU'RE
+! DONE!
+!
+!****************************************************************************
+! 
+! The parameters below are pretty safe defaults and can almost always be left
+! as they are.  Leave them alone unless you know what you're doing!
+!
+
+!
+! Adjust limit procedures.
+!
+	track-arrow-limit-proc:		adj_arrow_scale
+	track-time-limit-proc:		adj_time_period
+	track-centstep-limit-proc:	adj_center_step
+	raster-highrange-limit-proc:	adj_highlight_range
+	raster-centstep-limit-proc:	adj_center_step
+	raster-limit-proc:		adj_center_step
+	vector-limit-proc:		adj_arrow_scale
+	contour-limit-proc:		adj_center_step
+	filled-contour-limit-proc:	adj_center_step
+	contour-limit-proc:		adj_center_step
+	filled-contour-centstep-limit-proc:	adj_center_step
+	contour-centstep-limit-proc:	adj_center_step
+	skewt-pres-limit-proc:		adj_pres_minmax
+	skewt-temp-limit-proc:		adj_temp_minmax
+	global-x-limit-proc:		adj_x_minmax
+	global-y-limit-proc:		adj_y_minmax
+	lightning-limit-proc:		adj_time_step
+!
+! Leave a little space on the left hand side for axis information
+!
+	axis-left-space:	30
+!
+! Where to put the frame cache files and the maximum number of frames
+! to store in the cache.
+!
+	file-path:	/tmp
+	max-frames:	30
+!
+! Command to be executed out of the DataAvailable menu.
+!
+	data-available-command:		DefaultDataAvail
+!
+! Generic icon stuff
+!
+	global-icon:			global
+	icon-color:			yellow
+	icon-background:		midnight blue
+	disabled-icon-color:		gray90
+	disabled-icon-background:	gray40
+	icon-age-foreground:		pink
+	icon-age-background:		red
+!
+! Various menus for the icons in the plot windows.
+!
+	icon-left-menu:			standard-cap-left-menu
+	global-icon-left-menu:		global-left
+	global-icon-right-menu:		globaltopannot
+!
+! Default to matched top annotation colors where allowed.
+!
+	ta-color-match:			true
+!
+! Post processing mode parameters.
+!
+	post-proc-mode:			true
+	pp-dm-time-adjust:		65m
+!
+! What RBand uses to draw the box/line.  Don't mess with it.
+!
+	xorvalue:			63
+	xor-line-width:			3
+!
+! Where cross sections are done.
+!
+	xsect-window:			all
+	xsect-component:		global

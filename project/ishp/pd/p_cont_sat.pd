@@ -1,0 +1,29 @@
+!
+! Fancy generic plot description intended to work with filled or line 
+! contours.  Uses line contours by default.  Platform, icon, and field need 
+! to be filled in.
+!
+global
+	pd-name:		p_cont_sat
+	trigger:		satel_IR
+p_cont_sat
+	platform:		CHANGEME
+	icon:			CHANGEME
+	field:			satellite
+	representation:		filled-contour
+	require:		mycontour, simple-color
+	limit-proc:		contour-putup-adj
+	scale-mode:		manual ! auto
+	contour-field-center:	160   ! 1500	
+	contour-field-step:      20   !  500
+!non va range-min:		  0
+!	range-max:		255
+	out-of-range-color:	none
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	contour-right
+	color-table:		TinoSatGray
+	color:			cyan
+	do-labels:		true
+	label-blanking:		false
+

@@ -1,0 +1,516 @@
+! $Id: IconBar,v 1.1.1.1 2001-04-16 18:19:00 granger Exp $
+!
+! Generic IconBar template
+!
+
+!set ui$bitmap_directory concat(c$libdir, "/icons")
+
+set fri_big_cities 'Trieste,Udine,Gorizia,Pordenone'
+set fri_est_cities 'Cervignano,Cividale,Cormons,Gemona,Gradisca,Grado,Tarvisio,Tolmezzo,Palmanova,Monfalcone'
+set fri_west_cities 'Codroipo,Latisana,Lignano,Maniago,San_Daniele,San_Giorgio'
+set slo_big_cities 'Ljubljana,Celje,Jesenice,Kranj,Maribor,Murska_Sobota,Novo_Mesto,Koper'
+set slo_cities 'Ajdovscina,Bled,Bovec,Brnik,Ilirska_Bistrica,Idrija,Krsko,Logatec,Nova_Gorica,Postojna,Tolmin,Trbovlje,Velenje'
+set ven_cities 'Belluno,Conegliano,Cortina,Padova,Portogruaro,Treviso,Venezia,Verona,Vicenza' 	! Mestre,San_Dona,
+set taa_cities 'Bolzano,Bressanone,Trento'
+set aus_cities 'Linz,Innsbruck,Klagenfurt,Salzburg,Villach,Wien'
+set cro_cities 'Osijek,Karlovac,Pula,Rijeka,Split,Varazdin,Zagreb'
+set emr_cities 'Bologna,Ferrara,Modena,Parma,Ravenna,Piacenza'
+set lom_cities 'Bergamo,Brescia,Como,Lecco,Milano,Pavia,Sondrio,Varese'
+
+
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	noheader
+	!
+	! Define the menus
+	!
+	menu help bitmap iconbar-help
+		title 'Zeb Help Access'
+		line
+		entry 'Introduction' 	'help intro'
+		entry 'On-line topics' 	'help index'
+		entry 'Starting Zebra' 	'help start'
+		entry 'Shutting down' 	'help shut-down'
+		entry 'Keys and mouse buttons' 	'help keys'
+		entry 'The icon bar' 	'help iconbar'
+		entry 'Editing display configurations' 	'help editing-configs'
+		line
+		entry 'Horizontal plots'	'help horizontal-plots'
+		entry 'Skew-t plots' 	'help skewt'
+		entry 'XYGraph plots' 	'help xy-graphs'
+		entry 'Cross-section plots' 	'help cross-section'
+	endmenu
+!
+!
+	menu tools bitmap tools-big
+		title 'Tools'
+		line
+		entry 'Time widget'	'popup time'
+		entry 'Make a print' 	'popup hardcopy'
+		line
+		entry 'Add display window'	'popup newwindow'
+		entry 'Delete display window' 	'popup zorchwindow'
+		entry 'Save current configuration' 	'popup saveconfig'
+		line
+		entry 'Data store contents' 	'shell "dsdwidget &"'
+		entry 'Data store management' 	'shell "dsmanage &"'
+		line
+		entry 'Shut down Zebra' 	'shutdown'
+	endmenu
+!
+! The project display configurations are added in this menu
+!
+	menu configs bitmap configs
+		title 'Display configurations'
+		line
+		entry 'Default map' 		 'display map' \
+			(dm$config = 'map')
+		entry 'ISHP simple map' 	 'display ISHP' \
+			(dm$config = 'ISHP')
+		entry 'ISHP orography map' 	 'display ISHP_geo' \
+			(dm$config = 'ISHP_geo')
+		entry 'Mesoscale orography map'  'display mesoscale' \
+			(dm$config = 'mesoscale')
+		entry 'Small orography map' 	 'display map.oro' \
+			(dm$config = 'map.oro')
+		entry 'Local monitoring'	 'display meteo' \
+			(dm$config = 'meteo')
+		entry 'Local monitoring Light'	 'display meteo_light' \
+			(dm$config = 'meteo_light')
+		entry 'Lightnings' 		 'display fulmini' \
+			(dm$config = 'fulmini')
+		entry 'Lightnings + Satellite' 	 'display sat_light' \
+			(dm$config = 'sat_light')
+		entry 'Sounding Theta-Plot' 	'display sondaggi' \
+			(dm$config = 'sondaggi')
+		entry 'Sounding Skew-T' 	'display skew-t' \
+			(dm$config = 'skew-t')
+		entry 'Sounding Profile' 	'display profil' \
+			(dm$config = 'profil')
+		entry 'Sounding Instability' 	'display instability' \
+			(dm$config = 'instability')
+		entry 'EURO rds mandatory levels 6h' 	'display euro_levels' \
+			(dm$config = 'euro_levels')
+		entry 'EURO rds thetaplot 6h' 	'display euro_rds' \
+			(dm$config = 'euro_rds')
+		entry 'EURO stations 3h' 	'display euro_syn' \
+			(dm$config = 'euro_syn')
+		entry 'EURO stations 3h (ncar)' 'display ncar' \
+			(dm$config = 'ncar')
+		entry 'ISHP stations 1h' 	'display sta1h' \
+			(dm$config = 'sta1h')
+		entry 'Friuli stations 1h' 	'display station1h' \
+			(dm$config = 'station1h')
+		entry 'Friuli stations 5m' 	'display station5m' \
+			(dm$config = 'station5m')
+		entry 'Time station 1h' 	'display stazione' \
+			(dm$config = 'stazione')
+		entry 'Friuli Event' 		'display evento' \
+			(dm$config = 'evento')
+		entry 'Hail day'		'display hail_map' \
+			(dm$config = 'hail_map')
+		entry 'Hail Tot Pads'		'display totpads' \
+			(dm$config = 'totpads')
+		entry 'Reading models' 		'display ECMWF' \
+			(dm$config = 'ECMWF')
+		entry 'Model Space Cross-section'	'display model_xsect' \
+			(dm$config = 'model_xsect')
+		entry 'Large satelite IR or WV + model'	'display ECMWF+satel_IR' \
+			(dm$config = 'ECMWF+satel_IR')
+		entry 'Small satelite VIS + model' 	'display ECMWF+satel_VIS' \
+			(dm$config = 'ECMWF+satel_VIS')
+		!entry 'Radar Cappi 1500 3000' 	'display radar' \
+		!	(dm$config = 'radar')
+		entry 'Radar VMI and SRI' 	'display radar' \
+			(dm$config = 'radar')
+		entry 'Reading models before 12/04/98' 	'display reading' \
+			(dm$config = 'reading')
+		entry 'Large satelite before 12/04/98' 	'display satel_IR' \
+			(dm$config = 'satel_IR')
+		entry 'Small satelite before 12/04/98' 	'display satel_VIS' \
+			(dm$config = 'satel_VIS')
+		entry 'All' 			'display show' \
+			(dm$config = 'show')
+		entry 'Adriatic Sea' 		'display adriatic' \
+			(dm$config = 'adriatic')
+!		entry 'Dual Doppler Cross-section'	'display ddop_xsect' \
+!			(dm$config = 'ddop_xsect')
+		line
+		entry 'Menu' 		'display menu' (dm$config = 'menu')
+		entry 'Empty screen' 	'display empty' (dm$config = 'empty')
+	endmenu
+!
+! Surface station networks
+!
+	menu 'Mesonet' bitmap mesonet
+		title 'Surface stations data'
+		line
+		entry 'Capriva t-series' \
+			'putc2 time_stations platform station1h/Capriva y-field t180'
+		entry 'Fossalon t-series' \
+			'putc2 time_stations platform station1h/Fossalon y-field tdry'
+		entry 'Gradisca t-series' \
+			'putc2 time_stations platform station1h/Gradisca y-field t180'
+		entry 'Lignano t-series' \
+			'putc2 time_stations platform station1h/Lignano y-field t180'
+		entry 'Pordenone t-series' \
+			'putc2 time_stations platform station1h/Pordenone y-field t180'
+		entry 'Tarvisio t-series' \
+			'putc2 time_stations platform station1h/Tarvisio y-field t180'
+		entry 'Trieste t-series' \
+			'putc2 time_stations platform station1h/Trieste y-field t180'
+		entry 'Udine t-series' \
+			'putc2 time_stations platform station1h/Udine y-field t180'
+		entry 'Zoncolan t-series' \
+			'putc2 time_stations platform station1h/Zoncolan y-field t180'
+		line
+!		entry 'Friuli stations plot' \
+!			'putc2 p_station platform station1h icon mesonet'
+!		entry 'Friuli stations contour plot' \
+!			'putc2 p_contour platform station1h field t180'
+!		entry 'Friuli stations winds plot' \
+!			'putc1 p_irg_winds platform station1h'
+!		line
+		entry 'ISHP stations 3h plot' \
+			'putc2 p_station platform ishp icon Fsta1h_p.ico'
+		entry 'ISHP stations 3h contour plot' \
+			'putc3 p_contour platform ishp icon Fsta1h_c.ico field t180'
+		entry 'ISHP stations 3h winds plot' \
+			'putc2 p_irg_winds platform ishp icon Fsta1h_w.ico'
+		line
+		entry 'Friuli stations 1h plot' \
+			'putc2 p_station platform station1h icon Fsta1h_p.ico'
+		entry 'Friuli stations 1h contour plot' \
+			'putc3 p_contour platform station1h icon Fsta1h_c.ico field t180'
+		entry 'Friuli stations 1h winds plot' \
+			'putc2 p_irg_winds platform station1h icon Fsta1h_w.ico'
+		line
+		entry 'Friuli stations 5min plot' \
+			'putc2 p_station platform station5m icon Fsta5m_p.ico'
+		entry 'Friuli stations 5min contour plot' \
+			'putc3 p_contour platform station5m icon Fsta5m_c.ico field t180'
+		entry 'Friuli stations 5min winds plot' \
+			'putc2 p_irg_winds platform station5m icon Fsta5m_w.ico'
+		line
+		entry 'Austrian stations 1h plot' \
+			'putc2 p_station platform austria1h icon Austria1h_p.ico'
+		entry 'Austrian stations 1h contour plot' \
+			'putc3 p_contour platform austria1h icon Austria1h_c.ico field Temp'
+		entry 'Austrian stations 1h winds plot' \
+			'putc2 p_irg_winds platform austria1h icon Austria1h_w.ico'
+		line
+		entry 'Slovenian stations 1h plot' \
+			'putc2 p_station platform slovenia icon Slovenia1h_p.ico'
+		entry 'Slovenian stations 1h contour plot' \
+			'putc3 p_contour platform slovenia1h icon Slovenia1h_c.ico field Temp'
+		entry 'Slovenian stations 1h winds plot' \
+			'putc2 p_irg_winds platform slovenia1h icon Slovenia1h_w.ico'
+		line
+		entry 'Slovenian stations 3h plot (before 2000)' \
+			'putc2 p_station platform slovenia3h icon Slovenia3h_p.ico'
+		entry 'Slovenian stations 3h contour plot' \
+			'putc3 p_contour platform slovenia3h icon Slovenia3h_c.ico field Temp'
+		entry 'Slovenian stations 3h winds plot' \
+			'putc2 p_irg_winds platform slovenia3h icon Slovenia3h_w.ico'
+		line
+		entry 'Synop Euro stations plot' \
+			'putc2 p_station platform euro_syn icon Euro_syn_p.ico Temp'
+		entry 'Synop Euro stations contour plot' \
+			'putc3 p_contour platform euro_syn icon Euro_syn_c.ico field t180'
+		entry 'Synop stations winds plot' \
+			'putc2 p_irg_winds platform euro_syn icon Euro_syn_w.ico'
+		line
+		entry 'Synop Euro stations plot (ncar)' \
+			'putc2 p_station platform ncar icon Euro_syn_p.ico'
+		entry 'Synop Euro stations contour plot (ncar)' \
+			'putc3 p_contour platform ncar icon Euro_syn_c.ico field Tdry'
+		entry 'Synop stations winds plot (ncar)' \
+			'putc2 p_irg_winds platform ncar icon Euro_syn_w.ico'
+		line
+		entry 'Synoptic stations plot' \
+			'putc2 p_station platform synoptic icon mesonet'
+		entry 'Synoptic stations contour plot' \
+			'putc2 p_contour platform synoptic field t180'
+		entry 'Synoptic stations winds plot' \
+			'putc2 p_irg_winds platform synoptic icon Euro_syn_w.ico'
+		line
+		line
+		entry 'EURO rds mandatory levels plot' \
+			'putc2 rds_station platform euro_levels icon Euro_temp_p.ico'
+		entry 'EURO rds mandatory levels contour plot' \
+			'putc3 p_contour platform euro_levels field tdry icon Euro_temp_c.ico'
+!		entry 'EURO rds mandatory levels winds plot' \
+!			'putc2 p_irg_winds platform euro_levels icon Euro_temp_w.ico'
+	endmenu
+!
+!  Menu per i modelli
+!
+	menu 'Models' bitmap model !3dgrid
+		title 'Model'
+		line
+		entry 'Lambo Contours' 	'putc2 p_model platform lambo icon 3dgrid_lambo.ico'
+		entry 'Lambo Winds' 	'putc2 p_model_winds platform lambo icon wind_lambo.ico' 
+		line
+		entry 'ECMWF big 1.0 run 12 Contours' \
+			'putc3 p_model platform ECMWF_1.0_12 field tdry icon 500c_reading.ico'
+		entry 'ECMWF big 1.0 run 12 Winds' \
+			'putc2 p_model_winds platform ECMWF_1.0_12 icon 500w_reading.ico' 
+		line
+		entry 'ECMWF big 1.0 Contours' \
+			'putc3 p_model platform ECMWF_1.0 field tdry icon 500c_reading.ico'
+		entry 'ECMWF big 1.0 Winds' \
+			'putc2 p_model_winds platform ECMWF_1.0 icon 500w_reading.ico' 
+		line
+		entry 'ECMWF small 0.5 Contours' \
+			'putc3 p_model platform ECMWF_0.5 field tdry icon 3dgrid_reading.ico'
+		entry 'ECMWF small 0.5 Winds' \
+			'putc2 p_model_winds platform ECMWF_0.5 icon wind_reading.ico' 
+		entry 'ECMWF small 0.5 surface contours' \
+			'SfcModelAdd ECMWF_0.5_sfc cpres0 red'
+		entry 'ECMWF small 0.5 surface winds' \
+			'putc2 p_reading_winds platform ECMWF_0.5_sfc icon Sfw_reading.ico'
+		line
+		entry 'Reading-big 500 mb Contours' \
+			'putc3 p_model platform reading61x31 field tdry icon 500c_reading.ico'
+!		entry 'Reading-small Section' 	\
+!			'putc2 p_model platform ddop_xsect icon 3dgrid_reading.ico'
+		entry 'Reading-small Contours' \
+			'putc3 p_model platform reading41x21 field tdry icon 3dgrid_reading.ico'
+		entry 'Reading-small Winds' \
+			'putc2 p_model_winds platform reading41x21 icon wind_reading.ico'
+  		entry 'Reading-small surface contours' 'SfcModelAdd reading41x21_sfc  cpres0 red'
+		entry 'Reading-small surface winds' \
+			'putc2 p_reading_winds platform reading41x21_sfc icon Sfw_reading.ico'
+
+		line
+  	endmenu
+
+!
+!  Menu for three  satellite  images
+!
+	menu 'Satellite' bitmap satel
+		title 'Satellite'
+		line
+		entry 'Big Infrared' 	 'putc2 p_cont_sat platform satel_IR  icon satel_ir.ico'
+		entry 'Big Water Vapour' 'putc2 p_cont_sat platform satel_WV  icon satel_wv.ico' 
+		entry 'Small Visible' 	 'putc2 p_cont_sat platform satel_VIS icon satel_vis.ico'
+		line
+		entry 'Zoom Infrared grib' 'putc2 p_cont_sat platform satel_IR_grb  icon satel_ir_z.ico'
+		entry 'Zoom Visible grib' 'putc2 p_cont_sat platform satel_VIS_grb  icon satel_vis_z.ico' 
+  	endmenu
+
+!
+!  Menu for three  radar VerticalMaximumIntensity and SurfaceRainIntensity (Cappi data Z and V)
+!
+	menu 'Radar VMI and SRI' bitmap radar_grid
+		title 'Radar'
+		line
+		entry 'Radar GRIB data'  \
+			'putc3 p_model platform radar_grb field ZVMI icon radar'
+  	endmenu
+
+!
+! Locations and other informational overlays
+!
+	menu 'overlays' bitmap overlays
+		title 	'Orography   Platform   Grid'	!'Static Overlays'
+		line
+		entry 'Huge orography contour plot' \
+			'putc3 p_cont_oro platform oro.huge icon orography.ico field elevation'	
+		entry 'Huge variance of orography' \
+			'putc3 p_cont_oro platform oro.sigma.huge icon orography.ico field elevation'
+		entry 'Huge vertical orography'  \
+			'putc3 p_grib platform oro.vert.huge field height icon orography.ico'
+		entry 'Big orography contour plot' \
+			'putc3 p_cont_oro platform oro.big icon orography.ico field elevation'	
+		entry 'Small orography contour plot' \
+			'putc3 p_cont_oro platform oro.small icon orography.ico field elevation'
+		entry 'Small vertical orography'  \
+			'putc3 p_grib platform oro.vert.small field height icon orography.ico'
+	        entry 'Orography temp contour plot' \
+			'putc3 p_cont_oro platform orografia2 icon orography.ico field elevation'	
+		entry 'ISHP orography contour plot' \
+			'putc3 p_cont_oro platform oro.ishp icon orography.ico field elevation'	
+		entry 'Friuli orography contour plot' \
+			'putc3 p_cont_oro platform oro.friuli icon orography.ico field elevation'
+		entry 'Friuli variance of orography' \
+			'putc3 p_cont_oro platform oro.sigma icon orography.ico field elevation'	
+		entry 'Slovenija orography contour plot' \
+			'putc3 p_cont_oro platform oro.slovenija icon orography.ico field elevation'
+		line
+		entry 'Lightnings Map'		'putc0 fulmini'
+		entry 'Hail Historical Obs. Map' \
+			'putc3 p_cont_oro platform hail_hist icon hail_ob.ico annot-field hail_obs'
+		entry 'Hail Observers Pads' \
+			'putc3 hail platform hail_ob icon hail_ob2.ico annot-field none'
+                entry 'Hail Analize Pads' \
+			'putc3 hail platform hail_an icon hail.ico annot-field totmass'
+		entry 'Total day hit Pads' \
+			'putc3 pads platform hail_pads icon hail_ob.ico y-field TotPads'
+		entry 'Instability Indices' \
+			'putc3 pads platform an16044 icon unstable.ico y-field CAPETv'
+                entry 'Forecast Convective Activity' \
+                        'putc3 pads platform forca6h icon unstable.ico y-field Activity'
+		entry 'Udine sounding location' 	'SendLocs rds16044'
+		entry 'NCAR sounding locations' 	'SendLocs rds_ncar/'
+		entry 'GTS sounding locations' 		'SendLocs euro_rds/'
+		!entry 'Italy sounding locations' 	'SendLocs ncar_Italy'
+		line
+		entry 'X-Y Grid (km)' \
+			'putc3 p_kmgrid x-spacing 100 y-spacing 100 color cyan'
+		entry 'Lat/Lon Grid' \
+			'putc3 p_llgrid x-spacing 60 y-spacing 60 color cyan'
+		entry 'Window Bounds' 	put_wbounds p_wbounds
+	endmenu
+
+!
+! Maps, locations and other geographical informations
+!
+	menu 'Geography' bitmap geography
+		title 'Map  River  City  Location'
+		line
+		entry 'ISHP map'	'putc2 p_map platform ISHP color white'
+		entry 'Friuli map' 	'putc2 p_map platform friuli2 color white'
+		entry 'Slovenija map' 	'putc2 p_map platform slovenija2 color white'
+!		entry 'prova' \
+!			'putc2 p_map platform FRI+SLO color green' !
+		entry 'zones' \
+			'putc2 p_map platform zones color red'
+		entry 'Italy map' 	'putc2 p_map platform italy2 color yellow'
+		entry 'Large map' 	'putc2 p_map platform large_low color yellow'
+!		entry 'High resolution Large map' 'putc2 p_map platform europe color yellow'
+		entry 'High resolution Large map' 'putc2 p_map platform large_hight color yellow'
+		entry 'Africa map' \
+			'putc2 p_map platform africa color yellow'
+		entry 'Asia map' \
+			'putc2 p_map platform asia color yellow'
+		line
+!		title 'Rivers'
+		entry 'Friuli rivers' \
+			'putc2 p_map platform fiumi_fri color blue'
+		entry 'Friuli Secondary rivers' \
+			'putc2 p_map platform fiumi_sec color blue'
+		entry 'Slovenian rivers' \
+			'putc2 p_map platform fiumi_slo color blue'
+		entry 'Large rivers' \
+			'putc2 p_map platform italy_rivers color blue'
+		line
+!		title 'Cities'
+		entry 'Friuli big cities' \
+			'putc3 p_loc platform #fri_big_cities color Brown icon radar-loc'
+		entry 'Friuli est cities' \
+			'putc3 p_loc platform #fri_est_cities color Brown icon radar-loc'
+		entry 'Friuli west cities' \
+			'putc3 p_loc platform #fri_west_cities color Brown icon radar-loc'
+		entry 'Veneto cities' \
+			'putc3 p_loc platform #ven_cities color Brown icon radar-loc'
+		entry 'Trentino-Alto Adige cities' \
+			'putc3 p_loc platform #taa_cities color Brown icon radar-loc'
+		entry 'Slovenian big cities' \
+			'putc3 p_loc platform #slo_big_cities color Brown icon radar-loc'
+		entry 'Slovenian cities' \
+			'putc3 p_loc platform #slo_cities color Brown icon radar-loc'
+		entry 'Austria cities' \
+			'putc3 p_loc platform #aus_cities color Brown icon radar-loc'
+		entry 'Croatia cities' \
+			'putc3 p_loc platform #cro_cities color Brown icon radar-loc'
+		entry 'Emilia-Romagna cities' \
+			'putc3 p_loc platform #emr_cities color Brown icon radar-loc'
+		entry 'Lombardia cities' \
+			'putc3 p_loc platform #lom_cities color Brown icon radar-loc'
+		line
+!		title 'Location'
+		entry 'CSA location'   	'putc3 p_loc platform csa color Green icon csa.ico'
+		entry 'Radar location' 	'putc3 p_loc platform radar color Green icon radar.ico'
+		entry 'Target location' 'putc3 p_loc platform S_Quirino color Green icon wheer.ico'
+		entry '500 m line' \
+			'putc2 p_map platform 500m color red'
+		entry '1000 m line' \
+			'putc2 p_map platform 1000m color green'
+		entry '1500 m line' \
+			'putc2 p_map platform 1500m color yellow'
+		entry '2000 m line' \
+			'putc2 p_map platform 2000m color blue'
+		entry '2500 m line' \
+			'putc2 p_map platform 2500m color violet'
+		line		
+	endmenu
+
+!
+enddef
+
+!*****************************************************************************************************
+
+! old sounding structure: set SoundingPlatforms...
+!set SoundingPlatforms 'rds16044'
+!set SoundingPlatforms '06476,06610,07145,07180,07481,07510,07645,07761,08160,08221,08301,10739,10868,11010,11035,11240,11520,12843,14240,16044,16080,16144,16245,16320,16560'
+!set SoundingPlatforms 'rds_ncar/.*'
+
+procedure SendLocs plats string
+! old sounding structure with SoundingPlatforms
+!	if (plat = "Udine")
+!		set SoundingPlatforms 'rds16044'
+!	endif
+!	if (plat = 'ncar_Italy')
+!		set SoundingPlatforms '16245,16320,16560,16044,16080,16144'
+!	endif
+!	parameter p_active_loc p_active_loc platform #SoundingPlatforms
+	parameter p_active_loc p_active_loc platform #plats
+	parameter p_active_loc p_active_loc icon sounding-small
+	putc2 p_active_loc location-time observation time-label true
+!	parameter p_active_loc p_active_loc location-time point
+endprocedure
+
+
+!
+! Put in window bounds.
+!
+procedure put_wbounds comp string
+!
+! Get the window we want to see.
+!
+	set wbounds_win "none"
+	pickwin wbounds_win
+	if (wbounds_win = "none")
+		beep
+		return
+	endif
+!
+! And now the place where it goes.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")
+		beep
+		return
+	endif
+!
+! Fix up the component and ship it over.
+!
+	parameter #comp #comp platform #wbounds_win
+	add #comp #comp #target_win
+endprocedure
+
+
+
+!
+! Add surface-only model data: SfcModelAdd <platform> <field> <color>
+!
+procedure SfcModelAdd plat string field string color string
+        parameter p_model p_model platform #plat
+        ! parameter p_model p_model icon #plat
+        parameter p_model p_model icon Sfc_reading.ico
+        parameter p_model p_model color #color
+        parameter p_model p_model field #field
+        parameter p_model p_model altitude-control false
+        sendout p_model 'pick'
+        if (plat = 'ecmwf' or plat = 'ecmwf_sfc')
+                parameter #target_win p_model require ecmwf
+        endif
+        if (plat = 'ECMWF_1.0' or plat = 'ECMWF_0.5' or plat = 'ECMWF_0.5_sfc')
+                parameter #target_win p_model require ecmwf
+        endif
+endprocedure
+

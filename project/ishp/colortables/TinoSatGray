@@ -1,0 +1,13 @@
+colortable TinoSatGray
+	xcolor Black
+	xcolor gray10
+	xcolor gray20
+	xcolor gray35
+	xcolor gray50
+	xcolor gray60
+	xcolor gray70
+	xcolor gray80
+	xcolor gray42
+	xcolor gray95
+	xcolor VioletRed !Green3 !Brown2
+endtable

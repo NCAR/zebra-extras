@@ -1,0 +1,29 @@
+!
+! Fancy generic plot description intended to work with filled or line 
+! contours.  Uses line contours by default.  Platform, icon, and field need 
+! to be filled in.
+!
+global
+	pd-name:		p_contour
+p_contour
+	platform:		CHANGEME
+	icon:			CHANGEME
+	field:			CHANGEME
+	representation:		contour
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	contour-right
+	require:		mycontour, simple-color
+	scale-mode:		auto
+	color-table:		Contour
+	color:			cyan
+	do-labels:		true
+	label-blanking:		false
+	limit-proc:		contour-putup-adj
+!	aggiunte by Tino:
+	color-table:		RedBlue
+	out-of-range-color:	none
+!	grid-method		'barnes'
+	field-menu-extras:	theta|potential temperature, theta-e|equivalent potential temperature, station|Station Identification, lat, lon, none
+
+

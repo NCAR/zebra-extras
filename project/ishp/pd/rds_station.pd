@@ -1,0 +1,38 @@
+!
+! Generic plot description for radiosoundings station plots (mandatory levels).  
+! Needs to have the platform filled in (unless it happens to be "mesonet") 
+! but otherwise self contained.
+!
+global
+	pd-name:	rds_station
+	trigger-global:	true
+rds_station
+	platform:	mesonet
+	altitude-control: true
+	representation:	station
+	wspd-field:	wspd
+	wdir-field:	wdir
+	trigger:	platform
+!	posicon-middle-menu:	FieldMenu
+	posicon-middle-menu:	station-send
+	field-select-command:	p_toggle_quadrant
+	field-menu-extras:	station|Station Identification, none
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	p-station-right
+!	icon-field-menu-extras:	station|Station Identification,
+!	annot-field-menu-extras: station|Station Identification,none
+	annot-left-menu:	FieldMenu
+	annot-middle-menu:	FieldMenu
+	arrow-scale:		0.01
+	require:		station, simple-color
+	limit-proc:		adj_arrow_scale
+	active-icon:		true
+	sa-scale:		11
+! modifiche per le stazioni orarie del Friuli
+	parameter:		0.01
+!	add-field:		theta,theta-e,t180
+!	grid-method:		barnes
+
+
+

@@ -1,0 +1,14 @@
+global
+	pd-name:	p_map
+p_map
+	platform:	MAPNAME
+	representation:	overlay
+	field:		map
+	color:		yellow
+	line-width:	0
+	icon-left-menu:		minimal-cap-left-menu
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	icon:		map.ico
+	require:	simple-color
+ 

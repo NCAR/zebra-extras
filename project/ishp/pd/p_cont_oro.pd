@@ -1,0 +1,27 @@
+!
+! Fancy generic plot description intended to work with filled or line 
+! contours.  Uses line contours by default.  Platform, icon, and field need 
+! to be filled in.
+!
+global
+	pd-name:		p_cont_oro
+p_cont_oro
+	platform:		CHANGEME
+	icon:			CHANGEME
+	field:			CHANGEME
+	representation:		raster !filled-contour
+	require:		mycontour, simple-color
+	limit-proc:		contour-putup-adj
+	scale-mode:		manual ! auto
+	contour-field-center:	1600   ! 1500	
+	contour-field-step:      400   !  500
+!non va range-min:		   0
+!	range-max:		3000
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	contour-right
+	color-table:		TinoRevGray  ! Tino_oro
+	color:			cyan
+	do-labels:		true
+	label-blanking:		false
+

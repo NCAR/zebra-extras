@@ -1,0 +1,13 @@
+! Auto-saved display configuration.
+config ddop_xsect
+	widget 'iconbar' 15 9 634 65
+	window 'big' 746 79 400 647 gp gp.init
+		description 'ddop_xsect-big'
+		buttonmap 'big'
+	endwindow
+	window 'xsect' 12 79 724 647 gp gp.init
+		description 'ddop_xsect-xsect'
+		buttonmap 'default'
+	endwindow
+endconfig
+

@@ -1,0 +1,38 @@
+!
+! Add another [set of] xy trace to an xygraph.
+! fatto per mettere dall'IconBar le singole stazioni
+! in una finestra time-series
+!
+global
+	pd-name:		time_stations
+time_stations
+	representation:		simple
+	platform:		SOMETHING
+	x-field:		time
+	y-field:		SOMETHING
+	axis-left:		true
+	axis-right:		false
+	axis-bottom:		false
+	axis-top:		false
+	field-color:		red
+	axis-l-grid-intensity:	0
+	axis-r-grid-intensity:	0
+	representation-style:	line
+	require:		myxytrace, simple-color
+	icon:			tseries
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	xytrace-right
+	field-select-command:	xytrace-field
+	annot-left-menu:	xy-an-left
+	annot-middle-menu:	FieldMenu
+	annot-right-menu:	simple-color
+	color-tweaker:		xytrace-color
+	limit-proc:		xytrace-adjust
+	time-annot:		true
+	sa-scale:		12
+! modifiche mie:
+	field-menu-extras:	lat, lon, none, theta|potential temperature
+	icon-field-menu-extras:	station|Station Identification
+	annot-field-menu-extras: station|Station Identification,none
+
+

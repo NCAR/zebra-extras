@@ -1,0 +1,36 @@
+!
+! Generic CAP or cross-section plot description for GRIB data.  Needs to 
+! have the platform and icon filled in.
+!
+global
+	pd-name:	p_grib
+p_grib
+	platform:	SOMETHING
+	field:		height
+	representation:	line-contour
+	require:	mycontour, simple-color
+	color:		red
+	color-mono:	true
+!	cambio
+!	color-table:	gcook16
+	color-table:	Red
+	out-of-range-color:	none
+	do-labels:	true
+	grid-method:	bilinear
+	icon:		SOMETHING
+	label-blanking:	false
+	line-width:	4
+	limit-proc:	contour-putup-adj
+	icon-left-menu:	standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	posicon-middle-menu:	FieldMenu
+	icon-right-menu:	contour-right
+	annot-left-menu:	FieldMenu
+	annot-middle-menu:	FieldMenu
+	scale-mode:		manual
+	contour-field-center:	0	
+	contour-field-step:     1000
+	altitude-control:	true
+	active-icon:		true
+	z-min:			0
+	z-max:			10000

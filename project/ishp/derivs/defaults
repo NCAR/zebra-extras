@@ -1,0 +1,12 @@
+/* Definizioni nuove variabili */
+[T][degC][temperature]=tdry;
+[T][degC][temperature]=temp;
+[P][hPa][pressure]=pres;
+[T_d][degC][dewpoint temperature]=dp;
+[w][g/kg]=mr;
+[rh][%]=rh;
+
+/* Alias */
+theta=[theta][K];
+theta-e=[theta_e][K];
+td=[dp][degC];

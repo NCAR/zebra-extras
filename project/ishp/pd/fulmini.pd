@@ -1,0 +1,18 @@
+global
+	pd-name:	fulmini
+	trigger-global:	true
+fulmini
+	annot-field:	false ! intensity
+! cambio la scala
+!	color-table:	RevRainbow
+	color-table:	TinoRainbow
+	icon:		lightning.ico
+	platform:	fulmini
+	trigger:	platform
+	representation:	lightning
+	icon-right-menu:	lightning-menu
+	icon-middle-menu:	FieldMenu
+	field-menu-extras:	lat, lon, none 
+	field-select-command:	LightningField
+	require:	fulmini
+
