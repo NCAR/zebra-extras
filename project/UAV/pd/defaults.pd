@@ -13,6 +13,7 @@ defaults
 !
 	icon-left-menu:			minimal-cap-left-menu
 	global-icon-left-menu:		global-left
+	global-icon-middle-menu:	DataAvailable
 	global-icon-right-menu:		globaltopannot
 !
 ! Age limits for changing icon color.
@@ -20,20 +21,22 @@ defaults
 !	icon-age-foreground:			pink
 	icon-age-background:			red
 	sgpgoesvis.tmp-icon-age-limit:		30m
-	sgpsfchrlyX1.a1-icon-age-limit:		30m
+	sgpnwssurfX1.a1-icon-age-limit:		1h
+!	sgpsfchrlyX1.a1-icon-age-limit:		30m
 	sgpngm250X1.ns.valid-icon-age-limit:	3h
 	sgpngm250X1.ns.issue-icon-age-limit:	3h
 	sgpngm250X1.c1-icon-age-limit:		3h
 	Dsgp915rwpwindC1.a2-icon-age-limit:	2h
 	Dsgp915rwptempC1.a2-icon-age-limit:	2h
-	Dsgp30smosE15.a1-icon-age-limit:	2h
+	sgp30smosE15.a1-icon-age-limit:	2h
 	DsgpsirosE13.a1-icon-age-limit:		2h
 	DsgpsirosE15.a1-icon-age-limit:		2h
 	sgp30smosE13.a1-icon-age-limit:		2h
 	DsgpblcC1.a1-icon-age-limit:		24h
 	sgpuavtrack-icon-age-limit:		15m
-	sgpsondeC1.a1-icon-age-limit:		6h
-	Dsgp30smosE9.a1-icon-age-limit:		1h
+!	sgpsondeC1.a1-icon-age-limit:		6h
+	sgpsondewrpnC1.a1-icon-age-limit:		6h
+	sgp30smosE9.a1-icon-age-limit:		1h
 	sgpmwrlosC1.a1-icon-age-limit:		2h
 	DsgpsirosE9.a1-icon-age-limit:		2h
 	mesonet-icon-age-limit:		10m
@@ -129,7 +132,8 @@ defaults
 !
 ! The maximum number of frames to be stored in the file.
 !
-	max-frames:	20
+!	max-frames:	20	 ORIG: changed by SLH, GG 10/27/94
+	max-frames:	2
 !
 ! Commands to be executed out of the DataAvailable menu.
 !
