@@ -1,16 +1,19 @@
 ! Auto-saved display configuration.
+
+prototype fallback Graphic gp gp.init
+
 config NGM
-	widget 'iconbar' 6 10 452 71
-	window 'UpperLeft' 6 90 792 650 gp gp.init
+	widget 'iconbar' 9 724 610 65
+	graphic 'UpperLeft' 8 38 792 650 Graphic
 		description 'NGM-UpperLeft'
 		buttonmap 'big'
 		forcepd
-	endwindow
+	endgraphic
 endconfig
 
 beginpd 'NGM-UpperLeft'
 global
-   parameter altitude                  '1000.00'
+   parameter altitude                  '1000.0000'
    parameter altitude-label            'Alt: 1000 mb'
    parameter comment                   'NGM CAP'
    parameter forecast-offset           '0h'
@@ -23,7 +26,7 @@ global
    parameter movie-mode                'False'
    parameter pd-name                   'NGM-UpperLeft'
    parameter plot-mode                 'history'
-   parameter plot-time                 '18-Apr-94,18:00:00'
+   parameter plot-time                 '16-Apr-94,18:40:00'
    parameter plot-type                 'CAP'
    parameter ta-scale                  '.04'
    parameter temperature-range-max     '290'
@@ -47,8 +50,8 @@ component p_model.0
    parameter do-labels                 'true'
    parameter field                     'height'
    parameter grid-method               'bilinear'
-   parameter height-center             '132.0000'
-   parameter height-step               '6.0000'
+   parameter height-center             '7440.0000'
+   parameter height-step               '20.0000'
    parameter icon                      'ngm-clock'
    parameter icon-left-menu            'standard-cap-left-menu'
    parameter icon-middle-menu          'ngm-field-menu'
@@ -73,37 +76,6 @@ component c_map
    parameter icon-right-menu           'linewidth'
    parameter platform                  'state_lines'
    parameter representation            'overlay'
-component c_locns_cf
-   parameter active-icon               'true'
-   parameter color                     'yellow'
-   parameter disable                   'false'
-   parameter field                     'location'
-   parameter icon                      'ops-ctr'
-   parameter icon-left-menu            'minimal-cap-left-menu'
-   parameter icon-right-menu           'location-options'
-   parameter label                     'none'
-   parameter label-size                '12'
-   parameter platform                  'cf'
-   parameter posicon                   'ops-ctr'
-   parameter posicon-left-menu         'minimal-cap-left-menu'
-   parameter posicon-right-menu        'location-options'
-   parameter representation            'overlay'
-   parameter require                   'location'
-component c_locns_ef
-   parameter active-icon               'true'
-   parameter color                     'green'
-   parameter field                     'location'
-   parameter icon                      'littlecircle'
-   parameter icon-left-menu            'minimal-cap-left-menu'
-   parameter icon-right-menu           'location-options'
-   parameter label                     'platform'
-   parameter label-size                '12'
-   parameter platform                  'E9, E13,E15'
-   parameter posicon                   'littlecircle'
-   parameter posicon-left-menu         'minimal-cap-left-menu'
-   parameter posicon-right-menu        'location-options'
-   parameter representation            'overlay'
-   parameter require                   'location, ef-cap'
 component p_model
    parameter active-icon               'true'
    parameter altitude-control          'true'
@@ -131,5 +103,53 @@ component p_model
    parameter scale-mode                'auto'
    parameter u-field                   'u-component'
    parameter v-field                   'v-component'
+component p_cf_locns
+   parameter active-icon               'true'
+   parameter color                     'white'
+   parameter field                     'location'
+   parameter icon                      'circle'
+   parameter icon-color                'HotPink'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-right-menu           'location-options'
+   parameter label                     'platform'
+   parameter label-size                '12'
+   parameter platform                  'CF'
+   parameter posicon-left-menu         'minimal-cap-left-menu'
+   parameter posicon-middle-menu       'cf-send-menu'
+   parameter posicon-right-menu        'location-options'
+   parameter representation            'overlay'
+   parameter require                   'location, cf-active-loc'
+component p_ef_locns
+   parameter active-icon               'true'
+   parameter color                     'green'
+   parameter field                     'location'
+   parameter icon                      'radar-loc'
+   parameter icon-color                'green'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-right-menu           'location-options'
+   parameter label                     'platform'
+   parameter label-size                '12'
+   parameter platform                  'E4,E7,E8,E9,E12,E15,E20,E22,E26'
+   parameter posicon-left-menu         'minimal-cap-left-menu'
+   parameter posicon-middle-menu       'ef-send-menu'
+   parameter posicon-right-menu        'location-options'
+   parameter representation            'overlay'
+   parameter require                   'location, ef-active-loc'
+component p_bf_locns
+   parameter active-icon               'true'
+   parameter color                     'cyan'
+   parameter field                     'location'
+   parameter icon                      'bf-locn'
+   parameter icon-color                'cyan'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-right-menu           'location-options'
+   parameter label                     'platform'
+   parameter label-size                '12'
+   parameter platform                  'B1,B4,B5,B6'
+   parameter posicon-left-menu         'minimal-cap-left-menu'
+   parameter posicon-middle-menu       'bf-send-menu'
+   parameter posicon-right-menu        'location-options'
+   parameter representation            'overlay'
+   parameter require                   'location, bf-active-loc'
 endpd
 

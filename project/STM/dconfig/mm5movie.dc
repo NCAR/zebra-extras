@@ -1,0 +1,93 @@
+! Auto-saved display configuration.
+
+prototype fallback Default gp gp.init
+
+config mm5movie
+	widget 'iconbar' 1072 79 68 567
+	graphic 'cap' 10 24 536 517 Default
+		description 'mm5movie-cap'
+		buttonmap 'big'
+		forcepd
+	endgraphic
+endconfig
+
+beginpd 'mm5movie-cap'
+global
+   parameter altitude                  '0.9700'
+   parameter altitude-label            'Alt: 0.9700 sigma'
+   parameter frame-rate                '5'
+   parameter frame-skip                '60'
+   parameter movie-end-time            'now'
+   parameter movie-minutes             '720'
+   parameter movie-mode                'False'
+   parameter pd-name                   'mm5movie-cap'
+   parameter plot-hold                 'false'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '24-Jun-93,13:00:00'
+   parameter plot-type                 'CAP'
+   parameter time-frames               '13'
+   parameter x-max                     '378.4515'
+   parameter x-min                     '-254.8508'
+   parameter y-max                     '-281.3594'
+   parameter y-min                     '362.4466'
+component p_model
+   parameter active-icon               'true'
+   parameter altitude-control          'true'
+   parameter annot-left-menu           'FieldMenu'
+   parameter annot-middle-menu         'FieldMenu'
+   parameter color                     'green'
+   parameter color-mono                'true'
+   parameter color-table               'gcook16'
+   parameter do-labels                 'true'
+   parameter field                     'tdry'
+   parameter grid-method               'bilinear'
+   parameter icon                      'mm5ncar'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'FieldMenu'
+   parameter icon-right-menu           'contour-model-right'
+   parameter label-blanking            'false'
+   parameter limit-proc                'contour-putup-adj'
+   parameter line-width                '2'
+   parameter platform                  'mm5ncar'
+   parameter posicon-middle-menu       'FieldMenu'
+   parameter pres-center               '924.0000'
+   parameter pres-step                 '4.0000'
+   parameter representation            'filled-contour'
+   parameter require                   'contour, simple-color'
+   parameter scale-mode                'manual'
+   parameter tdry-center               '24'
+   parameter tdry-step                 '1'
+component p_map
+   parameter color                     'green'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'default'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_model_winds
+   parameter altitude-control          'true'
+   parameter arrow-scale               '0.002'
+   parameter barb-scale                '0.06'
+   parameter color                     'green'
+   parameter color-mono                'true'
+   parameter color-table               'gcook16'
+   parameter degrade                   '2'
+   parameter grid-method               'bilinear'
+   parameter hgrid                     '21'
+   parameter icon                      'mm5ncar_winds'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'winds-model-right'
+   parameter limit-proc                'adj_arrow_scale'
+   parameter line-width                '0'
+   parameter platform                  'mm5ncar'
+   parameter representation            'vector'
+   parameter require                   'simple-color, winds'
+   parameter u-field                   'u_wind'
+   parameter v-field                   'v_wind'
+   parameter vgrid                     '19'
+endpd
+

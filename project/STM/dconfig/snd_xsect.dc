@@ -1,0 +1,193 @@
+! Auto-saved display configuration.
+
+prototype fallback Graphic gp gp.init
+prototype fallback Graphic gp gp.init
+prototype fallback Graphic gp gp.init
+prototype fallback Default gp gp.init
+
+config snd_xsect
+	graphic 'w1' 4 400 788 497 Graphic
+		description 'snd_xsect-w1'
+		buttonmap 'default'
+		forcepd
+	endgraphic
+	widget 'iconbar' 793 22 350 117
+	graphic 'w2' 794 166 356 354 Graphic
+		description 'snd_xsect-w2'
+		buttonmap 'sounding'
+		forcepd
+	endgraphic
+	graphic 'w3' 795 546 356 353 Graphic
+		description 'snd_xsect-w3'
+		buttonmap 'sounding'
+		forcepd
+	endgraphic
+	graphic 'cap' 6 26 780 348 Default
+		description 'snd_xsect-cap'
+		buttonmap 'big'
+		forcepd
+	endgraphic
+endconfig
+
+beginpd 'snd_xsect-w1'
+global
+   parameter pd-name                   'snd_xsect-w1'
+   parameter platform                  'sounding/dodge,sounding/saltfork,sounding/norman'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '25-Jun-93,0:00:00'
+   parameter plot-type                 'xsect'
+   parameter ta-scale                  '0.025'
+   parameter trigger                   'sounding/nauru'
+   parameter z-field                   'alt'
+   parameter z-max                     '12'
+   parameter z-min                     '0'
+   parameter zig-zag                   'true'
+component p_xsect
+   parameter altitude-center           '6.0000'
+   parameter altitude-step             '0.4000'
+   parameter color                     'cyan'
+   parameter color-mono                'true'
+   parameter color-table               'cook32'
+   parameter dp-center                 '-18.0000'
+   parameter dp-step                   '3.0000'
+   parameter field                     'tdry'
+   parameter icon                      'xsect'
+   parameter icon-left-menu            'standard-cap-left-menu'
+   parameter icon-middle-menu          'FieldMenu'
+   parameter icon-right-menu           'snd_xsect-right'
+   parameter limit-proc                'contour-putup-adj'
+   parameter mr-center                 '10.2000'
+   parameter mr-step                   '0.6000'
+   parameter platform                  'sounding/dodge,sounding/saltfork,sounding/norman'
+   parameter pres-center               '600.0000'
+   parameter pres-step                 '30.0000'
+   parameter representation            'filled-contour'
+   parameter require                   'snd_xsect, contour'
+   parameter rh-center                 '51.0000'
+   parameter rh-step                   '3.0000'
+   parameter scale-mode                'auto'
+   parameter tdry-center               '-12.0000'
+   parameter tdry-step                 '3.0000'
+   parameter theta_e-center            '343.0000'
+   parameter theta_e-step              '1.0000'
+   parameter u_wind-center             '-3.6000'
+   parameter u_wind-step               '0.9000'
+   parameter v_wind-center             '2.5000'
+   parameter v_wind-step               '0.5000'
+   parameter vt-center                 '264.0000'
+   parameter vt-step                   '3.0000'
+   parameter wdir-center               '180.0000'
+   parameter wdir-step                 '10.0000'
+   parameter wspd-center               '9.0000'
+   parameter wspd-step                 '0.6000'
+endpd
+
+beginpd 'snd_xsect-w2'
+global
+   parameter add-data-command          'sk-add-data'
+   parameter add-data-mode             'replace'
+   parameter altitude-label            ''
+   parameter pd-name                   'snd_xsect-w2'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '25-Jun-93,0:00:00'
+   parameter plot-type                 'skewt'
+   parameter require                   'simple-color'
+component skewt
+   parameter annot-time                'true'
+   parameter color-table               'Skew-t'
+   parameter icon                      'sounding'
+   parameter icon-left-menu            'skewt-left'
+   parameter icon-middle-menu          'DataAvailable'
+   parameter icon-right-menu           'skewt-right'
+   parameter overlay-mode              'false'
+   parameter platform                  'dodge'
+   parameter representation            'skewt'
+   parameter require                   'skewt'
+   parameter skprivate-thermo-npts     '840'
+   parameter skprivate-wind-npts       '840'
+   parameter top-annot-active          'true'
+   parameter topannot-left-menu        'skewt-topannot'
+   parameter trigger                   'platform'
+endpd
+
+beginpd 'snd_xsect-w3'
+global
+   parameter add-data-command          'sk-add-data'
+   parameter add-data-mode             'replace'
+   parameter altitude-label            ''
+   parameter pd-name                   'snd_xsect-w3'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '25-Jun-93,0:00:00'
+   parameter plot-type                 'skewt'
+   parameter require                   'simple-color'
+component skewt
+   parameter annot-time                'true'
+   parameter color-table               'Skew-t'
+   parameter icon                      'sounding'
+   parameter icon-left-menu            'skewt-left'
+   parameter icon-middle-menu          'DataAvailable'
+   parameter icon-right-menu           'skewt-right'
+   parameter overlay-mode              'false'
+   parameter platform                  'norman'
+   parameter representation            'skewt'
+   parameter require                   'skewt'
+   parameter skprivate-thermo-npts     '1050'
+   parameter skprivate-wind-npts       '1050'
+   parameter top-annot-active          'true'
+   parameter topannot-left-menu        'skewt-topannot'
+   parameter trigger                   'platform'
+endpd
+
+beginpd 'snd_xsect-cap'
+global
+   parameter pd-name                   'snd_xsect-cap'
+   parameter plot-hold                 'false'
+   parameter plot-mode                 'history'
+   parameter plot-time                 '25-Jun-93,0:00:00'
+   parameter plot-type                 'CAP'
+component p_map
+   parameter color                     'yellow'
+   parameter field                     'map'
+   parameter icon                      'map'
+   parameter icon-middle-menu          'simple-color'
+   parameter icon-right-menu           'linewidth'
+   parameter line-width                '0'
+   parameter platform                  'default'
+   parameter representation            'overlay'
+   parameter require                   'simple-color'
+component p_active_loc
+   parameter active-icon               'true'
+   parameter color                     'green'
+   parameter field                     'location'
+   parameter icon                      'sounding-small'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-right-menu           'location-options'
+   parameter label                     'platform'
+   parameter label-size                '10'
+   parameter location-time             'observation'
+   parameter platform                  'saltfork,norman,sgp,topeka,dodge,kingfisher,kingman,topeka,pawhuska'
+   parameter posicon-left-menu         'al-send-other-window'
+   parameter posicon-middle-menu       'al-send-other-window'
+   parameter posicon-right-menu        'location-options'
+   parameter representation            'overlay'
+   parameter require                   'location,active-loc'
+   parameter time-label                'true'
+component p_iss_loc
+   parameter active-icon               'true'
+   parameter color                     'white'
+   parameter field                     'location'
+   parameter icon                      'iss-loc'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-right-menu           'location-options'
+   parameter label                     'platform'
+   parameter label-size                '14'
+   parameter location-time             'observation'
+   parameter platform                  'saltfork,redrock'
+   parameter posicon-left-menu         'minimal-cap-left-menu'
+   parameter posicon-middle-menu       'iss-to-other'
+   parameter posicon-right-menu        'location-options'
+   parameter representation            'overlay'
+   parameter require                   'location, iss-cap'
+   parameter time-label                'true'
+endpd
+

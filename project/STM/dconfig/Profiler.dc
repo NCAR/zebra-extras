@@ -1,16 +1,20 @@
 ! Auto-saved display configuration.
+
+prototype fallback Graphic gp gp.init
+prototype fallback Graphic gp gp.init
+
 config Profiler
-	widget 'iconbar' 588 203 456 70
-	window 'UpperLeft' 5 83 576 610 gp gp.init
+	widget 'iconbar' 589 204 456 70
+	graphic 'UpperLeft' 6 84 576 610 Graphic
 		description 'Profiler-UpperLeft'
-		buttonmap 'xygraph'
+		buttonmap 'xyplot'
 		forcepd
-	endwindow
-	window 'UpperRight' 456 280 692 609 gp gp.init
+	endgraphic
+	graphic 'UpperRight' 457 281 692 609 Graphic
 		description 'Profiler-UpperRight'
-		buttonmap 'xygraph'
+		buttonmap 'xyplot'
 		forcepd
-	endwindow
+	endgraphic
 endconfig
 
 beginpd 'Profiler-UpperLeft'
@@ -135,7 +139,7 @@ component 915prof
    parameter platform                  'Dsgp915rwpwindC1.a2'
    parameter representation            'wind'
    parameter representation-style      'barb'
-   parameter require                   'xytrace'
+   parameter require                   'xytrace,profiler'
    parameter scale-y-mode              'autoscale'
    parameter skip-data-points          '9999.0,-9999.0'
    parameter step                      '3'

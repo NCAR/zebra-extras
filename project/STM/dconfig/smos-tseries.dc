@@ -4,13 +4,13 @@ prototype fallback Default gp gp.init
 prototype fallback Default gp gp.init
 
 config smos-tseries
-	widget 'iconbar' 1073 80 68 567
-	graphic 'cap' 5 5 489 580 Default
+	widget 'iconbar' 1077 18 68 567
+	graphic 'cap' 6 6 489 580 Default
 		description 'smos-tseries-cap'
 		buttonmap 'big'
 		forcepd
 	endgraphic
-	graphic 'tseries' 502 4 497 581 Default
+	graphic 'tseries' 503 5 564 581 Default
 		description 'smos-tseries-tseries'
 		buttonmap 'xyplot'
 		forcepd
@@ -38,33 +38,18 @@ component p_map.0
    parameter platform                  'state_lines'
    parameter representation            'overlay'
    parameter require                   'simple-color'
-component p_bf_locns
-   parameter active-icon               'true'
-   parameter color                     'white'
-   parameter disable                   'false'
-   parameter field                     'location'
-   parameter icon                      'radar-loc'
-   parameter icon-left-menu            'minimal-cap-left-menu'
-   parameter icon-right-menu           'location-options'
-   parameter label                     'platform'
-   parameter label-size                '12'
-   parameter platform                  'B1,B4,B5,B6'
-   parameter posicon-left-menu         'al-send-other-window'
-   parameter posicon-middle-menu       'ef-send-menu'
-   parameter posicon-right-menu        'location-options'
-   parameter representation            'overlay'
-   parameter require                   'location, bf-active-loc'
 component p_cf_locns
    parameter active-icon               'true'
    parameter color                     'HotPink'
    parameter field                     'location'
    parameter icon                      'circle'
+   parameter icon-color                'HotPink'
    parameter icon-left-menu            'minimal-cap-left-menu'
    parameter icon-right-menu           'location-options'
    parameter label                     'platform'
    parameter label-size                '12'
    parameter platform                  'CF'
-   parameter posicon-left-menu         'al-send-other-window'
+   parameter posicon-left-menu         'minimal-cap-left-menu'
    parameter posicon-middle-menu       'cf-send-menu'
    parameter posicon-right-menu        'location-options'
    parameter representation            'overlay'
@@ -74,16 +59,33 @@ component p_ef_locns
    parameter color                     'green'
    parameter field                     'location'
    parameter icon                      'radar-loc'
+   parameter icon-color                'green'
    parameter icon-left-menu            'minimal-cap-left-menu'
    parameter icon-right-menu           'location-options'
    parameter label                     'platform'
    parameter label-size                '12'
-   parameter platform                  'E4,E7,E8,E9,E12,E13,E15,E20,E22,E26'
+   parameter platform                  'E4,E7,E8,E9,E12,E15,E20,E22,E26'
    parameter posicon-left-menu         'minimal-cap-left-menu'
    parameter posicon-middle-menu       'ef-send-menu'
    parameter posicon-right-menu        'location-options'
    parameter representation            'overlay'
    parameter require                   'location, ef-active-loc'
+component p_bf_locns
+   parameter active-icon               'true'
+   parameter color                     'cyan'
+   parameter field                     'location'
+   parameter icon                      'bf-locn'
+   parameter icon-color                'cyan'
+   parameter icon-left-menu            'minimal-cap-left-menu'
+   parameter icon-right-menu           'location-options'
+   parameter label                     'platform'
+   parameter label-size                '12'
+   parameter platform                  'B1,B4,B5,B6'
+   parameter posicon-left-menu         'minimal-cap-left-menu'
+   parameter posicon-middle-menu       'bf-send-menu'
+   parameter posicon-right-menu        'location-options'
+   parameter representation            'overlay'
+   parameter require                   'location, bf-active-loc'
 endpd
 
 beginpd 'smos-tseries-tseries'
@@ -139,7 +141,7 @@ component p_xytrace
    parameter axis-right                'false'
    parameter axis-top                  'false'
    parameter color-tweaker             'xytrace-color'
-   parameter field-color               'rgb:ffff/00/00,rgb:ffff/a5a5/00,rgb:ffff/ffff/00,rgb:00/ffff/00,rgb:00/00/ffff'
+   parameter field-color               'rgb:ffff/00/00,rgb:ffff/a5a5/00,rgb:ffff/ffff/00,rgb:00/ffff/00,cyan'
    parameter field-select-command      'xytrace-field'
    parameter icon                      'tseries'
    parameter icon-middle-menu          'FieldMenu'
