@@ -1,0 +1,139 @@
+/*		Copyright (C) 1987,88,89,90,91 by UCAR
+ *	University Corporation for Atmospheric Research
+ *		   All rights reserved
+ *
+ * No part of this work covered by the copyrights herein may be reproduced
+ * or used in any form or by any means -- graphic, electronic, or mechanical,
+ * including photocopying, recording, taping, or information storage and
+ * retrieval systems -- without permission of the copyright owner.
+ * 
+ * This software and any accompanying written materials are provided "as is"
+ * without warranty of any kind.  UCAR expressly disclaims all warranties of
+ * any kind, either express or implied, including but not limited to the
+ * implied warranties of merchantibility and fitness for a particular purpose.
+ * UCAR does not indemnify any infringement of copyright, patent, or trademark
+ * through use or modification of this software.  UCAR does not provide 
+ * maintenance or updates for its software.
+ */
+MFVERSION="$Id: Imakefile,v 1.1 1997-02-07 18:03:54 granger Exp $"
+
+/*
+ * All individual ingest-related routines are kept in subdirectories.  Code
+ * and header files which are shared among ingest modules are kept in the
+ * DataStore library.  Some modules share FORTRAN code from MCIDAS, and
+ * this code is compiled in ./mcidas and installed in a library called
+ * libmcidas.a; this directory is listed first so that its library will be
+ * installed before compiling any other ingest programs.
+ */
+#define IHaveSubdirs
+#define PassCDebugFlags 'CDEBUGFLAGS=$(CDEBUGFLAGS)'
+
+LOCAL = aws fake_aws hk_aircraft \
+	ro_radar ro_sat ro_sounding ro_synoptic
+
+SUBDIRS = $(LOCAL)
+
+DISTFILES = Imakefile
+
+/*
+ * If any ingest module directories are added to zeb/src/ingest, they
+ * should be included below.
+ */
+DISTSUBDIRS = $(LOCAL)
+
+MakeSubdirs($(SUBDIRS))
+DependSubdirs($(SUBDIRS))
+InstallLibSubdirs($(SUBDIRS))
+DistfilesTarget($(DISTFILES))
+DistfilesSubdirs($(DISTSUBDIRS))
+
+
+/*
+ * Omission notices.  This might get verbal, but for testing and feedback
+ * it will probably be very useful.
+ */
+#if !BuildIngestScheduler
+OmitBuildRules(ingest scheduler)
+#endif
+#if !BuildClassIngest
+OmitBuildRules(CLASS ingest)
+#endif
+#if !BuildRadarIngest
+OmitBuildRules(radar ingest)
+#endif
+#if !BuildSLGrabber
+OmitBuildRules(serial line grabber)
+#endif
+#if !BuildNowradIngest
+OmitBuildRules(NOWRAD ingest)
+#endif
+#if !BuildProfsIngest
+OmitBuildRules(profs ingest)
+#endif
+#if !BuildSatelliteIngest
+OmitBuildRules(satellite ingest)
+#endif
+#if !BuildRAPDataServerIngest
+OmitBuildRules(RAP data server)
+#endif
+#if !BuildWetnetIngest
+OmitBuildRules(WETNET ingest)
+#endif
+#if !BuildP3Composite
+OmitBuildRules(P3 composite ingest)
+#endif
+#if !BuildTOGASlowTape
+OmitBuildRules(TOGA slow tape)
+#endif
+#if !BuildSlowTapeIngest
+OmitBuildRules(slow tape ingest)
+#endif
+#if !BuildTAOIngest
+OmitBuildRules(TAO ingest)
+#endif
+#if !Build_GMS_ISCCP
+OmitBuildRules(GMS ISCCP ingest)
+#endif
+#if !Build_TRMM_SSMI
+OmitBuildRules(TRMM SSMI ingest)
+#endif
+#if !Build_TRMM_Rain
+OmitBuildRules(TRMM raingauge ingest)
+#endif
+#if !Build_TRMM_Sonde
+OmitBuildRules(TRMM sonde ingest)
+#endif
+#if !Build_FEST_P3_C130
+OmitBuildRules(StormFEST P3 and C130 ingest)
+#endif
+#if !BuildPrecipIngest
+OmitBuildRules(PrecipIngest)
+#endif
+#if !BuildDAPIngest
+OmitBuildRules(DAP ingest)
+#endif
+#if !BuildPamIngest
+OmitBuildRules(PAM ingest)
+#endif
+
+
+#ifdef notdef	/* ---- Directories not presently being distributed ----- */
+#if !BuildRadarLimits
+OmitBuildRules(radar limits)
+#endif
+#if !BuildNatsIngest
+OmitBuildRules(nats ingest)
+#endif
+#if !BuildP3Ingest
+OmitBuildRules(P3 ingest)
+#endif
+#if !BuildAircraftIngest
+OmitBuildRules(aircraft ingest)
+#endif
+#if !BuildFMIngest
+OmitBuildRules(field mill ingest)
+#endif
+#if !BuildLLPIngest
+OmitBuildRules(llp ingest)
+#endif
+#endif		/* ------------------------------------------------------ */

@@ -1,0 +1,43 @@
+/*		Copyright (C) 1987,88,89,90,91 by UCAR
+ *	University Corporation for Atmospheric Research
+ *		   All rights reserved
+ *
+ * No part of this work covered by the copyrights herein may be reproduced
+ * or used in any form or by any means -- graphic, electronic, or mechanical,
+ * including photocopying, recording, taping, or information storage and
+ * retrieval systems -- without permission of the copyright owner.
+ * 
+ * This software and any accompanying written materials are provided "as is"
+ * without warranty of any kind.  UCAR expressly disclaims all warranties of
+ * any kind, either express or implied, including but not limited to the
+ * implied warranties of merchantibility and fitness for a particular purpose.
+ * UCAR does not indemnify any infringement of copyright, patent, or trademark
+ * through use or modification of this software.  UCAR does not provide 
+ * maintenance or updates for its software.
+ */
+MFVERSION="Imakefile,v 1.3 1993/07/01 20:15:53 granger Exp"
+
+LIBS = $(LIBZEBDS) $(LIBZEB) $(LIBRDSS) $(LIBNETCDF)
+
+SRCS = aws_ingest.c fields.c impose_limits.c impose_spatial_consistency.c \
+       rap_realtime_archive.c read_campbell_data.c read_data.c \
+       read_ro_data.c utime.c wx_routines.c
+
+OBJS = aws_ingest.o fields.o impose_limits.o impose_spatial_consistency.o \
+       rap_realtime_archive.o read_campbell_data.o read_data.o \
+       read_ro_data.o utime.o wx_routines.o
+
+HDRS = aws_fields.h aws_ingest.h
+
+DISTFILES = Imakefile $(SRCS) $(HDRS)
+
+NormalProgramTargetNoInstall(aws_ingest, $(OBJS),
+			$(DEPLIBS), $(LIBS),$(SYSLIBS))
+
+InstallProgramWithFlags(aws_ingest,$(BINDIR),-s)
+
+DependTarget()
+LintTarget()
+
+DistfilesTarget($(DISTFILES))
+
