@@ -13,7 +13,17 @@ defaults
 !
 	icon-left-menu:			standard-cap-left-menu
 	global-icon-left-menu:		global-left
+	global-icon-middle-menu:	global-layout
 	global-icon-right-menu:		globaltopannot
+
+! Layout options:
+!
+! Skewt's turn most things off since they plot directly to the data region
+!
+	skewt-sa-space:			0
+	skewt-axis-left-space:		0
+	skewt-axis-top-space:		0
+	skewt-axis-bottom-space:	0
 !
 ! Age limits for changing icon color.
 !
@@ -161,7 +171,7 @@ defaults
 !
 ! Where to put the frame cache files.
 !
-	file-path:	/zeb/tmp
+	file-path:	/tmp
 !
 ! The maximum number of frames to be stored in the file.
 !
