@@ -1,4 +1,4 @@
-! $Id: DisplayConfigs,v 1.2 2002-04-20 21:50:58 burghart Exp $
+! $Id: DisplayConfigs,v 1.3 2003-08-05 20:28:05 burghart Exp $
 !
 ! All of the predefined display configurations live in this file.
 !
@@ -25,10 +25,3 @@ set default_arg1 'gp.init'
 set gp_exec default_exec
 
 set clock_exec (concat (c$bindir, "/fccclock"))
-
-!
-! An empty config just to clear out the screen.
-!
-config empty
-	widget 'iconbar' 800 50 400 70
-endconfig
