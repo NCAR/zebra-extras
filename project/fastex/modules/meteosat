@@ -1,0 +1,111 @@
+!
+! Support for Meteosat satellite image data.
+!
+
+require raster
+require color-table
+
+!
+! Middle icon menu for gms data.
+!
+define widget meteosat-middle intmenu 'Meteosat field menu'
+	title 'Meteosat options'
+	line
+	entry 'Meteosat IR' 'meteo_field ir' \
+		(PDParam(icon_component,"field") = "ir")
+	entry 'Meteosat VIS' 'meteo_field vis' \
+		(PDParam(icon_component,"field") = "vis")
+	line
+	entry 'black & white; red highlight < 208 K color table'\
+		 'param #icon_component color-table ir_gray' \
+		(PDParam (icon_component,"color-table") = "ir_gray")
+	entry 'black & white; blue highlight < 226 K color table'\
+		 'param #icon_component color-table new_ir_gray' \
+		(PDParam (icon_component,"color-table") = "new_ir_gray")
+	entry 'black & white color table'\
+		 'param #icon_component color-table 16gray' \
+		(PDParam (icon_component,"color-table") = "16gray")
+	entry 'Three-step' 'param #icon_component color-table SmallRainbow' \
+	        (PDParam (icon_component, 'color-table') = 'SmallRainbow')
+	entry 'Rainbow table' 'param #icon_component color-table Rainbow' \
+		(PDParam (icon_component,"color-table") = "cook16")
+	entry 'Contour table' 'param #icon_component color-table Contour' \
+		(PDParam (icon_component,"color-table") = "Contour")
+	entry 'cook32' 'param #icon_component color-table cook32' \
+		(PDParam (icon_component,"color-table") = "cook32")
+	submenu 'Other color tables' Color-tables
+	line
+	entry 'Raster representation' 'meteo_rep raster' \
+		(PDParam(icon_component, 'representation') = 'raster')
+	entry 'Contour representation' 'meteo_rep contour' \
+		(PDParam(icon_component, 'representation') = 'contour')
+	entry 'Filled contour representation' 'meteo_rep filled-contour' \
+		(PDParam(icon_component, 'representation') = 'filled-contour')
+	line
+	submenu 'Contour Width' LineWidth
+endmenu
+
+!
+! Change our representation.
+!
+procedure meteo_rep rep string
+!
+! Make sure they aren't wasting our time.
+!
+	local currep PDParam(icon_component, 'representation')
+	if (currep = rep)
+		return
+	endif
+!
+! Switch around color tables.
+!
+	local oldtable PDParam(icon_component, 'color-table')
+	local newtable PDParam(icon_component, concat(rep,'-color-table'))
+	local svname concat(currep,'-color-table')
+	parameter #icon_component #svname #oldtable
+	parameter #icon_component color-table #newtable
+!
+! If we're going back to raster, go ahead and rewire the plot limits.
+!
+	if (rep = 'raster')
+		parameter #icon_component ir-center 280.0
+		parameter #icon_component ir-step 12
+	endif
+!
+! Tweak the representation and we're done.
+!
+	parameter #icon_component representation #rep
+endprocedure
+
+
+
+procedure meteo_field field string
+	parameter #icon_component field #field
+endprocedure
+
+
+!
+! The raster left button menu.
+!
+define widget raster-left intmenu 'Raster Left'
+	title 'Overlay Operations'
+	line
+	submenu 'Adjust Limits' 'adjust-raster-limits'
+	entry 'Spatial offset options' 'require offsets; popup offsets'
+	line
+	entry 'Raise to top' 'move #icon_component 0'
+	entry 'Move to bottom' 'move #icon_component 1'
+	entry 'Disable/reenable' 'ToggleBoolean "disable"'
+	entry 'Remove' 'i_remove_component'
+endmenu
+
+!
+! The Raster Plot Adjust Limits submenu
+!
+define widget adjust-raster-limits intmenu 'Adjust Limits'
+	title 'Adjust Limits'
+	line
+	entry 'Center/Step' 'require ctr-step; popup center-step'
+	entry 'Highlight/Range' 'require raster; popup highlight'
+endmenu
+

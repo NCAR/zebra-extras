@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.1 1997-03-14 20:15:48 corbet Exp $
+! $Id: IconBar,v 1.2 1997-09-05 18:59:54 granger Exp $
 !
 ! Generic IconBar template
 !
@@ -75,6 +75,15 @@ define widget iconbar menubar " "
 		entry 'NOAA G4 flight-level data' 'PutScalar g4 alt'
 		entry 'NCAR Electra flight-level data' 'PutScalar n308d alt'
 		entry 'UK C-130 flight-level data' 'PutScalar c130 alt'
+	endmenu
+!
+! Satellite
+!
+	menu satellite bitmap satellite
+		title 'Satellite Data'
+		line
+		entry 'Meteosat IR' 'putc1 c_meteosat field ir'
+		entry 'Meteosat VIS' 'putc1 c_meteosat field vis'
 	endmenu
 !
 ! Maps, locations and other informational overlays

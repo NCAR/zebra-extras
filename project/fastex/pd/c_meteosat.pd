@@ -1,0 +1,22 @@
+GLOBAL
+	pd-name:	c_meteosat
+c_meteosat
+	altitude:	0.0
+	platform:	meteosat
+	field:		ir
+	representation:	raster
+	color-table:	ir_gray
+	raster-color-table:	ir_gray
+	contour-color-table:	Contour
+	filled-contour-color-table:	Contour
+	icon:		satellite
+	icon-left-menu:		raster-left
+	icon-middle-menu:	meteosat-middle
+	icon-right-menu:	DataAvailable
+	ir-center:	280.0
+	ir-highlight:	205
+	ir-highlight-color:	red
+	ir-highlight-range:	6.0
+	ir-step:	12
+	require:	meteosat
+	scale-mode:	manual
