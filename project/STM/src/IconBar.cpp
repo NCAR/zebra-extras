@@ -138,16 +138,16 @@ define widget iconbar menubar " "
 		entry 'SIROS' siros
 		line
 		entry 'MFR 10m Central Facility (a1)' \
-		   'PutScalar Dsgpmfr10mC1.a1 mfr_up_hemisp_broadband pick'
+		   'PutScalar Dsgpmfr10mC1.a1 mfr_up_hemisp_broadband'
 		entry 'MFR 25m Central Facility (a1)' \
-		   'PutScalar Dsgpmfr25mC1.a1 mfr_up_hemisp_broadband pick'
+		   'PutScalar Dsgpmfr25mC1.a1 mfr_up_hemisp_broadband'
 		line
 		entry 'BSRN Central Facility (a1)' \
-		   'PutScalar sgpbsrnC1.a1 nip pick'
+		   'PutScalar sgpbsrnC1.a1 nip'
 		entry 'CF Whole Sky Imager' \
-		   'PutScalar sgpwsicloudC1.c1 mean_cloud_height pick'
+		   'PutScalar sgpwsicloudC1.c1 mean_cloud_height'
 		entry 'CF Bellfort Laser Ceilometer (a1)' \
-		   'PutScalar sgpblcC1.a1 cloud1 pick'
+		   'PutScalar sgpblcC1.a1 cloud1'
 	endmenu
 	menu model bitmap model
 		title 'Model Grids'
@@ -182,22 +182,22 @@ define widget iconbar menubar " "
 		title 'Sonde Instruments'
 		line
 		entry 'C1 Sonde (wrpn)' \
-			'PutScalar sgpsondewrpnC1.a1 tdry pick'
+			'PutScalar sgpsondewrpnC1.a1 tdry'
 		entry 'B1 Sonde (wrpn)' \
-			'PutScalar sgpsondewrpnB1.a1 tdry pick'
+			'PutScalar sgpsondewrpnB1.a1 tdry'
 		entry 'B4 Sonde (wrpn)' \
-			'PutScalar sgpsondewrpnB4.a1 tdry pick'
+			'PutScalar sgpsondewrpnB4.a1 tdry'
 		entry 'B5 Sonde (wrpn)' \
-			'PutScalar sgpsondewrpnB5.a1 tdry pick'
+			'PutScalar sgpsondewrpnB5.a1 tdry'
 		entry 'B6 Sonde (wrpn)' \
-			'PutScalar sgpsondewrpnB6.a1 tdry pick'
+			'PutScalar sgpsondewrpnB6.a1 tdry'
 	endmenu
 	menu uav bitmap aircraft
 		title 'UAV Platforms'
 		line
-		entry 'UAV Instrument Track' 'PutScalar uav met_temp pick'
+		entry 'UAV Instrument Track' 'PutScalar uav met_temp'
 		entry 'UAV Telemetry Track' \
-		   'PutScalar sgpuavtrack alt pick'
+		   'PutScalar sgpuavtrack alt'
 		entry 'UAV TDDR Time Series' \
 		   'PutScalar DsgpuavtddrUg1.a1 tddr_opd'
 		line
@@ -319,11 +319,13 @@ define widget aeri-menu intmenu 'aeri platforms'
 	title 'AERI Central Facility'
 	line
 	entry 'AERI Summary' \
-	   'PutScalar sgpaerisummaryC1.a1 wave_num_avg_rad_675 pick'
+	   'PutScalar sgpaerisummaryC1.a1 wave_num_avg_rad_675'
+	entry 'AERI Line-by-Line Clouds' \
+	   'PutScalar sgpaerilblcloudsC1.c1 mean_cloud1_cbh'
 	entry 'AERI Channel 1' \
-	   'PutScalar sgpaerich1C1.a1 hotBBTemp pick'
+	   'PutScalar sgpaerich1C1.a1 hotBBTemp'
 	entry 'AERI Channel 2' \
-	   'PutScalar sgpaerich2C1.a1 hotBBTemp pick'
+	   'PutScalar sgpaerich2C1.a1 hotBBTemp'
 endmenu
 
 
@@ -333,52 +335,52 @@ define widget mfrsr-menu intmenu 'mfrsr'
 	entry 'MFRSR CAP plot' \
 	   'putc2 p_station platform sgpmfrsrN1.a0 icon mfrsr'
 	entry 'MFRSR Time Series' \
-	   'PutScalar sgpmfrsrN1.a0/1 tot1 pick'
+	   'PutScalar sgpmfrsrN1.a0/1 tot1'
 endmenu
 
 
 define widget mwr-cf-menu intmenu 'central facility mwr platforms'
 	title 'MWR Central Facility'
 	line
-	entry 'Line-of-Sight (a1)' 'PutScalar sgpmwrlosC1.a1 vap pick'
-	entry 'Line-of-Sight (a0)' 'PutScalar sgpmwrlosC1.a0 vap pick'
-	entry 'Line-of-Sight (b2)' 'PutScalar sgpmwrlosC1.b2 vap pick'
-	entry '1-minute averages (c1)' 'PutScalar sgp1mwravgC1.c1 vap pick'
-	entry '5-minute averages (c1)' 'PutScalar sgp5mwravgC1.c1 vap pick'
+	entry 'Line-of-Sight (a1)' 'PutScalar sgpmwrlosC1.a1 vap'
+	entry 'Line-of-Sight (a0)' 'PutScalar sgpmwrlosC1.a0 vap'
+	entry 'Line-of-Sight (b2)' 'PutScalar sgpmwrlosC1.b2 vap'
+	entry '1-minute averages (c1)' 'PutScalar sgp1mwravgC1.c1 vap'
+	entry '5-minute averages (c1)' 'PutScalar sgp5mwravgC1.c1 vap'
 endmenu
 
 define widget mwr-b1-menu intmenu 'B1 mwr platforms'
 	title 'MWR Boundary Facility One'
 	line
-	entry 'Line-of-Sight (a1)' 'PutScalar sgpmwrlosB1.a1 vap pick'
-	entry '5-minute averages (c1)' 'PutScalar sgp5mwravgB1.c1 vap pick'
+	entry 'Line-of-Sight (a1)' 'PutScalar sgpmwrlosB1.a1 vap'
+	entry '5-minute averages (c1)' 'PutScalar sgp5mwravgB1.c1 vap'
 endmenu
 
 define widget mwr-b4-menu intmenu 'B4 mwr platforms'
 	title 'MWR Boundary Facility Four'
 	line
-	entry 'Line-of-Sight (a1)' 'PutScalar sgpmwrlosB4.a1 vap pick'
-	entry '5-minute averages (c1)' 'PutScalar sgp5mwravgB4.c1 vap pick'
+	entry 'Line-of-Sight (a1)' 'PutScalar sgpmwrlosB4.a1 vap'
+	entry '5-minute averages (c1)' 'PutScalar sgp5mwravgB4.c1 vap'
 endmenu
 
 define widget mwr-b5-menu intmenu 'B5 mwr platforms'
 	title 'MWR Boundary Facility Five'
 	line
-	entry 'Line-of-Sight (a1)' 'PutScalar sgpmwrlosB5.a1 vap pick'
-	entry '5-minute averages (c1)' 'PutScalar sgp5mwravgB5.c1 vap pick'
+	entry 'Line-of-Sight (a1)' 'PutScalar sgpmwrlosB5.a1 vap'
+	entry '5-minute averages (c1)' 'PutScalar sgp5mwravgB5.c1 vap'
 endmenu
 
 define widget qmemwrcol-menu intmenu 'mwr column qme platforms'
 	title 'MWR Column QMEs (c1)'
 	line
 	entry 'Central Facility' \
-	   'PutScalar sgpqmemwrcolC1.c1 mean_vap_mwr pick'
+	   'PutScalar sgpqmemwrcolC1.c1 mean_vap_mwr'
 	entry 'Boundary Facility One' \
-	   'PutScalar sgpqmemwrcolB1.c1 mean_vap_mwr pick'
+	   'PutScalar sgpqmemwrcolB1.c1 mean_vap_mwr'
 	entry 'Boundary Facility Four' \
-	   'PutScalar sgpqmemwrcolB4.c1 mean_vap_mwr pick'
+	   'PutScalar sgpqmemwrcolB4.c1 mean_vap_mwr'
 	entry 'Boundary Facility Five' \
-	   'PutScalar sgpqmemwrcolB5.c1 mean_vap_mwr pick'
+	   'PutScalar sgpqmemwrcolB5.c1 mean_vap_mwr'
 endmenu
 
 
@@ -386,15 +388,15 @@ define widget sondewndcalc-menu intmenu 'sonde wind calcs'
 	title 'Sonde Wind Calculation'
 	line
 	entry 'C1 Wind Calc' \
-		'PutScalar DsgpsondewndcalcC1.c1 pres pick'
+		'PutScalar DsgpsondewndcalcC1.c1 pres'
 	entry 'B1 Wind Calc' \
-		'PutScalar DsgpsondewndcalcB1.c1 pres pick'
+		'PutScalar DsgpsondewndcalcB1.c1 pres'
 	entry 'B4 Wind Calc' \
-		'PutScalar DsgpsondewndcalcB4.c1 pres pick'
+		'PutScalar DsgpsondewndcalcB4.c1 pres'
 	entry 'B5 Wind Calc' \
-		'PutScalar DsgpsondewndcalcB5.c1 pres pick'
+		'PutScalar DsgpsondewndcalcB5.c1 pres'
 	entry 'B6 Wind Calc' \
-		'PutScalar DsgpsondewndcalcB6.c1 pres pick'
+		'PutScalar DsgpsondewndcalcB6.c1 pres'
 endmenu
 
 
@@ -426,11 +428,11 @@ endmenu
 define widget tower-menu intmenu 'tower platforms'
 	title "Tower Platforms"
 	line
-	entry "1-minute (a0)" 'PutScalar Dsgp1twr21xC1.a0 temp pick'
-	entry "1-minute (a1)" 'PutScalar Dsgp1twr21xC1.a1 temp pick'
-	entry "30-minute (a0)" 'PutScalar Dsgp30twr21xC1.a0 temp pick'
-	entry "30-minute (a1)" 'PutScalar Dsgp30twr21xC1.a1 temp pick'
-	entry "Daily (a0)" 'PutScalar Dsgp1440twr21xC1.a0 temp pick'
+	entry "1-minute (a0)" 'PutScalar Dsgp1twr21xC1.a0 temp'
+	entry "1-minute (a1)" 'PutScalar Dsgp1twr21xC1.a1 temp'
+	entry "30-minute (a0)" 'PutScalar Dsgp30twr21xC1.a0 temp'
+	entry "30-minute (a1)" 'PutScalar Dsgp30twr21xC1.a1 temp'
+	entry "Daily (a0)" 'PutScalar Dsgp1440twr21xC1.a0 temp'
 endmenu
 
 
@@ -504,7 +506,7 @@ endmenu
 define widget nwssfchrly intmenu 'nws surface hourlies'
 	title 'NWS Hourly Surface Data'
 	line
-	entry 'Station Plot' 'sendout p_nws_station pick'
+	entry 'Station Plot' 'sendout p_nws_station'
 	entry 'Contour Plot' 'putc1 p_nws_contour representation contour'
 	entry 'Gridded Wind Vectors' \
    'putc2 p_irg_winds platform sgpsfchrlyX1.a1 icon grid_hourly_vectors'
