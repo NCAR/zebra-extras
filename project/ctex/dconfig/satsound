@@ -1,0 +1,18 @@
+! Auto-saved display configuration.
+config satsound
+	window 'big' 5 5 712 600 gp gp.init
+		description 'ctex'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'satsound-Clock' 5 710 250 30 fccclock
+		description 'satsound-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 10 618 539 55
+	window 'iss' 727 6 420 599 gp gp.init
+		description 'satsound-iss'
+		buttonmap 'default'
+		forcepd
+	endwindow
+endconfig

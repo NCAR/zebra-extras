@@ -1,0 +1,63 @@
+global
+	altitude:	0.3955
+	comment:	adrad radar pd
+	contour-color-table:	contour
+	pd-name:	nexrad-kmlb-big
+	plot-mode:	real-time
+	plot-time:	5-May-93,12:48:00
+	plot-type:	CAP
+	radar-space:	true
+	raster-color-table:	scook
+	time-frames:	2
+	trigger:	nexrad-kmlb
+	x-max:	2000
+	x-min:	1000
+	y-max:	200
+	y-min:	-800
+c_goes
+	altitude:	0.0
+	color-table:	16gray
+	disable:	true
+	field:	ir
+	icon:	satellite
+	icon-middle-menu:	goes-middle
+	icon-right-menu:	DataAvailable
+	menu-platform:	goes-big
+	platform:	goes-big
+	representation:	raster
+c_radar
+	creflectivity-center:	128
+	creflectivity-nsteps:	17
+	creflectivity-step:	16
+	every-sweep:	true
+	field:	creflectivity
+	icon:	nexrad-kmlb
+	icon-right-menu:	DataAvailable
+	platform:	nexrad-kmlb
+	representation:	raster
+c_rings
+	azimuth-interval:	30
+	color:	white
+	field:	range-rings
+	icon:	rings
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-menu
+	platform:	nexrad-kmlb
+	representation:	overlay
+	ring-interval:	50
+c_map
+	color:	white
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	2
+	platform:	ctex
+	representation:	overlay
+c_radar_loc
+	color:	green
+	field:	location
+	icon:	radar-loc
+	icon-middle-menu:	simple-color
+	platform:	adrad,nexrad-khou,nexrad-kmlb
+	representation:	overlay

@@ -1,0 +1,32 @@
+!
+! The file for display manager button maps.
+!
+
+buttonmap big
+	local	mb-s-left 'drawbox pushcoord'
+	local	mb-left	'getposition'
+	local	mb-middle 'drawline sendendpoints'
+	local	mb-right 'toggle_main'
+	local	F1 	'toggle_main'
+!	local	a	'popup acwidget'
+	local	b	'popcoords'
+	local	f	'toggle_satellite'
+	local	g	'popup position'
+	local	m	'popup movie'
+!	local	p	'polyline l_spotlight'
+	local	r	'movie run'
+	local	s	'movie stop'
+	local	t	'popup overlay'
+	local	Up	'altstep 1'
+	local	Down	'altstep -1'
+	local	u	'altstep 1'
+	local	d	'altstep -1'
+	local	Left	'DoZoom -100 100 -100 100'
+	local	F31	'DoZoom -200 200 -200 200'
+	local	Right	'DoZoom -300 300 -300 300'
+	local	F29	'altstep 99'
+	local	F35	'altstep -99'
+	local 	h	'help'
+	local	l	'popup LineWidth'
+endmap
+

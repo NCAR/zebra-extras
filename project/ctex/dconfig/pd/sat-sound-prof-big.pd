@@ -1,0 +1,73 @@
+global
+	frame-rate:	10
+	frame-skip:	60
+	movie-end-time:	now
+	movie-minutes:	660
+	movie-mode:	False
+	pd-name:	sat-sound-prof-big
+	plot-mode:	real-time
+	plot-time:	6-nov-1992,21:31:00
+	plot-type:	CAP
+	time-frames:	12
+	trigger:	gms-big
+	x-max:	873.1851
+	x-min:	-1427.3866
+	y-max:	-89.8396
+	y-min:	1613.9037
+c_gms
+	altitude:	0.0
+	color-table:	ir_gray
+	field:	ir
+	icon:	satellite
+	icon-left-menu:	raster-left
+	icon-middle-menu:	gms-middle
+	icon-right-menu:	DataAvailable
+	ir-center:	280.0
+	ir-highlight:	205
+	ir-highlight-color:	red
+	ir-highlight-range:	6.0
+	ir-step:	12
+	platform:	gms
+	representation:	raster
+c_cart_grid
+	color:	cyan
+	field:	grid
+	lat-lon:	true
+	platform:	grid
+	representation:	overlay
+	x-spacing:	300
+	y-spacing:	300
+c_iss_loc
+	color:	white
+	field:	location
+	icon:	radar-loc
+	icon-middle-menu:	simple-color
+	platform:	kap, nauru, manus, kav, kexue, shiyan, xia
+	representation:	overlay
+c_ifa
+	color:	brown
+	field:	map
+	icon:	coare/ifa
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	2
+	platform:	coare-ifa
+	representation:	overlay
+c_island
+	color:	yellow
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	1
+	platform:	coare
+	representation:	overlay
+c_boat
+	color:	orange
+	field:	location
+	icon:	microboat
+	icon-middle-menu:	simple-color
+	icon-right-menu:	labelcontrol
+	label:	none
+	platform:	vickers,xiang5,kexue1,shiyan3,wecoma,moana,noroit,franklin,alis,hakuho,keifu,natsu,kaiyo,malaita
+	representation:	overlay

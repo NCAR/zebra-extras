@@ -1,0 +1,15 @@
+global
+	pd-name:	printsounding-skewt
+	plot-mode:	real-time
+	plot-time:	12-nov-1992,05:07:04
+	plot-type:	skewt
+	trigger:	manus/omega
+skewt
+	color-table:	Skew-t
+	icon:	sounding
+	icon-left-menu:	skewt-left
+	icon-middle-menu:	DataAvailable
+	icon-right-menu:	feet-km
+	menu-platform:	kapinga/omega, manus/omega, nauru/omega, kavieng/omega, sci1/omega, exp3/omega
+	platform:	manus/omega
+	representation:	skewt

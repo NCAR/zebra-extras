@@ -1,0 +1,307 @@
+! All the definitions required to make the iconbar work.
+!
+
+!
+! The right way to do this....
+!
+set ui$bitmap_directory concat(c$libdir, "/icons")
+
+!
+! This is the iconbar menu itself.....
+!
+define widget iconbar menubar " "
+	!
+	! All this stuff tells the system to put it, unadorned by headers and
+	! title bars, where we want it.  DM does "override" by itself now,
+	! since this iconbar appears in the display config, so we don't
+	! bother with it here.
+	!
+	noheader
+	! size 230 80
+	location 100 100
+	! vertical
+	! override
+	!
+	! Now we can define the menus themselves.
+	!
+	menu global bitmap global
+		title 'Zeb control options'
+		line
+		entry 'Ctex Display' 'display ctex' \
+			(dm$config = 'ctex')
+		entry 'Adrad Radar Display' 'display adrad' \
+			(dm$config = 'adrad')
+		entry 'NEXRAD-khou Radar Display' 'display nexrad-khou' \
+			(dm$config = 'nexrad-khou')
+		entry 'NEXRAD-kmlb Radar Display' 'display nexrad-kmlb' \
+			(dm$config = 'nexrad-kmlb')
+		entry 'Empty Display' 'display empty' \
+			(dm$config = 'empty')
+	        entry 'Wide-screen satellite' 'display wide' \
+                        (dm$config = 'wide')
+                entry 'Satellite + sounding' 'display satsound' \
+                        (dm$config = 'satsound')
+                entry 'Satellite + sounding + wind profile' \
+                        'display sat-sound-prof' (dm$config = 'sat-sound-prof')
+                entry 'Satellite + sounding + timeseries' \
+                        'display sat-sound-prof' (dm$config = 'sat-sound-tmseries')
+                entry 'Sounding + wind profile' 'display iss' \
+                        (dm$config = 'iss')
+                entry 'Sounding only (for printing)' 'display printsounding' \
+                        (dm$config = 'printsounding') 
+		line
+		entry 'Time Widget'	'popup time'
+		entry 'Configuration editing widget' 'popup ConfigEdit'
+		entry 'Data Store display widget' 'shell "dsdwidget &"'
+		entry 'Data Store management widget' 'shell "dsmanage &"'
+		line
+		entry 'Shut down Zeb system' 'shutdown'
+	endmenu
+	menu 'adrad' bitmap adrad 
+                title 'AGGIE Doppler Radar'
+                line
+                entry 'Velocity' 'PutBCompField c_radar velocity true'
+                entry 'Reflectivity' 'PutBCompField c_radar reflectivity true'
+                entry 'Spectrum Width' 'PutBCompField c_radar spectrum-width true'
+                line
+                entry 'Reflectivity Contours' 'put_component c_ref_contour'
+        endmenu
+	menu 'nexrad-khou' bitmap nexrad-khou 
+                title 'NEXRAD-Houston Doppler Radar'
+                line
+                entry 'Reflectivity' 'PutBCompField c_radar reflectivity true'
+                entry 'Velocity' 'PutBCompField c_radar velocity true'
+                entry 'Spectrum Width' 'PutBCompField c_radar spectrum-width true'
+                line
+                entry 'Reflectivity Contours' 'put_component c_ref_contour'
+        endmenu
+	menu 'nexrad-kmlb' bitmap nexrad-kmlb 
+                title 'NEXRAD-Melbourne Doppler Radar'
+                line
+                entry 'Velocity' 'PutBCompField c_radar velocity true'
+                entry 'Reflectivity' 'PutBCompField c_radar reflectivity true'
+                entry 'Spectrum Width' 'PutBCompField c_radar spectrum-width true'
+                line
+                entry 'Reflectivity Contours' 'put_component c_ref_contour'
+        endmenu
+	menu 'satellite' bitmap satellite
+		title 'Satellite Data'
+		line
+		entry 'GOES-WEST VIS/IR' ''
+	endmenu
+	menu 'overlays' bitmap overlays
+		title 'Static Overlays'
+		line
+		entry 'State Map' 'put_component c_map'
+		submenu 'Grids and Range Rings' GridsAndRings
+	endmenu
+ 	menu 'lightning' bitmap biglightning
+                title 'LLP Lightning Network'
+                line
+                entry 'Lightning Data' 'put_component c_lightning'
+                entry 'LLP Area Overlay' 'put_component c_llp_map'
+        endmenu
+	menu 'mesonet' bitmap mesonet
+                title 'Mesonet Data'
+                line
+!                submenu 'Pam Line Contoured Data' 'LineMesonet'
+!                submenu 'Pam Filled Contour Data' 'FilledMesonet'
+                line
+                entry 'Pam Wind Vectors' 'put_component c_meso_winds'
+                line
+                entry 'Pam Station Plot' 'put_component c_station_plot'
+                line
+!                submenu 'Pam and KSC Line Contoured Data' 'KSCLineMesonet'
+!                submenu 'Pam and KSC Filled Contour Data' 'KSCFilledMesonet'
+                line
+                entry 'Pam and KSC Wind Vectors' 'put_component c_KSC_meso_winds'
+                line
+                entry 'Pam and KSC Station Plot' 'put_component c_KSC_station_plot'
+      endmenu
+	 menu 'sounding' bitmap sounding
+                title 'Sounding Operations'
+                line
+                entry 'Sounding Location Overlay' 'put_component c_sounding_loc'
+       endmenu
+enddef
+
+
+!
+! Submenu for grids and range rings.
+!
+define widget GridsAndRings intmenu 'grid and rings and nifty stuff'
+	title 'Grids, rings, etc.'
+	line
+	submenu 'Radar Range Rings' RadarRings
+	line
+	entry 'X-Y Grid (km)' 'PutCompX c_cart_grid lat-lon false'
+	entry 'Lat/Lon Grid ' 'PutCompX c_cart_grid lat-lon true'
+endmenu
+
+!
+! Radar range ring menu.
+!
+define widget RadarRings intmenu 'radar range rings'
+	title 'Radar Range Rings'
+	line
+	entry 'ADRAD Range Rings' 'PutCompX c_rings platform adrad'
+	entry 'NEXRAD-KHOU Range Rings' 'PutCompX c_rings platform nexrad-khou'
+	entry 'NEXRAD-KMLB Range Rings' 'PutCompX c_rings platform nexrad-kmlb'
+endmenu
+
+
+!
+! The simple case: add a component to a window with no changes.
+!
+procedure put_component name string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+!
+! If this component is already present in the window, remove it.  Otherwise
+! put it in.
+!
+	if (pd_defined (target_win, name, "platform"))
+		message 'Already there'
+		remove #target_win #name
+	else
+		add #name #name #target_win
+	endif
+endprocedure
+
+
+
+!
+! Add a component to a window, changing the field name.
+!
+procedure PutCompField comp string field string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+!
+! Send the stuff over.
+!
+	parameter #comp #comp "field" #field
+	add #comp #comp #target_win
+endprocedure
+
+
+!
+! Add a component to a window, changing the field name.  This version puts
+! the component at the bottom of the stack.
+!
+procedure PutBCompField comp string field string radarspace string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+!
+! If the component is already in the window, just change the field.
+!
+	if (pd_defined (target_win, comp, "platform"))
+		parameter #target_win #comp "field" #field
+!
+! Otherwise change the field *in DM* to avoid making the GP draw twice,
+! then send it over.
+!
+	else
+		parameter #comp #comp "field" #field
+		add #comp #comp #target_win 1
+	!
+	!  Take care of the radar-space parameter.
+	!
+		parameter #target_win "global" "radar-space" #radarspace
+	endif
+endprocedure
+
+
+!
+! Remove a component from a window.
+!
+procedure ZapComp comp string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+!
+! If this component truly exists in the window, get rid of it.
+!
+	if (pd_defined (target_win, comp, "platform"))
+		remove #target_win #comp
+	endif
+endprocedure
+
+
+!
+! Put in window bounds.
+!
+procedure put_wbounds comp string
+!
+! Get the window we want to see.
+!
+	set wbounds_win "none"
+	pickwin wbounds_win
+	if (wbounds_win = "none")
+		beep
+		return
+	endif
+!
+! And now the place where it goes.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")
+		beep
+		return
+	endif
+!
+! Fix up the component and ship it over.
+!
+	parameter #comp #comp platform #wbounds_win
+	add #comp #comp #target_win
+endprocedure
+
+
+
+!
+! Add a component to a window, changing an arbitrary parameter.
+!
+procedure PutCompX comp string param string value string
+!
+! Get the target window.
+!
+	set target_win "none"
+	pickwin target_win
+	if (target_win = "none")	! They picked root or something
+		beep
+		return
+	endif
+	sound chord
+
+	parameter #comp #comp #param #value
+	add #comp #comp #target_win
+endprocedure

@@ -1,0 +1,13 @@
+! Auto-saved display configuration.
+config adrad
+	window 'big' 2 0 700 740 gp gp.init
+		description 'adrad-big'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 10 750 250 30 fccclock
+		description 'adrad-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 271 751 490 54
+endconfig

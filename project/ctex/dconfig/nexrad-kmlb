@@ -1,0 +1,13 @@
+! Auto-saved display configuration.
+config nexrad-kmlb
+	window 'big' 2 0 700 780 gp gp.init
+		description 'nexrad-kmlb-big'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 710 250 30 fccclock
+		description 'nexrad-kmlb-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 272 751 489 78
+endconfig

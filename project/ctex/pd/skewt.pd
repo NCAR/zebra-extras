@@ -1,0 +1,14 @@
+GLOBAL
+	pd-name:	skewt
+	plot-mode:	real-time
+	plot-type:	skewt
+	trigger:	1m
+skewt
+	representation:	skewt
+	platform:	tco
+	color-table:	Skew-t
+	icon-left-menu:	skewt-left
+	icon-middle-menu:	DataAvailable
+	icon-right-menu:	feet-km
+	menu-platform:	dun,day,tco,dpk,rus,fel,mobile
+	icon:		sounding

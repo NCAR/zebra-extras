@@ -1,0 +1,23 @@
+!
+! Display configuration info
+!
+
+set ConfigDir "dconfig"
+set ConfigPD "dconfig/pd"
+pddir #ConfigPD
+
+!
+! gp default details
+!
+set default_exec concat(c$bindir, "/gp")
+set default_arg1 "gp.init"
+
+!
+! Generic linked PD to display one window zoomed.
+!
+config zoom 1
+	window 'humungo' 5 5 1100 850 #default_exec #default_arg1
+		buttonmap 'big'
+		linkpd 1
+	endwindow
+endconfig

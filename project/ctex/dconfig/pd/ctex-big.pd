@@ -1,0 +1,36 @@
+global
+	buttonmap:	big
+	pd-name:	ctex-big
+	plot-mode:	real-time
+	plot-type:	CAP
+	ta-color:	white
+	ta-scale:	0.04
+	x-max:	700
+	x-min:	-700
+	y-max:	200
+	y-min:	-200
+c_goes
+	color-table:	hotcold
+	field:	ir
+	icon:	satellite
+	icon-middle-menu:	goes-middle
+	icon-right-menu:	DataAvailable
+	menu-platform:	goes
+	platform:	goes
+	representation:	raster
+c_map
+	color:	white
+	field:	map
+	icon:	map
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	line-width:	2
+	platform:	ctex
+	representation:	overlay
+c_radar_loc
+	color:	green
+	field:	location
+	icon:	radar-loc
+	icon-middle-menu:	simple-color
+	platform:	adrad,nexrad-khou,nexrad-kmlb
+	representation:	overlay

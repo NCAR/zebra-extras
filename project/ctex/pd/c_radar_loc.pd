@@ -1,0 +1,13 @@
+!
+! Radar locations.
+!
+global
+	pd-name:	c_radar_loc
+c_radar_loc
+!	platform:		cp2, cp3, cp4, nmt, fl2c, und, wsr, mit
+	platform:		cp2, cp3, cp4, nmt, fl2c, und, mit, nmt, ptk
+	representation:		overlay
+	field:			location
+	color:			white
+	icon-middle-menu:	simple-color
+	icon:			radar-loc

@@ -1,0 +1,6 @@
+!
+! An empty config just to clear out the screen.
+!
+config empty
+	widget 'iconbar' 1070 5 539 55 
+endconfig

@@ -1,0 +1,6 @@
+global
+	pd-name:	adrad-Clock
+clock
+	background:	white
+	foreground:	black
+	xfont:	-*-new century schoolbook-bold-r-*-*-25-*-*-*-*-*-*-*

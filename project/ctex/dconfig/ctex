@@ -1,0 +1,13 @@
+! Auto-saved display configuration.
+config ctex
+	window 'big' 5 5 700 740 gp gp.init
+		description 'ctex-big'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 710 250 30 fccclock
+		description 'ctex-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 277 764 494 80
+endconfig

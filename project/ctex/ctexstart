@@ -1,0 +1,67 @@
+#!/bin/csh
+# 
+# Start up the Zeb system.
+#
+# Figure out where we are.
+#
+	set topdir=$0
+	set topdir=$topdir:h
+	if ( ! -d $topdir ) then	# in dir already
+		set topdir=`pwd`
+	endif
+	cd $topdir
+	set topdir=$cwd			# make sure we have abs. path
+	setenv ZEB_PROJECT $topdir
+#
+# Do everything possible to insure that we start clean.
+#
+	setenv XAPPLRESDIR /zeb/lib/resources
+	setenv PATH ${PATH}:/zeb/bin
+	setenv HOST `hostname`
+	zebstop
+	rm -f /tmp/fcc.socket
+#
+# Fill the color map with something other than black
+#
+	tweakcolor red
+#
+# The message system.  Nothing else runs without it.
+#
+	echo -n 'Starting MESSAGE...'
+	message & 
+	sleep 1
+#
+# Wait until message is truly ready.  
+#
+	mstatus > /dev/null
+#
+# Data store processes.
+#
+	echo -n 'Starting the event logger...'
+	EventLogger &
+	sleep 1
+#
+# Other basic utilities needed by the system.
+#
+	echo -n 'Starting the timer...'
+	timer &
+	echo -n '...and the data store daemon...'
+	dsDaemon ds.config &
+	sleep 5
+	dsdump >/dev/null
+#
+# Ingest modules, Archiver, LastData
+#
+#	echo -n '...data ingest modules: '
+#	echo -n '...satellite data ingest modules: '
+#	SatIngest goes-big.ini&
+#	SatIngest goes.ini&
+	echo -n '...and the data archiver...'
+	nice +15 Archiver -z no -time 30 -start 20 -device /dev/nrst0>& /tmp/Archiver.log &
+#	zmon zmon.config&
+	LastData LastData.config &
+#
+# Now get a display going.
+#
+	if (! $?DEFAULT_CONFIG) setenv DEFAULT_CONFIG adrad
+	dm dm.config

@@ -1,0 +1,13 @@
+GLOBAL
+	pd-name:	c_lightning
+	comment:	Generic lightning data component
+c_lightning
+	representation:	lightning
+	platform:	wetnet
+	trigger-global:	true
+	trigger:	wetnet
+	time-step:	2m
+	show-icon:	true
+	color-table:	RevRainbow
+	icon-middle-menu:	lightning-color
+	icon:		light

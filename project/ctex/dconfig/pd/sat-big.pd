@@ -1,0 +1,21 @@
+GLOBAL
+	pd-name:	sat-big
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	goes
+	icon-middle-menu:	DataAvailable
+	menu-platform:	goes
+c_goes
+	platform:	goes
+	representation:	raster
+	field:		vis
+	color-table:	16gray
+	icon:		satellite
+c_map
+	platform:	coare
+	representation:	overlay
+	field:		map
+	color:		tan
+	icon-middle-menu:	simple-color
+	icon-right-menu:	linewidth
+	icon:		map

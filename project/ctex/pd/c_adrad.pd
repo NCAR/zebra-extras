@@ -1,0 +1,34 @@
+GLOBAL
+	comment:	Display adrad data.
+	pd-name:	c_adrad
+	plot-mode:	real-time
+	plot-type:	CAP
+	trigger:	adrad
+	raster-velocity-center:	0.0
+	raster-velocity-step:	5.0
+	radar-space:	true
+	time-frames:	2
+	altitude:	-1
+	x-min:		-150
+	x-max:		150
+	y-min:		-150
+	y-max:		150
+c_radar
+	platform:	adrad
+	field:		reflectivity
+	representation:	raster
+	icon:		adrad
+	color-table:	wild
+	every-sweep:	true
+	icon-middle-menu:	radar-middle
+c_rings
+	platform:	adrad
+	representation:	overlay
+	field:		range-rings
+	color:		white
+	icon-middle-menu:	simple-color
+	icon-right-menu:	rings-menu
+	icon:		rings
+	ring-interval:	20
+	azimuth-interval:	30
+ 

@@ -1,0 +1,48 @@
+global
+	alt-scale-y-max:	7.0
+	axis-bottom-space:	60
+	axis-left-space:	70
+	axis-right-space:	70
+	component-list:	915profh
+	contour-comp:	915Contourh
+	contour-pd:	time_height
+!	global-icon-left-menu:	iss-global-util
+!	global-icon-middle-menu:	iss-global-winds
+	global-series-span-proc:	adj_series_span
+	height-scale-y-max:	7000.0
+	pd-name:	iss-profiler
+	plot-mode:	real-time
+	plot-type:	xygraph
+	trigger:	30m
+	woverlay-comp:	omegawind
+	woverlay-pd:	time_height
+	xy-adj-axis-side:	b
+	xy-axis-b-font-scale:	0.018
+	xy-axis-b-tic-interval:	60m
+	xy-axis-l-font-scale:	0.018
+	xy-axis-l-tic-interval:	1000.0
+	xy-axis-r-font-scale:	0.018
+	xy-axis-r-tic-interval:	0.5
+	xy-data-mode:	series
+	xy-scale-x-mode:	autoscale
+	xy-scale-y-mode:	manual
+	xy-series-span:	720m
+915profh
+	adj-axis-side:	l
+	axis-b-label:	time
+	axis-l-color:	green
+	axis-l-label:	915 Profiler Altitude (m agl)
+	data-skip:	0
+	icon:	iss-prof
+	icon-background:	black
+	icon-color:	green
+	icon-middle-menu:	time-height-winds
+	icon-right-menu:	DataAvailable
+	max-platform:	5
+	menu-platform:	kapinga/prof915h, manus/prof915h, exp3/prof915h, sci1/prof915h, kavieng/prof915h, nauru/prof915h
+	platform:	kapinga/prof915h
+	representation:	wind
+	trigger:	kapinga/prof915h
+	x-field:	time
+	y-field:	height
+	limit-proc:	adj_series_span

@@ -1,0 +1,9 @@
+! Auto-saved display configuration.
+config printsounding
+	widget 'iconbar' 1070 5 70 539
+	window 'skewt' 337 3 656 771 gp gp.init
+		description 'printsounding-skewt'
+		buttonmap 'default'
+		forcepd
+	endwindow
+endconfig

@@ -1,0 +1,10 @@
+GLOBAL
+	pd-name:	c_sounding_loc
+	comment:	sounding location
+c_sounding_loc
+	platform:	tco,dpk,dun,day,fel,rus
+	representation:	overlay
+	field:		location
+	color:		white
+	icon-middle-menu:	simple-color
+	icon:		sounding-loc

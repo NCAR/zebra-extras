@@ -1,0 +1,23 @@
+! Auto-saved display configuration.
+config sat-sound-prof
+	window 'big' 5 5 712 600 gp gp.init
+		description 'sat-sound-prof-big'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 710 250 30 fccclock
+		description 'sat-sound-prof-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 10 618 539 59
+	window 'iss' 727 6 420 478 gp gp.init
+		description 'sat-sound-prof-iss'
+		buttonmap 'default'
+		forcepd
+	endwindow
+	window 'profiler' 726 490 420 407 gp gp.init
+		description 'sat-sound-prof-profiler'
+		buttonmap 'default'
+		forcepd
+	endwindow
+endconfig

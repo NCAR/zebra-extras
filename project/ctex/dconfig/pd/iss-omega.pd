@@ -1,0 +1,14 @@
+global
+	pd-name:	iss-omega
+	plot-mode:	real-time
+	plot-type:	skewt
+	trigger:	10h
+skewt
+	color-table:	Skew-t
+	icon:	sounding
+	icon-left-menu:	skewt-left
+	icon-middle-menu:	DataAvailable
+	icon-right-menu:	feet-km
+	menu-platform:	kapinga/omega, manus/omega, nauru/omega, kavieng/omega,sci1/omega,exp3/omega
+	platform:	kapinga/omega
+	representation:	skewt

@@ -1,0 +1,47 @@
+#!/bin/csh
+#
+# Ingest all adrad volume files in a given directory
+#
+
+if ($#argv != 1) then
+	echo "Usage: $0 <directory>"
+	exit 1
+endif
+
+set sourcdir=$argv[1]
+
+#
+# build a file with the constant ingest parameters
+#
+rm -f adrad.const
+cat > adrad.const << _EOF_
+	set radar_lat 30.6178
+	set radar_lon -96.3316
+	set x_resolution 460
+	set y_resolution 460
+	set x_radar 230
+	set y_radar 230
+	set gmt_offset 5
+	set platform "adrad"
+	set minimum_sweep 25
+	set pixels_per_km 1
+	set nframes 2
+	set update 100
+	set niceness -19
+	set azimuth_fill 0.8
+	consumer ds_consumer adrad
+!	threshold offset 0 threshold 45
+_EOF_
+
+
+rm -f infile.temp
+foreach file (${argv[1]}/*.vol)
+	echo Ingesting $file
+	cp adrad.const infile.temp
+	echo "	source file $file" >> infile.temp
+	adradFieldList $file >> infile.temp
+	adrad_ingest infile.temp
+	rm infile.temp
+end
+
+rm adrad.const

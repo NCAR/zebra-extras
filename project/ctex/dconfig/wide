@@ -1,0 +1,13 @@
+! Auto-saved display configuration.
+config wide
+	window 'big' 5 5 1028 763 gp gp.init
+		description 'wide-big'
+		buttonmap 'big'
+		forcepd
+	endwindow
+	window 'Clock' 5 794 250 30 fccclock
+		description 'wide-Clock'
+		buttonmap 'default'
+	endwindow
+	widget 'iconbar' 300 794 539 75
+endconfig

@@ -1,0 +1,22 @@
+GLOBAL
+	pd-name:	xy_simple
+	plot-mode:	real-time
+	plot-type:	xygraph
+	trigger:	kapinga/omega
+c_xy_simple
+	do-color-proc:	change_component_color
+	do-side-annotation:	true
+	representation:	simple
+	platform:	kapinga/omega
+	icon:		sounding
+	field-color:	pink
+	axis-left:	true
+	axis-l-label:	
+	axis-bottom:	true
+	axis-b-label:	
+	y-field:	alt
+	x-field:	temp
+	adj-axis-side:	t
+	icon-right-menu:	omegafield
+	icon-middle-menu:	DataAvailable
+	menu-platform:	kapinga/omega, manus/omega, nauru/omega, kavieng/omega,sci1/omega,exp3/omega
