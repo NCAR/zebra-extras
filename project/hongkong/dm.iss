@@ -1,7 +1,7 @@
 !
 ! Code for dealing with ISS active areas.
 !
-
+! $Id: dm.iss,v 1.2 1994-06-21 17:16:38 granger Exp $
 
 procedure IssAddSounding station string window string
 !

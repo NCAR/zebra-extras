@@ -1,6 +1,7 @@
 !
 ! Code for dealing with simple sounding location active areas.
 !
+! $Id: dm.sounding,v 1.2 1994-06-21 17:16:40 granger Exp $
 
 procedure SdgAddSounding station string window string
 !

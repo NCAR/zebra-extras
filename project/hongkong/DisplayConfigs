@@ -1,6 +1,7 @@
 !
 ! Auto display configurations
 !
+! $Id: DisplayConfigs,v 1.2 1994-06-21 17:16:31 granger Exp $
 
 !
 ! The dconfig dir and dconfig pd dir settings were moved to dm.config
@@ -10,9 +11,7 @@
 !
 ! The ubiquitous whiteclock pd
 !
-beginpd
-global
-	parameter pd-name whiteclock
+beginpd whiteclock
 component clock
 	parameter background white
 	parameter foreground black
@@ -20,11 +19,10 @@ component clock
 endpd
 
 
-! The only configs here are the empty one and the linked zoom one.
-! The empty one is here so that it can't be deleted from the saved
-! config directory by the user, as its needed for a last resorts.
-! The zoom is here because links are not handled correctly in saved
-! config files.
+! The only configs here are the empty one and the linked zoom one.  The
+! empty one is here as a last resort, in case the one in config directory
+! is deleted by the user.  The zoom is here because links are not handled
+! correctly in saved config files.
 
 config empty
 	widget 'iconbar' 6 27 68 471
