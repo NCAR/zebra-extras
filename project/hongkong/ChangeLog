@@ -1,3 +1,25 @@
+Wed May 25 12:26:21 1994  Gary Granger  (granger@steam)
+
+	* committed hongkong configuration to CVS
+
+Mon May 16 14:13:20 1994  Gary Granger  (granger@kodiak)
+
+	* TimeSeries.c: fixed a bug in axis tic labels which I introduced
+	  in the Solaris port
+
+	* lib: add msg_whoami() function to msg_lib.c, use this to set
+	  c$msgname in SetupConfigVariables(), esp for graphics process
+
+	* add x-section template pd, add window bounds to iconbar and
+	  global-left menu
+
+	* add active area ISS and sounding locations to iconbar
+
+	* config.h.dist: removed /*/ constructs, inserted default defn
+	  for XCOMM, use UNQUOTED_DIRDEFS instead of MAKING_MAKEFILE
+
+	* Ingest state files: changed /rdss/ui/ui_commands to #ui$defs_file
+
 Sat May 14 03:33:19 1994  Gary Granger  (granger@kodiak)
 
 	* dm: fixed bug in KillProcess which would accidentally remove
