@@ -1,4 +1,4 @@
-#!/bin/csh
+#!/bin/csh 
 # 
 # Start up the baseline Zeb system and DataStore components, including
 # ingestors.  Designed to run without a window display available.
@@ -21,7 +21,7 @@
 	else
 		rm -f /tmp/fcc.socket
 	endif
-#
+
 # The message system.  Nothing else runs without it.
 #
 	echo 'starting zeb datastore system:'
@@ -57,7 +57,7 @@
 	   if ($?ZEB_DEBUG_DS == 1) then
 		xterm -n dsDaemon -e /usr/local/bin/gdb /zeb/bin/dsDaemon &
 	   else
-	   	dsDaemon ds.config &
+	   	dsDaemon ds.config >& /dev/console &
 	   endif
 	   sleep 10
 	   dsdump -n >/dev/null
