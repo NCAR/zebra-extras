@@ -4,13 +4,13 @@ prototype fallback 'Graphic' gp 'gp.init'
 prototype fallback 'Graphic' gp 'gp.init'
 
 config lineplot-iss1
-	widget 'iconbar' 652 304 493 66
-	graphic 'w1' 11 11 636 868 'Graphic'
+	widget 'iconbar' 12 16 493 66
+	graphic 'w1' 11 93 636 786 'Graphic'
 		description 'lineplot-iss1-w1'
 		buttonmap 'xyplot'
 		forcepd
 	endgraphic
-	graphic 'big' 657 402 496 472 'Graphic'
+	graphic 'big' 663 408 496 472 'Graphic'
 		description 'lineplot-iss1-big'
 		buttonmap 'big'
 		forcepd
@@ -76,7 +76,7 @@ component altscale
    parameter representation-style      'cross'
    parameter scale-y-mode              'manual'
    parameter x-field                   'nothing'
-   parameter xyprivate-data-begin      '25-Mar-98,23:17:05'
+   parameter xyprivate-data-begin      '26-Mar-98,19:23:20'
    parameter xyprivate-data-end        '1-Jan-70,0:00:00'
    parameter xyprivate-x-max           '0.0000'
    parameter xyprivate-x-min           '0.0000'
@@ -99,7 +99,7 @@ component heightscale
    parameter representation-style      'cross'
    parameter scale-y-mode              'manual'
    parameter x-field                   'nothing'
-   parameter xyprivate-data-begin      '25-Mar-98,23:17:05'
+   parameter xyprivate-data-begin      '26-Mar-98,19:23:20'
    parameter xyprivate-data-end        '1-Jan-70,0:00:00'
    parameter xyprivate-x-max           '0.0000'
    parameter xyprivate-x-min           '0.0000'
@@ -174,8 +174,8 @@ component c_wind
    parameter skip-data-points          '9999.0'
    parameter trigger                   'platform'
    parameter x-field                   'wspd'
-   parameter xyprivate-data-begin      '25-Mar-98,21:16:28'
-   parameter xyprivate-data-end        '25-Mar-98,21:16:28'
+   parameter xyprivate-data-begin      '26-Mar-98,9:15:08'
+   parameter xyprivate-data-end        '26-Mar-98,9:15:08'
    parameter xyprivate-x-max           '50.0000'
    parameter xyprivate-x-min           '0.0000'
    parameter xyprivate-x-type          'f'
@@ -212,8 +212,8 @@ component c_rass
    parameter skip-data-points          '9999.0'
    parameter trigger                   'platform'
    parameter x-field                   'tv'
-   parameter xyprivate-data-begin      '25-Mar-98,21:31:38'
-   parameter xyprivate-data-end        '25-Mar-98,21:31:38'
+   parameter xyprivate-data-begin      '26-Mar-98,1:31:32'
+   parameter xyprivate-data-end        '26-Mar-98,1:31:32'
    parameter xyprivate-x-max           '20.0000'
    parameter xyprivate-x-min           '-80.0000'
    parameter xyprivate-x-type          'f'
