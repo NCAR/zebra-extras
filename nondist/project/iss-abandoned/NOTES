@@ -1,4 +1,6 @@
 
+move zebra build tree from /scr/steam/ to /code/granger 
+
 Steps to do next:
 
 Copy cap-iss module from library and start over.
@@ -14,11 +16,6 @@ reconcile heavily changed xywind or rename to iss-xywind or something
 
 in dm modules:
 
-
-can now use require for files like buttonmaps, allowing standard ones to be
-found in library (dmlib) if not in project; split ButtonMaps into separate
-maps by buttonmap name, then require then in a basic ButtonMaps file in
-dmlib.  same for standard DisplayConfigs.
 
 define import command to read a file from the library, such as at the head
 of a project module which wants to import the library version and redefine
@@ -112,6 +109,11 @@ e.g., CLASS-default: [T], Surface-default: [P], Profiler-default: wspd
 
 Fix profiler ingestor to store units, long name, and such with profiler
 data fields.
+
+Fix campbell ingestor to store units, etc of field.  Define the standard
+field names first, then lookup the names on the command line for matches.
+Warn if not matched, add option to show known fields.  Else
+put the full name on the command line: tdry[T][...][...]
 
 Displays should really make fields the focus, so field specifications
 should include the platform, rather than putting the platform in a
@@ -345,3 +347,30 @@ set it in dm.config like iss field config.
 Eventually be able to "reconfigure": selectively add/remove
 projects/sites/platforms from datastore and then restart dm, regenerating
 new iconbar
+
+can now use require for files like buttonmaps, allowing standard ones to be
+found in library (dmlib) if not in project; split ButtonMaps into separate
+maps by buttonmap name, then require them in a basic ButtonMaps file in
+dmlib.  same for standard DisplayConfigs.
+
+If dm.init is truly generic, then can it just go into the dm.widgets source
+for the dm loadfile?  Or is that only for definition state and not 
+execution?  
+
+One possibility is that the dm and gp automatically try to require a module
+dm.init and gp.init when starting (or perhaps whatever config is on the
+command line: require it instead of reading it), allowing the project to
+override them if needed, or else not override them and not need dm.config
+and gp.init files in the project directory.  Put the current directory on
+the require path so that project can override init module before it is able
+to change the requirepath.  The init files can require dm.config and
+gp.config for project-specific settings, and the library can supply empty
+defaults for those files.
+
+
+use makecfgmenu to update the saved config menu dynamically, i.e., even
+at runtime
+
+run makeall in template dir at startup, generating default configs for
+each of the platforms selected for this runtime (in case not already there).
+do it before makecfgmenu generates the saved config menu
