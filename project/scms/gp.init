@@ -1,4 +1,4 @@
-! $Id: gp.init,v 1.1 1995-09-15 14:39:26 burghart Exp $
+! $Id: gp.init,v 1.2 1995-09-28 22:26:46 burghart Exp $
 !
 ! The SCMS graphics process initialization file.
 !
@@ -23,7 +23,7 @@ define widget kmgrid-origins intmenu 'cart grid origin'
 	entry 'Patrick radar' 'parameter #icon_component origin ptk'
 endmenu
 
-define widget rings-origin intmenu 'range ring origins'
+define widget rings-origins intmenu 'range ring origins'
 	title 'Range Rings Origins'
 	line
 	entry 'CP2 (true)' 'parameter #icon_component platform cp2'
