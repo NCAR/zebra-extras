@@ -685,10 +685,10 @@ endmenu
 
 define widget instmfrsr1 intmenu 'MFRSR1'
 	title 'MultiFilter RSR Data'
-	entry 'MFRSR CF A0: dif1-4,tot1-4,dir1-4'\
-		'put_34parameters "1,1,1,1" "dif1,dif2,dif3,dif4" "tot1,tot2,tot3,tot4" "dir1,dir2,dir3,dir4"'
-	entry 'MFRSR CF A0: dif5-7,tot5-7,dir5-7'\
-		'put_33parameters "1,1,1" "dif5,dif6,dif7" "tot5,tot6,tot7" "dir5,dir6,dir7"'
+	entry 'MFRSR CF A0: dif1-4,tot1-4,dirn1-4'\
+		'put_34parameters "1,1,1,1" "dif1,dif2,dif3,dif4" "tot1,tot2,tot3,tot4" "dirn1,dirn2,dirn3,dirn4"'
+	entry 'MFRSR CF A0: dif5-7,tot5-7,dirn5-7'\
+		'put_33parameters "1,1,1" "dif5,dif6,dif7" "tot5,tot6,tot7" "dirn5,dirn6,dirn7"'
 endmenu
 
 define widget inst915rass1 intmenu '915RASS1'
