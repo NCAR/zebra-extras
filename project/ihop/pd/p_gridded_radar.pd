@@ -1,0 +1,28 @@
+!
+! gridded radar component
+!
+global
+	pd-name:	p_gridded_radar
+p_gridded_radar
+	platform:	spol_gridded
+	altitude-control:	true
+	field:		DZ
+	representation:	filled-contour
+	icon:		radar_grid
+	color-table:	wild_new
+	every-sweep:	true
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	radar-middle
+	icon-right-menu:	DataAvailable
+	every-sweep:	true
+	every-volume:	false
+	scale-mode:	auto
+	limit-proc:	raster-limit-proc
+	data-available-command:	RadarDataAvailable
+	data-available-times:	samples
+	out-of-range-color:	none
+	radar-space:	false
+	real-time-hook:	RadarRealTime
+	require:	radar, raster
+	trigger:	platform
+	trigger-global:	true
