@@ -1,0 +1,5 @@
+[rh][%] = rh;
+[P][hPa] = pressure;
+[T][degC] = temperature;
+[wdir][degrees] = wdir;
+[wspd][m/s] = wspd;
