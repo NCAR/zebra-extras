@@ -11,16 +11,9 @@ defaults
 !
 ! Various menus for the icons in the plot windows.
 !
-	icon-left-menu:			leftmenu
-	cp4-icon-middle-menu:		radar-middle
+	icon-left-menu:			minimal-cap-left-menu
 	global-icon-left-menu:		global-left
 	global-icon-right-menu:		globaltopannot
-	mesonet-icon-right-menu:	contour-options
-	pampbl-icon-right-menu:		contour-options
-	cp4-icon-left-menu:		raster-left
-	mhr-icon-left-menu:		raster-left
-	nowrad-icon-middle-menu:	nowrad-middle
-	nowrad_f-icon-middle-menu:	nowrad-middle
 !
 ! Age limits for changing icon color.
 !
@@ -30,6 +23,7 @@ defaults
 	cp4-icon-age-limit:		10m
 	mhr-icon-age-limit:		30m
 	goes-icon-age-limit:		30m
+	sgpgoesvis.tmp-icon-age-limit:	30m
 	nowrad-icon-age-limit:		15m
 	nowrad_f-icon-age-limit:	15m
 	spotlight-icon-age-limit:	15m
