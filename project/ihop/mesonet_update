@@ -1,0 +1,54 @@
+#!/bin/csh
+#
+# Convert recent FSL mesonet files to Zebra form, and notify the
+# datastore.  This script needs to run on a machine that can see 
+# the FSL mesonet files.
+#
+unset noclobber
+
+if ($#argv != 1) then
+    echo "Usage: $0 <fsl_mesonet_data_dir>"
+    exit 1
+endif
+
+set fslmesonetdir = $1
+set zebradatadir = /scr/data/spol
+set zebraplatform = mesonet_15
+set stationlistfile = /usr/local/zebra/project/ihop/15minute_stations
+
+set zebramesonetdir = $zebradatadir/$zebraplatform
+
+set logfile = /tmp/${0:t}.log
+set timestampfile = /tmp/${0:t}.timestamp
+
+#
+# Get the list of FSL mesonet files modified since our last
+# run.  Do this before we update the timestamp file.
+#
+if (-e $timestampfile) then
+    set filelist = \
+	`find $fslmesonetdir -name "*nc" -newer $timestampfile -print | sort`
+else
+    set filelist = `ls $fslmesonetdir/*nc`
+endif
+
+#
+# Update the timestamp file
+#
+echo "timestamp file for $0:t created `date`" > $timestampfile
+
+#
+# Run fsl2zebra on all of the modified FSL files we found above
+#
+echo "$0:t run at `date`" >> $logfile
+foreach file ($filelist)
+    echo $file >> $logfile
+    fsl2zebra 15 $stationlistfile $zebramesonetdir $file
+end
+
+#
+# Have the data store rescan files that we updated in this run
+#
+foreach file (`find $zebramesonetdir -newer $timestampfile -print`)
+    dsrescan -file $file:t $zebraplatform >>& $logfile
+end
