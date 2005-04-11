@@ -1,6 +1,6 @@
 !
 ! Various DM widgets of interest.
-! $Id: dm.widgets,v 1.1.1.1 2004-11-16 16:59:20 burghart Exp $
+! $Id: dm.widgets,v 1.2 2005-04-11 22:45:02 burghart Exp $
 !
 
 define widget enter form "Entry widget"
@@ -9,7 +9,7 @@ define widget enter form "Entry widget"
 ! The platform selection line.
 !
 	label l_plat "Platform:"
-	pulldown platform 'center-point' menu 'plats' width 100
+	pulldown platform 'rvsj' menu 'plats' width 100
 	label space ' ' width 100
 	button exit 'Zap' color red command 'popdown #ui$form'
 	newline
@@ -221,7 +221,8 @@ endprocedure
 define widget plats intmenu 'platforms'
 	title 'Platforms'
 	line
-	entry 'center point' 'formtext #ui$form platform center-point'
+	entry 'R/V Seward Johnson' 'formtext #ui$form platform rvsj'
+	entry 'Blah'	'formtext #ui$form platform blah'
 endmenu
 
 
