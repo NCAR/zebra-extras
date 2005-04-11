@@ -6,30 +6,6 @@ define widget rings-origins intmenu 'x'
 	line
 	entry 'S-Pol' 'parameter #icon_component platform spol' \
 		(PDParam (icon_component, 'platform') = 'spol')
-	entry 'OKC' 'parameter #icon_component platform okc' \
-		(PDParam (icon_component, 'platform') = 'okc')
-	entry 'KAMA (Amarillo)' 'parameter #icon_component platform KAMA' \
-		(PDParam (icon_component, 'platform') = 'KAMA')
-	entry 'KDDC (Dodge City)' 'parameter #icon_component platform KDDC' \
-		(PDParam (icon_component, 'platform') = 'KDDC')
-	entry 'KFDR (Frederick)' 'parameter #icon_component platform KFDR' \
-		(PDParam (icon_component, 'platform') = 'KFDR')
-	entry 'KFTG (Denver/Front Range)' \
-		'parameter #icon_component platform KFTG' \
-		(PDParam (icon_component, 'platform') = 'KFTG')
-	entry 'KFWS (Fort Worth)' 'parameter #icon_component platform KFWS' \
-		(PDParam (icon_component, 'platform') = 'KFWS')
-	entry 'KGLD (Goodland)' 'parameter #icon_component platform KGLD' \
-		(PDParam (icon_component, 'platform') = 'KGLD')
-	entry 'KICT (Wichita)' 'parameter #icon_component platform KICT' \
-		(PDParam (icon_component, 'platform') = 'KICT')
-	entry 'KINX (Tulsa)' 'parameter #icon_component platform KINX' \
-		(PDParam (icon_component, 'platform') = 'KINX')
-	entry 'KLBB (Lubbock)' 'parameter #icon_component platform KLBB' \
-		(PDParam (icon_component, 'platform') = 'KLBB')
-	entry 'KTLX (Oklahoma City)' \
-		'parameter #icon_component platform KTLX' \
-		(PDParam (icon_component, 'platform') = 'KTLX')
-	entry 'KVNX (Vance)' 'parameter #icon_component platform KVNX' \
-		(PDParam (icon_component, 'platform') = 'KVNX')
+	entry 'ANU' 'parameter #icon_component platform anu' \
+		(PDParam (icon_component, 'platform') = 'anu')
 endmenu
