@@ -13,7 +13,8 @@ defaults
 !	<sitename>-location:	<lat> <lon> <alt>
 !
 	spol-location:		17.60750       -61.82395       0
-	anu-location:		17.12		-61.78		0
+	anu-location:		17.136750      -61.792667      19
+	anu-azimuth-offset:	-14
 !
 ! Icons to use for various platforms.  The icons themselves can be created
 ! using the X Window "bitmap" utility, and saved in the <project>/icons 
@@ -41,6 +42,8 @@ defaults
 	data-age-limit:		60m
 	spol-icon-age-limit:	20m
 	spol-data-age-limit:	30m
+	rvsj-icon-age-limit:	20000d
+	rvsj-data-age-limit:	20000d
 	refract_storm-icon-age-limit:	20m
 	refract_storm-data-age-limit:	40m
 	radar_composite-icon-age-limit:	30m
@@ -51,8 +54,12 @@ defaults
 	goes_4km-data-age-limit:	90m
 	p3-icon-age-limit:	2m
 	p3-data-age-limit:	120m
-	dc8-icon-age-limit:	2m
-	dc8-data-age-limit:	120m
+	c130-icon-age-limit:	2m
+	c130-data-age-limit:	120m
+	uw_kingair-icon-age-limit:	2m
+	uw_kingair-data-age-limit:	120m
+	faam_bae146-icon-age-limit:	10m
+	faam_bae146-data-age-limit:	120m
 	mesonet_15-icon-age-limit:	60m
 	mesonet_15-data-age-limit:	90m
 	elev-icon-age-limit:	20000d
@@ -273,7 +280,7 @@ defaults
 ! Where to put the frame cache files and the maximum number of frames
 ! to store in the cache.
 !
-	file-path:	/scr/data/zebra_fcache
+	file-path:	/data/zebra_fcache
 	max-frames:	100
 	time-frames:	3
 !

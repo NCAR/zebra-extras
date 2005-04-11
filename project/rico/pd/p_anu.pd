@@ -1,0 +1,17 @@
+!
+! Generic location PD component.
+!
+global
+	pd-name:	p_anu
+p_anu
+	platform:	anu
+	representation:	overlay
+	field:		location
+	color:		white
+	icon-left-menu:		minimal-cap-left-menu
+	icon-right-menu:	location-options
+	label:		ANU
+	active-icon:	false
+	require:	location
+	label-size:	12
+	icon:		radar-loc

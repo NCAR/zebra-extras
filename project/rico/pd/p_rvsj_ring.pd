@@ -1,0 +1,19 @@
+!
+! 4 NM ring around the R/V Seward Johnson platform
+!
+GLOBAL
+	pd-name:	p_rvsj_ring
+p_rvsj_ring
+	platform:	rvsj
+	representation:	overlay
+	field:		range-rings
+	color:		white
+	do-labels:	false
+	icon-left-menu:		minimal-cap-left-menu
+	icon-right-menu:	simple-color
+	icon:		rvsj_ring
+	ring-interval:	7.41
+	azimuth-interval:	30
+	num-rings:	1
+	require:	rings, simple-color
+ 
