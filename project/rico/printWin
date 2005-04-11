@@ -1,2 +1,0 @@
-#!/bin/csh
-xwd | convert xwd:- png:- | lpr

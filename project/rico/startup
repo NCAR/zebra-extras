@@ -16,7 +16,7 @@ set execdir = $0:h
 
 if ( `hostname` != $ZEBRA_MASTER ) then
     echo "${0}: running display only since `hostname` !=" $ZEBRA_MASTER
-    ssh -f $ZEBRA_MASTER $execdir/newdisplay
+    ssh -f $ZEBRA_MASTER $execdir/scripts/newdisplay
     exit 0
 endif
 
