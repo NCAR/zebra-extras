@@ -1,0 +1,5 @@
+MAILTO = burghart@ucar.edu, snorman@ucar.edu
+0 0-23/3 * * * /opt/zebra/project/rico/scripts/mvSweepFiles.csh
+0-59/5 * * * * /opt/zebra/project/rico/scripts/watchers.csh
+0,30 * * * * /opt/zebra/project/rico/scripts/genimage.csh
+0-59/2 * * * * /opt/zebra/project/rico/scripts/ingestFAAM.csh
