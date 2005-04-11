@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.1.1.1 2004-11-16 16:59:20 burghart Exp $
+! $Id: IconBar,v 1.2 2005-04-11 22:40:09 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -53,7 +53,8 @@ define widget iconbar menubar " "
 		entry 'Event logger' 'shell "EventLogger -w &"'
 		line
 !		entry 'Save Screen Image' 'shell "grabpng &"'
-		entry 'Print Window Image' 'shell "printWin &"'
+		entry 'Image Saver' 'shell "ksnapshot &"'
+		entry 'Print Window Image' 'shell "scripts/printWin &"'
 		line
 		entry 'Zero Out Rain Accumulation' \
 			'shell "/ops/bin/reset_rain &" '
@@ -137,16 +138,18 @@ define widget iconbar menubar " "
 	menu aircraft bitmap aircraft
 		title 'Aircraft'
 		line
-!                entry 'NRL P3' \
-!			'putc3 p_track platform p3 icon p3 color pink'
-!                entry 'NASA DC-8' \
-!			'putc3 p_track platform dc8 icon dc8 color white'
-!	endmenu
+                entry 'C130' \
+		    'putc3 p_aircraft platform c130 icon c130 color pink'
+                entry 'UW King Air' \
+                    'putc3 p_aircraft platform uw_kingair icon uw_kingair color yellow'
+                entry 'FAAM BAE-146' \
+                    'putc3 p_aircraft platform faam_bae146 icon faam_bae146 color orange'
+	endmenu
 !	menu mesonet bitmap mesonet
 !		title 'Mesonet'
 !		line
 !		entry '15-minute mesonet' 'putc0 p_mesonet'
-	endmenu
+!	endmenu
 
 !
 ! Maps, locations and other informational overlays
@@ -154,10 +157,10 @@ define widget iconbar menubar " "
 	menu 'overlays' bitmap overlays
 		title 'Static Overlays'
 		line
-		entry 'Borders' \
-		    'putc3 p_map platform default icon state color yellow3'
-		entry 'Rivers' \
-		    'putc3 p_map platform water icon rivers color cyan3'
+		entry 'Map' \
+		    'putc2 p_map icon map color yellow3'
+!		entry 'Rivers' \
+!		    'putc3 p_map platform water icon rivers color cyan3'
 !		entry 'Roads' \
 !		    'putc3 p_map platform road icon roads color gray30'
 		line
@@ -170,11 +173,13 @@ define widget iconbar menubar " "
 		line
 		entry 'Topography (for plan views)' 'putc0 p_elev'
 		line
-		entry 'Radar range rings' 'putc1 p_rings platform spol'
+		entry 'Range rings' 'putc1 p_rings platform spol'
 !		entry 'Radar locations' 'do_radar_locs'
 		line
-		entry 'NOAA profiler site' 'putc0 p_noaa_profiler'
-		entry 'Altair location' 'putc0 p_altair'
+		entry 'S-Pol location' 'do_radar_locs'
+		entry 'Antigua airport (ANU) location' 'putc0 p_anu'
+		entry 'R/V Seward Johnson location' 'putc0 p_rvsj'
+		entry 'R/V Seward Johnson 4 NM ring' 'putc0 p_rvsj_ring'
 		line
 !		entry 'Optimizer boundary' 'putc0 p_opt_boundary'
 		entry 'Window Bounds' 'put_wbounds p_wbounds'
