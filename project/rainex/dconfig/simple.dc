@@ -33,7 +33,7 @@ component p_lf_composite
    parameter altitude-control          'false'
    parameter color-table               'chris'
    parameter field                     'DZ'
-   parameter icon                      'satellite'
+   parameter icon                      'composite'
    parameter icon-left-menu            'standard-cap-left-menu'
    parameter icon-middle-menu          'FieldMenu'
    parameter icon-right-menu           'raster-right'
