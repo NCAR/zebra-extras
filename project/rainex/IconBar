@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.1.1.1 2005-08-04 19:30:55 burghart Exp $
+! $Id: IconBar,v 1.2 2005-08-04 20:25:29 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -100,9 +100,9 @@ define widget iconbar menubar " "
 		title 'Satellite Data'
 		line
 		entry 'GOES 1 km' \
-			'putc3 p_goes platform goes_1km icon sat_1km field vis'
+		  'putc3 p_goes platform goes_1km icon sat_1km field gvar_ch1'
 		entry 'GOES 4 km' \
-			'putc3 p_goes platform goes_4km icon sat_4km field ir'
+		  'putc3 p_goes platform goes_4km icon sat_4km field ir'
 	endmenu
 	menu aircraft bitmap aircraft
 		title 'Aircraft'
