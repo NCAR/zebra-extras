@@ -1,0 +1,11 @@
+set RequirePath concat('./modules,',RequirePath)
+set MapPath concat('./maps,','MapPath')
+
+define widget rings-origins intmenu 'x'
+	title 'Rings Origins'
+	line
+	entry 'S-Pol' 'parameter #icon_component platform spol' \
+		(PDParam (icon_component, 'platform') = 'spol')
+	entry 'ANU' 'parameter #icon_component platform anu' \
+		(PDParam (icon_component, 'platform') = 'anu')
+endmenu

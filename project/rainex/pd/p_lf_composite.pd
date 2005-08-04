@@ -1,0 +1,22 @@
+!
+! LF radar composites
+!
+global
+	pd-name:	p_lf_composite
+p_lf_composite
+	platform:	noaa_lf_composite
+	field:		DZ
+	altitude-control:	false
+	representation:	raster
+	color-table:	chris
+	icon:		satellite
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	raster-right
+	out-of-range-color:	none
+	radar-space:	false
+	require:	raster
+	scale-mode:	manual
+	trigger:	platform
+	trigger-global:	true
+	limit-proc:	raster-limit-proc

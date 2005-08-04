@@ -1,0 +1,26 @@
+#!/bin/tcsh
+#
+setenv DEFAULT_DATA_DIR /data/rico
+
+if (! $?ZEB_TOPDIR) setenv ZEB_TOPDIR /opt/zebra
+if (! $?ZEB_PROJECT) then
+	setenv ZEB_PROJDIR /opt/zebra/project/rico
+endif
+
+setenv PATH ${PATH}:./scripts
+
+if (! $?DATA_DIR) setenv DATA_DIR $DEFAULT_DATA_DIR
+if (! $?ZEB_EVENTLOGGER) \
+    setenv ZEB_EVENTLOGGER "$ZEB_TOPDIR/bin/EventLogger -w"
+if (! $?DEFAULT_CONFIG) setenv DEFAULT_CONFIG empty
+
+# The spool dir is where images are dumped by batch-plot
+setenv BATCH_IMAGE_SPOOL "/scr/data/spol_images"
+
+if ( -x scripts/scaniops ) then
+    rm -f ds.sources
+    scripts/scaniops > ds.sources
+else
+    # Make sure it at least exists.
+    touch ds.sources
+endif

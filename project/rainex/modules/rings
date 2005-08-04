@@ -1,0 +1,90 @@
+!
+! Range rings support.
+!
+
+!
+! Default placeholder origin menu in case they haven't defined one of their
+! own.
+!
+set wname 'rings-origins'
+if (defined (concat ('ui$widget_table:', wname)))
+	set wname concat('default-',wname)
+endif
+define widget #wname intmenu 'x'
+	title 'DEFAULT rings origin'
+	line
+	entry 'No origins have been defined' 'dm "beep"'
+	entry 'for this configuration.' 'dm "beep"'
+	entry 'Sorry!' 'dm "beep"'
+endmenu
+
+!
+! Right button menu.
+!
+set wname 'rings-right'
+if (defined (concat ('ui$widget_table:', wname)))
+	set wname concat('default-',wname)
+endif
+define widget #wname intmenu 'x'
+	title 'Range ring options'
+	line
+	entry '10 km rings' 'parameter #icon_component ring-interval 10' \
+		(PDParam (icon_component, "ring-interval") = '10')
+	entry '20 km rings' 'parameter #icon_component ring-interval 20' \
+		(PDParam (icon_component, "ring-interval") = '20')
+	entry '30 km rings' 'parameter #icon_component ring-interval 30' \
+		(PDParam (icon_component, "ring-interval") = '30')
+	entry '40 km rings' 'parameter #icon_component ring-interval 40' \
+		(PDParam (icon_component, "ring-interval") = '40')
+	entry '10 NM rings' 'parameter #icon_component ring-interval 18.53' \
+		(PDParam (icon_component, "ring-interval") = '18.53')
+	entry '20 NM rings' 'parameter #icon_component ring-interval 37.06' \
+		(PDParam (icon_component, "ring-interval") = '37.06')
+	line
+	entry '10 degree lines' \
+		'parameter #icon_component azimuth-interval 10' \
+		(PDParam (icon_component, "azimuth-interval") = '10')
+	entry '30 degree lines' \
+		'parameter #icon_component azimuth-interval 30' \
+		(PDParam (icon_component, "azimuth-interval") = '30')
+	entry '45 degree lines' \
+		'parameter #icon_component azimuth-interval 45' \
+		(PDParam (icon_component, "azimuth-interval") = '45')
+	entry '90 degree lines' \
+		'parameter #icon_component azimuth-interval 90' \
+		(PDParam (icon_component, "azimuth-interval") = '90')
+	line
+	entry 'Draw labels' 'ToggleBoolean do-labels' \
+	    (PDSearch (icon_component, "do-labels", "range-ring") <> "false")
+	line
+	submenu 'Ring color' 'simple-color'
+	submenu 'Line width' 'LineWidth'
+	submenu 'Label size' 'RingsLabelSize'
+	submenu 'Ring count' 'RingCount'
+endmenu
+
+define widget RingsLabelSize intmenu 'Label size'
+	title 'Label Size'
+	line
+	entry 'small' 'parameter #icon_component label-size 10' \
+		(PDParam(icon_component, "label-size") = "10")
+	entry 'medium' 'parameter #icon_component label-size 20' \
+		(PDParam(icon_component, "label-size") = "20")
+	entry 'large' 'parameter #icon_component label-size 30' \
+		(PDParam(icon_component, "label-size") = "30")
+endmenu
+
+define widget RingCount intmenu 'ring count'
+	title 'Number of rings'
+	line
+	entry '4' 'parameter #icon_component num-rings 4' \
+		(PDParam(icon_component, "num-rings") = "4")
+	entry '8' 'parameter #icon_component num-rings 8' \
+		(PDParam(icon_component, "num-rings") = "8" or PDParam(icon_component, "num-rings") = "(Undefined)")
+	entry '12' 'parameter #icon_component num-rings 12' \
+		(PDParam(icon_component, "num-rings") = "12")
+	entry '16' 'parameter #icon_component num-rings 16' \
+		(PDParam(icon_component, "num-rings") = "16")
+	entry '20' 'parameter #icon_component num-rings 20' \
+		(PDParam(icon_component, "num-rings") = "20")
+endmenu

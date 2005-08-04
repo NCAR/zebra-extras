@@ -1,0 +1,38 @@
+!
+! This one is designed to mimic the McIdas IR display, where the lower
+! temperatures go red.
+!
+colortable ir_gray
+	xcolor yellow	! 248+
+	xcolor pink	! 232
+	xcolor orange
+	xcolor red	! 224
+	xcolor grey94	! 216
+	xcolor grey88	! 208
+	xcolor grey85	! 200
+	xcolor grey81	! 192
+	xcolor grey78	! 184
+	xcolor grey75	! 176
+	xcolor grey72	! 168
+	xcolor grey69	! 160
+	xcolor grey66	! 152
+	xcolor grey62	! 144
+	xcolor grey59	! 136
+	xcolor grey56	! 128
+	xcolor grey53	! 115
+	xcolor grey50	! 112
+	xcolor grey47	! 104
+	xcolor grey44	! 96
+	xcolor grey41	! 88
+	xcolor grey38	! 80
+	xcolor grey35	! 72
+	xcolor grey31	! 64
+	xcolor grey28	! 54
+	xcolor grey25	! 48
+	xcolor grey22	! 38
+	xcolor grey19	! 32
+	xcolor grey15	! 24
+	xcolor grey12	! 16
+	xcolor grey9	! 8  counts
+	xcolor grey6	! 0  counts
+endtable

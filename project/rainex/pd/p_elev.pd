@@ -1,0 +1,22 @@
+!
+! raster component for elev data
+!
+global
+	pd-name:	p_elev
+p_elev
+	platform:	elev
+	field:		elevation
+	representation:	raster
+	altitude-control:	false
+	color-table:	Alpine
+	icon:		topo
+	icon-right-menu:	raster-right
+	require:	raster
+	scale-mode:	manual
+	elevation-center:	750
+	elevation-step:		250
+	elevation-nsteps:	6
+	elevation-highlight:	-1
+	elevation-highlight-color:	midnightblue
+	elevation-highlight-range:	2
+	limit-proc:	raster-limit-proc
