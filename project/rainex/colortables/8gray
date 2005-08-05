@@ -1,0 +1,10 @@
+colortable 8gray
+	xcolor gray10
+	xcolor gray30
+	xcolor gray40
+	xcolor gray50
+	xcolor gray60
+	xcolor gray70
+	xcolor gray80
+	xcolor white
+endtable
