@@ -1,9 +1,0 @@
-colortable Simple5
-	xcolor black
-	xcolor CadetBlue
-	! spring green variation
-	0       1       0.6
-! light yellow
-	0.98    0.98    0.5  
-	xcolor FireBrick
-endtable
