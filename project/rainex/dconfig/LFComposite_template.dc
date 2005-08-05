@@ -2,16 +2,16 @@
 
 prototype fallback 'Default' gp 'gp.init'
 
-config LFComposite
+config LFComposite_template
 	widget 'iconbar' 6 34 81 479
-	graphic 'x' 98 34 640 640 'Default'
-		description 'LFComposite-x'
+	graphic 'auto' 98 34 640 640 'Default'
+		description 'LFComposite-auto'
 		buttonmap 'big'
 		forcepd
 	endgraphic
 endconfig
 
-beginpd 'LFComposite-x'
+beginpd 'LFComposite-auto'
 global
    parameter altitude                  '0.0000'
    parameter altitude-label            ''
@@ -19,7 +19,7 @@ global
    parameter axis-left-space           '0.05'
    parameter axis-top-space            '0'
    parameter icon-space                '40'
-   parameter pd-name                   'LFComposite-x'
+   parameter pd-name                   'LFComposite-auto'
    parameter plot-hold                 'false'
    parameter plot-mode                 'real-time'
    parameter plot-time                 '7-Feb-2005,22:00:00'
