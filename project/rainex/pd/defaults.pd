@@ -115,6 +115,9 @@ defaults
 !
 ! Default plot limits.
 !
+	gvar_ch1-center:	50
+	gvar_ch1-step:		10
+	gvar_ch1-nsteps:	10
 	vr-center:		0
 	vr-nsteps:		14
 	vr-step:		4
@@ -271,7 +274,7 @@ defaults
 ! Where to put the frame cache files and the maximum number of frames
 ! to store in the cache.
 !
-	file-path:	/data/zebra_fcache
+	file-path:	/space/data/zebra_fcache
 	max-frames:	100
 	time-frames:	3
 !
