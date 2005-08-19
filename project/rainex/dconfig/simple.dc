@@ -32,9 +32,10 @@ global
 component p_goes.0
    parameter altitude-control          'false'
    parameter color-table               'revgray64'
-   parameter field                     'gvar_ch3[][temp_deg_c][gvar_ch3]'
-   parameter gvar_ch3-center           '-48.0000'
-   parameter gvar_ch3-step             '1.0000'
+   parameter field                     'gvar_ch4'
+   parameter gvar_ch4-center           '-30'
+   parameter gvar_ch4-nsteps           '12'
+   parameter gvar_ch4-step             '10'
    parameter icon                      'sat_4km'
    parameter icon-left-menu            'standard-cap-left-menu'
    parameter icon-middle-menu          'FieldMenu'

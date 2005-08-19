@@ -16,11 +16,3 @@ if (! $?DEFAULT_CONFIG) setenv DEFAULT_CONFIG empty
 
 # The spool dir is where images are dumped by batch-plot
 setenv BATCH_IMAGE_SPOOL "/space/data/nrl_images"
-
-if ( -x scripts/scaniops ) then
-    rm -f ds.sources
-    scripts/scaniops > ds.sources
-else
-    # Make sure it at least exists.
-    touch ds.sources
-endif
