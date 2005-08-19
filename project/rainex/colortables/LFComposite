@@ -1,7 +1,7 @@
 colortable LFComposite
-	0.65 0.50 0.50 
-	xcolor PaleTurquoise3
-	xcolor Green
-	xcolor Yellow
+	xcolor green4
+	xcolor green2
+	xcolor yellow2
+	xcolor orange
 	xcolor FireBrick
 endtable
