@@ -7,6 +7,9 @@ source $ZEB_PROJDIR/proj_env	# to get ZEB_SOCKET
 setenv PATH /usr/X11R6/bin:$ZEB_TOPDIR/bin:$PATH  # to get Xvfb
 
 set logfile = /tmp/${0:t}.log
+mv -f $logfile $logfile.old
+touch $logfile
+chmod 777 $logfile
 
 #
 # Arg check
@@ -39,8 +42,9 @@ set plottime = `date +%s -d"$datestring UTC"`
 #
 zstart -n -preserve -ds $ZEB_PROJDIR >& $logfile
 
-dc_shiftloc --olat 25.000 --olon -70.000 --platform noaa_42 \
+dc_shiftloc --olat 25.000 --olon -70.000 --platform nrl_p3 \
 	    --time $plottime \
+	    --size 400 \
 	    --dc     $ZEB_PROJDIR/dconfig/LFComposite_template.dc \
 	    --out_dc $ZEB_PROJDIR/dconfig/LFComposite.dc >& $logfile
 
@@ -56,6 +60,7 @@ endif
 set timetest = $BATCH_IMAGE_SPOOL/.time
 rm -f $timetest
 date > $timetest
+chmod 777 $timetest
 
 #
 # Plot
@@ -65,8 +70,7 @@ zplotbatch $zebradate LFComposite auto >>& $logfile
 #
 # make a link to the latest image
 #
-if (! $realtime)
-    exit 0
+if (! $realtime) exit 0
 
 sleep 10		# wait for the new png to be ready
 cd $BATCH_IMAGE_SPOOL
@@ -83,12 +87,15 @@ while ($try < 3)
 end
 
 if ($new_img != "") then
-	mv -f latest-4.png latest-5.png
-	mv -f latest-3.png latest-4.png
-	mv -f latest-2.png latest-3.png
-	mv -f latest-1.png latest-2.png
-	mv -f latest.png latest-1.png
-	ln -s $new_img latest.png
+    #
+    # Make this image available via LDM
+    #
+    pushd $new_img:h
+    /usr/local/ldm/pqinsert -f EXP $new_img:t
+    popd
+
+    rm -f latest.png
+    ln -s $new_img latest.png
 else
-	echo "No image available after $try tries"
+    echo "No image available after $try tries"
 endif
