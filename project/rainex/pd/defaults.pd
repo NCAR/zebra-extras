@@ -4,7 +4,7 @@
 defaults
 	pd-name:			defaults
 !
-! Project origin (S-Pol)
+! Project origin
 !
 	origin-location:	25.00000       -70.00000       0
 !
@@ -12,6 +12,7 @@ defaults
 ! Form: 
 !	<sitename>-location:	<lat> <lon> <alt>
 !
+	mcdill-location:	27.8500        -82.5300        0
 	anu-location:		17.136750      -61.792667      19
 	anu-azimuth-offset:	-14
 !
@@ -39,8 +40,8 @@ defaults
 !
 	icon-age-limit:		15m
 	data-age-limit:		60m
-	noaa_lf_composite-icon-age-limit:	15m
-	noaa_lf_composite-data-age-limit:	30m
+	noaa_lf_composite-icon-age-limit:	10m
+	noaa_lf_composite-data-age-limit:	20m
 	goes_1km-icon-age-limit:	45m
 	goes_1km-data-age-limit:	90m
 	goes_4km-icon-age-limit:	45m
@@ -97,11 +98,11 @@ defaults
 !
 ! Default origin for the get position widget.
 !
-	getpos-default-origin:	spol
+	getpos-default-origin:	mcdill
 !
 ! Origins for the "get position" widget
 !
-	pos-origin:		spol, chill
+	pos-origin:		mcdill
 !
 ! Default grid size ratio for gridding of polar data
 !
@@ -118,6 +119,9 @@ defaults
 	gvar_ch1-center:	50
 	gvar_ch1-step:		10
 	gvar_ch1-nsteps:	10
+	gvar_ch4-center:	-30
+	gvar_ch4-step:		10
+	gvar_ch4-nsteps:	12
 	vr-center:		0
 	vr-nsteps:		14
 	vr-step:		4

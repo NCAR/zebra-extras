@@ -5,7 +5,7 @@ global
 	pd-name:	p_goes_4km
 p_goes_4km
 	platform:	goes_4km
-	field:		gvar_ch3
+	field:		gvar_ch4
 	altitude-control:	false
 	representation:	raster
 	color-table:	revgray64
