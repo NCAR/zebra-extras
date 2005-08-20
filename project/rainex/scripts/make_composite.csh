@@ -36,13 +36,15 @@ if ("$sweeps" == "") then
     exit 0
 endif
 
+#
+# Make file name of the form <yyyymmdd>.<hhmm>.nc
+#
 set filename = \
     `date -u +"%Y%m%d.%H%M.nc" -d"1970-01-01 UTC +$compositeTime seconds"`
 
 #
-# Go to the noaa_lf_composite data directory, create the composite from
-# the sweeps we found, and dsrescan it
+# Create the composite from the sweeps we found, and dsrescan it
 #
-cd /space/data/rainex/noaa_lf_composite
-/opt/src/radarcomposite/radarcomposite -o $filename -t $compositeTime $sweeps
-/opt/zebra/bin/dsrescan -f $filename noaa_lf_composite
+/opt/src/radarcomposite/radarcomposite \
+    -o /space/data/rainex/noaa_lf_composite/$filename -t $compositeTime $sweeps
+/opt/zebra/bin/dsrescan -f $filename noaa_lf_composite >& /dev/null
