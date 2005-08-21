@@ -1,0 +1,2 @@
+MAILTO = burghart@ucar.edu, brodzik@atmos.washington.edu
+0-59/2 * * * * ~/udp_forwards.csh
