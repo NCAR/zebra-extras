@@ -1,5 +1,5 @@
 MAILTO = burghart@ucar.edu, brodzik@atmos.washington.edu
-0-59/5 * * * * /opt/zebra/project/rainex/scripts/watchers.csh
+0-59/3 * * * * /opt/zebra/project/rainex/scripts/check_processes.csh
 #
 # Make composites of NOAA P3 LF data every five minutes, and make
 # images to send to the NRL P3 every ten minutes
