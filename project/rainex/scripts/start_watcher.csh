@@ -2,7 +2,6 @@
 #
 # start platwatch for a given platform
 #
-
 if ($#argv != 2) then
     echo "Usage: $0 <platform> <update_seconds>"
     exit 1
@@ -26,4 +25,4 @@ set platdir = "$DATA_DIR/$plat"
 # execute using "at" rather than backgrounding, so that signals
 # behave as expected
 #
-echo "$platwatch $platdir $update >&" "$platwatch.log" | at now
+echo "$platwatch $platdir $update >& /space/data/logs/platwatch.$plat.log" | at now
