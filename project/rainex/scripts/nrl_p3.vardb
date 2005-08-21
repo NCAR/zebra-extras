@@ -1,0 +1,20 @@
+GGLAT       degree_NGPS Latitude                                               
+GGLON       degree_EGPS Longitude                                              
+GGALT       m       GPS Geopotential Altitude                                  
+PALT        m       NACA Pressure Altitude                                     
+PSXC        mbar    Corrected Static Pressure, Reference                       
+ATX         deg_C   Ambient Temperature, Reference                             
+DPXC        deg_C   Dew Point Temperature, Reference                           
+RHUM        %       Relative Humidity                                          
+MR          gram/kg Mixing Ratio, T-Electric                                   
+THETAE      K       Equivalent Potential Temperature                           
+PITCH       degree  Aircraft Pitch Angle                                       
+ROLL        degree  Aircraft Roll Angle                                        
+THDG        degree_TAircraft True Heading Angle                                
+TKAT        degree_TIRS Track Angle, True                                      
+WP3         m/s     Damped Aircraft Vertical Velocity                          
+GSF         m/s     Inertial Ground Speed                                      
+TASX        m/s     Aircraft True Airspeed, Reference                          
+WSC         m/s     GPS-Corrected Horizontal Wind Speed                        
+WDC         degree_TGPS-Corrected Horizontal Wind Direction                    
+HGM232      m       Geometric (Radar) Altitude (APN-232)                       
