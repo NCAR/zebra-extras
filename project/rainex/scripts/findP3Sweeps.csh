@@ -37,7 +37,7 @@ foreach dir ($dirs)
 end
 
 foreach dir ($dirs)
-    foreach filename (`find $dir -name "*nc"`)
+    foreach filename (`find $dir -maxdepth 1 -name "*nc"`)
 # 	set datestring = `echo ${filename:t} | cut -d'-' -f2`
 # 	@ yyyymmdd = $datestring >& /dev/null
 # 	if ($status) continue
