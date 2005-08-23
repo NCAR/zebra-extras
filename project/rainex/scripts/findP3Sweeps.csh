@@ -17,8 +17,8 @@
 # Add the directory where we were found to the path, since that's where
 # we expect to find dumpNOAAtime
 #
-set mypath = `which $0`:h
-set path = ($path ${mypath:h})
+set pathToMe = `which $0`
+set path = ($path ${pathToMe:h})
 
 if ($# < 3) goto usage
 
@@ -55,7 +55,12 @@ foreach dir ($dirs)
 # 	@ fileTime = \
 # 	    `date -u +%s -d"${YYYY}-${MM}-${DD} ${hh}:${mm}:${ss} UTC"`
 
-	@ fileTime = `dumpNOAATime $filename`
+	set fileTimeString = `dumpNOAATime $filename`
+	if ($status) then
+	    continue
+	else
+	    @ fileTime = $fileTimeString
+	endif
 	@ diff = $targetTime - $fileTime
 	if ($diff < 0 || $diff >= $timeThresh) continue
 
