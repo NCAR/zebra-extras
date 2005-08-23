@@ -1,5 +1,12 @@
 MAILTO = burghart@ucar.edu, brodzik@atmos.washington.edu
+#
+# Make sure necessary ingest/watcher processes are always running
+#
 0-59/3 * * * * /opt/zebra/project/rainex/scripts/check_processes.csh
+#
+# Clean up LF sweep directories on a regular basis
+#
+0 0-23/3 * * * /opt/zebra/project/rainex/scripts/moveLF.csh
 #
 # Make composites of NOAA P3 LF data every five minutes, and make
 # images to send to the NRL P3 every ten minutes
