@@ -26,6 +26,9 @@ if ($# == 1) then
     set zebradate = $1
     set realtime = 0
 else
+    #
+    # default to now
+    #
     set zebradate = `date -u +"%d-%b-%Y,%H:%M:00"`
     set realtime = 1
 endif
@@ -35,23 +38,38 @@ endif
 # more standard date string, then convert it into a Unix time
 #
 set datestring = `echo $zebradate | sed 's/,/ /g'`
-set plottime = `date +%s -d"$datestring UTC"`
+@ plottime = `date +%s -d"$datestring UTC"`
+
+#
+# If we're in real-time mode, bump the plot time back ten seconds, 
+# to avoid tickling a DS bug with dc_shiftloc/platloc
+#
+if ($realtime) @ plottime -= 10
 
 #
 # move the plot location to the current aircraft location
 #
 zstart -n -preserve -ds $ZEB_PROJDIR >> $logfile
 
-dc_shiftloc --olat 25.000 --olon -70.000 --platform nrl_p3 \
+@ try = 0
+while (1)
+    @ try++
+    dc_shiftloc --olat 25.000 --olon -70.000 --platform nrl_p3 \
 	    --time $plottime \
 	    --size 400 \
 	    --dc     $ZEB_PROJDIR/dconfig/LFComposite_template.dc \
 	    --out_dc $ZEB_PROJDIR/dconfig/LFComposite.dc >> $logfile
 
-if ($status) then
-	echo Exiting on dc_shiftloc error
-	exit 1
-endif
+    if ($status) then
+	echo "dc_shiftloc error\!"
+	if ($try > 5) then
+	    echo "Exiting after $try tries"
+	    exit 1
+	endif
+    else
+	break
+    endif
+end
 
 #
 # Make a file to mark the current time, so we can find any new
