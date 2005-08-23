@@ -10,7 +10,7 @@
 # Add the directory where we were found to the path, since that's where
 # we expect to find findP3Sweeps.csh
 #
-set mypath = `which $0`:h
+set mypath = `which $0`
 set path = ($path ${mypath:h})
 
 @ span = 300 # five minute time span for composite
