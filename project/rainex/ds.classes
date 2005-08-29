@@ -58,4 +58,5 @@ endclass
 class BoundaryClass
 	organization	outline
 	filetype	boundary
+	maxsamples	1
 endclass

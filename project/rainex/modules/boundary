@@ -1,0 +1,29 @@
+! Copied from Optimizer module to add a menu entry for entering boundaries
+!
+
+define widget boundary-right-menu intmenu 'boundary menu'
+	title 'Boundary'
+	line
+	submenu 'Line Width' 'linewidth'
+	entry 'Enter boundary' 'enter_boundary'
+	entry 'Remove latest boundary' 'remove_latest_boundary'
+endmenu
+
+
+procedure enter_boundary
+	local plat pdparam(icon_component,"platform")
+	polyline #plat
+endprocedure
+
+
+procedure remove_latest_boundary
+	! The boundary platform should be defined with maxsamples 1
+	! for this to work.  Pause after the delete, then force a no-op
+	! parameter change to redraw the boundary.
+	!
+	local plat pdparam(icon_component,"platform")
+	shell concat("dsdelete -z ", plat)
+	shell "sleep 2"
+	param #icon_component platform #plat
+endprocedure
+
