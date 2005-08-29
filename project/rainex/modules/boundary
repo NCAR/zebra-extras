@@ -1,12 +1,12 @@
 ! Copied from Optimizer module to add a menu entry for entering boundaries
 !
 
-define widget boundary-right-menu intmenu 'boundary menu'
-	title 'Boundary'
+define widget boundary-right-menu intmenu 'flight plan menu'
+	title 'Flight Plan'
 	line
 	submenu 'Line Width' 'linewidth'
-	entry 'Enter boundary' 'enter_boundary'
-	entry 'Remove latest boundary' 'remove_latest_boundary'
+	entry 'Enter flight plan' 'enter_boundary'
+	entry 'Remove latest flight plan' 'remove_latest_boundary'
 endmenu
 
 
