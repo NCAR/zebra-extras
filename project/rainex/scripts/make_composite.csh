@@ -32,7 +32,7 @@ endif
 
 set sweeps = `findP3Sweeps.csh $compositeTime $span /space/data/NOAA42_LF /space/data/NOAA43_LF`
 
-if ("$sweeps" == "") then
+if ($%sweeps == 0) then
     exit 0
 endif
 
