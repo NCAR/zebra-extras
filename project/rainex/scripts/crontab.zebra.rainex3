@@ -13,3 +13,8 @@ MAILTO = burghart@ucar.edu, brodzik@atmos.washington.edu
 #
 1-59/5 * * * * /opt/zebra/project/rainex/scripts/make_composite.csh
 2-59/10 * * * * /opt/zebra/project/rainex/scripts/genimage_nrl_p3.csh
+#
+# Make composites of NOAA P3 LF data every two hours
+#
+7-59/10 * * * * /opt/zebra/project/rainex/scripts/make_composite_2hr.csh
+
