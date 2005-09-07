@@ -41,12 +41,6 @@ set datestring = `echo $zebradate | sed 's/,/ /g'`
 @ plottime = `date +%s -d"$datestring UTC"`
 
 #
-# If we're in real-time mode, bump the plot time back ten seconds, 
-# to avoid tickling a DS bug with dc_shiftloc/platloc
-#
-if ($realtime) @ plottime -= 10
-
-#
 # move the plot location to the current aircraft location
 #
 zstart -n -preserve -ds $ZEB_PROJDIR >> $logfile
