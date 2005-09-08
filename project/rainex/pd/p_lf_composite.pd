@@ -9,7 +9,7 @@ p_lf_composite
 	altitude-control:	false
 	representation:	raster
 	color-table:	chris
-	icon:		composite
+	icon:		lf_composite
 	icon-left-menu:		standard-cap-left-menu
 	icon-middle-menu:	FieldMenu
 	icon-right-menu:	raster-right
