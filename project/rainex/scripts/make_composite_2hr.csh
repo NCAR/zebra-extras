@@ -46,6 +46,6 @@ set filename2hr = \
 #
 # Create the composite from the sweeps we found, and dsrescan it
 #
-/opt/src/radarcomposite/radarcomposite \
+/opt/src/radarcomposite/radarcomposite -m \
     -o /space/data/rainex/noaa_lf_composite_2hr/$filename2hr -t $compositeTime2hr $sweeps2hr
 /opt/zebra/bin/dsrescan -f $filename2hr noaa_lf_composite_2hr >& /dev/null

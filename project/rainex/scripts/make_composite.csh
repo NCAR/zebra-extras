@@ -45,6 +45,6 @@ set filename = \
 #
 # Create the composite from the sweeps we found, and dsrescan it
 #
-/opt/src/radarcomposite/radarcomposite \
+/opt/src/radarcomposite/radarcomposite -m \
     -o /space/data/rainex/noaa_lf_composite/$filename -t $compositeTime $sweeps
 /opt/zebra/bin/dsrescan -f $filename noaa_lf_composite >& /dev/null

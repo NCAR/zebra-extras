@@ -17,4 +17,11 @@ MAILTO = burghart@ucar.edu, brodzik@atmos.washington.edu
 # Make composites of NOAA P3 LF data every two hours
 #
 7-59/10 * * * * /opt/zebra/project/rainex/scripts/make_composite_2hr.csh
+#
+# Make NEXRAD NIDS composites every 10 minutes
+#
+5-59/10 * * * * /opt/zebra/project/rainex/scripts/FL_composite.csh
+5-59/10 * * * * /opt/zebra/project/rainex/scripts/east_composite.csh
+5-59/10 * * * * /opt/zebra/project/rainex/scripts/gulf_composite.csh
+5-59/10 * * * * /opt/zebra/project/rainex/scripts/pr_composite.csh
 
