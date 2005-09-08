@@ -42,6 +42,14 @@ defaults
 	data-age-limit:		60m
 	noaa_lf_composite-icon-age-limit:	10m
 	noaa_lf_composite-data-age-limit:	20m
+	FL_composite-icon-age-limit:	15m
+	FL_composite-data-age-limit:	30m
+	east_composite-icon-age-limit:	15m
+	east_composite-data-age-limit:	30m
+	gulf_composite-icon-age-limit:	15m
+	gulf_composite-data-age-limit:	30m
+	pr_composite-icon-age-limit:	15m
+	pr_composite-icon-age-limit:	30m
 	goes_1km-icon-age-limit:	45m
 	goes_1km-data-age-limit:	90m
 	goes_4km-icon-age-limit:	45m
