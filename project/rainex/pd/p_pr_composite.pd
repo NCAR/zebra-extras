@@ -1,0 +1,22 @@
+!
+! Puerto Rico (San Juan) radar composite
+!
+global
+	pd-name:	p_pr_composite
+p_pr_composite
+	platform:	pr_composite
+	field:		DZ
+	altitude-control:	false
+	representation:	raster
+	color-table:	chris
+	icon:		pr_composite
+	icon-left-menu:		standard-cap-left-menu
+	icon-middle-menu:	FieldMenu
+	icon-right-menu:	raster-right
+	out-of-range-color:	none
+	radar-space:	false
+	require:	raster
+	scale-mode:	manual
+	trigger:	platform
+	trigger-global:	true
+	limit-proc:	raster-limit-proc
