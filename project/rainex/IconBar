@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.6 2005-09-07 23:39:22 burghart Exp $
+! $Id: IconBar,v 1.7 2005-09-08 22:43:09 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -95,6 +95,11 @@ define widget iconbar menubar " "
 		title 'Radar Data'
 		line
 		entry 'LF composite' 'putc0 p_lf_composite'
+		line
+		entry 'East coast composite' 'putc0 p_east_composite'
+		entry 'FL composite' 'putc0 p_FL_composite'
+		entry 'Gulf composite' 'putc0 p_gulf_composite'
+		entry 'San Juan NEXRAD' 'putc0 p_pr_composite'
 	endmenu
 	menu satellite bitmap satellite
 		title 'Satellite Data'
