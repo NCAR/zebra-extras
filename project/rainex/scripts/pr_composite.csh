@@ -55,7 +55,10 @@ foreach dir (JUA)
     end
 end
 
-/opt/src/radarcomposite/radarcomposite -o $ncfilename -d 0.02 -t $time `cat $flist`
-rm -f $flist
+if (! -z $flist) then
+    /opt/src/radarcomposite/radarcomposite -o $ncfilename -d 0.02 \
+	-t $time `cat $flist`
+    /opt/zebra/bin/dsrescan -f $ncfilename:t pr_composite >& /dev/null
+endif
 
-/opt/zebra/bin/dsrescan -f $ncfilename:t pr_composite >& /dev/null
+rm -f $flist

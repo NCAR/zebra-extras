@@ -55,7 +55,9 @@ foreach dir (CLX LTX MHX AKQ DOX DIX OKX BOX)
     end
 end
 
-/opt/src/radarcomposite/radarcomposite -o $ncfilename -t $time `cat $flist`
-rm -f $flist
+if (! -z $flist) then
+    /opt/src/radarcomposite/radarcomposite -o $ncfilename -t $time `cat $flist`
+    /opt/zebra/bin/dsrescan -f $ncfilename:t east_composite >& /dev/null
+endif
 
-/opt/zebra/bin/dsrescan -f $ncfilename:t east_composite >& /dev/null
+rm -f $flist
