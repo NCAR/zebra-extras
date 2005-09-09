@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.7 2005-09-08 22:43:09 burghart Exp $
+! $Id: IconBar,v 1.8 2005-09-09 21:59:37 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -77,6 +77,8 @@ define widget iconbar menubar " "
 		line
 		entry 'Single-window basic' 'display simple' \
 			(dm$config = 'simple')
+		entry 'Single-window UW' 'display simple_uw' \
+			(dm$config = 'simple_uw')
 		line
 		entry 'Empty screen' 'display empty' (dm$config = 'empty')
 	endmenu
