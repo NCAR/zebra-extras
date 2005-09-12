@@ -13,7 +13,8 @@
 set mypath = `which $0`
 set path = ($path ${mypath:h})
 
-@ span2hr = 7200 # time span for two hour composite
+#@ span2hr = 7200 # time span for two hour composite
+@ span2hr = 3600 # change to one hour composite
 
 if ($# > 0) then
     @ compositeTime2hr = $1 >> /dev/null
