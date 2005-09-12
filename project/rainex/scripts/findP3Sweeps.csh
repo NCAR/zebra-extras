@@ -20,7 +20,7 @@
 set pathToMe = `which $0`
 set path = ($path ${pathToMe:h})
 
-if ($# < 3) goto usage
+if ($#argv < 3) goto usage
 
 @ targetTime = $1
 if ($status) goto usage

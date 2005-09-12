@@ -14,7 +14,7 @@ chmod 777 $logfile
 #
 # Arg check
 #
-if ($# > 1) then
+if ($#argv > 1) then
     echo "Usage: ${0:t} [dd-mmm-yyyy,hh:mm]"
     exit 1
 endif
@@ -22,7 +22,7 @@ endif
 # 
 # use now as the plot time, if none was given
 # 
-if ($# == 1) then
+if ($#argv == 1) then
     set zebradate = $1
     set realtime = 0
 else
