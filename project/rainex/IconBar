@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.8 2005-09-09 21:59:37 burghart Exp $
+! $Id: IconBar,v 1.9 2005-09-20 15:10:38 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -126,6 +126,13 @@ define widget iconbar menubar " "
     'putc3 p_boundary platform noaa_43_plan icon noaa_43_plan color lightyellow'
 		entry 'NRL P3 Flight Plan' \
     'putc3 p_boundary platform nrl_p3_plan icon nrl_p3_plan color tan'
+		line
+		entry 'NOAA42 Flight Plan Next' \
+    'putc3 p_boundary platform noaa_42_plan_next icon noaa_42_plan_next color lightpink'
+		entry 'NOAA43 Flight Plan Next' \
+    'putc3 p_boundary platform noaa_43_plan_next icon noaa_43_plan_next color lightyellow'
+		entry 'NRL P3 Flight Plan Next' \
+    'putc3 p_boundary platform nrl_p3_plan_next icon nrl_p3_plan_next color tan'
 	endmenu
 !	menu mesonet bitmap mesonet
 !		title 'Mesonet'
