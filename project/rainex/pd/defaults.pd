@@ -16,7 +16,7 @@ defaults
 	jacksonville-location:	30.5000		-81.700		0
 	mcdill-location:	27.8500   	-82.530		0
 	melbourne-location:	28.1000		-80.630		0
-	miami-location:		25.4500		-80.150		0
+	miami-location:		25.7700		-80.190		0
 	neworleans-location:	29.9830		-90.250		0
 	savannah-location:	32.1330		-81.200		0
 	wilmington-location:	34.2500		-77.9		0
@@ -73,6 +73,18 @@ defaults
 	elev-data-age-limit:	20000d
 	topo-icon-age-limit:	20000d
 	topo-data-age-limit:	20000d
+	noaa_42_plan-icon-age-limit:	120m
+	noaa_42_plan-data-age-limit:	1d
+	noaa_43_plan-icon-age-limit:	120m
+	noaa_43_plan-data-age-limit:	1d
+	nrl_p3_plan-icon-age-limit:	120m
+	nrl_p3_plan-data-age-limit:	1d
+	noaa_42_plan_next-icon-age-limit:	120m
+	noaa_42_plan_next-data-age-limit:	1d
+	noaa_43_plan_next-icon-age-limit:	120m
+	noaa_43_plan_next-data-age-limit:	1d
+	nrl_p3_plan_next-icon-age-limit:	120m
+	nrl_p3_plan_next-data-age-limit:	1d
 !
 ! What color is the time label when we're in history mode
 !
