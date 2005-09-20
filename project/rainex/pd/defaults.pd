@@ -20,8 +20,28 @@ defaults
 	neworleans-location:	29.9830		-90.250		0
 	savannah-location:	32.1330		-81.200		0
 	wilmington-location:	34.2500		-77.9		0
-	anu-location:		17.136750	-61.792667      19
-	anu-azimuth-offset:	-14
+	KAKQ-location:		36.984		-77.008		64
+	KAMX-location:		25.611		-80.413		34	
+	KBOX-location:		41.956		-71.138		70
+	KBRO-location:		25.916		-97.419		27
+	KBYX-location:		24.597		-81.703		27
+	KCLX-location:		32.655		-81.042		64
+	KCRP-location:		27.784		-97.511		43
+	KDIX-location:		39.947		-74.411		70
+	KDOX-location:		38.826		-75.440		50
+	KEVX-location:		30.564		-85.921		68
+	KHGX-location:		29.472		-95.079		35
+	KJAX-location:		30.484		-81.702		40
+	TJUA-location:		18.118		-66.079		886
+	KLCH-location:		30.125		-93.216		29
+	KLIX-location:		30.337		-89.825		42
+	KLTX-location:		33.989		-78.429		44
+	KMHX-location:		34.776		-76.876		44
+	KMLB-location:		28.113		-80.654		35
+	KMOB-location:		30.679		-88.240		88
+	KOKX-location:		40.866		-72.864		60
+	KTBW-location:		27.705		-82.402		37
+	KTLH-location:		30.398		-84.329		54
 !
 ! Icons to use for various platforms.  The icons themselves can be created
 ! using the X Window "bitmap" utility, and saved in the <project>/icons 
