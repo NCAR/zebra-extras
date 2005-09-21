@@ -1,4 +1,4 @@
-! $Id: IconBar,v 1.9 2005-09-20 15:10:38 burghart Exp $
+! $Id: IconBar,v 1.10 2005-09-21 22:11:20 burghart Exp $
 !
 ! Generic IconBar template
 !
@@ -163,6 +163,7 @@ define widget iconbar menubar " "
 		entry 'Topography (for plan views)' 'putc0 p_elev'
 		line
 		entry 'Range rings' 'putc1 p_rings platform spol'
+		entry '88-D locations' 'putc0 p_radar_loc'
 !		entry 'Radar locations' 'do_radar_locs'
 		line
 		entry 'S-Pol location' 'do_radar_locs'

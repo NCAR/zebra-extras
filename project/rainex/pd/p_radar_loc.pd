@@ -15,5 +15,5 @@ p_radar_loc
 	label:		platform
 	active-icon:	false
 	require:	location
-	label-size:	10
-	icon:		radar-loc
+	label-size:	12
+	icon:		smallradar
