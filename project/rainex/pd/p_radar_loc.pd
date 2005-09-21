@@ -1,0 +1,19 @@
+!
+! Generic location PD component.
+!
+global
+	pd-name:	p_radar_loc
+p_radar_loc
+	platform:	KAKQ,KAMX,KBOX,KBRO,KBYX,KCLX,KCRP,KDIX,KDOX,KEVX,KHGX,KJAX,TJUA,KLCH,KLIX,KLTX,KMHX,KMLB,KMOB,KOKX,KTBW,KTLH
+	representation:	overlay
+	field:		location
+	color:		white
+	icon-left-menu:		minimal-cap-left-menu
+	posicon-left-menu:	minimal-cap-left-menu
+	icon-right-menu:	location-options
+	posicon-right-menu:	location-options
+	label:		platform
+	active-icon:	false
+	require:	location
+	label-size:	10
+	icon:		radar-loc
