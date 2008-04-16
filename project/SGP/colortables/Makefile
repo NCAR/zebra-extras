@@ -1,5 +1,5 @@
 #
-# $Id: Makefile,v 1.1 1993-12-10 01:17:14 caraher Exp $
+# $Id: Makefile,v 1.2 2008-04-16 18:26:54 granger Exp $
 #
 # Author:
 #  P.J. Caraher 1/26/93
@@ -7,11 +7,8 @@
 # Description:
 #  Makefile for the SGP color tables directory ./colortables
 #
-# $Log: not supported by cvs2svn $
-#
-#
  
-MFVERSION = "$Id: Makefile,v 1.1 1993-12-10 01:17:14 caraher Exp $"
+MFVERSION = "$Id: Makefile,v 1.2 2008-04-16 18:26:54 granger Exp $"
 
 FILES = 16gray Rainbow cook16 hotcold smallrevgray AllWhite RevRainbow \
 	cook32 newgray tseries Contour Skew-t fivegray refcontour wild \

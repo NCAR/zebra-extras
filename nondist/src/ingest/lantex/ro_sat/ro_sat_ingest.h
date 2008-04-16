@@ -19,9 +19,8 @@
 **
 ** %F% %E% %U%
 **
-** $Id: ro_sat_ingest.h,v 1.1 1997-02-07 18:03:53 granger Exp $
+** $Id: ro_sat_ingest.h,v 1.2 2008-04-16 18:26:55 granger Exp $
 **
-** $Log: not supported by cvs2svn $
 */
 
 /************************************************************************

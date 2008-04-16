@@ -1,5 +1,5 @@
 #
-# $Id: Makefile,v 1.1 1993-12-10 01:15:29 caraher Exp $
+# $Id: Makefile,v 1.2 2008-04-16 18:26:54 granger Exp $
 #
 # Author:
 #  P.J. Caraher 1/26/93
@@ -7,11 +7,8 @@
 # Description:
 #  Makefile for the SGP maps directory
 #
-# $Log: not supported by cvs2svn $
-#
-#
  
-MFVERSION = "$Id: Makefile,v 1.1 1993-12-10 01:15:29 caraher Exp $"
+MFVERSION = "$Id: Makefile,v 1.2 2008-04-16 18:26:54 granger Exp $"
 
 FILES = state_lines.map
 

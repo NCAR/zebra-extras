@@ -6,9 +6,8 @@
 **
 ** %F% %E% %U%
 **
-** $Id: rap_realtime_archive.c,v 1.1 1997-02-07 18:03:51 granger Exp $
+** $Id: rap_realtime_archive.c,v 1.2 2008-04-16 18:26:55 granger Exp $
 **
-** $Log: not supported by cvs2svn $
 */
 
 /************************************************************************
@@ -35,7 +34,7 @@
 */
 
 # ifndef    LINT
-static char RCSid[] = "$Id: rap_realtime_archive.c,v 1.1 1997-02-07 18:03:51 granger Exp $";
+static char RCSid[] = "$Id: rap_realtime_archive.c,v 1.2 2008-04-16 18:26:55 granger Exp $";
 static char SCCSid[] = "%W% %D% %T%";
 static char COPYRIGHTid[] = "Copyright 1994  National Center for Atmospheric Research.  All Rights Reserved.";
 # endif     /* not LINT */

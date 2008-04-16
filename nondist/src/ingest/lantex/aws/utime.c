@@ -17,19 +17,18 @@
  * RCS info
  *   $Author: granger $
  *   $Locker:  $
- *   $Date: 1997-02-07 18:03:51 $
- *   $Id: utime.c,v 1.1 1997-02-07 18:03:51 granger Exp $
- *   $Revision: 1.1 $
+ *   $Date: 2008-04-16 18:26:55 $
+ *   $Id: utime.c,v 1.2 2008-04-16 18:26:55 granger Exp $
+ *   $Revision: 1.2 $
  *   $State: Exp $
  *
- *   $Log: not supported by cvs2svn $
  * Revision 1.2  1993/08/11  15:16:56  dixon
  * All compression routines now in compress.c
  *
  */
  
 #ifndef LINT
-static char RCS_id[] = "$Id: utime.c,v 1.1 1997-02-07 18:03:51 granger Exp $";
+static char RCS_id[] = "$Id: utime.c,v 1.2 2008-04-16 18:26:55 granger Exp $";
 static char SCCS_id[] = "%W% %D% %T%";
 #endif /* not LINT */
 
