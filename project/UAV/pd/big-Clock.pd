@@ -1,6 +1,0 @@
-global
-	pd-name:	big-Clock
-clock
-	background:	white
-	foreground:	black
-	xfont:	-*-new century schoolbook-bold-r-*-*-25-*-*-*-*-*-*-*

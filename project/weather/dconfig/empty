@@ -1,6 +1,0 @@
-config empty
-	window 'Event logger' 10 800 700 100 graphproc
-		nongraphic
-	endwindow
-	widget 'iconbar' 10 10 72 120
-endconfig
