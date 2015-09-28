@@ -1,0 +1,236 @@
+<P><A HREF="Intro.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="manuals.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+<HR>
+
+<TITLE> <paranum><B>CHAPTER 2 </B> Starting Zebra</TITLE>
+<H1><A NAME="REF17635"> <paranum><B>CHAPTER 2 </B> Starting Zebra</A></H1>
+
+<P>This chapter provides a basic introduction to starting Zebra.<A HREF="starting.html#FN1">(1)</A> Since Zebra must be started with a project configuration, the first section describes what is meant by a "project configuration". The following sections give instructions for the universal start-up script included in this release of Zebra, as well as descriptions of all of the useful environment variables. Once you know the fundamentals of starting Zebra, see <A HREF="iconbar.html#REF21747">Chapter 3</A> for an introduction to the Zebra display and the on-line help system.
+<H3><A NAME="HDR0">  2.1  Project Configurations</A></H3>
+
+<HR>
+<P>At this point the words "project configuration" have probably been dropped several times without even a hint of explanation. This section attempts a basic explanation of what a Zebra <I>project configuration</I> entails.
+
+<P>As far as Zebra is concerned, a <I>project</I> is a specific application of Zebra's data store and display systems towards the integration, visualization, and management of some defined set of related data. Ordinarily a Zebra project corresponds to a meteorological field project which covers a specific range of time and geography, such as CaPE, STORM-FEST, or TRMM. Other projects can be more continuous, but the common denominator of every project is a known and well-defined set of data.
+<P>Essentially, every project has at least two parts: the data and the display. Zebra must know the kinds of data which it must store and recognize, and it must know the ways in which the project needs to display the data. Real-time projects might have an additional, third part: the ways in which data are to be shared over a network or archived onto other devices.
+<P>The data store daemon is in charge of the data part. Its configuration is described in a file usually called ds.config. This file tells the daemon which platform names it needs to recognize, what kind of data each platform holds---such as gridded, scalar, or raster---and other characteristics of each platform, such as its mobility or its specific storage location on disk. Often the data store configuration file also sets certain data store parameters, like the number of files or platforms for which memory should be allocated, or whether platform tables should be cached when the daemon exits. Those who use Zebra for visualizing existing Zebra datasets will not need to change the data store configuration file.
+<P>The second part of a project configuration is the specifics of the display: the graphical windows, tools, plots, and user interface which have been customized to the needs of a project. For example, a program called the display manager must start plot windows of the correct types and conform their geometry to particular layouts on the screen. The plot windows are created and controlled by graphics processes, which are in turn created and controlled by the display manager. Both the display manager and the graphics processes use configuration files in the project directory to define icons and menus. In addition, the display manager requires files for color tables, button maps, and the screen layouts.
+
+<P>The display manager also provides access to other Zebra tools, such as the icon bar, the time control tool, the print tool, or the data display tool which lists all of the platforms and their data files in a point-and-click window (dsdwidget). The icon bar is particularly important since it is perhaps the most heavily customized component of an individual project. It is the focal point of the user interface, providing menu access to almost all of the datasets, tools, displays, and functionality of a project. If a project configuration provides certain plot types or representations of specific data platforms, those options will be provided on the icon bar. For example, the TOGA-COARE project icon bar provides icons and menus for GMS satellite data and ocean buoy networks, whereas the STORM-FEST icon bar provides access to GOES satellite data and PAM (portable automated mesonet) networks.
+<P>All of the display parts of a project rely on the project's data store to supply platform information, data availability, and pointers to data files. Some parts of the display expect to plot and manipulate data platforms known by certain names, so the display can be very dependent upon the correct data store configuration. Altogether the data and display configuration files comprise a full project configuration which hopefully provides useful and cohesive access to many of the data and visualization needs of a project.
+<H3><A NAME="HDR1">  2.2  Start-up Scripts</A></H3>
+
+<HR>
+<P>As the previous section indicates, Zebra is not just a single program. It is a group of programs, or processes, which interact by sending messages to each other. The messages are managed and distributed by the Zebra message handler process, or the message program. The DataStore daemon, dsDaemon, handles data requests and keeps a central record of all of the data files and available data times. Client programs send data request messages to the daemon, and the daemon replies with the location of the data. The display manager controls the appearance and behavior of the graphics processes, instances of the gp program, while the graphics processes actually request data and then draw the data on the screen. Other processes, such as the EventLogger, report event messages sent by the other Zebra processes. Detailed information on all of the Zebra processes can be found in the <I>Zebra</I><I> Advanced User's Manual</I>. For now, know that all of these processes must be started up in the correct order with the appropriate configuration files from a particular project. Historically, each project directory contained its own script for starting the processes, even though very little was different between the projects' scripts. Also, project start-up scripts often had to be adapted to each Zebra installation.
+<H3><A NAME="REF11577">  2.3  The zstart Script</A></H3>
+
+<HR>
+
+<P>Release 4.0 of Zebra introduced a new script for starting all of the Zebra processes and a Zebra display. The zstart script will start any project, even from outside of the project directory. If started within a project directory, the script assumes it is the project you wish to use. Otherwise, the project can be named as the first argument on the command line, or the script will prompt you for a project name. The script also prompts for the data directory, if unspecified in the environment, and sets the appropriate environment variables.
+<H4><A NAME="REF91391">  2.3.1  Setting the Display</A></H4>
+<P>If you will be running Zebra on a remote machine and displaying on the local display server, then you must first be sure to set the DISPLAY environment variable on the remote machine from which you will run Zebra.
+<PRE>
+remotename% setenv DISPLAY <I>myname</I>:0.0
+</PRE>
+<P>Then on the machine <I>myname</I>, add the remote machine's name to the xhost permissions list.
+<PRE>
+myname% xhost <I>remotename
+</PRE>
+<H4><A NAME="HDR2">  2.3.2  Running the Script</A></H4>
+<P></I>The zstart script is installed in the Zebra binary directory. If this directory is in your path, then you need merely type
+<PRE>
+zstart
+</PRE>
+<P>to begin Zebra. Otherwise you must include the Zebra binary directory in the zstart path name. For example,
+<PRE>
+/zebra/bin/zstart
+</PRE>
+<P>The script will then query for the project you wish to run.
+<PRE>
+Please enter the project directory name: 
+</PRE>
+<P>Respond by entering the name of the project. The project name corresponds to the name of the project's configuration directory. Some examples of these directory names are listed in <A HREF="starting.html#REF51849">Table 1</A>.
+<P><A HREF="starting.tbl_1.ps" NAME="REF51849"><IMG SRC="fm2html-table.gif"> <paranum><B>TABLE 1. </B> Zebra project directory names</A> 
+<PRE>
+----------------------------
+<B>Project       Directory Name  
+<TableHeadEnd></B>----------------------------
+StormFEST     fest            
+CaPE          cape            
+TRMM          trmm            
+TOGA---COARE  coare           
+----------------------------
+</PRE>
+
+<P>The project directories are located in the project directory under the top directory of the Zebra distribution. The zstart script will automatically check this directory to find the project directory you name. If the project directory is found, the script echoes the full path name to your screen. For example, if you responded with coare, you would see
+<PRE>
+Project dir is /zebra/project/coare
+</PRE>
+<P>Next, the script asks you where to find the data directory. This is the parent directory of all of the data directories for the individual platforms. Enter the full path name of this directory. If the directory cannot be found, you will be asked to enter another directory path.
+<PRE>
+Where is your data directory?
+</PRE>
+<P>Enter the top directory of the data tree, under which all of the individual platform directories reside. For example, the data directory for the coare project might be this path:
+<PRE>
+/data/coare/zebra
+</PRE>
+<P>If this path were the location of the TOGA-COARE Workshop Integrated Dataset or the COARE sample Zebra dataset, it would contain platform subdirectories such as gms, sst, wecoma, c130_st, n308d, and tao.
+<P>If the data directory was used with an older version of Zebra, you may have out-of-date cache files which will cause "cache file mismatch" messages in the Event Logger while starting Zebra. The messages can be safely ignored for now, if you like. Otherwise, <A HREF="Install.html#REF26403">Section 2.2, "What To Do About Existing Data"</A>, in the <I>Installation Manual</I> contains information about updating the cache files.
+<P>Once the project and data directories have been determined, the zstart script begins executing Zebra processes. The first thing it attempts is a tweak of the unused entries in the X display's color map. If this fails, the script prints a short error message explaining that DISPLAY or xhost has not been set correctly, then exits. See <A HREF="starting.html#REF91391">Section 2.3.1, "Setting the Display"</A> to verify the settings.
+<P>Next, the script tries to begin a Zebra message manager session. This can fail if someone is already running Zebra on the same machine and taking up the default socket file. In this case the script presents three options, not counting the option to quit the script (q):
+<PRE>
+
+1) to stop the current Zebra session and start over, or
+2) to run an additional, separate session of Zebra, or
+3) to start a display manager for this session.
+Please enter 1, 2, 3, or [Qq]uit: 
+</PRE>
+<P>The first option tells the existing session to exit and release the socket. If someone else is using Zebra at the time, this will abruptly quit their session and replace it with a new one. Option 2 automatically generates a unique socket file which isolates the new session from any current Zebra sessions. Unique socket files allow multiple Zebra sessions to conveniently share the same host without interfering, but note that too many Zebra processes can significantly increase the system load. The third option is for projects which leave a data store session running in the background for long periods of time, while only needing a display periodically. Option 3 simply starts a new display manager which connects to the current Zebra session. Any existing display manager will be replaced by the new one.
+<P>Once a Zebra session is available, having just been created or already existing, the script begins the rest of the Zebra processes, including the data store daemon and the display manager. The display manager prints messages as it works and finally displays the display manager prompt. The set of messages below is an example of a complete start-up; each project may show a slightly different set of messages.
+<PRE>
+94 colors tweaked
+Starting core zeb processes: 
+        message daemon
+        event logger
+        timer
+Loading:
+     ...plot descriptions...
+     ...button maps...
+     ...display configurations ...
+     ...ISS active area code ...
+     ...the icon bar...
+ready!
+DM&gt; 
+</PRE>
+
+<P>If all went well, Zebra is now displaying on your local display using the project's default display configuration. At the very least you should see the project's icon bar; if not, see the troubleshooting section on <A HREF="starting.html#REF26810">page 22</A>. The following sections of this chapter can be perused for more information on configuring the start-up script. Once a Zebra session is running, you may want to see <A HREF="starting.html#REF80078">Section 2.7, "Stopping Zebra"</A>, for some potentially useful information about stopping a Zebra session.
+<H4><A NAME="HDR3">  2.3.3  zstart Options</A></H4>
+<P>If you do not want to type the project name and data directory each time you run zstart, then you can specify the required information in other ways. The project name can be given as the first argument to the script:
+<PRE>
+zstart coare
+</PRE>
+<P>This command runs Zebra from the COARE project directory. Also, if you begin the zstart script from within a project directory, then the script automatically chooses that project directory.
+<P>The data directory can be specified in the environment variable DATA_DIR. If this variable exists when the script is started, then its value will be used as the data directory and the script will not prompt you for a data directory. If you later wish to change the data directory, you must either change the value of the DATA_DIR variable, or remove it from your environment. To remove the variable, use unsetenv:
+<PRE>
+unsetenv DATA_DIR
+</PRE>
+<P>See the next section for more information about the environment variables used by zstart.
+<P>Other zstart options can be selected through command-line arguments:
+<UL><DL>
+<DT>-preserve<DD>Sets the PRESERVE_ZEB environment variable, described below. Essentially this means the Zebra session will continue in the background even after the display manager exits.
+<DT>-data <I>directory</I><DD>Sets the data directory to <I>directory</I>, overriding the current value of DATA_DIR, if any.
+
+<DT>-dm<DD>Instructs the script to start only a display manager, without first trying to create a Zebra session. This option requires that a Zebra session already be available, either at the default socket file path or through the ZEB_SOCKET setting. This option is equivalent to choosing option three (see above) when the script detects an existing session.
+<DT>-ds<DD>Performs all of the usual steps up until beginning a display, then exits just before starting a display manager. The effect is to leave a data store session running in the background, for which a display can later be started with zstart dm.
+<DT>-shell<DD>Often it is convenient to have a command shell with the same environment as that which zstart provides to the Zebra processes. This option sets environment variables without executing any Zebra processes, then execs a shell process. If the shell path is not provided in ZEB_SHELL, `csh -f' is used.
+</DL></UL>
+<H3><A NAME="REF23212">  2.4  Environment Variables</A></H3>
+
+<HR>
+<P>The zstart script and many of the Zebra processes make use of several environment variables. This allows you to tailor the script somewhat without actually editing it or any project configuration files. The variables and their meaning are listed below. To affect the operation of the zstart script and any processes it starts, the variables must be set <I>before</I> running<I> </I>the script, though some can also be set with command-line options to zstart. If any of these variables are not set, the script sets the variables to a default. The descriptions below mention the default value.
+<DL>
+<DT>ZEB_TOPDIR<DD>The absolute path to the top directory of the Zebra <I>installation</I>. In other words, the Zebra binary directory should be $ZEB_TOPDIR/bin. The library directory is $ZEB_TOPDIR/lib, and the project directory is $ZEB_TOPDIR/project. If Zebra was compiled and installed from a source tree, then the default value is the top directory of that tree. For binary installations, the default value should have been set by editing the zstart script when Zebra was installed. See the <I>Installation Manual</I> for instructions.
+<DT>ZEB_MESSAGE<DD>The path to the Zebra message handler program. The default is $ZEB_TOPDIR/bin/message.
+
+<DT>ZEB_EVENTLOGGER<DD>The path to the Zebra event logger program, EventLogger. This variable defaults to $ZEB_TOPDIR/bin/EventLogger.
+<DT>ZEB_TIMER<DD>The timer process. The default value is $ZEB_TOPDIR/bin/timer.
+<DT>ZEB_DSDAEMON<DD>The DataStore daemon. The default is $ZEB_TOPDIR/bin/dsDaemon.
+<DT>ZEB_DM<DD>The path to the Display Manager program. This variable defaults to $ZEB_TOPDIR/bin/dm.
+<DT>ZEB_SHELL<DD>A path to the command shell which zstart should start with the shell option.
+<DT>ZEB_PROJECT<DD>The name of the project which Zebra is running. This variable is set by the zstart script and cannot be set beforehand. The script assigns a project name either from the first argument on the command line, if it exists, or by asking that the project name be entered.
+<DT>DATA_DIR<DD>The top directory of the platform data hierarchy. This is the directory under which all of the platform data directories reside. If this variable is not set when zstart begins, the script will ask for a directory path.
+<DT>DEFAULT_CONFIG<DD>This variable holds the name of the display configuration which the Zebra display manager will initially use. The zstart script does not use or set this environment variable directly, since the default value depends upon the project. At the end of the zstart script, a script called proj_startup in the project directory is run. If this variable has not been set beforehand, then the proj_startup script sets the default display configuration.
+
+<DT>ZEB_SOCKET<DD>The operating system distinguishes IPC socket connections by assigning them locations in the file system namespace. Usually, Zebra processes try to connect with the socket file named /tmp/fcc.socket. This limits a single machine to only one session of Zebra. A unique name for the socket file can be specified in the ZEB_SOCKET variable, for example /tmp/zeb.myname.socket. This variable must be set before beginning a session of Zebra, and it must remain the same for all processes started for that session. If you are running Zebra processes from multiple command shells, such as in xterm windows, remember that ZEB_SOCKET should be set to the same value in each shell. Also, if ZEB_SOCKET is set in a script which starts Zebra processes, that value of ZEB_SOCKET only exists for processes run by that script. Processes run outside of the script will need ZEB_SOCKET to be explicitly set to the same value in the command shell.
+<DT>PRESERVE_ZEB<DD>If set, the zstart script will not run zstop to quit the current Zebra session. Ordinarily zstart stops the other Zebra processes once the display manager exits; this variable prevents that behavior and allows the data store session to continue in the background. Be careful about preserving sessions which were started with automatic socket file names; once the script exits the ZEB_SOCKET variable must be explicitly set before zstop will be able to tell the correct Zebra session to exit.
+</DL>
+<P>Note that all of the defaults assume the conventional Zebra set-up, where ZEB_TOPDIR points to the Zebra distribution hierarchy, and the hierarchy contains the binary, library, and project installation directories. If the default value of ZEB_TOPDIR in the zstart script is incorrect, either edit the zstart script (in the Zebra binary directory) to change the default value of ZEB_TOPDIR, or make sure that the ZEB_TOPDIR environment variable has been set correctly before running the script. This might mean assigning ZEB_TOPDIR a value in your Bourne Shell or C Shell start-up file, .profile or .cshrc. For example, in .cshrc, add the following line.
+<PRE>
+setenv ZEB_TOPDIR /usr/local/zebra
+
+</PRE>
+<P>And in .profile, use
+<PRE>
+ZEB_TOPDIR=/usr/local/zeb
+export ZEB_TOPDIR
+</PRE>
+<P>You might also wish to assign a unique value to ZEB_SOCKET in your shell start-up file, if it is likely that more than one Zebra session will be running on a single machine. Other variables which may be the same for every Zebra session, such as DATA_DIR or DEFAULT_CONFIG, can similarly be set in your shell start-up files.
+<P>The variable ZEB_TOPDIR can be useful for testing new installations of Zebra before making it the public default. For example, the existing version may reside in /usr/local/zebra-4.0, and ZEB_TOPDIR may point to this directory by default. Whereas if you wanted to run with a different installation, such as one in /usr/local/zeb-4.2, then you just need to set ZEB_TOPDIR to that directory.
+<H3><A NAME="HDR4">  2.5  The .zebra File</A></H3>
+
+<HR>
+<P>As soon as zstart begins, it looks for a file called .zebra in the user's home directory. If it finds the file, it reads the file so that any of the environment variables zstart uses can be modified in .zebra before zstart continues. This allows individual users to customize their Zebra sessions and programs as necessary. Here are some examples of the possibilities:
+<PRE>
+#
+# My Zebra resource file
+#
+echo "Reading $HOME/.zebra"
+</PRE>
+<P>The echo statement can be helpful just to remind someone that the .zebra file may be modifying the start-up environment.
+<PRE>
+#
+# Choose the zebra tree I am currently using
+#
+if (! $?ZEB_TOPDIR) setenv ZEB_TOPDIR /local/zebra
+</PRE>
+<P>If ZEB_TOPDIR has not been set already, the .zebra file can supply a default which is different from the default in the installed zstart file.
+
+<P>The ZEB_DM environment variable can be used to keep the display manager (program dm) from tying up a terminal by running it in an xterm window. Likewise, if dm should always come up in multiple mode rather than the default singleton mode, then change -single in the command below to -multiple.
+<PRE>
+#
+# I want dm to come up in an xterm rather than
+# tying up my terminal window.
+#
+if (! $?ZEB_DM) setenv ZEB_DM \
+  "xterm -T DisplayManager -bg grey90 -fg purple \
+  -fn 8x13bold -e dm -single dm.config"
+</PRE>
+<P>Several other options are possible as well:
+<PRE>
+#
+# Choose to leave the datastore daemon running after
+# a display session
+#
+setenv PRESERVE_ZEB yes
+#
+# Set the shell started by zstart -shell option
+#
+setenv ZEB_SHELL `/localbin/tcsh -f'
+#
+# I also want the EventLogger to be under my control,
+# and telling me my fortune every 10 minutes
+#
+if (! $?ZEB_EVENTLOGGER) \
+  setenv ZEB_EVENTLOGGER `EventLogger -w -j 600'
+</PRE>
+<P>Note that many of the example settings above do not take effect if the environment variable already exists. This allows the start-up environment to be customized manually before executing zstart.
+<H3><A NAME="REF26810">  2.6  Troubleshooting</A></H3>
+
+<HR>
+<P>If all goes well, the start-up script starts all of the necessary Zebra processes in the correct order and the project icon bar appears, possibly along with some plot windows.
+
+<H3><A NAME="REF80078">  2.7  Stopping Zebra<A HREF="starting.html#FN2">(2)</A></A></H3>
+
+<HR>
+<P>Since Zebra consists of multiple processes, all interconnected, the processes must be sent a special shutdown message to tell them to quit the session. The zstop program sends this message.
+<PRE>
+% zstop
+zstop: message manager shutting down
+</PRE>
+<P>If zstop succeeds in connecting to a message manager, it broadcasts the shutdown message to all of the session clients. It then waits until it receives a shutdown message back from the message manager. If the message manager sends the shutdown message, zstop prints the "message manager shutting down" message, confirming that the Zebra processes are in fact quitting. An error message appears if zstop does not receive a shutdown reply within five seconds.
+<P>Running zstop without an active Zebra session has no effect and produces no output.
+<P>Since zstop must itself be able to connect to a message manager to tell the message manager to exit, the ZEB_SOCKET environment variable must be set to the appropriate Zebra session socket if the default socket is not the session to be shut down.
+<P>Note that the zstart script ordinarily runs zstop automatically when the display manager finishes. It should only be necessary to explicitly run zstop when the PRESERVE_ZEB environment variable is set or when a Zebra session has been started manually.
+
+
+<HR><H3>Footnotes</H3>
+<DL COMPACT>
+<DT><A NAME=FN1>(1)</A><DD>Unfortunately, it's not so simple as yelling "Giddyup Zebra!"
+<DT><A NAME=FN2>(2)</A><DD>Again, there's more to it than "whoa boy!"
+</DL>
+<P><A HREF="Intro.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="iconbar.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

@@ -1,0 +1,64 @@
+<P><A HREF="Data.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="utilities.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+<HR>
+
+<TITLE> <paranum><B>CHAPTER 3 </B> Ingest Modules</TITLE>
+<H1><A NAME="REF31609"> <paranum><B>CHAPTER 3 </B> Ingest Modules</A></H1>
+
+<P>This appendix provides a brief listing and descriptions of the ingest modules included in Zebra Release 4.2. All of these modules will compile under SunOS 4.1.x and GNU C. Most of the others are known to compile under the other systems and compilers as well. Those modules that do not compile on a particular system are noted explicitly.
+<H3><A NAME="HDR0">  3.1  The Purpose of Ingest Modules</A></H3>
+
+<HR>
+<P>An ingest module is a program which reads data from some external source in some foreign format, and then creates from that data a DataChunk which can be described, transported, and stored through the Zebra DataStore. As there is no universal format for meteorological data, there is likewise no universal ingest module. Instead, ingest modules have been written for literally dozens of formats and data sources over Zebra's lifetime.
+
+<P>Almost exclusively, an ingest module is written for a particular task at hand at a particular time. The task can be a quick-and-dirty collection of data fields, and the time can be the middle of an intense field project where everything has been designed around a specific, one-time, and inflexible set-up. The ingest modules are included in the Zebra distribution in case one of them has some usefulness for a particular site or application. Likely as not, the ingest module will need to be modified to suit the particular need, but an existing module is a much better launch point than no module at all. The ingest modules can also serve as examples of using the DataStore programming interface to manipulate and ingest a wide variety of types of data from an equally wide range of sources.
+<P>Countless other ingest modules have been written for Zebra which were not included in this release. These modules may be older code which has not been maintained for lack of a need, or they may be modules developed by some other project which are not officially part of the Zebra mainstream development. If you need to ingest data for which an ingest module does not exist in this release, contact one of the persons mentioned in the "Whom to Contact" section of the <I>Installation Manual</I>. It is possible that the ingest module required can be obtained elsewhere.
+<H3><A NAME="REF15743">  3.2  Ingest Modules in Release 4.2</A></H3>
+
+<HR>
+<P>Following is a list of the ingest modules included in Release 4.2, along with a brief description. For all of these modules, the final word on purpose and application can be found in the source code itself, though some of the programs will also print usage information when given the `-h' option on the command line. The source directories reside under zebra/src/ingest in the Zebra distribution tree. The left column of <A HREF="modules.html#REF34407">Table 1</A> gives the name of each module directory; the center column lists the ingest programs built within each directory; and the right column supplies a brief description of each ingest program's use.
+<P><A HREF="modules.tbl_1.ps" NAME="REF34407"><IMG SRC="fm2html-table.gif"> <paranum><B>TABLE 1. </B> Ingest directories included in Zebra 4.2, with brief descriptions 
+		ofeach</A> 
+<PRE>
+----------------------------------------------------------------------------------------------------------------
+<B>Ingest Directory  Ingest Program   Description                                                                    
+<TableHeadEnd></B>----------------------------------------------------------------------------------------------------------------
+is                is               Schedules and configures multiple ingest processes for real-time operation     
+ssmi              ssmi_ingest      Ingests SSMI satellite data into images for the TRMM project                   
+mcidas            libmcidas.a      Collection of FORTRAN subroutines for navigating MCIDAS GOES images            
+st_ingest         st_ingest        Ingests P3 "slow tape" ASCII files for TOGA-COARE                              
+nowrad            nowrad_ingest    Ingests NOWRAD image data into regular grids                                   
+tao               tao_ingest       Ingests TAO (Tropical Atmosphere Ocean) mooring data as an irregular grid      
+p3composite       p3comp_ingest    Ingests P3 composite images from fuselage radars, from TOGA-COARE              
+togast            togast           Ingests ASCII dumps of P3 "slow tapes", from TOGA-COARE                        
+SLGrabber         SLGrabber        General data ingest from a serial line port on a UNIX workstation              
+precip            PrecipIngest     Ingests a composite precip data file as an irregular grid                      
+trmm_rain         trmm_rain        Ingests raingauge data from ASCII files for the TRMM project                   
+class             class_ingest     Ingests CLASS data through the RDSS sonde (snd_) access library                
+profs             profs_ingest     Ingests PROFS ASCII data as an irregular grid                                  
+trmm_sonde        trmm_sonde       Ingests sonde data from ASCII files for the TRMM project                       
+dap               dap_ingest       Ingests data from a DAP format file                                            
+radar             radar_ingest     Ingests radar data from the network and rasterizes it                          
+                  UFIngest         Rasterizes and ingests UF radar data                                           
+                  adrad_ingest     Ingests and rasterizes adrad radar data                                        
+wetnet            wetnet_ingest    Ingests WETNET data                                                            
+fest_p3_c130      p3fest_ingest    Ingests FEST project binary data files for NOAA P3                             
+                  c130fest_ingest  Ingests FEST project ASCII data files for the U of Washington's C-130 Convair  
+                  acqual           Rudimentary quality and consistency checking of netCDF aircraft files          
+rap_data_server   RAP_DsIngest     Generic data ingest from RAP's data servers                                    
+gmsISCCP          gmsISCCP         Ingests images from a NOAA ISCCP format tape                                   
+satellite         SatIngest        Ingests MCIDAS GOES images                                                     
+                  GMSIngest        Ingests MCIDAS GMS images, calibrating IR radiation to temperature             
+pam               pam_ingest       Ingests PAM data on irgrid using RDSS MDA and station libraries                
+                  daypam_ingest    Ingests PAM data into irgrid on daily boundaries using RDSS MDA library        
+----------------------------------------------------------------------------------------------------------------
+</PRE>
+
+
+
+<P><A HREF="Data.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="compile.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

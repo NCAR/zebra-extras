@@ -1,0 +1,138 @@
+<P><A HREF="Library.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="sound.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>� CHAPTER 7 � </B> Direct Image Transfer</TITLE>
+<H1><A NAME="HDT0"> <paranum><B>� CHAPTER 7 � </B> Direct Image Transfer</A></H1>
+
+<H3><A NAME="HDR1">  7.1  Description</A></H3>
+
+<HR>
+<P>The image transfer module exists to facilitate the quick transfer of radar-oriented, raster image data between processes on the same host through shared memory. A producer process creates image data in a shared segment, then transfers the segment to a consumer process when it is ready. Consumers do their thing, and return the segment back to the producer when done.
+<P>The primary (if not sole) use of this module is to get image frames out of the radar ingest module.
+<P>Modules using the direct image transfer utility should include the following line:
+<PRE>
+# include &lt;ImageXfr.h&gt;
+</PRE>
+<P>An image transfer segment is made up of one or more image sets. An image set is a group of frames which are transferred as a unit. The use of more than one frame allows the producer and consumer processes to work in parallel.
+
+<H3><A NAME="HDR2">  7.2  Attaching to Image Transfer Segments</A></H3>
+
+<HR>
+<P>Before any work can be done, the image transfer segment must be created. This task usually falls on the producer process, which calls IX_Create() as follows:
+<PRE>
+<B>ix_desc *
+IX_Create (key, xres, yres, nframe, nset, fields)
+int key, xres, yres, nframe, nset;
+char *fields[nframe];
+</PRE>
+<P></B>Where <B>key</B> is the key to be used to identify the shared memory segment, <B>xres</B> and <B>yres</B> are the resolution of the image frames, <B>nframe</B> is the number of frames in each set, <B>nset</B> is the number of sets to create, and <B>fields</B> is a list of field names to associate with the frames.
+<P>On successful conclusion, the return value is a pointer to the opaque type ix_desc, which is used in subsequent image transfer calls. Should the create fail, NULL is returned.
+<P>To attach to an existing segment (usually as the consumer), IX_HookIn() is used:
+<PRE>
+<B>ix_desc *
+IX_HookIn (key, name, xres, yres, nfield, fields)
+int key, *xres, *yres, *nfield;
+char *name, **fields;
+</PRE>
+<P></B>Where <B>key</B> is the key to be used to find the shared memory segment, <B>name</B> is the name of the current process (as passed to msg_connect()). On a successful attach, the return value is an ix_desc pointer which is used in subsequent calls, <B>xres</B> and <B>yres</B> contain the resolution of the image frames, <B>nfield</B> is the number of these frames, and <B>fields</B> is assigned to the names of the fields for each frame. If the attach fails, NULL is returned.
+<H3><A NAME="HDR3">  7.3  Detaching From Image Segments</A></H3>
+
+<HR>
+<P>When done with an image transfer segment, IX_Detach() should be called as follows:
+<PRE>
+<B>void
+IX_Detach (desc)
+ix_desc *desc;
+</PRE>
+<P></B>where <B>desc</B> is an image set descriptor obtained from one of the above routines.
+
+<P>If the process which creates the image transfer segment fails to detach from it before exiting, the segment will continue to exist and take up system resources.
+<H3><A NAME="HDR4">  7.4  Producer Interface</A></H3>
+
+<HR>
+<P>Before a producer process begins on an image, it must obtain a frame set in which to write. This is accomplished with IX_GetWriteFrame() as follows:
+<PRE>
+<B>int
+IX_GetWriteFrame (desc, frames, verbose)
+ix_desc *desc;
+char **frames;
+int verbose;
+</PRE>
+<P></B>Where <B>desc</B> is an image transfer segment descriptor pointer. If a frame set is available for writing, the return value is a non-negative set number, and <B>frames</B> is set to point to the actual image frames. Otherwise the return value is negative. If <B>verbose</B> is nonzero, any failures to find an available frame set will be logged as problems to msg_ELog(). Realtime producers will probably want to warn about delays in the availability of writable image sets, in which case <B>verbose</B> should be nonzero. For less time-critical applications which are prepared to wait for the consumer, the warnings will be an annoyance.
+<P>After a successful return, the given set is owned by the producer process until explicitly transferred to the consumer. To effect this transfer, call IX_SendFrame().
+<PRE>
+<B>void
+IX_SendFrame (desc, set, when, rg, loc, scale, xmin, ymin,
+      xmax, ymax, attr)
+ix_desc *desc;
+int set, xmin, ymin, xmax, ymax;
+RGrid *rg;
+Location *loc;
+ScaleInfo *scale;
+char *attr;
+</PRE>
+
+<P></B>Where <B>desc</B> is the image transfer descriptor, <B>set</B> is the set number (as obtained from IX_GetWriteFrame()), <B>when</B> is the time associated with this image, <B>rg</B> is an RGrid (<A HREF="geography.html#REF51729">Section 3.2 on page 29</A>) structure describing the image resolution, <B>loc</B> describes the location (<A HREF="geography.html#REF47057">Section 3.1</A>) of the grid origin, and <B>scale</B> (<A HREF="geography.html#REF18112">Section 3.3</A>) gives the scaling information for the interpretation of data points. As for the rest of the parameters, <B>xmin</B>, <B>ymin</B>, <B>xmax</B>, and <B>ymax</B> give a bounding box outside which no good data exists, and <B>attr</B> is an attribute string to be attached to the image.
+<P>After a call to IX_SendFrame(), the given image set is no longer owned by the producer, and should not be modified.
+<P>A producer can learn the identity of its consumer with IX_GetConsumer().
+<PRE>
+<B>char *
+IX_GetConsumer (desc)
+ix_desc *desc;
+</PRE>
+<P></B>As above, <B>desc</B> is the image transfer descriptor. The returned value is the name of the consumer as it was passed to IX_HookIn(). If no consumer is currently attached, the return value will be an empty string. Note that the return value will not be NULL, but rather a string whose first character is the NULL byte.
+<H3><A NAME="HDR5">  7.5  Consumer Interface</A></H3>
+
+<HR>
+<P>Consumer processes are notified when an image set becomes available by a message using the MT_IMAGEXFR protocol. The body of the message is a single integer value, containing the number of the image set which has become available.
+<P>After notification, the consumer process may obtain the image data with the function IX_GetReadFrame().
+<PRE>
+<B>int
+IX_GetReadFrame (desc, set, frames, when, rg, loc, scale,
+      xmin, ymin, xmax, ymax, attr);
+ix_desc *desc;
+int set, *xmin, *ymin, *xmax, *ymax;
+char **frames, **attr;
+time *when;
+RGrid *rg;
+Location *loc;
+ScaleInfo *scale;
+</PRE>
+<P></B>Where <B>desc</B> is the image transfer descriptor, and <B>set</B> is the number of an image set which has been made available. On return, if <B>set</B> is truly available, the return value is TRUE, <B>frames</B> is set to the address of each frame, and the rest of the parameters have the same meaning as in IX_SendFrame(), above.
+
+<P>When the consumer process is finished with a frame set, it should return it to the producer with IX_ReleaseFrame().
+<PRE>
+<B>void
+IX_ReleaseFrame (desc, set)
+ix_desc *desc;
+int set;
+</PRE>
+<P></B>Where <B>desc</B> is the image transfer descriptor, and <B>set</B> is the number of an image set owned by the consumer. After this call, the given image set is released to the producer process, and should not be referenced again by the consumer.
+<H3><A NAME="HDR6">  7.6  Miscellaneous Calls</A></H3>
+
+<HR>
+<P>IX_Initialize() may be called to initialize all frames in an image transfer segment to a given value.
+<PRE>
+<B>void
+IX_Initialize (desc, value)
+ix_desc *desc;
+char value;
+</PRE>
+<P></B>This routine should only be called when it is certain that it is desirable to initialize all frame sets.
+<P>A suitably privileged process may lock the image transfer segment into physical memory with IX_LockMemory().
+<PRE>
+<B>void
+IX_LockMemory (desc)
+ix_desc *desc;
+</PRE>
+<P></B>If the process is running as root, the image transfer segment will be locked into memory from then on, thus greatly improving performance. When an image transfer segment is thus locked, it becomes even more important to delete it when it is no longer needed, since a large amount of physical memory is unavailable for any other use until this is done. 
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+
+<P><A HREF="Library.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="misc.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

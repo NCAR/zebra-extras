@@ -1,0 +1,28 @@
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="dsapi.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>· CHAPTER 10 · </B> Data File Access</TITLE>
+<H1><A NAME="HDT0"> <paranum><B>· CHAPTER 10 · </B> Data File Access</A></H1>
+
+<P>This chapter will eventually contain information on the data file access level of the data store application library. For now, it includes some format-specific notes and concerns, especially regarding data chunk attributes.
+<H3><A NAME="REF30476">  10.1  Field Attributes and Data Files</A></H3>
+
+<HR>
+<P>A DataStore application needs to be able to remember and distinguish all of the fields it uses. By design, the interface tries to enforce some consistency in the names and identifiers of the fields. Therefore, fields must be defined in the `fields table'. The DataStore interface includes an interface to the fields table, allowing a field to be assigned a name, units, and a description. This interface is documented in <A HREF="intro.html#REF15614">Section 1.3,  "The Fields Table", on page 13.</A>
+<P>Due to the limitations of the various file formats which Zebra supports, field attributes are not stored consistently between file formats. In fact, only Zebra native files and netCDF files can hold field attribute information.
+<H4><A NAME="HDR1">  10.1.1  Bad Values</A></H4>
+
+<P>In the current DataStore design, a bad value flag is a floating-point value which indicates bad or missing data for a particular data point (or `element'). This information is critical to the correct interpretation of the data, so this flag is handled explicitly when written to a data file, as opposed to being stored in the same manner as any other attributes. In netCDF files, the flag is written as a floating-point variable attribute under the conventional name `missing_value'. This can be a source of confusion since Zebra actually interprets this attribute as either a missing value or a bad value. The reason for this is historical: as a visualization tool the effects of either missing or bad data on a plot representation are the same. Likewise, there is no conventional attribute name for a `bad or missing' value, so the use of `missing_value' seemed the most reasonable and compatible approach.
+<P>At the moment, a single bad value flag is associated with an entire data chunk, meaning every field in a data chunk shares the same bad value. In netCDF files, the bad value flag is associated with individual fields as a variable attribute. In Zebra native files, the bad value flag is also stored individually with each field. Consequently, it is possible for the fields in a netCDF or ZNF file to possess different bad value flags. To enforce consistency when reading fields into a single data chunk, the netCDF and ZNF access drivers convert the bad values of each field to the single bad value shared by the whole data chunk. An explicit bad value for the data chunk can be specified as a DataStore detail, otherwise the data chunk gets a default bad value flag of 99999.9.
+<H4><A NAME="HDR2">  10.1.2  Fields Table Attributes</A></H4>
+<P>The netCDF driver also gives special treatment to the fields table declarations of units and description. The units and description defined with a field name become the "units" and "long_name" variable attributes in a netCDF file. Zebra expects (indeed, enforces) these attributes to be consistent with the field's definition in the field table, regardless of what platform is being stored (because, by design, the field definition should be platform-independent). All other attributes come from the field attributes of the DataChunk, which can be re-defined as often as necessary.
+<P>The use of a field's description as its "long_name" attribute is perhaps misleading. The conventional "long_name" attribute is meant to hold a more descriptive name than the mnemonic and often abbreviated variable name; however, it is not meant to hold a full description, only a name suitable for uses such as labelling a plot. Likewise, a Zebra field description is not meant to be a paragraph on the field's source and derivation. The purposes of the "long_name" convention and the field table description were deemed similar enough to warrant using the description information as the netCDF variable's long name.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="ingest.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

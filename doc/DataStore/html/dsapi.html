@@ -1,0 +1,418 @@
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="attributes.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>� CHAPTER 9 � </B> The DataStore Interface</TITLE>
+<H1><A NAME="REF72749"> <paranum><B>� CHAPTER 9 � </B> The DataStore Interface</A></H1>
+
+<P>This chapter defines the application interface to the data store. This is the higher-level interface which uses data chunks to store and retrieve data, and a library of routines for communicating and exchanging information with the data store daemon process. Applications do not need to understand the underlying file formats or daemon protocol; that information is encapsulated in the data store interface.
+<P>The interface is implemented using data chunks as the model for describing and exchanging data. Data chunks are introduced in <A HREF="datachunks.html#REF99837">Chapter 2</A>. The discussion in this chapter assumes an understanding of data chunks.
+<P>Some of the more fundamental information queries, such as finding platform identifiers and names, are also discussed in the introduction in <A HREF="intro.html#REF30814">Chapter 1</A>. Check that chapter for information about any interface routines which do not seem to be discussed here. Specifically, the fields table routines are not defined in this chapter since they are covered thoroughly in the introduction.
+<H3><A NAME="HDR0">  9.1  Platform Queries</A></H3>
+
+<HR>
+<P>Platforms provide the foundation for categorizing data according to source, instrument, organization, file type, and so on. Consequently, it is important for clients to be able to retrieve information about the available platforms.
+
+<H4><A NAME="HDR1">  9.1.1  Simple Information</A></H4>
+<P>A client must find the PlatformId of a platform from its name by using ds_LookupPlatform().
+<PRE>
+<B>PlatformId
+ds_LookupPlatform(name)
+char *name;
+</PRE>
+<P></B>The translation can be reversed with the ds_PlatformName() function, which returns the name of a platform given it's identifier. 
+<PRE>
+<B>char *
+ds_PlatformName(id)
+PlatformId id;
+</PRE>
+<P></B>The memory occupied by the returned string belongs to the interface library and should not be freed or modified by the application. If <B>id</B> is invalid, the function returns the string "(BadPlatformID)".
+<P>A client may also wish to know how many platforms have been defined. The function ds_GetNPlat() returns the current count.
+<PRE>
+<B>int 
+ds_GetNPlat(void);
+</PRE>
+<P></B>The latest versions of the data store support dynamic platform definition, meaning the number of platforms may change over the life of the data store daemon and during the operation of a data store client.
+<H4><A NAME="HDR2">  9.1.2  Platform Attributes</A></H4>
+<P>A significant characteristic of any platform is the organization of its data. The ds_PlatformDataOrg() function retrieves that characteristic.
+<PRE>
+<B>DataOrganization
+ds_PlatformDataOrg(pid)
+PlatformId pid;
+</PRE>
+<P></B>The sole parameter <B>pid</B> is the platform identifier to query. The return value is the enumerated data organization of the given platform.
+<P>Two functions exist for performing common attribute checks on platforms. The ds_IsMobile() function tests whether a platform possesses the mobile attribute.
+<PRE>
+<B>int 
+ds_IsMobile (pid)
+PlatformId pid;
+
+</PRE>
+<P></B>The return value is non-zero if and only if the platform with identifier <B>pid</B> is mobile.
+<P>The second function ds_IsModelPlatform() tests whether a platform has been flagged as a model dataset.
+<PRE>
+<B>bool
+ds_IsModelPlatform (pid)
+PlatformId pid;
+</PRE>
+<P></B>This function returns non-zero (TRUE) if and only if the platform with identifier <B>pid</B> was defined as a model platform, meaning the platform dataset supports both issue and forecast times. This function is often evaluated before calling the dc_GetForecastTimes() function, described further on in this chapter.
+<H4><A NAME="HDR3">  9.1.3  Platform Searches</A></H4>
+<P>Many data store clients must deal with many platforms at once, especially common utilities like dsdump and dsdwidget which can display status information for all of the platforms being managed by the data store. The data store interface currently includes three routines for searching for platforms without resorting to requesting information on each individual platform identifier.
+<P><B>NOTE</B>: When the search functions below first appeared they were not officially part of the application interface. However, as no one has found the time the overhaul the search interface, these routines have built up enough momentum for a long-term existence. In other words, you can count on them remaining part of the datastore library for a long time to come.
+<P>The first search function ds_SearchPlatforms() retrieves a list of platform identifiers which match some given criteria.
+<PRE>
+<B>PlatformId *
+ds_SearchPlatforms (regexp, nplat, alphabet, subs)
+char *regexp;
+int *nplat;
+int alphabet;
+int subs;
+</PRE>
+
+<P></B>If <B>regexp</B> is not NULL, each platform name is matched against the regular expression to which it points. A NULL <B>regexp</B> matches every platform. If <B>alphabet</B> is non-zero, the function lists the platform identifiers in alphabetical order by name. Lastly, if <B>subs</B> is non-zero, subplatforms are included in the search. The returned array of PlatformId's must be freed by the application. The number of identifiers in the array is returned in <B>nplat</B>.
+<P>The second function is exactly like ds_SearchPlatforms(), except it also tells the data store daemon to actually send along the structures of the selected platforms as well. This incurs a large amount of message traffic for searches which return numerous platforms. However, if an application knows that it needs such information, it can be more efficient in the long run to send the platform structures in groups rather than request them individually.
+<PRE>
+<B>PlatformId *
+ds_GatherPlatforms (regexp, nplat, alphabet, subs)
+char *regexp;
+int *nplat;
+int alphabet;
+int subs;
+</PRE>
+<P></B>The parameters are the same as for ds_SearchPlatforms(), and the returned array of PlatformId's must also be freed by the application.
+<P>Lastly, the ds_LookupSubplatforms() function returns the identifiers of any subplatforms of a given composite platform.
+<PRE>
+<B>PlatformId *
+ds_LookupSubplatforms (parent, nsubplat)
+PlatformId parent;
+int *nsubplat;
+</PRE>
+<P></B>If there are no subplatforms of the <B>parent</B> platform, the function returns NULL. Otherwise, it returns an array of identifiers for each subplatform, and <B>nsubplat</B> will hold the number of subplatforms. The array of identifiers should be freed by the application.
+<P>At the moment, the search functions only consider subplatforms in the historic sense, i.e., subplatforms of a composite platform which do not have any data directories or data files of their own.
+<H3><A NAME="HDR4">  9.2  Querying Available Data</A></H3>
+
+<HR>
+
+<P>There will often be a need to ask the data store about the availability of data for a particular platform. The question of availability takes many forms, the most common being the question of the times at which data exist. Other questions include what altitudes or what fields are present in a platform dataset. Model datasets need to be asked the question of forecast times: which forecasts are available at a particular issue time. And so on. The data store interface includes routines which answer all of these questions.
+<H4><A NAME="HDR5">  9.2.1  Available Times</A></H4>
+<P>To obtain a series of one more data times for a given platform, use ds_DataTimes().
+<PRE>
+<B>int
+ds_DataTimes (platform, time, n, which, datatimes)
+PlatformId platform;
+ZebTime *time;
+int n;
+TimeSpec which;
+ZebTime *datatimes;
+</PRE>
+<P></B>Where <B>platform</B> is the identifier of the platform of interest, <B>time</B> is the reference time, <B>n</B> is the number of times that the application is prepared to receive, <B>which</B> tells which times are of interest relative to <B>time</B> (see below), and <B>datatimes</B> is an array of at least <B>n</B> times which will hold the returned times.
+<P>The <B>which</B> parameter is of type TimeSpec.
+<PRE>
+typedef enum {
+  DsBefore,    /* Before the reference time        */
+  DsAfter,    /* After that time        */
+  DsNearest,    /* Nearest that time        */
+  DsCenter,    /* Centered around the ref time        */
+} TimeSpec;
+</PRE>
+<P>For values of DsBefore and DsAfter, ds_DataTimes() will return an array of times bounded on the appropriate end by the given time value, possibly including the reference time if there is a data sample available at that time. DsNearest will return the <B>n</B> times available which are nearest to the given time, while DsCenter will attempt to obtain an equal number of times on either side of the given time. In any case, the return value from ds_DataTimes() will be the number of time values actually returned to the application.
+<P><B>NOTE</B>: The current implementation can only handle DsBefore and DsAfter; more programming will be needed to make the other options work.
+
+<P>It is possible to get a list of all times available in a given observation by calling ds_GetObsSamples().
+<PRE>
+<B>int
+ds_GetObsSamples (pid, when, stimes, locs, max)
+PlatformId pid;
+ZebTime *when, *stimes;
+Location *locs;
+int max;
+</PRE>
+<P></B>Where <B>pid</B> is the platform of interest, and <B>when</B> is a time within the observation of interest. On return, <B>stimes</B> will be filled with the times of the samples in the given observation, and <B>locs</B> will be filled with the locations of those samples, for up to <B>max</B> entries. The actual number of times returned is the return value of the function.
+<P>To find out which observations are available up to a given time, possibly qualified by an attribute check, use ds_GetObsTimes().
+<PRE>
+<B>int
+ds_GetObsTimes (pid, when, times, ntime, attr)
+PlatformId pid;
+ZebTime *when;
+ZebTime *times;
+int ntime;
+char *attr;
+</PRE>
+<P></B>Where <B>pid</B> is the platform of interest, and <B>when</B> the time of interest. On return, <B>times</B> will be filled with up to <B>ntime</B> observation times corresponding to the available data for the given platform. If <B>attr</B> is non-NULL, only observations which have the given attribute(s) attached to them will be returned. The return value is the number of observation times actually returned.
+<H4><A NAME="HDR6">  9.2.2  Available Forecasts</A></H4>
+<P>A model dataset can contain multiple forecast times at a single issue time. A data store application which needs to know the forecasts available at an issue time should use ds_GetForecastTimes().
+<PRE>
+<B>bool
+ds_GetForecastTimes (pid, when, times, ntimes)
+PlatformId pid;
+ZebTime *when;
+int *times, *ntimes;
+</PRE>
+
+<P></B>The platform and issue time of interest are passed in the <B>pid</B> and <B>when</B> parameters, respectively. The <B>times</B> array is filled with the forecast offsets, in seconds since issue time, available at the given issue time. For example, if an issue time produced four forecasts: a 12-hour, 24-hour, 36-hour and 48-hour, then the <B>times</B> array would contain 43200, 86400, 172800, and 345600. The <B>times</B> array should be large enough to hold the largest number of forecast times which the platform might possess at any time. If <B>ntimes</B> is non-NULL, then on return it will contain the number of forecast offsets copied into the <B>times</B> array.
+<P>The platform <B>pid</B> must be a model platform, meaning the call ds_IsModelPlatform(<B>pid</B>) returns non-zero. Otherwise ds_GetForecastTimes() fails and returns false (zero). Likewise, it returns false when an error occurs or when there is no data at the given issue time.
+<H4><A NAME="HDR7">  9.2.3  Available Altitudes</A></H4>
+<P>Some data sets, especially model grids, store data at multiple altitudes. Often a client only wants to retrieve data from a particular altitude. The ds_GetAlts() function allows an application to find out exactly what altitudes are available for a particular field at a particular time.
+<PRE>
+<B>bool
+ds_GetAlts (pid, fid, when, offset, alts, nalts, altunits)
+PlatformId pid;
+FieldId fid;
+ZebTime *when;
+int offset;
+float *alts;
+int *nalts;
+AltUnitType *altunits;
+</PRE>
+<P></B>The platform and field of interest are identified in the <B>pid</B> and <B>fid</B> parameters, respectively. The desired (issue) time of the data is in <B>when</B>, and <B>offset</B> contains the relevant forecast offset if appropriate. On return, the altitude coordinates at the given time and forecast have been copied into the <B>alts</B> array, the units of the coordinates have been stored in <B>altunits</B>, and the number of altitudes in <B>alts</B> is stored in <B>nalts</B>. If the function fails because of an error or a lack of data, it returns zero and does not change the reference parameters. Otherwise, it returns non-zero.
+<P>The function ds_GetRgridParams() no longer exists in the data store library. Since its primary use was to determine which heights to extract from a three-dimensional grid, it has been obsoleted by the more general function ds_GetAlts(). Applications which still use ds_GetRgridParams() should use ds_GetAlts() instead.
+
+<H4><A NAME="HDR8">  9.2.4  Available Fields</A></H4>
+<P>An application can use ds_GetFields() to find out which fields are available at a given time for a particular platform.
+<PRE>
+<B>int
+ds_GetFields (pid, when, nfld_in_out, flist)
+PlatformId pid;
+ZebTime *when;
+int *nfld_in_out;
+FieldId *flist;
+</PRE>
+<P></B>The set of fields stored in a platform's data may be different with time, consequently this function requires a time of interest, <B>when</B>, as well as the platform of interest, <B>pid</B>. The <B>flist</B> parameter points to an array of FieldId's into which the identifiers of the available fields can copied. The <B>nfld_in_out</B> parameter is two-way. When passed into the function, it should point to the maximum number of identifiers which the <B>flist</B> array can hold. On return, it will point to the number of identifiers actually copied into <B>flist</B>. Finally, the function returns non-zero if it succeeds, or zero if it fails due to an error or due to the lack of a data file surrounding or including the reference time. Notice, ds_GetFields() <I>does not</I> return the number of fields copied into <B>flist</B> except in the <B>nfld_in_out</B> parameter.
+<P>The example below checks for a field named "twet" in the platform "pam" exactly 24 hours prior to the current time. It is by no means efficient, but it works, and it makes the point. Be warned that it is not unusual for platforms to have hundreds of fields.
+<PRE>
+/* Try to find a field in a platform while taking up as little memory
+* possible */
+PlatformId pam = ds_LookupPlatform ("pam");
+int nfields;
+int nmalloc;
+FieldId *fields;
+ZebTime when;
+FieldId found = BadField;
+tl_Time (&amp;when);
+when.zt_Sec -= 24*60*60;
+nmalloc = 10;
+fields = (FieldId *)malloc (nmalloc * sizeof(FieldId));
+/*
+* Keep requesting more and more fields until we find what we're looking
+* for, or until the number returned is less than the number asked for.
+*/
+do {
+  int i;
+
+  nmalloc &lt;&lt; 1;
+  fields = (FieldId *)realloc(fields, nmalloc * sizeof(FieldId));
+  nfields = nmalloc;
+  if (! ds_GetFields (pid, &amp;when, &amp;nfields, fields))
+    break;
+  for (i = 0; i &lt; nfields; ++i)
+    if (! strcmp (F_GetName(fields[i], "twet")))
+    {
+      found = fields[i];
+      break;
+    }
+}
+while ((found == BadField) &amp;&amp; (nfields == nmalloc));
+free (fields);
+return (found);
+</PRE>
+<H3><A NAME="REF10452">  9.3  DataStore Details</A></H3>
+
+<HR>
+<P>No, this is not a section on the minuscule points of operation of the data store. The data store <I>details</I> mechanism allows auxiliary information and special handling requests to be passed to the data store library routines without affecting the compatibility of existing data store applications. 
+<H4><A NAME="HDR9">  9.3.1  The Detail Structure</A></H4>
+<P>All detail information is transported in the dsDetail structure, defined in DataStore.h:
+<PRE>
+typedef struct _dsDetail
+{
+  char    *dd_Name;    /* String identifier   */
+  SValue    dd_V;    /* Associated value  */
+} dsDetail;
+</PRE>
+<P>The structure contains a name member, dd_Name, which uniquely identifies the purpose of the detail. The dd_V member contains any argument which the detail requires. Some details require an argument in the dd_V member; others ignore the argument and take effect merely by their presence in an interface call.
+<P>Only the fetch and store functions in the data store interface make use of data store details. The functions accept an array of detail structures, so that more than one detail instruction can be specified in a single call to the interface. So far, several details have been named and supported in the interface; many more will likely follow.
+
+<H4><A NAME="HDR10">  9.3.2  Recognized Details</A></H4>
+<P>The recognized detail names have been defined as macros in DataStore.h to protect against name conflicts and misspelling errors. Some details only have an effect for certain file formats, in which case the symbol name includes a mnemonic indicating the format: NC for netCDF, and ZN for Zebra native format. The symbols and the purpose of each detail are listed in the following sections.
+<P><B>NetCDF details:
+<P></B>Note that all of the netCDF details only take effect when a file is being created. Use the ds_Store and ds_StoreBlocks <B>newfile</B> parameter to force the creation of a new file.
+<UL><DL>
+<DT>DD_NC_TIME_FLOAT<DD><DD>Create the netCDF file with a floating point time_offset variable rather than the default type of double. The WINDS<A HREF="dsapi.html#FN1">(1)</A> software requires floating point times. No argument required.
+<DT>DD_NC_TIME_DOUBLE<DD>Create the netCDF file with a time_offset variable of type double. No argument required.
+<DT>DD_NC_TIME_LONG<DD>Create the netCDF file with a time_offset variable of type long. No argument required.
+</DL></UL>
+<P>Note that the appearance of more than one of the above details in a detail list is not supported. The result is undefined.
+<UL><DL>
+<DT>DD_NC_ONE_TIME<DD>Create the netCDF file with a single time variable time rather than using the default time_offset and base_time convention. This detail can be combined with any of the above details which specify the type of the time variable. The argument is ignored.
+</DL></UL>
+<P><B>ZNF details:
+
+<UL><DL>
+<DT></B>DD_ZN_HINT_NSAMPLES<DD>Hint to the ZNF format driver about the projected number of samples to be stored in the file. Store the hint in dd_V.us_v_int.
+<DT>DD_ZN_RESERVE_BLOCK<DD>Reserve a free block in the file, such as for attributes which will be added later. The intended use is to reserve space in a ZNF file before adding samples which will be part of a block at the end of the file. The size of the free block to reserve is contained in the integer member, dd_V.us_v_int. This detail only has an effect when a file is created.
+<DT>DD_ZN_APPEND_SAMPLES<DD>Force new samples to be appended to the end of a file, so that they will be contiguous with previous samples and will not overwrite any reserved free blocks. This detail only needs to be present, its value is ignored.
+</DL></UL>
+<P>The ZNF details can be used to tailor the layout and behavior of a ZNF file to a particular data set. The access speed for a particular file can be greatly enhanced with a careful selection of ZNF details.
+<P>The rest of the details are relevant to more than one file type, but note that not all of the file format interfaces have been enhanced to support all of the formats.
+<P><B>Forecast offsets:
+<UL><DL>
+<DT></B>DD_FORECAST_OFFSET<DD>Select the data at the forecast offset provided in the argument. Set dd_V.us_v_int to the forecast offset in seconds from the issue time. Without this detail, the data at the issue time is always chosen. Only model data file formats (currently GRIB and GrADS) support this detail.
+</DL></UL>
+<P><B>Translating data values:
+
+<UL><DL>
+<DT></B>DD_FETCH_BADVAL<DD><DD>When fetching data, the bad values read from the file will be converted to the float value in dd_V.us_v_float, and that float value will be defined as the bad value for the fetched data chunk.
+<DT><B>Slicing multi-dimensional arrays:
+<DT></B>"DD_FETCH_ALTITUDE<DD><DD>Extracts the two-dimensional, horizontal plane closest to a given altitude from a three-dimensional grid. The floating point value dd_V.us_v_float contains the desired altitude coordinate.
+<DT><CODE>DD_FIX_DIMENSION
+<DT>DD_FIX_INDEX</CODE><DD>These details supply fixed dimension indices for slicing N-space data arrays. Two details are possible, one pair of details for each dimension to be fixed. The first detail, DD_FIX_DIMENSION, contains a pointer to the name of the dimension to be fixed. The detail immediately following in the detail list, DD_FIX_INDEX, contains an integer index to which the dimension should be fixed. If a DD_FIX_DIMENSION detail is not succeeded by a DD_FIX_INDEX, then the index of the named dimension will be fixed at zero by default.
+</DL></UL>
+<H4><A NAME="HDR11">  9.3.3  Example</A></H4>
+<P>The piece of code below has been extracted from the Zebra graphics process as an example of using the forecast detail.
+<PRE>
+dsDetail details[10];
+int ndet = 0;
+...
+/*
+ * Set up the forecast offset time detail
+ */
+  details[ndet].dd_Name = DD_FORECAST_OFFSET;
+  details[ndet].dd_V.us_v_int = ForecastOffset;
+  ndet++;
+</PRE>
+<P>Notice that the name is not copied into the detail structure. The dd_Name member must merely point to a string which is valid when the detail is passed into the interface routine. The resulting array of details is then passed to the ds_Fetch() routine, which is described in the next section.
+
+<H3><A NAME="HDR12">  9.4  Fetching Data</A></H3>
+
+<HR>
+<P>In the end, a data store is useless unless it provides access to stored data. The following routines exist for the purpose of extracting data from the data store. See <A HREF="intro.html#REF19363">Section 1.1 on page 10</A> for an overview of the mechanics involved in fetching data. In particular, recall that the application itself reads the data from the data files using a data file access (DFA) interface built into the data store library.
+<P>To read data from a single platform, use ds_Fetch() as follows:
+<PRE>
+<B>DataChunk *
+ds_Fetch (platform, class, begin, end, fields, nfield, details, ndet)
+PlatformId platform;
+DataClass class;
+ZebTime begin, end;
+FieldId *fields;
+int nfield, ndet;
+dsDetail *details;
+</PRE>
+<P></B>Where <B>platform</B> is the platform of interest, <B>class</B> is the desired type of data chunk to retrieve, <B>begin</B> and <B>end</B> give the time period of interest, <B>fields</B> is a list of field ID's, <B>nfield</B> is the length of that list, <B>details</B> is a list of dsDetail structures describing additional aspects of the data fetch, and <B>ndet</B> is the length of that list. If the fetch is successful, the return value will be a data chunk containing the data which matched the request; otherwise the return value is NULL.
+<P>The <B>details</B> argument is a means by which additional information may be passed into the fetch request. <A HREF="dsapi.html#REF10452">Section 9.3</A> covers the details mechanism and the recognized detail options.
+<P>For some platforms it makes sense to combine a number of samples together into a single observation. For example, a sounding returns many time-series values, but they make up a single observation. To free the application of the need to figure out the proper begin and end times for this case, a separate interface has been provided:
+<PRE>
+<B>DataChunk *
+ds_FetchObs (platform, class, when, fields, nfield, details, ndet)
+PlatformId platform;
+DataClass class;
+ZebTime when;
+FieldId *fields;
+int nfield, ndet;
+dsDetail *details;
+
+</PRE>
+<P></B>Here the parameters all have the same meaning as for ds_Fetch(), above, with the exception of <B>when</B>. Instead of using a begin and end time, ds_FetchObs() will find the first observation at or before the given time (<B>when</B>), and return all of the data associated with that observation.
+<P>Both ds_Fetch() and ds_FetchObs() will return NULL if they are completely unable to satisfy the given request.
+<H3><A NAME="HDR13">  9.5  Application Notifications</A></H3>
+
+<HR>
+<P>Real time processes will often need to be informed when a particular piece of data becomes available. For example, a graphics process may want to know when a new sounding arrives and the display needs to be replotted; or a dual-doppler analysis process may need to be informed of the arrival of a new radar grid so that the next analysis can be calculated.
+<P>The data store application interface provides the means for an application to request to be notified when data for a particular platform arrives. The actual notification will be delivered by the data store daemon through the interprocess communication mechanism.
+<P>To request notification for available data, use ds_RequestNotify() as follows:
+<PRE>
+<B>ds_RequestNotify (platform, param, func)
+PlatformId platform;
+int param;
+void (*func) ();
+</PRE>
+<P></B>Where <B>platform</B> is the ID of the platform of interest. When new data becomes available for <B>platform</B>, the given <B>func</B> will be called as:
+<PRE>
+<B>(*func) (platform, param, when, nsample, ucode)
+PlatformId platform;
+int param, nsample;
+ZebTime *when;
+UpdCode ucode;
+</PRE>
+<P></B>Where <B>platform</B> is the platform for which data is available, <B>param</B> is the same value that was passed to ds_RequestNotify(), <B>when</B> is the latest time for which data has been added, and <B>nsample</B> is the number of new samples of data. 
+<P>The <B>ucode</B> parameter is a update code identifying how the data were added. The UpdCode enumerated type is defined in DataStore.h:
+<PRE>
+
+typedef enum
+{
+  UpdOverwrite,      /* Only overwrote existing data            */
+  UpdInsert,      /* Inserted new data in middle            */
+  UpdAppend      /* New data at the end            */
+} UpdCode;
+</PRE>
+<P>If <B>ucode</B> is UpdAppend, then new data has been added at the end of the existing time range; a value of UpdInsert means new data has been inserted within the existing data set, and UpdOverwrite means that no new samples have been added, but that existing data has been overwritten.
+<P>Data available notifications will continue until cancelled with ds_CancelNotify().
+<PRE>
+<B>void
+ds_CancelNotify ();
+</PRE>
+<P></B>Calling this function will cancel any and all notifications requested by the application.
+<H3><A NAME="HDR14">  9.6  Storing Data</A></H3>
+
+<HR>
+<P>Finally, none of the above is useful if there is not a mechanism for putting data into the data store. 
+<H4><A NAME="HDR15">  9.6.1  Sample by Sample</A></H4>
+<P>To add a data chunk to the data store, use ds_Store() as follows:
+<PRE>
+<B>int
+ds_Store (dc, newfile, details, ndet)
+DataChunk *dc;
+bool newfile;
+dsDetail *details;
+int ndet;
+</PRE>
+<P></B>Where <B>dc</B> is a data chunk containing the data to be inserted, <B>newfile</B> is TRUE if the application wishes to force the data store to create a new file for this data, and <B>details</B> and <B>ndet</B> are the detail mechanism described in <A HREF="dsapi.html#REF10452">Section 9.3</A>. The <B>newfile</B> parameter allows observations to be delimited by file boundaries for platforms such as soundings.
+
+<P>The ds_Store() routine operates by storing one sample at a time from the data chunk. For each sample, it asks the daemon where the sample should be written, and then writes the sample to a file. The result is a great deal of message traffic and system load, and the inefficiency is compounded for data sets with thousands of samples. The more recent ds_StoreBlocks() function mentioned in <A HREF="dsapi.html#REF44629">Section 9.6.2</A> offers a more efficient alternative.
+<P>The old limitation where ds_PutData() could only append data to the database has been removed. For each sample in the data chunk, ds_Store() will either overwrite an existing datum or store an additional field if the times match exactly, or it will insert the data accordingly. The usual case of appending data is equivalent to inserting samples at the end of a data file.
+<P>Unfortunately, the netCDF file format does not lend itself readily to the insertion of data between existing data points, or to the addition of fields; thus these operations are not currently supported for this file type. Such an addition must wait until the need for insertion is strong enough to justify the inefficiency involved.
+<H4><A NAME="REF44629">  9.6.2  Blocks</A></H4>
+<P>The data store interface also includes a function storing data as <I>blocks</I> of samples. Storing samples as blocks allows the data store library to take advantage of the file-format-specific optimizations which are possible. For example, the netCDF interface allows "hyperslab" writes of data. If a series of samples can be assembled into a block in chronological order, then they can be written to a netCDF file in one write call.
+<P>Often a data chunk consists of thousands of samples which are in chronological order and are to be stored in a single file. At the very least, each data chunk follows the previous without overlap. A <I>block</I> is a set of samples in chronological order which do not overlap any samples previously stored in existing data files. Thus a block can be written to a new data file or appended to an existing one without concern for conflicts or the necessity of insertions. Data chunk samples which exactly overwrite existing samples can be assembled into an overwrite block, where the block of samples can overwrite the existing data in a single write call.
+<P>The ds_StoreBlocks() routine accepts the same parameters as ds_Store(), but it operates by trying to detect blocks of samples in the data chunk. The two functions are interchangeable with regard to functionality; the only difference is the underlying storage algorithm.
+<PRE>
+<B>bool
+ds_StoreBlocks (dc, newfile, details, ndetail)
+DataChunk *dc;
+bool newfile;
+dsDetail *details;
+int ndetail;
+
+</PRE>
+<P></B>Beginning with the first sample in the data chunk, ds_StoreBlocks() tries to build a block from consecutive samples. It assembles as many chronological and consecutive samples as will fit into the remaining space in the file, and writes the samples in a single call to the data file access interface. Single samples which could not be assembled into a block are written individually as in ds_Store(). However, notification messages to the data store are held off until the whole data chunk is written. Even if the entire data chunk is stored one sample at a time, there will still be a savings in message traffic.
+<H3><A NAME="HDR16">  9.7  Deleting Data</A></H3>
+
+<HR>
+<P>Lastly, the data store interface also supports operations for deleting data. Without belaboring the point, these functions should be used with caution to avoid the untimely death of any dearly loved data.
+<P>The ds_DeleteData function deletes all of a platform's data files which end at or before a given time.
+<PRE>
+<B>void
+ds_DeleteData (platform, zaptime)
+PlatformId platform;
+ZebTime *zaptime;
+</PRE>
+<P></B>Calling this function sends a message to the data store daemon which contains the <B>platform</B> and <B>zaptime</B> parameters. The daemon actually selects and removes the data files. Data cannot be partially deleted from a file; only entire files can be deleted, and only if the last sample in the file occurs at or before <B>zaptime</B>.
+<P>A second routine, ds_DeleteObs, can be used to specifically select a single file for deletion.
+<PRE>
+<B>void
+ds_DeleteObs (platform, zaptime)
+PlatformId platform;
+ZebTime *zaptime;
+</PRE>
+<P></B>Rather than deleting <I>all</I> files before <B>zaptime</B>, this routine tells the datastore daemon to delete exactly one file which <I>contains</I> that time. The daemon looks for a file in the given <B>platform</B> which both begins after <B>zaptime</B> and ends before <B>zaptime</B>, inclusively. If no such file exists, the function has no effect. If such a file is found, then that file, and only that file, will be deleted.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+
+<HR><H3>Footnotes</H3>
+<DL COMPACT>
+<DT><A NAME=FN1>(1)</A><DD>Written by Gary Horton of the NCAR Research Aviation Facility. Direct requests to case@ncar.ucar.edu.
+</DL>
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="dfa.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

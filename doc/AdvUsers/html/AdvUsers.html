@@ -1,0 +1,548 @@
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+<ADDRESS>corbet@ncar.ucar.edu</ADDRESS>
+<HR>
+
+<TITLE>The zebra advanced user's manual.</TITLE>
+<H1>The zebra advanced user's manual.</H1>
+<P><ADDRESS><B>Jonathan Corbet</ADDRESS>
+<P><ADDRESS>Chris Burghart</ADDRESS>
+<P><ADDRESS>Gary Granger</ADDRESS>
+<H2>Table of Contents</H2>
+<P><A HREF="Intro.html#HDT0"> <paranum><B>CHAPTER 1 </B> Introduction to the zebra advanced users manual.</A>
+
+
+<UL>
+<UL>
+<A HREF="Intro.html#HDR1">  1.1  Introductory remarks</A>
+
+<BR>
+<A HREF="Intro.html#HDR2">  1.2  Changes for 4.2</A>
+
+<BR>
+<A HREF="Intro.html#HDR3">  1.3  Notation</A>
+</UL>
+</UL>
+
+<P><A HREF="Structure.html#HDT0"> <paranum><B>CHAPTER 2 </B> Zebra structure and basic processes</A>
+
+
+<UL>
+<UL>
+<A HREF="Structure.html#HDR1">  2.1  Introduction</A>
+
+<UL>
+<A HREF="Structure.html#HDR2">  2.1.1  An overview of zebra processes</A>
+</UL>
+
+<A HREF="Structure.html#REF62427">  2.2  The zebra messaging system</A>
+
+<UL>
+<A HREF="Structure.html#HDR3">  2.2.1  Starting and stopping the message system.</A>
+
+<BR>
+<A HREF="Structure.html#REF22313">  2.2.2  Message manager sessions</A>
+
+<BR>
+<A HREF="Structure.html#HDR4">  2.2.3  Summary of message manager options</A>
+
+<BR>
+<A HREF="Structure.html#HDR5">  2.2.4  Message system status</A>
+
+<BR>
+<A HREF="Structure.html#HDR6">  2.2.5  Other message system tools</A>
+</UL>
+
+<A HREF="Structure.html#HDR7">  2.3  The event logging system</A>
+
+<UL>
+<A HREF="Structure.html#HDR8">  2.3.1  Event classes</A>
+
+<BR>
+<A HREF="Structure.html#HDR9">  2.3.2  The event logger process.</A>
+</UL>
+
+<A HREF="Structure.html#HDR10">  2.4  The zebra timer process</A>
+
+<UL>
+<A HREF="Structure.html#HDR11">  2.4.1  The timer daemon</A>
+
+<BR>
+<A HREF="Structure.html#HDR12">  2.4.2  Other timer utilities</A>
+</UL>
+</UL>
+</UL>
+
+<P><A HREF="DataStore.html#REF50768"> <paranum><B>CHAPTER 3 </B> The zebra data store</A>
+
+
+<UL>
+<UL>
+<A HREF="DataStore.html#HDR0">  3.1  Introduction</A>
+
+<BR>
+<A HREF="DataStore.html#HDR1">  3.2  Changes in 4.2</A>
+
+<BR>
+<A HREF="DataStore.html#HDR2">  3.3  Changes in release 4.1</A>
+
+<BR>
+<A HREF="DataStore.html#HDR3">  3.4  The logical structure of the data store</A>
+
+<UL>
+<A HREF="DataStore.html#REF63679">  3.4.1  Platforms, files, observations and samples</A>
+</UL>
+
+<A HREF="DataStore.html#HDR4">  3.5  Daemon start-up and configuration</A>
+
+<BR>
+<A HREF="DataStore.html#HDR5">  3.6  Platform classes</A>
+
+<UL>
+<A HREF="DataStore.html#HDR6">  3.6.1  The class defintion</A>
+
+<BR>
+<A HREF="DataStore.html#HDR7">  3.6.2  Class attributes</A>
+
+<BR>
+<A HREF="DataStore.html#HDR8">  3.6.3  Data file types</A>
+
+<BR>
+<A HREF="DataStore.html#HDR9">  3.6.4  Data organizations</A>
+
+<BR>
+<A HREF="DataStore.html#REF16604">  3.6.5  Class data directories</A>
+
+<BR>
+<A HREF="DataStore.html#REF16959">  3.6.6  Other class attributes</A>
+
+<BR>
+<A HREF="DataStore.html#HDR10">  3.6.7  Abstract attributes</A>
+
+<BR>
+<A HREF="DataStore.html#HDR11">  3.6.8  Obsolete attributes</A>
+</UL>
+
+<A HREF="DataStore.html#HDR12">  3.7  Platform instances</A>
+
+<UL>
+<A HREF="DataStore.html#HDR13">  3.7.1  The instance command</A>
+
+<BR>
+<A HREF="DataStore.html#REF76061">  3.7.2  Instance data directories</A>
+
+<BR>
+<A HREF="DataStore.html#REF12813">  3.7.3  Instance hierarchies</A>
+
+<BR>
+<A HREF="DataStore.html#HDR14">  3.7.4  Subplatform data directories</A>
+
+<BR>
+<A HREF="DataStore.html#REF73597">  3.7.5  Composite platforms</A>
+
+<BR>
+<A HREF="DataStore.html#REF54300">  3.7.6  Virtual platforms</A>
+
+<BR>
+<A HREF="DataStore.html#REF15992">  3.7.7  Examples</A>
+
+<BR>
+<A HREF="DataStore.html#REF25593">  3.7.8  The platform command</A>
+
+<BR>
+<A HREF="DataStore.html#REF67504">  3.7.9  The subplatform command</A>
+</UL>
+
+<A HREF="DataStore.html#REF37355">  3.8  Backwards compatibility</A>
+
+<BR>
+<A HREF="DataStore.html#HDR15">  3.9  Shortfalls and future developments</A>
+
+<BR>
+<A HREF="DataStore.html#HDR16">  3.10  The platform and file tables</A>
+
+<BR>
+<A HREF="DataStore.html#HDR17">  3.11  The file cache</A>
+
+<UL>
+<A HREF="DataStore.html#HDR18">  3.11.1  Delaying automatic directory creation</A>
+
+<BR>
+<A HREF="DataStore.html#HDR19">  3.11.2  Unified file cache</A>
+</UL>
+
+<A HREF="DataStore.html#HDR20">  3.12  File revisions</A>
+
+<BR>
+<A HREF="DataStore.html#REF43678">  3.13  The rescan command</A>
+
+<BR>
+<A HREF="DataStore.html#REF42939">  3.14  Troubleshooting</A>
+
+<BR>
+<A HREF="DataStore.html#REF18938">  3.15  Running the daemon remotely</A>
+
+<BR>
+<A HREF="DataStore.html#HDR21">  3.16  Miscellaneous utilities</A>
+
+<UL>
+<A HREF="DataStore.html#HDR22">  3.16.1  dsdelete</A>
+
+<BR>
+<A HREF="DataStore.html#HDR23">  3.16.2  dsdump</A>
+
+<BR>
+<A HREF="DataStore.html#HDR24">  3.16.3  dsdwidget</A>
+
+<BR>
+<A HREF="DataStore.html#REF87435">  3.16.4  dsrescan</A>
+
+<BR>
+<A HREF="DataStore.html#HDR25">  3.16.5  GRIBdump, rfdump and zfdump</A>
+</UL>
+</UL>
+</UL>
+
+<P><A HREF="UserInterface.html#HDT0"> <paranum><B>CHAPTER 4 </B> How the zebra user interface works</A>
+
+
+<UL>
+<UL>
+<A HREF="UserInterface.html#HDR1">  4.1  Introduction</A>
+
+<BR>
+<A HREF="UserInterface.html#HDR2">  4.2  Overview of processes in the zebra user interface</A>
+
+<BR>
+<A HREF="UserInterface.html#REF73665">  4.3  Plot descriptions</A>
+
+<UL>
+<A HREF="UserInterface.html#HDR3">  4.3.1  The format of plot descriptions</A>
+
+<BR>
+<A HREF="UserInterface.html#REF88027">  4.3.2  Plot description files</A>
+
+<BR>
+<A HREF="UserInterface.html#HDR4">  4.3.3  Plot description syntax</A>
+
+<BR>
+<A HREF="UserInterface.html#REF77693">  4.3.4  Parameter lookup and the defaults table</A>
+</UL>
+
+<A HREF="UserInterface.html#HDR5">  4.4  Control of plot descriptions</A>
+
+<BR>
+<A HREF="UserInterface.html#HDR6">  4.5  An overview of user interface configuration files</A>
+</UL>
+</UL>
+
+<P><A HREF="Displaymgr.html#REF46655"> <paranum><B>CHAPTER 5 </B> The display manager</A>
+
+
+<UL>
+<UL>
+<A HREF="Displaymgr.html#HDR0">  5.1  Introduction</A>
+
+<UL>
+<A HREF="Displaymgr.html#HDR1">  5.1.1  Changes in 4.2</A>
+
+<BR>
+<A HREF="Displaymgr.html#HDR2">  5.1.2  Changes in 4.1</A>
+</UL>
+
+<A HREF="Displaymgr.html#HDR3">  5.2  Display configurations</A>
+
+<UL>
+<A HREF="Displaymgr.html#HDR4">  5.2.1  The config command</A>
+
+<BR>
+<A HREF="Displaymgr.html#HDR5">  5.2.2  Window and widget definitions</A>
+
+<BR>
+<A HREF="Displaymgr.html#REF40949">  5.2.3  Linked plot descriptions</A>
+
+<BR>
+<A HREF="Displaymgr.html#REF26390">  5.2.4  Button maps</A>
+
+<BR>
+<A HREF="Displaymgr.html#HDR6">  5.2.5  Color tables</A>
+</UL>
+
+<A HREF="Displaymgr.html#REF55840">  5.3  Invocation of display configurations</A>
+
+<BR>
+<A HREF="Displaymgr.html#HDR7">  5.4  Plot description utilities</A>
+
+<UL>
+<A HREF="Displaymgr.html#REF80554">  5.4.1  Loading plot descriptions from files</A>
+
+<BR>
+<A HREF="Displaymgr.html#REF14011">  5.4.2  Creating plot descriptions with commands</A>
+
+<BR>
+<A HREF="Displaymgr.html#REF82588">  5.4.3  Modifying plot descriptions in run time</A>
+
+<BR>
+<A HREF="Displaymgr.html#REF66590">  5.4.4  Storing and examining plot descriptions</A>
+</UL>
+
+<A HREF="Displaymgr.html#REF70399">  5.5  Time control in the display manager</A>
+
+<BR>
+<A HREF="Displaymgr.html#HDR8">  5.6  Interactive display configuration editing</A>
+
+<UL>
+<A HREF="Displaymgr.html#HDR9">  5.6.1  Display configuration editing commands</A>
+
+<BR>
+<A HREF="Displaymgr.html#HDR10">  5.6.2  Examining display configurations</A>
+
+<BR>
+<A HREF="Displaymgr.html#HDR11">  5.6.3  Widgets for display configuration editing</A>
+</UL>
+
+<A HREF="Displaymgr.html#HDR12">  5.7  Running multiple displays on a single host</A>
+
+<UL>
+<A HREF="Displaymgr.html#HDR13">  5.7.1  Multiple display managers within one session</A>
+
+<BR>
+<A HREF="Displaymgr.html#HDR14">  5.7.2  Multiple display managers within multiple sessions</A>
+</UL>
+
+<A HREF="Displaymgr.html#HDR15">  5.8  Other display manager commands</A>
+
+<UL>
+<A HREF="Displaymgr.html#HDR16">  5.8.1  Configuration information</A>
+
+<BR>
+<A HREF="Displaymgr.html#HDR17">  5.8.2  Other window control commands</A>
+
+<BR>
+<A HREF="Displaymgr.html#HDR18">  5.8.3  Making noise</A>
+
+<BR>
+<A HREF="Displaymgr.html#HDR19">  5.8.4  Shell escapes</A>
+
+<BR>
+<A HREF="Displaymgr.html#HDR20">  5.8.5  On-line help</A>
+
+<BR>
+<A HREF="Displaymgr.html#HDR21">  5.8.6  Manual location entry</A>
+
+<BR>
+<A HREF="Displaymgr.html#HDR22">  5.8.7  Shutting down</A>
+</UL>
+
+<A HREF="Displaymgr.html#HDR23">  5.9  Display manager command line functions</A>
+
+<BR>
+<A HREF="Displaymgr.html#HDR24">  5.10  The icon bar</A>
+</UL>
+</UL>
+
+<P><A HREF="GraphProc.html#REF18013"> <paranum><B>CHAPTER 6 </B> The graphics process</A>
+
+
+<UL>
+<UL>
+<A HREF="GraphProc.html#HDR0">  6.1  Introduction</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR1">  6.2  How the graphics process views its job</A>
+
+<UL>
+<A HREF="GraphProc.html#REF92879">  6.2.1  Production of plots, overview</A>
+
+<BR>
+<A HREF="GraphProc.html#REF48986">  6.2.2  Triggers</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR2">  6.2.3  Waiting for something to happen</A>
+</UL>
+
+<A HREF="GraphProc.html#HDR3">  6.3  Tools for plot description editing</A>
+
+<UL>
+<A HREF="GraphProc.html#HDR4">  6.3.1  Command line functions</A>
+
+<BR>
+<A HREF="GraphProc.html#REF85610">  6.3.2  The plot description monitoring utility</A>
+</UL>
+
+<A HREF="GraphProc.html#HDR5">  6.4  Rubber-banding operations</A>
+
+<UL>
+<A HREF="GraphProc.html#HDR6">  6.4.1  Box drawing and window zooming</A>
+
+<BR>
+<A HREF="GraphProc.html#REF91883">  6.4.2  Line drawing</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR7">  6.4.3  Polylines</A>
+</UL>
+
+<A HREF="GraphProc.html#HDR8">  6.5  Limit widgets</A>
+
+<UL>
+<A HREF="GraphProc.html#HDR9">  6.5.1  Single value entry widgets</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR10">  6.5.2  The double float limit widget</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR11">  6.5.3  The station widget</A>
+</UL>
+
+<A HREF="GraphProc.html#HDR12">  6.6  Global plot description parameters</A>
+
+<UL>
+<A HREF="GraphProc.html#HDR13">  6.6.1  Overall plotting parameters</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR14">  6.6.2  Frame caching parameters</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR15">  6.6.3  Movie control</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR16">  6.6.4  Model control</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR17">  6.6.5  Layout control</A>
+</UL>
+
+<A HREF="GraphProc.html#HDR18">  6.7  Common per-component parameters</A>
+
+<UL>
+<A HREF="GraphProc.html#HDR19">  6.7.1  The disable flag</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR20">  6.7.2  Annotation options</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR21">  6.7.3  Icons and menus</A>
+
+<BR>
+<A HREF="GraphProc.html#REF86810">  6.7.4  Active areas</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR22">  6.7.5  The data available menu</A>
+
+<BR>
+<A HREF="GraphProc.html#REF21351">  6.7.6  The field selection menu</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR23">  6.7.7  The "require" mechanism</A>
+</UL>
+
+<A HREF="GraphProc.html#HDR24">  6.8  Standard graphics control parameters</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR25">  6.9  Constant altitude plots</A>
+
+<UL>
+<A HREF="GraphProc.html#HDR26">  6.9.1  CAP global parameters</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR27">  6.9.2  Map projections</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR28">  6.9.3  Altitude control</A>
+
+<BR>
+<A HREF="GraphProc.html#REF72195">  6.9.4  Interpolation</A>
+
+<BR>
+<A HREF="GraphProc.html#REF22478">  6.9.5  Spatial offsets</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR29">  6.9.6  Raster representation</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR30">  6.9.7  Contour representation</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR31">  6.9.8  Vector representation</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR32">  6.9.9  Station plot representation</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR33">  6.9.10  Track representation</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR34">  6.9.11  Lightning representation</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR35">  6.9.12  Overlay representation</A>
+</UL>
+
+<A HREF="GraphProc.html#HDR36">  6.10  Skew-t plots</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR37">  6.11  XY Graphs</A>
+
+<UL>
+<A HREF="GraphProc.html#HDR38">  6.11.1  Platform</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR39">  6.11.2  Field parameters</A>
+
+<BR>
+<A HREF="GraphProc.html#REF10171">  6.11.3  Axis control parameters</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR40">  6.11.4  Scaling parameters</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR41">  6.11.5  Other common xygraph parameters</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR42">  6.11.6  The simple representation</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR43">  6.11.7  The wind representation</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR44">  6.11.8  The contour and filled-contour representations</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR45">  6.11.9  The observation representation</A>
+</UL>
+
+<A HREF="GraphProc.html#HDR46">  6.12  Time series plots</A>
+
+<UL>
+<A HREF="GraphProc.html#HDR47">  6.12.1  Time series parameters</A>
+</UL>
+
+<A HREF="GraphProc.html#HDR48">  6.13  Vertical cross sections</A>
+
+<UL>
+<A HREF="GraphProc.html#HDR49">  6.13.1  Common cross section parameters</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR50">  6.13.2  Contour representation parameters</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR51">  6.13.3  Vector representation parameters</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR52">  6.13.4  Planar cross sections</A>
+
+<BR>
+<A HREF="GraphProc.html#HDR53">  6.13.5  Zig-zag cross sections</A>
+</UL>
+
+<A HREF="GraphProc.html#HDR54">  6.14  Histograms</A>
+
+<UL>
+<A HREF="GraphProc.html#HDR55">  6.14.1  Count bar charts</A>
+</UL>
+</UL>
+</UL>
+
+<HR>

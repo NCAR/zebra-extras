@@ -1,0 +1,187 @@
+<P><A HREF="Install.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="install.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>APPENDIX A </B> Installation Notes for Specific Systems</TITLE>
+<H1><A NAME="REF90414"> <paranum><B>APPENDIX A </B> Installation Notes for Specific Systems</A></H1>
+
+<P>This appendix gives notes and instructions specific to installing Zebra on each of the supported operating systems. Some of the earlier installation instructions refer to details found here.
+<H3><A NAME="REF20046">  A-1  Installation Notes for HP-UX</A></H3>
+
+<HR>
+<P>The X Window System distributed with HP-UX 9.0 does not contain the Athena Widget library, therefore Zebra must be linked with the MIT X11R5 distribution found on the <I>InterWorks Contributed Software Library</I> CD-ROM. If your system was not shipped with this CD-ROM, then you will have to ftp the MIT X distribution from the host ftp.x.org.
+<H4><A NAME="HDR0">  A-1.1  Installing X11 from the InterWorks CD-ROM</A></H4>
+<P>The CD-ROM cover contains directions for installing all of the software on the CD-ROM onto your machine. If you only wish to install the X libraries and include files necessary for Zebra, follow the directions below.
+
+<OL>
+<P><LI>Change to the root directory.
+<BR><PRE>
+</OL>
+
+
+# cd /
+</PRE>
+
+<OL>
+<P><LI>Become the root user.
+<BR><PRE>
+</OL>
+
+
+# su root
+
+</PRE>
+
+<OL>
+<P><LI>If the directory /cdrom does not exist, create it.
+<BR><PRE>
+</OL>
+
+
+# mkdir /cdrom
+</PRE>
+
+<OL>
+<P><LI>Put the CD-ROM into the CD caddy and insert the caddy into the CD-ROM drive.
+<BR>
+<P><LI>Mount the CD-ROM.
+<BR><PRE>
+</OL>
+
+
+# /etc/mount -r /dev/dsk/cdrom /cdrom
+</PRE>
+
+<OL>
+<P><LI>If the above step failed with a message about /dev/dsk/cdrom being an unknown device, try
+<BR><PRE>
+</OL>
+
+
+# /etc/mount -r /dev/dsk/3s0 /cdrom
+</PRE>
+
+<OL>
+<P><LI>Extract the X11 tar file, which automatically installs X into /usr/contrib/mitX11R5. The next two lines should form one command line:
+<BR><PRE>
+</OL>
+
+
+# zcat /cdrom/HPUX/IWORKS/X11R5/S700_8_0.TRZ
+  | tar xfp -
+</PRE>
+
+<OL>
+<P><LI>Unmount and eject the CD-ROM.
+<BR><PRE>
+</OL>
+
+
+# /etc/umount /cdrom
+</PRE>
+<P>The MIT X11R5 distribution is now installed on your system. The library and include paths commented in config.h for HP-UX and mentioned in the installation steps should be correct for compiling Zebra on your system.
+<P>When compiling Zebra, make sure that the makedepend program, found in /usr/contrib/mitX11R5/bin, is in your path. In other words, enter this command from the shell prompt before running make(1).
+<PRE>
+host% set path=($path /usr/contrib/mitX11R5/bin)
+</PRE>
+<H4><A NAME="REF70510">  A-1.2  HP-UX FORTRAN Compiler Options</A></H4>
+<P>Unlike most FORTRAN compilers, the HP-UX FORTRAN compiler does not append underscores to external symbol names. However, the Zebra C source code calls FORTRAN symbols with an appended underscore. For Zebra's C code to link with the necessary FORTRAN subroutines, the FORTRAN compiler must be told to append underscores to external symbol names using the +ppu option. This option can be added to the definition of FortOptions in config.h. For example,
+<PRE>
+#define FortOptions -O +ppu
+
+</PRE>
+<H3><A NAME="HDR1">  A-2  Installation Notes for SunOS 4.1.x</A></H3>
+
+<HR>
+<P>There are a few possible problems worthy of note when trying to compile Zebra under SunOS 4.1.x. This section covers these problems and their solutions.
+<H4><A NAME="REF56435">  A-2.1  OpenWindows 3.0 Patches</A></H4>
+<P>OpenWindows 3.0 has one particular bug which will cause the Zebra compilation to fail, since the bug prevents the Xmu library from being linked dynamically. The problem can be circumvented by linking statically with the Xmu library, but a better solution is to apply Sun's patch for the library. This patch is available in the same ftp directory from which the Zebra distribution files are retrieved. You only need to apply this patch if you are compiling under SunOS 4.1.x and linking with OpenWindows (as opposed to linking with another set of X11 libraries, such as the MIT X Consortium Release 4 or 5).
+<P>The patch is contained in the compressed tar file 10057304.tar.Z. Retrieve this file and extract it into a scratch directory.
+<PRE>
+% zcat 100573-04.tar.Z | tar xf -
+</PRE>
+<P>This will create the directory 100573-04. Change to this directory and read the file README, which contains instructions for installing the patch. You will need root permissions to install the patch. Once the patch is installed, you can continue with configuring and building Zebra.
+<P>It is possible to work around this OpenWindows bug by linking the Xmu library statically. For example, you could add you C compiler's static linking option to the CCOptions definition. For cc,
+<PRE>
+#define CCOptions -O -Bstatic
+</PRE>
+<P>and for gcc,
+<PRE>
+#define CCOptions -O -static
+</PRE>
+<P>However, this links <I>everything</I> statically and results in huge and less efficient executables. Yet another option, if using cc, links only the Xmu library statically through the XLibraries definition.
+<PRE>
+#define XLibraries -L/usr/openwin/lib \
+  -lXaw -Bstatic -lXmu -Bdynamic -lXt \
+
+  -lXext -lX11
+</PRE>
+<P>This method does not work for gcc, since the presence of the -static option anywhere on the gcc command line causes all libraries to be linked statically.
+<P>Despite the existence of workarounds, it is <I>strongly recommended</I> that you install the Xmu library patch rather than trying to link dynamically.
+<P>Another patch is available in the Zebra ftp distribution directory, in the file 10051202.tar.Z. This is a "jumbo patch" for the Xt library and may be installed in the same way as the Xmu patch above. However, the Xt patch is not needed to successfully compile or run Zebra. (As far as <I>we</I> know, anyway.) This patch is provided merely for convenience and completeness.
+<H4><A NAME="REF42048">  A-2.2  Compiling with SPARCompilers Version SC2.0.1</A></H4>
+<P>If you are using the SPARCompilers package, version 2.0.1 (SC2.0.1), you must be careful about avoiding mismatches between old and new versions of the FORTRAN and C compilers and libraries. In particular, if you use the FORTRAN compiler f77 from SC2.0.1, while using an older cc or the GNU C compiler, gcc, an extra library and object file from the SC2.0.1 directory must be explicitly linked on the compile command line. In config.h, the definition of FortranLibraries should read similarly to this line.
+<PRE>
+# define FortranLibraries \
+  -L/usr/lang/SC2.0.1 -lF77 -lV77 -lM77 -lansi \
+  /usr/lang/SC2.0.1/values-Xa.o
+</PRE>
+<P>The definition above assumes that SC2.0.1 was installed in the standard location /usr/lang. If this is not true, replace /usr/lang with the directory containing the SC2.0.1 installation. (This is the directory which you should have added to the PATH environment variable to have the compiler commands in your path.) The -lansi option links in a library required by object files compiled with SC2.0.1 compilers. The valuesXa.o object file resolves the symbol _lib_version, which is also required by object files compiled with SC2.0.1.
+
+<P>If you are compiling both the FORTRAN and C source code with SC2.0.1 compilers, either cc, acc or f77, then -lansi and valuesXa.o should <I>not</I> be included in the FortranLibraries definition, since cc and acc will link these files automatically. Thus, the likely FortranLibraries definition when using only SC2.0.1 compilers looks like this:
+<PRE>
+# define FortranLibraries \
+  -L/usr/lang/SC2.0.1 -lF77 -lV77 -lM77
+</PRE>
+<P>Again, /usr/lang should be replaced with the actual directory path of your SC2.0.1 installation.
+<H3><A NAME="HDR2">  A-3  Installation Notes for Solaris 2.2, 2.3, and 2.4</A></H3>
+
+<HR>
+<P>When linking with OpenWindows 3.0 under Solaris, if you see errors about undefined X library symbols
+<PRE>
+get_wmShellWidgetClass
+</PRE>
+<P>and
+<PRE>
+get_applicationShellWidgetClass
+</PRE>
+<P>then you need to install the patch mentioned in <A HREF="mach-appndx.html#REF56435">Appendix A-2.1,  "OpenWindows 3.0 Patches", on page 49.</A> The patch is recommended rather than attempting the static linking work-around, since static linking may cause other problems and at the least produces huge executables.
+<P>The Solaris 2.4 header file sys/types.h mistakenly includes the sys/feature_tests.h header file twice. While this does not break or in any way harm the compilation, it produces lots of warning messages from makedepend. 
+<PRE>
+makedepend: warning:  /usr/include/sys/types.h includes 
+/usr/include/sys/feature_tests.h more than once!
+</PRE>
+<P>Warnings like this can be safely, though not easily, ignored.
+<H3><A NAME="HDR3">  A-4  Installation notes for SGI IRIX 5</A></H3>
+
+<HR>
+<P>The Silicon Graphics port works only with version 5 of IRIX; we do not have an IRIX 4 machine to work with. Version 4.1 has been tested with IRIX 5.1.0.1 and IRIX 5.2.
+
+<P>The GNU C compiler (gcc) may be used on IRIX machines, but only if you are running IRIX 5.2 or later and have gcc-2.6.1 or later. The use of the GNU assembler from the binutils-2.5.2 distribution is highly recommended as well. Even with gcc 2.6.1 some residual problems exist: in particular, it is impossible to use strip on the resulting binaries without generating core dumps.
+<P>If you are using gcc, it is important that you not give /usr/include for any of the include paths in config.h. If you get compile errors in lib/msg_lib.c (and other files), this is probably the problem.
+<P>IRIX 5.2 requires a couple of additional FortranLibraries: -lI77 and -lisam. Without these, the build of the graphics process will fail with a number of inscrutable undefined externals.
+<P>Configurations which have been developed under other environments (i.e. all of those shipped by NCAR/RDP) will look a little better under the SGI window manager if you add a line reading:
+<PRE>
+set tbspace 25
+</PRE>
+<P>to the dm.config file.
+<H3><A NAME="HDR4">  A-5  Installation Notes for Linux 1.2.x</A></H3>
+
+<HR>
+<P>Linux is a version of Unix which runs on Intel 386, 486, and Pentium processors (and compatibles). It is freely available over the net, or may be purchased at low cost from a number of CDROM vendors. Linux provides everything normally expected of a Unix system, including the X window system, compilers, the emacs editor, and, now, Zebra as well.
+<P>For more information on Linux, the best source is the set of WWW pages at this URL:
+<PRE>
+http://sunsite.unc.edu/mdw/linux.html
+</PRE>
+<P>The Linux port is new, and should be regarded as beta-test software.
+<P>The Linux binaries are in the ELF format and were compiled with a Debian distribution of Linux using gcc 2.7.2. Zebra should also compile with a Slakware distribution.
+<P>If you are building from source on an ELF system, you will need to change the definition of TermcapLibrary to -lncurses.
+<P>Access to GRIB data does not work on Linux systems.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+<P><A HREF="Install.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="smry-appndx.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

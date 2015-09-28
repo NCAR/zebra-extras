@@ -1,0 +1,5224 @@
+%!PS-Adobe-3.0
+%%BoundingBox: (atend)
+%%Pages: (atend)
+%%PageOrder: (atend)
+%%DocumentFonts: (atend)
+%%Creator: Frame 5.0
+%%DocumentData: Clean7Bit
+%%EndComments
+%%BeginProlog
+%
+% Frame ps_prolog 5.0, for use with Frame 5.0 products
+% This ps_prolog file is Copyright (c) 1986-1995 Frame Technology
+% Corporation.  All rights reserved.  This ps_prolog file may be
+% freely copied and distributed in conjunction with documents created
+% using FrameMaker, FrameMaker/SGML and FrameViewer as long as this 
+% copyright notice is preserved.
+%
+% FrameMaker users specify the proper paper size for each print job in the
+% "Print" dialog's "Printer Paper Size" "Width" and "Height~ fields.  If the
+% printer that the PS file is sent to does not support the requested paper
+% size, or if there is no paper tray of the proper size currently installed, 
+% then the job will not be printed.  The following flag, if set to true, will
+% cause the job to print on the default paper in such cases.
+/FMAllowPaperSizeMismatch            false def
+%
+% Frame products normally print colors as their true color on a color printer
+% or as shades of gray, based on luminance, on a black-and white printer. The
+% following flag, if set to true, forces all non-white colors to print as pure
+% black. This has no effect on bitmap images.
+/FMPrintAllColorsAsBlack             false def
+%
+% Frame products can either set their own line screens or use a printer's 
+% default settings. Three flags below control this separately for no 
+% separations, spot separations and process separations. If a flag
+% is true, then the default printer settings will not be changed. If it is
+% false, Frame products will use their own settings from a table based on
+% the printer's resolution.
+/FMUseDefaultNoSeparationScreen      true  def
+/FMUseDefaultSpotSeparationScreen    true  def
+/FMUseDefaultProcessSeparationScreen false def
+%
+% For any given PostScript printer resolution, Frame products have two sets of 
+% screen angles and frequencies for printing process separations, which are 
+% recomended by Adobe. The following variable chooses the higher frequencies
+% when set to true or the lower frequencies when set to false. This is only
+% effective if the appropriate FMUseDefault...SeparationScreen flag is false.
+/FMUseHighFrequencyScreens true def
+%
+% The following is a set of predefined optimal frequencies and angles for various
+% common dpi settings. This is taken from "Advances in Color Separation Using
+% PostScript Software Technology," from Adobe Systems (3/13/89 P.N. LPS 0043)
+% and corrolated with information which is in various PPD (4.0) files.
+%
+% The "dpiranges" figure is the minimum dots per inch device resolution which
+% can support this setting. The "low" and "high" values are controlled by the
+% setting of the FMUseHighFrequencyScreens flag above. The "TDot" flags control
+% the use of the "Yellow Triple Dot" feature whereby the frequency id divided by
+% three, but the dot function is "trippled" giving a block of 3x3 dots per cell.
+%
+% PatFreq is a compromise pattern frequency for ps Level 2 printers which is close
+% to the ideal WYSIWYG pattern frequency of 9 repetitions/inch but does not beat
+% (too badly) against the screen frequencies of any separations for that DPI.
+/dpiranges   [  2540    2400    1693     1270    1200     635      600      0      ] def
+/CMLowFreqs  [ 100.402  94.8683 89.2289 100.402  94.8683  66.9349  63.2456 47.4342 ] def
+/YLowFreqs   [  95.25   90.0    84.65    95.25   90.0     70.5556  66.6667 50.0    ] def
+/KLowFreqs   [  89.8026 84.8528 79.8088  89.8026 84.8528  74.8355  70.7107 53.033  ] def
+/CLowAngles  [  71.5651 71.5651 71.5651 71.5651  71.5651  71.5651  71.5651 71.5651 ] def
+/MLowAngles  [  18.4349 18.4349 18.4349 18.4349  18.4349  18.4349  18.4349 18.4349 ] def
+/YLowTDot    [  true    true    false    true    true     false    false   false   ] def
+/CMHighFreqs [ 133.87  126.491 133.843  108.503 102.523  100.402   94.8683 63.2456 ] def
+/YHighFreqs  [ 127.0   120.0   126.975  115.455 109.091   95.25    90.0    60.0    ] def
+/KHighFreqs  [ 119.737 113.137 119.713  128.289 121.218   89.8026  84.8528 63.6395 ] def
+/CHighAngles [  71.5651 71.5651 71.5651  70.0169 70.0169  71.5651  71.5651 71.5651 ] def
+/MHighAngles [  18.4349 18.4349 18.4349  19.9831 19.9831  18.4349  18.4349 18.4349 ] def
+/YHighTDot   [  false   false   true     false   false    true     true    false   ] def
+/PatFreq     [	10.5833 10.0     9.4055  10.5833 10.0	  10.5833  10.0	   9.375   ] def
+%
+% PostScript Level 2 printers contain an "Accurate Screens" feature which can
+% improve process separation rendering at the expense of compute time. This 
+% flag is ignored by PostScript Level 1 printers.
+/FMUseAcccurateScreens true def
+%
+% The following PostScript procedure defines the spot function that Frame
+% products will use for process separations. You may un-comment-out one of
+% the alternative functions below, or use your own.
+%
+% Dot function
+/FMSpotFunction {abs exch abs 2 copy add 1 gt 
+		{1 sub dup mul exch 1 sub dup mul add 1 sub }
+		{dup mul exch dup mul add 1 exch sub }ifelse } def
+%
+% Line function
+% /FMSpotFunction { pop } def
+%
+% Elipse function
+% /FMSpotFunction { dup 5 mul 8 div mul exch dup mul exch add 
+%		sqrt 1 exch sub } def
+%
+%
+/FMversion (5.0) def 
+/fMLevel1 /languagelevel where {pop languagelevel} {1} ifelse 2 lt def
+/FMPColor
+	fMLevel1 {
+		false
+		/colorimage where {pop pop true} if
+	} {
+		true
+	} ifelse
+def
+/FrameDict 400 dict def 
+systemdict /errordict known not {/errordict 10 dict def
+		errordict /rangecheck {stop} put} if
+% The readline in PS 23.0 doesn't recognize cr's as nl's on AppleTalk
+FrameDict /tmprangecheck errordict /rangecheck get put 
+errordict /rangecheck {FrameDict /bug true put} put 
+FrameDict /bug false put 
+mark 
+% Some PS machines read past the CR, so keep the following 3 lines together!
+currentfile 5 string readline
+00
+0000000000
+cleartomark 
+errordict /rangecheck FrameDict /tmprangecheck get put 
+FrameDict /bug get { 
+	/readline {
+		/gstring exch def
+		/gfile exch def
+		/gindex 0 def
+		{
+			gfile read pop 
+			dup 10 eq {exit} if 
+			dup 13 eq {exit} if 
+			gstring exch gindex exch put 
+			/gindex gindex 1 add def 
+		} loop
+		pop 
+		gstring 0 gindex getinterval true 
+		} bind def
+	} if
+/FMshowpage /showpage load def
+/FMquit /quit load def
+/FMFAILURE { 
+	dup = flush 
+	FMshowpage 
+	/Helvetica findfont 12 scalefont setfont
+	72 200 moveto show
+	72 220 moveto show
+	FMshowpage 
+	FMquit 
+	} def 
+/FMVERSION {
+	FMversion ne {
+		(Frame product version does not match ps_prolog!  Check installation;)
+		(also check ~/fminit and ./fminit for old versions) FMFAILURE
+		} if
+	} def 
+/FMBADEPSF { 
+	(Adobe's PostScript Language Reference Manual, 2nd Edition, section H.2.4)
+	(says your EPS file is not valid, as it calls X              )
+	dup dup (X) search pop exch pop exch pop length 
+	5 -1 roll 
+	putinterval 
+	FMFAILURE
+	} def
+/fmConcatProcs
+	{
+	/proc2 exch cvlit def/proc1 exch cvlit def/newproc proc1 length proc2 length add array def
+	newproc 0 proc1 putinterval newproc proc1 length proc2 putinterval newproc cvx
+}def
+FrameDict begin [
+	/ALDsave
+	/FMdicttop
+	/FMoptop
+	/FMpointsize
+	/FMsaveobject
+	/b
+	/bitmapsave
+	/blut
+	/bpside
+	/bs
+	/bstring
+	/bwidth
+	/c
+	/cf
+	/cs
+	/cynu
+	/depth
+	/edown
+	/fh
+	/fillvals
+	/fw
+	/fx
+	/fy
+	/g
+	/gfile
+	/gindex
+	/grnt
+	/gryt
+	/gstring
+	/height
+	/hh
+	/i
+	/im
+	/indx
+	/is
+	/k
+	/kk
+	/landscape
+	/lb
+	/len
+	/llx
+	/lly
+	/m
+	/magu
+	/manualfeed
+	/n
+	/offbits
+	/onbits
+	/organgle
+	/orgbangle
+	/orgbfreq
+	/orgbproc
+	/orgbxfer
+	/orgfreq
+	/orggangle
+	/orggfreq
+	/orggproc
+	/orggxfer
+	/orgmatrix
+	/orgproc
+	/orgrangle
+	/orgrfreq
+	/orgrproc
+	/orgrxfer
+	/orgxfer
+	/pagesave
+	/paperheight
+	/papersizedict
+	/paperwidth
+	/pos
+	/pwid
+	/r
+	/rad
+	/redt
+	/sl
+	/str
+	/tran
+	/u
+	/urx
+	/ury
+	/val
+	/width
+	/width
+	/ws
+	/ww
+	/x
+	/x1
+	/x2
+	/xindex
+	/xpoint
+	/xscale
+	/xx
+	/y
+	/y1
+	/y2
+	/yelu
+	/yindex
+	/ypoint
+	/yscale
+	/yy
+] { 0 def } forall
+/FmBD {bind def} bind def
+systemdict /pdfmark known {
+	/fMAcrobat true def
+	
+	/FmPD /pdfmark load def
+	
+	
+	/FmPT /show load def
+	
+	
+	currentdistillerparams /CoreDistVersion get 2000 ge {
+	
+		
+		/FmPD2 /pdfmark load def
+		
+		
+		
+		
+		
+		/FmPA { mark exch /Dest exch 5 3 roll 
+				/View [ /XYZ null 6 -2 roll FmDC exch pop null] /DEST FmPD 
+		}FmBD
+	} {
+		
+		/FmPD2 /cleartomark load def
+		/FmPA {pop pop pop}FmBD
+	} ifelse
+} {
+	
+	/fMAcrobat false def
+	/FmPD /cleartomark load def
+	/FmPD2 /cleartomark load def
+	/FmPT /pop load def
+	/FmPA {pop pop pop}FmBD
+} ifelse
+/FmDC {
+	transform fMDefaultMatrix itransform cvi exch cvi exch
+}FmBD
+/FmBx {
+	dup 3 index lt {3 1 roll exch} if 
+	1 index 4 index lt {4 -1 roll 3 1 roll exch 4 1 roll} if
+}FmBD
+/FMnone 0 def
+/FMcyan 1 def
+/FMmagenta 2 def
+/FMyellow 3 def
+/FMblack 4 def
+/FMcustom 5 def
+/fMNegative false def 
+/FrameSepIs FMnone def 
+/FrameSepBlack 0 def
+/FrameSepYellow 0 def
+/FrameSepMagenta 0 def
+/FrameSepCyan 0 def
+/FrameSepRed 1 def
+/FrameSepGreen 1 def
+/FrameSepBlue 1 def
+/FrameCurGray 1 def
+/FrameCurPat null def
+/FrameCurColors [ 0 0 0 1 0 0 0 ] def 
+/FrameColorEpsilon .001 def	
+/eqepsilon {		
+	sub dup 0 lt {neg} if
+	FrameColorEpsilon le
+} bind def
+/FrameCmpColorsCMYK { 
+	2 copy 0 get exch 0 get eqepsilon {
+		2 copy 1 get exch 1 get eqepsilon {
+			2 copy 2 get exch 2 get eqepsilon {
+				3 get exch 3 get eqepsilon
+			} {pop pop false} ifelse
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+/FrameCmpColorsRGB { 
+	2 copy 4 get exch 0 get eqepsilon {
+		2 copy 5 get exch 1 get eqepsilon {
+			6 get exch 2 get eqepsilon
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+/RGBtoCMYK { 
+	1 exch sub 
+	3 1 roll 
+	1 exch sub 
+	3 1 roll 
+	1 exch sub 
+	3 1 roll 
+	3 copy 
+	2 copy 
+	le { pop } { exch pop } ifelse 
+	2 copy 
+	le { pop } { exch pop } ifelse 
+	dup dup dup 
+	6 1 roll 
+	4 1 roll 
+	7 1 roll 
+	sub 
+	6 1 roll 
+	sub 
+	5 1 roll 
+	sub 
+	4 1 roll 
+} bind def
+/CMYKtoRGB { 
+	dup dup 4 -1 roll add 						  
+	5 1 roll 3 -1 roll add 						  
+	4 1 roll add 								  
+	1 exch sub dup 0 lt {pop 0} if 3 1 roll 	  
+	1 exch sub dup 0 lt {pop 0} if exch 	      
+	1 exch sub dup 0 lt {pop 0} if exch	  		  
+} bind def
+/FrameSepInit {
+	1.0 RealSetgray
+} bind def
+/FrameSetSepColor { 
+	/FrameSepBlue exch def
+	/FrameSepGreen exch def
+	/FrameSepRed exch def
+	/FrameSepBlack exch def
+	/FrameSepYellow exch def
+	/FrameSepMagenta exch def
+	/FrameSepCyan exch def
+	/FrameSepIs FMcustom def
+	setCurrentScreen	
+} bind def
+/FrameSetCyan {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 1.0 def
+	/FrameSepIs FMcyan def
+	setCurrentScreen	
+} bind def
+ 
+/FrameSetMagenta {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 1.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMmagenta def
+	setCurrentScreen
+} bind def
+ 
+/FrameSetYellow {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 1.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMyellow def
+	setCurrentScreen
+} bind def
+ 
+/FrameSetBlack {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 1.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMblack def
+	setCurrentScreen
+} bind def
+ 
+/FrameNoSep { 
+	/FrameSepIs FMnone def
+	setCurrentScreen
+} bind def
+/FrameSetSepColors { 
+	FrameDict begin
+	[ exch 1 add 1 roll ]
+	/FrameSepColors  
+	exch def end
+	} bind def
+/FrameColorInSepListCMYK { 
+	FrameSepColors {  
+       		exch dup 3 -1 roll 
+       		FrameCmpColorsCMYK 
+       		{ pop true exit } if
+    	} forall 
+	dup true ne {pop false} if
+	} bind def
+/FrameColorInSepListRGB { 
+	FrameSepColors {  
+       		exch dup 3 -1 roll 
+       		FrameCmpColorsRGB 
+       		{ pop true exit } if
+    	} forall 
+	dup true ne {pop false} if
+	} bind def
+/RealSetgray /setgray load def
+/RealSetrgbcolor /setrgbcolor load def
+/RealSethsbcolor /sethsbcolor load def
+end 
+/setgray { 
+	FrameDict begin
+	FrameSepIs FMnone eq
+		{ RealSetgray } 
+		{ 
+		FrameSepIs FMblack eq 
+			{ RealSetgray } 
+			{ FrameSepIs FMcustom eq 
+			  FrameSepRed 0 eq and
+			  FrameSepGreen 0 eq and
+			  FrameSepBlue 0 eq and {
+			  	RealSetgray
+			  } {
+				1 RealSetgray pop 
+			  } ifelse
+			} ifelse
+		} ifelse
+	end
+} bind def
+/setrgbcolor { 
+	FrameDict begin
+	FrameSepIs FMnone eq
+	{  RealSetrgbcolor }
+	{
+		3 copy [ 4 1 roll ] 
+		FrameColorInSepListRGB
+		{
+				FrameSepBlue eq exch 
+			 	FrameSepGreen eq and exch 
+			 	FrameSepRed eq and
+			 	{ 0 } { 1 } ifelse
+		}
+		{
+			FMPColor {
+				RealSetrgbcolor
+				currentcmykcolor
+			} {
+				RGBtoCMYK
+			} ifelse
+			FrameSepIs FMblack eq
+			{1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		RealSetgray
+	} 
+	ifelse
+	end
+} bind def
+/sethsbcolor {
+	FrameDict begin
+	FrameSepIs FMnone eq 
+	{ RealSethsbcolor } 
+	{
+		RealSethsbcolor 
+		currentrgbcolor  
+		setrgbcolor 
+	} 
+	ifelse
+	end
+} bind def
+FrameDict begin
+/setcmykcolor where {
+	pop /RealSetcmykcolor /setcmykcolor load def
+} {
+	/RealSetcmykcolor {
+		4 1 roll
+		3 { 3 index add 0 max 1 min 1 exch sub 3 1 roll} repeat 
+		RealSetrgbcolor pop
+	} bind def
+} ifelse
+userdict /setcmykcolor { 
+		FrameDict begin
+		FrameSepIs FMnone eq
+		{ RealSetcmykcolor } 
+		{
+			4 copy [ 5 1 roll ]
+			FrameColorInSepListCMYK
+			{
+				FrameSepBlack eq exch 
+				FrameSepYellow eq and exch 
+				FrameSepMagenta eq and exch 
+				FrameSepCyan eq and 
+				{ 0 } { 1 } ifelse
+			}
+			{
+				FrameSepIs FMblack eq
+				{1.0 exch sub 4 1 roll pop pop pop} {
+				FrameSepIs FMyellow eq
+				{pop 1.0 exch sub 3 1 roll pop pop} {
+				FrameSepIs FMmagenta eq
+				{pop pop 1.0 exch sub exch pop } {
+				FrameSepIs FMcyan eq
+				{pop pop pop 1.0 exch sub } 
+				{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+			} ifelse
+			RealSetgray
+		}
+		ifelse
+		end
+	} bind put
+fMLevel1 { 
+	
+	
+	
+	/patScreenDict 7 dict dup begin
+		<0f1e3c78f0e1c387> [ 45  { pop } {exch pop} 		.5   2 sqrt] FmBD
+		<0f87c3e1f0783c1e> [ 135 { pop } {exch pop}			.5   2 sqrt] FmBD
+		<cccccccccccccccc> [ 0   { pop } dup				.5   2	   ] FmBD
+		<ffff0000ffff0000> [ 90  { pop } dup				.5   2	   ] FmBD
+		<8142241818244281> [ 45  { 2 copy lt {exch} if pop}	dup .75  2 sqrt] FmBD
+		<03060c183060c081> [ 45  { pop } {exch pop}			.875 2 sqrt] FmBD
+		<8040201008040201> [ 135 { pop } {exch pop}			.875 2 sqrt] FmBD
+	end def
+} { 
+	
+	/patProcDict 5 dict dup begin
+		<0f1e3c78f0e1c387> { 3 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<0f87c3e1f0783c1e> { 3 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+		<8142241818244281> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke
+											-1 -1 moveto 9 9 lineto stroke } bind def
+		<03060c183060c081> { 1 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<8040201008040201> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+	end def
+	/patDict 15 dict dup begin
+		/PatternType 1 def		
+		/PaintType 2 def		
+		/TilingType 3 def		
+		/BBox [ 0 0 8 8 ] def 	
+		/XStep 8 def			
+		/YStep 8 def			
+		/PaintProc {
+			begin
+			patProcDict bstring known {
+				patProcDict bstring get exec
+			} {
+				8 8 true [1 0 0 -1 0 8] bstring imagemask
+			} ifelse
+			end
+		} bind def
+	end def
+} ifelse
+/combineColor {
+    FrameSepIs FMnone eq
+	{
+		graymode fMLevel1 or not {
+			
+			[/Pattern [/DeviceCMYK]] setcolorspace
+			FrameCurColors 0 4 getinterval aload pop FrameCurPat setcolor
+		} {
+			FrameCurColors 3 get 1.0 ge {
+				FrameCurGray RealSetgray
+			} {
+				fMAcrobat not FMPColor graymode and and {
+					0 1 3 { 
+						FrameCurColors exch get
+						1 FrameCurGray sub mul
+					} for
+					RealSetcmykcolor
+				} {
+					4 1 6 {
+						FrameCurColors exch get
+						graymode {
+							1 exch sub 1 FrameCurGray sub mul 1 exch sub
+						} {
+							1.0 lt {FrameCurGray} {1} ifelse
+						} ifelse
+					} for
+					RealSetrgbcolor
+				} ifelse
+			} ifelse
+		} ifelse
+	} { 
+		FrameCurColors 0 4 getinterval aload
+		FrameColorInSepListCMYK {
+			FrameSepBlack eq exch 
+			FrameSepYellow eq and exch 
+			FrameSepMagenta eq and exch 
+			FrameSepCyan eq and
+			FrameSepIs FMcustom eq and
+			{ FrameCurGray } { 1 } ifelse
+		} {
+			FrameSepIs FMblack eq
+			{FrameCurGray 1.0 exch sub mul 1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop FrameCurGray 1.0 exch sub mul 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		graymode fMLevel1 or not {
+			
+			[/Pattern [/DeviceGray]] setcolorspace
+			FrameCurPat setcolor
+		} { 
+			graymode not fMLevel1 and {
+				
+				dup 1 lt {pop FrameCurGray} if
+			} if
+			RealSetgray
+		} ifelse
+	} ifelse
+} bind def
+/savematrix {
+	orgmatrix currentmatrix pop
+	} bind def
+/restorematrix {
+	orgmatrix setmatrix
+	} bind def
+/fMDefaultMatrix matrix defaultmatrix def
+/fMatrix2 matrix def
+/dpi    72 0 fMDefaultMatrix dtransform
+    dup mul exch   dup mul add   sqrt def
+	
+/freq dpi dup 72 div round dup 0 eq {pop 1} if 8 mul div def
+/sangle 1 0 fMDefaultMatrix dtransform exch atan def
+	sangle fMatrix2 rotate 
+	fMDefaultMatrix fMatrix2 concatmatrix 
+	dup 0 get /sflipx exch def
+	    3 get /sflipy exch def
+/screenIndex {
+	0 1 dpiranges length 1 sub { dup dpiranges exch get 1 sub dpi le {exit} {pop} ifelse } for
+} bind def
+/getCyanScreen {
+	FMUseHighFrequencyScreens { CHighAngles CMHighFreqs} {CLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+/getMagentaScreen {
+	FMUseHighFrequencyScreens { MHighAngles CMHighFreqs } {MLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+/getYellowScreen {
+	FMUseHighFrequencyScreens { YHighTDot YHighFreqs} { YLowTDot YLowFreqs } ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get { 3 div
+			{2 { 1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch} repeat
+			FMSpotFunction } } {/FMSpotFunction load } ifelse
+			0.0 exch
+} bind def
+/getBlackScreen  {
+	FMUseHighFrequencyScreens { KHighFreqs } { KLowFreqs } ifelse
+		screenIndex get 45.0 /FMSpotFunction load 
+} bind def
+/getSpotScreen {
+	getBlackScreen
+} bind def
+/getCompositeScreen {
+	getBlackScreen
+} bind def
+/FMSetScreen 
+	fMLevel1 { /setscreen load 
+	}{ {
+		8 dict begin
+		/HalftoneType 1 def
+		/SpotFunction exch def
+		/Angle exch def
+		/Frequency exch def
+		/AccurateScreens FMUseAcccurateScreens def
+		currentdict end sethalftone
+	} bind } ifelse
+def
+/setDefaultScreen {
+	FMPColor {
+		orgrxfer cvx orggxfer cvx orgbxfer cvx orgxfer cvx setcolortransfer
+	}
+	{
+		orgxfer cvx settransfer
+	} ifelse
+	orgfreq organgle orgproc cvx setscreen
+} bind def
+/setCurrentScreen {
+	FrameSepIs FMnone eq {
+		FMUseDefaultNoSeparationScreen {
+			setDefaultScreen
+		} {
+			getCompositeScreen FMSetScreen
+		} ifelse
+	} {
+		FrameSepIs FMcustom eq {
+			FMUseDefaultSpotSeparationScreen {
+				setDefaultScreen
+			} {
+				getSpotScreen FMSetScreen
+			} ifelse
+		} {
+			FMUseDefaultProcessSeparationScreen {
+				setDefaultScreen
+			} {
+				FrameSepIs FMcyan eq {
+					getCyanScreen FMSetScreen
+				} {
+					FrameSepIs FMmagenta eq {
+						getMagentaScreen FMSetScreen
+					} {
+						FrameSepIs FMyellow eq {
+							getYellowScreen FMSetScreen
+						} {
+							getBlackScreen FMSetScreen
+						} ifelse
+					} ifelse
+				} ifelse
+			} ifelse
+		} ifelse
+	} ifelse 
+} bind def
+end
+	
+/FMDOCUMENT { 
+	array /FMfonts exch def 
+	/#copies exch def
+	FrameDict begin
+	0 ne /manualfeed exch def
+	/paperheight exch def
+	/paperwidth exch def
+	0 ne /fMNegative exch def 
+	0 ne /edown exch def 
+	/yscale exch def
+	/xscale exch def
+	fMLevel1 {
+		manualfeed {setmanualfeed} if
+		/FMdicttop countdictstack 1 add def 
+		/FMoptop count def 
+		setpapername 
+		manualfeed {true} {papersize} ifelse 
+		{manualpapersize} {false} ifelse 
+		{desperatepapersize} {false} ifelse 
+		{papersizefailure} if
+		count -1 FMoptop {pop pop} for
+		countdictstack -1 FMdicttop {pop end} for 
+		}
+		{2 dict
+		 dup /PageSize [paperwidth paperheight] put
+		 manualfeed {dup /ManualFeed manualfeed put} if
+		 {setpagedevice} stopped {papersizefailure} if
+		}
+	ifelse 
+	
+	FMPColor {
+		currentcolorscreen
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+			cvlit /orgbproc exch def
+				  /orgbangle exch def 
+				  /orgbfreq exch def
+			cvlit /orggproc exch def
+				  /orggangle exch def 
+				  /orggfreq exch def
+			cvlit /orgrproc exch def
+				  /orgrangle exch def 
+				  /orgrfreq exch def
+			currentcolortransfer 
+			fMNegative {
+				1 1 4 { 
+					pop { 1 exch sub } fmConcatProcs 4 1 roll
+				} for
+				4 copy
+				setcolortransfer
+			} if
+			cvlit /orgxfer exch def
+			cvlit /orgbxfer exch def
+			cvlit /orggxfer exch def
+			cvlit /orgrxfer exch def
+	} {
+		currentscreen 
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+				  
+		currenttransfer 
+		fMNegative {
+			{ 1 exch sub } fmConcatProcs
+			dup settransfer
+		} if 
+		cvlit /orgxfer exch def
+	} ifelse
+	end 
+} def 
+/FMBEGINPAGE { 
+	FrameDict begin 
+	/pagesave save def
+	3.86 setmiterlimit
+	/landscape exch 0 ne def
+	landscape { 
+		90 rotate 0 exch dup /pwid exch def neg translate pop 
+	}{
+		pop /pwid exch def
+	} ifelse
+	edown { [-1 0 0 1 pwid 0] concat } if
+	0 0 moveto paperwidth 0 lineto paperwidth paperheight lineto 
+	0 paperheight lineto 0 0 lineto 1 setgray fill
+	xscale yscale scale
+	/orgmatrix matrix def
+	gsave 
+} def 
+/FMENDPAGE {
+	grestore 
+	pagesave restore
+	end 
+	showpage
+	} def 
+/FMFONTDEFINE { 
+	FrameDict begin
+	findfont 
+	ReEncode 
+	1 index exch 
+	definefont 
+	FMfonts 3 1 roll 
+	put
+	end 
+	} def 
+/FMFILLS {
+	FrameDict begin dup
+	array /fillvals exch def
+	dict /patCache exch def
+	end 
+	} def 
+/FMFILL {
+	FrameDict begin
+	 fillvals 3 1 roll put
+	end 
+	} def 
+/FMNORMALIZEGRAPHICS { 
+	newpath
+	1 setlinewidth
+	0 setlinecap
+	0 0 0 sethsbcolor
+	0 setgray 
+	} bind def
+/FMBEGINEPSF { 
+	end 
+	/FMEPSF save def 
+	/showpage {} def 
+% See Adobe's "PostScript Language Reference Manual, 2nd Edition", page 714.
+% "...the following operators MUST NOT be used in an EPS file:" (emphasis ours)
+	/banddevice {(banddevice) FMBADEPSF} def
+	/clear {(clear) FMBADEPSF} def
+	/cleardictstack {(cleardictstack) FMBADEPSF} def 
+	/copypage {(copypage) FMBADEPSF} def
+	/erasepage {(erasepage) FMBADEPSF} def
+	/exitserver {(exitserver) FMBADEPSF} def
+	/framedevice {(framedevice) FMBADEPSF} def
+	/grestoreall {(grestoreall) FMBADEPSF} def
+	/initclip {(initclip) FMBADEPSF} def
+	/initgraphics {(initgraphics) FMBADEPSF} def
+	/quit {(quit) FMBADEPSF} def
+	/renderbands {(renderbands) FMBADEPSF} def
+	/setglobal {(setglobal) FMBADEPSF} def
+	/setpagedevice {(setpagedevice) FMBADEPSF} def
+	/setshared {(setshared) FMBADEPSF} def
+	/startjob {(startjob) FMBADEPSF} def
+	/lettertray {(lettertray) FMBADEPSF} def
+	/letter {(letter) FMBADEPSF} def
+	/lettersmall {(lettersmall) FMBADEPSF} def
+	/11x17tray {(11x17tray) FMBADEPSF} def
+	/11x17 {(11x17) FMBADEPSF} def
+	/ledgertray {(ledgertray) FMBADEPSF} def
+	/ledger {(ledger) FMBADEPSF} def
+	/legaltray {(legaltray) FMBADEPSF} def
+	/legal {(legal) FMBADEPSF} def
+	/statementtray {(statementtray) FMBADEPSF} def
+	/statement {(statement) FMBADEPSF} def
+	/executivetray {(executivetray) FMBADEPSF} def
+	/executive {(executive) FMBADEPSF} def
+	/a3tray {(a3tray) FMBADEPSF} def
+	/a3 {(a3) FMBADEPSF} def
+	/a4tray {(a4tray) FMBADEPSF} def
+	/a4 {(a4) FMBADEPSF} def
+	/a4small {(a4small) FMBADEPSF} def
+	/b4tray {(b4tray) FMBADEPSF} def
+	/b4 {(b4) FMBADEPSF} def
+	/b5tray {(b5tray) FMBADEPSF} def
+	/b5 {(b5) FMBADEPSF} def
+	FMNORMALIZEGRAPHICS 
+	[/fy /fx /fh /fw /ury /urx /lly /llx] {exch def} forall 
+	fx fw 2 div add fy fh 2 div add  translate
+	rotate
+	fw 2 div neg fh 2 div neg translate
+	fw urx llx sub div fh ury lly sub div scale 
+	llx neg lly neg translate 
+	/FMdicttop countdictstack 1 add def 
+	/FMoptop count def 
+	} bind def
+/FMENDEPSF {
+	count -1 FMoptop {pop pop} for 
+	countdictstack -1 FMdicttop {pop end} for 
+	FMEPSF restore
+	FrameDict begin 
+	} bind def
+FrameDict begin 
+/setmanualfeed {
+%%BeginFeature *ManualFeed True
+	 statusdict /manualfeed true put
+%%EndFeature
+	} bind def
+/max {2 copy lt {exch} if pop} bind def
+/min {2 copy gt {exch} if pop} bind def
+/inch {72 mul} def
+/pagedimen { 
+	paperheight sub abs 16 lt exch 
+	paperwidth sub abs 16 lt and
+	{/papername exch def} {pop} ifelse
+	} bind def
+/setpapername { 
+	/papersizedict 14 dict def 
+	papersizedict begin
+	/papername /unknown def 
+		/Letter 8.5 inch 11.0 inch pagedimen
+		/LetterSmall 7.68 inch 10.16 inch pagedimen
+		/Tabloid 11.0 inch 17.0 inch pagedimen
+		/Ledger 17.0 inch 11.0 inch pagedimen
+		/Legal 8.5 inch 14.0 inch pagedimen
+		/Statement 5.5 inch 8.5 inch pagedimen
+		/Executive 7.5 inch 10.0 inch pagedimen
+		/A3 11.69 inch 16.5 inch pagedimen
+		/A4 8.26 inch 11.69 inch pagedimen
+		/A4Small 7.47 inch 10.85 inch pagedimen
+		/B4 10.125 inch 14.33 inch pagedimen
+		/B5 7.16 inch 10.125 inch pagedimen
+	end
+	} bind def
+/papersize {
+	papersizedict begin
+		/Letter {lettertray letter} def
+		/LetterSmall {lettertray lettersmall} def
+		/Tabloid {11x17tray 11x17} def
+		/Ledger {ledgertray ledger} def
+		/Legal {legaltray legal} def
+		/Statement {statementtray statement} def
+		/Executive {executivetray executive} def
+		/A3 {a3tray a3} def
+		/A4 {a4tray a4} def
+		/A4Small {a4tray a4small} def
+		/B4 {b4tray b4} def
+		/B5 {b5tray b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	statusdict begin stopped end 
+	} bind def
+/manualpapersize {
+	papersizedict begin
+		/Letter {letter} def
+		/LetterSmall {lettersmall} def
+		/Tabloid {11x17} def
+		/Ledger {ledger} def
+		/Legal {legal} def
+		/Statement {statement} def
+		/Executive {executive} def
+		/A3 {a3} def
+		/A4 {a4} def
+		/A4Small {a4small} def
+		/B4 {b4} def
+		/B5 {b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	stopped 
+	} bind def
+/desperatepapersize {
+	statusdict /setpageparams known
+		{
+		paperwidth paperheight 0 1 
+		statusdict begin
+		{setpageparams} stopped 
+		end
+		} {true} ifelse 
+	} bind def
+/papersizefailure {
+	FMAllowPaperSizeMismatch not
+		{
+(The requested paper size is not available in any currently-installed tray)
+(Edit the PS file to "FMAllowPaperSizeMismatch true" to use default tray)
+		 FMFAILURE } if
+	} def
+/DiacriticEncoding [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /space /exclam /quotedbl
+/numbersign /dollar /percent /ampersand /quotesingle /parenleft
+/parenright /asterisk /plus /comma /hyphen /period /slash /zero /one
+/two /three /four /five /six /seven /eight /nine /colon /semicolon
+/less /equal /greater /question /at /A /B /C /D /E /F /G /H /I /J /K
+/L /M /N /O /P /Q /R /S /T /U /V /W /X /Y /Z /bracketleft /backslash
+/bracketright /asciicircum /underscore /grave /a /b /c /d /e /f /g /h
+/i /j /k /l /m /n /o /p /q /r /s /t /u /v /w /x /y /z /braceleft /bar
+/braceright /asciitilde /.notdef /Adieresis /Aring /Ccedilla /Eacute
+/Ntilde /Odieresis /Udieresis /aacute /agrave /acircumflex /adieresis
+/atilde /aring /ccedilla /eacute /egrave /ecircumflex /edieresis
+/iacute /igrave /icircumflex /idieresis /ntilde /oacute /ograve
+/ocircumflex /odieresis /otilde /uacute /ugrave /ucircumflex
+/udieresis /dagger /.notdef /cent /sterling /section /bullet
+/paragraph /germandbls /registered /copyright /trademark /acute
+/dieresis /.notdef /AE /Oslash /.notdef /.notdef /.notdef /.notdef
+/yen /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/ordfeminine /ordmasculine /.notdef /ae /oslash /questiondown
+/exclamdown /logicalnot /.notdef /florin /.notdef /.notdef
+/guillemotleft /guillemotright /ellipsis /.notdef /Agrave /Atilde
+/Otilde /OE /oe /endash /emdash /quotedblleft /quotedblright
+/quoteleft /quoteright /.notdef /.notdef /ydieresis /Ydieresis
+/fraction /currency /guilsinglleft /guilsinglright /fi /fl /daggerdbl
+/periodcentered /quotesinglbase /quotedblbase /perthousand
+/Acircumflex /Ecircumflex /Aacute /Edieresis /Egrave /Iacute
+/Icircumflex /Idieresis /Igrave /Oacute /Ocircumflex /.notdef /Ograve
+/Uacute /Ucircumflex /Ugrave /dotlessi /circumflex /tilde /macron
+/breve /dotaccent /ring /cedilla /hungarumlaut /ogonek /caron
+] def
+/ReEncode { 
+	dup 
+	length 
+	dict begin 
+	{
+	1 index /FID ne 
+		{def} 
+		{pop pop} ifelse 
+	} forall 
+	0 eq {/Encoding DiacriticEncoding def} if 
+	currentdict 
+	end 
+	} bind def
+FMPColor 
+	
+	{
+	/BEGINBITMAPCOLOR { 
+		BITMAPCOLOR} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPCOLORc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUECOLOR } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUECOLORc } def
+	/BEGINBITMAPCMYK { 
+		BITMAPCMYK } def
+	/BEGINBITMAPCMYKc { 
+		BITMAPCMYKc } def
+	}
+	
+	{
+	/BEGINBITMAPCOLOR { 
+		BITMAPGRAY} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPGRAYc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUEGRAY } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUEGRAYc } def
+	/BEGINBITMAPCMYK { 
+		BITMAPCMYKGRAY } def
+	/BEGINBITMAPCMYKc { 
+		BITMAPCMYKGRAYc } def
+	}
+ifelse
+/K { 
+	FMPrintAllColorsAsBlack {
+		dup 1 eq 2 index 1 eq and 3 index 1 eq and not
+			{7 {pop} repeat 0 0 0 1 0 0 0} if
+	} if 
+	FrameCurColors astore 
+	pop combineColor
+} bind def
+/graymode true def
+fMLevel1 {
+	/fmGetFlip {
+		fMatrix2 exch get mul 0 lt { -1 } { 1 } ifelse
+	} FmBD
+} if
+/setPatternMode {
+	fMLevel1 {
+		2 index patScreenDict exch known {
+			pop pop
+			patScreenDict exch get aload pop 
+			freq 								
+			mul									
+			5 2 roll							
+			fMatrix2 currentmatrix 1 get 0 ne {
+				3 -1 roll 90 add 3 1 roll 		
+				sflipx 1 fmGetFlip sflipy 2 fmGetFlip neg mul
+			} {  								
+				sflipx 0 fmGetFlip sflipy 3 fmGetFlip mul 
+			} ifelse
+			0 lt {exch pop} {pop} ifelse 		
+			fMNegative { 
+				{neg} fmConcatProcs 			
+			} if
+			bind
+			
+			
+			
+			systemdict /setscreen get exec		
+			/FrameCurGray exch def
+		} {
+			/bwidth  exch def
+			/bpside  exch def
+			/bstring exch def
+			/onbits 0 def  /offbits 0 def
+			freq sangle landscape {90 add} if 
+				{/ypoint exch def
+				 /xpoint exch def
+				 /xindex xpoint 1 add 2 div bpside mul cvi def
+				 /yindex ypoint 1 add 2 div bpside mul cvi def
+				 bstring yindex bwidth mul xindex 8 idiv add get
+				 1 7 xindex 8 mod sub bitshift and 0 ne fMNegative {not} if
+				 {/onbits  onbits  1 add def 1}
+				 {/offbits offbits 1 add def 0}
+				 ifelse
+				}
+				setscreen
+			offbits offbits onbits add div fMNegative {1.0 exch sub} if
+			/FrameCurGray exch def
+		} ifelse
+	} { 
+		pop pop
+		dup patCache exch known {
+			patCache exch get
+		} { 
+			dup
+			patDict /bstring 3 -1 roll put
+			patDict 
+			9 PatFreq screenIndex get div dup matrix scale
+			makepattern
+			dup 
+			patCache 4 -1 roll 3 -1 roll put
+		} ifelse
+		/FrameCurGray 0 def
+		/FrameCurPat exch def
+	} ifelse
+	/graymode false def
+	combineColor
+} bind def
+/setGrayScaleMode {
+	graymode not {
+		/graymode true def
+		fMLevel1 {
+			setCurrentScreen
+		} if
+	} if
+	/FrameCurGray exch def
+	combineColor
+} bind def
+/normalize {
+	transform round exch round exch itransform
+	} bind def
+/dnormalize {
+	dtransform round exch round exch idtransform
+	} bind def
+/lnormalize { 
+	0 dtransform exch cvi 2 idiv 2 mul 1 add exch idtransform pop
+	} bind def
+/H { 
+	lnormalize setlinewidth
+	} bind def
+/Z {
+	setlinecap
+	} bind def
+	
+/PFill {
+	graymode fMLevel1 or not {
+		gsave 1 setgray eofill grestore
+	} if
+} bind def
+/PStroke {
+	graymode fMLevel1 or not {
+		gsave 1 setgray stroke grestore
+	} if
+	stroke
+} bind def
+/X { 
+	fillvals exch get
+	dup type /stringtype eq
+	{8 1 setPatternMode} 
+	{setGrayScaleMode}
+	ifelse
+	} bind def
+/V { 
+	PFill gsave eofill grestore
+	} bind def
+/Vclip {
+	clip
+	} bind def
+/Vstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/N { 
+	PStroke
+	} bind def
+/Nclip {
+	strokepath clip newpath
+	} bind def
+/Nstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/M {newpath moveto} bind def
+/E {lineto} bind def
+/D {curveto} bind def
+/O {closepath} bind def
+/L { 
+ 	/n exch def
+	newpath
+	normalize
+	moveto 
+	2 1 n {pop normalize lineto} for
+	} bind def
+/Y { 
+	L 
+	closepath
+	} bind def
+/R { 
+	/y2 exch def
+	/x2 exch def
+	/y1 exch def
+	/x1 exch def
+	x1 y1
+	x2 y1
+	x2 y2
+	x1 y2
+	4 Y 
+	} bind def
+/rarc 
+	{rad 
+	 arcto
+	} bind def
+/RR { 
+	/rad exch def
+	normalize
+	/y2 exch def
+	/x2 exch def
+	normalize
+	/y1 exch def
+	/x1 exch def
+	mark
+	newpath
+	{
+	x1 y1 rad add moveto
+	x1 y2 x2 y2 rarc
+	x2 y2 x2 y1 rarc
+	x2 y1 x1 y1 rarc
+	x1 y1 x1 y2 rarc
+	closepath
+	} stopped {x1 y1 x2 y2 R} if 
+	cleartomark
+	} bind def
+/RRR { 
+	/rad exch def
+	normalize /y4 exch def /x4 exch def
+	normalize /y3 exch def /x3 exch def
+	normalize /y2 exch def /x2 exch def
+	normalize /y1 exch def /x1 exch def
+	newpath
+	normalize moveto 
+	mark
+	{
+	x2 y2 x3 y3 rarc
+	x3 y3 x4 y4 rarc
+	x4 y4 x1 y1 rarc
+	x1 y1 x2 y2 rarc
+	closepath
+	} stopped
+	 {x1 y1 x2 y2 x3 y3 x4 y4 newpath moveto lineto lineto lineto closepath} if
+	cleartomark
+	} bind def
+/C { 
+	grestore
+	gsave
+	R 
+	clip
+	setCurrentScreen
+} bind def
+/CP { 
+	grestore
+	gsave
+	Y 
+	clip
+	setCurrentScreen
+} bind def
+/F { 
+	FMfonts exch get
+	FMpointsize scalefont
+	setfont
+	} bind def
+/Q { 
+	/FMpointsize exch def
+	F 
+	} bind def
+/T { 
+	moveto show
+	} bind def
+/RF { 
+	rotate
+	0 ne {-1 1 scale} if
+	} bind def
+/TF { 
+	gsave
+	moveto 
+	RF
+	show
+	grestore
+	} bind def
+/P { 
+	moveto
+	0 32 3 2 roll widthshow
+	} bind def
+/PF { 
+	gsave
+	moveto 
+	RF
+	0 32 3 2 roll widthshow
+	grestore
+	} bind def
+/S { 
+	moveto
+	0 exch ashow
+	} bind def
+/SF { 
+	gsave
+	moveto
+	RF
+	0 exch ashow
+	grestore
+	} bind def
+/B { 
+	moveto
+	0 32 4 2 roll 0 exch awidthshow
+	} bind def
+/BF { 
+	gsave
+	moveto
+	RF
+	0 32 4 2 roll 0 exch awidthshow
+	grestore
+	} bind def
+/G { 
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	PFill fill
+	grestore
+	} bind def
+/Gstrk {
+	savematrix
+    newpath
+    2 index 2 div add exch 3 index 2 div sub exch 
+    normalize 2 index 2 div sub exch 3 index 2 div add exch 
+    translate
+    scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+    } bind def
+/Gclip { 
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	clip newpath
+	restorematrix
+	} bind def
+/GG { 
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto 
+	rotate 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath
+	PFill
+	fill
+	grestore
+	} bind def
+/GGclip { 
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath
+	clip newpath
+	restorematrix
+	} bind def
+/GGstrk { 
+	savematrix
+    newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath 
+	restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/A { 
+	gsave
+	savematrix
+	newpath
+	2 index 2 div add exch 3 index 2 div sub exch 
+	normalize 2 index 2 div sub exch 3 index 2 div add exch 
+	translate 
+	scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+/Aclip {
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	strokepath clip newpath
+	restorematrix
+} bind def
+/Astrk {
+	Gstrk
+} bind def
+/AA { 
+	gsave
+	savematrix
+	newpath
+	
+	3 index 2 div add exch 4 index 2 div sub exch 
+	
+	normalize 3 index 2 div sub exch 4 index 2 div add exch
+	translate 
+	rotate 
+	scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+/AAclip {
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath
+	strokepath clip newpath
+	restorematrix
+} bind def
+/AAstrk {
+	GGstrk
+} bind def
+/BEGINPRINTCODE { 
+	/FMdicttop countdictstack 1 add def 
+	/FMoptop count 7 sub def 
+	/FMsaveobject save def
+	userdict begin 
+	/showpage {} def 
+	FMNORMALIZEGRAPHICS 
+	3 index neg 3 index neg translate
+	} bind def
+/ENDPRINTCODE {
+	count -1 FMoptop {pop pop} for 
+	countdictstack -1 FMdicttop {pop end} for 
+	FMsaveobject restore 
+	} bind def
+/gn { 
+	0 
+	{	46 mul 
+		cf read pop 
+		32 sub 
+		dup 46 lt {exit} if 
+		46 sub add 
+		} loop
+	add 
+	} bind def
+/cfs { 
+	/str sl string def 
+	0 1 sl 1 sub {str exch val put} for 
+	str def 
+	} bind def
+/ic [ 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0
+	{0 hx} {1 hx} {2 hx} {3 hx} {4 hx} {5 hx} {6 hx} {7 hx} {8 hx} {9 hx}
+	{10 hx} {11 hx} {12 hx} {13 hx} {14 hx} {15 hx} {16 hx} {17 hx} {18 hx}
+	{19 hx} {gn hx} {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12}
+	{13} {14} {15} {16} {17} {18} {19} {gn} {0 wh} {1 wh} {2 wh} {3 wh}
+	{4 wh} {5 wh} {6 wh} {7 wh} {8 wh} {9 wh} {10 wh} {11 wh} {12 wh}
+	{13 wh} {14 wh} {gn wh} {0 bl} {1 bl} {2 bl} {3 bl} {4 bl} {5 bl} {6 bl}
+	{7 bl} {8 bl} {9 bl} {10 bl} {11 bl} {12 bl} {13 bl} {14 bl} {gn bl}
+	{0 fl} {1 fl} {2 fl} {3 fl} {4 fl} {5 fl} {6 fl} {7 fl} {8 fl} {9 fl}
+	{10 fl} {11 fl} {12 fl} {13 fl} {14 fl} {gn fl}
+	] def
+/ms { 
+	/sl exch def 
+	/val 255 def 
+	/ws cfs 
+	/im cfs 
+	/val 0 def 
+	/bs cfs 
+	/cs cfs 
+	} bind def
+400 ms 
+/ip { 
+	is 
+	0 
+	cf cs readline pop 
+	{	ic exch get exec 
+		add 
+		} forall 
+	pop 
+	
+	} bind def
+/rip { 
+	   
+	  
+	  bis ris copy pop 
+      is
+      0
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop 
+	  ris gis copy pop 
+	  dup is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  gis bis copy pop 
+	  dup add is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+      pop 
+      
+      } bind def
+/rip4 { 
+	   
+	  
+	  kis cis copy pop 
+      is
+      0
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop 
+	  cis mis copy pop 
+	  dup is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  mis yis copy pop 
+	  dup dup add is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  yis kis copy pop 
+	  3 mul is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+      pop 
+      
+      } bind def
+/wh { 
+	/len exch def 
+	/pos exch def 
+	ws 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/bl { 
+	/len exch def 
+	/pos exch def 
+	bs 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/s1 1 string def
+/fl { 
+	/len exch def 
+	/pos exch def 
+	/val cf s1 readhexstring pop 0 get def
+	pos 1 pos len add 1 sub {im exch val put} for
+	pos len 
+	} bind def
+/hx { 
+	3 copy getinterval 
+	cf exch readhexstring pop pop 
+	} bind def
+/wbytes { 
+      dup dup
+      8 gt { pop 8 idiv mul }
+      { 8 eq {pop} {1 eq {7 add 8 idiv} {3 add 4 idiv} ifelse} ifelse } ifelse
+	} bind def
+/BEGINBITMAPBWc { 
+	1 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAPGRAYc { 
+	8 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAP2BITc { 
+	2 {} COMMONBITMAPc
+	} bind def
+/COMMONBITMAPc { 
+		 
+	/cvtProc exch def
+	/depth exch def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	cvtProc                
+	/is im 0 lb getinterval def 
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height depth [width 0 0 height neg 0 height] 
+	{ip} image 
+	bitmapsave restore 
+	grestore
+	} bind def
+/BEGINBITMAPBW { 
+	1 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAPGRAY { 
+	8 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAP2BIT { 
+	2 {} COMMONBITMAP
+	} bind def
+/COMMONBITMAP { 
+	/cvtProc exch def
+	/depth exch def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/bitmapsave save def 
+	cvtProc              
+	/is width depth wbytes string def
+	/cf currentfile def 
+	width height depth [width 0 0 height neg 0 height] 
+	{cf is readhexstring pop} image
+	bitmapsave restore 
+	grestore
+	} bind def
+/ngrayt 256 array def
+/nredt 256 array def
+/nbluet 256 array def
+/ngreent 256 array def
+fMLevel1 {
+/colorsetup {
+	currentcolortransfer
+	/gryt exch def
+	/blut exch def
+	/grnt exch def
+	/redt exch def
+	0 1 255 {
+		/indx exch def
+		/cynu 1 red indx get 255 div sub def
+		/magu 1 green indx get 255 div sub def
+		/yelu 1 blue indx get 255 div sub def
+		/kk cynu magu min yelu min def
+		/u kk currentundercolorremoval exec def
+%		/u 0 def
+		nredt indx 1 0 cynu u sub max sub redt exec put
+		ngreent indx 1 0 magu u sub max sub grnt exec put
+		nbluet indx 1 0 yelu u sub max sub blut exec put
+		ngrayt indx 1 kk currentblackgeneration exec sub gryt exec put
+	} for
+	{255 mul cvi nredt exch get}
+	{255 mul cvi ngreent exch get}
+	{255 mul cvi nbluet exch get}
+	{255 mul cvi ngrayt exch get}
+	setcolortransfer
+	{pop 0} setundercolorremoval
+	{} setblackgeneration
+	} bind def
+}
+{
+/colorSetup2 {
+	[ /Indexed /DeviceRGB 255 
+		{dup red exch get 255 div 
+		 exch dup green exch get 255 div 
+		 exch blue exch get 255 div}
+	] setcolorspace
+} bind def
+} ifelse
+/fakecolorsetup {
+	/tran 256 string def
+	0 1 255 {/indx exch def 
+		tran indx
+		red indx get 77 mul
+		green indx get 151 mul
+		blue indx get 28 mul
+		add add 256 idiv put} for
+	currenttransfer
+	{255 mul cvi tran exch get 255.0 div}
+	exch fmConcatProcs settransfer
+} bind def
+/BITMAPCOLOR { 
+	/depth 8 def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/bitmapsave save def
+	fMLevel1 {	
+		colorsetup
+		/is width depth wbytes string def
+		/cf currentfile def 
+		width height depth [width 0 0 height neg 0 height] 
+		{cf is readhexstring pop} {is} {is} true 3 colorimage 
+	} {
+		colorSetup2
+		/is width depth wbytes string def
+		/cf currentfile def 
+		7 dict dup begin
+			/ImageType 1 def
+			/Width width def
+			/Height height def
+			/ImageMatrix [width 0 0 height neg 0 height] def
+			/DataSource {cf is readhexstring pop} bind def
+			/BitsPerComponent depth def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPCOLORc { 
+	/depth 8 def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	fMLevel1 {	
+		colorsetup
+		/is im 0 lb getinterval def 
+		ws 0 lb getinterval is copy pop 
+		/cf currentfile def 
+		width height depth [width 0 0 height neg 0 height] 
+		{ip} {is} {is} true 3 colorimage
+	} {
+		colorSetup2
+		/is im 0 lb getinterval def 
+		ws 0 lb getinterval is copy pop 
+		/cf currentfile def 
+		7 dict dup begin
+			/ImageType 1 def
+			/Width width def
+			/Height height def
+			/ImageMatrix [width 0 0 height neg 0 height] def
+			/DataSource {ip} bind def
+			/BitsPerComponent depth def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPTRUECOLORc { 
+	/depth 24 def
+        gsave
+ 	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/ris im 0 width getinterval def	
+	/gis im width width getinterval def	
+	/bis im width 2 mul width getinterval def 
+        
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height 8 [width 0 0 height neg 0 height] 
+	{width rip pop ris} {gis} {bis} true 3 colorimage
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPCMYKc { 
+	/depth 32 def
+        gsave
+ 	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/cis im 0 width getinterval def	
+	/mis im width width getinterval def	
+	/yis im width 2 mul width getinterval def 
+	/kis im width 3 mul width getinterval def 
+        
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height 8 [width 0 0 height neg 0 height] 
+	{width rip4 pop cis} {mis} {yis} {kis} true 4 colorimage
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPTRUECOLOR { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /gis width string def
+        /bis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop } 
+        { cf gis readhexstring pop } 
+        { cf bis readhexstring pop } 
+        true 3 colorimage 
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYK { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /mis width string def
+        /yis width string def
+        /kis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop } 
+        { cf mis readhexstring pop } 
+        { cf yis readhexstring pop } 
+        { cf kis readhexstring pop } 
+        true 4 colorimage 
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPTRUEGRAYc { 
+	/depth 24 def
+        gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/ris im 0 width getinterval def	
+	/gis im width width getinterval def	
+	/bis im width 2 mul width getinterval def 
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        {width rip pop ris gis bis width gray} image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYKGRAYc { 
+	/depth 32 def
+        gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/cis im 0 width getinterval def	
+	/mis im width width getinterval def	
+	/yis im width 2 mul width getinterval def 
+	/kis im width 3 mul width getinterval def 
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        {width rip pop cis mis yis kis width cgray} image
+        bitmapsave restore 
+        grestore
+        } bind def
+/cgray { 
+        /ww exch def
+        /k exch def
+        /y exch def
+        /m exch def
+        /c exch def
+        0 1 ww 1 sub { /i exch def c i get m i get y i get k i get CMYKtoRGB
+				.144 mul 3 1 roll .587 mul 3 1 roll .299 mul add add
+				c i 3 -1 roll floor cvi put } for
+        c
+ 		} bind def
+/gray { 
+        /ww exch def
+        /b exch def
+        /g exch def
+        /r exch def
+        0 1 ww 1 sub { /i exch def r i get .299 mul g i get .587 mul
+			b i get .114 mul add add r i 3 -1 roll floor cvi put } for
+        r
+        } bind def
+/BITMAPTRUEGRAY { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /gis width string def
+        /bis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop 
+          cf gis readhexstring pop 
+          cf bis readhexstring pop width gray}  image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYKGRAY { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /yis width string def
+        /mis width string def
+        /kis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop 
+          cf mis readhexstring pop 
+          cf yis readhexstring pop 
+          cf kis readhexstring pop width cgray}  image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPGRAY { 
+	8 {fakecolorsetup} COMMONBITMAP
+	} bind def
+/BITMAPGRAYc { 
+	8 {fakecolorsetup} COMMONBITMAPc
+	} bind def
+/ENDBITMAP {
+	} bind def
+end 
+	/ALDmatrix matrix def ALDmatrix currentmatrix pop
+/StartALD {
+	/ALDsave save def
+	 savematrix
+	 ALDmatrix setmatrix
+	} bind def
+/InALD {
+	 restorematrix
+	} bind def
+/DoneALD {
+	 ALDsave restore
+	} bind def
+/I { setdash } bind def
+/J { [] 0 setdash } bind def
+%%EndProlog
+%%BeginSetup
+(5.0) FMVERSION
+1 1 0 0 612 792 0 1 16 FMDOCUMENT
+0 0 /Times-Roman FMFONTDEFINE
+1 0 /Times-Bold FMFONTDEFINE
+2 0 /Helvetica-Bold FMFONTDEFINE
+3 0 /Helvetica FMFONTDEFINE
+4 0 /Times-Italic FMFONTDEFINE
+5 0 /Courier FMFONTDEFINE
+6 0 /Courier-Oblique FMFONTDEFINE
+32 FMFILLS
+0 0 FMFILL
+1 0.1 FMFILL
+2 0.3 FMFILL
+3 0.5 FMFILL
+4 0.7 FMFILL
+5 0.9 FMFILL
+6 0.97 FMFILL
+7 1 FMFILL
+8 <0f1e3c78f0e1c387> FMFILL
+9 <0f87c3e1f0783c1e> FMFILL
+10 <cccccccccccccccc> FMFILL
+11 <ffff0000ffff0000> FMFILL
+12 <8142241818244281> FMFILL
+13 <03060c183060c081> FMFILL
+14 <8040201008040201> FMFILL
+16 1 FMFILL
+17 0.9 FMFILL
+18 0.7 FMFILL
+19 0.5 FMFILL
+20 0.3 FMFILL
+21 0.1 FMFILL
+22 0.03 FMFILL
+23 0 FMFILL
+24 <f0e1c3870f1e3c78> FMFILL
+25 <f0783c1e0f87c3e1> FMFILL
+26 <3333333333333333> FMFILL
+27 <0000ffff0000ffff> FMFILL
+28 <7ebddbe7e7dbbd7e> FMFILL
+29 <fcf9f3e7cf9f3f7e> FMFILL
+30 <7fbfdfeff7fbfdfe> FMFILL
+%%EndSetup
+%%Page: "1" 1
+%%BeginPaperSize: Letter
+%%EndPaperSize
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+J
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 756 558 756 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 72 558 72 2 L
+0.5 H
+2 Z
+N
+207 623.98 558 654 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+207 623.98 558 654 R
+7 X
+0 0 0 1 0 0 0 K
+V
+207 632.98 513 632.98 2 L
+V
+0.5 H
+2 Z
+0 X
+N
+0 0 612 792 C
+0 30 Q
+0 X
+0 0 0 1 0 0 0 K
+-0.31 (Guide to Realtime Zebra) 207 664 S
+1 18 Q
+(J) 207 565.98 T
+(onathan Corbet) 215.73 565.98 T
+(Chris Bur) 207 545.98 T
+(ghart) 284.33 545.98 T
+(Gary Granger) 207 525.98 T
+2 10 Q
+(National Center f) 207 151.31 T
+(or Atmospheric Resear) 286.81 151.31 T
+(c) 396.64 151.31 T
+(h) 402.1 151.31 T
+(Resear) 207 139.31 T
+(c) 240.15 139.31 T
+(h Data Pr) 245.61 139.31 T
+(ogram) 289.31 139.31 T
+(Zebra ver) 207 127.31 T
+(sion 4.2 \321 Jan) 251.87 127.31 T
+(uar) 321.8 127.31 T
+(y 1996) 337.46 127.31 T
+FMENDPAGE
+%%EndPage: "1" 1
+%%Page: "2" 2
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(Cop) 72 679.98 T
+(yright \050C\051 1987-1996 by UCAR) 91.88 679.98 T
+(Uni) 72 666.98 T
+(v) 89.7 666.98 T
+(ersity Corporation for Atmospheric) 95.52 666.98 T
+(Research All rights reserv) 72 653.98 T
+(ed) 196.79 653.98 T
+(No part of this w) 72 627.98 T
+(ork co) 153.2 627.98 T
+(v) 183.35 627.98 T
+(ered by the cop) 189.17 627.98 T
+(yrights) 262.69 627.98 T
+-0.38 (herein may be reproduced or used in an) 72 614.98 P
+-0.38 (y form or) 258.8 614.98 P
+(by an) 72 601.98 T
+(y means \321 graphic, electronic, or) 98.15 601.98 T
+(mechanical, including photocop) 72 588.98 T
+(ying, recording,) 225.53 588.98 T
+(taping, or information storage and retrie) 72 575.98 T
+(v) 263.66 575.98 T
+(al) 269.36 575.98 T
+(systems \321 without permission of the cop) 72 562.98 T
+(yright) 271.21 562.98 T
+(o) 72 549.98 T
+(wner) 77.7 549.98 T
+(.) 101.03 549.98 T
+(This softw) 72 523.98 T
+(are and an) 122.88 523.98 T
+(y accompan) 172.01 523.98 T
+(ying written) 229.48 523.98 T
+(materials are pro) 72 510.98 T
+(vided \322as is\323 without w) 152.46 510.98 T
+(arranty) 265 510.98 T
+(of an) 72 497.98 T
+(y kind. UCAR e) 96.14 497.98 T
+(xpressly disclaims all) 173.96 497.98 T
+-0.52 (w) 72 484.98 P
+-0.52 (arranties of an) 80.54 484.98 P
+-0.52 (y kind, either e) 147.97 484.98 P
+-0.52 (xpress or implied,) 218.22 484.98 P
+(including b) 72 471.98 T
+(ut not limited to the implied) 126.1 471.98 T
+(w) 72 458.98 T
+(arranties of merchantibility and \336tness for a) 80.54 458.98 T
+(particular purpose. UCAR does not indemnify) 72 445.98 T
+(an) 72 432.98 T
+(y infringement of cop) 83.15 432.98 T
+(yright, patent, or) 187.34 432.98 T
+(trademark through use or modi\336cation of this) 72 419.98 T
+(softw) 72 406.98 T
+(are. UCAR does not pro) 98.54 406.98 T
+(vide maintenance) 214.68 406.98 T
+(or updates for its softw) 72 393.98 T
+(are.) 182.53 393.98 T
+FMENDPAGE
+%%EndPage: "2" 2
+%%Page: "3" 3
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 14 Q
+0 X
+0 0 0 1 0 0 0 K
+(CHAPTER 1) 72 678.65 T
+(Introduction to) 207 678.65 T
+(Real-time) 207 662.65 T
+(Operation) 207 646.65 T
+(5) 276.99 646.65 T
+0 10 Q
+(Netw) 207 627.32 T
+(orking Zebra) 228.56 627.32 T
+(Sessions) 207 615.32 T
+(5) 251.45 615.32 T
+3 8 Q
+(The Single Datastore) 207 602.65 T
+(Option) 207 594.65 T
+(6) 238.57 594.65 T
+(Remote Datastores) 207 584.65 T
+(6) 283.91 584.65 T
+0 10 Q
+-0.22 (Synchronizing Graphics) 207 569.32 P
+(Displays) 207 557.32 T
+(6) 252 557.32 T
+(Performance Issues) 207 539.32 T
+(7) 295.03 539.32 T
+3 8 Q
+(Radar Raster) 207 526.65 T
+(ization) 254.69 526.65 T
+(7) 285.81 526.65 T
+(Remotely Mounted File) 207 516.65 T
+(Systems) 207 508.65 T
+(7) 245.67 508.65 T
+0 14 Q
+(CHAPTER 2) 72 474.65 T
+(Monitors and) 207 474.65 T
+(Diagnostics) 207 458.65 T
+(9) 287.11 458.65 T
+0 10 Q
+(zmon) 207 439.32 T
+(9) 239.22 439.32 T
+(LastData) 207 421.32 T
+(10) 253.1 421.32 T
+(Datastore) 207 403.32 T
+(Diagnostics) 207 391.32 T
+(10) 264.22 391.32 T
+3 8 Q
+(T) 207 378.65 T
+(ab) 210.93 378.65 T
+(le Siz) 219.66 378.65 T
+(es and Memor) 239.1 378.65 T
+(y) 290.47 378.65 T
+(Usage) 207 370.65 T
+(11) 238.12 370.65 T
+(Scan and Cache) 207 360.65 T
+(Times) 207 352.65 T
+(11) 236.78 352.65 T
+(Running Scan Count) 207 342.65 T
+(11) 288.82 342.65 T
+(Platf) 207 332.65 T
+(or) 222.77 332.65 T
+(m Loc) 230.08 332.65 T
+(ks) 251.7 332.65 T
+(11) 267.7 332.65 T
+0 10 Q
+(T) 207 317.32 T
+(imer Diagnostics) 212.76 317.32 T
+(11) 290.81 317.32 T
+0 14 Q
+(CHAPTER 3) 72 280.65 T
+(Archi) 207 280.65 T
+(v) 238.53 280.65 T
+(er) 245.32 280.65 T
+(13) 270.2 280.65 T
+0 10 Q
+(The archi) 207 261.32 T
+(v) 244.79 261.32 T
+(er) 249.64 261.32 T
+(process) 207 249.32 T
+(13) 246.99 249.32 T
+3 8 Q
+(In) 207 236.65 T
+(v) 213.51 236.65 T
+(oking the archiv) 217.31 236.65 T
+(er) 273.14 236.65 T
+(13) 288.25 236.65 T
+(Archiv) 207 226.65 T
+(er control) 229.02 226.65 T
+(15) 270.37 226.65 T
+(Behind the scenes) 207 216.65 T
+(15) 280.82 216.65 T
+0 10 Q
+(The datastore cleanup) 207 201.32 T
+(mechanism) 207 189.32 T
+(16) 262.55 189.32 T
+0 14 Q
+(CHAPTER 4) 72 152.65 T
+(The Netw) 207 152.65 T
+(ork) 262.45 152.65 T
+(T) 207 136.65 T
+(ransfer) 215.06 136.65 T
+(Daemon) 207 120.65 T
+(19) 268.43 120.65 T
+0 10 Q
+(The netw) 207 101.32 T
+(ork transfer) 244.39 101.32 T
+(daemon) 459 681.32 T
+(19) 500.66 681.32 T
+3 8 Q
+(Star) 459 668.65 T
+(ting NetXfr) 473.99 668.65 T
+(19) 519.78 668.65 T
+(Basic con\336gur) 459 658.65 T
+(ation) 509.16 658.65 T
+(options) 459 650.65 T
+(20) 492.79 650.65 T
+(Broadcast protocol) 459 640.65 T
+(con\336gur) 459 632.65 T
+(ation) 487.38 632.65 T
+(20) 512.72 632.65 T
+(Direct image tr) 459 622.65 T
+(ansf) 510.93 622.65 T
+(er) 525.81 622.65 T
+(mode) 459 614.65 T
+(21) 487.01 614.65 T
+(Ho) 459 604.65 T
+(w it all w) 469.1 604.65 T
+(or) 499.25 604.65 T
+(ks) 506.48 604.65 T
+(21) 522.48 604.65 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "3" 3
+%%Page: "4" 4
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "4" 4
+%%Page: "5" 5
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 445.03 558 445.03 2 L
+2 Z
+N
+72 74.02 558 74.02 2 L
+0.25 H
+N
+2 8 Q
+(The z) 207 60.29 T
+(ebra ad) 227.53 60.29 T
+(v) 255.86 60.29 T
+(anced user) 260.15 60.29 T
+(s man) 302.27 60.29 T
+(ual) 325.31 60.29 T
+2 10 Q
+-2.78 (5) 552.44 60.29 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+1 12 Q
+1.2 (CHAPTER 1) 72 677 S
+0 24 Q
+-0.48 (Introduction to Real-time) 207 677 S
+-0.48 (Operation) 207 647 S
+0 12 Q
+(This chapter introduces the dif) 207 424 T
+(ferences between running Zebra for post-) 353.34 424 T
+-0.08 (processing and running Zebra for a real-time operation. The features and) 207 410 P
+(capabilities of Zebra designed speci\336cally for real-time operation are) 207 396 T
+(described and e) 207 382 T
+(xplained in the follo) 281.46 382 T
+(wing chapters. Information about) 378.16 382 T
+(more general use of Zebra can be found in the) 207 368 T
+4 F
+(Advanced User\325) 430.93 368 T
+(s Guide) 508.09 368 T
+0 F
+(.) 545.09 368 T
+(Lik) 207 354 T
+(e) 223.55 354 T
+(wise, an) 228.58 354 T
+(y capabilities mentioned in this manual b) 267.72 354 T
+(ut not e) 464.81 354 T
+(xplained) 500.63 354 T
+-0.17 (here can probably be found in that same manual. Feel free to suggest spe-) 207 340 P
+(ci\336c topics and information to include in this manual.) 207 326 T
+(Essentially this chapter outlines some of the possible setups for a real-) 207 300 T
+(time Zebra installation, and then highlights a fe) 207 286 T
+(w of the performance) 434.02 286 T
+(issues for meeting real-time demands.) 207 272 T
+(This manual remains under construction. At the moment some sections) 207 246 T
+-0.21 (are merely placeholders; others ha) 207 232 P
+-0.21 (v) 370.53 232 P
+-0.21 (e been e) 376.35 232 P
+-0.21 (xtracted v) 415.06 232 P
+-0.21 (erbatum from other) 462.32 232 P
+(manuals.) 207 218 T
+72 174 558 177 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+207 175.5 558 175.5 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 175.5 198 175.5 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(1.1) 181.32 181 T
+(Netw) 207 181 T
+(orking Zebra Sessions) 235.43 181 T
+0 F
+(Zebra allo) 207 156 T
+(ws some v) 255.68 156 T
+(ery complicated setups so that it can be adjusted to) 306.17 156 T
+(the needs of all kinds of \336eld projects and real-time data streams. Pro-) 207 142 T
+(cessing responsibilities, data, and graphical displays can be distrib) 207 128 T
+(uted) 524.72 128 T
+(among multiple Zebra sessions, running on one host or running on se) 207 114 T
+(v-) 538.68 114 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "5" 5
+%%Page: "6" 6
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(Intr) 189 736.18 T
+(oduction to Real-time Operation) 203.32 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(6) 54 60.29 T
+2 8 Q
+(The z) 189 60.29 T
+(ebra ad) 209.53 60.29 T
+(v) 237.86 60.29 T
+(anced user) 242.15 60.29 T
+(s man) 284.27 60.29 T
+(ual) 307.31 60.29 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 12 Q
+(eral netw) 189 678.02 T
+(ork) 233.2 678.02 T
+(ed hosts. This section describes some of the basic) 249.07 678.02 T
+(approaches to designing such setups.) 189 664.02 T
+-0.29 (The most important consideration when designing a Zebra netw) 189 638.02 P
+-0.29 (ork is the) 493.2 638.02 P
+-0.14 (distrib) 189 624.02 P
+-0.14 (ution of data and the responsibilities for ingesting, processing, and) 219.43 624.02 P
+(storing that data. Either one data store daemon can be char) 189 610.02 T
+(ged with stor-) 469.72 610.02 T
+(ing and tracking all of the data in the netw) 189 596.02 T
+(ork, or else se) 391.85 596.02 T
+(v) 458.2 596.02 T
+(eral daemons) 464.02 596.02 T
+(can di) 189 582.02 T
+(vide up the task. The task can be di) 217.69 582.02 T
+(vided into mutually e) 386.36 582.02 T
+(xclusi) 488.52 582.02 T
+(v) 516.89 582.02 T
+(e) 522.71 582.02 T
+(sets of platforms, or secondary data stores can maintain copies of the) 189 568.02 T
+(master data store for f) 189 554.02 T
+(aster local access. Other alternati) 294.18 554.02 T
+(v) 452.16 554.02 T
+(es allo) 457.98 554.02 T
+(w data) 488.68 554.02 T
+-0.11 (store daemons to share each other\325) 189 540.02 P
+-0.11 (s data directories o) 354.06 540.02 P
+-0.11 (v) 443.86 540.02 P
+-0.11 (er NFS. The possi-) 449.68 540.02 P
+(ble combinations are numerous.) 189 526.02 T
+(The options chosen will depend on the loads on the systems in the net-) 189 500.02 T
+(w) 189 486.02 T
+(ork, a) 197.54 486.02 T
+(v) 224.63 486.02 T
+(ailable disk space, and the requirements for k) 230.33 486.02 T
+(eeping copies of) 447.49 486.02 T
+(data up-to-date and synchronized with each other) 189 472.02 T
+(.) 424.94 472.02 T
+2 F
+(1.1.1) 153.31 440.02 T
+(The Single Datastore Option) 189 440.02 T
+0 F
+-0.21 (A single datastore can serv) 189 422.02 P
+-0.21 (e all of the Zebra sessions and clients on all of) 317.3 422.02 P
+-0.22 (the hosts on a netw) 189 408.02 P
+-0.22 (ork. The datastore directory must be NFS mounted by) 280 408.02 P
+(all of the hosts which require access to the datastore, and the directory) 189 394.02 T
+(path to the datastore must be identical on all hosts. F) 189 380.02 T
+(or e) 441.14 380.02 T
+(xample, if the) 459.29 380.02 T
+(datastore directory path is /data on host oscar) 189 366.02 T
+(, then hosts bigbird, bert,) 405.48 366.02 T
+(and ernie must all mount oscar:/data on a local /data directory) 189 352.02 T
+(.) 484.84 352.02 T
+-0.38 (The master datastore runs in a Zebra session so that other sessions, on the) 189 326.02 P
+(same host or on other hosts, can connect to the datastore daemon client.) 189 312.02 T
+(Clients in remote sessions \050i.e., sessions other than the one running the) 189 298.02 T
+(datastore daemon\051 use the) 189 284.02 T
+5 F
+(DS_DAEMON_HOST) 316.97 284.02 T
+0 F
+( en) 417.77 284.02 T
+(vironment v) 431.62 284.02 T
+(ariable to) 489.65 284.02 T
+-0.19 (specify the name of the session to which datastore connections should be) 189 270.02 P
+(made. See the) 189 256.02 T
+4 F
+(Advanced User\325) 258.98 256.02 T
+(s Manual) 336.14 256.02 T
+0 F
+( for more information on) 381.14 256.02 T
+5 F
+(DS_DAEMON_HOST) 189 242.02 T
+0 F
+(.) 288.91 242.02 T
+2 F
+(1.1.2) 153.31 210.02 T
+(Remote Datastores) 189 210.02 T
+0 F
+(Datastore daemons can also share data directories through a f) 189 192.02 T
+(acility) 483.13 192.02 T
+(called the) 189 178.02 T
+4 F
+(r) 238.32 178.02 T
+(emote datastor) 242.54 178.02 T
+(e) 313.76 178.02 T
+0 F
+(.) 319.09 178.02 T
+54 134.02 540 137.02 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+189 135.52 540 135.52 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+54 135.52 180 135.52 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(1.2) 163.32 141.02 T
+(Sync) 189 141.02 T
+(hr) 217.56 141.02 T
+(onizing Graphics Displa) 229.32 141.02 T
+(ys) 365.78 141.02 T
+0 F
+(Graphics displays can be synchronized to data streams and updated in) 189 116.02 T
+(real-time using the) 189 102.02 T
+4 F
+(trig) 281.99 102.02 T
+(g) 299.21 102.02 T
+(er) 305.09 102.02 T
+0 F
+( parameter) 315.08 102.02 T
+(. Ev) 365.4 102.02 T
+(ery graphics windo) 384.55 102.02 T
+(w plot) 476.23 102.02 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "6" 6
+%%Page: "7" 7
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(P) 207 736.18 T
+(erf) 212.73 736.18 T
+(ormance Issues) 224.05 736.18 T
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 74.02 558 74.02 2 L
+2 Z
+N
+2 8 Q
+(The z) 207 60.29 T
+(ebra ad) 227.53 60.29 T
+(v) 255.86 60.29 T
+(anced user) 260.15 60.29 T
+(s man) 302.27 60.29 T
+(ual) 325.31 60.29 T
+2 10 Q
+-2.78 (7) 552.44 60.29 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 12 Q
+(description supports a trigger parameter in the global component and) 207 678.02 T
+(each of its o) 207 664.02 T
+(v) 265.14 664.02 T
+(erlay components. This section will e) 270.96 664.02 T
+(v) 449.98 664.02 T
+(entually outline ho) 455.8 664.02 T
+(w) 545.5 664.02 T
+(the graphics process handles triggers.) 207 650.02 T
+72 606.02 558 609.02 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+207 607.52 558 607.52 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 607.52 198 607.52 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(1.3) 181.32 613.02 T
+(P) 207 613.02 T
+(erf) 214.64 613.02 T
+(ormance Issues) 229.74 613.02 T
+0 F
+-0.45 (This section co) 207 588.02 P
+-0.45 (v) 278.58 588.02 P
+-0.45 (ers some performance issues rele) 284.4 588.02 P
+-0.45 (v) 440.91 588.02 P
+-0.45 (ant to running Zebra in) 446.61 588.02 P
+(real time.) 207 574.02 T
+2 F
+(1.3.1) 171.31 542.02 T
+(Radar Rasterization) 207 542.02 T
+0 F
+(F) 207 524.02 T
+(or projects which must rasterize radar data for display in the Zebra sys-) 213.49 524.02 T
+-0.26 (tem, the continuous rasterization of real-time radar scans presents a daun-) 207 510.02 P
+(ing processing task for man) 207 496.02 T
+(y w) 339.47 496.02 T
+(orkstations. P) 357.01 496.02 T
+(ast real-time Zebra) 422.17 496.02 T
+-0.11 (installations ha) 207 482.02 P
+-0.11 (v) 278.99 482.02 P
+-0.11 (e relied on a dedicated rasterizering host. A single Zebra) 284.81 482.02 P
+(session runs a Rasterizer process and a NetXfr process, which e) 207 468.02 T
+(xchange) 512.4 468.02 T
+(data through the shared memory image transfer routines of the Zebra) 207 454.02 T
+(library) 207 440.02 T
+(. The NetXfr process in turn transmits the rasterized images to a) 238.21 440.02 T
+(Zebra session running on another host, where the images can be dis-) 207 426.02 T
+(played in a graphics process.) 207 412.02 T
+2 F
+(1.3.2) 171.31 380.02 T
+(Remotel) 207 380.02 T
+(y Mounted File Systems) 254.16 380.02 T
+0 F
+(Zebra will w) 207 362.02 T
+(ork across remote \336le systems, b) 268.2 362.02 T
+(ut there are performance) 424.61 362.02 T
+-0.44 (considerations which should be tak) 207 348.02 P
+-0.44 (en into account. First, \336le access, such) 373.77 348.02 P
+(as reading data for display in a graphics process windo) 207 334.02 T
+(w) 469.64 334.02 T
+(, will be slo) 477.53 334.02 T
+(wer) 533.23 334.02 T
+(across remote \336le systems. Also, intense remote \336le access by Zebra) 207 320.02 T
+(translates to higher netw) 207 306.02 T
+(ork traf) 324.53 306.02 T
+(\336c.) 359.88 306.02 T
+-0.35 (Real-time Zebra installations should also tak) 207 280.02 P
+-0.35 (e note of the DataStore\325) 419.45 280.02 P
+-0.35 (s use) 532.03 280.02 P
+(of the) 207 266.02 T
+5 F
+(stat\050\051) 237.66 266.02 T
+0 F
+( system call. In situations in which \336les are updated fre-) 280.86 266.02 T
+(quently) 207 252.02 T
+(, on the order of seconds,) 242.22 252.02 T
+5 F
+(stat\050\051) 366.19 252.02 T
+0 F
+( calls can be a signi\336cant time) 409.39 252.02 T
+(drain. Ov) 207 238.02 T
+(er remote \336le systems, the system o) 252.14 238.02 T
+(v) 422.95 238.02 T
+(erhead of the) 428.77 238.02 T
+5 F
+(stat\050\051) 494.41 238.02 T
+0 F
+-0.26 (calls is e) 207 224.02 P
+-0.26 (v) 247.51 224.02 P
+-0.26 (en greater) 253.33 224.02 P
+-0.26 (. Whene) 300.05 224.02 P
+-0.26 (v) 339.48 224.02 P
+-0.26 (er possible, k) 345.3 224.02 P
+-0.26 (eep frequently updated \336les on) 408.32 224.02 P
+(local disk space. Also, see the section \322File Re) 207 210.02 T
+(visions\323, in the) 430.67 210.02 T
+(DataStore) 506 210.02 T
+(chapter of the) 207 196.02 T
+4 F
+(Zebr) 275.98 196.02 T
+(a Advanced User\325) 298.46 196.02 T
+(s Manual) 384.62 196.02 T
+0 F
+(.) 429.62 196.02 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "7" 7
+%%Page: "8" 8
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(Intr) 189 736.18 T
+(oduction to Real-time Operation) 203.32 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(8) 54 60.29 T
+2 8 Q
+(The z) 189 60.29 T
+(ebra ad) 209.53 60.29 T
+(v) 237.86 60.29 T
+(anced user) 242.15 60.29 T
+(s man) 284.27 60.29 T
+(ual) 307.31 60.29 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "8" 8
+%%Page: "9" 9
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 445.03 558 445.03 2 L
+2 Z
+N
+72 74.02 558 74.02 2 L
+0.25 H
+N
+2 8 Q
+(The z) 207 60.29 T
+(ebra ad) 227.53 60.29 T
+(v) 255.86 60.29 T
+(anced user) 260.15 60.29 T
+(s man) 302.27 60.29 T
+(ual) 325.31 60.29 T
+2 10 Q
+-2.78 (9) 552.44 60.29 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+1 12 Q
+1.2 (CHAPTER 2) 72 677 S
+0 24 Q
+-0.48 (Monitors and Diagnostics) 207 677 S
+0 12 Q
+(This chapter surv) 207 424 T
+(e) 290.14 424 T
+(ys the zebra processes which monitor the rest of the) 295.28 424 T
+(zebra system.) 207 410 T
+72 366 558 369 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+207 367.5 558 367.5 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 367.5 198 367.5 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2.1) 181.32 373 T
+(zmon) 207 373 T
+0 F
+-0.01 (The) 207 348 P
+5 F
+-0.02 (zmon) 228.65 348 P
+0 F
+-0.01 ( program uses the ping protocol to continually monitor the sta-) 257.45 348 P
+-0.29 (tus of a set of processes. It is useful in real-time situations to quickly spot) 207 334 P
+(problems.) 207 320 T
+5 F
+(Zmon) 257.66 320 T
+0 F
+( is in) 286.46 320 T
+(v) 309.32 320 T
+(ok) 315.08 320 T
+(ed as:) 326.96 320 T
+5 F
+(zmon) 230.4 294 T
+6 F
+(config) 266.4 294 T
+0 F
+(Where) 207 268 T
+6 F
+(config) 241.98 268 T
+0 F
+( is the name of a con\336guration \336le for) 285.18 268 T
+5 F
+(zmon) 469.49 268 T
+0 F
+(. This \336le) 498.29 268 T
+(must contain one or more lines of the form:) 207 254 T
+6 F
+(host process) 230.4 228 T
+5 F
+( ...) 316.8 228 T
+0 F
+(Where) 207 202 T
+6 F
+(host) 241.98 202 T
+0 F
+( is the name of a host of interest, follo) 270.78 202 T
+(wed by the names of) 452.46 202 T
+(one or more) 207 188 T
+6 F
+(process) 267.98 188 T
+0 F
+(es to be monitored on that host. The local host) 318.38 188 T
+-0.01 (should be speci\336ed simply as) 207 174 P
+5 F
+-0.03 (local) 350.6 174 P
+0 F
+-0.01 (. When zmon is in) 386.6 174 P
+-0.01 (v) 473.73 174 P
+-0.01 (ok) 479.49 174 P
+-0.01 (ed, it will dis-) 491.37 174 P
+-0.17 (play a windo) 207 160 P
+-0.17 (w containing the names of all the gi) 268.36 160 P
+-0.17 (v) 438.54 160 P
+-0.17 (en hosts and processes.) 444.36 160 P
+-0.12 (Those which f) 207 146 P
+-0.12 (ail to answer queries within a gi) 275.29 146 P
+-0.12 (v) 427.58 146 P
+-0.12 (en time will be \337agged in) 433.4 146 P
+(red in the windo) 207 132 T
+(w) 285.02 132 T
+(. Thus a quick glance gi) 292.91 132 T
+(v) 407.26 132 T
+(es an immediate summary of) 413.08 132 T
+(the status of the netw) 207 118 T
+(ork.) 308.87 118 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "9" 9
+%%Page: "10" 10
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(Monitor) 189 736.18 T
+(s and Dia) 221.86 736.18 T
+(gnostics) 261.78 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(10) 54 60.29 T
+2 8 Q
+(The z) 189 60.29 T
+(ebra ad) 209.53 60.29 T
+(v) 237.86 60.29 T
+(anced user) 242.15 60.29 T
+(s man) 284.27 60.29 T
+(ual) 307.31 60.29 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 12 Q
+(Since) 189 678.02 T
+5 F
+(zmon) 218.66 678.02 T
+0 F
+( depends on the monitored processes responding to query) 247.46 678.02 T
+(messages, it can sometimes be fooled by processes which go into long) 189 664.02 T
+(compute c) 189 650.02 T
+(ycles and ignore messages for periods of time.) 238.48 650.02 T
+54 606.02 540 609.02 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+189 607.52 540 607.52 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+54 607.52 180 607.52 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2.2) 163.32 613.02 T
+(LastData) 189 613.02 T
+0 F
+(The) 189 588.02 T
+5 F
+(LastData) 210.66 588.02 T
+0 F
+( utility creates a windo) 268.26 588.02 T
+(w for monitoring the beha) 377.28 588.02 T
+(vior of) 502.36 588.02 T
+(real time data streams. W) 189 574.02 T
+(ithin the) 310.82 574.02 T
+5 F
+(LastData) 353.5 574.02 T
+0 F
+( windo) 411.1 574.02 T
+(w is a list of plat-) 443.8 574.02 T
+-0.39 (forms, and a time for each platform sho) 189 560.02 P
+-0.39 (wing when data w) 375.96 560.02 P
+-0.39 (as last recei) 462.33 560.02 P
+-0.39 (v) 517.24 560.02 P
+-0.39 (ed.) 523.06 560.02 P
+(Each line is color) 189 546.02 T
+(-coded depending on ho) 272.41 546.02 T
+(w old the last data is \321 yello) 387.76 546.02 T
+(w) 527.78 546.02 T
+(for platforms for which data is a little later than e) 189 532.02 T
+(xpected, and red for) 424.78 532.02 T
+(those that are v) 189 518.02 T
+(ery late.) 261.8 518.02 T
+(LastData has a pulldo) 189 492.02 T
+(wn menu which can be used to trim do) 293.02 492.02 T
+(wn the num-) 478.69 492.02 T
+(ber of platforms displayed in the windo) 189 478.02 T
+(w) 378.01 478.02 T
+(. It is useful for remo) 385.9 478.02 T
+(ving lines) 487.03 478.02 T
+(for platforms that are kno) 189 464.02 T
+(wn not to be currently reporting, thus reducing) 311.34 464.02 T
+(the amount of red clutter in the windo) 189 450.02 T
+(w) 370.34 450.02 T
+(.) 378.23 450.02 T
+(Since the e) 189 424.02 T
+(xpected reporting interv) 241.48 424.02 T
+(al v) 356.48 424.02 T
+(aries greatly from one platform to) 373.85 424.02 T
+(the ne) 189 410.02 T
+(xt,) 217.81 410.02 T
+5 F
+(LastData) 233.15 410.02 T
+0 F
+( must be con\336gured to kno) 290.75 410.02 T
+(w what to e) 418.78 410.02 T
+(xpect. This) 474.25 410.02 T
+(con\336guration is done through a \336le which) 189 396.02 T
+5 F
+(LastData) 392.65 396.02 T
+0 F
+( reads on startup,) 450.25 396.02 T
+(and which must be speci\336ed on the command line when) 189 382.02 T
+5 F
+(LastData) 460.97 382.02 T
+0 F
+( is) 518.57 382.02 T
+(in) 189 368.02 T
+(v) 197.86 368.02 T
+(ok) 203.62 368.02 T
+(ed:) 215.5 368.02 T
+5 F
+(LastData) 212.4 342.02 T
+6 F
+(config-file) 277.2 342.02 T
+0 F
+(The con\336guration is simple, containing only lines of the form:) 189 316.02 T
+6 F
+(platform yellow red) 212.4 290.02 T
+0 F
+(Where) 189 264.02 T
+6 F
+(platform) 223.98 264.02 T
+0 F
+( is the name of a platform of interest,) 281.58 264.02 T
+6 F
+(yellow) 462.22 264.02 T
+0 F
+( is the) 505.42 264.02 T
+(number of minutes without data before this platform\325) 189 250.02 T
+(s line turns yello) 443.98 250.02 T
+(w) 523.34 250.02 T
+(,) 531.23 250.02 T
+(and) 189 236.02 T
+6 F
+(red) 209.33 236.02 T
+0 F
+( is the number of minutes before the line turns red. Only plat-) 230.93 236.02 T
+(forms which are listed in the con\336guration \336le will be monitored by) 189 222.02 T
+6 F
+(LastData) 189 208.02 T
+0 F
+(.) 246.6 208.02 T
+54 164.02 540 167.02 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+189 165.52 540 165.52 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+54 165.52 180 165.52 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2.3) 163.32 171.02 T
+(Datastore Dia) 189 171.02 T
+(gnostics) 266.23 171.02 T
+0 F
+(The data store daemon query response can be a helpful diagnostic. Que-) 189 146.02 T
+(rying the daemon returns a summary of the daemon\325) 189 132.02 T
+(s con\336guration,) 440.29 132.02 T
+(uptime, and table sizes.) 189 118.02 T
+5 F
+(zquery ds_daemon) 212.4 92.02 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "10" 10
+%%Page: "11" 11
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(Timer Dia) 207 736.18 T
+(gnostics) 247.92 736.18 T
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 74.02 558 74.02 2 L
+2 Z
+N
+2 8 Q
+(The z) 207 60.29 T
+(ebra ad) 227.53 60.29 T
+(v) 255.86 60.29 T
+(anced user) 260.15 60.29 T
+(s man) 302.27 60.29 T
+(ual) 325.31 60.29 T
+2 10 Q
+-2.78 (11) 546.88 60.29 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 12 Q
+(2.3.1) 171.31 678.02 T
+(T) 207 678.02 T
+(ab) 213.37 678.02 T
+(le Siz) 227.26 678.02 T
+(es and Memor) 258.06 678.02 T
+(y Usa) 338.87 678.02 T
+(g) 370.76 678.02 T
+(e) 378.22 678.02 T
+(2.3.2) 171.31 628.02 T
+(Scan and Cac) 207 628.02 T
+(he Times) 285.58 628.02 T
+(2.3.3) 171.31 578.02 T
+(Running Scan Count) 207 578.02 T
+0 F
+(The data store daemon will respond to message queries e) 207 560.02 T
+(v) 480.31 560.02 T
+(en while it is) 486.13 560.02 T
+(scanning platform directories, such as at start-up or during an e) 207 546.02 T
+(xplicit) 509.76 546.02 T
+(scan request. During the initial start-up, the daemon will actually report) 207 532.02 T
+-0.05 (the number of platforms which ha) 207 518.02 P
+-0.05 (v) 369.46 518.02 P
+-0.05 (e been scanned so f) 375.28 518.02 P
+-0.05 (ar and the number) 468.24 518.02 P
+(of platforms remaining. This can be reassuring feedback during length) 207 504.02 T
+(y) 544.87 504.02 T
+-0.07 (scans of e) 207 490.02 P
+-0.07 (xtremely lar) 253.99 490.02 P
+-0.07 (ge datasets. At present the daemon only checks for) 312.03 490.02 P
+(queries between each platform scan, so the response to) 207 476.02 T
+5 F
+(zquery) 472.93 476.02 T
+0 F
+( may be) 516.13 476.02 T
+(rather slo) 207 462.02 T
+(w) 251.69 462.02 T
+(.) 259.57 462.02 T
+2 F
+(2.3.4) 171.31 430.02 T
+(Platf) 207 430.02 T
+(orm Loc) 232.76 430.02 T
+(ks) 279.86 430.02 T
+0 F
+-0.46 (The v) 207 412.02 P
+-0.46 (ery end of the query output is a list of current platform locks and the) 234.02 412.02 P
+(client processes which hold them. The daemon tries to detect processes) 207 398.02 T
+(which disconnect from a Zebra session so that it can release an) 207 384.02 T
+(y locks) 508.42 384.02 T
+(the) 207 370.02 T
+(y may ha) 221.48 370.02 T
+(v) 265.24 370.02 T
+(e held, b) 271.06 370.02 T
+(ut in some situations the detection f) 311.81 370.02 T
+(ails. Other pro-) 482.35 370.02 T
+(cesses, such as ingestors, will hang w) 207 356.02 T
+(aiting for a platform lock to be) 386.86 356.02 T
+(released. If the query output lists a lock o) 207 342.02 T
+(wned by a process which) 405 342.02 T
+(crashed or no longer e) 207 328.02 T
+(xists, the daemon will ha) 313.45 328.02 T
+(v) 432.88 328.02 T
+(e to be restarted to clear) 438.7 328.02 T
+(the lock. Currently there is no w) 207 314.02 T
+(ay to clear a lock while the daemon is) 361.86 314.02 T
+(running.) 207 300.02 T
+72 256.02 558 259.02 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+207 257.52 558 257.52 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 257.52 198 257.52 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2.4) 181.32 263.02 T
+(Timer Dia) 207 263.02 T
+(gnostics) 261.56 263.02 T
+0 F
+(The timer process also reports some useful diagnostics in its messg) 207 238.02 T
+(ae) 528.91 238.02 T
+(query resonse. In particular) 207 224.02 T
+(, graphics windo) 337.81 224.02 T
+(ws using \336x) 417.17 224.02 T
+(ed time triggers) 475 224.02 T
+-0.05 (will ha) 207 210.02 P
+-0.05 (v) 239.71 210.02 P
+-0.05 (e entries in the list of pending alarms. Also, an) 245.53 210.02 P
+-0.05 (y ingest processes) 468.51 210.02 P
+(which use the timer to schedule periodic w) 207 196.02 T
+(ak) 412.51 196.02 T
+(e-ups and data ingests will) 423.72 196.02 T
+(ha) 207 182.02 T
+(v) 218.09 182.02 T
+(e e) 223.91 182.02 T
+(v) 237.26 182.02 T
+(ents re) 243.08 182.02 T
+(gistered with the timer process.) 274.56 182.02 T
+-0.03 (If the timer process e) 207 156.02 P
+-0.03 (v) 307.89 156.02 P
+-0.03 (er dies, the rest of the processes in a Zebra session) 313.71 156.02 P
+(will probably hang w) 207 142.02 T
+(aiting for replies from the timer) 309.2 142.02 T
+(.) 460.19 142.02 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "11" 11
+%%Page: "12" 12
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(Monitor) 189 736.18 T
+(s and Dia) 221.86 736.18 T
+(gnostics) 261.78 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(12) 54 60.29 T
+2 8 Q
+(The z) 189 60.29 T
+(ebra ad) 209.53 60.29 T
+(v) 237.86 60.29 T
+(anced user) 242.15 60.29 T
+(s man) 284.27 60.29 T
+(ual) 307.31 60.29 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "12" 12
+%%Page: "13" 13
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 445.03 558 445.03 2 L
+2 Z
+N
+72 74.02 558 74.02 2 L
+0.25 H
+N
+2 8 Q
+(The z) 207 60.29 T
+(ebra ad) 227.53 60.29 T
+(v) 255.86 60.29 T
+(anced user) 260.15 60.29 T
+(s man) 302.27 60.29 T
+(ual) 325.31 60.29 T
+2 10 Q
+-2.78 (13) 546.88 60.29 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+1 12 Q
+1.2 (CHAPTER 3) 72 677 S
+0 24 Q
+-0.48 (Archi) 207 677 S
+-0.48 (v) 258.65 677 S
+-0.48 (er) 269.81 677 S
+0 12 Q
+(This chapter discusses the zebra Archi) 207 424 T
+(v) 390.98 424 T
+(er process, which handles the) 396.8 424 T
+-0.44 (automatic storage of real-time data streams to tapes or writable CD-R) 207 410 P
+-0.44 (OM) 536.1 410 P
+(disks.) 207 396 T
+72 352 558 355 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+207 353.5 558 353.5 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 353.5 198 353.5 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(3.1) 181.32 359 T
+(The ar) 207 359 T
+(c) 242.77 359 T
+(hiver pr) 249.32 359 T
+(ocess) 293.1 359 T
+0 F
+-0.45 (The zebra archi) 207 334 P
+-0.45 (v) 280.42 334 P
+-0.45 (er process is char) 286.24 334 P
+-0.45 (ged with insuring that the real time data) 367.64 334 P
+(stream is archi) 207 320 T
+(v) 276.68 320 T
+(ed to a permanent storage de) 282.5 320 T
+(vice as it comes in. The) 419.83 320 T
+(archi) 207 306 T
+(v) 230.69 306 T
+(er is currently able to deal with magnetic tape and erasable optical) 236.51 306 T
+(disks as the archi) 207 292 T
+(v) 289.02 292 T
+(e media.) 294.84 292 T
+(The output from the archi) 207 266 T
+(v) 330.01 266 T
+(er is a set of standard) 335.83 266 T
+5 F
+(tar) 440.47 266 T
+0 F
+( \336les. Se) 462.07 266 T
+(v) 502.78 266 T
+(eral of) 508.6 266 T
+(these \336les are typically produced from a day\325) 207 252 T
+(s w) 423.29 252 T
+(orth of data -- one for) 439.5 252 T
+(each time the archi) 207 238 T
+(v) 297.67 238 T
+(er starts up. These \336les may be read with the) 303.49 238 T
+5 F
+(tar) 520.45 238 T
+0 F
+(utility) 207 224 T
+(, or with the) 234.9 224 T
+5 F
+(dsmanage) 295.9 224 T
+0 F
+( program.) 353.5 224 T
+2 F
+(3.1.1) 171.31 192 T
+(In) 207 192 T
+(v) 217.19 192 T
+(oking the ar) 223.5 192 T
+(c) 291.28 192 T
+(hiver) 297.83 192 T
+0 F
+(The archi) 207 174 T
+(v) 252.35 174 T
+(er has a number of command line options, sho) 258.17 174 T
+(wn belo) 479.51 174 T
+(w) 517.54 174 T
+(.) 525.42 174 T
+5 F
+(Archiver) 230.4 148 T
+([-device) 288 134 T
+6 F
+(dev) 352.8 134 T
+5 F
+(]) 374.4 134 T
+([-output) 288 120 T
+6 F
+(outdir) 352.8 120 T
+5 F
+(]) 396 120 T
+([-mode) 288 106 T
+6 F
+(mode) 338.4 106 T
+5 F
+(]) 367.2 106 T
+([-z]) 288 92 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "13" 13
+%%Page: "14" 14
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(Ar) 189 736.18 T
+(c) 198.82 736.18 T
+(hiver) 203.73 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(14) 54 60.29 T
+2 8 Q
+(The z) 189 60.29 T
+(ebra ad) 209.53 60.29 T
+(v) 237.86 60.29 T
+(anced user) 242.15 60.29 T
+(s man) 284.27 60.29 T
+(ual) 307.31 60.29 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+5 12 Q
+([-start) 270 678.02 T
+6 F
+(startminute) 327.6 678.02 T
+5 F
+(]) 406.8 678.02 T
+([-interval) 270 664.02 T
+6 F
+(interval) 349.2 664.02 T
+5 F
+(]) 406.8 664.02 T
+([-k) 270 650.02 T
+6 F
+(mindisk) 298.8 650.02 T
+5 F
+(]) 349.2 650.02 T
+([-n) 270 636.02 T
+6 F
+(mountpoint) 298.8 636.02 T
+5 F
+(]) 370.8 636.02 T
+([-tapelimit) 270 622.02 T
+6 F
+(limit) 356.4 622.02 T
+5 F
+(]) 392.4 622.02 T
+([-wait) 270 608.02 T
+6 F
+(times) 320.4 608.02 T
+5 F
+(]) 356.4 608.02 T
+0 F
+(In detail, the options ha) 189 582.02 T
+(v) 301.75 582.02 T
+(e the follo) 307.57 582.02 T
+(wing meanings:) 355.93 582.02 T
+4 F
+(Ar) 100.3 556.02 T
+(c) 111.85 556.02 T
+(hiver options) 117 556.02 T
+5 F
+(-device) 189 556.02 T
+0 F
+(The name of the de) 284.4 556.02 T
+(vice to which data are to be) 376.74 556.02 T
+(archi) 284.4 542.02 T
+(v) 308.09 542.02 T
+(ed. If this option is not speci\336ed, it def) 313.91 542.02 T
+(aults to) 499.12 542.02 T
+5 F
+(/dev/nrst8) 284.4 528.02 T
+0 F
+(.) 356.4 528.02 T
+5 F
+(-mode) 189 502.02 T
+0 F
+(The de) 284.4 502.02 T
+(vice mode in which the archi) 317.09 502.02 T
+(v) 455.76 502.02 T
+(er runs. Possi-) 461.58 502.02 T
+(bilities are) 284.4 488.02 T
+6 F
+(tape) 337.73 488.02 T
+0 F
+( \050the def) 366.53 488.02 T
+(ault\051 and) 406.39 488.02 T
+5 F
+(eod) 451.72 488.02 T
+0 F
+(.) 473.32 488.02 T
+5 F
+(-z) 189 462.02 T
+0 F
+(Release archi) 284.4 462.02 T
+(v) 348.41 462.02 T
+(e tapes at zero hours GMT) 354.23 462.02 T
+(.) 480.97 462.02 T
+5 F
+(-start) 189 436.02 T
+0 F
+(Speci\336es the time past the hour when the archi) 284.4 436.02 T
+(v) 508.07 436.02 T
+(er) 513.89 436.02 T
+(should start up and archi) 284.4 422.02 T
+(v) 402.08 422.02 T
+(e data. This option may be) 407.9 422.02 T
+-0.2 (used to schedule archi) 284.4 408.02 P
+-0.2 (v) 389.82 408.02 P
+-0.2 (er acti) 395.64 408.02 P
+-0.2 (vity around times when) 424.79 408.02 P
+(other system-intensi) 284.4 394.02 T
+(v) 381.1 394.02 T
+(e processes may be running.) 386.92 394.02 T
+(The def) 284.4 380.02 T
+(ault v) 321.26 380.02 T
+(alue is zero.) 347.96 380.02 T
+5 F
+(-interval) 189 354.02 T
+0 F
+(Ho) 284.4 354.02 T
+(w often the archi) 298.76 354.02 T
+(v) 379.44 354.02 T
+(er should start up and archi) 385.26 354.02 T
+(v) 515.27 354.02 T
+(e) 521.09 354.02 T
+(\336les. The def) 284.4 340.02 T
+(ault is 120 minutes.) 347.27 340.02 T
+(-) 189 314.02 T
+5 F
+(wait) 193 314.02 T
+0 F
+(The time periods to put onto the w) 284.4 314.02 T
+(ait b) 449.94 314.02 T
+(uttons in the) 470.7 314.02 T
+(archi) 284.4 300.02 T
+(v) 308.09 300.02 T
+(er windo) 313.91 300.02 T
+(w) 355.93 300.02 T
+(. These times should be gi) 363.82 300.02 T
+(v) 488.84 300.02 T
+(en as a) 494.66 300.02 T
+(comma-separated list, in minutes. Def) 284.4 286.02 T
+(ault is) 466.92 286.02 T
+(\324) 284.4 272.02 T
+5 F
+(1,2,5) 288.4 272.02 T
+0 F
+(\325.) 324.4 272.02 T
+4 F
+(eod options) 124.33 246.02 T
+5 F
+(-output) 189 246.02 T
+0 F
+(The directory to which archi) 284.4 246.02 T
+(v) 420.73 246.02 T
+(er \336les are written) 426.55 246.02 T
+-0.29 (when in the optical disk mode. The def) 284.4 232.02 P
+-0.29 (ault is) 469.57 232.02 P
+5 F
+-0.69 (/eod0) 501 232.02 P
+0 F
+-0.29 (.) 537 232.02 P
+5 F
+(-k) 189 206.02 T
+0 F
+(The minimum size of a \336le on the optical disk.) 284.4 206.02 T
+(Def) 284.4 192.02 T
+(ault is 10 me) 302.27 192.02 T
+(g) 363.76 192.02 T
+(abytes.) 369.7 192.02 T
+5 F
+(-n) 189 166.02 T
+0 F
+(The optical disk de) 284.4 166.02 T
+(vice name. Def) 375.76 166.02 T
+(ault is) 448.61 166.02 T
+5 F
+(eod0) 480.61 166.02 T
+0 F
+(.) 509.41 166.02 T
+4 F
+(tape options) 121 140.02 T
+5 F
+(-tapelimit) 189 140.02 T
+0 F
+(The maximum amount of data which will be written) 284.4 140.02 T
+(to a single tape. Def) 284.4 126.02 T
+(ault is 3.5 GB.) 380.59 126.02 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "14" 14
+%%Page: "15" 15
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(The ar) 207 736.18 T
+(c) 233.83 736.18 T
+(hiver pr) 238.74 736.18 T
+(ocess) 271.58 736.18 T
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 74.02 558 74.02 2 L
+2 Z
+N
+2 8 Q
+(The z) 207 60.29 T
+(ebra ad) 227.53 60.29 T
+(v) 255.86 60.29 T
+(anced user) 260.15 60.29 T
+(s man) 302.27 60.29 T
+(ual) 325.31 60.29 T
+2 10 Q
+-2.78 (15) 546.88 60.29 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 12 Q
+-0.32 (The archi) 207 678.02 P
+-0.32 (v) 252.03 678.02 P
+-0.32 (er is usually started automatically in the zebra startup script on) 257.85 678.02 P
+(a central data store machine.) 207 664.02 T
+2 F
+(3.1.2) 171.31 632.02 T
+(Ar) 207 632.02 T
+(c) 220.09 632.02 T
+(hiver contr) 226.64 632.02 T
+(ol) 288.42 632.02 T
+0 F
+(When the archi) 207 614.02 T
+(v) 280.01 614.02 T
+(er be) 285.83 614.02 T
+(gins, it presents a small windo) 309.3 614.02 T
+(w with a number of) 454.33 614.02 T
+(control b) 207 600.02 T
+(uttons and a summary line telling ho) 249.76 600.02 T
+(w much data has been) 424.79 600.02 T
+(archi) 207 586.02 T
+(v) 230.69 586.02 T
+(ed so f) 236.51 586.02 T
+(ar) 268.38 586.02 T
+(. It is necessary to use one of those control b) 277.04 586.02 T
+(uttons almost) 489.77 586.02 T
+(immediately) 207 572.02 T
+(, since the archi) 266.22 572.02 T
+(v) 341.23 572.02 T
+(er starts up in the w) 347.05 572.02 T
+(aiting mode \321 w) 441.25 572.02 T
+(aiting) 524.8 572.02 T
+(to be told to tak) 207 558.02 T
+(e control of the archi) 282.22 558.02 T
+(v) 381.89 558.02 T
+(e de) 387.71 558.02 T
+(vice and start writing data. It) 407.06 558.02 T
+(starts up in this w) 207 544.02 T
+(ay so that the user can insure that the media in the) 291.55 544.02 T
+(archi) 207 530.02 T
+(v) 230.69 530.02 T
+(e de) 236.51 530.02 T
+(vice is really something that should be written to. T) 255.86 530.02 T
+(o get the) 502.22 530.02 T
+-0.26 (archi) 207 516.02 P
+-0.26 (ving process mo) 230.69 516.02 P
+-0.26 (ving, insert a tape or disk into the dri) 308.64 516.02 P
+-0.26 (v) 483.24 516.02 P
+-0.26 (e and click on) 489.06 516.02 P
+(the \322tak) 207 502.02 T
+(e tape\323 b) 244.54 502.02 T
+(utton.) 286.94 502.02 T
+-0.16 (The archi) 207 476.02 P
+-0.16 (v) 252.18 476.02 P
+-0.16 (er can be instructed to release the output de) 258 476.02 P
+-0.16 (vice at an) 464.34 476.02 P
+-0.16 (y time, in) 509.82 476.02 P
+(case the de) 207 462.02 T
+(vice is needed for some other purpose. Simply click on the) 259.34 462.02 T
+-0.04 (\322release tape\323 b) 207 448.02 P
+-0.04 (utton and w) 282.63 448.02 P
+-0.04 (ait until the media is ejected. When you wish) 339.09 448.02 P
+(to resume archi) 207 434.02 T
+(ving, you should start with a ne) 280.68 434.02 T
+(w tape or CD.) 431.38 434.02 T
+(The \322w) 207 408.02 T
+(ait\323 b) 242.53 408.02 T
+(uttons in the archi) 268.62 408.02 T
+(v) 354.65 408.02 T
+(er windo) 360.47 408.02 T
+(w may be used to cause the) 402.49 408.02 T
+(archi) 207 394.02 T
+(v) 230.69 394.02 T
+(er to pause for a short period of time. These b) 236.51 394.02 T
+(uttons are useful if) 455.22 394.02 T
+-0.09 (the archi) 207 380.02 P
+-0.09 (v) 248.26 380.02 P
+-0.09 (er is slo) 254.09 380.02 P
+-0.09 (wing do) 290.94 380.02 P
+-0.09 (wn the machine and you wish to let some other) 329.56 380.02 P
+(process ha) 207 366.02 T
+(v) 257.08 366.02 T
+(e more CPU or IO time.) 262.9 366.02 T
+(There is also a b) 207 340.02 T
+(utton to cause the archi) 285.41 340.02 T
+(v) 396.42 340.02 T
+(er to \336nish archi) 402.24 340.02 T
+(ving and e) 480.26 340.02 T
+(xit.) 530.08 340.02 T
+-0.47 (Y) 207 326.02 P
+-0.47 (ou should select this option if you are shutting do) 214.34 326.02 P
+-0.47 (wn zebra for the day in) 446.84 326.02 P
+-0.48 (projects with that sort of operations. This b) 207 312.02 P
+-0.48 (utton will cause the archi) 410.05 312.02 P
+-0.48 (v) 528.48 312.02 P
+-0.48 (er to) 534.3 312.02 P
+(archi) 207 298.02 T
+(v) 230.69 298.02 T
+(e all remaining \336les, eject the media and e) 236.51 298.02 T
+(xit.) 438.62 298.02 T
+2 F
+(3.1.3) 171.31 266.02 T
+(Behind the scenes) 207 266.02 T
+0 F
+-0.29 (The archi) 207 248.02 P
+-0.29 (v) 252.06 248.02 P
+-0.29 (er needs to k) 257.88 248.02 P
+-0.29 (eep track of which \336les ha) 317.89 248.02 P
+-0.29 (v) 442.52 248.02 P
+-0.29 (e been archi) 448.34 248.02 P
+-0.29 (v) 505.44 248.02 P
+-0.29 (ed across) 511.26 248.02 P
+-0.33 (in) 207 234.02 P
+-0.33 (v) 215.86 234.02 P
+-0.33 (ocations. This is done through the use of a disk \336le in the zebra library) 221.62 234.02 P
+-0.11 (directory called) 207 220.02 P
+5 F
+-0.27 (DumpedFiles) 284.75 220.02 P
+0 F
+-0.11 (. The \336le contains an entry for each plat-) 363.95 220.02 P
+(form, listing the time period which has been written to tape so f) 207 206.02 T
+(ar) 511.85 206.02 T
+(. The) 520.51 206.02 T
+(\336le is updated after e) 207 192.02 T
+(v) 307.34 192.02 T
+(ery successful write of a tar \336le to tape or disk.) 313.16 192.02 T
+(The archi) 207 166.02 T
+(v) 252.35 166.02 T
+(er informs the daemon of \336les which ha) 258.17 166.02 T
+(v) 448.9 166.02 T
+(e been archi) 454.72 166.02 T
+(v) 512.39 166.02 T
+(ed, b) 518.21 166.02 T
+(ut) 541.3 166.02 T
+(ne) 207 152.02 T
+(v) 218.03 152.02 T
+(er relies on the daemon\325) 223.85 152.02 T
+(s idea of archi) 339.16 152.02 T
+(v) 406.5 152.02 T
+(ed \336les to determine which) 412.32 152.02 T
+(\336les need to be written. It does e) 207 138.02 T
+(xpect the data store to respect the) 362.8 138.02 T
+(\322archi) 207 124.02 T
+(v) 236.02 124.02 T
+(ed\323 mark by not further modifying \336les which ha) 241.84 124.02 T
+(v) 477.56 124.02 T
+(e been) 483.38 124.02 T
+(archi) 207 110.02 T
+(v) 230.69 110.02 T
+(ed.) 236.51 110.02 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "15" 15
+%%Page: "16" 16
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(Ar) 189 736.18 T
+(c) 198.82 736.18 T
+(hiver) 203.73 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(16) 54 60.29 T
+2 8 Q
+(The z) 189 60.29 T
+(ebra ad) 209.53 60.29 T
+(v) 237.86 60.29 T
+(anced user) 242.15 60.29 T
+(s man) 284.27 60.29 T
+(ual) 307.31 60.29 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 671.02 540 674.02 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+189 672.52 540 672.52 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+54 672.52 180 672.52 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(3.2) 163.32 678.02 T
+(The datastore c) 189 678.02 T
+(lean) 277.45 678.02 T
+(up mec) 301.34 678.02 T
+(hanism) 343.24 678.02 T
+0 F
+(The data store daemon pro) 189 653.02 T
+(vides a number of tools which allo) 316.79 653.02 T
+(w it to be) 482.47 653.02 T
+(con\336gured to perform data \336le cleanup for a number of dif) 189 639.02 T
+(ferent applica-) 469.97 639.02 T
+(tions. Normally) 189 625.02 T
+(, you only w) 263.56 625.02 T
+(ant to do cleanup in real-time operational) 323.44 625.02 T
+(modes; the deletion of data \336les in a postprocessing en) 189 611.02 T
+(vironment can be) 450.83 611.02 T
+(an unpleasant surprise. \050The) 189 597.02 T
+5 F
+(dsmanage) 327.3 597.02 T
+0 F
+( tool should be used instead for) 384.9 597.02 T
+(postprocessing cleanup\051.) 189 583.02 T
+-0.11 (The heart of the cleanup mechanism is the) 189 557.02 P
+5 F
+-0.26 (truncate) 394.07 557.02 P
+0 F
+-0.11 ( command, which) 451.67 557.02 P
+(has the follo) 189 543.02 T
+(wing syntax:) 248.03 543.02 T
+5 F
+(truncate) 212.4 517.02 T
+6 F
+(seconds) 277.2 517.02 T
+(platform) 334.8 517.02 T
+5 F
+(|all) 392.4 517.02 T
+0 F
+(Where) 189 491.02 T
+6 F
+(seconds) 223.98 491.02 T
+0 F
+( is the number of seconds of data which should remain) 274.38 491.02 T
+(after the) 189 477.02 T
+5 F
+(truncate) 231.65 477.02 T
+0 F
+( command is done, and) 289.25 477.02 T
+6 F
+(platform) 403.24 477.02 T
+0 F
+( is the platform) 460.84 477.02 T
+(for which data is to be deleted. If) 189 463.02 T
+6 F
+(platform) 350.63 463.02 T
+0 F
+( is speci\336ed as all, the trun-) 408.23 463.02 T
+(cation applies to all kno) 189 449.02 T
+(wn platforms.) 303.36 449.02 T
+-0.13 (The data store daemon also pro) 189 423.02 P
+-0.13 (vides a user interf) 338.48 423.02 P
+-0.13 (ace command-line func-) 423.63 423.02 P
+-0.17 (tion called) 189 409.02 P
+5 F
+-0.41 (FreeSpace) 241.98 409.02 P
+0 F
+-0.17 (, which returns the amount of disk space free \050in) 306.78 409.02 P
+-0.05 (kilobytes\051 in the partition containing a particular directory) 189 395.02 P
+-0.05 (. This function) 466.82 395.02 P
+(is useful when trying to determine just ho) 189 381.02 T
+(w much data to truncate based) 388.36 381.02 T
+(on the a) 189 367.02 T
+(v) 226.75 367.02 T
+(ailable disk space.) 232.45 367.02 T
+-0.03 (W) 189 341.02 P
+-0.03 (ith) 199.85 341.02 P
+5 F
+-0.07 (truncate) 215.49 341.02 P
+0 F
+-0.03 ( it is common to create a procedure for cleanup such as) 273.09 341.02 P
+(the follo) 189 327.02 T
+(wing:) 229.03 327.02 T
+5 F
+(set HOUR 3600) 212.4 301.02 T
+(! seconds in an hour) 334.8 301.02 T
+(set DAY 24*HOUR) 212.4 287.02 T
+(procedure DoCleanup fraction real) 212.4 261.02 T
+(truncate fraction*3*DAY \322mesonet\323) 241.2 247.02 T
+(truncate fraction*4*HOUR \322radar\323) 241.2 233.02 T
+(...) 241.2 219.02 T
+(endprocedure) 212.4 205.02 T
+0 F
+(The idea is that high-bandwidth platforms are truncated more hea) 189 179.02 T
+(vily) 503.03 179.02 T
+-0.33 (than others. Data for which se) 189 165.02 P
+-0.33 (v) 331.01 165.02 P
+-0.33 (eral days w) 336.83 165.02 P
+-0.33 (orth of samples are needed can) 390.7 165.02 P
+(be con\336gured to be k) 189 151.02 T
+(ept for that long; other data can be deleted after a) 290.2 151.02 T
+(v) 189 137.02 T
+(ery short time.) 194.82 137.02 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "16" 16
+%%Page: "17" 17
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(The datastore c) 207 736.18 T
+(lean) 273.34 736.18 T
+(up mec) 291.26 736.18 T
+(hanism) 322.68 736.18 T
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 74.02 558 74.02 2 L
+2 Z
+N
+2 8 Q
+(The z) 207 60.29 T
+(ebra ad) 227.53 60.29 T
+(v) 255.86 60.29 T
+(anced user) 260.15 60.29 T
+(s man) 302.27 60.29 T
+(ual) 325.31 60.29 T
+2 10 Q
+-2.78 (17) 546.88 60.29 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 12 Q
+(The \336nal step in the establishment of a cleanup algorithm is to set things) 207 678.02 T
+(up so that it runs occasionally) 207 664.02 T
+(. F) 349.21 664.02 T
+(or that purpose, the data store daemon) 361.7 664.02 T
+(pro) 207 650.02 T
+(vides a mechanism for recurring tasks through the) 222.82 650.02 T
+5 F
+(every) 466.1 650.02 T
+0 F
+( command:) 502.1 650.02 T
+5 F
+(every) 230.4 624.02 T
+6 F
+(period) 273.6 624.02 T
+5 F
+( \324) 316.8 624.02 T
+6 F
+(command) 331.2 624.02 T
+5 F
+(\325) 381.6 624.02 T
+0 F
+(Where) 207 598.02 T
+6 F
+(period) 241.98 598.02 T
+0 F
+( is ho) 285.18 598.02 T
+(w often the command should be run \050in seconds\051,) 310.88 598.02 T
+(and) 207 584.02 T
+6 F
+(command) 227.33 584.02 T
+0 F
+( is the command itself.) 277.73 584.02 T
+(A common procedure to run with) 207 558.02 T
+5 F
+(every) 370.31 558.02 T
+0 F
+( is) 406.31 558.02 T
+5 F
+(CleanupScan) 420.31 558.02 T
+0 F
+(:) 499.51 558.02 T
+5 F
+(procedure CleanupScan) 230.4 532.02 T
+(local free FreeSpace\050\322some/data/dir\323\051) 259.2 518.02 T
+(if \050free > 200000\051) 259.2 504.02 T
+(return) 288 490.02 T
+(! No need to clean up) 374.4 490.02 T
+(endif) 259.2 476.02 T
+(DoCleanup 1.0) 259.2 462.02 T
+(if \050FreeSpace\050\322some/data/dir\323\051 < 100000\051) 259.2 448.02 T
+(DoCleanup 0.7) 288 434.02 T
+(endif) 259.2 420.02 T
+(if \050FreeSpace\050\322some/data/dir\323\051 < 100000\051) 259.2 406.02 T
+(DoCleanup 0.5) 288 392.02 T
+(endif) 259.2 378.02 T
+(...) 259.2 364.02 T
+(endprocedure) 230.4 350.02 T
+0 F
+(The idea here is to slo) 207 324.02 T
+(wly tighten do) 312.35 324.02 T
+(wn the scre) 381.38 324.02 T
+(ws until a suf) 435.73 324.02 T
+(\336cient) 499.76 324.02 T
+-0.41 (amount of space is a) 207 310.02 P
+-0.41 (v) 303.12 310.02 P
+-0.41 (ailable. The use of the) 308.82 310.02 P
+5 F
+-0.97 (DoCleanup) 416.1 310.02 P
+0 F
+-0.41 ( procedure with) 480.9 310.02 P
+(the) 207 296.02 T
+5 F
+(fraction) 224.66 296.02 T
+0 F
+( ar) 282.26 296.02 T
+(gument allo) 294.37 296.02 T
+(ws data from each platform to be trimmed) 351.07 296.02 T
+(back indi) 207 282.02 T
+(vidually) 251.03 282.02 T
+(.) 289.58 282.02 T
+-0.4 (One w) 207 256.02 P
+-0.4 (ay to get things started is to create a procedure called) 238.14 256.02 P
+5 F
+-0.95 (Cleanup) 491.4 256.02 P
+0 F
+-0.4 (. If) 541.8 256.02 P
+(this procedure e) 207 242.02 T
+(xists, it is called once after the data store initialization) 283.46 242.02 T
+(procedure is complete.) 207 228.02 T
+(One \336nal hint: be sure that data store con\336guration \336les with cleanup) 207 202.02 T
+-0.19 (code in them are not used for postprocessing applications! The result can) 207 188.02 P
+(be deleted data and v) 207 174.02 T
+(ery frustrated users.) 308.12 174.02 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "17" 17
+%%Page: "18" 18
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(Ar) 189 736.18 T
+(c) 198.82 736.18 T
+(hiver) 203.73 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(18) 54 60.29 T
+2 8 Q
+(The z) 189 60.29 T
+(ebra ad) 209.53 60.29 T
+(v) 237.86 60.29 T
+(anced user) 242.15 60.29 T
+(s man) 284.27 60.29 T
+(ual) 307.31 60.29 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "18" 18
+%%Page: "19" 19
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 445.03 558 445.03 2 L
+2 Z
+N
+72 74.02 558 74.02 2 L
+0.25 H
+N
+2 8 Q
+(The z) 207 60.29 T
+(ebra ad) 227.53 60.29 T
+(v) 255.86 60.29 T
+(anced user) 260.15 60.29 T
+(s man) 302.27 60.29 T
+(ual) 325.31 60.29 T
+2 10 Q
+-2.78 (19) 546.88 60.29 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+1 12 Q
+1.2 (CHAPTER 4) 72 677 S
+0 24 Q
+-0.48 (The Netw) 207 677 S
+-0.48 (ork T) 298.23 677 S
+-0.48 (ransfer) 347.65 677 S
+-0.48 (Daemon) 207 647 S
+0 12 Q
+(The real-time zebra system can include a netw) 207 424 T
+(ork transfer daemon,) 429.82 424 T
+5 F
+(NetXfr) 207 410 T
+0 F
+(, which can transfer data across the netw) 249.72 410 T
+(ork between message) 444.2 410 T
+(manager sessions.) 207 396 T
+72 352 558 355 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+207 353.5 558 353.5 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 353.5 198 353.5 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(4.1) 181.32 359 T
+(The netw) 207 359 T
+(ork transf) 258.77 359 T
+(er daemon) 313.99 359 T
+0 F
+(The zebra netw) 207 334 T
+(ork transfer daemon \050) 280.85 334 T
+5 F
+(NetXfr) 384.48 334 T
+0 F
+(\051 is char) 427.68 334 T
+(ged with distrib) 466.12 334 T
+(ut-) 541.21 334 T
+(ing real time data streams o) 207 320 T
+(v) 339.13 320 T
+(er a netw) 344.95 320 T
+(ork. It is oriented in particular) 388.81 320 T
+-0.22 (to) 207 306 P
+-0.22 (w) 216.04 306 P
+-0.22 (ard the distrib) 224.58 306 P
+-0.22 (ution of high-bandwidth data o) 290.55 306 P
+-0.22 (v) 438.13 306 P
+-0.22 (er a local area netw) 443.95 306 P
+-0.22 (ork,) 536.23 306 P
+(b) 207 292 T
+(ut can be made to w) 212.76 292 T
+(ork in other en) 308.95 292 T
+(vironments as well.) 378.79 292 T
+(NetXfr includes a reliable broadcast protocol for lar) 207 266 T
+(ge datasets, so that) 455.71 266 T
+(such data need only be sent o) 207 252 T
+(v) 347.46 252 T
+(er the netw) 353.28 252 T
+(ork once, e) 406.48 252 T
+(v) 459.16 252 T
+(en if there are se) 464.98 252 T
+(v-) 543.97 252 T
+(eral consumers of that data.) 207 238 T
+2 F
+(4.1.1) 171.31 206 T
+(Star) 207 206 T
+(ting NetXfr) 230.58 206 T
+0 F
+(NetXfr is in) 207 188 T
+(v) 263.84 188 T
+(ok) 269.6 188 T
+(ed as follo) 281.48 188 T
+(ws:) 331.18 188 T
+5 F
+(NetXfr) 230.4 162 T
+6 F
+(config-file) 280.8 162 T
+0 F
+(where) 207 136 T
+6 F
+(config-file) 239.32 136 T
+0 F
+( is the name of) 318.52 136 T
+5 F
+(NetXfr) 392.17 136 T
+0 F
+(\325) 435.37 136 T
+(s con\336guration \336le. The) 438.71 136 T
+(con\336guration of) 207 122 T
+5 F
+(NetXfr) 286.99 122 T
+0 F
+( can be complicated, and this \336le is required.) 330.19 122 T
+(The con\336guration \336le is read by the RDSS user interf) 207 108 T
+(ace, and so con-) 463.19 108 T
+(forms to the usual con) 207 94 T
+(v) 313.18 94 T
+(entions.) 319 94 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "19" 19
+%%Page: "20" 20
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(The Netw) 189 736.18 T
+(ork T) 228.82 736.18 T
+(ransf) 250.11 736.18 T
+(er Daemon) 272.02 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(20) 54 60.29 T
+2 8 Q
+(The z) 189 60.29 T
+(ebra ad) 209.53 60.29 T
+(v) 237.86 60.29 T
+(anced user) 242.15 60.29 T
+(s man) 284.27 60.29 T
+(ual) 307.31 60.29 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 12 Q
+(4.1.2) 153.31 678.02 T
+(Basic con\336guration options) 189 678.02 T
+0 F
+-0.37 (A crucial component of e) 189 660.02 P
+-0.37 (v) 309.21 660.02 P
+-0.37 (ery) 315.03 660.02 P
+5 F
+-0.88 (NetXfr) 332.98 660.02 P
+0 F
+-0.37 ( con\336guration \336le is the de\336nition) 376.18 660.02 P
+(of the \336eld names that will be used.) 189 646.02 T
+5 F
+(NetXfr) 362.65 646.02 T
+0 F
+( can use the same \336eld de\336-) 405.85 646.02 T
+(nition \336le as the graphics process, and it is recommended that this be) 189 632.02 T
+(done. Thus, most) 189 618.02 T
+5 F
+(NetXfr) 274.67 618.02 T
+0 F
+( con\336guration \336les start with the follo) 317.87 618.02 T
+(wing) 498.9 618.02 T
+(line:) 189 604.02 T
+5 F
+(read /zeb/lib/FieldDefs) 212.4 578.02 T
+0 F
+(The \336le name should be substituted with one appropriate for the actual) 189 552.02 T
+(running en) 189 538.02 T
+(vironment, of course.) 240.18 538.02 T
+4 F
+(Note) 345.83 538.02 T
+0 F
+( that it is crucial that the same \336eld) 368.5 538.02 T
+(de\336nition \336le be used for all in) 189 524.02 T
+(v) 336.52 524.02 T
+(ocations of) 342.28 524.02 T
+5 F
+(NetXfr) 398.27 524.02 T
+0 F
+( on the netw) 441.47 524.02 T
+(ork, or) 500.34 524.02 T
+(v) 189 510.02 T
+(ery strange things can happen. This requirement will be remo) 194.82 510.02 T
+(v) 489.25 510.02 T
+(ed at) 495.07 510.02 T
+(some point in the future.) 189 496.02 T
+-0.19 (Most lines in the con\336guration \336le are) 189 470.02 P
+5 F
+-0.47 (send) 373.96 470.02 P
+0 F
+-0.19 ( commands, with the follo) 402.76 470.02 P
+-0.19 (w-) 527.34 470.02 P
+(ing syntax:) 189 456.02 T
+5 F
+(send) 212.4 430.02 T
+6 F
+(platform) 248.4 430.02 T
+5 F
+( [as) 306 430.02 T
+6 F
+(plat2) 342 430.02 T
+5 F
+(]) 378 430.02 T
+6 F
+(c1) 392.4 430.02 T
+(c2) 414 430.02 T
+5 F
+( ...) 428.4 430.02 T
+0 F
+(Where) 189 404.02 T
+6 F
+(platform) 223.98 404.02 T
+0 F
+( is the name of a platform whose data is to be sent,) 281.58 404.02 T
+-0.45 (and) 189 390.02 P
+6 F
+-1.09 (c1 ...) 208.87 390.02 P
+0 F
+-0.45 ( is a list of recipients for this data. If the \322) 250.99 390.02 P
+5 F
+-1.09 (as) 445.96 390.02 P
+6 F
+-1.09 (plat2) 462.91 390.02 P
+0 F
+-0.45 (\323 option) 498.91 390.02 P
+(is present, the data will be renamed as if it came from) 189 376.02 T
+6 F
+(plat2) 449.28 376.02 T
+0 F
+( before) 485.28 376.02 T
+(being transferred.) 189 362.02 T
+2 F
+(4.1.3) 153.31 330.02 T
+(Br) 189 330.02 T
+(oadcast pr) 202.09 330.02 T
+(otocol con\336guration) 262.54 330.02 T
+0 F
+(If the) 189 312.02 T
+5 F
+(NetXfr) 217.66 312.02 T
+0 F
+( broadcast protocol is to be used, it must be con\336gured) 260.86 312.02 T
+(e) 189 298.02 T
+(xplicitly) 194.15 298.02 T
+(. The sender of broadcast data needs to ha) 233.38 298.02 T
+(v) 434.08 298.02 T
+(e a broadcast com-) 439.9 298.02 T
+(mand in the con\336guration \336le:) 189 284.02 T
+5 F
+(broadcast) 212.4 258.02 T
+6 F
+(address) 284.4 258.02 T
+(port) 342 258.02 T
+0 F
+(Where) 189 232.02 T
+6 F
+(address) 223.98 232.02 T
+0 F
+( is the broadcast address to use \050for e) 274.38 232.02 T
+(xample,) 451.49 232.02 T
+(128.117.80.255\051, and) 189 218.02 T
+6 F
+(port) 294.32 218.02 T
+0 F
+( is the port number) 323.12 218.02 T
+(. If you ha) 413.12 218.02 T
+(v) 462.2 218.02 T
+(e more than) 468.02 218.02 T
+(one) 189 204.02 T
+5 F
+(NetXfr) 209.33 204.02 T
+0 F
+( process broadcasting data on the net, you should use a dif-) 252.53 204.02 T
+(ferent port number for each.) 189 190.02 T
+(Recipients of broadcast data need to be told which port number\050s\051 to) 189 164.02 T
+(w) 189 150.02 T
+(atch:) 197.54 150.02 T
+5 F
+(receive) 212.4 124.02 T
+6 F
+(port) 270 124.02 T
+5 F
+(NetXfr) 189 98.02 T
+0 F
+( can monitor more than one broadcast port if need be.) 232.2 98.02 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "20" 20
+%%Page: "21" 21
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(The netw) 207 736.18 T
+(ork transf) 245.83 736.18 T
+(er daemon) 287.24 736.18 T
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 74.02 558 74.02 2 L
+2 Z
+N
+2 8 Q
+(The z) 207 60.29 T
+(ebra ad) 227.53 60.29 T
+(v) 255.86 60.29 T
+(anced user) 260.15 60.29 T
+(s man) 302.27 60.29 T
+(ual) 325.31 60.29 T
+2 10 Q
+-2.78 (21) 546.88 60.29 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 12 Q
+-0.2 (There are a couple of user interf) 207 678.02 P
+-0.2 (ace v) 359.64 678.02 P
+-0.2 (ariables which control the w) 384.13 678.02 P
+-0.2 (orkings) 519.2 678.02 P
+(of the broadcast protocol. The) 207 664.02 T
+5 F
+(burst) 354.3 664.02 T
+0 F
+( v) 390.3 664.02 T
+(ariable tells) 399 664.02 T
+5 F
+(NetXfr) 457.66 664.02 T
+0 F
+( ho) 500.86 664.02 T
+(w man) 515.56 664.02 T
+(y) 547.7 664.02 T
+(broadcast pack) 207 650.02 T
+(ets to dump onto the net before taking a short break to) 278.52 650.02 T
+-0.48 (allo) 207 636.02 P
+-0.48 (w recipients to catch up. A typical v) 224.7 636.02 P
+-0.48 (alue is 50. This v) 394.34 636.02 P
+-0.48 (ariable should be) 474.46 636.02 P
+(set as high as possible, b) 207 622.02 T
+(ut not so high that) 324.76 622.02 T
+5 F
+(NetXfr) 414.43 622.02 T
+0 F
+( starts reporting lots) 457.63 622.02 T
+(of retransmissions.) 207 608.02 T
+(The) 207 582.02 T
+5 F
+(ipscan) 228.66 582.02 T
+0 F
+( v) 271.86 582.02 T
+(ariable tells NetXfr ho) 280.56 582.02 T
+(w often, in minutes, the list of in-) 387.9 582.02 T
+(progress data transmissions should be scanned to get rid of old ones that) 207 568.02 T
+(will \050probably\051 ne) 207 554.02 T
+(v) 293.35 554.02 T
+(er complete. The usual v) 299.17 554.02 T
+(alue is one minute.) 417.18 554.02 T
+2 F
+(4.1.4) 171.31 522.02 T
+(Direct ima) 207 522.02 T
+(g) 264.9 522.02 T
+(e transf) 272.35 522.02 T
+(er mode) 315.58 522.02 T
+5 F
+-0.98 (NetXfr) 207 504.02 P
+0 F
+-0.41 ( can be con\336gured to run in the) 250.2 504.02 P
+4 F
+-0.41 (dir) 399.58 504.02 P
+-0.41 (ect ima) 413.14 504.02 P
+-0.41 (g) 447.6 504.02 P
+-0.41 (e tr) 453.48 504.02 P
+-0.41 (ansfer) 469.22 504.02 P
+0 F
+-0.41 ( mode. This) 499.22 504.02 P
+(is a specialized w) 207 490.02 T
+(ay of transferring image data through shared memory) 291.19 490.02 T
+(,) 546.68 490.02 T
+-0.41 (a) 207 476.02 P
+-0.41 (v) 212.09 476.02 P
+-0.41 (oiding the time that w) 217.85 476.02 P
+-0.41 (ould normally be lost transferring the data to disk) 321.41 476.02 P
+(and back. T) 207 462.02 T
+(o run NetXfr in direct image mode, you need the follo) 262.36 462.02 T
+(wing) 521.68 462.02 T
+(con\336guration line:) 207 448.02 T
+5 F
+(dirimage) 230.4 422.02 T
+6 F
+(platform) 295.2 422.02 T
+0 F
+(Where) 207 396.02 T
+6 F
+(platform) 241.98 396.02 T
+0 F
+( is the name of the platform for which direct image) 299.58 396.02 T
+-0.01 (data is to be recei) 207 382.02 P
+-0.01 (v) 290.62 382.02 P
+-0.01 (ed. Normally) 296.44 382.02 P
+5 F
+-0.03 (NetXfr) 362.74 382.02 P
+0 F
+-0.01 ( will be in) 405.94 382.02 P
+-0.01 (v) 453.76 382.02 P
+-0.01 (ok) 459.52 382.02 P
+-0.01 (ed directly by the) 471.4 382.02 P
+-0.46 (image producer \050al) 207 368.02 P
+-0.46 (w) 296.59 368.02 P
+-0.46 (ays) 305.13 368.02 P
+5 F
+-1.11 (radar_ingest) 323.67 368.02 P
+0 F
+-0.46 (, currently\051 when it is to be run) 410.07 368.02 P
+(in this mode.) 207 354.02 T
+(See the) 207 328.02 T
+4 F
+(Zebr) 244.99 328.02 T
+(a Interface Speci\336cation and Internals Manual) 267.48 328.02 T
+0 F
+( for more) 492.46 328.02 T
+(information on ho) 207 314.02 T
+(w direct image transfer w) 293.36 314.02 T
+(orks.) 415.87 314.02 T
+2 F
+(4.1.5) 171.31 282.02 T
+(Ho) 207 282.02 T
+(w it all w) 222.82 282.02 T
+(orks) 271.93 282.02 T
+5 F
+(NetXfr) 207 264.02 T
+0 F
+( sets itself up as a normal zebra process and data store client. It) 250.2 264.02 T
+(requests noti\336cations from the daemon for the platforms of interest,) 207 250.02 T
+-0.09 (fetches the ne) 207 236.02 P
+-0.09 (w data when it arri) 272.49 236.02 P
+-0.09 (v) 361.8 236.02 P
+-0.09 (es, and ships it to the recipients by w) 367.62 236.02 P
+-0.09 (ay) 543.76 236.02 P
+(of the interprocess communication system.) 207 222.02 T
+(Things get more complicated when the broadcast protocol is in) 207 196.02 T
+(v) 508.81 196.02 T
+(olv) 514.57 196.02 T
+(ed,) 529.73 196.02 T
+-0.07 (ho) 207 182.02 P
+-0.07 (we) 218.7 182.02 P
+-0.07 (v) 232.39 182.02 P
+-0.07 (er) 238.21 182.02 P
+-0.07 (. The purpose of this protocol is high speed for lar) 246.88 182.02 P
+-0.07 (ge datasets, so) 486.23 182.02 P
+(it is important that the data be sent o) 207 168.02 T
+(v) 381.48 168.02 T
+(er the netw) 387.3 168.02 T
+(ork quickly) 440.5 168.02 T
+(. If) 494.71 168.02 T
+5 F
+(NetXfr) 511.7 168.02 T
+0 F
+(happens to be writing a piece of data when a set of broadcast pack) 207 154.02 T
+(ets) 524.46 154.02 T
+-0.41 (arri) 207 140.02 P
+-0.41 (v) 223.36 140.02 P
+-0.41 (e, it will almost certainly f) 229.18 140.02 P
+-0.41 (ail to k) 353.65 140.02 P
+-0.41 (eep up with those pack) 386.04 140.02 P
+-0.41 (ets and some) 494.25 140.02 P
+(of them will be dropped, making retransmissions necessary) 207 126.02 T
+(.) 490.85 126.02 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "21" 21
+%%Page: "22" 22
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(The Netw) 189 736.18 T
+(ork T) 228.82 736.18 T
+(ransf) 250.11 736.18 T
+(er Daemon) 272.02 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(22) 54 60.29 T
+2 8 Q
+(The z) 189 60.29 T
+(ebra ad) 209.53 60.29 T
+(v) 237.86 60.29 T
+(anced user) 242.15 60.29 T
+(s man) 284.27 60.29 T
+(ual) 307.31 60.29 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 12 Q
+-0.2 (T) 189 678.02 P
+-0.2 (o a) 195.37 678.02 P
+-0.2 (v) 209.26 678.02 P
+-0.2 (oid this problem,) 215.02 678.02 P
+5 F
+-0.49 (NetXfr) 299.08 678.02 P
+0 F
+-0.2 ( splits itself into tw) 342.28 678.02 P
+-0.2 (o processes when it is) 433.36 678.02 P
+(running as a broadcast recipient. A shared memory se) 189 664.02 T
+(gment is created,) 446.42 664.02 T
+(and the child process de) 189 650.02 T
+(v) 304.01 650.02 T
+(otes itself to grabbing pack) 309.77 650.02 T
+(ets of) 439.63 650.02 T
+(f the net and) 465.66 650.02 T
+(inserting them into this se) 189 636.02 T
+(gment. F) 312.83 636.02 T
+(or this reason, the child is called the) 355.32 636.02 T
+4 F
+(pac) 189 622.02 T
+(k) 206.09 622.02 T
+(et gr) 211.3 622.02 T
+(abber) 233.45 622.02 T
+0 F
+( process, and its process name is) 261.44 622.02 T
+5 F
+(NetXfr-pg) 420.08 622.02 T
+0 F
+(.) 484.88 622.02 T
+5 F
+(NetXfr) 189 596.02 T
+0 F
+( attempts tw) 232.2 596.02 T
+(o pri) 290.75 596.02 T
+(v) 312.78 596.02 T
+(ele) 318.6 596.02 T
+(ged operations in the broadcast recipient) 332.41 596.02 T
+-0.03 (mode. The \336rst is to lock the shared memory se) 189 582.02 P
+-0.03 (gment into core memory) 416.56 582.02 P
+-0.03 (,) 534.03 582.02 P
+(so that pack) 189 568.02 T
+(ets are not lost; second is to run the pack) 246.2 568.02 T
+(et grabber at high) 441.06 568.02 T
+-0.1 (priority) 189 554.02 P
+-0.1 (. F) 224.22 554.02 P
+-0.1 (or this reason,) 236.61 554.02 P
+5 F
+-0.25 (NetXfr) 306.96 554.02 P
+0 F
+-0.1 ( is usually installed as a setuid root pro-) 350.16 554.02 P
+(gram. NetXfr will attempt to run if these operations f) 189 540.02 T
+(ail, b) 443.51 540.02 T
+(ut it is guaran-) 467.27 540.02 T
+(teed that performance will be badly af) 189 526.02 T
+(fected.) 371.32 526.02 T
+(Note also that the shared memory se) 189 500.02 T
+(gments used by) 363.46 500.02 T
+5 F
+(NetXfr) 441.12 500.02 T
+0 F
+( when) 484.32 500.02 T
+(broadcast or direct image mode are being used are f) 189 486.02 T
+(airly lar) 437.14 486.02 T
+(ge \321 lar) 474.58 486.02 T
+(ger) 516.35 486.02 T
+(than is typically allo) 189 472.02 T
+(wed in the def) 286.37 472.02 T
+(ault Sun k) 354.56 472.02 T
+(ernel. It is necessary to gen-) 403.12 472.02 T
+(erate a ne) 189 458.02 T
+(w k) 234.67 458.02 T
+(ernel with a lar) 252.22 458.02 T
+(ger v) 324.31 458.02 T
+(alue of the) 348.34 458.02 T
+5 F
+(SHMSIZE) 401.99 458.02 T
+0 F
+( parameter) 452.39 458.02 T
+(.) 502.7 458.02 T
+-0.28 (If the) 189 432.02 P
+5 F
+-0.67 (NetXfr) 217.1 432.02 P
+0 F
+-0.28 ( process dies \050killed by somebody or maybe e) 260.3 432.02 P
+-0.28 (v) 477.05 432.02 P
+-0.28 (en a crash\051,) 482.87 432.02 P
+(it will probably be necessary to e) 189 418.02 T
+(xplicitly kill the pack) 347.46 418.02 T
+(et grabber process) 449.68 418.02 T
+(before restarting) 189 404.02 T
+5 F
+(NetXfr) 270.97 404.02 T
+0 F
+(.) 313.51 404.02 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "22" 22
+%%Page: "23" 23
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 9 Q
+0 X
+0 0 0 1 0 0 0 K
+(A) 72 681.98 T
+5 12 Q
+(Archiver) 72 672.98 T
+0 9 Q
+(13) 134.1 672.98 T
+2 F
+(B) 72 653.98 T
+0 F
+(Broadcast protocol \050) 72 644.98 T
+5 12 Q
+(NetXfr) 145.49 644.98 T
+0 9 Q
+(\051) 188.68 644.98 T
+(20) 196.18 644.98 T
+5 12 Q
+(burst) 72 634.98 T
+(NetXfr) 81 624.98 T
+0 9 Q
+( control v) 124.2 624.98 T
+(ariable) 158.47 624.98 T
+(21) 187.46 624.98 T
+2 F
+(C) 72 605.98 T
+5 12 Q
+(Cleanup) 72 596.98 T
+0 9 Q
+(Data store daemon procedure) 81 586.98 T
+(17) 191.21 586.98 T
+(Cleanup \050data store\051) 72 576.98 T
+(16) 149.48 576.98 T
+5 12 Q
+(CleanupScan) 72 566.98 T
+0 9 Q
+(Example procedure) 81 556.98 T
+(17) 155.73 556.98 T
+2 F
+(D) 72 537.98 T
+0 F
+(Data store) 72 528.98 T
+(cleanup) 81 518.98 T
+(16) 113.49 518.98 T
+(Direct image transfer) 72 508.98 T
+(21) 152.97 508.98 T
+5 12 Q
+(dirimage) 72 498.98 T
+(NetXfr) 81 488.98 T
+0 9 Q
+( command) 124.2 488.98 T
+(21) 166.45 488.98 T
+5 12 Q
+(DoCleanup) 72 478.98 T
+0 9 Q
+(Example procedure) 81 468.98 T
+(16) 155.73 468.98 T
+5 12 Q
+(dsmanage) 72 458.98 T
+0 9 Q
+(13) 134.1 458.98 T
+5 12 Q
+(DumpedFiles) 72 448.98 T
+0 9 Q
+(15) 155.7 448.98 T
+2 F
+(E) 72 429.98 T
+5 12 Q
+(every) 72 420.98 T
+0 9 Q
+(17) 112.5 420.98 T
+2 F
+(F) 72 401.98 T
+0 F
+(Field de\336nition \336le) 72 392.98 T
+(20) 145.51 392.98 T
+5 12 Q
+(FreeSpace) 72 382.98 T
+0 9 Q
+(16) 141.3 382.98 T
+2 F
+(I) 72 363.98 T
+5 12 Q
+(ipscan) 72 354.98 T
+(NetXfr) 81 344.98 T
+0 9 Q
+( control v) 124.2 344.98 T
+(ariable) 158.47 344.98 T
+(21) 187.46 344.98 T
+2 F
+(L) 72 325.98 T
+5 12 Q
+(LastData) 72 316.98 T
+0 9 Q
+(10) 134.1 316.98 T
+2 F
+(N) 72 297.98 T
+5 12 Q
+(NetXfr) 72 288.98 T
+0 9 Q
+(19) 119.7 288.98 T
+5 12 Q
+(NetXfr-pg) 72 278.98 T
+0 9 Q
+(22) 141.3 278.98 T
+2 F
+(P) 72 259.98 T
+0 F
+(P) 72 250.98 T
+(ack) 76.87 250.98 T
+(et grabber) 89.27 250.98 T
+(22) 130.01 250.98 T
+2 F
+(R) 72 231.98 T
+5 12 Q
+(radar_ingest) 72 222.98 T
+0 9 Q
+(21) 162.9 222.98 T
+(remote \336le systems) 72 212.98 T
+(7) 146 212.98 T
+2 F
+(S) 72 193.98 T
+5 12 Q
+(send) 72 184.98 T
+(NetXfr) 81 174.98 T
+0 9 Q
+( command) 124.2 174.98 T
+(20) 166.45 174.98 T
+5 12 Q
+(SHMSIZE) 72 164.98 T
+0 9 Q
+(22) 126.9 164.98 T
+(stat\050\051) 72 154.98 T
+(7) 95 154.98 T
+2 F
+(T) 72 135.98 T
+5 12 Q
+(tar) 72 126.98 T
+0 9 Q
+(13) 98.1 126.98 T
+5 12 Q
+(truncate) 72 116.98 T
+0 9 Q
+(16) 134.1 116.98 T
+2 F
+(Z) 324 681.98 T
+5 12 Q
+(zmon) 324 672.98 T
+0 9 Q
+(9) 357.3 672.98 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "23" 23
+%%Trailer
+%%BoundingBox: 0 0 612 792
+%%PageOrder: Ascend
+%%Pages: 23
+%%DocumentFonts: Times-Roman
+%%+ Times-Bold
+%%+ Helvetica-Bold
+%%+ Helvetica
+%%+ Times-Italic
+%%+ Courier
+%%+ Courier-Oblique
+%%EOF

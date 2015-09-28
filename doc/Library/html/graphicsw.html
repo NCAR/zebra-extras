@@ -1,0 +1,303 @@
+<P><A HREF="Library.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="pdlib.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>� CHAPTER 5 � </B> The Graphics Widget </TITLE>
+<H1><A NAME="HDT0"> <paranum><B>� CHAPTER 5 � </B> The Graphics Widget </A></H1>
+
+<H3><A NAME="HDR1">  5.1  Description </A></H3>
+
+<HR>
+<P>A graphics widget is a widget that can have several pixmaps associated with it. These additional pixmaps are used to store extra frames of data in memory, along with the one frame which is being displayed. The pixmaps are created in shared memory if possible so that the data can be accessed directly, i. e. without using Xlib routines.
+<P>Modules wishing to use a graphics widget should include the following line:
+<PRE>
+# include &lt;GraphicsW.h&gt;
+</PRE>
+<H3><A NAME="HDR2">  5.2  Using a Graphics Widget</A></H3>
+
+<HR>
+<P>A graphics widget is created, destroyed and otherwise manipulated the same as any other widget, by using X Toolkit routines. To use the X Toolkit the following lines should be included at the head of the file:
+<PRE>
+# include &lt;X11/X.h&gt; 
+# include &lt;X11/Intrinsic.h&gt;
+</PRE>
+<H4><A NAME="HDR3">  5.2.1  Creating a Graphics Widget</A></H4>
+<P>The process of creating a graphics widget consists of initializing the X Toolkit, creating a popup shell to hold the graphics widget, creating the graphics widget itself, and displaying the graphics widget on the screen.
+
+<P>A module that wishes to create a graphics widget should have these additional lines at the head of the file:
+<PRE>
+# include &lt;X11/Shell.h&gt; 
+# include &lt;X11/StringDefs.h&gt;
+</PRE>
+<P>A graphics widget can be created by making the following calls to X Toolkit routines:
+
+<OL>
+<P><LI>Initialize the X Toolkit:
+<BR><PRE>
+</OL>
+
+
+Widget 
+XtAppInitialize (appl_context, appl_class, options, 
+    num_options, fallback_resources, argc, argv) 
+XtAppContext *appl_context; 
+String appl_class; 
+XrmOptionDescRec options; 
+int num_options; 
+String *fallback_resources; 
+int *argc; 
+String argv;
+</PRE>
+
+<OL>
+<P><LI>Create a popup shell which holds the graphics widget:
+<BR><PRE>
+</OL>
+
+
+Widget 
+XtCreatePopupShell(name, widget_class, parent, 
+    args, num_args) 
+String name; 
+WidgetClass widget_class; 
+Widget parent; 
+ArgList args; 
+int num_args;
+</PRE>
+
+<OL>
+<P><LI>Create the graphics widget:
+<BR><PRE>
+</OL>
+
+
+Widget 
+XtCreateManagedWidget (name, widget_class, parent, args, num_args) 
+String name; 
+WidgetClass widget_class; 
+Widget parent; 
+ArgList args; 
+int num_args;
+</PRE>
+
+<OL>
+<P><LI>Realize the graphics widget:
+<BR><PRE>
+</OL>
+
+
+void 
+XtRealizeWidget (w) 
+Widget w;
+</PRE>
+<P>(The graphics widget will automatically be realized if its parent has been realized.)
+
+<P>For example:
+<PRE>
+  Widget Top, GrShell, Graphics; 
+  XtAppContext Actx; 
+  Top = XtAppInitialize (&amp;Actx, "top", NULL, 0, &amp;argc, 
+      &amp;argv, NULL, NULL, 0); 
+  GrShell = (XtCreatePopupShell ("grshell", 
+      topLevelShellWidgetClass, Top, NULL, 0); 
+  Graphics = XtCreateManagedWidget ("graphics", 
+      graphicsWidgetClass, GrShell, NULL, 0): 
+  XtRealizeWidget (Graphics);
+</PRE>
+<H4><A NAME="HDR4">  5.2.2  Setting Resources For a Graphics Widget </A></H4>
+<P>XtSetArg() and XtSetValues() are X Toolkit routines that are used to set the value of a particular resource which is associated with a widget. The following table lists the resources used by a graphics widget.
+<P>The following section of code would set the number of pixmaps in a graphics widget to two:
+<PRE>
+  Arg args[1]; 
+  int FrameCount = 2; 
+  XtSetArg (args[0], XtNframeCount, FrameCount); 
+  XtSetValues (Graphics, args, 1);
+</PRE>
+<P>Where Graphics is a graphics widget.
+<H4><A NAME="HDR5">  5.2.3  Destroying a Graphics Widget</A></H4>
+<P>Finally, a graphics widget can be destroyed with a call to XtDestroyWidget(). For example:
+<PRE>
+  XtDestroyWidget (Graphics);
+</PRE>
+<P>Where Graphics is a graphics widget.
+<P>When a graphics widget is destroyed the shared memory segments for the shared memory pixmaps are detached.
+<H3><A NAME="HDR6">  5.3  Convenience Routines </A></H3>
+
+<HR>
+<P>Several convenience routines have been provided so that information can be accessed and operations can be performed on a graphics widget without having to know the internal representation of the widget. These routines follow.
+
+<H4><A NAME="HDR7">  5.3.1  Informational Routines </A></H4>
+<P>These routines return information about the graphics widget such as its dimensions or its graphics context.
+<P>GWWidth() returns the width in pixels of a graphics widget's pixmaps.
+<PRE>
+<B>int 
+GWWidth (w) 
+GraphicsWidget w;
+</PRE>
+<P></B>GWHeight() returns the height in pixels of a graphics widget's pixmaps.
+<PRE>
+<B>int 
+GWHeight (w) 
+GraphicsWidget w;
+</PRE>
+<P></B>GWDepth() returns the depth in bits of a graphics widget's pixmaps.
+<PRE>
+<B>int 
+GWDepth (w) 
+GraphicsWidget w;
+</PRE>
+<P></B>GWGetGC() returns the graphics context currently being used by a graphics widget.
+<PRE>
+<B>GC 
+GWGetGC (w) 
+GraphicsWidget w;
+</PRE>
+<H4><A NAME="HDR8">  5.3.2  Pixmap Operations </A></H4>
+<P></B>These routines either perform an operation on a particular pixmap associated with a graphics widget, or they return a pixmap so that it can be accessed outside of the graphics widget.
+<P>GWFrame() returns the Pixmap of the frame which is currently available for drawing.
+<PRE>
+<B>Pixmap 
+GWFrame (w) 
+GraphicsWidget w;
+</PRE>
+<P></B>This routine can be used to return the Drawable to be passed to certain Xlib routines such as XDrawPoint().
+<PRE>
+XDrawPoint (display, drawable, gc, x, y) 
+Display *display; 
+Drawable drawable; 
+GC gc; 
+int x, y;
+
+</PRE>
+<P>For example:
+<PRE>
+  XDrawPoint (XtDisplay (Graphics), GWFrame (Graphics), 
+      GWGetGC (Graphics), 100, 100);
+</PRE>
+<P>Where Graphics is a graphics widget.
+<P>GWGetFrame() returns the Pixmap associated with the graphics widget <B>w</B>.
+<PRE>
+<B>Pixmap 
+GWGetFrame (w, i) 
+GraphicsWidget w; 
+int i;
+</PRE>
+<P></B>GWClearFrame() clears the <A HREF = "graphicsw.fig_1.ps"><IMG SRC="graphicsw.fig_1.gif">
+</A> pixmap by filling it with the background color. If <I>i</I> is equal to ClearAll then all pixmaps are cleared.
+<PRE>
+<B>void 
+GWClearFrame (w, i) 
+GraphicsWidget w; 
+int i;
+</PRE>
+<P></B>GWDrawInFrame() sets the current frame available for drawing to the pixmap.
+<PRE>
+<B>void 
+GWDrawInFrame (w, i) 
+GraphicsWidget w; 
+int i;
+</PRE>
+<P></B>GWDisplayFrame() sets the pixmap to be the currently displayed frame.
+<PRE>
+<B>void 
+GWDisplayFrame (w, i) 
+GraphicsWidget w; 
+int i;
+</PRE>
+<P></B>The following example shows how one frame can be drawn and displayed, and then how a new frame can be selected for drawing:
+<PRE>
+  int DrawFrame = 0; 
+/* 
+ * Pixmap 0 is set to be the current draw frame, is cleared 
+ * and drawn into. 
+ */ 
+  GWDrawInFrame (Graphics, DrawFrame); 
+  GWClearFrame (Graphics, DrawFrame); 
+  XDrawPoint (XtDisplay (Graphics), GWFrame (Graphics), 
+    GWGetGC (Graphics), 100, 100); 
+/* 
+ * Pixmap 0 is displayed. 
+
+ */ 
+  GWDisplayFrame (Graphics, DrawFrame++); 
+/* 
+ * The next pixmap is set to be the current draw frame, is cleared 
+ * and drawn into. 
+ */ 
+  DrawFrame %= FrameCount; 
+  GWDrawInFrame (Graphics, DrawFrame); 
+  GWClearFrame (Graphics, DrawFrame); 
+  XDrawPoint (XtDisplay (Graphics), GWFrame (Graphics),
+    GWGetGC (Graphics), 101, 101);
+</PRE>
+<P>Where Graphics is a graphics widget and FrameCount is the number of pixmaps associated with that graphics widget. 
+<H4><A NAME="HDR9">  5.3.3  Shared Memory Routines</A></H4>
+<P>The following routines are provided for dealing with pixmaps in shared memory.
+<P>GWShmPossible() returns TRUE if the X server supports the shared memory extension (XShm) and the server and client are running on the same host.
+<PRE>
+<B>int 
+GWShmPossible (w) 
+GraphicsWidget w;
+</PRE>
+<P></B>However, even if shared memory is reported as possible, shared memory pixmaps may still not succeed. For example, some UNIX kernels are not capable of System V shared memory, and so any attempts to create shared memory segments will fail miserably. If a shared memory pixmap cannot be created, then the graphics widget resorts to ordinary pixmaps. To determine whether a pixmap was successfully created as shared, call GWFrameShared().
+<PRE>
+<B>int
+GWFrameShared(w, p)
+GraphicsWidget w;
+int p;
+</PRE>
+<P></B>This function returns TRUE only if the specified pixmap, <B>p</B>, is a shared memory pixmap. Any shared memory functions which operate on a specific pixmap should not be called without first making sure that the pixmap is actually shared. For example, given a graphics widget Graphics and pixmap i:
+<PRE>
+  if (GWFrameShared (Graphics, i))
+    GWZapShmPixmap(Graphics, i);
+
+</PRE>
+<P>GWGetBPL() returns the number of bytes per line associated with shared pixmap <B>i</B> of graphics widget <B>w</B>.
+<PRE>
+<B>int 
+GWGetBPL (w, i) 
+GraphicsWidget w; 
+int i;
+</PRE>
+<P></B>GWGetFrameAddr() returns the memory address associated with the pixmap. This address can be used to access the data in the pixmap directly, i.e., without using Xlib routines.
+<PRE>
+<B>char * 
+GWGetFrameAddr (w, i)
+GraphicsWidget w;
+int i;
+</PRE>
+<P></B>For example the contents of pixmap 0 of graphics widget Graphics can be saved in a file:
+<PRE>
+  int fp;
+  if (GWShmPossible (Graphics) &amp;&amp; GWFrameShared (Graphics, 0)) 
+    fp = open ("PixmapFile", O_WRONLY); 
+    write (fp, GWGetFrameAddr (Graphics, 0), 
+      GWGetBPL (Graphics, 0) * GWHeight (Graphics));
+</PRE>
+<P>GWZapShmPixmap() removes the shared memory pixmap by detaching and freeing the shared memory segment.
+<PRE>
+<B>void 
+GWZapShmPixmap (w, i) 
+GraphicsWidget w; 
+int i;
+</PRE>
+<P></B>If a process is exiting, it should release all of its shared memory segments as follows:
+<PRE>
+  int i; 
+  if (GWShmPossible (Graphics)) 
+    for (i = 0; i &lt; FrameCount; i++) 
+    {
+      if (GWFrameShared (Graphics, i)
+        GWZapShmPixmap (Graphics, i);
+    }
+</PRE>
+<P>This releases any system resources tied up by the shared memory pixmaps which would otherwise not be released when the process exits. Graphics is a graphics widget and FrameCount is the number of pixmaps associated with that graphics widget.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+
+<P><A HREF="Library.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="sound.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

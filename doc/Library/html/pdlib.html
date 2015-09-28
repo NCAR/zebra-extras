@@ -1,0 +1,271 @@
+<P><A HREF="Library.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="geography.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>� CHAPTER 4 � </B> The Plot Description Library</TITLE>
+<H1><A NAME="HDT0"> <paranum><B>� CHAPTER 4 � </B> The Plot Description Library</A></H1>
+
+<P>This chapter describes the library for maintaining plot descriptions. All manipulation of the plot description data structure should be performed with these routines.
+<H3><A NAME="HDR1">  4.1  Preliminaries</A></H3>
+
+<HR>
+<P>To use the plot description library, you must have the following include directives in your source file.
+<PRE>
+# include &lt;ui.h&gt;
+# include &lt;pd.h&gt;
+</PRE>
+<P>Two data types are defined in this header file; one type is opaque and the other is not. The raw_plot_description data type describes a plot description in external format, suitable for transfer between processes or storage in disk files. The definition of a raw_plot_description follows.
+<PRE>
+typedef struct rawpd {
+  int rp_len;       /* Length of the PD data */
+  char *rp_data;       /* The PD information */
+} raw_plot_description;
+</PRE>
+<P>The rp_data field points to a NULL-terminated character array containing the plot description in text form; the rp_len field holds the length of that array, excluding the terminator. In other words, rp_len always equals strlen(rp_data).
+<HR>
+
+<P><A NAME="REF38494"> <paranum><B>FIGURE  1 </B> A plot description in raw form</A>
+<PRE>
+GLOBAL
+  pd-name:      mesonet
+  plot-type:      CAP
+  plot-mode:      real-time
+  frame-rate:      10
+  button-map:      std-strip-chart
+  origin:      -100 -200 100
+  trigger:      5m
+mesonet
+  platform:      mesonet
+  field:      winds
+  representation:      vector
+  color-code-field:      equiv-potential-temp
+  color-table:      10-shades
+  arrow-scale:      10
+</PRE>
+<P>The plot description library generates raw plot descriptions using a specific format.
+
+<UL>
+<P><LI>Each component begins with the name of the component on a line by itself, with no leading white space.
+<BR>
+<P><LI>Each parameter within that component follows the name of the component, one per line. Each parameter line begins with one tab, followed by the name of the parameter, a colon, another tab, and finally the value of that parameter. Each parameter line contains exactly one parameter and value pair. If only whitespace (spaces, tabs, and newlines) follows the colon, then the parameter has an empty value.
+<BR></UL>
+
+
+<P>An example of this format appears in <A HREF="pdlib.html#REF38494">Figure 1</A>.
+<P>However, the plot description routines actually accept a much looser syntax when parsing raw plot descriptions. A component begins with a single word, the component name, anywhere on a line. Each parameter line following the component name will belong to that component, up until the next component line or the end of the file or string. A parameter line contains a parameter name, colon, and the parameter value, in that order and possibly separated by whitespace. Blank lines and comments are permitted anywhere, where a comment begins with an exclamation point (`!') and ends with the following newline. Parameter values begin with the first non-whitespace character after the colon and end with the last non-whitespace character before a comment or a newline. This syntax is easy to create with a text editor, flexible, and portable. More information about plot description syntax can be found in <I>The Advanced User's Manual</I>.
+
+<P>About the only thing that the plot description library can do with raw plot descriptions is create them, and convert them into internal form. The internal representation is simply called a plot_description, and its format is opaque to routines outside of the PD library.
+<P>Error messages, in general, are logged with msg_ELog(), since the user is unlikely to see messages sent to the standard output. If a process has connected to the Zebra message handler, the messages will be sent to the EventLogger. Otherwise error messages appear on the terminal. (See <A HREF="ipc.html#REF11804">Chapter  1</A> for information about the message handler.)
+<H3><A NAME="HDR2">  4.2  Loading and Converting Plot Descriptions</A></H3>
+
+<HR>
+<P>To convert a raw plot description to internal form, use pd_Load() as follows:
+<PRE>
+<B>plot_description
+pd_Load (raw)
+raw_plot_description *raw;
+</PRE>
+<P></B>If the given raw plot description can be successfully converted to internal form, the return value will be the plot description in that form. Otherwise, the return value will be NULL, and a message identifying the offending line will be sent to the event logger.
+<P>Plot descriptions can also be read directly from a file with pd_Read():
+<PRE>
+<B>plot_description
+pd_Read (file)
+char *file;
+</PRE>
+<P></B>This function also returns a plot description if successful, otherwise the return value is NULL. 
+<P>To convert an internal plot description to raw form, use pd_Unload():
+<PRE>
+<B>raw_plot_description *
+pd_Unload (pd)
+plot_description pd;
+</PRE>
+<P></B>The return value will be a raw plot description corresponding to the given internal plot description <CODE>pd</CODE>. Do not free the returned pointer; instead, use the pd_RPDRelease() function described below.
+<P>To delete a plot description, use one of the following.
+<PRE>
+<B>pd_Release (pd)
+plot_description pd;
+
+</PRE>
+<P></B>or
+<PRE>
+<B>pd_RPDRelease (rpd)
+raw_plot_description *rpd;
+</PRE>
+<P></B>The pd_Release() function will delete a plot description in internal form, while pd_RPDRelease() may be used to delete raw plot descriptions which were obtained from pd_Unload().
+<H3><A NAME="HDR3">  4.3  Operations on PD Components</A></H3>
+
+<HR>
+<P>A few routines have been provided for operating on the individual components of an internal plot description. Their primary purpose is to facilitate the copying of PD components from one plot description to another.
+<P>To extract a single component from a plot description, use pd_ReadComponent() as follows:
+<PRE>
+<B>plot_description
+pd_ReadComponent (pd, component)
+plot_description pd;
+char *component;
+</PRE>
+<P></B>Where <B>pd</B> is the internal plot description to be referenced and <B>component</B> is the name of the component to be extracted. If the component exists, then the return value will be a new plot description, in internal form, containing only the requested component. Otherwise pd_ReadComponent() returns NULL and sends a complaint to the event logger.
+<P>The next function adds a component to a plot description:
+<PRE>
+<B>void
+pd_AddComponent (dest, src, position)
+plot_description dest, src;
+int position;
+</PRE>
+<P></B>The very first component of the <B>src</B> plot description is added to the <B>dest</B> plot description, destroying any existing component in <B>dest</B> with the same name as the component being added. The <B>position</B> parameter determines the position of the new component. If it is positive, then it indicates the absolute position of the new component relative to the first component of <B>dest</B> (usually the <I>global</I> component). For example, a position of 1 inserts the new component directly following the global component. A zero or negative position adds the new component relative to the last component in <B>dest</B>, so that 0 places the component at the end, -1 inserts it just before the last component, and so on.
+
+<P>Components can also be shuffled around within a plot description:
+<PRE>
+<B>void
+pd_MoveComponent (pd, comp, newpos)
+plot_description pd;
+char *comp;
+int newpos;
+</PRE>
+<P></B>The <B>pd</B> parameter is the plot description, and <B>comp</B> is the name of the component to be moved. The <B>newpos</B> parameter determines the new position of the component using exactly the same conventions as the <B>position</B> parameter of pd_AddComponent()
+<P>To merge one or more components into an existing plot description, use pd_Merge().
+<PRE>
+<B>pd_Merge (dest, source)
+plot_description dest, source;
+</PRE>
+<P></B>Where <B>dest</B> is the plot description to receive the new components, and <B>source</B> is the source of these components. Note that this operation destroys the source PD! If any component of <B>source</B> already exists in <B>dest</B>, that component will be deleted from <B>dest</B> before the merge.
+<P>A second merge function allows the parameters from a specific source component to be merged into a specific component of a target plot description.
+<PRE>
+<B>void
+pd_MergeComp (dest, destname, src, srcname)
+plot_description dest;
+char *destname;
+plot_description src;
+char *srcname;
+</PRE>
+<P></B>All of the parameters in the <B>srcname</B> component of the <B>src</B> plot description are copied into the <B>destname</B> component of the <B>dest</B> plot description. Parameters in the source component override like-named parameters in the destination component.
+<P>To explicitly delete a component from a plot description, use pd_RemoveComp():
+<PRE>
+<B>int pd_RemoveComp (pd, component)
+plot_description pd;
+char *component;
+</PRE>
+
+<P></B>Where <B>pd</B> is the plot description to be modified, and <B>component</B> is the name of the component to be deleted. The return value is nonzero if and only if the given component actually existed in <B>pd</B> before the call to pd_RemoveComp().
+<P>To test whether a component exists in a given plot description, use pd_CompExists().
+<PRE>
+<B>bool
+pd_CompExists (pd, comp)
+plot_description pd;
+char *comp;
+</PRE>
+<P></B>This routine returns non-zero if and only if a component named <B>comp</B> appears in the plot description <B>pd</B>.
+<H3><A NAME="HDR4">  4.4  Accessing Information Within Plot Descriptions</A></H3>
+
+<HR>
+<P>In the end, plot descriptions are maintained for the information they contain. Several routines provide access to this information.
+<P>Often it is desirable simply to obtain a list of the components within a plot description. To get this list, call pd_CompList():
+<PRE>
+<B>char ** 
+pd_CompList (pd)
+plot_description pd;
+</PRE>
+<P></B>Where <B>pd</B> is the plot description of interest. The return value will be a null-terminated list of component names, in the original order. This list should be neither modified nor freed.
+<P>To obtain the value of a parameter within a plot description, call pd_Retrieve():
+<PRE>
+<B>bool 
+pd_Retrieve (pd, component, param, dest, type)
+plot_description pd;
+char *component, *param, *dest;
+int type;
+</PRE>
+
+<P></B>Here, <B>pd</B> is the plot description of interest, <B>component</B> is the name of the component to examine, <B>param</B> is the name of the parameter to retrieve, <B>dest</B> is a pointer to the place where the value of the parameter is to be put, and <B>type</B> is the expected data type of the parameter. Type is one of the usual user interface symbol types, SYMT_STRING, for example. If the given <CODE>param</CODE> exists within the component, it will be converted to the given type, stored in <B>dest</B>, and the return value will be TRUE. If the parameter does not exist, or can not be converted, the return value will be FALSE. Conversion errors are reported to the event logger.
+<P>To change the value of a parameter within a plot description, use pd_Store():
+<PRE>
+<B>void
+pd_Store (pd, component, param, value, type)
+plot_description pd;
+char *comp, *param, *value;
+int type;
+</PRE>
+<P></B>Where <B>pd</B> is the plot description to be changed, <B>component</B> is the name of the component to be changed, <B>param</B> is the name of the parameter to be set, <B>value</B> points to the new value of the parameter, and <B>type</B> is the data type of that value. The value will be converted to string type, and stored in <B>pd</B>.
+<P>Parameters can also be removed from a component with this function:
+<PRE>
+<B>void
+pd_RemoveParam (pd, comp, param)
+plot_description pd;
+char *comp, *param;
+</PRE>
+<P></B>Upon return, the parameter named <B>param</B> will no longer exist in component <B>comp</B> of the plot description <B>pd</B>. It is not an error to remove a parameter which does not exist; in that case the function simply has no effect.
+<P>The pd_TraverseParameters() function allows an application to sequentially access each parameter in a plot description component.
+<PRE>
+<B>void
+pd_TraverseParameters (pd, compname, func, arg)
+plot_description pd;
+char *compname;
+int (*func)();
+void *arg;
+</PRE>
+<P></B>This routine is very similar to the usy_traverse() routine in the RDSS UI library. For each parameter in the <B>compname</B> component of plot description <B>pd</B>, pd_TraverseParameters() calls the given function <B>func</B> assuming this prototype:
+<PRE>
+<B>int
+traverse_parameter (name, value, arg)
+char *name;
+char *value;
+void *arg;
+
+</PRE>
+<P></B>The parameter name is in <B>name</B>, <B>value</B> points to the value of that parameter, and <B>arg</B> is the parameter passed to the pd_TraverseParameters() function.
+<H3><A NAME="HDR5">  4.5  Copying Plot Descriptions</A></H3>
+
+<HR>
+<P>Sometimes it is desirable to make a copy of an internal plot description---for example, in order to preserve a PD that is about to be passed into pd_Merge(). To do this, call pd_CopyPD():
+<PRE>
+<B>plot_description
+pd_CopyPD (pd)
+plot_description pd;
+</PRE>
+<P></B>The return value will be a plot description which is an exact copy of <B>pd</B>.
+<H3><A NAME="HDR6">  4.6  Auxiliary Plot Description Table</A></H3>
+
+<HR>
+<P>A small library of additional routines has been built on the low-level plot description library to simplify and integrate the use of multiple plot descriptions simultaneously. Currently, the auxiliary library provides a means for storing plot descriptions as named entities within an internal table, retrieving those plot descriptions by name, and searching for parameters among stored plot descriptions.
+<P>To store a plot description as a named entity, use pda_StorePD() as follows.
+<PRE>
+<B>void
+pda_StorePD (pd, name)
+plot_description pd;
+char *name;
+</PRE>
+<P></B>The given <B>pd</B> will be stored as <B>name</B>. If another plot description already has the given name, that plot description will be destroyed before the new one is stored.
+<P>To retrieve a plot description by name, use pda_GetPD():
+<PRE>
+<B>plot_description
+pda_GetPD (name)
+char *name;
+</PRE>
+<P></B>Where <B>name</B> is the name of the desired plot description. If the given name has been defined, the corresponding plot description will be returned; otherwise the return value is NULL.
+
+<P>To search the value of a plot description parameter, use the pda_Search() function:
+<PRE>
+<B>bool
+pda_Search (pd, component, param, qual, dest, type)
+plot_description pd;
+char *component, *param, *qual, *dest;
+int type;
+</PRE>
+<P></B>The parameters all have the same meaning as for pd_Retrieve(), described above.
+<P>The additional parameter <B>qual</B> is an optional qualifier. The pda_Search() function will always look for <B>param</B> in the given <B>pd</B> and <B>component</B> first. If it is not found there, the name of the parameter will be appended to <B>qual</B> with a hyphen, yielding "qual-param." Then the GLOBAL component of the given plot description will be searched for the qualified name. If that search also fails, pda_Search() will look for the qualified parameter in the defaults component of the plot description named <CODE>defaults</CODE>, if it exists.
+<P>If the parameter is found in any of these steps, the value is converted to the given type and the return value is TRUE. Otherwise the function returns FALSE.
+<P>The <B>qual</B> parameter may be passed in as NULL, in which case the parameter name will be used unchanged for all steps of the search.
+<P>The long-term plan is to use a user-supplied search variable to control the parameter search process. For the short term, the search path will remain hard-wired as documented above.
+<P>The auxiliary plot description routines keep a table of the stored plot descriptions in memory, allowing the plot descriptions to be recalled by name whenever needed. All of the memory taken by the table and the plot descriptions can be released with this function call:
+<PRE>
+<B>void
+pda_ReleaseAll ()
+</PRE>
+
+<P></B>Memory-conscious applications can use this routine to release memory when they no longer need any plot descriptions. This function can also be helpful in tracking down dangling references with dynamic memory checkers. It will free all of the plot descriptions known by the auxiliary table, so that any remaining plot descriptions must be referenced by the application else they indicate memory leaks. A common mistake is forgetting to release temporary plot descriptions, or forgetting to release raw plot descriptions returned by pd_Unload().
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+<P><A HREF="Library.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="graphicsw.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

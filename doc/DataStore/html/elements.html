@@ -1,0 +1,362 @@
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="nspace.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>� CHAPTER 7 � </B> DataChunk Elements</TITLE>
+<H1><A NAME="REF30246"> <paranum><B>� CHAPTER 7 � </B> DataChunk Elements</A></H1>
+
+<P>Ordinarily a data chunk only needs to store floating point data. However, more and more cases have arisen where data types other than floating point would be very useful, such as to save space or to more accurately reflect the data types of the original data source. Consequently Zebra releases 4.0 and later include support for typed, fundamental data values called <I>elements</I>. This chapter describes data chunk elements and the basic framework they provide for handling multiple, fundamental data types.
+<H3><A NAME="HDR0">  7.1  The Basics</A></H3>
+
+<HR>
+<P>Basically, an element is a data value of any of several fundamental data types. Elements are meant to be the absolute minimal level of resolution between data.<A HREF="elements.html#FN1">(1)</A> The set of element types includes equivalents for each of the types in the C programming language as well a couple of unique types. The DataStore.h header file includes all of the structures, enumerated types, and function prototypes necessary for using the elements interface.
+<H4><A NAME="HDR1">  7.1.1  The Fundamental Types</A></H4>
+<P>The enumerated type DC_ElemType specifies the type of a data element.
+<PRE>
+
+typedef enum _DC_ElemType
+{
+  DCT_Unknown = 0,
+  DCT_Float,
+  DCT_Double,
+  DCT_LongDouble,
+  DCT_Char,
+  DCT_UnsignedChar,
+  DCT_ShortInt,
+  DCT_UnsignedShort,
+  DCT_Integer,
+  DCT_UnsignedInt,
+  DCT_LongInt,
+  DCT_UnsignedLong,
+  DCT_String,
+  DCT_Boolean,
+  DCT_ZebTime
+} DC_ElemType;
+</PRE>
+<P>The DC_Element union stores one value of any of the element types. The element type contained in the union must be noted in a separate variable.
+<PRE>
+typedef union _DC_Element
+{
+  float       dcv_float;
+  double       dcv_double;
+  long double      dcv_longdbl;
+  char       dcv_char;
+  unsigned char      dcv_uchar;
+  short       dcv_shortint;
+  unsigned short       dcv_ushort;
+  int       dcv_int;
+  unsigned int       dcv_uint;
+  long       dcv_longint;
+  unsigned long       dcv_ulong;
+  char *      dcv_string;
+  unsigned char      dcv_boolean;
+  ZebTime      dcv_zebtime
+} DC_Element;
+</PRE>
+<P>Notice that the DCT_String type is a <I>pointer</I> to char and not an array of characters. In other words, as seen in the DC_Element union, a DCT_String type only has space for a pointer---with size sizeof(char *)---and not space for an arbitrary number of characters. Data consisting of a string of characters are more properly represented as an array of character elements.
+
+<H3><A NAME="HDR2">  7.2  Element Utilities</A></H3>
+
+<HR>
+<P>A few convenience routines are available for dealing with elements and element types.
+<H4><A NAME="HDR3">  7.2.1  Macros</A></H4>
+<P>Two macros access basic information about a given element type. The first macro reports the size of the type.
+<PRE>
+<B>int
+dc_SizeOfType (type)
+DC_ElemType type;
+</PRE>
+<P></B>The dc_SizeOfType macro returns the size, in bytes, of the element type given in the <B>type</B> parameter. The returned size will be equivalent to the evaluation of the sizeof operator on the element type's corresponding C type. Thus the two following expressions will always be true.
+<PRE>
+dc_SizeOfType(DCT_UnsignedChar) == sizeof(unsigned char)
+dc_SizeOfType(DCT_LongInt) == sizeof(long int)
+</PRE>
+<P>The second macro, dc_TypeName, returns a string which uniquely identifies the type.
+<PRE>
+<B>const char *
+dc_TypeName (type)
+DC_ElemType type;
+</PRE>
+<P></B>The <B>type</B> parameter is the element type, and the macro evaluates to a short string identifying the type. Often the string is the C declaration for the equivalent C type. For example the code below prints "double".
+<PRE>
+printf ("%s\n", dc_TypeName(DCT_Double));
+</PRE>
+<P>As indicated by the const char * return type, the returned pointer should not be modified or freed.
+<P>The macros are provided for efficiency, since the return value in both cases is either a simple evaluation (sizeof) or a look-up into an internal array of strings. To avoid using the macro definitions and instead use an equivalent function, call _dc_SizeOfType() or _dc_TypeName(). Both functions take the same parameter list as the macros.
+
+<P>The DC_ElemTypeMaxSize macro evaluates to the largest possible size of any of the element types. It is useful for allocating space for an element of unknown type. Of course, evaluating the size of the DC_Element union should work just as well: sizeof(DC_Element).
+<H3><A NAME="REF69101">  7.3  DataChunk Field Types</A></H3>
+
+<HR>
+<P>The DataChunk interface originally defined a field as some collection of values arranged according to the organization of the class. For regular grid classes, the field is a two-dimensional array of values. For the scalar class, a field holds a single value. To associate a type with the individual values of a field, the individual values are now referred to as elements.
+<P>The MetData class supports fields of mixed types by allowing the elements of a field to be stored as one of the fundamental element types. Any subclass of MetData is automatically capable of having fields of any type. The field type is actually the element type, since the field may actually be an array or grid of values, and the element type is simply the type of every element in the array. Data can be added to datachunks using the same functions as before, except that class methods now use void pointers to pass and return data arrays since the array elements can be any type.
+<P>The new interface is backwards compatible with clients written before the 4.0 release. Several function prototypes have changed to reflect the new use of void pointers to exchange data arrays, but most compilers will not complain since ANSI C allows implicit pointer conversion to void *.
+<H4><A NAME="HDR4">  7.3.1  Setting Field Types</A></H4>
+<P>The MetData class provides methods for setting the element type of any of the fields defined in any data chunk which is a subclass of MetData. The MetData subclasses which allow field types only enforce the organization of a field, so the actual type of the elements in a field is of no consequence to the subclass's implementation.
+<P>The fields must be defined at the MetData class level before changing their type from the default. Usually, this simply means calling a class's field setup method. In the case of the Scalar class, the setup method is dc_SetScalarFields(). After setting up the fields, the field types can be changed until data is added to the data chunk. Once data has been added to a data chunk, the field types cannot be changed.
+
+<P>The method dc_SetFieldTypes() sets the type of several fields at once.
+<PRE>
+<B>void
+dc_SetFieldTypes (dc, nfield_in, fields_in, types_in)
+DataChunk *dc;
+int nfield_in;
+FieldId *field_in;
+DC_ElemType *types_in;
+</PRE>
+<P></B>For each FieldId in the <B>fields_in</B> array, dc_SetFieldTypes() sets the type of that field to the corresponding type in the <B>types_in</B> array. The number of fields and elements in the arrays is passed in the <B>nfield_in</B> parameter. Each of the fields in the <B>fields_in</B> array must exist in the given data chunk, <B>dc</B>.
+<P>Consider an application which wants to define a bit field for quality control flags in a scalar data chunk. The definition might proceed something like this:
+<PRE>
+DataChunk *dc;
+FieldId fields[3];
+DC_ElemType types[3];
+dc = dc_CreateDC (DCC_Scalar);
+dc-&gt;dc_Platform = ds_LookupPlatform ("particles");
+fields[0] = F_DeclareField ("flags", "qc flags bitfield", "none");
+types[0] = DCT_UnsignedShort;
+...
+dc_SetScalarFields (dc, 3, fields);
+dc_SetFieldTypes (dc, 3, fields, types);
+</PRE>
+<P>Note that the array of fields passed to dc_SetFieldTypes() does not need to be the same array passed to the setup method, nor do the fields need to be in any particular order. In the example above, dc_SetScalarFields() is a method of the Scalar class, but dc_SetFieldTypes() is a method of the MetData class. Thanks to encapsulation and an object-oriented design, the Scalar class `inherits' the field type capabilities of the MetData class.
+<P>A second function dc_SetType() sets the type of a single field.
+<PRE>
+<B>void
+dc_SetType (dc, fid, type) 
+DataChunk *dc;      /* subclass of DCC_MetData           */
+FieldId fid;      /* field whose type to define   */
+DC_ElemType type;      /* The type to assign          */
+</PRE>
+<P></B>This function sets the type of field <B>fid</B> in data chunk <B>dc</B> to the type in <B>type</B>. It has the same calling restrictions as dc_SetFieldTypes(); it should be called after defining the fields and before adding any data to the data chunk.
+
+<H4><A NAME="HDR5">  7.3.2  Inquiring About Field Types</A></H4>
+<P>The MetData class also provides a couple of methods for inquiring about field types and field element sizes.
+<P>The dc_SizeOf() function returns the element size, in bytes, of a field.
+<PRE>
+<B>int
+dc_SizeOf (dc, fid)
+DataChunk *dc;
+FieldId fid;
+</PRE>
+<P></B>The data chunk is passed in <B>dc</B>, and <B>fid</B> is the FieldId of the field to query.
+<P>The dc_Type() function returns the type of a data chunk field.
+<PRE>
+<B>DC_ElemType
+dc_Type (dc, fid)
+DataChunk *dc;
+FieldId fid;
+</PRE>
+<P></B>Given a data chunk <B>dc</B> and a field in the data chunk with FieldId <B>fid</B>, dc_Type() returns the type of the field.
+<H4><A NAME="HDR6">  7.3.3  Storing Typed Field Data</A></H4>
+<P>Once a field has been assigned its type, it can be stored just as any regular floating point data would be stored. Where a class method requires a pointer to the data to store, pass a pointer which points to an array of the field's defined type. The MetData class knows the size of the elements in a field from the element type, so given the number of elements in the field from the subclass, MetData can calculate the correct space requirements for a field and properly copy the given array of data.
+<P>For example, recall the earlier example of the bit field for quality control flags. 
+<PRE>
+unsigned short flags[10];
+flags[0] = QC_OK;
+flags[1] = QC_THRESHOLD | QC_BAD;
+...
+dc_AddMultScalar (dc, times, 0, 10, fields[0], flags);
+</PRE>
+<H4><A NAME="HDR7">  7.3.4  Special N-Space Considerations</A></H4>
+
+<P>The N-space class does things a little differently than the other MetData subclasses. The task of defining a field is more complicated, involving the definition of dimensions as well as fields. Consequently, N-space holds off on the setup of the fields at the MetData level right up until either the addition of data or a call to dc_NSDefineComplete(). Therefore, to set the field types, an application must call dc_NSDefineComplete() and <I>then</I> call the MetData field type methods above. See the N-space class interface in <A HREF="nspace.html#REF21503">Chapter 6</A>, <A HREF="nspace.html#REF0">page 64</A>, for information on dc_NSDefineComplete(). The next section contains examples of setting the types of N-space fields.
+<P>An important part of describing data in data chunks has yet to be laid out: attributes. With the combination of N-space, multiple field types, and type attribute arrays, any dataset which can be described in the netCDF model can also be described in the Zebra data chunk model. The next chapter covers data chunk attributes.
+<H3><A NAME="HDR8">  7.4  Example: Creating an NSpace Chunk with Multiple Field Types</A></H3>
+
+<HR>
+<P>This section contains an example of creating an N-space data chunk with fields of different types. The example emphasizes the procedure of first defining the fields and then calling the MetData methods to set the field types. 
+<H4><A NAME="HDR9">  7.4.1  Some Code</A></H4>
+<PRE>
+void
+NSpacePasta()
+{
+#  define N_WNUM 65
+#  define N_SAMPLE 16
+  DataChunk *dc, *ndc;
+  PlatformId plat_id;
+  ZebTime begin, when;
+  int i;
+  FieldId fields[10];
+  int nfield = 10;
+  FieldId bin_avg_id, wnum_id, mean_rad_id, therm_id, flags_id;
+  static const unsigned char Check_bits[] = {
+    0x00, 0x01, 0x80, 0x01, 0xc0, 0x00, 0x60, 0x00,
+    0x31, 0x00, 0x1b, 0x00, 0x0e, 0x00, 0x04, 0x00
+  };
+  char *bitmap_names[] = { "row", "col8" };
+  unsigned long bitmap_sizes[] = { 8, 2 };
+  FieldId bitmap_id;
+  char *text_dim[] = { "text" };
+  unsigned long text_size[] = { 256 };
+  FieldId obs_id;
+  char obs[256];
+  char *process_dims[] = { "bin", "name" };
+  unsigned long process_sizes[] = { 7, 32 };
+  FieldId process_id;
+  static char process_names[7][32] = {
+    "process one", "process two", "process three",
+
+    "process four", "process five", "process six", "process seven"
+  };
+  double *mean_rads;
+  static float bin_averages[] = { 0.0, 1.0, 2.0, 4.0, 2.0, 1.0, 0.0 };
+  static char obs_types[5][256] = {
+    "overcast; light precipitation visible to the east",
+    "the sun is out",
+    "the moon is looking a brilliant yellow this evening, and it\
+    makes the beauty of your eyes glow with irresistable radiance",
+    "`twas brillig in the frothy toves...",
+  "Oregon: 50 million gallons of water and no place to go on a Saturday"
+};
+  static Location loc = { 40.0, -160.0, 5280.0 }; /*Boulder home office*/
+  /*
+   * The usual initialization stuff
+   */
+  dc = dc_CreateDC (DCC_NSpace);
+  plat_id = ds_LookupPlatform ("t_types_cdf");
+  dc-&gt;dc_Platform = plat_id;
+  dc_SetStaticLoc (dc, &amp;loc);
+  /*
+   * A bitmap to represent this platform. It doesn't change, so static
+   * is TRUE.
+   */
+  bitmap_id = F_DeclareField("bitmap", "Bitmap icon for this platform",
+           "none");
+  dc_NSDefineField (dc, bitmap_id, 2, bitmap_names, bitmap_sizes, TRUE);
+  /*
+   * Text: on-site observations. New observation for each sample, so
+   * static is FALSE.
+   */
+  obs_id = F_DeclareField("observation", "Field observations", "text");
+  dc_NSDefineField (dc, obs_id, 1, text_dim, text_size, FALSE);
+  /*
+   * Example AERI data, motivated by the ARM program
+   */
+  wnum_id = F_DeclareField("wnum", "Wave Number", "cm-1");
+  dc_NSDefineDimension (dc, wnum_id, N_WNUM);
+  dc_NSDefineVariable (dc, wnum_id, 1, &amp;wnum_id, TRUE);
+  mean_rad_id = F_DeclareField ("mean_rad", 
+          "Mean of radiance spectra ensemble", "mW/(m2 sr cm-1)");
+  dc_NSDefineVariable (dc, mean_rad_id, 1, &amp;wnum_id, FALSE);
+  therm_id = F_DeclareField ("thermistor", "Thermistor", "C");
+  dc_NSDefineField (dc, therm_id, 0, 0, 0, FALSE);
+  process_id = F_DeclareField ("process", "Active process", "none");
+  dc_NSDefineField (dc, process_id, 2, process_dims, process_sizes,TRUE);
+  bin_avg_id = F_DeclareField ("bin_avg_rad", "Bin average radiance",
+             "mW/(m2 sr cm-1)");
+  dc_NSDefineField (dc, bin_avg_id, 1, process_dims,process_sizes,FALSE);
+
+  /*
+   * Store error flag masks for each sample time
+   */
+  flags_id = F_DeclareField ("flags", "Error flags mask", "none");
+  dc_NSDefineField (dc, flags_id, 0, 0, 0, FALSE);
+  /*
+   * Close out the definition and set the non-float field types.
+   * (The other fields default to float.)
+   */
+  dc_NSDefineComplete (dc);
+  dc_SetType (dc, bitmap_id, DCT_UnsignedChar);
+  dc_SetType (dc, obs_id, DCT_Char);
+  dc_SetType (dc, flags_id, DCT_UnsignedShort);
+  dc_SetType (dc, mean_rad_id, DCT_Double);
+  dc_SetType (dc, process_id, DCT_Char);
+  /*
+   * Definition is complete.  Add the static data.
+   */
+  dc_NSAddStatic (dc, bitmap_id, (void *)Check_bits);
+  dc_NSAddStatic (dc, wnum_id, (void *)wnum_data);
+  dc_NSAddStatic (dc, process_id, (void *)process_names);
+  /*
+   * Add the dynamic data
+   */
+  mean_rads = (double *)malloc(N_WNUM*sizeof(double));
+  for (i = 0; i &lt; N_WNUM; ++i)
+    mean_rads[i] = (double)i/1000.0;
+  /*
+   * Let it be known how many samples we'll be adding so that memory
+   * need only be allocated once.
+   */
+  dc_HintNSamples (dc, N_SAMPLE, TRUE);
+  for (i = 0; i &lt; N_SAMPLE; ++i)
+  {
+    float therm = (float)i;
+    short flag = (short)i%50;
+    dc_NSAddSample(dc, &amp;when, i, obs_id, (void *)(obs_types[i%5]));
+    dc_NSAddSample(dc, &amp;when, i, bin_avg_id, (void *)bin_averages);
+    dc_NSAddSample(dc, &amp;when, i, therm_id, (void *)&amp;therm);
+    dc_NSAddSample(dc, &amp;when, i, flags_id, (void *)&amp;flag);
+    dc_NSAddSample(dc, &amp;when, i, mean_rad_id, (void *)mean_rads);
+    ++when.zt_Sec;
+  }
+  dc_DumpDC (dc);
+}
+</PRE>
+<H4><A NAME="HDR10">  7.4.2  Some Output</A></H4>
+<P>The results of the final dc_DumpDC(dc) are included below.
+<PRE>
+
+NSPACE class: definition completed
+Number of variables: 8        Number of dimensions: 6    
+                                   row: size 8       -- no field id
+                                  col8: size 2       -- no field id
+                                  text: size 256     -- no field id
+                                  wnum: size 65      -- field 2, `Wave Number'
+                                   bin: size 7       -- no field id
+                                  name: size 32      -- no field id
+  unsigned char bitmap ( row, col8 ) static, offset=0, size = 16, `Bitmap icon 
+for this platform'
+  char observation ( text )size = 256, `Field observations'
+  float wnum ( wnum ) static, offset=16, size = 65, `Wave Number'
+  double mean_rad ( wnum )size = 65, `Mean of radiance spectra ensemble'
+  float thermistor (  )size = 1, `Thermistor'
+  char process ( bin, name ) static, offset=276, size = 224, `Active process'
+  float bin_avg_rad ( bin )size = 7, `Bin average radiance'
+  unsigned short flags (  )size = 1, `Error flags mask'
+METDATA class, 8 fields, uniform False, uniform org False, size 0
+Fields:  bitmap(unsigned char,1); observation(char,1); wnum(float,4); 
+mean_rad(double,8); thermistor(float,4); process(char,1); 
+bin_avg_rad(float,4); flags(unsigned short,2);
+Fixed-field-size, field offsets for sample 15:
+bitmap:0,0  observation:0,256  wnum:256,0  mean_rad:256,520  thermistor:776,4  
+process:780,0  bin_avg_rad:780,28  flags:808,2  
+Field Attributes:
+TRANSPARENT class, 16 samples, 16 allocated, next off 13560, use avg: true
+Hints: nsamples 16, sample size 816, avg 816, data 816, subclass 0
+         0 at 1-Jan-93,0:00:00, len 810 offset 504
+         1 at 1-Jan-93,0:00:01, len 810 offset 1320
+         2 at 1-Jan-93,0:00:02, len 810 offset 2136
+         3 at 1-Jan-93,0:00:03, len 810 offset 2952
+         4 at 1-Jan-93,0:00:04, len 810 offset 3768
+         5 at 1-Jan-93,0:00:05, len 810 offset 4584
+         6 at 1-Jan-93,0:00:06, len 810 offset 5400
+         7 at 1-Jan-93,0:00:07, len 810 offset 6216
+         8 at 1-Jan-93,0:00:08, len 810 offset 7032
+         9 at 1-Jan-93,0:00:09, len 810 offset 7848
+        10 at 1-Jan-93,0:00:10, len 810 offset 8664
+        11 at 1-Jan-93,0:00:11, len 810 offset 9480
+        12 at 1-Jan-93,0:00:12, len 810 offset 10296
+        13 at 1-Jan-93,0:00:13, len 810 offset 11112
+        14 at 1-Jan-93,0:00:14, len 810 offset 11928
+        15 at 1-Jan-93,0:00:15, len 810 offset 12744
+RAW, class `NSpace', plat 5 (t_aeri_types_cdf), data len 14372, 5 ADE 
+totaling 3348
+internal class checking: enabled
+Global attributes:
+</PRE>
+<H4><A NAME="HDR11">  7.4.3  Some Comments</A></H4>
+
+<P>The designer of this interface is the first to admit that it is less than intuitive and convenient for application development. One possible improvement would be to allow fields to be defined separately and added to the MetData level individually, so that a single field could be defined <I>and</I> typed in a few consecutive lines of code. Unfortunately, the present interface forces all of the fields to be defined first to the MetData subclass before they can be typed at the MetData level. For the moment, though, the interface works, and the minor inconveniences in the interface are easily worth the expanded flexibility and functionality in describing datasets.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+
+<HR><H3>Footnotes</H3>
+<DL COMPACT>
+<DT><A NAME=FN1>(1)</A><DD>Like the classical definition of the atom as the particle of matter which could not be divided mechanically any further.
+</DL>
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="attributes.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

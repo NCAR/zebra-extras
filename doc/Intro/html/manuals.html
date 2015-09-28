@@ -1,0 +1,170 @@
+<P><A HREF="Intro.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="title.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>CHAPTER 1 </B> Guide to Documentation</TITLE>
+<H1><A NAME="HDT0"> <paranum><B>CHAPTER 1 </B> Guide to Documentation</A></H1>
+
+<P>This chapter outlines the manuals and information sources available for Zebra. This is a more complete enumeration than the brief information found in the "Whom to Contact" section of the <I>Installation Manual</I>. Also, a large set of help topics is available through Zebra's on-line help interface, which is introduced in <A HREF="iconbar.html#REF21747">Chapter 3</A>.
+<H3><A NAME="HDR1">  1.1  Zebra Manuals</A></H3>
+
+<HR>
+<P>Below are the manuals for the Zebra system, along with a short decription of each.
+<P><B><A HREF="../Release/Release.html">Release Notes</A>
+
+<UL>
+<P><LI></B>Originally part of the Installation Manual, the release notes are now a separate document for highlighting the the features, changes, and notable notes about each release.
+<BR></UL>
+
+
+<P><B><A HREF="../Install/Install.html">The Zebra Installation Manual</A>
+
+<UL>
+<P><LI></B>This manual provides detailed information about configuring and compiling a Zebra installation.It also includes a list of contacts for problems or questions concerning Zebra.
+<BR></UL>
+
+
+<P><B><A HREF="../AdvUsers/AdvUsers.html">The Zebra Advanced User's Manual</A>
+
+
+<UL>
+<P><LI></B>This document describes the user interface of each of the processes in the Zebra system, from the DataStore daemon and its utilities to the graphics process displays and the multitudinous and multifarious plot description parameters. It is a vital reference for anyone trying to enhance, customize, or troubleshoot a Zebra installation.
+<BR></UL>
+
+
+<P><B><A HREF="../Data/Data.html">The Zebra Data Management Guide</A>
+
+<UL>
+<P><LI></B>A guide to assimilating data into the Zebra data store system through ingestor programs, conversion utilities, and write-your-own utilities. It also includes descriptions of supported data formats.  This guide is intended for sites which need to incorporate data which is not already included in an RDP dataset or in a Zebra-supported format.
+<BR></UL>
+
+
+<P><B><A HREF="../Realtime/Realtime.html">A Guide to Realtime Zebra</A>
+
+<UL>
+<P><LI></B>This is a guide for sites assimilating data in real-time or through automated and event-driven feeds.  It provides an overview of the many possible real-time host and networking setups, and includes details on running the Zebra programs available for real-time monitoring, diagnostics, and archiving.
+<BR></UL>
+
+
+<P><B><A HREF="../Developer/Developer.html">The Zebra Developer's Guide</A>
+
+<UL>
+<P><LI></B>General notes about the Zebra development environment and writing applications using the Zebra libraries. This is the guide to see for information about Zebra's use of the Imake system and about writing and editing Imakefiles for the Zebra development environment.
+<BR></UL>
+
+
+<P><B><A HREF="../Library/Library.html">The Zebra Library Interface Manual</A>
+
+<UL>
+<P><LI></B>This is a programming reference manual describing the application interface utilized by all Zebra clients. The Zebra library interface provides access to the message manager, the timer, sound, primitive graphics, and the configuration variables. Anyone attempting to write any type of customized Zebra client should refer to this manual.
+<BR></UL>
+
+
+<P><B><A HREF="../DataStore/DataStore.html">The Zebra DataStore Interface Manual</A>
+
+<UL>
+<P><LI></B>The Zebra DataStore provides the data handling capability of Zebra clients. Zebra clients use the library routines to communicate with the DataStore server process and to read and write data files. This is the manual to consult when writing an ingest or data access module.
+<BR>
+</UL>
+
+
+<P>Some ancient references to a Configuration Manual may still exist. That manual is now obsolete and has been supplanted by the <I>Advanced User's Manual</I>. Likewise, the DataStore and Library interface manuals are the more complete descendants of the original combined Interface manual.
+<P>The Zebra document distribution also includes the <B>Graphics Process Structures and Internals</B> manual. This manual descends from the very original days of Zebra, but its contents are still relevant and useful regarding the implementation of the graphics process. Only programmer's who are considering enhancements or additions to the graphics process need consider reading this manual.
+<H3><A NAME="HDR2">  1.2  Where to Find Zebra Documentation</A></H3>
+
+<HR>
+<P>The document distribution is available as a separate tar file, with a name such as the following:
+<PRE>
+Zebra-4.2.doc.tar.gz
+</PRE>
+<P>See the <I>Installation Manual</I> for details on obtaining the document distribution.
+<P>All of the Zebra documentation and online help topics, as well as articles, tutorials, and presentations, are available through the Zebra home page:
+<PRE>
+<A HREF="http://www.atd.ucar.edu/rdp/zebra.html">http://www.atd.ucar.edu/rdp/zebra.html</A>
+</PRE>
+<P>The home page provides access to both the <I>PostScript</I> and HTML formats of the manuals. The hypertext files are also included in the document distribution, as noted in <A HREF="manuals.html#REF40900">Section 1.4, "Hypertext"</A>.
+<H3><A NAME="HDR3">  1.3  Hardcopy</A></H3>
+
+<HR>
+<P>The <I>PostScript</I> versions of the Zebra manuals can be found in the zebra/doc/ps directory of the Zebra document distribution. To print any of the manuals, first change to that directory. Then you can send the document file directly to a <I>PostScript</I> printer with the appropriate UNIX print command.
+<P>For example, use the lpr command under SunOS 4.x and other BSD systems:
+<PRE>
+lpr -P<I>name</I> <I>file
+</PRE>
+<P></I>Under Solaris, HP-UX, and other System V systems, use
+<PRE>
+
+lp -d<I>name</I> <I>file
+</PRE>
+<P></I>Where <I>name</I> is the name of the <I>PostScript</I> printer, and <I>file</I> is the name of the manual file to be printed. The README file in the zebra/doc/ps directory lists the files along with the name and size of the document each file contains.
+<H3><A NAME="REF40900">  1.4  Hypertext</A></H3>
+
+<HR>
+<P>All of the Zebra documentation, except for the <I>Graphics Process Internals</I> manual, also exists in Hypertext Markup Language (HTML) format. The HTML files reside in the zebra/doc/html directory. Each manual has its own subdirectory, such as AdvUsers or Install. The top-level HTML file in each manual directory is simply the subdirectory name with a `.html' extension, such as AdvUsers.html and Install.html. To browse a manual, use a Web browser's "Open local file" function or put the path to the HTML file on the command line:
+<PRE>
+% netscape /zebra/doc/html/AdvUsers/AdvUsers.html
+</PRE>
+<H3><A NAME="HDR4">  1.5  Related Documentation</A></H3>
+
+<HR>
+<P>The documents below cover Zebra or related software; some may be helpful to anyone wanting further information about the third-party tools utilized by Zebra. In particular, the Unidata netCDF library has gained much popularity, and many applications in the scientific community support it.
+
+<OL>
+<P><LI>Corbet, J. M., Mueller, C., Burghart, C., Gould, K., and Granger, G., 1994: "Zeb: Software for Integration, Display, and Management of Diverse Environmental Datasets", Bulletin of the American Meteorological Society, 75:5, May, 1994, pp 783-792.
+<BR>
+<P><LI>Corbet, J. M. and Mueller, C., 1991: "Zeb: Software for Data Integration, Display, and Analysis", in Preprints of the 25th Conference on Radar Meteorology, American Meteorological Society, pp. 216-219.
+<BR>
+<P><LI>Jenter, H. L. and R. P. Signell, 1992. "NetCDF: A Freely-Available Software-Solution to Data-Access Problems for Numerical Modelers". Proceedings of the American Society of Civil Engineers Conference on Estuarine and Coastal Modeling. Tampa, Florida. See the file unidata.ucar.edu:/pub/netcdf/utilities.txt for availability.
+<BR>
+
+<P><LI>Rew, Russ; Davis, Glenn; and Emmerson, Steve; 1993. "NetCDF User's Guide: An Interface for Data Access, Version 2.3". Unidata Program Center, University Corporation for Atmospheric Research, Boulder, Colorado. Included in the netCDF distribution. See also the Unidata WWW page:
+<BR><PRE>
+</OL>
+
+
+<A HREF="http://www.unidata.ucar.edu/packages/netcdf">http://www.unidata.ucar.edu/packages/netcdf</A>
+</PRE>
+<H3><A NAME="HDR5">  1.6  On-line Help</A></H3>
+
+<HR>
+<P>Zebra supports an on-line help system which can display information on many parts of Zebra while the system is running. <A HREF="iconbar.html#REF21747">See "Display Interface Basics" on page 25.</A>
+<H3><A NAME="REF14817">  1.7  World Wide Web Tutorial</A></H3>
+
+<HR>
+<P>A hypertext <A HREF="http://www.atd.ucar.edu/rdp/zebra/tutorial/intro.html">Zebra tutorial</A> begins at this URL:
+<PRE>
+<A HREF="http://www.atd.ucar.edu/rdp/zebra/tutorial/intro.html">http://www.atd.ucar.edu/rdp/zebra/tutorial/intro.html</A>
+</PRE>
+<P>Any WWW browser capable of inline images will be sufficient for showing the tutorial. Note that this tutorial is also accessible through the Zebra home page, mentioned below in <A HREF="manuals.html#REF33583">Section 1.9</A>.
+<P>The tutorial is most useful if followed while simultaneously running the Zebra COARE project demo. Also see the following chapters, especially <A HREF="iconbar.html#REF21747">"Display Interface Basics" on page 25</A>, for basic introductions to starting and using Zebra which will augment the tutorial.
+<P>The original version of this manual, called "Getting Started", contained a tutorial in one of the chapters. That tutorial has been removed in favor of the more complete and updated hypertext version above. If you do not have a WWW browser, see the <I>Zebra Installation Manual</I> for information on obtaining a publicly available one. If you also do not have Internet access, contact one of the RDP support persons and we may be able to send you your own copy of the tutorial for browsing on your local machine.
+
+<H3><A NAME="HDR6">  1.8  Mailing List</A></H3>
+
+<HR>
+<P>If your questions, comments, or concerns are of general interest to the Zebra user community, you can send email to the Zebra users' mailing list at this address:
+<PRE>
+<A HREF="mailto:zebra-users@atd.ucar.edu">zebra</A>-users@atd.ucar.edu
+</PRE>
+<P>Mail sent to this address will go to <I>everyone</I> on the mailing list. If you are not on the list and wish to be added, or if you wish to be taken off of the list, email to this address instead:
+<PRE>
+<A HREF="mailto:zebra-users-request@atd.ucar.edu">zebra</A>-users-request@atd.ucar.edu
+</PRE>
+<P>Mail sent to this address only goes to the administrator of the list. Please do not send requests for addition or removal to the general list, only to zebrausersrequest.
+<H3><A NAME="REF33583">  1.9  Internet Assistance</A></H3>
+
+<HR>
+<P>All of the Zebra manuals and help topics can be browsed through the Atmospheric Technology Division's (ATD) World Wide Web server. The home page for Zebra announcements, tutorials, papers, manuals, and help topics can be found at this URL:
+<PRE>
+<A HREF="http://www.atd.ucar.edu/rdp/zebra.html">http://www.atd.ucar.edu/rdp/zebra.html</A>
+</PRE>
+<P>For assistance with the use or installation of Zebra, or to send bug reports, please email this address:
+<PRE>
+<A HREF="mailto:rdp-support@stout.atd.ucar.edu">rdp-support@stout.atd.ucar.edu</A>
+</PRE>
+
+<P><A HREF="Intro.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="starting.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

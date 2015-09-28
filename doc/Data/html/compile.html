@@ -1,0 +1,33 @@
+<P><A HREF="Data.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="modules.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>CHAPTER 4 </B> Compiling Ingestors</TITLE>
+<H1><A NAME="HDT0"> <paranum><B>CHAPTER 4 </B> Compiling Ingestors</A></H1>
+
+<P>The ingestors included in the Zebra distribution are normally not compiled by the default configuration. This chapter explains how to change the configuration to select the compilers you need to build and install. This section does not cover the procedures necessary for writing a new ingestor; see instead the <I>Zebra Developer's Guide</I>.
+<P><CODE></CODE>The next section of config.h specifies the ingest programs to build during compilation. These programs are not likely to ever be needed except for sites which are running Zebra in real-time. If down the road you discover a need for a particular ingest module, it is easier to compile that module individually at that time. To avoid compiling all of the ingest modules for now, leave this line unchanged.
+<P><A HREF="compile.fig_1.ps"><IMG SRC="compile.fig_1.gif">
+</A>
+<PRE>
+#define BuildIngest NO
+</PRE>
+
+<P>This will disable compilation of all of the ingest modules under the directory /zeb/src/ingest. To enable the compilation of an ingest module, the BuildIngest symbol must first be defined as YES. Then the determination of whether an ingest program is compiled rests with the setting of that ingest module's specific build symbol in the following lines of config.h. For example, the satellite ingest programs will be compiled if BuildIngest is YES and BuildSatelliteIngest is YES. If BuildIngest is NO, then the definition of BuildSatelliteIngest is ignored and the satellite ingest programs will not be compiled.
+<P><B>Caution</B>: Some of the ingest programs require specialized libraries or presently only compile on certain machines. <B>For HP-UX</B>, if BuildIngest has been defined as YES, then the following symbols should be defined to NO.
+<PRE>
+# define BuildIngestScheduler NO /* Sun only */
+# define BuildRadarIngest NO /* Sun only */
+# define BuildSLGrabber NO /* Sun only */
+# define Build_TRMM_Rain NO /* Sun only */
+</PRE>
+<P>On HP-UX, all of other ingest modules will compile. Under SunOS and Solaris, all of the ingest modules---including the four above---can be compiled and installed given that any necessary libraries exist on the system.
+<P>In most cases the only documentation for an ingest program is a usage message and the code itself. If you think you need a particular ingest program, be prepared to wrestle with it a little bit to get it to meet your application. Or, feel free to request assistance from one of the persons listed in the "Whom to Contact" section of the <I>Installation Manual</I>. For more detailed information about the ingest modules, such as descriptions of each, see <A HREF="modules.html#REF15743">Section 3.2, "Ingest Modules in Release 4.2"</A>.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+<P><A HREF="Data.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="netCDF.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

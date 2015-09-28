@@ -1,0 +1,155 @@
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="metclasses.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>� CHAPTER 5 � </B> The Grid Classes: RGrid, IRGrid, and Image</TITLE>
+<H1><A NAME="REF88016"> <paranum><B>� CHAPTER 5 � </B> The Grid Classes: RGrid, IRGrid, and Image</A></H1>
+
+<P>Whereas the Scalar class narrows the interpretation of a MetData field to a single scalar value, the grid classes use a single field to store entire grids of data. Each data point in the grid is an element, and the type of the field is equivalent to the type of the elements of the grid. The geometry of the grid must be specified as auxiliary information to the grid data chunk, so each of the grid classes provide methods for storing and retrieving the geometry information.
+<H3><A NAME="HDR0">  5.1  The Irregular Grid DataChunk Class</A></H3>
+
+<HR>
+<P>The irregular grid class (DCC_IRGrid, subclass of DCC_MetData) is used to represent scalar points distributed randomly over space. The current irregular grid implementation works with fixed points which are subplatforms in their own right; a future extension to use anonymous points is possible.
+
+<H4><A NAME="HDR1">  5.1.1  Initialization of Irregular Grid Data</A></H4>
+<P>Data chunks of the irregular grid class must be initialized with subplatform and field information before data may be stored therein. This initialization is accomplished with dc_IRSetup() as follows:
+<PRE>
+<B>void
+dc_IRSetup (dc, nplat, platforms, locs, nfield, fields)
+DataChunk *dc;
+int nplat;
+PlatformId *platforms;
+Location *locs;
+int nfield;
+FieldId *fields;
+</PRE>
+<P></B>Where <B>dc</B> is a data chunk subclassed from DCC_IRGrid, <B>nplat</B> is the number of platforms in the irregular grid, <B>platforms</B> is a list of ID's for these platforms, <B>locations</B> is a list of locations for these platforms, <B>nfield</B> is the number of fields to be stored in the data chunk, and <B>fields</B> is a list of those fields.
+<P>Use dc_IRGetNPlatform() to retrieve the number of platforms stored in an irregular grid data chunk:
+<PRE>
+<B>int
+dc_IRGetNPlatform (dc)
+DataChunk *dc;
+</PRE>
+<P></B>Where <B>dc</B> is the data chunk, and the return value is the number of platforms.
+<P>Information on the platforms represented in the irregular grid may be obtained with dc_IRGetPlatforms() as follows:
+<PRE>
+<B>void
+dc_IRGetPlatforms (dc, platforms, locs)
+DataChunk *dc;
+PlatformId *platforms;
+Location *locs;
+</PRE>
+<P></B>Where <B>dc</B> is the data chunk, and <B>platforms</B> and <B>locs</B> point to arrays sufficiently long to store the platform identifier and the location of each platform.
+
+<H4><A NAME="HDR2">  5.1.2  Storing and Retrieving Irregular Grid Data</A></H4>
+<P>An irregular grid may be added to a data chunk with dc_IRAddGrid() as follows:
+<PRE>
+<B>void 
+dc_IRAddGrid (dc, when, sample, field, data)
+DataChunk *dc;
+ZebTime *when;
+int sample;
+FieldId field;
+void *data;
+</PRE>
+<P></B>Where <B>dc</B> is the data chunk, <B>when</B> is the time of this data, <B>sample</B> is the index of the sample to be stored, <B>field</B> is the field to be stored, and <B>data</B> is the actual data. The data array is expected to be a series of floating-point numbers, stored in the same order as the platform list that was passed to dc_IRSetup().
+<P>The dc_IRGetGrid() function retrieves an irregular grid from a data chunk:
+<PRE>
+<B>void *
+dc_IRGetGrid (dc, sample, field)
+DataChunk *dc;
+int sample;
+FieldId field;
+</PRE>
+<P></B>Where <B>dc</B> is the data chunk, <B>sample</B> is the index of the sample to be retrieved, and <B>field</B> is the field to be retrieved. The return value is a pointer to the data array for this grid, one value per platform. If the requested sample does not exist, NULL will be returned. 
+<P>Both dc_IRAddGrid() and dc_IRGetGrid() reference data arrays with pointers to void. The actual type of the data elements is not known, nor is the element type relevant to the implementation of the IRGrid class. The IRGrid class is merely implementing the geometry of the fields; MetData has taken care of implementing the notions of fields and elements.
+<H3><A NAME="HDR3">  5.2  The Regular Grid DataChunk Class</A></H3>
+
+<HR>
+<P>Regular grids are one, two, or three-dimensional arrays of data points, with regular spacing between them. The class DCC_RGrid (subclass of DCC_MetData) implements regular grids in a data chunk. There are currently no subclasses of the regular grid class oriented toward specifically one or two-dimensional grids; they can be added if the need develops.
+
+<P>Regular grids are initialized with a call to dc_RGSetup().
+<PRE>
+<B>void
+dc_RGSetup (dc, nfield, fields)
+DataChunk *dc;
+int nfield;
+FieldId *fields;
+</PRE>
+<P></B>Where <B>dc</B> is a data chunk subclassed from DCC_RGrid, <B>nfield</B> is the number of fields to be stored in this data chunk, and fields is a list of those fields.
+<P>To add a grid to a data chunk, use dc_RGAddGrid() as follows:
+<PRE>
+<B>void
+dc_RGAddGrid (dc, sample, field, origin, rginfo, when, data, len)
+DataChunk *dc;
+int sample, len;
+FieldId field;
+Location *origin;
+RGrid *rginfo;
+ZebTime *when;
+void *data;
+</PRE>
+<P></B>Where <B>dc</B> is the data chunk, <B>sample</B> is the index of the sample to be stored, <B>field</B> is the field to be stored, <B>origin</B> is the location of the bottom southwest corner of the grid, <B>rginfo</B> contains the grid dimension and spacing information, <B>when</B> is the time of this data, <B>data</B> is the actual grid data, and <B>len</B> is the length of the grid data in bytes. In most cases, <B>len</B> may be specified as zero, and it will be calculated from the grid dimensions.
+<P>To retrieve a regular grid, use dc_RGGetGrid().
+<PRE>
+<B>void *
+dc_RGGetGrid (dc, sample, field, origin, rginfo, len)
+DataChunk *dc;
+int sample, *len;
+FieldId field;
+Location *origin;
+RGrid *rginfo;
+</PRE>
+<P></B>Where <B>dc</B> is the data chunk, <B>sample</B> is the index of the sample of interest, and <B>field</B> is the field of interest. The return value is a void pointer to the grid data. Any of the rest of the parameters can be NULL, in which the parameter is ignored and not set to a return value. Otherwise, <B>origin</B> will be set to the grid origin, <B>rginfo</B> will be set to the dimension and spacing information, and <B>len</B> will be set to the length of the grid, in bytes.
+
+<H3><A NAME="HDR4">  5.3  The Image DataChunk Class</A></H3>
+
+<HR>
+<P>Image data (DCC_Image) is a special subclass of DCC_RGrid, wherein all images are two-dimensional, and are stored as byte data with associated scaling information. Since the image abstraction requires that the image elements be bytes, the fields are automatically assigned types of DCT_UnsignedChar and protected from change. See <A HREF="elements.html#REF30246">Chapter 7</A> for information on element types.
+<H4><A NAME="HDR5">  5.3.1  Setting Up</A></H4>
+<P>DCC_Image data chunks must be initialized by calling dc_ImgSetup().
+<PRE>
+<B>void
+dc_ImgSetup (dc, nfield, fields, scale)
+DataChunk *dc;
+int nfield;
+FieldId *fields;
+ScaleInfo *scale;
+</PRE>
+<P></B>Where <B>dc</B> is a data chunk subclassed from DCC_Image, <B>nfield</B> is the number of fields to be stored in this data chunk, <B>fields</B> is a list of those fields, and <B>scale</B> is a list of ScaleInfo structures, giving the scale and offset to be used with each of the fields.
+<H4><A NAME="HDR6">  5.3.2  Storing</A></H4>
+<P>An image may be stored in a data chunk with dc_ImgAddImage().
+<PRE>
+<B>void 
+dc_ImgAddImage (dc, sample, field, origin, rginfo, when, data, len)
+DataChunk *dc;
+int sample, *len;
+FieldId field;
+Location *origin;
+RGrid *rginfo;
+ZebTime *when;
+unsigned char *data;
+</PRE>
+<P></B>Where <B>dc</B> is the data chunk, <B>sample</B> is the index of the sample to be stored, <B>field</B> is the field to be stored, <B>origin</B> is the origin of the image, <B>rginfo</B> gives the dimensions and spacing of the image, <B>when</B> is the time of this data, <B>data</B> is the image data array, and <B>len</B> is the length of this array. If <B>len</B> is specified as zero, it will be calculated from the dimension information.
+
+<H4><A NAME="HDR7">  5.3.3  Retrieving</A></H4>
+<P>Images are retrieved from a data chunk with the dc_ImgGetImage() function, shown below:
+<PRE>
+<B>unsigned char *
+dc_ImgGetImage (dc, sample, field, origin, rginfo, len, scale)
+DataChunk *dc;
+int sample, *len;
+FieldId field;
+Location *origin;
+RGrid *rginfo;
+ScaleInfo *scale;
+</PRE>
+<P></B>Where <B>dc</B> is the same old, boring data chunk, <B>sample</B> is the sample of interest, and <B>field</B> is the field of interest. The return value is a pointer to the data array inside the data chunk, so the memory should be freed. Any of the rest of the parameters can be passed as NULL, in which case the parameter is ignored and not set to a return value. Otherwise, <B>origin</B> is set to the grid origin, <B>rginfo</B> is set to the dimension and spacing information, <B>len</B> is set to the length of the grid data array, and <B>scale</B> is set to the scaling information for the requested field.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="nspace.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

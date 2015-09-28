@@ -1,0 +1,117 @@
+<P><A HREF="Realtime.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="monitors.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>CHAPTER 3 </B> Archiver</TITLE>
+<H1><A NAME="HDT0"> <paranum><B>CHAPTER 3 </B> Archiver</A></H1>
+
+<P>This chapter discusses the zebra Archiver process, which handles the automatic storage of real-time data streams to tapes or writable CD-ROM disks.
+<H3><A NAME="HDR1">  3.1  The archiver process</A></H3>
+
+<HR>
+<P>The zebra archiver process is charged with insuring that the real time data stream is archived to a permanent storage device as it comes in. The archiver is currently able to deal with magnetic tape and erasable optical disks as the archive media.
+<P>The output from the archiver is a set of standard tar files. Several of these files are typically produced from a day's worth of data -- one for each time the archiver starts up. These files may be read with the tar utility, or with the dsmanage program.
+<H4><A NAME="HDR2">  3.1.1  Invoking the archiver</A></H4>
+<P>The archiver has a number of command line options, shown below.
+<PRE>
+Archiver
+    [-device <I>dev</I>]
+    [-output <I>outdir</I>]
+    [-mode <I>mode</I>]
+    [-z]
+
+    [-start <I>startminute</I>]
+    [-interval <I>interval</I>]
+    [-k <I>mindisk</I>]
+    [-n <I>mountpoint</I>]
+    [-tapelimit <I>limit</I>]
+    [-wait <I>times</I>]
+</PRE>
+<P>In detail, the options have the following meanings:
+<DL>
+<DT><DD><I>Archiver options</I><DD>-device<DD>The name of the device to which data are to be archived. If this option is not specified, it defaults to /dev/nrst8.
+</DL>
+<UL><DL>
+<DT>-mode<DD>The device mode in which the archiver runs. Possibilities are <I>tape</I> (the default) and eod.
+<DT>-z<DD>Release archive tapes at zero hours GMT.
+<DT>-start<DD>Specifies the time past the hour when the archiver should start up and archive data. This option may be used to schedule archiver activity around times when other system-intensive processes may be running. The default value is zero.
+<DT>-interval<DD>How often the archiver should start up and archive files. The default is 120 minutes.
+<DT>-wait<DD>The time periods to put onto the wait buttons in the archiver window. These times should be given as a comma-separated list, in minutes. Default is `1,2,5'.
+</DL></UL>
+<DL>
+<DT><DD><I>eod options</I><DD>-output<DD>The directory to which archiver files are written when in the optical disk mode. The default is /eod0.
+</DL>
+<UL><DL>
+<DT>-k<DD>The minimum size of a file on the optical disk. Default is 10 megabytes.
+<DT>-n<DD>The optical disk device name. Default is eod0.
+</DL></UL>
+<DL>
+<DT><DD><I>tape options</I><DD>-tapelimit<DD>The maximum amount of data which will be written to a single tape. Default is 3.5 GB.
+
+</DL>
+<P>The archiver is usually started automatically in the zebra startup script on a central data store machine. 
+<H4><A NAME="HDR3">  3.1.2  Archiver control</A></H4>
+<P>When the archiver begins, it presents a small window with a number of control buttons and a summary line telling how much data has been archived so far. It is necessary to use one of those control buttons almost immediately, since the archiver starts up in the waiting mode --- waiting to be told to take control of the archive device and start writing data. It starts up in this way so that the user can insure that the media in the archive device is really something that should be written to. To get the archiving process moving, insert a tape or disk into the drive and click on the "take tape" button.
+<P>The archiver can be instructed to release the output device at any time, in case the device is needed for some other purpose. Simply click on the "release tape" button and wait until the media is ejected. When you wish to resume archiving, you should start with a new tape or CD.
+<P>The "wait" buttons in the archiver window may be used to cause the archiver to pause for a short period of time. These buttons are useful if the archiver is slowing down the machine and you wish to let some other process have more CPU or IO time.
+<P>There is also a button to cause the archiver to finish archiving and exit. You should select this option if you are shutting down zebra for the day in projects with that sort of operations. This button will cause the archiver to archive all remaining files, eject the media and exit.
+<H4><A NAME="HDR4">  3.1.3  Behind the scenes</A></H4>
+<P>The archiver needs to keep track of which files have been archived across invocations. This is done through the use of a disk file in the zebra library directory called DumpedFiles. The file contains an entry for each platform, listing the time period which has been written to tape so far. The file is updated after every successful write of a tar file to tape or disk.
+<P>The archiver informs the daemon of files which have been archived, but never relies on the daemon's idea of archived files to determine which files need to be written. It does expect the data store to respect the "archived" mark by not further modifying files which have been archived.
+
+<H3><A NAME="HDR5">  3.2  The datastore cleanup mechanism</A></H3>
+
+<HR>
+<P>The data store daemon provides a number of tools which allow it to be configured to perform data file cleanup for a number of different applications. Normally, you only want to do cleanup in real-time operational modes; the deletion of data files in a postprocessing environment can be an unpleasant surprise. (The dsmanage tool should be used instead for postprocessing cleanup).
+<P>The heart of the cleanup mechanism is the truncate command, which has the following syntax:
+<PRE>
+truncate <I>seconds</I> <I>platform</I>|all
+</PRE>
+<P>Where <I>seconds</I> is the number of seconds of data which should remain after the truncate command is done, and <I>platform</I> is the platform for which data is to be deleted. If <I>platform</I> is specified as all, the truncation applies to all known platforms.
+<P>The data store daemon also provides a user interface command-line function called FreeSpace, which returns the amount of disk space free (in kilobytes) in the partition containing a particular directory. This function is useful when trying to determine just how much data to truncate based on the available disk space.
+<P>With truncate it is common to create a procedure for cleanup such as the following:
+<PRE>
+set HOUR 3600      ! seconds in an hour
+set DAY 24*HOUR
+procedure DoCleanup fraction real
+  truncate fraction*3*DAY "mesonet"
+  truncate fraction*4*HOUR "radar"
+  ...
+endprocedure
+</PRE>
+<P>The idea is that high-bandwidth platforms are truncated more heavily than others. Data for which several days worth of samples are needed can be configured to be kept for that long; other data can be deleted after a very short time.
+
+<P>The final step in the establishment of a cleanup algorithm is to set things up so that it runs occasionally. For that purpose, the data store daemon provides a mechanism for recurring tasks through the every command:
+<PRE>
+every <I>period</I> `<I>command</I>'
+</PRE>
+<P>Where <I>period</I> is how often the command should be run (in seconds), and <I>command</I> is the command itself.
+<P>A common procedure to run with every is CleanupScan:
+<PRE>
+procedure CleanupScan
+  local free FreeSpace("some/data/dir")
+  if (free &gt; 200000)
+    return      ! No need to clean up
+  endif
+  DoCleanup 1.0
+  if (FreeSpace("some/data/dir") &lt; 100000)
+    DoCleanup 0.7
+  endif
+  if (FreeSpace("some/data/dir") &lt; 100000)
+    DoCleanup 0.5
+  endif
+  ...
+endprocedure
+</PRE>
+<P>The idea here is to slowly tighten down the screws until a sufficient amount of space is available. The use of the DoCleanup procedure with the fraction argument allows data from each platform to be trimmed back individually.
+<P>One way to get things started is to create a procedure called Cleanup. If this procedure exists, it is called once after the data store initialization procedure is complete.
+<P>One final hint: be sure that data store configuration files with cleanup code in them are not used for postprocessing applications! The result can be deleted data and very frustrated users.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+
+<P><A HREF="Realtime.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="netxfr.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

@@ -1,0 +1,284 @@
+<P><A HREF="AdvUsers.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="Intro.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>CHAPTER 2 </B> Zebra structure and basic processes</TITLE>
+<H1><A NAME="HDT0"> <paranum><B>CHAPTER 2 </B> Zebra structure and basic processes</A></H1>
+
+<H3><A NAME="HDR1">  2.1  Introduction</A></H3>
+
+<HR>
+<P>Zebra is structured as a group of cooperating processes tied together through a message-based interprocess communication mechanism. Individual processes are designed to take on small (usually), well-defined tasks within the zebra system. To a great extent, new capabilities can be added through the addition of new processes.
+<P>Zebra's processes can be grouped into a set of broad functions. At the heart of the system are the core processes, which provide the basic support to keep the system running. The module known as the data store is charged with bringing in diverse data streams, unifying them into a single database, and providing access to other processes. The display processes provide graphics to the user. Ingest processes obtain data from various sources, reformat it, and insert it into the data store. Analysis modules perform some sort of computation on available data, storing the result as new data.
+<H4><A NAME="HDR2">  2.1.1  An overview of zebra processes</A></H4>
+<P>Within every running zebra system will be found a set of <I>core</I> processes --- those which must be present for zebra to run properly. In brief (detailed descriptions come later), these processes include:
+<DL>
+<DT><I>Core processes
+
+</DL>
+<UL><DL>
+<DT></I>message<DD>The message server daemon. This is the process which handles the interprocess communication task for the rest of the zebra system. Message and associated commands are discussed in detail in <A HREF="Structure.html#REF62427">Section 2.2 on page 12</A>.
+<DT>timer<DD>This process handles all of zebra's timing needs. Whenever another process needs to know the current time, or needs an alarm at some point in the future, the timer process handles the task. The timer can be configured to lie about the current time --- a feature which may be used to put the system into a playback mode.
+<DT>DS_Daemon<DD>The data store daemon process oversees the process of bringing data into the system, accessing it, and cleaning up if need be.
+</DL></UL>
+<P>The above processes are sufficient to allow a basic zebra system to run. However, a zebra with only the above processes will not do much interesting work. Most zebra systems run a set of display software in order to produce graphics. The display-oriented processes include:
+<DL>
+<DT><I>Display processes
+</DL>
+<UL><DL>
+<DT></I><I></I>dm<DD>The zebra <I>display manager</I> has the task of seeing to the overall configuration of the user's screen. It does no graphics of its own, but does have control over the graphics produced by other processes. Part of the zebra user interface is implemented in the display manager.
+<DT>gp<DD>The <I>graphics process</I> is the default zebra program for producing graphical display windows. This program has the ability to produce a number of different types of displays, perform animation, generate certain types of data, and perform a substantial amount of user interaction.
+<DT>fccclock<DD>This process simply puts a clock on the screen, under the control of the display manager. This clock shows zebra's notion of the current time, which may differ from that of the system it is running on.
+
+</DL></UL>
+<P>More programs are needed to bring data into the zebra system and to move it around in a real time environment. There are numerous ingest processes, only some of which will be listed here. Most sites work with a dataset which has already been ingested through zebra, such as during a field project, into data file formats which all zebra processes can read. Ingest processes are used in real-time during field projects and for collecting external data into zebra datasets after the project.
+<DL>
+<DT><I>Ingest processes
+</DL>
+<UL><DL>
+<DT></I><I></I>NetXfr<DD>The network transfer daemon is charged with moving data between zebra systems on the net. It can be configured to use an efficient broadcast protocol, so that large datasets move over the net only once even if several machines are receiving them.
+<DT>radar_ingest<DD>The radar ingest module. This program converts radar beam data into image format for insertion into the zebra data store.
+<DT>SatIngest<DD>The ingest module for GOES satellite data.
+<DT>pam_ingest<DD>The ingest module for Portable Automated Mesonet (PAM) data.
+<DT>ac_status<DD>The aircraft ingest control and status module. Displays the current status of deployed aircraft and controls which are ingested into the data store.
+</DL></UL>
+<P>The zebra system is intended to incorporate a range of analysis modules, which retrieve data from the data store, perform some sort of analysis process on it, and insert the result as a new data product for the rest of the system. Such modules could include dual-doppler analysis, models, quality control modules, and so on. The current zebra system as used by NCAR does not include any of these modules. See the <I>Data Management Guide</I> for more details on analysis and ingest modules and on incorporating new data into zebra.
+<P>Finally, zebra has a range of monitoring and control tools to allow a user to see the status of the zebra system itself. These tools include:
+<DL>
+<DT><I>Control tool
+
+</DL>
+<UL><DL>
+<DT></I>zstop<DD>This program shuts down the messaging system, and the rest of zebra with it. This command was originally called zebstop.
+<DT>mstatus<DD>Displays the list of processes currently running and some information about their status.
+<DT>LastData<DD>Monitors the state of incoming real-time data streams and highlights those from which data has not arrived when expected.
+<DT>zmon<DD>Monitors the status of zebra processes over the network and highlights those which do not seem to be running properly.
+</DL></UL>
+<P>The LastData and zmon tools are used almost exclusively in real-time environments; therefore, they are described in detail in the <I>Guide to Real-time Zebra</I>.
+<H3><A NAME="REF62427">  2.2  The zebra messaging system</A></H3>
+
+<HR>
+<P>The core of the zebra message system is the message daemon. This process handles the interprocess communication needs of the entire system; there is at least one message process on every machine running zebra. Every other process opens a connection to the message daemon (currently through a unix domain socket) which is used for all message traffic.
+<P>The message system provides a view of the world where every known process is reachable by name. To make a timer request, a process need only format up the proper message and request that it be sent to the process called "timer." The delivery details are handled by the message daemon. Delivery to processes on remote hosts may be requested by adding a qualifier of the form "@host" to the name of the recipient process. The message daemons communicate among themselves via a TCP connection for the delivery of inter-host messages.
+<P>Zebra processes may associate themselves with one or more broadcast groups. A message may be sent to all members of a group simply by addressing it to the name of that group. For example, processes may join the "client events" group and receive notifications whenever a process enters or leaves the zebra system. Exit notifications are often used to know when to clean up client-specific data structures.
+
+<P>On systems that support it, the message system is implemented using non-blocking I/O operations. The use of non-blocking I/O adds reliability in that no process can hang up the entire message system.
+<H4><A NAME="HDR3">  2.2.1  Starting and stopping the message system.</A></H4>
+<P>The message system must be the first zebra process to run. It may be started with the simple command:
+<PRE>
+message [-i]
+</PRE>
+<P>Message will move itself into the background automatically when it has finished its setup process. If the -i option is present, message will open an internet socket, thus making it accessible from other nodes on the net. This capability is used mostly in real-time situations, but other applications exist.
+<P>When the -i option is used, you may occasionally see a situation in which the startup of message is delayed and a "waiting for IN socket to clear" message appears. This comes about as a result of how some unix TCP/IP systems are implemented. In most cases, the problem will clear in about one minute or so once the system has timed out one of its mysterious internal counters. Occasionally, however, some other process will have grabbed the zebra message port and things will never time out. Your recourse in that case is to either get rid of the offending process, or switch message to another port.
+<P>The message system looks in the /etc/services file for a port named "zeb-msg." If it is not found, then the message daemon uses the default port (currently 1500) and prints a message like "zeb-msg service not found; using default port." The message can be safely ignored.
+<P>To shut down the message system (and, with it, the rest of zebra), simply type zstop and everything will go away.
+<H4><A NAME="REF22313">  2.2.2  Message manager sessions</A></H4>
+
+<P>Each running message manager establishes a local UNIX socket and namespace through which other zebra processes can communicate and exchange messages with each other. The message manager also serves as a gateway to the namespaces of remote message managers running on other machines, or hosts. The message manager, its local socket, its Internet port number, and its namespace all together comprise a message manager <I>session</I>, and each session is known by a session <I>name</I>. Usually the name of a session is simply the name of the host on which the session is running. In this way messages addressed to <I>process</I>@<I>session</I> automatically name the host to which they should be sent. However, sessions can also be given more descrptive names independent of the host running the session, and multiple sessions can run on a single host.
+<P>A message manager obtains the file path of its UNIX socket from the environment variable ZEB_SOCKET, if it exists; otherwise the message manager uses a default path. Two sessions can share a host if each are given a unique UNIX socket path. Ordinarily the two sessions will not be able to exchange messages because neither will have an Internet port number and socket. 
+<P>One message manager session cannot reach another unless it knows the Internet address and port number of the other session. Usually, the Internet address can be found by looking up the host name in a <I>process</I>@<I>host</I> address, while the port number defaults to the zeb-msg services entry or the compile-time default. Sessions whose names are not the host name or whose ports are not the default port can be listed in an <I>address </I>or<I> session map</I>. The message manager looks up session names in its address map to find the host and port number to which it should attempt a connection to reach that session. For example, suppose an address map file named `Sessions' contains the entries below:
+<PRE>
+datastore disks.domain.edu 3344
+display1 myhost 3345
+display2 myhost 3346
+</PRE>
+<P>Each entry contains the session name, host address, and lastly the port number. In this example, the data store daemon for a particular project runs on a machine called `disks'. Presumably its disks are NFS-mounted by other machines on the network. The data store daemon session might be started with this command on the machine `disks':
+<PRE>
+message -i -f sessions -s datastore
+</PRE>
+<P>The -i option tells the daemon to listen for Internet connections on the port number given in the map file for the `datastore' session, 3344. Likewise, a display session on the machine `myhost' would begin with this command:
+<PRE>
+message -f sessions -s display1
+
+</PRE>
+<P>The clients of the `display1' session would run with the environment variable DS_DAEMON_HOST set to `datastore', so that all datastore messages from `display1' clients would be addressed to the data store process at `datastore'. [See <A HREF="DataStore.html#REF18938">Section 3.15 on page 65</A>.] The `display1' message manager looks up the datastore session name in the map file to discover the address and port number of that session and thereby establish a connection. 
+<P>Note that the `display1' manager does not need to listen for connections on its Internet socket, since it is not expecting to be queried by any other clients or sessions. Instead, the `display1' session manager actively queries the the `datastore' session, which is listening for connections.
+<P>A second display on the machine `myhost', using the same datastore as `display1', can run in a separate session called `display2'. This second session requires a unique ZEB_SOCKET environment setting so that its UNIX socket path does not collide with the `display1' socket. Likewise, the `display2' session gets a unique port number from the map file, different from the `display1' port:
+<PRE>
+setenv ZEB_SOCKET /tmp/display2.socket
+setenv DS_DAEMON_HOST datastore
+message -f sessions -s display2
+</PRE>
+<P>Using an address map file allows the location of zebra sessions and services to be specified and managed in a single place and easily changed. For example, the machine hosting the data store session can be changed by changing the address and port of the `datastore' session in the `sessions' file. Also, map files allow simpler management of connections between sessions on a single machine, since the map file contains the unique port number of each session on the machine.
+<H4><A NAME="HDR4">  2.2.3  Summary of message manager options</A></H4>
+<P>The list below summarizes the complete set of message daemon options:
+<UL><DL>
+<DT>-help<DD>Prints usage information to the terminal.
+<DT>-internet<DD>Creates an inbound Internet socket which is disabled by default.
+<DT>-debug<DD>Enables a debugging mode, which logs all messages to the terminal.
+
+<DT>-port <I>port</I><DD>Listen on port number <I>port</I> for inbound Internet connections. This option has no effect unless the internet option is also present.<DD>
+<DT>-nofork<DD>Prevents the daemon from forking into the background. Use this option to run the message manager under a debugger which cannot follow child processes.
+<DT>-file <I>file</I><DD>Add the session entries in <I>file</I> to the address table, where each entry line contains: &lt;session name&gt; &lt;host address&gt; &lt;port&gt;.
+<DT>-session <I>name<DD></I>Use <I>name</I> as our session identity.
+<DT><I>name</I>@<I>host</I>:<I>port<DD></I>Use the address <I>host</I>:<I>port</I> when attempting connections to <I>name</I>, and add this entry to the address table.
+</DL></UL>
+<P>All of the hyphenated options can be abbreviated to one or more letters. For example, internet often appears only as i.
+<H4><A NAME="HDR5">  2.2.4  Message system status</A></H4>
+<P>The "mstatus" command will produce a display showing the overall status of the message system. The output of mstatus includes the status of the daemon itself, some statistics, followed by several lines each reporting on a connection to a message manager client:
+<PRE>
+'Message manager'@narnia: pid 22293, uid 2458 (granger)
+unix socket: /tmp/fcc.socket; internet socket not enabled
+session began: Mon Nov 13 12:57:12 1995
+2118 messages sent, 573628 bytes (24/1728 broadcast)
+        5 disconnects, with 0 pipe signals, 1355 del rd 0 wt
+ Process  'Event logger' on 5 (p 22294), send 13/152, rec 68/3543, nd 0
+ Process  'Timer' on 6 (p 22296), send 11/243, rec 31/1520, nd 0
+ Process  'DS_Daemon' on 7 (p 22297), send 1173/558232, rec 792/8136, nd 0
+ Process  'Displaymgr' on 8 (p 22300), send 38/1595, rec 22/1164, nd 0
+ Process  'Status reporter' on 9 (p 22310), send 3/48, rec 12/647, nd 0
+ Internet 'ale' on 15 (p 0), send 2/24, rec 2/36, nd 0
+</PRE>
+
+<P>The first three lines provide some static information determined when the message manager began. The first line gives the manager's process and session names in the form `Message manager'@<I>session</I>. The process name is always `Message manager', and the session name is usually the host name (in this case `narnia'). The session name is followed by the process ID of the message daemon and the user ID of the user who started the session. For convenience, the end of the first line includes the name of that user in parentheses.
+<P>The next line reports socket information: the path name of the UNIX socket and the port number of the Internet socket. If the Internet socket was not enabled with the -i option, then mstatus reports `internet socket not enabled.' Finally, the third line of static information reports the time this session began.
+<P>The fourth line has the following form:
+<P><A HREF="Structure.fig_1.ps"><IMG SRC="Structure.fig_1.gif"><P>Amount of that traffic which was broadcast to a group as messages/ bytes.
+
+</A>
+<P>The following line carries some event statistics as seen by the message manager process. The various fields mean:
+<P><A HREF="Structure.fig_4.ps"><IMG SRC="Structure.fig_4.gif"><P>The number of delayed reads and writes of messages. See below.
+
+</A>
+
+<P>The numbers for delayed reads and writes are only relevant on systems where non-blocking I/O is being used. In that case, the numbers indicate the number of read calls for which the data had not yet arrived, and the number of write calls that could not complete because the target process was not keeping up with its message traffic. Delayed reads are quite common; delayed writes should not happen very often. A large number of delayed writes means either (1) some large amount of data is being sent through the message system that should maybe move through some other channel, or (2) some process is either hung or so busy that it can not read its messages.
+<P>The rest of the mstatus output describes the individual connections that are active at the time. The format of the process lines is:
+<P><A HREF="Structure.fig_7.ps"><IMG SRC="Structure.fig_7.gif"><P>The unix process ID for this process (0 for internet connections)
+
+</A>
+<P>If you see a process with a non-zero delayed write count, there is almost certainly some sort of problem with that process. The process ID field can be useful for finding a process if you need to kill or renice it.
+<P>Connections to other message manager sessions will appear on an `Internet' line. The name of the remote session appears in place of the process name, while the rest of the parameters are similar to processes.
+<PRE>
+Internet `session' on 7 (p 0), send 16/726, rec 7/260, nd 0
+</PRE>
+<P>The process ID is meaningless for Internet connections, so it will always be reported as zero.
+<P>Other options are available with mstatus:
+<UL><DL>
+<DT>-help<DD>Print a usage summary.
+<DT>-user<DD>Print only the owner of the message session.
+<DT><I>host</I><DD>Report the status of the named <I>host</I> or session instead of the local session. Multiple hosts can be listed on the command line, in which case each host's status report is preceded by the name of the host.
+
+</DL></UL>
+<P>The exit status of the mstatus command indicates the state of the message system. A zero exit status means the connection to the message manager succeeded and the status information was received. A non-zero exit status means the connection failed and likely there is no message session running at that time.
+<H4><A NAME="HDR6">  2.2.5  Other message system tools</A></H4>
+<P>The zquery program maybe used to query the status of a zebra process.
+<PRE>
+zquery <I>process
+</PRE>
+<P></I>Where "<I>process</I>" is the name of the process of interest. The output should be something interesting about that process. However, not all zebra processes have established zquery handlers.
+<P>A number of zebra processes run under the RDSS User Interface library. These processes may be passed UI commands to execute through the zrun utility:
+<PRE>
+zrun <I>process</I> "<I>command</I>"
+</PRE>
+<P>Where <I>process</I> is the name of the target process, and <I>command</I> (quoted if it contains blanks) is the command to be executed within that process. No output from the command is returned from zrun. Zrun may also return control to you before the command has completed executing in the process.
+<P>To see if a host or process is alive and reading messages, you may use the msg_ping command:
+<PRE>
+msg_ping <I>host
+</I>msg_ping <I>process</I>@<I>host
+</PRE>
+<P></I>The first form will ping the message daemon on the given <I>host</I>; the second will query the given <I>process</I> on <I>host</I>. With no options, msg_ping pings the message manager in the local session, i.e., the session to which msg_ping must first connect. The two forms of pinging, client and host, can be distinguished with the c and h options. The c option turns on client pinging, in which a ping message is sent to a particular process. On the other hand, h switches to host pinging, where only the message manager of a particular host or session receives a ping. Host pings are the default. The following example pings the sessions and finally the timer processes on each of two hosts:
+<PRE>
+
+msg_ping zorro -c timer@zorro timer@zappa -h zappa -c timer
+</PRE>
+<P>Note how the last c option is required to distinguish the word `timer' as a process name rather than a host or session name. All names of the form <I>process</I>@<I>host</I> automatically force client pinging.
+<H3><A NAME="HDR7">  2.3  The event logging system</A></H3>
+
+<HR>
+<P>Zebra has built within it a simple system for the logging of events. An <I>event</I> may be defined as a condition detected by a process that may be of interest to a user or maintainer of zebra.
+<H4><A NAME="HDR8">  2.3.1  Event classes</A></H4>
+<P>There are currently five classes of events built into zebra:
+<DL>
+<DT><I>Event classes
+</DL>
+<UL><DL>
+<DT></I>Debug<DD>Debugging information. This stuff is usually only useful to zebra programmers while trying to track down a problem.
+<DT>Info<DD>Informational messages. These events are generated by processes as something that the user may wish to know, but which is not crucial.
+<DT>Client<DD>Events relating to the creation or termination of zebra clients fall under this class. The most heavily used client event is the "client death" message generated when a zebra process exits. Client events are generated by the message system itself.
+<DT>Problem<DD>A situation noted by a process as being recoverable, but problematic.
+<DT>Emergency<DD>A non-recoverable problem. Such events are usually closely associated with the exit of a zebra process.
+</DL></UL>
+<P>Other event classes exist internally; more could be added if necessary.
+<H4><A NAME="HDR9">  2.3.2  The event logger process.</A></H4>
+
+<P>The EventLogger collects, records, and displays events from all of the other Zebra processes running in a single session. The various classes of log messages can be selectively displayed to a window or written to a log file. The EventLogger is usually invoked shortly after the startup of the message system, as follows.
+<PRE>
+EventLogger [-n|-o|-w] [-f logfile] 
+[-m eventmask] [-l filemask] [mother] &amp;
+</PRE>
+<P>Help for the EventLogger options is available with the -h option, even while the message system is not running.
+<PRE>
+EventLogger -h
+</PRE>
+<P>The rest of the command-line options are explained below.
+<UL><DL>
+<DT>-n<DD>Non-window, non-interactive. Does not open a window, but instead stays in the background writing log messages to any specified log file. Usually this option should be combined with the `-f' and `-l' options.
+<DT>-o<DD>Override redirect. Gives the display manager control of the EventLogger's window geometry rather than the X window manager. This is the default startup.
+<DT>-w<DD>Window manager control. Does not override the redirect from the window manager, so the X window manager controls the EventLogger's geometry.
+<DT>-f filename<DD>Specify the name of a log file. Automatically enables file logging. If the file does not exist, it will be created; otherwise, the original contents of the file will be erased.
+<DT>-l eventmask<DD>Specify the initial event mask for the log file, determining which classes of events get written to the log file.
+<DT>-m eventmask<DD>The initial event mask for the EventLogger window.
+</DL></UL>
+<P>Only one of the -n, -o, and -w options should appear on the command line. Event masks can be specified as character strings, where the presence of a specific character in the string permits a particular class of messages. The characters are `e', `p', `i', `d', and `c', representing emergency, problem, informational, debug, and client messages, respectively. The case of the characters is irrelevant.
+
+<P>The <I>mother</I> argument is usually only present in real time situations. If present, the EventLogger echoes events in the problem and emergency class to the host named <I>mother</I>. This mechanism allows a central machine to see immediately if there is a problem on some other host.
+<P>As an example, the command below begins an EventLogger under window manager control, writing all messages (`epcid') to the named log file. The event window displays the default message classes, `epi'.
+<PRE>
+EventLogger -w -f /tmp/zebra.logfile -l epcid
+</PRE>
+<P>The EventLogger also tries to find a few parameters through environment variables. The ZEB_LOGFILE environment variable, if present, is used as the name of the log file. By default, the log file initially receives the same classes of messsages as the display. An initial event mask for the display window can be stored in EVENT_MASK, while a mask for the log file can be specified in LOG_MASK; both use the same character string format as the equivalent command-line argument.
+<P>If the EventLogger is run without the -n option, then it creates a window which looks like <A HREF="Structure.html#REF77007">Figure 1</A>.
+<HR>
+<P><A NAME="REF77007"> <paranum><B>FIGURE  1 </B> The EventLogger window.</A>
+<P><A HREF="Structure.fig_13.ps"><IMG SRC="Structure.fig_13.gif">
+</A>
+<P>The six buttons along the top control the operation of the event logger window. Each button is described below.
+<UL><DL>
+<DT>Clear<DD>Clears the event logger window and any lines that may have scrolled past.
+
+<DT>Ctl: DM<DD>Determines which process has control over the placement and geometry of the event logger window. The default is for the display manager to have this control; the event logger window will move and resize itself as necessary to comply with directions given by the display manager. Click on this button to have the event logger switch to window manager control; thereafter, you will be able to move and resize the window using the mouse.
+<DT>Events<DD>Controls which events are displayed in the window. The info, problem and emergency classes are displayed by default. Be warned that if you turn on debugging messages, you may get more output than you had ever bargained to see.
+<DT>Debug<DD>This button offers an alternate way to see debug events, by turning them on for individual processes only. Selecting a process name from the pull-down menu toggles debug messages for that process. A checkmark to the left of the name indicates that the EventLogger is accepting debug messages for that process.
+<DT>Timestamps<DD>This menu provides options for logging timestamp messages to the EventLogger window. Sometimes it is helpful to see approximately how much time has passed between messages and since the most recent message. The first menu entry, "None", disables timestamps, while the other entries select an interval at which the timestamp messages will occur. The timestamps occur on multiples of the interval period.
+<DT>Log File...<DD>This button raises a window for specifying log file settings. <A HREF="Structure.html#REF73553">Figure 2</A> depicts this window.
+<HR>
+</DL></UL>
+<P><A NAME="REF73553"> <paranum><B>FIGURE  2 </B> The log file pop-up window</A>
+<P><A HREF="Structure.fig_14.ps"><IMG SRC="Structure.fig_14.gif">
+</A>
+
+<P>The file logging window has four buttons along the bottom, underneath a dialog box. The dialog box contains the name of the current log file. The second button from the left, labelled "Enabled", toggles between enabling and disabling log messages to the file. When logging is disabled, the button reads "Disabled". Whenever logging is re-enabled, the file name in the dialog box is checked. If the file name has changed, then the old log file is closed and the new file name is opened and enabled for logging.
+<P>The leftmost button, "Dismiss", pops down the log file settings window. The third button is a pull-down menu identical to the "Events-&gt;" menu above the main EventLogger window. However, this menu controls the event mask for the log file separately from the event mask used by the display. The fourth button, "Erase", erases the current contents of the log file and starts over at the beginning of the file.
+<P>The event window is completely separate from the log file settings. The event messages themselves appear in the text window. The interpretation is simple: the first column is the first letter of the event class. The second column is the process which generated the event, and the rest of the line is the event text itself. Both the window and the log file use this format for recording the event text.
+<P>A couple of additional notes about the event logger: (1) to avoid infinite memory growth, the event logger process occasionally gets rid of logged event lines. The current scheme is that when there are over 6000 characters of logged info, it is trimmed back to 4000 characters. (2) Due to a small problem with how X Toolkit event handling is done, sometimes the event logger will not immediately update the window when new events are logged. This almost always happens after the event logger has been resized by the display manager. To get the EventLogger window back into sync, just give it a little nudge by moving the mouse into the window briefly.
+<H3><A NAME="HDR10">  2.4  The zebra timer process</A></H3>
+
+<HR>
+<P>The timer process keeps track of all timing-related issues within the zebra system. Normally, the timer runs in real time, but it can be told to displace time into the past, which allows the rest of zebra to run in a simple sort of playback mode.
+
+<H4><A NAME="HDR11">  2.4.1  The timer daemon</A></H4>
+<P>The timer daemon is started with the simple command:
+<PRE>
+timer &amp;
+</PRE>
+<P>Usually the timer is started immediately after the message manager or event logger. A number of other zebra processes need to have the timer present before they can run properly.
+<P>The status of the timer may be checked with the zquery command:
+<PRE>
+zquery timer
+</PRE>
+<P>The output lists the current time (from the timer's point of view), and every outstanding timer request.
+<P><I>Note</I>: the timer daemon depends upon the underlying host's system clock for timing information, and will thus be no more accurate than the system it is running on. For applications in which very accurate time is important, consider running one of the time synchronization protocols such as NTP.
+<H4><A NAME="HDR12">  2.4.2  Other timer utilities</A></H4>
+<P>The current time may be queried through the use of the "gettime" command, which takes no parameters.
+<P>To cause the timer to lie about the current time, putting the session into <I>pseudo real-time mode</I>, use the settime command:
+<PRE>
+settime <I>YYMMDD HHMMSS
+</PRE>
+<P></I>The timer will not allow you to set the time into the future. You may also use the display manager time command to set pseudo real-time mode. There is, unfortunately, no easy way to tell the timer to return to real time mode at this point.
+
+
+<P><A HREF="AdvUsers.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="DataStore.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

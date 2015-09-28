@@ -1,0 +1,976 @@
+<P><A HREF="AdvUsers.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="UserInterface.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>CHAPTER 5 </B> The display manager</TITLE>
+<H1><A NAME="REF46655"> <paranum><B>CHAPTER 5 </B> The display manager</A></H1>
+
+<H3><A NAME="HDR0">  5.1  Introduction</A></H3>
+
+<HR>
+<P>The zebra display manager is charged with overall control of the user's screen. This process determines which windows are on the screen, and a great deal of what they do while they are there. A large part of the zebra user interface is provided by the display manager.
+<P>This chapter covers the configuration and use of the display manager in detail. It assumes a working knowledge of the RDSS user interface, and of the basic user interface concepts covered in the previous chapter.
+<H4><A NAME="HDR1">  5.1.1  Changes in 4.2</A></H4>
+<P>Highlights of the enhancements to the display manager for 4.2:
+
+<UL>
+<P><LI>The help interface now operates with either of the World Wide Web browsers <I>Mosaic</I> and <I>Netscape</I>.
+<BR>
+<P><LI>A <I>multiple</I> mode allows more than one display manager and its window processes to run simultaneously in the same message manager session.
+<BR>
+<P><LI>The query DM command returns helpful summary information previously only available through the zquery command.
+<BR>
+<P><LI>Some optimizations in the protocol between display manager and graphics process should prevent redundant replotting.
+<BR>
+</UL>
+
+
+<H4><A NAME="HDR2">  5.1.2  Changes in 4.1</A></H4>
+<P>Some changes to note in the 4.1 version of the display manager, all of which are documented in this chapter:
+
+<UL>
+<P><LI>The help interface now operates with <I>Mosaic</I>, the World Wide Web browser from NCSA.
+<BR>
+<P><LI>The display manager now saves configurations in a single file. Window plot descriptions are no longer written as separate files in the configpd directory. Instead, plot descriptions can be embedded in dm code using new dm commands.
+<BR>
+<P><LI>The NewWindow widget has been simplified, and it uses a new method for making project-specific window templates accessible.
+<BR>
+<P><LI>A few commands have been added: pdstore, pdwrite, pdshow, cfgconvert, windowlist, and cycle. The list command now takes an optional parameter, the name of a single configuration to list.
+<BR></UL>
+
+
+<P>Also, this chapter now includes commands and functions in the margin headers, hopefully making for an easier programming reference.
+<H3><A NAME="HDR3">  5.2  Display configurations</A></H3>
+
+<HR>
+<P>Whenever there are graphic windows on the screen, they have gotten there by way of a <I>display configuration</I>. Display configurations describe which windows are on the screen, their size and placement, which program runs in them, their contents, and some aspects of their interaction characteristics. A display configuration completely defines the contents of the screen --- at least those parts which are under zebra's control.
+<P>The following code defines a simple display configuration with a pair of graphics windows and an icon bar:
+<PRE>
+  config satsound
+    window 'big' 5 5 712 600 gp gp.init
+      description 'satsound-big'
+      buttonmap 'big'
+      forcepd
+    endwindow
+    window 'Clock' 5 710 250 30 fccclock
+      description 'satsound-Clock'
+    endwindow
+    widget 'iconbar' 10 618 360 55
+
+endconfig
+</PRE>
+<P>This configuration defines one window with its upper left corner at (5, 5), it is 712 pixels wide by 600 high, the program to run is "gp", with "gp.init" as a parameter. The other graphic window runs fccclock instead but is defined in a similar manner.
+<H4><A NAME="HDR4">  5.2.1  The config command</A></H4>
+<P>Now, to be formal, the syntax of the config command is:
+<P><A HREF="Displaymgr.fig_9.ps"><IMG SRC="Displaymgr.fig_9.gif">
+</A>
+<PRE>
+config <I>name </I>[<I>links</I>]
+  <I>window and widget definitions
+</I>  ...
+endconfig
+</PRE>
+<P>Where name is the <I>name</I> of the display configuration to be defined. If a configuration with that name already exists, it will be superseded by the new one. <I>Links</I> is an optional count of the number of linked plot descriptions which should be specified when this configuration is displayed. This little-used feature is described in <A HREF="Displaymgr.html#REF40949">Section 5.2.3 on page 82</A>.
+<H4><A NAME="HDR5">  5.2.2  Window and widget definitions</A></H4>
+<P>Within each display configuration there is a series of one or more definitions of windows and/or widgets to be present on that screen when the configuration is displayed. Window definitions describe a window which is implemented by some other process; their syntax is:
+<P><A HREF="Displaymgr.fig_11.ps"><IMG SRC="Displaymgr.fig_11.gif">
+</A>
+<PRE>
+window <I>name x y width height program</I> [<I>pars</I>]
+  description <I>pd-name
+</I>  [buttonmap <I>bmap-name</I>]
+  [forcepd]
+  [linkpd <I>n</I>]
+  [nongraphic]
+endwindow
+</PRE>
+
+<P>Where <I>name</I> is the name of the window, <I>x</I> and <I>y</I> are the screen location of the upper-left corner of the window, <I>width</I> and <I>height</I> are the dimensions of the window, and <I>program</I> is the name of the program to run in the window, with optional parameters <I>pars</I>. For graphical windows a plot description (called <I>pd-name</I>) must be attached to the window. A buttonmap (see <A HREF="Displaymgr.html#REF26390">Section 5.2.4 on page 83</A>) may be attached to the window with the buttonmap subcommand; if you do not do so, the buttonmap named default will be used.
+<P>Normally, when a display configuration is invoked, plot descriptions will not be sent to windows which already exist and are on the screen. Instead, such windows will continue with their old contents. To override this behavior, add the forcepd subcommand, which takes no parameters.
+<P>Linkpd is used with linked plot descriptions, which are described in detail in their own section, below.
+<P>Finally, nongraphic windows may be configured by adding the subcommand nongraphic. Nongraphic windows differ from ordinary windows in that (1) they do not have a plot description, and (2) the display manager will not attempt to create them; they are assumed to be already running when the display configuration is invoked. This option is currently used to control the event logger window, and not much else.
+<P>Widgets may be configured on the screen in the same way as other windows. All widgets must be defined within the display manager. To configure a widget, use the widget subcommand:
+<PRE>
+widget <I>name x y width height
+</PRE>
+<P></I>Where <I>name</I> is the name of the widget (as given in the define widget command), <I>x</I> and <I>y</I> are the coordinates of the upper left corner, and <I>width</I> and <I>height</I> are the dimensions the widget is to have on the screen.
+<H4><A NAME="REF40949">  5.2.3  Linked plot descriptions</A></H4>
+<P>Occasionally it is desirable to have the plot description of a window be determined at the last minute --- just as the configuration is displayed. In particular, it can be desirable to have a window in the new configuration share a plot description with a window from the old configuration. Linked plot descriptions are used for this purpose.
+<P>The classic display configuration that uses linked plot descriptions is:
+<PRE>
+config zoom 1
+  window 'big' 5 5 1100 850 gp gp.init
+    buttonmap 'big'
+    linkpd 1
+  endwindow
+
+endconfig
+</PRE>
+<P>This display configuration implements the "zoom window" capability found in many zebra setups. The user selects a single window to be zoomed to the full size of the screen. Internally, that causes the configuration called zoom to be displayed with one parameter --- the name of the window selected by the user. The new window big will be display using the same plot description as the window the user indicated, giving the impression that the selected window has been expanded to fill the screen.
+<P>Note that when plot descriptions are linked, the two windows will be using the exact same plot description. Changes made to the zoomed window in the above configuration will be preserved in the source window when the previous display configuration is displayed again.
+<H4><A NAME="REF26390">  5.2.4  Button maps</A></H4>
+<P>Button maps form a vital part of the zebra user interface by providing the mapping between user events (mouse buttons and keys pressed by the user) and some action. With the exception of the in-window icons, everything that a user can do in a graphics window goes through a button map.
+<P><A HREF="Displaymgr.fig_13.ps"><IMG SRC="Displaymgr.fig_13.gif">
+</A>
+<P>The format of a button map entry is:
+<PRE>
+buttonmap <I>name
+</I><I>  event entries
+</I>endmap
+</PRE>
+<P>Where <I>name</I> is the name of the button map (which then appears in the display configurations), and the <I>event entries</I> are a series of one or more lines describing which events are to be mapped to which actions. Event entries may take any of the three following forms:
+<PRE>
+local             <I>event</I> `<I>action</I>'
+dm <I>event</I> `<I>action</I>'
+menu   <I>event</I>   <I>menu-name
+</PRE>
+
+<P></I>Where <I>event</I> is the name of the event of interest (see below), <I>action</I> is a command to be executed, and <I>menu-name</I> is the name of a menu. The event name for keyboard events is just the name of the key --- `a' or such for most keys, or names like `Up' for the up-arrow key. The `xev' utility can be used to get the names of obscure function keys. The names of the mouse buttons are mb-left, mb-middle, and mb-right. You can also use names like mb-s-left for the combination of the shift key and the mouse button.
+<P>For events bound with local, the associated <I>action</I> will be executed as a command within the graphics process where the event occurs. If instead dm is used, the <I>action</I> will be executed in the display manager. Mouse button events only can also be bound with menu, which causes the given <I>menu-name</I> (which must be defined as an intmenu widget in the relevant graphics process) to be popped up.
+<P>Button maps are static entities in that, once created, they do not change. There is also no mechanism for changing the button map of a window on the fly. Such an operation would not be hard to implement, but there has been no demand for it to this point.
+<H4><A NAME="HDR6">  5.2.5  Color tables</A></H4>
+<P>Color tables are used by the graphics process for various types of plots that need a series of colors to use. The display manager functions as the central librarian of color tables out of convenience, and not because it particularly relates to any other function of the display manager.
+<P><A HREF="Displaymgr.fig_15.ps"><IMG SRC="Displaymgr.fig_15.gif">
+</A>
+<P>The format of a color table definition is:
+<PRE>
+colortable <I>name
+</I>  xcolor <I>xcname
+</I>  [red] <I>rgun</I> [green] <I>ggun</I> [blue] <I>bgun
+</I>endtable
+</PRE>
+<P>Where name is the name of the color table to be defined. There may be any number of color entries in the table, and they can take two forms. The first form (xcolor) defines a color by looking up <I>xcname</I> in the X11 color database. Any color may also be specified by giving the red, green and blue gun values <I>rgun</I>, <I>ggun</I>, and <I>bgun</I> as floating-point numbers between zero and one. The red, green, and blue keywords are optional.
+<P>Color tables may be loaded on demand by the display manager. Simply put each table into a separate file, with the same name as the table itself. Then put that file into one of the directories pointed to by the CTablePath variable. CTablePath is .../lib/colortables by default, but it may be enhanced by adding project-specific directories (comma-separated) as well.
+
+<H3><A NAME="REF55840">  5.3  Invocation of display configurations</A></H3>
+
+<HR>
+<P>The display command is the mechanism by which a display configuration is actually realized on the screen. The actual series of events which takes place when a display command is executed is somewhat complex, but worth understanding, so it will be described here.
+<P><A HREF="Displaymgr.fig_17.ps"><IMG SRC="Displaymgr.fig_17.gif">
+</A>
+<P>The first step is to find the configuration that the user has requested. That is done as follows (assume that the config is called <I>name</I>):
+
+<OL>
+<P><LI>If a display configuration exists with the given <I>name</I> it is simply used.
+<BR>
+<P><LI>The display manager looks in the directory pointed to by the variable configdir (usually "dconfig" underneath the directory containing the other configuration files) for a file called <I>name.dc</I>. If such a file exists it is assumed to contain the desired display configuration, so it is read in and the resulting configuration is used. If the file does not exist, the display manager next checks for just <I>name</I>, which is the older convention for display configuration file names. For example, if the configuration name is <I>satellite</I>, then the display manager looks first for <I>satellite.dc</I>, and then for <I>satellite</I>. If neither are found, the manager goes to the next step.
+<BR>
+<P><LI>Lastly, the display manager looks at the variable configpath, which, if defined, is taken as a comma-separated list of directories. Each directory in turn is checked for the file <I>name.dc</I> and then for <I>name</I>, always in that order. As soon as a directory is found which contains one of those files, the file is read by the display manager to define the desired display configuration.
+<BR></OL>
+
+
+<P>If none of the above steps succeed in finding the display configuration, the display command fails.
+<P>Next, if the display configuration contains linked plot descriptions, the links are resolved from the existing configuration. Then, in any case, the existing configuration is removed from the screen.
+<P>Then, each window in the configuration is configured. There are several possible cases here:
+
+<OL>
+<P><LI>If the window is actually a widget, that widget is popped up and configured as required by the display configuration.
+<BR>
+<P><LI>If the window is a nongraphic process, the configuration information is sent to that process, and the display manager essentially forgets about it (until the next display configuration change).
+<BR>
+
+<P><LI>Otherwise the window is a graphic process. If this process already exists, then it is sent the configuration information for the new display configuration. If the forcepd flag is set, the plot description specified in the configuration is sent to the window.
+<BR>
+<P><LI>If the process does not exist, it must be created. The display manager forks a subprocess, and looks for the program to execute. The first step is to try to run the program exactly as specified in the display configuration. Failing that, the variable execpath is checked, and is treated as a comma-separated list of directories in which to look for the program. The first instance of the program found is executed.
+<BR>
+<P><LI>The final step happens only if (1) the system is in the "global history" mode (meaning that a "history all" command has been executed, or the "history" button on the time widget was pressed) and (2) the variable ForceHistory is set true. In this case, the current history time is forced into each window, so that the new display configuration ends up showing data at the same time as the old one.
+<BR></OL>
+
+
+<P>One aspect of how this all works is worth keeping in mind: one process is created for each named window. Thereafter that process is used for every window with the same name, no matter how many display configurations it appears in. The performance of the system as a whole is greatly helped by minimizing the total number of processes around. Thus it is a good idea to use the same window names in all of your display configurations.
+<P>There are three other user interface variables which affect the behavior of the display command. They are:
+<UL><DL>
+<DT>TBSpace<DD>The amount of space to be subtracted from the height of each window to compensate for the presence of a title bar. Under X11 with twm, this variable can be set to zero. Under Open Windows with olwm, it should be set to 25. The default value is zero.
+<DT>SleepAfter<DD>How many new processes the display manager will create before taking a break. This break is needed to keep the onslaught of new processes from overwhelming the X11 server and confusing certain window managers, which will remain nameless.
+<DT>SleepFor<DD>The number of seconds to sleep once enough processes have been created that a break is necessary.
+
+</DL></UL>
+<P>Recommended values for SleepAfter and SleepFor are 5 and 1 for MIT X11, or 1 and 5 for Open Windows.
+<H3><A NAME="HDR7">  5.4  Plot description utilities</A></H3>
+
+<HR>
+<P>The display manager has a number of commands for dealing with plot descriptions, both in the initial configuration stage and during operations. These commands make up an important part of the zebra user interface. The commands for loading plot descriptions during start-up will be discussed first.
+<H4><A NAME="REF80554">  5.4.1  Loading plot descriptions from files</A></H4>
+<P>There are two commands for loading plot descriptions from disk files. Both of them expect to find one plot description per file, in the file format described in <A HREF="UserInterface.html#REF88027">Section 4.3.2 on page 73</A>.
+<P>A normal zebra system can run with dozens of plot descriptions, so it is desirable to be able to load in a directory full of them at once. Fortunately, there is a command which does exactly that:
+<P><A HREF="Displaymgr.fig_19.ps"><IMG SRC="Displaymgr.fig_19.gif">
+</A>
+<PRE>
+pddir <I>directory
+</PRE>
+<P></I>Where <I>directory</I> is the name of a directory containing plot descriptions. Every file in that directory with an ending of .pd will be loaded into the display manager and stored under the name in the pd-name parameter in that plot description.
+<P>Individual plot descriptions may be loaded with the pdload command as follows:
+<P><A HREF="Displaymgr.fig_21.ps"><IMG SRC="Displaymgr.fig_21.gif">
+</A>
+<PRE>
+pdload <I>file name
+</PRE>
+<P></I>Where <I>file</I> is the name of the file containing the plot description, and <I>name</I> is the name by which the plot description is to be known in the display manager.
+<H4><A NAME="REF14011">  5.4.2  Creating plot descriptions with commands</A></H4>
+
+<P>Plot descriptions can also be created using display manager commands. The definition essentially follows the layout of a plot description file. It begins with the beginpd command, followed by one or more components. Each component section begins with the component command, then continues with all of the parameter settings for that component. Each plot parameter requires a parameter command to specify the parameter's name and its value. Finally, the plot description is closed with the endpd command.
+<P><A HREF="Displaymgr.fig_23.ps"><IMG SRC="Displaymgr.fig_23.gif">
+</A>
+<PRE>
+beginpd [<I>pdname</I>]
+[global
+  parameter <I>name value
+</I>  parameter <I>name value
+</I>...]
+component <I>name
+</I>  parameter <I>name</I> <I>value
+</I>  parameter <I>name</I> <I>value
+</I>  ...
+component <I>name
+</I>  parameter <I>name value
+</I>  ...
+endpd
+</PRE>
+<P>The beginpd command can be given the plot description name as a single argument, but this argument is optional. If not specified in the beginpd statement, the plot description name is taken from the <I>pd-name</I> parameter of the global component.
+<P>The component command requires a single argument, the name of the component. The parameter command takes both a <I>name</I> and a <I>value</I> argument. The <I>name</I> is of course the parameter's name---the key, while <I>value</I> is the value associated with that key. Often a parameter's value contains spaces, in which case the whole value must be included in quotes to be accepted as a single argument.
+<P>Since the first component of any plot description is the global component, there is also a convenient command called global which begins the global component section. The global component is optional, which is useful if all you really want to define is a component description.  If the global command is not used, the global component is defined automatically and the plot description takes the name given after the beginpd command. If that name is not present, the name of the first component in the definition becomes the name of the whole plot description.
+<P>Here is an example of a component description defined using display manager commands:
+<PRE>
+beginpd c_acpos
+
+global
+  parameter pd-name c_acpos
+component c_acpos
+  parameter representation track
+  parameter platform n43rf
+  parameter trigger n43rf  
+  parameter time-period 2h
+  parameter show-position true
+  parameter position-icon littleplane
+  parameter icon littleplane
+  parameter sa-scale 0.025
+  parameter line-width 3
+  parameter icon-left-menu track-left
+  parameter icon-middle-menu track-color
+  parameter icon-right-menu linewidth
+  parameter comment `this must be quoted'
+endpd
+</PRE>
+<P>Since the global command is optional, the following commands define a plot description identical to the one above. The omission of the global component and the name after beginpd makes it clearer that this is a component description.
+<PRE>
+beginpd
+  component c_acpos
+  ...
+endpd
+</PRE>
+<P>Since plot descriptions can be defined using display manager commands, common plot and component descriptions can be embedded in the display manager's start-up files. Also, display configuration files can include the plot descriptions for graphical windows instead of only the window layout information. As another example, a single file can contain a collection of plot descriptions (such as for an entire project configuration), each defined using display manager commands. The display manager can load the file and all of its plot descriptions with a single read command.
+<H4><A NAME="REF82588">  5.4.3  Modifying plot descriptions in run time</A></H4>
+
+<P>The display manager has a set of commands which change a plot description. They may be used to change descriptions in the display manager, but the more common use is to change plot descriptions in the graphics processes instead. In this way the display manager can exercise control over the contents of graphics windows.
+<P>All of the commands described below take the name of a plot description as at least one of the parameters. This name may be the name of any plot description known to the display manager. It may also, however, be the name of a window, in which case the current plot description running in that window is implied. It is an error to specify a window which is not active in the current display configuration.
+<P>The basic workhorse command for changing plot descriptions is parameter, which will change (or define) a single parameter within a given plot description. The syntax is:
+<P><A HREF="Displaymgr.fig_25.ps"><IMG SRC="Displaymgr.fig_25.gif">
+</A>
+<PRE>
+parameter <I>pd comp param value
+</PRE>
+<P></I>Where <I>pd</I> is the destination plot description (or window), <I>comp</I> is the name of a component in <I>pd</I>, <I>param</I> is the name of the parameter to change, and <I>value</I> is the new value to be given to that parameter. If <I>pd</I> is the name of a window, the parameter will be changed in the given window, resulting in a redisplay there.
+<P>An entirely new component may be copied from one plot description and added to another with the add command:
+<P><A HREF="Displaymgr.fig_27.ps"><IMG SRC="Displaymgr.fig_27.gif">
+</A>
+<PRE>
+add <I>source comp dest </I>[<I>position</I>]
+</PRE>
+<P>Where <I>source</I> is the name of the source plot description, <I>comp</I> is the component of interest, <I>dest</I> is the plot description (or window) to have the component added to it, and <I>position</I> is an optional position in the stacking order of plot description components. A positive position counts forward after the global component; thus a position of 1 will make the new component the lowest display component. Non-positive positions count back from the topmost component; a position of 0 (the default) places the new component on top of all the others.
+<P>Note that the name of <I>comp</I> may be changed automatically in the destination PD if another component with the same name already exists in the destination plot description. A suffix of <I>.n</I> is added to the name, where <I>n</I> is an integer large enough to form a unique component name.
+<P>To delete a component from a plot description, use remove:
+<P><A HREF="Displaymgr.fig_29.ps"><IMG SRC="Displaymgr.fig_29.gif">
+</A>
+<PRE>
+remove <I>pd comp
+
+</PRE>
+<P></I>Where <I>pd</I> is the name of the victim plot description and <I>comp</I> is the name of the component to remove.
+<P>It is also possible to completely replace a plot description in a window with the newpd command:
+<P><A HREF="Displaymgr.fig_31.ps"><IMG SRC="Displaymgr.fig_31.gif">
+</A>
+<PRE>
+newpd `<I>window' `pd'
+</PRE>
+<P></I>Where <I>window</I> is the name of the window to be changed, and <I>pd</I> is the name of the new plot description to be sent to that window. Both arguments must be expressions which evaluate to strings; therefore, string constants should be quoted using either single or double quotes. 
+<P>There is a useful trick which may be done with newpd; imagine that you have a display configuration that includes the following:
+<PRE>
+window foo <I>x y width height </I>gp gp.init
+  description bar
+endwindow
+</PRE>
+<P>Sometime in the course of operations somebody manages to mangle the contents of window foo badly, and doesn't know how to get back to something useful. In such a case, the command
+<PRE>
+newpd foo bar
+</PRE>
+<P>will restore the window to its original plot description. This works because a window's plot description is copied immediately after the window is realized, so that changes to that description do not affect the original source in the display manager.
+<H4><A NAME="REF66590">  5.4.4  Storing and examining plot descriptions</A></H4>
+<P>The display manager also provides commands for examining plot descriptions at run-time and for storing them to files. As in the previous section, wherever a plot description name is expected as a command parameter a window name can be supplied instead. A window name refers to the plot description currently being shown by that window; hence the name of an inactive window is not a valid parameter. Note that even though a window's plot description can be referenced by the window name, the plot description's name may not be the same as the window name.
+
+<P>The pddir and pdload commands introduced in <A HREF="Displaymgr.html#REF80554">Section 5.4.1 on page 87</A> form half of the functionality for handling plot descriptions. The other half allows plot descriptions to be examined at the terminal or written to files.
+<P>The other half of the pdload command would be the pdstore command, which writes a plot description to a file using a specified name and file path.
+<P><A HREF="Displaymgr.fig_33.ps"><IMG SRC="Displaymgr.fig_33.gif">
+</A>
+<PRE>
+pdstore <I>pd</I> <I>name</I> <I>filepath
+</PRE>
+<P></I>The <I>pd</I> parameter names the existing plot description which should be saved to a file under the name given in the <I>name</I> parameter. The <I>filepath</I> parameter can be either a directory path or a file name. If it is a file name, the display manager creates a file by that name and writes the plot description into the file. If <I>filepath</I> is a directory, the file name is created by adding the <I>.pd</I> extension to <I>name</I>, and the file is written into the directory specified in <I>filepath</I>.
+<P>Most uses of pdstore will involve storing plot descriptions as window templates. A window template serves as the initial plot description for a new window. Different types of windows can be created by designing and choosing a different template for each window type. Templates are usually stored in separate files---rather than embedded in configuration files---so that the display manager can read the files at start-up and make them immediately available for creating new windows. Most project configurations include a few templates which are unique to the project; most often the templates are stored in the project's pd directory with a template suffix.
+<P>For example, suppose you use an existing graphics window named big to create a simple satellite plot. It includes a basic set of platforms from the project, such as a map and the location of the operations center, as well as the satellite platform. You can use pdstore to create a template for other satellite windows.
+<PRE>
+pdstore big satellite-template pd
+</PRE>
+<P>The source plot description, from the window big, will be stored in the file pd/satellitetemplate.pd using the name satellitetemplate.
+
+<P>Often the ideal source for a template plot description will be a previously saved display configuration. However, the configuration file uses embedded plot descriptions, not to mention the plot descriptions have lengthy and frequently non-descriptive names. This means it would be difficult to manually convert an embedded plot description into a separate file. To create a template from a saved display configuration named sounding, first the configuration needs to become the current display. Then just store the window plot description:
+<PRE>
+display sounding
+pdstore UpperLeft skewt-template pd
+</PRE>
+<P>As one might guess, pdstore will rarely be called with a file name instead of a directory. The pddir command will not read files without the .pd extension, and there is little use in naming a file differently than the plot description it contains.
+<P>The pdshow command prints the contents of a plot description to the terminal.
+<P><A HREF="Displaymgr.fig_35.ps"><IMG SRC="Displaymgr.fig_35.gif">
+</A>
+<PRE>
+pdshow <I>pd
+</PRE>
+<P></I>As usual, the <I>pd</I> parameter can also refer to the name of an active window, making this command a convenient way to inspect the plot description of a window during run-time.
+<P>Lastly, the pdwrite command is identical in operation to pdstore, except that it does not allow the plot description to be saved under a different name. This allows it one less parameter than pdstore.
+<P><A HREF="Displaymgr.fig_37.ps"><IMG SRC="Displaymgr.fig_37.gif">
+</A>
+<PRE>
+pdwrite <I>pd</I> <I>filepath
+</PRE>
+<P></I>As for pdstore, <I>pd</I> is the plot description or window name, and the <I>filepath</I> parameter can be either a directory or the name of the file to create. If <I>pd</I> is a window name, remember than the plot description name will likely be different from the window name. Therefore, if <I>filepath</I> is a directory, the created file's name will likely be different from the window's name. Use pdshow to look up the pdname parameter of a window's plot description:
+<PRE>
+pdshow <I>window
+
+</PRE>
+<H3><A NAME="REF70399">  5.5  Time control in the display manager</A></H3>
+
+<HR>
+<P></I>The display manager has a few utilities for controlling the times that people see in their windows. The most commonly used of these is the time control widget, which can be brought up with the command:
+<PRE>
+popup time
+</PRE>
+<P>There is not much point in discussing this widget to any great extent here --- it's use is pretty evident to most users. The rest of this section will concern itself with display manager commands which may be used to achieve the same effects as the time widget in an automatic manner.
+<P>The graphics process considers itself to be in, at any given time, either the history mode or the real time mode. In history mode, a plot is produced for a time requested by the user, and no more is done until another user request is made. In real time mode, a plot is done for the current time, and further plots will be made automatically to keep up with the real time flow of data.
+<P>The display manager may put one or more process into history mode with the history command, as follows:
+<P><A HREF="Displaymgr.fig_39.ps"><IMG SRC="Displaymgr.fig_39.gif">
+</A>
+<PRE>
+history window time
+</PRE>
+<P>Where <I>window</I> is the name of the window to be put into the history mode, and <I>time</I> is the time to be plotted in that window. If <I>window</I> is specified as all, then all active graphics processes will be put into the history mode. In addition, if all is specified, the display manager goes into what is called the "global history mode." In global history mode, if the variable ForceHistory is set to true, the history time will be forced into all graphics processes. That means that the user can change display configurations and still be looking at the same time.
+<P>To put one or more processes into the real time mode, use the realtime command:
+<P><A HREF="Displaymgr.fig_41.ps"><IMG SRC="Displaymgr.fig_41.gif">
+</A>
+<PRE>
+realtime <I>window
+</PRE>
+<P></I>Where <I>window</I> is the name of the window to be affected, and may be specified as all. If all windows are put into real time mode, the display manager exits the global history mode as well.
+
+<P>Finally, the display manager may put the entire zebra system into the pseudo real time mode with the time command:
+<P><A HREF="Displaymgr.fig_43.ps"><IMG SRC="Displaymgr.fig_43.gif">
+</A>
+<PRE>
+time <I>when
+</PRE>
+<P></I>Where <I>when</I> is the new zebra system time. This command has the same effect as the timer settime command, and should be used with great caution.
+<H3><A NAME="HDR8">  5.6  Interactive display configuration editing</A></H3>
+
+<HR>
+<P>The display manager has a set of commands and widgets which make it possible to edit display configurations in an interactive manner. The commands will be described first, for completeness. However, it is rare that they are used; instead, the configuration editing widgets provide the preferred interface for editing configurations
+<H4><A NAME="HDR9">  5.6.1  Display configuration editing commands</A></H4>
+<P>An entirely new display configuration may be created with the newconfig command, as follows:
+<P><A HREF="Displaymgr.fig_45.ps"><IMG SRC="Displaymgr.fig_45.gif">
+</A>
+<PRE>
+newconfig <I>name template
+</PRE>
+<P></I>Where <I>name</I> is the name of the new display configuration, and <I>template</I> is the name of an existing configuration to copy from. If you have no other configuration of interest to copy from, the configuration empty should exist and will provide a basic starting point. However, newconfig is not used very often; it is usually easiest to start with an existing configuration and save it under a new name.
+<P>The newwindow command may be used to add a window to a configuration. The syntax takes two forms, depending upon whether the window is graphic or non-graphic. Non-graphic windows require this form:
+<P><A HREF="Displaymgr.fig_47.ps"><IMG SRC="Displaymgr.fig_47.gif">
+</A>
+<PRE>
+newwindow <I>name</I> nongraphic
+</PRE>
+<P>The <I>name</I> parameter is the name to give the new window. The display manager adds an entry for the window to its current configuration and sends a <I>hello</I> message to the process with that name. A non-graphic window is not started by the display manager. Instead, it must be running before calling newwindow. See <A HREF="Displaymgr.html#REF0">page 82</A> for an explanation of the nongraphic setting.
+
+<P>The syntax for graphic windows is a little more complicated.
+<PRE>
+newwindow <I>name </I>[<I>pd</I>]<I> </I>[buttonmap <I>bmap</I>] [forcepd]
+  [rename] [reuse]
+</PRE>
+<P>Again, the <I>name</I> parameter is the name to be given to the new window, but the rest of the parameters are optional. The <I>pd</I> parameter is the plot description to be used in the window. If not specified, the plot description defaults to "template". The buttonmap keyword must be followed by the name of the buttonmap to use for the new window. The buttonmap name defaults to "default". The rest of the keywords enable various options for the new window:
+<UL><DL>
+<DT>forcepd<DD>Sets the <I>forcepd</I> flag of the new window, which will force an existing window to receive the new plot description rather than keep its current one. Most uses of newwindow will use the forcepd option. See <A HREF="Displaymgr.html#REF0">page 82</A> for more information.
+<DT>rename<DD>Generate a unique name for the new window if a window already exists with the given name in the current configuration. If rename is not specified, <I>name</I> must be unique within the current configuration; otherwise, newwindow fails.
+<DT>reuse<DD>Use an existing window with the given name. The window might exist in another configuration, in which case it is currently suspended and not visible. Or the window can exist in the current configuration, in which case the rename option must be present to generate a unique name. 
+</DL></UL>
+<P>Depending upon the newwindow parameters, the display manager either creates a new window or re-configures an existing window. If a suspended window already exists with the given name, the display manager tells it to become visible. Otherwise, the display manager must create a new window process by executing another program.
+
+<P>The default_exec variable contains the name of the program to execute to create a new window process. Usually the variable's value is simply gp, the zebra graphics process. The command-line arguments to the program come from variables named default_arg1, default_arg2, and so on. Usually default_arg1 contains gp.init, the graphics process initialization file. The display manager will search for the executable file using the execpath variable, as described on <A HREF="Displaymgr.html#REF0">page 86</A>. Once the display manager receives a <I>hello</I> from the new window process, it sends the window the plot description, button map, and the default geometry which places it towards the middle of the screen.
+<P>If a window already exists with the given name, then it is either already visible in the current configuration or it is suspended. Ordinarily, a suspended window receives a new configuration and a new plot description when it is added to the current display configuration. The reuse parameter overrides this behavior, allowing windows from other configurations to be added to the current configuration. The other newwindow command-line parameters may be used to override the existing window's settings. In a sense, a `reused' window inherits its default settings from an existing window. If an existing window cannot be found for reuse, the display manager creates a new window as if reuse had not been present.
+<P>If <I>name</I> already exists in the current configuration, then the rename option must be present to generate a unique name for the new window. The display manager generates a new name by incrementing a numerical suffix on the name until the name is unique. Currently visible windows can also be reused, similarly to suspended windows. However, the geometry of the new window is automatically offset by about 20 pixels so that it does not cover the existing window. Using the combination of rename and reuse, any window in the current configuration can be cloned.
+<PRE>
+newwindow big reuse rename
+</PRE>
+<P>The above command would clone window `big', calling the new window `big1'. The window `big1' would appear just right and below window `big'. If the current configuration already contained a window named `big1', the new window would be renamed `big2', and so on.
+<P>Note that the reuse and the disabled forcepd options are very similar. The difference is that reuse also clones a window's current geometry rather than just its current plot description.
+<P>Usually, newwindow is used to simply add a window to a configuration where once there was none.
+<PRE>
+newwindow skewt skewt-template buttonmap \
+
+  skewt-bmap forcepd
+</PRE>
+<P>This command adds a window named `skewt' using the `skewt-template' plot description and buttonmap `skewt-bmap'. If the name `skewt' is being used in the current configuration, the command fails. If a suspended window named `skewt' exists, then the display manager sends it a new configuration rather than starting a new process.
+<PRE>
+newwindow skewt skewt-template buttonmap \
+  skewt forcepd rename
+</PRE>
+<P>This example is like the previous one except for the addition of the rename option. If `skewt' is being used in the current configuration, then the new window would automatically be renamed `skewt1'.
+<P>Other windows besides graphics processes may be started by modifying default_exec accordingly. This procedure starts the clock program, as long as fccclock can be found on execpath.
+<PRE>
+procedure create-clock
+  set default_exec "fccclock"
+  newwindow Clock whiteclock buttonmap \
+    default
+  set default_exec "gp"
+endprocedure
+</PRE>
+<P>An existing window can be removed from the current plot description with the kill command:
+<P><A HREF="Displaymgr.fig_49.ps"><IMG SRC="Displaymgr.fig_49.gif">
+</A>
+<PRE>
+kill <I>victim
+</PRE>
+<P></I>Where <I>victim</I> is the name of the ill-fated window.
+<P>To save the current plot description to disk, use cfgsave:
+<P><A HREF="Displaymgr.fig_51.ps"><IMG SRC="Displaymgr.fig_51.gif">
+</A>
+<PRE>
+cfgsave [<I>name</I>]
+</PRE>
+
+<P>Where <I>name</I> is an optional name under which the configuration should be saved. Without the <I>name</I> parameter, the configuration is saved using its current name. The cfgsave command uses the value of the configdir variable to direct its actions. The configdir variable contains the directory into which the configuration file itself should be saved. For the configuration to be found by future executions of the display manager, configdir must point to the same directory as when the configuration was saved, else that directory must appear in the configpath variable. See <A HREF="Displaymgr.html#REF55840">Section 5.3 on page 85</A> for the full details on how the display manager finds and loads configurations.
+<P>When the display manager saves a configuration, it writes a file of commands which it will later be able to read to define the configuration. It gives the file the name <I>name</I>.dc, where <I>name</I> is the name being given to the display configuration. Any file existing by that name in configdir will be overwritten, without a warning.
+<P>The file itself contains essentially two parts: the definition of the configuration, using the config command; and the definition of each of the plot descriptions required by the graphical windows in the configuration. The plot description definitions use the commands described in <A HREF="Displaymgr.html#REF14011">Section 5.4.2 on page 87</A>. It is possible to manually edit a configuration file, but not usually recommended.
+<P>In past versions of Zebra, the configpd variable contained the directory into which each window's plot description was to be saved. The plot description files took the name <I>configname-windowname.pd</I>. They had to be loaded with the pddir command during dm start-up for the plot descriptions to be used by the display manager and the configuration windows. Since window plot descriptions are no longer stored in separate plot description files, the configpd variable is obsolete and no longer needed by the cfgsave command. However, existing project configurations may still refer to configpd to load older display configurations which have not yet been saved using the newer format.
+<P>The cfgconvert command exists to conveniently convert an older configuration file into the new format. It is similar to cfgsave, but it allows any configuration---not just the current one---to be saved under any name.
+<P><A HREF="Displaymgr.fig_53.ps"><IMG SRC="Displaymgr.fig_53.gif">
+</A>
+<PRE>
+cfgconvert <I>configname</I> [<I>newname</I>]
+</PRE>
+<P>The display manager first searches for the configuration named <I>configname</I> using the usual steps. If necessary, the configuration will be loaded from a configuration file in configdir or on configpath. Then the configuration is saved to configdir using the name <I>newname</I>, just as the cfgsave command would do with the current configuration. If the <I>newname</I> parameter is absent, the configuration is saved using the original name, <I>configname</I>. 
+
+<P>For example, noting that the dm$config variable contains the name of the current configuration, the two commands below are equivalent.
+<PRE>
+cfgsave
+cfgconvert #dm$config
+</PRE>
+<P>The two commands below are also equivalent. Each would save the current configuration under the new name <I>myconfig</I>.
+<PRE>
+cfgsave myconfig
+cfgconvert #dm$config myconfig
+</PRE>
+<P>The cfgconvert command offers the advantage that configurations <I>other</I> than the current one can be saved, under the same name or a different name. In addition to its original use for conversions, the command can also be used to easily change the names of any number of existing configurations, without requiring that each configuration first be displayed (so that it becomes the current configuration, which cfgsave requires). Also, any collection of configuration files which can be found in the configpath can be saved together into a different directory by setting configdir appropriately.
+<H4><A NAME="HDR10">  5.6.2  Examining display configurations</A></H4>
+<P>The display manager provides the list command for examining display configurations during run-time.
+<P><A HREF="Displaymgr.fig_55.ps"><IMG SRC="Displaymgr.fig_55.gif">
+</A>
+<PRE>
+list [<I>config</I>]
+</PRE>
+<P>Without any parameters, the list command lists all of the display configurations which the display manager currently has loaded into its memory. For each configuration, the listing shows the name and the attributes of each window and each widget in that configuration.
+<P>If the optional <I>config</I> parameter is present, then list limits the listing to that configuration. If the configuration name is not known, the display manager will first try to load it using the usual steps. The display manager reports an error if the configuration cannot be found and the load fails.
+<P>A listing for a single configuration (named `ssp') of three windows and an iconbar might appear as shown below:
+<PRE>
+
+Config `ssp':
+        Win `iconbar':  at (678, 562) size 289x117, popup iconbar
+                PD: Nongraphic.
+        Win `big':      at (1, 2) size 672x485, id 54525979, prog gp
+                PD: ssp-big
+        Win `w1':       at (678, 2) size 472x537, id 58720283, prog gp
+                PD: ssp-w1
+        Win `w2':       at (1, 514) size 672x360, id 62914587, prog gp
+                PD: ssp-w2
+</PRE>
+<P>Since the UI variable dm$config contains the name of the current configuration, the command below can be used to list the current configuration:
+<PRE>
+list #dm$config
+</PRE>
+<P>Note that the information shown in a listing conforms to the configuration as it was defined, not as the windows currently appear on the screen. If windows have been moved or resized since the configuration was last displayed or saved, the listing will not reflect the changes.
+<H4><A NAME="HDR11">  5.6.3  Widgets for display configuration editing</A></H4>
+<P>As stated above, the widget interface is usually preferred for the editing of display configurations. All of the editing widgets are available from an "umbrella" widget called ConfigEdit, obtainable via the command popup ConfigEdit. Usually this widget is available via a choice in the icon bar as well. The ConfigEdit widget looks like:
+<P><A HREF="Displaymgr.fig_1.ps"><IMG SRC="Displaymgr.fig_1.gif">
+</A>
+<P>The four large buttons are the interface to the newconfig, newwindow, kill, and cfgsave commands, respectively. Each brings up a new widget of its own requiring more information from the user. 
+
+<P>The "new configuration" option brings up a widget like:
+<P><A HREF="Displaymgr.fig_3.ps"><IMG SRC="Displaymgr.fig_3.gif">
+</A>
+<P>The user need simply fill in the two fields, which are then substituted directly into the newconfig command.
+<P>The new window widget is a bit more complicated:
+<P><A HREF="Displaymgr.fig_4.ps"><IMG SRC="Displaymgr.fig_4.gif">
+</A>
+<P>At the very least, a new window must be given a name and a type. The name for each new window should be typed in the text window right of "Window name:". This name must be unique among the other window names in the configuration. The window type defaults to "Constant altitude", but this can be changed by dragging the pull-down menu under the "Constant altitude" button. The display manager defines a default menu of window types, shown below:
+<PRE>
+define widget cw_wintypes intmenu `Default 
+version'
+       title `Window types'
+       line
+       entry `Constant Altitude Plot' `cw_type 
+"Constant altitude"'
+       entry `Time-series' `cw_type "Time 
+series"'
+       entry `Skew-t' `cw_type "Skew-t"'
+
+       entry `Wind profile' `cw_type "Wind 
+profile"'
+endmenu
+</PRE>
+<P>Once the window name and type have been chosen, pressing "Create window" will create the window. A built-in display manager procedure picks a plot description template and a button map according to the window type:
+<PRE>
+if (t = `Constant altitude')
+    set nw_pd `cap-template'
+    set nw_bmap `big'
+  elseif (t = `Time series')
+    set nw_pd `tseries-template'
+    set nw_bmap `xyplot'
+  elseif (t = `Wind profile')
+    set nw_pd `wind-template'
+    set nw_bmap `xyplot'
+  elseif (t = `Skew-t')
+    set nw_pd `skewt-template'
+    set nw_bmap `sounding'
+  else
+    local qt quote(t)
+    pcall ProjectNewWindow #qt
+  endif
+</PRE>
+<P>If the built-in procedure does not recognize the window type, it passes the type to the ProjectNewWindow procedure. A project configuration can define this procedure to recognize other window template types related to the project.
+<P><A HREF="Displaymgr.fig_57.ps"><IMG SRC="Displaymgr.fig_57.gif">
+</A>
+<P>First, add the project's additional window types to the cw_wintypes menu by redefining cw_wintypes in one of the dm start-up files. For example, the coare configuration defines this menu in dm.widgets:
+<PRE>
+define widget cw_wintypes intmenu `Coare version'
+  title `Window types'
+  line
+  entry `Constant Altitude Plot' `cw_type "Constant altitude"'
+  entry `Time-series' `cw_type "Time series"'
+  entry `Skew-t' `cw_type "Skew-t"'
+  entry `Time-height profile' `cw_type "Time-height profile"'
+  entry `RASS virtual temperature profile' `cw_type "RASS profile"'
+  entry `Location Map' `cw_type "Location Map"'
+  entry `Line Plot' `cw_type "Line Plot"'
+
+  entry `Depth profile (CTD)' `cw_type "Depth profile"'
+  entry `Time/depth CTD profile' `cw_type "Time/depth profile"'
+  entry `Time/depth contour plot' `cw_type "Time/depth contour"'
+endmenu
+</PRE>
+<P>Next, define the ProjectNewWindow procedure to recognize the project's window types. The default window types---"Constant altitude", Times series", "Skew-t", and "Wind profile"---are handled elsewhere and do not need to be handled in the project procedure.
+<PRE>
+procedure ProjectNewWindow type string
+  if (type = `Depth profile')
+    set nw_pd `depth-profile-template'
+  elseif (type = `Time/depth profile')
+          set nw_pd `time-depth-template'
+  elseif (type = `Time/depth contour')
+         set nw_pd `depth-contour-template'
+  elseif (type = `Wind profile')
+         set nw_pd `wind-template'
+  elseif (type = `Time-height profile')
+         set nw_pd `time-height-template'
+  elseif (type = `RASS profile')
+         set nw_pd `rass-template'
+  elseif (type = `Location Map')
+         set nw_pd `location-template'
+  elseif (type = `Line Plot')
+         set nw_pd `lineplot-template'
+  endif
+  set nw_bmap `xyplot'
+endprocedure
+</PRE>
+<P>The ProjectNewWindow procedure should set the nw_bmap and nw_pd variables according to the window type passed to it. The nw_bmap variable holds the name of the button map for the new window, while nw_pd holds the name of the new window's plot description template. When ProjectNewWindow returns, dm passes the values of nw_bmap and nw_pd to the newwindow procedure mentioned above. <A HREF="Displaymgr.html#REF66590">Section 5.4.4 on page 91</A> describes plot description templates and a method of creating them with the pdstore command.
+<P>The original NewWindow widget required that the button map and plot description be entered manually. The newer widget now takes precedence. Consequently the pdmenu method used by the older widget is now obsolete, and project configurations should be converted to use cw_wintypes and ProjectNewWindow. Meanwhile, the original widget now exists under the name OldNewWindow. 
+<P><A HREF="Displaymgr.fig_59.ps"><IMG SRC="Displaymgr.fig_59.gif">
+</A>
+
+<P>The "delete window" widget is also a bit complicated --- perhaps more than might seem strictly necessary. It has been purposely designed to make the deletion of a window a multi-step activity, to prevent users from doing something that they will quickly regret. The widget has the appearance seen below:
+<P><A HREF="Displaymgr.fig_7.ps"><IMG SRC="Displaymgr.fig_7.gif">
+</A>
+<P>The usual mode of use with this widget is for the user to choose the "select with mouse" option. They will then be able to click on the unfortunate window, whose name will appear in the "window name" field. A final click on "do it" will carry out the task.
+<P>The final configuration editing widget will save configurations to disk. It looks like:
+<P><A HREF="Displaymgr.fig_8.ps"><IMG SRC="Displaymgr.fig_8.gif">
+</A>
+<P>The name of the configuration starts out as that of the currently displayed configuration; the "configuration directory" field is given the value of the ConfigDir variable. Note that the "PD Directory" field is no longer present, since plot descriptions are now saved as part of the display configuration itself.
+<H3><A NAME="HDR12">  5.7  Running multiple displays on a single host</A></H3>
+
+<HR>
+<P>Originally Zebra allowed only a single display manager to run within each message manager session. The display manager used particular sets of message names for itself and its windows, and those names would not be unique if a second display manager were running also. 
+
+<P>Likewise, it was not possible for two Zebra sessions running simultaneously on the same host to communicate with each other as they could with sessions on other hosts. Two sessions could run independently, but the two display managers and their windows would not be able to share the same datastore. Ordinarily this limitation of one display manager per host is not so limiting, since most machines have only one monitor attached.
+<P>However, there can be good reasons to run multiple display managers on the same host. First, there is the case of displaying Zebra on an X Window System terminal. It would be convenient to run the X terminal's display manager from a host which is already capable of running Zebra, and which may already be running a display manager for its local display. Second, since Zebra cannot be run on all architectures, sites with a single Zebra installation can still display Zebra on multiple and unsupported architectures, as long as the machines have X Window System servers.
+<P>Two enhancements to Zebra make it possible to run multiple display managers on the same host. First, the message manager now supports Internet connections to other Zebra sessions running on the same host. In other words, the message manager can connect to local sessions in the same way it connects to remote sessions. All that is required is a unique port number for each session on the host, and the system takes care of making `Internet' connections between the sessions using the loopback interface. Each session is also given a unique name rather than using the usual host name: the session name distinguishes the sessions running on the same host.
+<P>The second enhancement is in the display manager itself. The display manager can now be run in <I>multiple</I> mode, which causes it to generate unique names for itself and all of the windows it spawns. This enhancement has the side benefit of allowing graphics processes to be dynamically assigned to windows in a display configuration. No matter how many different window names exist among several display configurations, the display manager will never run more graphics processes than are needed in one display. Previously, windows and graphics processes were mapped one-to-one by name, meaning display configurations within a project had to use similar window names, else they ran the risk of leaving several large graphics processes lurking in the background. With more recent versions of the display manager, the process names can be unique within the message manager session, and the processes can be dynamically assigned to windows in each display configuration.
+
+<P>These two enhancements provide two separate approaches for running multiple display managers from the same host: run the display managers in separate Zebra sessions on the host while sharing the same datastore; or, run multiple display managers within the same session using the display manager's multiple mode.
+<H4><A NAME="HDR13">  5.7.1  Multiple display managers within one session</A></H4>
+<P>The display manager turns on multiple mode when it sees the multiple flag on the command line. Simply add this flag to the dm command line in the Zebra start-up script, or it can be set in the ZEB_DM environment variable before running zstart:
+<PRE>
+setenv ZEB_DM "dm -multiple"
+</PRE>
+<P>Note that the very first display manager can be run in the default mode with the usual process and window names. Then each successive display manager must be run in multiple mode to generate unique names.
+<H4><A NAME="HDR14">  5.7.2  Multiple display managers within multiple sessions</A></H4>
+<P>Essentially this method relies on creating a separate message session for each display manager. Each session can be started in the usual sequence, except that the message managers must be given unique session names and told at which port they can connect to other sessions. Most often separate display sessions will also need to share the same datastore daemon. So the first example C-shell script starts a datastore session, while the following two scripts start display manager sessions which will each share the datastore session. The host name used in these examples is `eeyore'.
+<P><B>Example 1.</B> Datastore session:
+<PRE>
+setenv ZEBRA_SESSION datastore
+setenv ZEB_SOCKET /tmp/zebra.${ZEBRA_SESSION}.socket
+message -session $ZEBRA_SESSION -port 3343 -internet
+timer &amp;
+exec dsDaemon ds.config
+</PRE>
+<P><B>Example 2.</B> First display manager session:
+<PRE>
+setenv ZEBRA_SESSION dm1
+setenv ZEB_SOCKET /tmp/zebra.${ZEBRA_SESSION}.socket
+message -session $ZEBRA_SESSION -port 3344 datastore@eeyore:3343
+setenv DS_DAEMON_HOST datastore
+timer &amp;
+exec dm dm.config
+
+</PRE>
+<P><B>Example 3.</B> Second display manager session:
+<PRE>
+setenv ZEBRA_SESSION dm2
+setenv ZEB_SOCKET /tmp/zebra.${ZEBRA_SESSION}.socket
+message -session $ZEBRA_SESSION -port 3345 datastore@eeyore:3343
+setenv DS_DAEMON_HOST datastore
+timer &amp;
+exec dm dm.config
+</PRE>
+<P>Note that the display managers could be run in multiple mode, but that is not necessary since there is only one display manager running within each message manager session.
+<P>The message manager provides an option to simplify the management of session names and ports. All of the known session names and their addresses can be placed in a single port-mapping file which the message manager reads at startup. The mappings in the examples above could be placed in a file named `Sessions', along with mappings for other hosts:
+<P><B>Example 4.</B> Sessions file:
+<PRE>
+# session name    host   port
+# ----    ----  ----
+datastore    eeyore  3343
+dm1    eeyore  3344
+dm2    eeyore  3345
+piglet    piglet  3350
+robin    robin  3340
+demodata    poohbear  3344
+poohbear    poohbear  3343
+</PRE>
+<P>Instead of passing the portmap entries on the command line, message only needs its session name and the path to the sessions file.
+<PRE>
+message -f Sessions -s $ZEBRA_SESSION
+</PRE>
+<P>See <A HREF="Structure.html#REF22313">"Message manager sessions" on page 13</A> for more information about the use of session maps.
+<H3><A NAME="HDR15">  5.8  Other display manager commands</A></H3>
+
+<HR>
+<P>This section covers miscellaneous display manager commands which do not fit into any other category.
+
+<H4><A NAME="HDR16">  5.8.1  Configuration information</A></H4>
+<P>The query command summarizes the status of the current display configuration and any unmapped processes.
+<PRE>
+// Classes
+humungo     0 members (gp: gp /zeb/project/coare/gp.init) [+ dm args] 
+Default     3 members (gp: gp gp.init) [+ dm args] 
+// Processes
+big     [active  ] pid: 13091 win: 0x740001b  // class: Default
+    [big] graphic 672x485+1+2 ncroak: 0
+      pd: ssp-big link: none(0) forcepd 
+w1     [active  ] pid: 13092 win: 0x700001b  // class: Default
+    [w1] graphic 472x537+678+2 ncroak: 0
+      pd: ssp-w1 link: none(0) forcepd 
+w2     [active  ] pid: 13093 win: 0x6c0001b  // class: Default
+    [w2] graphic 672x360+1+514 ncroak: 0
+      pd: ssp-w2 link: none(0) forcepd 
+</PRE>
+<P>The list contains first the set of know process classes, and then the set of known processes and the status of each. In the example listing above, there are two process classes: humungo and Default. So far only the Default class has been instantiated, with three memebers at present. The
+<PRE>
+[+ dm args]
+</PRE>
+<P>indicates that the usual DM command line arguments will be passed to each process spawned in that class. The arguments tell the spawned process such things as the name of the display manager to which it should report and the name it should use when connecting to the message manger.
+<P>Following the classes is a list of processes. Every process is listed, even though some of them might not be active in the current configuration. Processes which are displaying windows in the current configuration appear as [active], while idle processes (those not mapped to windows in the current configuration) appear as [unmapped]. The rest of the fields provide details on the process:
+<UL><DL>
+<DT>pid<DD>Process ID number.
+<DT>win<DD>X window ID number.
+<DT>class<DD>Process class name.
+
+</DL></UL>
+<P>If the process is active, it will have a plot window associated with it whose parameters are also listed:
+<UL><DL>
+<DT>pd<DD>Name of the window's plot description.
+<DT>link<DD>Linked PD information.
+<DT>forcepd<DD>Appears if plot descriptions are being forced in this window.
+</DL></UL>
+<P>All of the information available through the query command can also be retrieved by querying the display manager with zquery.
+<PRE>
+% zquery Displaymgr
+</PRE>
+<P>Note that if the display manager is running in multiple mode, its name will not be `Displaymgr'. Check the output of the mstatus command to find the message names of the particular display manager processes.
+<H4><A NAME="HDR17">  5.8.2  Other window control commands</A></H4>
+<P>Sometimes it is desirable to have a graphics process quit and restart itself. The most common case where one would want to do this is when changes to the graphics process initialization file are being tested, and a fresh process is required. The command which will cause a window to quit and start over is restart:
+<P><A HREF="Displaymgr.fig_61.ps"><IMG SRC="Displaymgr.fig_61.gif">
+</A>
+<PRE>
+restart <I>window
+</PRE>
+<P></I>Where <I>window</I> is the name of the target window.
+<P>An important capability in the user interface is that of being able to choose a window with the mouse and perform some action on it. The pickwin command, when invoked as:
+<P><A HREF="Displaymgr.fig_63.ps"><IMG SRC="Displaymgr.fig_63.gif">
+</A>
+<PRE>
+pickwin <I>target
+</PRE>
+<P></I>Will turn the mouse pointer into a special cross-hair shape and wait for the user to select a window. Once a mouse button has been clicked, pickwin will set the variable <I>target</I> to the name of the selected window and return. If the user selects something which is not a known graphical window (i.e. the background), <I>target</I> will not be modified, so it should be set to some known value beforehand. The usual sort of code looks like:
+<PRE>
+
+set window "no-window"
+pickwin window
+if (window = "no-window")
+  ! they picked nothing -- quit
+  return
+endif
+</PRE>
+<P>Examples of the use of pickwin will be given in the iconbar section, below.
+<P>Lastly, the windowlist command lists the names of the graphical windows in the current configuration.
+<P><A HREF="Displaymgr.fig_65.ps"><IMG SRC="Displaymgr.fig_65.gif">
+</A>
+<PRE>
+windowlist <I>list
+</PRE>
+<P></I>The <I>list</I> parameter names a variable which will contain the list of window names. Any existing contents of the <I>list</I> variable will be lost. If there are no graphical windows (those with plot descriptions) in the current configuration, the list will be empty. Otherwise, the list contains window names separated only by spaces.
+<P>The example code below sends cross-section endpoints to each of the cross-section windows (type xsect) in the current display configuration.
+<PRE>
+procedure AllXSect x0 string y0 string x1 string y1 string
+        windowlist wins
+        foreach window #wins
+                local pt PDParam(window, `global', `plot-type')
+                if (pt = `xsect')
+                        local ep1 quote(concat3(x0, `,', y0))
+                        local ep2 quote(concat3(x1, `,', y1))
+                        parameter #window global plot-hold true
+                        parameter #window global left-endpoint #ep1
+                        parameter #window global right-endpoint #ep2
+                        parameter #window global plot-hold false
+                endif
+        endfor
+endprocedure
+</PRE>
+<H4><A NAME="HDR18">  5.8.3  Making noise</A></H4>
+
+<P>A few commands exist for making obnoxious noises at the user. The simplest one --- beep --- simply rings the bell once. Beep is usually invoked by a graphics process when it wants to protest, since the graphics process lacks noisemaking capability of its own.
+<P>The sound command is a more general noisemaking function. It is invoked as:
+<P><A HREF="Displaymgr.fig_67.ps"><IMG SRC="Displaymgr.fig_67.gif">
+</A>
+<PRE>
+sound <I>file
+</PRE>
+<P></I>Where <I>file</I> is the name of the sound file to be played. The display manager handles this request by simply passing it off to the sound process, which needs to be running if this is to work.
+<P>There is a variable inside the display manager called SoundEnabled. This variable is hooked directly into the sound process, so that all zebra noisemaking can be turned on or off by setting it.
+<H4><A NAME="HDR19">  5.8.4  Shell escapes</A></H4>
+<P>The shell command may be used to execute any unix command out of the display manager. The syntax is:
+<P><A HREF="Displaymgr.fig_69.ps"><IMG SRC="Displaymgr.fig_69.gif">
+</A>
+<PRE>
+shell "<I>command</I>"
+</PRE>
+<P>Where <I>command</I> is the command to be executed. Shell will wait until the command completes execution, so commands which take a long time to run should be avoided, or should be put into the background. The current implementation of the display manager does not reset the terminal modes, so output from <I>command</I> can look rather strange.
+<H4><A NAME="HDR20">  5.8.5  On-line help</A></H4>
+<P>The display manager provides two options for an on-line help interface: Mosaic and xhelp. For the moment, xhelp is still the default, but a project configuration can choose Mosaic by setting the usexhelp variable to false:
+<PRE>
+set usexhelp false
+</PRE>
+<P>The help command invokes the chosen help mechanism for a given topic:
+<P><A HREF="Displaymgr.fig_71.ps"><IMG SRC="Displaymgr.fig_71.gif">
+</A>
+<PRE>
+help [<I>topic</I>] [<I>filename</I>]
+</PRE>
+
+<P>Where <I>topic</I> is an (optional) topic of interest, and <I>filename</I> is the help file where the topic should be found. If no topic is given, the general overview topic is chosen. A file name cannot be given as a parameter unless preceded by a topic.
+<P>With the xhelp interface, dm starts the xhelp program, a utility acquired over the Internet. The Zebra distribution includes the xhelp program, so an executable for xhelp should be found in the Zebra binary directory. The help command creates an xhelp identification string from the topic name and sends the ID to the xhelp program. If there is no <I>filename</I> parameter, the default file name is zeb.hlp. Regardless, the help file must be located in one of the directories in the HelpPath variable otherwise the help command fails.
+<P>When using <I>Mosaic</I>, either of the programs xmosaic or Mosaic must already be installed on the path, since Mosaic cannot be distributed with the Zebra. The display manager checks for Mosaic and then xmosaic, and fires up the first that it finds. It must fork its own <I>Mosaic</I> process so that it can change the displayed topics while <I>Mosaic</I> is running.
+<P>The help parameters are interpreted differently for the Mosaic interface:
+<PRE>
+help [<I>url</I>]
+</PRE>
+<P>The <I>url </I>parameter is the name of the HTML file (HyperText Markup Language) or URL (Universal Resource Locator) to which Mosaic should jump. If absent, <I>url</I> defaults to the file name index.html.
+<P>If the URL begins with `http:' or `gopher:', it is assumed to be a remote URL and sent as is to Mosaic. Otherwise, the URL must be a file name which can be found on the HelpPath, with or without the `.html' extension. If the URL is local and the file cannot be found, the help command fails.
+<H4><A NAME="HDR21">  5.8.6  Manual location entry</A></H4>
+<P>There is a command for the entry of simple locations, usually used to put in the position of sounding vans, ships, or any other platform that does not move too quickly and for which there is no automated way to get location information. This capability exists in the display manager for lack of a better place at the moment.
+<P>Locations are entered with the enter command:
+<P><A HREF="Displaymgr.fig_73.ps"><IMG SRC="Displaymgr.fig_73.gif">
+</A>
+<PRE>
+enter <I>p latd latm lats lond lonm lons</I> [<I>when</I>]
+
+</PRE>
+<P>Where <I>p</I> is the name of the platform under which to enter the location, <I>latd</I>, <I>latm</I>, and <I>lats</I> are the latitude of the platform (in degrees, minutes, and seconds), <I>lond</I>, <I>lonm</I>, and <I>lons</I> are the longitude, and <I>when</I> is an optional time under which to enter the location. If <I>when</I> is not specified, the current time is used.
+<P>There is also a widget for the entry of locations, called enter. But you will have to look at the source to know how to deal with it for now, because it isn't documented.
+<H4><A NAME="HDR22">  5.8.7  Shutting down</A></H4>
+<P>The shutdown command, which takes no parameters, will bring down the display manager. Typing a ^D at the display manager prompt has the same effect. Before shutting down, the display manager sends a message to all graphics processes telling them to shut down as well.
+<P><A HREF="Displaymgr.fig_75.ps"><IMG SRC="Displaymgr.fig_75.gif">
+</A>
+<P>Sometimes the display manager only needs to be restarted (`power-cycled'), so that a configuration file can be re-read or recent changes can take effect. The cycle command exists for this purpose. It takes no parameters and works similarly to the shutdown command. The display manager first notifies all of its graphics processes and other clients to shut down, then it waits for them to disconnect from the message manager. Finally, it calls exec() to restart itself with the same command-line arguments as before. This can be a handy tool for development and troubleshooting, but it should not be relied upon for much else.
+<P><A HREF="Displaymgr.fig_77.ps"><IMG SRC="Displaymgr.fig_77.gif">
+</A>
+<H3><A NAME="HDR23">  5.9  Display manager command line functions</A></H3>
+
+<HR>
+<P>There is a small set of command line functions that are worth knowing about. These functions are useful in the definition of the icon bar and other user interface tasks.
+<P>The function pdesc returns the name of the original plot description for a window:
+<P><A HREF="Displaymgr.fig_79.ps"><IMG SRC="Displaymgr.fig_79.gif">
+</A>
+<PRE>
+set pdname pdesc(<I>window</I>)
+</PRE>
+<P>Where <I>window</I> is the name of the window of interest.
+<P>You may determine if a graphics window is currently on the screen and producing graphics with the active function:
+<P><A HREF="Displaymgr.fig_81.ps"><IMG SRC="Displaymgr.fig_81.gif">
+</A>
+<PRE>
+
+set IsActive active(<I>window</I>)
+</PRE>
+<P>The return value is a boolean true if and only if the given <I>window</I> is active.
+<P>To determine if a particular plot description parameter has been defined, use pd_defined:
+<P><A HREF="Displaymgr.fig_83.ps"><IMG SRC="Displaymgr.fig_83.gif">
+</A>
+<PRE>
+set IsDefined pd_defined(<I>pd,comp,param</I>)
+</PRE>
+<P>The return value is true if and only if the given <I>param</I> is defined in <I>comp</I> in the given plot description (or window) <I>pd</I>.
+<P>To query the actual value of a plot description parameter, use PDParam instead
+<P><A HREF="Displaymgr.fig_85.ps"><IMG SRC="Displaymgr.fig_85.gif">
+</A>
+<PRE>
+set value PDParam(<I>pd,comp,param</I>)
+</PRE>
+<P>Where <I>pd</I> is the name of the plot description (or window) of interest, <I>comp</I> is the component, and <I>param</I> is the name of the parameter. If no definition exists for the desired parameter, the return value is the string "UNDEFINED".
+<P>It can be useful to know the list of components present in a given window or plot description. This list may be obtained from pd_complist:
+<P><A HREF="Displaymgr.fig_87.ps"><IMG SRC="Displaymgr.fig_87.gif">
+</A>
+<PRE>
+set list pd_complist(<I>pd</I>)
+</PRE>
+<P>The return value is a space-separated list of components in the given plot description or window, suitable for use with commands like foreach.
+<P>If instead you want to get the name of a plot description component based on its position, use NthComp:
+<P><A HREF="Displaymgr.fig_89.ps"><IMG SRC="Displaymgr.fig_89.gif">
+</A>
+<PRE>
+set compname NthComp(<I>pd,n</I>)
+</PRE>
+<P>Where <I>pd</I> is the plot description (or window) of interest, and <I>n</I> is the number of the component desired. The first component (usually global) is number zero.
+<P>The function nvalue will return the number of values specified for a given plot description parameter:
+<P><A HREF="Displaymgr.fig_91.ps"><IMG SRC="Displaymgr.fig_91.gif">
+</A>
+<PRE>
+set nv nvalue(<I>pd,comp,param</I>)
+
+</PRE>
+<P>The return value is the number of (comma-separated) values in the plot description for the given parameter.
+<P>The function RealPlatform may be used to validate platform names entered by the user:
+<P><A HREF="Displaymgr.fig_93.ps"><IMG SRC="Displaymgr.fig_93.gif">
+</A>
+<PRE>
+set real RealPlatform(<I>name</I>)
+</PRE>
+<P>Where <I>name</I> is the name to be checked. The return value is true if and only if the platform is known to the zebra data store.
+<P>The NthColor function may be used to retrieve colors from a color table known to the display manager. This capability is useful for assigning unique colors on the fly and other related tasks. Usage is:
+<P><A HREF="Displaymgr.fig_95.ps"><IMG SRC="Displaymgr.fig_95.gif">
+</A>
+<PRE>
+set color NthColor(<I>table,n</I>)
+</PRE>
+<P>Where <I>table</I> is the name of the color table of interest, and <I>n</I> is the index (starting at zero) of the color of interest. The return value is the name of the desired color.
+<H3><A NAME="HDR24">  5.10  The icon bar</A></H3>
+
+<HR>
+<P>NOTE that this section is somewhat out of date. Everything here is accurate but does not really reflect how things are done in more recent configurations. The IconBar file from the COARE configurations is recommended reading for those working with icon bar configuration.
+<P>The classic zebra interface is centered around "the" icon bar. While there is nothing inherent in the system that limits things to a single icon bar, that is the usual scheme of things. This section will describe briefly how most of the entries in the icon bar are put together.
+<P>It all starts in the file IconBar in the configuration directory. Therein is a huge define widget command:
+<PRE>
+define widget iconbar menubar "the iconbar"
+  menu global bitmap global
+    ...
+  ...
+enddef
+</PRE>
+
+<P>The global menu usually consists of a list of display configurations to choose from, widgets that can be popped up, and so on. Then there is usually a menu for each type of platform on the system. A simple case, for example, for a radar:
+<PRE>
+menu radar bitmap radar
+  title `Radar data'
+  line
+  entry `CP4 reflectivity' \
+    `PutBCompField c_cp4 reflectivity'
+  entry `CP4 velocity' \
+    `PutBCompField c_cp4 velocity'
+endmenu
+</PRE>
+<P>This menu calls on two additional things, being a component PD called c_cp4, and a procedure PutBCompField. The plot description is a generic component PD that looks something like:
+<PRE>
+GLOBAL
+  comment:  Display CP4 data.
+  pd-name:  c_cp4
+c_radar
+  platform:  cp4
+  field:    velocity
+  representation:   raster
+  icon:    cp4
+  color-table:   wild_new
+  every-sweep:   true
+  icon-middle-menu:   radar-middle
+  trigger-global:   true
+  trigger:   cp4
+  icon-right-menu:   DataAvailable
+  menu-platform:   cp4
+</PRE>
+<P>This component sets up all of the stuff needed to get a basic radar image display onto the screen. The job of PutBCompField now is to set the field name appropriately and get the component into the window of interest. This procedure looks like:
+<PRE>
+procedure PutBCompField comp string field     string \
+    radarspace string
+!
+! Get the target window.
+!
+  set target_win "none"
+  pickwin target_win
+  if (target_win = "none")
+
+    beep
+    return
+  endif
+!
+! If the component is already in the window,
+! just change the field.
+!
+  if (pd_defined (target_win, comp, "platform"))
+    parameter #target_win #comp "field" #field
+!
+! Otherwise change the field *in DM* to avoid making \
+! the GP draw twice, then send it over.
+!
+  else
+    parameter #comp #comp "field" #field
+    add #comp #comp #target_win 1
+  endif
+endprocedure
+</PRE>
+<P>There are numerous variants of the "put component" procedure in use in a typical display manager configuration, but the basic idea is the same for all of them.
+
+<P><A HREF="AdvUsers.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="GraphProc.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

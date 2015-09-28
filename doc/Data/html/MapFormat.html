@@ -1,0 +1,44 @@
+<P><A HREF="Data.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="RasterFile.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B> </B> Zebra's Map File Format</TITLE>
+<H1><A NAME="HDT0"> <paranum><B> </B> Zebra's Map File Format</A></H1>
+
+<P>Geographic maps and similar overlays are an important feature of Zebra's graphics capabilities. Most project configurations will come supplied with one or more maps appropriate to the project. It is often desirable, however, to use a custom map for various purposes. Users are free to make their own "map" files which can then be made available to Zebra for adding to plots. This document describes the map file format used by Zebra, which should be followed when generating custom files.
+<H3><A NAME="REF70619">  1  Map File Format</A></H3>
+
+<HR>
+<P>Zebra makes use of a simple ASCII format for map files, adopted from an older version of the NCAR Graphics Package. A map file is comprised of a number of polyline definitions, each consisting of a header line followed by one or more lines of vertex locations. All positions are given by latitude and longitude, with north latitudes and east longitudes being positive, and south latitudes and west longitudes being negative. A brief example map file is shown in <A HREF="MapFormat.html#REF93013">Figure 1</A>. Any number of polylines may be included in a map file, and there should be no empty lines.
+<H4><A NAME="HDR1">  1.1  Header Lines</A></H4>
+
+<P>Each polyline definition in a map file begins with a header line which contains a count the number of values in the polyline followed by four values defining the bounding box of the polyline: maximum latitude, minimum latitude, maximum longitude, and minimum longitude. Note that the count is the number of <I>values</I> for the polyline, which is actually twice the number of <I>vertices</I> in the polyline, since each vertex has both a latitude and a longitude associated with it. The format for writing a header line is:
+<PRE>
+<B>C:</B> "%4d %9.3f %9.3f %9.3f %9.3f"
+<B>FORTRAN:</B> (I4, 4 (X, F9.3))
+</PRE>
+<P>A comment may be included after the values on the header line, up to the end of the line.
+<H4><A NAME="HDR2">  1.2  Vertices</A></H4>
+<P>The header line is simply followed by a list of latitude/longitude pairs for the locations of the vertices of the polyline. The format for each pair is:
+<PRE>
+<B>C:</B> " %9.3f %9.3f"
+<B>FORTRAN:</B> (2 (X, F9.3))
+</PRE>
+<P>and up to four pairs may be placed on a line. 
+<P><A HREF="MapFormat.fig_1.ps"><IMG SRC="MapFormat.fig_1.gif"><P><A NAME="REF93013"> <paranum><B>FIGURE  1 </B> A brief example Zebra map file</A>
+
+</A>
+
+<H3><A NAME="HDR3">  2  How To Use The File</A></H3>
+
+<HR>
+<P>Once a map file is created, it should be named with an extension of <CODE>.map</CODE> and placed in the <CODE>zeb/projects/&lt;project&gt;/maps</CODE> directory, (which may need to be created). When plotting, a map plot description component uses its <CODE>platform</CODE> parameter for looking up the map to plot, e.g., a map component with parameter:
+<PRE>
+platform: mycustom
+</PRE>
+<P>will draw the map contained in file <CODE>mycustom.map</CODE>. Hence, when a map file has been created and placed in the correct directory, only the <CODE>platform</CODE> parameter of a map plot component need be changed to draw the new map.
+
+

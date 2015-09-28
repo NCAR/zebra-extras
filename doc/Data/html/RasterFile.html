@@ -1,0 +1,127 @@
+<P><A HREF="Data.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="netCDF.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>CHAPTER 6 </B> The Zebra Raster File Format</TITLE>
+<H1><A NAME="HDT0"> <paranum><B>CHAPTER 6 </B> The Zebra Raster File Format</A></H1>
+
+<H3><A NAME="HDR1">  6.1  Introduction</A></H3>
+
+<HR>
+<P>Zebra uses a special internal format for raster image data (really eight-bit, two-dimensional grid data). There are a few reasons for the decision to go with an internal format; all have to do with shortcomings of other available image formats, including:
+
+<UL>
+<P><LI>Most true "image" file formats do not have any way to store the location and spacing information that is needed to display image data overlaid with other data sets.
+<BR>
+<P><LI>Image file formats also tend to lack scaling information needed to retrieve real data values from the pixel data.
+<BR>
+<P><LI>NetCDF has the XDR overhead cost, which is excessive when dealing with image data. NetCDF files also do not allow for different image sizes in the same file, and does not allow for compression.
+<BR></UL>
+
+
+<P>It is hoped that, in the near future, some sort of standard file format (probably one of the HDF formats) will replace the raster image format. Meanwhile, its use will continue within Zebra.
+<P>Note that if you are considering writing code to work directly with raster image files, you should really consider using the data store interface instead. The data store interface is somewhat simpler, and allows you to write code that is not dependent on the format of raster image files.
+
+<H3><A NAME="HDR2">  6.2  Relevant Source Files</A></H3>
+
+<HR>
+<P>All of the structures used in raster image files are defined in the C include file .../src/ds/RasterFile.h. In the same directory can be found a couple of files which actually deal with raster image files. The first is rfdump.c, the source for the rfdump program. The file DFA_Raster.c contains the data store routines which actually create and access raster image files.
+<H3><A NAME="HDR3">  6.3  File Format</A></H3>
+
+<HR>
+<H4><A NAME="HDR4">  6.3.1  The File Header</A></H4>
+<P>At the beginning of every raster image file is the <B>header structure</B>. This structure describes the contents of the file, and gives pointers which allow all other components of the file to be found. The header is defined as:
+<PRE>
+typedef struct s_RFHeader
+{
+  int  rf_Magic;     
+  char  rf_Platform[40];  /* Name of platform /
+  int  rf_MaxSample;    /* Max number of samples  */
+  int  rf_NSample;    /* How many we have    */
+  int  rf_NField;    /* How many fields    */
+  RFField rf_Fields[MaxRFField];  /* Fields      */
+  int  rf_Flags;    /* Flag info      */
+} RFHeader;
+</PRE>
+<P>The rf_Magic field should contain the value RF_MAGIC. If that is not the case, the file from which this header was read is probably not really a raster image file; the Zebra data store will refuse to work with it.
+<P>The name of the platform is stored in rf_Platform when the file is created; Zebra does not make any further use of this field afterward. The rfdump program will print its contents, however.
+<P>rf_MaxSample contains the maximum number of samples that the file may hold. This is the same value that is supplied for maxsamples in the platform definition. Since this value is used to size certain data structures (described below), it can not be exceeded. The number of samples currently present in the file is stored in rf_NSample.
+
+<P>Some field information is stored in the file header. rf_NField is the number of fields currently known in the file. The rf_Fields array is made up of the following structure:
+<PRE>
+typedef struct s_RFField
+{
+  char   rff_Name[20];    /* Name of the field    */
+  char  rff_Desc[40];    /* It's description    */
+  ScaleInfo rff_Scale;    /* Scaling info      */
+} RFField;
+</PRE>
+<P>One of these structures exists for every known field, and contains the name of the field (rff_Name), a long description (rff_Desc), and the scaling information needed to convert pixel values into normal data values (rff_Scale). The ScaleInfo structure is defined (in DataStore.h) as:
+<PRE>
+typedef struct _ScaleInfo
+{
+  float   s_Scale;    /* real value = data/s_scale  */
+  float s_Offset;    /*   + s_Offset      */
+} ScaleInfo;
+</PRE>
+<P>The final header field is rf_Flags. Currently only one flag is defined, being RFF_COMPRESS. If this flag is set, then images are stored using run-length encoding; this scheme is described in detail below.
+<H4><A NAME="HDR5">  6.3.2  The Table of Contents</A></H4>
+<P>Immediately following the header structure in a raster file is the table of contents (TOC). The TOC describes all of the actual data samples to be found in the file, and must be consulted whenever data is needed from the file. Each TOC entry is one of the following structures; there are rf_MaxSample of them stored contiguously after the header:
+<PRE>
+typedef struct s_RFToc
+{
+  UItime   rft_Time;    /* Time of this image    */
+  long  rft_Offset[MaxRFField];  /* It's place  */
+  long  rft_Size[MaxRFField];  /* Length      */
+  RGrid   rft_Rg;      /* Geometry info    */
+  Location rft_Origin;    /* Image origin      */
+  int  rft_AttrLen;    /* Length of attrs    */
+  long  rft_AttrOffset;    /* Where they are    */
+} RFToc;
+
+</PRE>
+<P>The time of each sample is stored in rft_Time in the old user interface time format:
+<PRE>
+typedef struct s_UItime
+{
+  long  ds_yymmdd;  /* Day portion  */
+  long  ds_hhmmss;  /* time portion */
+} UItime;
+</PRE>
+<P>Times are stored as simple integers; as an example, the date of this writing (December 20, 1993, 2:17 pm) would be represented as (931220, 141700).
+<P>The location of each image in the file is stored in the rft_Offset field; this is a simple file offset in bytes which may be passed directly to lseek to position to the image. The size of each image (in bytes) is stored in rft_Size. Note that rft_Offset and rft_Size are arrays, with one entry for each field.
+<P>The grid geometry of each image is stored in the standard data store RGrid structure as rft_Rg, defined in DataStore.h:
+<PRE>
+typedef struct _RGrid
+{
+  float   rg_Xspacing;    /* X dimension spacing    */
+  float   rg_Yspacing;    /* Y (north/south) spacing  */
+  float   rg_Zspacing;    /* Vertical spacing    */
+  int  rg_nX, rg_nY, rg_nZ;  /* Dimensions      */
+} RGrid;
+</PRE>
+<P>Similarly, the origin (lower-left corner) of each sample is found in the rft_Origin field, using the Zebra Location type:
+<PRE>
+typedef struct s_Location
+{
+  float   l_lat;
+  float   l_lon;
+  float   l_alt;
+} Location;
+</PRE>
+<P>Longitudes are stored as degrees east; altitudes are always in kilometers, which is perhaps not what one would expect, but that is the way it is.
+
+<P>Finally, the TOC has a couple of fields oriented around attributes. This implementation reflects a truly ancient view of attributes, which is not really recognized anywhere else in Zebra. Raster file attributes are a simple, comma-separated string; if a set of attributes exists for a sample, then rft_AttrLen will give the length of the attribute string, and rft_AttrOffset tells where to find it. If no attributes are present, rft_AttrLen is zero.
+<H4><A NAME="HDR6">  6.3.3  Image Data Format</A></H4>
+<P>After plowing through all of the above structures, it is finally possible to look at the actual image data. This data is simply stored along the rows, starting at the origin, moving left to right and bottom to top. 
+<P>The only complication come in if the image is compressed. Zebras uses a very simple run-length encoding scheme to compress strings of equal data values. This scheme works well for certain kinds of data---especially radar data which has been thresholded.
+<P>If you need to work directly with compressed image data, the best place to look is in .../src/lib/RLEncode.c. This file describes the encoding scheme in detail, and provides routines which will do encoding and decoding for you.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+
+<P><A HREF="Data.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="MapFormat.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

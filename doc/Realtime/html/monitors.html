@@ -1,0 +1,64 @@
+<P><A HREF="Realtime.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="intro.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>CHAPTER 2 </B> Monitors and Diagnostics</TITLE>
+<H1><A NAME="HDT0"> <paranum><B>CHAPTER 2 </B> Monitors and Diagnostics</A></H1>
+
+<P>This chapter surveys the zebra processes which monitor the rest of the zebra system.
+<H3><A NAME="HDR1">  2.1  zmon</A></H3>
+
+<HR>
+<P>The zmon program uses the ping protocol to continually monitor the status of a set of processes. It is useful in real-time situations to quickly spot problems. Zmon is invoked as:
+<PRE>
+zmon <I>config
+</PRE>
+<P></I>Where <I>config</I> is the name of a configuration file for zmon. This file must contain one or more lines of the form:
+<PRE>
+<I>host process</I> ...
+</PRE>
+<P>Where <I>host</I> is the name of a host of interest, followed by the names of one or more <I>process</I>es to be monitored on that host. The local host should be specified simply as local. When zmon is invoked, it will display a window containing the names of all the given hosts and processes. Those which fail to answer queries within a given time will be flagged in red in the window. Thus a quick glance gives an immediate summary of the status of the network.
+
+<P>Since zmon depends on the monitored processes responding to query messages, it can sometimes be fooled by processes which go into long compute cycles and ignore messages for periods of time.
+<H3><A NAME="HDR2">  2.2  LastData</A></H3>
+
+<HR>
+<P>The LastData utility creates a window for monitoring the behavior of real time data streams. Within the LastData window is a list of platforms, and a time for each platform showing when data was last received. Each line is color-coded depending on how old the last data is --- yellow for platforms for which data is a little later than expected, and red for those that are very late.
+<P>LastData has a pulldown menu which can be used to trim down the number of platforms displayed in the window. It is useful for removing lines for platforms that are known not to be currently reporting, thus reducing the amount of red clutter in the window.
+<P>Since the expected reporting interval varies greatly from one platform to the next, LastData must be configured to know what to expect. This configuration is done through a file which LastData reads on startup, and which must be specified on the command line when LastData is invoked:
+<PRE>
+LastData <I>config-file
+</PRE>
+<P></I>The configuration is simple, containing only lines of the form:
+<PRE>
+<I>platform yellow red
+</PRE>
+<P></I>Where <I>platform</I> is the name of a platform of interest, <I>yellow</I> is the number of minutes without data before this platform's line turns yellow, and <I>red</I> is the number of minutes before the line turns red. Only platforms which are listed in the configuration file will be monitored by <I>LastData</I>.
+<H3><A NAME="HDR3">  2.3  Datastore Diagnostics</A></H3>
+
+<HR>
+<P>The data store daemon query response can be a helpful diagnostic. Querying the daemon returns a summary of the daemon's configuration, uptime, and table sizes.
+<PRE>
+zquery ds_daemon
+
+</PRE>
+<H4><A NAME="HDR4">  2.3.1  Table Sizes and Memory Usage</A></H4>
+<H4><A NAME="HDR5">  2.3.2  Scan and Cache Times</A></H4>
+<H4><A NAME="HDR6">  2.3.3  Running Scan Count</A></H4>
+<P>The data store daemon will respond to message queries even while it is scanning platform directories, such as at start-up or during an explicit scan request. During the initial start-up, the daemon will actually report the number of platforms which have been scanned so far and the number of platforms remaining. This can be reassuring feedback during lengthy scans of extremely large datasets. At present the daemon only checks for queries between each platform scan, so the response to zquery may be rather slow.
+<H4><A NAME="HDR7">  2.3.4  Platform Locks</A></H4>
+<P>The very end of the query output is a list of current platform locks and the client processes which hold them. The daemon tries to detect processes which disconnect from a Zebra session so that it can release any locks they may have held, but in some situations the detection fails. Other processes, such as ingestors, will hang waiting for a platform lock to be released. If the query output lists a lock owned by a process which crashed or no longer exists, the daemon will have to be restarted to clear the lock. Currently there is no way to clear a lock while the daemon is running.
+<H3><A NAME="HDR8">  2.4  Timer Diagnostics</A></H3>
+
+<HR>
+<P>The timer process also reports some useful diagnostics in its messgae query resonse. In particular, graphics windows using fixed time triggers will have entries in the list of pending alarms. Also, any ingest processes which use the timer to schedule periodic wake-ups and data ingests will have events registered with the timer process.
+<P>If the timer process ever dies, the rest of the processes in a Zebra session will probably hang waiting for replies from the timer.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+
+<P><A HREF="Realtime.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="archiver.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

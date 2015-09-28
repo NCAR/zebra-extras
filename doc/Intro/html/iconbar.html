@@ -1,0 +1,96 @@
+<P><A HREF="Intro.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="starting.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>CHAPTER 3 </B> Display Interface Basics</TITLE>
+<H1><A NAME="REF21747"> <paranum><B>CHAPTER 3 </B> Display Interface Basics</A></H1>
+
+<P>This chapter provides enough of an overview of the Zebra display system to begin using it and exploring it, at which point further help can be gathered from the on-line help system and the tutorial.
+<H3><A NAME="HDR0">  3.1  The Universal Icon Bar</A></H3>
+
+<HR>
+<P>Zebra by nature is flexible and highly configurable so that it can meet the needs of many different kinds of projects and datasets.<A HREF="iconbar.html#FN1">(1)</A> However, one part of the display interface remains universal among the myriad of project configurations: the icon bar. Every Zebra project configuration contains this "master control panel", from which many tools, displays, graphical windows, and platform datasets can be selected. An example of an icon bar can be seen in <A HREF="iconbar.html#REF30202">Figure 1</A>.
+<HR>
+
+<P><A NAME="REF30202"> <paranum><B>FIGURE  1 </B> Zebra icon bar.</A>
+<P><A HREF="iconbar.fig_1.ps"><IMG SRC="iconbar.fig_1.gif">
+</A>
+<P><A HREF="iconbar.html#REF30202">Figure 1</A> is an example of an icon bar from a single project (COARE). Other projects provide different sets of icons depending upon the tools and data platforms relevant to that particular project. However, a few icons are relatively consistent in almost every Zebra project configuration, since they correspond to general functionality which every project needs. These more general icons, <I>help</I>, <I>tools</I>, and <I>configs</I>, are mentioned in the following sections.
+<P>The icon bar is basically a glorified menu bar. Each icon represents a single menu of related entries; each menu is activated by pressing and holding one of the mouse buttons inside an icon. All three mouse buttons activate the same menu for an icon.<A HREF="iconbar.html#FN2">(2)</A> To select a menu item, move the cursor over an icon, press and hold a mouse button, then drag the cursor until it is over the item to be selected. The menu items will be reverse highlighted as the mouse passes over them. Once the entry to be selected is highlighted, release the mouse button. A star or asterisk in the left column of a menu entry indicates the entry is currently active. Arrows indicate sub-menus, which can be opened by dragging the mouse towards the right side of the sub-menu entry. Throughout the rest of this chapter, references to icon menus, menu selections, or "topics under an icon", imply using this press, drag, and release mechanism to open an icon's menu and select from its menu entries.
+
+<P>Some projects, especially older ones, may not have individual help, tools, and configs icons. Instead, the same functionality may have been bundled under a single "Z" icon, like the one shown at left. If this is the case, the following descriptions still apply, but the noted menu entries will probably appear under the "Z" icon. It is especially common in older configurations to combine the tools and display configuration menus under this icon.
+<P><A HREF="iconbar.fig_8.ps"><IMG SRC="iconbar.fig_8.gif">
+</A>
+<H3><A NAME="HDR1">  3.2  Help</A></H3>
+
+<HR>
+<P><A HREF="iconbar.fig_2.ps"><IMG SRC="iconbar.fig_2.gif">
+</A>
+<P>Most of the recent project configurations provide an icon like the one at the left for accessing Zebra's on-line help system. If this icon is not present, look for help topics under a "Z" icon, or under the "tools" or "configs" icons (shown below). Select a topic of interest from the help menu, and the display manager will begin a help browser which points to the particular topic.
+<P>The original Zebra help interface used an application called xhelp. The only projects for which this interface might still be useful are the STORM-FEST CD-ROM projects. All other projects should use either of the World Wide Web browsers Mosaic or netscape to access the hypertext (HTML) help topics. The <I>Installation Manual</I> contains information about setting the default help interface, as well as choosing and finding a HTML browser.
+<H4><A NAME="HDR2">  3.2.1  How it Works</A></H4>
+<P>The Zebra on-line help interface takes advantage of "remote control" mechanisms built into the Netscape and Mosaic browsers. When someone chooses a help topic, the display manager starts a browser and tells it the location of the HTML file for the chosen topic. Once a browser has been started, further help topic selections will cause the display manager to remotely control the browser and point it to the new topic. Expect some delay the first time a help topic is chosen---the delay is caused by the browser's initial start-up. If the browser does not appear, check the display manager prompt or the event logger for error messages. Once the browser is running, further help topic selections should appear in the browser window much more quickly. The browser may even raise its window above the other windows when it changes to a new topic. The help browser can be quit at any time without affecting the Zebra display manager; however, the next help topic selection will again incur the delay of the browser start-up.
+<H4><A NAME="HDR3">  3.2.2  Selecting Help Topics</A></H4>
+
+<P>Help topics can be chosen from several places. The most obvious places are the menu entries under the help icon on the icon bar. However, many of the Zebra tools and configuration windows also have <I>help buttons</I>. Pressing a help button selects the help topic related to that particular tool or window. For example, the help button shown at left appears in the display manager's time control tool. Pressing this button brings up the help topic "Setting History Time", since that is the main function of the time control tool.
+<P><A HREF="iconbar.fig_3.ps"><IMG SRC="iconbar.fig_3.gif">
+</A>
+<P>Help topics can also be reached through the help topic pages themselves. Since the help browser is actually a WWW browser, it can be used to follow hypertext links to other help topics or even links to the Zebra home page and on-line documentation. Use the browser to set bookmarks at useful topics, search help pages, or trace through the history of visited topics. At any time while running Zebra, a help topic can be chosen from the help menu or from a help button, and the browser will return to that help topic.
+<P>One of the on-line help files is an index to all of the help topics. This index can be reached from any of the help topic pages through the "index" link at the bottom of the page. Likewise, the entry "On-line Topics" on some icon bar help menus calls up the same index page.
+<HR>
+<P> <paranum><B>FIGURE  2 </B> Typical on-line help menu on the icon bar.
+<P><A HREF="iconbar.fig_6.ps"><IMG SRC="iconbar.fig_6.gif">
+</A>
+<H4><A NAME="HDR4">  3.2.3  Changing the Help Browser</A></H4>
+<P>The display manager uses a default browser path of "Mosaic", unless this default was changed during compilation as described in the <I>Installation Manual</I>. The path can also be stored in the display manager variable "MosaicPath". Use the set command at the display manager prompt to change the value of the help browser path:
+<PRE>
+
+DM&gt; set MosaicPath "/usr/local/bin/netscape2"
+</PRE>
+<P>The example above changes the browser to Netscape. The same command can be added to the dm.config file in the project directory to make the change take effect for every Zebra session in that project. Any changes to MosaicPath will not take effect until the next time a browser must be started.
+<P><B>Note</B>: When changing the browser path to Netscape, the display manager must be able to recognize the path as being a netscape executable so that it uses the correct remote control mechanism. Make sure the MosaicPath value contains the string "netscape", else the display manager will try to use the Mosaic remote control mechanisms. The example above is perfectly sufficient for switching the display manager to Netscape.
+<H3><A NAME="HDR5">  3.3  Tools</A></H3>
+
+<HR>
+<P><A HREF="iconbar.fig_4.ps"><IMG SRC="iconbar.fig_4.gif">
+</A>
+<P>The tools icon, shown at left, loosely categorizes several pop-up windows and actions into a single menu. Generally, the menu entries can be divided into three categories: display manager windows, configuration editing windows, and separate Zebra applications.
+<H4><A NAME="HDR6">  3.3.1  Display Manager Windows</A></H4>
+<P>The most commonly used and one of the most important display manager windows is the <I>time control tool</I>. This tool controls the plot times of one or several graphics windows simultaneously, allowing the time to be set to a particular historical time or adjusted by some fixed interval. The on-line help topic, accessible through the help button, contains all the details about this tool.
+<P>The other common display manager window is the print or hardcopy tool. This tool provides an easy way to produce PostScript files or printouts from a pixmap dump of a plot window or an entire display. It also has a help button for getting further information.
+<H4><A NAME="HDR7">  3.3.2  Configuration Editing</A></H4>
+
+<P>A great part of the display manager's function is the modification and preservation of screen layouts, generally referred to as configuration editing. Different projects separate the functionality in different ways. Some pop-up a window for each individual function, such as creating a window, deleting a window, or saving a configuration. Others automate these functions and perform them directly from an icon bar menu selection. Either way, all the necessary functionality is available through pop-up windows, and these can usually be activated from the tools menu. On-line information about configuration editing can be found through the help menu entry "Editing display configurations" or through the help index page. Before trying to create a new configuration, be sure to read <A HREF="iconbar.html#REF14473">Section 3.4</A> on the icon bar's configuration icon.
+<H4><A NAME="HDR8">  3.3.3  Separate Applications</A></H4>
+<P>Many display tools are actually separate Zebra applications which can be conveniently executed from the icon bar tools menu. Most of them possess windows of their own, but they are not under the control of the display manager.
+<P>One of the most common applications is the data display tool, also called the data store display widget (hence the program name dsdwidget). This application lists a set of data store platforms in a window, and clicking a platform entry creates another window which lists the individual data files and time ranges for that platform's data. It can be a very helpful tool when examining data from a particular platform, or when investigating a particular period and trying to discover which platforms have data for that period.
+<P>A second application, dsmanage, also deals with managing data. It actually copies data files from off-line storage---CD-ROM disks and tapes---into on-line disk space, and then allows data to be easily removed to create space for different data. The dsmanage interface can select data files for addition or removal based upon time periods or platforms, and it reports the amount of space (in megabytes) contained in the current selection. This tool is extremely useful for projects with especially large "pre-packaged" datasets available, such as STORM-FEST or TOGA COARE.
+<H3><A NAME="REF14473">  3.4  Display Configurations</A></H3>
+
+<HR>
+<P><A HREF="iconbar.fig_5.ps"><IMG SRC="iconbar.fig_5.gif">
+</A>
+<P>Every Zebra project configuration possesses a set of predefined display configurations. For example, depending upon the project's dataset, there will be configurations for skew-t sounding plots, horizontal satellite overlays, comparative time series of mesonet stations, or profiles of RASS and profiler data.
+
+<P>The predefined display configurations are available from the icon bar menu under the "configs" icon, shown at left. Older project configurations may still use the "Z" icon, also shown at left. Each configuration entry in the menu has a descriptive name, sometimes even including the specific types of every window in the configuration. A star appears to the left of the menu entry for the configuration which is currently displayed, if the current configuration exists in the menu.
+<P><A HREF="iconbar.fig_7.ps"><IMG SRC="iconbar.fig_7.gif">
+</A>
+<P>When a new configuration (different than the one currently displayed) is chosen from the configuration menu, the display manager immediately starts changing the screen layout to match the new configuration. If more plot windows are needed, they are created. If some are not needed, they are told (through the Zebra message system) to unmap their windows and idle patiently in the background. The display manager then tells the plot windows where on the screen to place themselves and what plot to show when they get there. This process varies in duration, though it will be slowest when multiple plot windows must be created for the first time. Once the transition is complete, the icon bar should still exist though its position and shape may have changed. The icon bar will be joined by the graphics processes in the configuration, and their plots can each be modified and customized using the icons in the respective windows. Since the icon bar appears in each configuration, the "configs" menu can be used to move easily between all of the predefined display configurations.
+<P>The only configuration which appears in most---if not all---Zebra projects is the <I>empty</I> configuration. Although contrary to its name, this configuration contains exactly one window: the icon bar. The name "empty" refers to the lack of graphics windows. It is a useful configuration to select to clear a screen of Zebra plot windows while still leaving the "control panel" easily accessible.
+<P>Unfortunately, in the current version of Zebra, display configurations created with the configuration editing tools do not automatically appear in the icon bar "configs" menu. The adventurous can find the relevant section in the IconBar project configuration file, then add menu entries for new configurations by copying and slightly modifying an existing entry.
+<H3><A NAME="HDR9">  3.5  Conclusion</A></H3>
+
+<HR>
+
+<P>Hopefully by this point this manual has presented enough information for you to start running a Zebra project configuration and investigating its on-line help, tools, and displays. The following chapters include information on more specialized aspects of using Zebra, such as the interface for visualizing model data. From here, the best next step for learning Zebra is the on-line tutorial mentioned in <A HREF="manuals.html#REF14817">Section 1.7, "World Wide Web Tutorial"</A>. Obtain the COARE project configuration and demo dataset, then start following the <A HREF="http://www.atd.ucar.edu/rdp/zebra/tutorial/intro.html">tutorial</A>.
+
+<HR><H3>Footnotes</H3>
+<DL COMPACT>
+<DT><A NAME=FN1>(1)</A><DD>One might say Zebra is a horse of many different colors.
+<DT><A NAME=FN2>(2)</A><DD>Unlike the icon bar icons, graphics window icons almost always have a different menu for each mouse button. If there is any question about whether an icon is on the icon bar or in a graphics window, one way to distinguish the two is by whether the left and right mouse button menus on the icon differ.
+</DL>
+<P><A HREF="Intro.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="ModelData.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

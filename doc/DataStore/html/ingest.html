@@ -1,0 +1,272 @@
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="dfa.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>� CHAPTER 11 � </B> The Ingest Routines</TITLE>
+<H1><A NAME="REF65598"> <paranum><B>� CHAPTER 11 � </B> The Ingest Routines</A></H1>
+
+<P>The DataStore library contains functions for simplifying the development of ingest modules. Ingest programs usually must perform a common set of operations, such as command-line parsing and debugging. Often it is very useful to run independent of other Zebra processes, when the primary concern is simply reading and understanding a particular file format. Likewise, it is useful to have lots of debugging information available during development, while during production this information would only bog down the system. The ingest routines of the DataStore library try to supply this type of utility.
+<H3><A NAME="HDR0">  11.1  Using the Interface</A></H3>
+
+<HR>
+<P>A DataStore client which uses the ingest routines must include the file ingest.h.
+<PRE>
+#include &lt;ingest.h&gt;
+</PRE>
+<P>The ingest.h header file automatically includes a number of common system and Zebra header files. These files <I>do not</I> need to be included in the ingest program's source file since they are included by ingest.h.
+<PRE>
+# include &lt;stdio.h&gt;
+# include &lt;ctype.h&gt;
+# include &lt;ui_error.h&gt;
+# include "defs.h"
+# include "message.h"
+# include "timer.h"
+
+# include "DataStore.h"
+# include "DataChunk.h"
+# include "ds_fields.h"
+</PRE>
+<P>A program which utilizes the ingest routines usually performs the following steps. Each of the routines mentioned is explained further below.
+
+<OL>
+<P><LI>Parse the command-line options with IngestParseOptions(). This function detects a specific set of options on the command line, configures the ingest library routines accordingly, and then removes the options from the argument array.
+<BR>
+<P><LI>Call IngestUsage() from the application's usage function. This ensures that the user sees the options available from the library interface as well as the application-specific options. Alternatively, if the application has no usage function, just pass IngestUsage() to IngestParseOptions() as the usage function. The application's usage function should take one argument, the name of the program (usually passed as argv[0]).
+<BR>
+<P><LI>Call IngestInitialize(). This initializes the message connection and the DataStore library unless these have been disabled by the application or the command-line options (such as when testing in a stand-alone mode).
+<BR>
+<P><LI>Lastly, use IngestLog() rather than msg_ELog() to log messages. Event logging is based on the message logging provided by the Zebra library; see the <I>Zebra Library Interface Manual</I> for information.
+<BR></OL>
+
+
+<H4><A NAME="REF44463">  11.1.1  Parsing Options</A></H4>
+<P>The ingest interface recognizes several command-line options for determining the debug state and log message mask. These options affect the behavior of the interface library routines and set several public variables. [See <A HREF="ingest.html#REF70428">Section 11.2.2, "Public Variables."</A>]
+<PRE>
+-blow,-chunks        Dump data chunks when stored
+-noel        Don't send to EventLogger
+-dryrun,-dry,-test        Don't connect to other processes, e.g. the DataStore
+-log all|e|p|c|d|i|v        Set the messages which get echoed to the terminal
+        The default is emergencies only.
+          all: all messages; same as -log epcdiv
+          e:   emergencies
+          p:   problems
+          c:   clients
+          d:   debugging
+          i:   information
+          v:   development debugging
+-name        Print the program name in log messages to the terminal
+-help, -h        Show this help information
+
+</PRE>
+<P>The text above is printed by the IngestUsage() function, described below.
+<P>Ordinarily, an application first calls IngestParseOptions() to parse the ingest options on the command line and remove them. Calling the function first, before connecting to the message handler or DataStore, allows usage information to be displayed by the help option without the start-up overhead of establishing connections. More importantly, if the command-line options specify `dry run' mode, the connections will not be attempted when IngestInitialize() is called. The interface to IngestParseOptions() follows.
+<PRE>
+<B>void
+IngestParseOptions(argc, argv, usage)
+int *argc;
+char *argv[];
+void (*usage)(/* char *prog_name */);
+</PRE>
+<P></B>The parameters <B>argc</B> and <B>argv</B> correspond to the values passed to main(). Note that <B>argc</B> is passed by reference, since the number of arguments left on the command line may have changed when the function returns. Likewise the argument array <B>argv</B> may change also. The <B>usage</B> parameter is the application's usage function, which will be called when IngestParseOptions() detects the -h or -help option on the command line. If the application has no usage function, pass the IngestUsage() function instead. Otherwise, the application's usage function should call IngestUsage() itself so that the ingest library options will be listed along with the application's own options.
+<PRE>
+<B>void 
+IngestUsage(void);
+</PRE>
+<P></B>For example, if an ingest program has no command-line options, and hence no usage function, call IngestParseOptions() as follows:
+<PRE>
+main(argc, argv)
+int argc;
+char *argv[];
+{
+  IngestParseOptions(&amp;argc, argv, IngestUsage);
+  /* ... */
+</PRE>
+<P>If <B>usage</B> is passed to IngestParseOptions() as NULL, no usage function will be called and the library help option will be disabled. See <A HREF="ingest.html#REF23733">Section 11.3</A> for an example which includes an application-specific usage function.
+
+<P>The IngestRemoveOptions() function can be used by the application to remove its own options from the command line.
+<PRE>
+<B>void
+IngestRemoveOptions(argc, argv, i, n)
+int *argc;
+char *argv[];
+int i;    /* position to start removing args from */
+int n;    /* number of args to remove */
+</PRE>
+<P></B>This function removes <B>n</B> arguments from the <B>argv</B> array, beginning at index <B>i</B>. The options are removed by sliding the pointers at the end of the <B>argv</B> array towards the first position being removed. The number of options removed is subtracted from <B>argc</B>. See <A HREF="ingest.html#REF23733">Section 11.3</A> for an example of using this function to parse application-specific command-line options.
+<H4><A NAME="HDR1">  11.1.2  Initializing the Interface</A></H4>
+<P>The IngestInitialize() function makes connections to the message handler and DataStore daemon according to the options found on the command-line. 
+<PRE>
+<B>void
+IngestInitialize(name)
+char *name;    /* Message name of this ingest module */
+</PRE>
+<P></B>If the test or dryrun options are present, the connections will not be attempted. Otherwise, IngestInitialize() connects to the message handler with msg_connect() using <B>name</B> as the process name. It also calls usy_init() and finally calls ds_Initialize().
+<P>IngestInitialize() also installs a default message handler which handles MH_SHUTDOWN messages. This handler can be overridden by defining a different protocol handler through the standard message library functions. [See the <I>Zebra Library</I> manual.]
+<H4><A NAME="HDR2">  11.1.3  Logging Messages</A></H4>
+<P>The IngestLog() function allows messages to be directed to stdout and relayed to the EventLogger. The log messages can be screened with the command line log option, noted in <A HREF="ingest.html#REF44463">Section 11.1.1, "Parsing Options."</A> When running in DryRun mode, IngestLog() logs messages to stdout without trying to relay them to the EventLogger.
+
+<H4><A NAME="HDR3">  11.1.4  DataStore Interface</A></H4>
+<P>Calls to ds_Store() and ds_LookupPlatform() are defined as macros in ingest.h. The macros call shadow functions implemented internally in the library. When the DataStore is connected, the shadow functions log ds_Store() and ds_StoreBlocks() calls and failures.
+<P>When DryRun mode is in effect, the ds_Store() functions do nothing, and ds_LookupPlatform() always returns a platform identifier of zero. Also, ds_LookupPlatform() will log a message when it is returning a `false' identifier: "DryRun: Calls to ds_LookupPlatform will return 0".
+<H3><A NAME="HDR4">  11.2  The Ingest Interface</A></H3>
+
+<HR>
+<P>Besides the general functions outlined above, the ingest library interface also includes several public variables and macros.
+<H4><A NAME="HDR5">  11.2.1  Development Log Messages</A></H4>
+<P>The ingest header file defines an event logger mask for messages that will normally only be useful while a program is under development, i.e., being run in DryRun mode.
+<PRE>
+#define EF_DEVELOP (0x400)
+</PRE>
+<P>If a message is passed to IngestLog() with only the development flag set, the message will be written to stdout according to the IngestLogFlags mask (described in <A HREF="ingest.html#REF70428">Section 11.2.2</A>) just like any other event message. However, messages with only EF_DEVELOP set will not be relayed to the EventLogger regardless of the value of NoEventLogger (described below). The goal of this flag is to allow voluminous output when debugging and running stand-alone, i.e., during development, but restrict such debugging output when messages are actually being sent to the EventLogger, such as during normal operations. This reduces clutter in the EventLogger.
+<H4><A NAME="REF70428">  11.2.2  Public Variables</A></H4>
+<P>Several ingest library flags are available publicly so that ingest modules can set and test their debug state.
+<PRE>
+extern int   IngestLogFlags;
+extern short NoDataStore;
+extern short NoMessageHandler;
+extern short NoEventLogger;
+extern short DryRun;
+extern short DumpDataChunks;
+
+extern short ShowIngestName;
+</PRE>
+<P>IngestLogFlags holds the bitwise or of the log message types which will be printed to stdout by the IngestLog() function. NoDataStore, NoMessageHandler, and NoEventLogger are non-zero when the corresponding process is not running. For example, an application can run without connecting to the DataStore daemon by setting NoDataStore to a non-zero value <I>before</I> calling IngestInitialize(). An application can test IngestLogFlags to find out which messages are being logged according to command-line options. Conversely, the application can change the IngestLogFlags mask to directly affect the set of messages which will be logged.
+<P>The global flags are set by IngestParseOptions() according to the options present on the command-line. Therefore, after parsing the command line, an ingest process can determine if it is running without a DataStore by testing the value of NoDataStore. Testing the ingest flags is necessary when using DataStore interface functions which are not intercepted by the ingest interface. For example, calls to ds_PlatformName() must be trapped in case the ingest module is running stand-alone, as in the method shown below.
+<PRE>
+# define PlatformName(pid) ((NoDataStore)?"platname":ds_PlatformName(pid))
+</PRE>
+<H4><A NAME="HDR6">  11.2.3  Public Macros</A></H4>
+<P>The ingest.h header file defines several macros which allow ingest modules to set their default debug state explicitly. It may be easier to fix the debug state within the source file during development rather than crowding the command line with debug options. All of the macros are called without any arguments.
+<DL>
+<DT>IngestShowName()<DD>Prefix log messages with the ingest process name.
+<DT>IngestSetNoMessageHandler()<DD>Run without a message handler by setting NoMessageHandler to true.
+<DT>IngestSetNoEventLogger()<DD>Run without an event logger by setting NoEventLogger to true.
+<DT>IngestSetNoDataStore()<DD>Run without initializing the DataStore interface or connection by setting NoDataStore to true.
+
+<DT>IngestSetDryRun()<DD>Run completely stand-alone by setting NoMessageHandler, NoDataStore, and NoEventLogger to true.
+</DL>
+<P>These macros can be called at the beginning of an ingest program to preset the debug behavior. While developing an ingest program, the following line at the beginning of the program will always force stand-alone mode.
+<PRE>
+main()
+{
+  IngestSetDryRun();
+  /* ... */
+</PRE>
+<P>The header file also defines the macro streq() as a convenient test for string equality:
+<PRE>
+# ifndef streq
+# define streq(a,b) (strcmp((a),(b)) == 0)
+# endif
+</PRE>
+<H3><A NAME="REF23733">  11.3  Example</A></H3>
+
+<HR>
+<P>This section contains an example of using the ingest interface taken from the class_ingest program. The source file first includes the ingest.h header file.
+<PRE>
+#include &lt;ingest.h&gt;
+</PRE>
+<P>The beginning of the main() function looks like this:
+<PRE>
+int main (argc, argv)
+  int argc;
+  char **argv;
+{
+/*
+ * Get our command-line options, setting appropriate global variables
+ * Only the file name and the names of the fields should remain
+ */
+  ParseCommandLineOptions(&amp;argc, argv);
+  if (argc &lt; 2)    /* Need a file name arg */
+  {
+    printf("%s: need a file name\n",argv[0]);
+    Usage(argv[0]);
+    exit(PROBLEM);
+  }
+  /* ... */
+/*
+
+ * Initialize usy, message, DataStore, and fields all at once
+ */
+  IngestInitialize(INGEST_NAME);
+</PRE>
+<P>The main() function calls the function ParseCommandLineOptions() which is shown below. The ingest library options are removed first before checking for the application's command-line options. For this reason, the application's options must be different from the library options.
+<PRE>
+/* ParseCommandLineOptions --------------------------------------------
+ *    Set global variables from command-line options, leaving only
+ *    the expected file and field names in the arg list
+ */
+static void
+ParseCommandLineOptions(argc, argv)
+  int *argc;
+  char *argv[];
+{
+  int i, j;
+/*
+ * First parse any of the general ingest options
+ */
+  IngestParseOptions(argc, argv, Usage);
+/*
+ * Now check for any of our own debug flags on the command line
+ */
+  i = 1;
+  while (i &lt; *argc)
+  {
+    if (streq(argv[i],"-show") ||
+       streq(argv[i],"-s"))
+    {
+       DumpDataChunk = (char)1;
+       IngestRemoveOptions(argc, argv, i, 1);
+    }
+    else if (streq(argv[i],"-fields"))
+    {
+       JustShowFields = (char)1;
+       IngestRemoveOptions(argc, argv, i, 1);
+    }
+    else if (! strncmp (argv[i], "-t", 2))
+    {
+       Tfilename = strdup (argv[i+1]);
+       IngestRemoveOptions (argc, argv, i, 2);
+    }
+    else if (! strncmp (argv[i], "-q", 2))
+    {
+       QualThresh = atof (argv[i+1]);
+       IngestRemoveOptions (argc, argv, i, 2);
+    }
+
+    else
+       ++i;
+  }
+}
+</PRE>
+<P>The Usage() function which is passed to IngestParseOptions() is defined below.
+<PRE>
+static void
+Usage(prog)
+  char *prog;
+{
+  printf ("Usage: %s [options] &lt;file&gt; &lt;fields&gt;\n",prog);
+  printf ("       %s -fields &lt;file&gt;\n",prog);
+  printf ("       %s -help\n",prog);
+  printf ("\nOptions:\n");
+  printf ("   -show, -s    Dump data chunk as it's built\n");
+  printf ("   -fields    Describe the sounding file\n");
+  printf ("   -trans &lt;tfile&gt;  Use the site/platform translations in 
+`tfile'\n");
+  printf ("   -q &lt;qval&gt;    Set pressure quality threshold\n");
+  printf ("\n");
+  IngestUsage();
+  printf ("\nExamples:\n");
+  printf ("   %s -show -log pd i7282220.dpk pres temp rh\n", prog);
+  printf ("   %s -fields i7282220.dpk\n\n", prog);
+}
+</PRE>
+<P>The class_ingest options are listed first, followed by the IngestUsage() options, followed finally by examples which include the use of the common ingest options.
+<P>After all of the options have been handled, main() calls IngestInitialize() with the name of the ingest process. Now the application can begin processing data without knowing whether it has actually connected to the message process and DataStore daemon. All of the message logging is done through IngestLog(). The msg_ELog() function cannot be used since it requires a message handler connection and will fail when the application is run without connections. IngestLog() takes care of screening messages by type, echoing them to stdout, and relaying them to the EventLogger when possible.
+<P>All calls to ds_Store(), ds_StoreBlocks(), and ds_LookupPlatform() will actually go through the ingest library interface. The library functions return appropriate values when the DataStore is not connected; otherwise, they check for error returns and log a message when an error occurs.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+

@@ -1,0 +1,312 @@
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="intro.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>� CHAPTER 2 � </B> DataChunks</TITLE>
+<H1><A NAME="REF99837"> <paranum><B>� CHAPTER 2 � </B> DataChunks</A></H1>
+
+<P>The Zebra DataStore must handle data from many different platforms which use several different forms of data. For example, satellite and radar platforms collect data as images. Models generate three-dimensional grids. Mesonets are assemblies of many observation stations reporting time-series data from several instruments. Some platforms, such as profilers, have fixed locations but scan a segment of physical space virtually simultaneously. Other platforms, such as balloon soundings, are mobile and report data for a single flight over an extended period of time. The DataStore and its clients must store, retrieve, and manipulate all of these forms of data. If each of these forms of data were given their own type and their own set of interface functions, the DataStore interface would be complicated and difficult to extend to new forms of data. Instead, the DataStore library relies on a more `unified' data model. Enter the Zebra data chunk.
+<P>This chapter introduces the notion of data chunks and discusses the fundamental parts of the datachunk interface. Subsequent chapters document the use of datachunks for each of the specific forms of data.
+<H3><A NAME="HDR0">  2.1  On the Nature of Data Chunks</A></H3>
+
+<HR>
+
+<P>Data chunks are the DataStore's internal (in-memory) representation for data of all shapes and sizes. Basically, a data chunk is a simple structure which includes an opaque block of bytes (a "chunk" of data<A HREF="datachunks.html#FN1">(1)</A>). The kicker is that every data chunk belongs to a <I>class</I>. The data chunk class attaches a particular interpretation to the data chunk's block of bytes and defines the methods and operations appropriate for data chunks of that class. Datachunk classes are arranged in a hierarchy---classes lower in the hierarchy <I>inherit</I> functionality from the higher classes. For example, the image class defines the methods for operating on image data. However, the image class inherits most of its implementation and higher-level functionality from the regular grid class, since images are in fact a class (i.e., a type) of regular grid.
+<H3><A NAME="HDR1">  2.2  The Object-oriented Approach</A></H3>
+
+<HR>
+<P>Essentially, data chunks are built around an object-oriented approach to data organization. The unique characteristics of a particular organization of data are contained in the methods and implementation of a specific class. The current data chunk implementation is not truly object-oriented, even though the design bears many of its influences. There is no dynamic binding nor any virtual functions, and consequently no real polymorphism. However, an introduction to the concepts on which the data chunk design is based will aid the explanation of the interface as a whole. This section simply outlines a few object-oriented concepts and how they relate to the data chunk design.
+<H4><A NAME="HDR2">  2.2.1  Objects</A></H4>
+<P>Objects possess state and a set of operations for changing that state or performing actions. The operations are part of a strictly defined public interface, but the implementation of the operations and the state information is strictly private. An object <I>encapsulates</I> its state information and its implementation, allowing the private implementation to change without affecting the public interface to the object. In practice, this means one DataChunk class may change the use and interpretation of its opaque storage space in the DataChunk structure, but the change will not adversely affect its application interface nor any applications which use that class. The pervasive optimization enhancements mentioned in a later chapter all took place internally without any impact on the external interface.
+<H4><A NAME="HDR3">  2.2.2  Classes</A></H4>
+
+<P>A class is essentially an object type, in the programming sense of the word. Just as a type is a set whose members are legal values for a variable of that type, a class names a set to which particular objects belong. All objects of the same class share the same public interface, but each object controls its own state. In other words, the class defines the object interface and the set of state variables which an object of that type contains.
+<P>One class can be derived from an existing class by inheriting some or all of the characteristics of the existing class, such as interface functions or state variables. The derived class is a <I>subclass</I> of the original class. For example, a Car class might derive some of its functionality from the Vehicle class, since a Car has state variables and functions which are common to all vehicles. Car would be a subclass of Vehicle. A <I>superclass</I> is the opposite of subclass; a class's superclass is the class from which it was derived.
+<P>An object's operations are often referred to as methods. A <I>method</I> is an operation or interface function, usually public, defined for a particular class of objects. Relative to data chunks, a data chunk method usually just refers to a function implemented for a particular data chunk class.
+<H4><A NAME="HDR4">  2.2.3  Why Data Chunks?</A></H4>
+<P>The data chunk design permits a variety of forms of data to be stored internally in one block of memory while allowing the data to be interpreted according to its class. Any data chunk is easily manipulable depending upon the level of interpretation needed for the manipulation. For example, a data chunk can be serialized and transferred over a network without any need to know what form of data the data chunk's block of bytes contains. Any present or future data chunk class will inherit this functionality of the raw class. The four-dimensional super-collider gluon residual radiation data chunk class would be `serializable' for network transfer without any extra work in that class's implementation. A common operation among similar data organizations is implemented within a class which interprets the data only as much as necessary to perform the operation. As an example, the Transparent class implements the notion of samples. A collection of data samples can be sorted chronologically by a Transparent class method without knowing whether the samples contain images, mesonets, profiles, or simple scalars. Further differentiation between data organizations is imposed by deeper subclasses. Each subclass builds on the capability implemented in its parent classes, thereby avoiding redundant coding among similar data organizations.
+<H4><A NAME="HDR5">  2.2.4  DataChunk Classes</A></H4>
+
+<P>Data chunk classes are arranged in a hierarchy. The <I>raw</I> class sits in the sole slot at the top of the hierarchy. It does not attach any interpretation to the block of bytes. As far as the raw class is concerned, a data chunk is an opaque block of bytes and only that. The methods of the raw class are limited to treating a data chunk as a block of bytes. Other classes are derived from the functionality afforded by the raw class. Those classes which branch directly from the raw class are called <I>subclasses</I> of the raw class. More classes are derived from the subclasses of the raw class. Each successive level of subclass in the class hierarchy adds more detail to the interpretation of the data chunk based upon the functionality of the classes higher up the hierarchy. The deeper the class in the hierarchy, the higher the level of abstraction attached to the data in the data chunk. The class of image data is a subclass of gridded data, since an image is a more limited interpretation---another abstraction beyond regular grids. An image is more than a two-dimensional array of values; an image is a two-dimensional array of bytes ordinarily displayed as a raster image.
+<HR>
+<P><A NAME="REF45727"> <paranum><B>FIGURE  1 </B> The DataChunk class hierarchy</A>
+<P><A HREF="datachunks.fig_1.ps"><IMG SRC="datachunks.fig_1.gif"><P><A HREF="metclasses.html#REF99837">Chapter 4</A>
+
+</A>
+
+<P>The class hierarchy as it exists now is intended to support a series of data organizations; this hierarchy may be seen as a whole in the diagram in <A HREF="datachunks.html#REF45727">Figure 1</A>. The DataStore interface enumerates each of these classes with the DataClass type. The classes in <A HREF="datachunks.html#REF45727">Figure 1</A> correspond to the symbols below, which are all defined in DataStore.h.
+<PRE>
+DCC_Raw
+DCC_Transparent
+DCC_Location
+DCC_MetData
+DCC_Boundary
+DCC_NSpace
+DCC_Scalar
+DCC_RGrid
+DCC_IRGrid
+DCC_Image
+</PRE>
+<P>In addition, there is a symbol DCC_None, which represents the indeterminate or unspecified class.
+<P>Notice that the Raw and Transparent classes are ancestors of every other class in the hierarchy. These two classes form the basic foundation for all of the other data chunk classes. The rest of this chapter is dedicated to describing only these two classes, while the following chapters will cover the other data chunk classes.
+<H4><A NAME="HDR6">  2.2.5  Implementation Notes</A></H4>
+<P>The original implementation of the data chunk class hierarchy attempted to follow the rigors of textbook programming, taking the notion of encapsulation to its fullest extent. The benefits of easily maintainable and modifiable code have justified the approach. Each data chunk class and method knows as little about the underlying implementations of other classes and methods as possible. The drawback has been that as a result, there was a certain amount of copying and shuffling of data internally which is, strictly speaking, unnecessary. Experience has since revealed the bottlenecks and shortcomings of the original implementation. The current version is a much-refined and more efficient implementation, though there will always be room for improvement.
+
+<P>Also, the current design of the data chunk class hierarchy still leaves some data modeling and handling needs un-met. The data chunk model is by no means complete or universal; it focuses almost exclusively on the meteorological, oceanographic, and other geophysical data sets handled by the Zebra software system.
+<H3><A NAME="HDR7">  2.3  General DataChunk Routines</A></H3>
+
+<HR>
+<P>First, there are a few data chunk routines which do not apply to any particular class. All data chunks, regardless of class, can be created, destroyed, and dumped.
+<P>Many data chunk methods and structures refer to the DataPtr type, defined in DataStore.h as a pointer to void.
+<PRE>
+typedef void *DataPtr;
+</PRE>
+<P>In fact, the interface uses the types DataPtr and void * interchangeably.
+<P>The DataChunk structure is also defined in DataStore.h, and except for some well-defined exceptions it should not be publicly accessed. Applications will always refer to a data chunk through a pointer to a DataChunk structure.
+<H4><A NAME="REF20228">  2.3.1  Creating Data Chunks</A></H4>
+<P>Data chunks are always created with dc_CreateDC().
+<PRE>
+<B>DataChunk *
+dc_CreateDC (class)
+DataClass class;
+</PRE>
+<P></B>Where <B>class</B> is the class of the desired data chunk. The return value is a pointer to a new, empty data chunk of the given class. Do not try to free the memory referenced by this pointer---the memory occupied by the data chunk must be released with the dc_DestroyDC() function described below.
+<P>Usually an application needs to associate a platform with this data chunk through the only publicly-accessible member of the DataChunk structure:
+<PRE>
+dc = dc_CreateDC (DCC_Raw);
+dc-&gt;dc_Platform = platform_id;
+</PRE>
+<P>None of the other members of the DataChunk structure should be accessed by the application.
+
+<H4><A NAME="HDR8">  2.3.2  Destroying Data Chunks</A></H4>
+<P>To delete an existing data chunk, call dc_DestroyDC() as follows:
+<PRE>
+<B>void
+dc_DestroyDC (dc)
+DataChunk *dc;
+</PRE>
+<P></B>This function frees the DataChunk structure and any memory that was allocated for data and for auxiliary information. Be careful not to reference information from the data chunk after the data chunk has been destroyed. For example, the array of field ID's returned by one data chunk function resides within the data chunk's memory. Destroying the data chunk invalidates the pointer to that array of field ID's.
+<H4><A NAME="HDR9">  2.3.3  Debugging Data Chunks</A></H4>
+<P>A debug method exists which prints information about any data chunk to the terminal.
+<PRE>
+<B>void
+dc_DumpDC (dc)
+DataChunk *dc;
+</PRE>
+<P></B>Every class implements its own dump method which prints the information being maintained and interpreted in the data chunk by the class. The dc_DumpDC() function calls the dump method of each of the classes in the <B>dc</B> data chunk's class hierarchy, in order from the deepest class level up to Raw. The following code prints the contents---as interpreted by each of the Image superclasses---of an empty Image data chunk.
+<PRE>
+DataChunk *dc;
+dc = dc_CreateDC (DCC_Image);
+dc_DumpDC (dc);
+dc_DestroyDC (dc);
+</PRE>
+<H4><A NAME="HDR10">  2.3.4  Class Information</A></H4>
+<P>At the very least it is nice to be able to inquire as to the class of a data chunk.
+<PRE>
+<B>DataClass
+dc_Class (dc)
+DataChunk *dc;
+</PRE>
+<P></B>It is also often necessary to test whether one class is a subclass of another.
+<PRE>
+<B>bool
+dc_IsSubClassOf (class, superclass)
+DataClass class, superclass;
+
+</PRE>
+<P></B>This function returns non-zero if <B>superclass</B> is an ancestor of <B>class</B>. Note that a class qualifies as a subclass of itself, so this expression is always true:
+<PRE>
+dc_IsSubClassOf (class, class)
+</PRE>
+<P>The dc_SuperClass function returns the superclass of the given DataChunk class.
+<PRE>
+<B>DataClass
+dc_SuperClass (class)
+DataClass class;
+</PRE>
+<P></B>All classes are subclasses of the top-level the Raw class, and the superclass of Raw is DCC_None.
+<H3><A NAME="HDR11">  2.4  The Raw DataChunk Class</A></H3>
+
+<HR>
+<P>At the root of the data chunk class hierarchy is the raw class, designated with the class identifier DCC_Raw<A HREF="datachunks.html#FN2">(2)</A>. The only view of the data chunk supported at this level is that of a single chunk of memory, with no interpretation placed upon it. This level is not very useful to applications directly, but provides several utilities used by its subclasses. The Raw class also implements the global attribute mechanism, described in <A HREF="attributes.html#REF99837">Chapter 8</A>.
+<H4><A NAME="HDR12">  2.4.1  Public Access</A></H4>
+<P>Since the raw class does not introduce any kind of interpretation or organization of the data, there are no raw methods meant for use by general applications.
+<P>The DataChunk member dc_Platform, mentioned in <A HREF="datachunks.html#REF20228">Section 2.3.1</A>, is the only public access point on the raw level intended for general applications. This member should be set to an appropriate PlatformId for the data chunk, and it can also be read to determine a data chunk's assigned platform, if any.
+<H4><A NAME="HDR13">  2.4.2  Private Access</A></H4>
+<P>The subclasses of the raw class and special data store applications may need access to the low-level implementation of the data chunk. The DataChunk can be accessed at this level through two additional structure members:
+<PRE>
+
+int dc_DataLen;
+DataPtr dc_Data;
+</PRE>
+<P>The dc_DataLen member is the length of the data stored in this data chunk, in bytes, while dc_Data is a pointer to the data itself. It is possible that the structure of this data may become more complex in the future, so application developers should be careful about writing code that is dependent on this particular organization. 
+<P>There is a significant distinction between private, internal access for subclass implementations and public access for applications. DataStore client applications need not and should not worry about low-level access. Some very specialized applications may need to perform operations at the raw level. For example, the NetXfr client accesses data chunks at the raw level to send data as a stream of bytes across a network. However, this manual does not yet include the kind of information necessary to write this kind of application.
+<H3><A NAME="HDR14">  2.5  The Transparent DataChunk Class</A></H3>
+
+<HR>
+<P>The transparent class (subclassed from DCC_Raw) implements a view of the data chunk as a series of samples, each of which has an associated time and block of data. Optionally, a sample can also include a location and a subplatform. The data itself remains un-interpreted by the DCC_Transparent data class, hence its name.
+<P>Few applications will actually create a transparent data chunk. However, virtually every application will have need of the transparent methods, since they access fundamental information such as sample times and locations. Likewise, the characteristics of the transparent class influence the operation of all of its subclasses. For example, since the transparent class does not concern itself with the chronological order of its samples, none of its subclasses care about chronological order either.
+<P>All of the functions explained here, as methods of the transparent class, only work on data chunks which are subclasses of transparent. This is rather academic, since only the raw class is not a transparent subclass.
+<H4><A NAME="HDR15">  2.5.1  Samples in the Transparent Class</A></H4>
+<P>The transparent data class primarily provides the abstraction of data as a series of samples. These samples need not have uniform length, and they may contain any sort of data of interest to the application.
+
+<P>To add a new sample to a data chunk, use dc_AddSample() as follows:
+<PRE>
+<B>void
+dc_AddSample (dc, when, data, len)
+DataChunk *dc;
+ZebTime *when;
+DataPtr data;
+int len;
+</PRE>
+<P></B>Where <B>dc</B> is a data chunk subclassed from DCC_Transparent, <B>when</B> is the time associated with this sample, <B>data</B> is the actual sample data, and <B>len</B> is the length of this sample in bytes. On return, the sample will have been added to the end of the given data chunk. The transparent class indexes samples beginning at zero, so the first sample in the data chunk becomes index zero. The next sample will automatically have index one. Each addition of sample assigns the next available index to that sample.
+<P>The function dc_AddSample() creates a new sample with the minimum of information necessary to describe a sample. Every sample must possess at a minimum a time and a block of data. Beyond that, the transparent class also allows a sample to possess a location and a platform identifier. Locations and platforms are described in the sections below. Different subclasses of transparent manipulate this auxiliary information differently to implement their particular data abstractions.
+<P>The transparent class does not put many restrictions on the samples it contains. Samples do not need to be in chronological order, and in fact many samples can exist with identical times. The length of a sample may be as small as zero, or it may be as high as 65,535 bytes. However, there is currently an upper limit on the number of samples: 65,535 (yeah, the size of an unsigned short). Unfortunately, the transparent class does not check for breaches of this limit, so applications should be careful not to go overboard when adding samples.
+<P>If it becomes necessary to change the size of a sample in a data chunk, you may use dc_AdjustSample().
+<PRE>
+<B>void
+dc_AdjustSample (dc, sample, newsize)
+DataChunk *dc;
+int sample, newsize;
+</PRE>
+
+<P></B>Where <B>dc</B> is a data chunk subclassed from DCC_Transparent, sample is the index of the sample to be modified (starting with zero), and <B>newsize</B> the new size of this sample. On return, the sample will have the requested size. If the new size is smaller than the existing sample size, the new size is noted but no memory is release or shuffled. Otherwise, this call is almost guaranteed to move and copy data to make room for a larger sample. Consequently, it should be avoided whenever possible.
+<P>To locate an existing sample in a data chunk, use dc_GetSample().
+<PRE>
+<B>DataPtr
+dc_GetSample (dc, sample, len)
+DataChunk *dc;
+int sample, *len;
+</PRE>
+<P></B>Where <B>dc</B> is a data chunk subclassed from DCC_Transparent, and <B>sample</B> is the index of the desired sample (starting with zero). If the given sample exists, the return value will be the beginning of the sample data, and <B>len</B>, if non-NULL, will be set to the length of this sample. Otherwise NULL is returned.
+<P>To find out how many samples are stored in a data chunk, call dc_GetNSample(), shown below:
+<PRE>
+<B>int
+dc_GetNSample (dc)
+DataChunk *dc;
+</PRE>
+<P></B>Where <B>dc</B> is the a data chunk subclassed from DCC_Transparent.
+<H4><A NAME="HDR16">  2.5.2  Sample Times</A></H4>
+<P>To get the time associated with a given sample, use dc_GetTime().
+<PRE>
+<B>void
+dc_GetTime (dc, sample, when)
+DataChunk *dc;
+int sample;
+ZebTime *when;
+</PRE>
+<P></B>To modify the time associated with an <I>existing</I> sample, use dc_SetTime():
+<PRE>
+<B>void dc_SetTime (dc, sample, when)
+DataChunk *dc;
+int sample;
+ZebTime *when;
+</PRE>
+<P></B>The sample indices can be sorted in chronological order using dc_SortSamples().
+<PRE>
+<B>void
+dc_SortSamples (dc)
+DataChunk *dc;
+
+</PRE>
+<P></B>The samples in the data chunk <B>dc</B> will be sorted chronologically. This function does not actually move any data around; it only sorts the samples which point to the data. Consequently, there is not too much overhead in calling this function. Upon completion, the earliest sample will have index zero, and the most recent (latest) sample will be at the end, with the highest index.
+<P>Often, applications use this function to sort samples which have been merged and added from other data chunks. Data chunks can be stored more efficiently in most of the data file formats if the samples are in chronological order.
+<H4><A NAME="HDR17">  2.5.3  Sample Locations</A></H4>
+<P>The transparent data class can associate a location with each sample in a data chunk. The locations may either be static, meaning that every sample shares a single location; or the locations are mobile, in which case the location varies from one sample to the next.
+<P>To set a static location in a data chunk, use dc_SetStaticLoc().
+<PRE>
+<B>void dc_SetStaticLoc (dc, loc)
+DataChunk *dc;
+Location *loc;
+</PRE>
+<P></B>Where <B>dc</B> is the usual transparent data chunk, and <B>loc</B> is the location which applies to all data within the data chunk.
+<P>Mobile locations must be set for every sample. To do so, call dc_SetLoc() as follows:
+<PRE>
+<B>void dc_SetLoc (dc, sample, loc)
+DataChunk *dc;
+int sample;
+Location *loc;
+</PRE>
+<P></B>Where <B>sample</B> is the index of the sample to be modified (it must already exist in the data chunk), and <B>loc</B> is the location to be associated with this sample.
+<P>When possible, it is more efficient to set locations for multiple samples using a single call to dc_SetMLoc().
+<PRE>
+<B>void
+dc_SetMLoc (dc, begin, nsamp, loc)
+DataChunk *dc;
+int begin;
+int nsamp;
+Location *loc;
+
+</PRE>
+<P></B>The locations stored in the array <B>loc</B> are copied into the samples beginning at index <B>begin</B>, where <B>nsamp</B> is the number of samples to set and the number of locations which will be read from the <B>loc</B> array.
+<P>Use dc_GetLoc() to obtain a location for a sample in a data chunk:
+<PRE>
+<B>void dc_GetLoc (dc, sample, loc)
+DataChunk *dc;
+int sample;
+Location *loc;
+</PRE>
+<P></B>This routine will return in <B>loc</B> the location for the given sample, regardless of whether the data chunk is using static or mobile locations.
+<H4><A NAME="HDR18">  2.5.4  Sample Altitude Units</A></H4>
+<P>The Location structures associated with a transparent data chunk originally implied altitude coordinates in kilometers above mean sea level (AU_kmMSL). However, the altitude units interface supplied by the Zebra library now allows different altitude units to be assigned to locations. The dc_SetLocAltUnits() function sets the altitude units of a transparent data chunk, allowing altitude coordinates to be interpreted using the correct units.
+<PRE>
+<B>void
+dc_SetLocAltUnits (dc, units)
+DataChunk *dc;
+AltUnitType units;
+</PRE>
+<P></B>As usual, <B>dc</B> is a data chunk which must be a subclass of DCC_Transparent. The <B>units</B> parameter is the enumerated AltUnitType to be associated with the data chunk's locations. This manual contains a brief overview of altitude units in <A HREF="intro.html#REF92075">Section 1.4.2,  "Altitudes", on page 17.</A> The complete altitude units interface is documented in the <I>Zebra Library Interface Manual</I>.
+<P>Consider the case of creating a data chunk to hold a balloon sounding. The data chunk will actually be a proper subclass<A HREF="datachunks.html#FN3">(3)</A> of transparent, but the locations will be stored at the transparent level. The sounding is mobile, so a location will be set for each sample. If the locations are being stored as pressure altitudes, then the altitude units should be set to AU_mb.
+<PRE>
+DataChunk *dc;
+
+Location locns[ NUM_LOCATIONS ];
+...
+dc_SetLocAltUnits (dc, AU_mb);
+for (i = 0; i &lt; dc_GetNSample (dc); ++i)
+  dc_SetLoc (dc, i, locns+i);
+</PRE>
+<P>Note that the location units do not affect the way locations are stored in the data chunk. The location coordinates are not converted or translated in any way. Consequently, the altitude units setting can be changed at any time during the life of a data chunk.
+<P>Other parts of an application will need to inquire about the altitude units to properly interpret the altitude coordinates of the locations. The function dc_GetLocAltUnits() performs this inquiry.
+<PRE>
+<B>AltUnitType
+dc_GetLocAltUnits (dc)
+DataChunk *dc;
+</PRE>
+<P></B>This function returns the current altitude units for the data chunk <B>dc</B> as an enumerated AltUnitType. Thus, given the example above, the expression below evaluates to true.
+<PRE>
+dc_GeLocAltUnits (dc) == AU_mb
+</PRE>
+<H4><A NAME="HDR19">  2.5.5  Samples From Multiple Platforms</A></H4>
+<P>On occasion, it is desirable to include data from several platforms in a single data chunk. The transparent data class supports this mode by allowing the association of a platform identifier (type PlatformId) with every sample.
+<P>Use dc_SetPlat() to set the platform for a data chunk sample:
+<PRE>
+<B>void dc_SetPlat (dc, sample, platform)
+DataChunk *dc;
+int sample;
+PlatformId platform;
+</PRE>
+<P></B>Where <B>sample</B> is an existing sample in <B>dc</B>, and <B>platform</B> is the PlatformId of the platform for this sample.
+<P>To retrieve the platform associated with a given sample, call dc_GetPlat() as follows:
+<PRE>
+<B>PlatformId dc_GetPlat (dc, sample)
+DataChunk *dc;
+int sample;
+
+</PRE>
+<P></B>The return value will be the platform associated with the given sample in <B>dc</B>, or BadPlatform if <B>sample</B> does not exist. If no platform has been explicitly set for a sample, the sample's platform defaults to the value of the dc_Platform field of the data chunk structure.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+
+<HR><H3>Footnotes</H3>
+<DL COMPACT>
+<DT><A NAME=FN1>(1)</A><DD>A data chunk on steroids is called a "data hunk", while a holy data chunk is a "data monk", and so on...
+<DT><A NAME=FN2>(2)</A><DD>Dante had his "great chain of being"we have the "great chunk of being".
+<DT><A NAME=FN3>(3)</A><DD>Taken from set theory, class A is a proper subclass of class B iff A is a subclass of B and A &lt;&gt; B.
+</DL>
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="locations.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

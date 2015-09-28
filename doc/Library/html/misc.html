@@ -1,0 +1,125 @@
+<P><A HREF="Library.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="ixfr.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>� CHAPTER 8 � </B> General Utilities</TITLE>
+<H1><A NAME="HDT0"> <paranum><B>� CHAPTER 8 � </B> General Utilities</A></H1>
+
+<P>This chapter houses general routines that just could not find a home anywhere else. Most have general utility, and just about any zebra application may find itself needing one or more of them.
+<H3><A NAME="HDR1">  8.1  Configuration Variables</A></H3>
+
+<HR>
+<P>The library interface encapsulates access to some important directory paths and run-time variables through several convenient functions. This allows clients access to the information as needed without knowing how or from where it is derived. The compile-time defaults and the checks for the run-time environment are all implemented within the library interface.
+<H4><A NAME="HDR2">  8.1.1  Directory Paths</A></H4>
+
+<P>At the moment, five directory paths can be retrieved through the library interface: the base directory, the binary directory, the library directory, the project directory, and the data directory.<A HREF="misc.html#FN1">(1)</A> The base directory is the top directory of the installation, such as /zebra. It defaults to the value of the compile-time symbol BaseDir, but it can be overridden by the run-time environment variable ZEB_TOPDIR. The binary and library directories are the directories in which the binary and library files were installed, respectively. If no base directory is specified in ZEB_TOPDIR, the binary and library directories default to the compile-time symbols BinDir and LibDir. However, if a base directory is explicitly given in ZEB_TOPDIR, then the binary and library directories become the bin and lib subdirectories of the base directory.<A HREF="misc.html#FN2">(2)</A> The data directory comes from the DATA_DIR environment variable when present, else it defaults to the compile-time value of the DataDir symbol from config.h.
+<P>The project directory is a little more complicated. The value of the ZEB_PROJECT environment variable takes precedence, but the value can be either an absolute or relative path name. If the value is an absolute path (i.e., it begins with a slash: `/') then the value is copied exactly into the project directory path. Otherwise, the value is assumed to be the name of a project directory, either under the project subdirectory of the base directory, or directly under the base directory. If ZEB_PROJECT is not present in the environment, and it could not be used to find an accessible directory, then the project directory reverts to `.', the process's current working directory.
+<P>The library interface contains a separate function call for accessing each directory path.
+<PRE>
+<B>char *
+GetBaseDir ()
+char *
+GetLibDir ()
+char *
+GetBinDir ()
+char *
+GetProjDir ()
+char *
+GetDataDir ()
+</PRE>
+<P></B>Each function returns a pointer to a string. The string is permanently valid, but it should not be changed.
+<H4><A NAME="HDR3">  8.1.2  UI Configuration Variables</A></H4>
+
+<P>The directory paths and other variables can also be accessed as UI variables for programs which use the RDSS UI package. A program must first call ui_init() to initialize the UI library, and then it can call SetupConfigVariables() to assign the variables.
+<PRE>
+<B>void
+SetupConfigVariables ()
+</PRE>
+<P></B>This function first makes sure the directory paths have been initialized as described above. Then it assigns values to the following symbols in the UI variable table `ui$variable_table'.
+<UL><DL>
+<DT>c$basedir<DD>Base directory.
+<DT>c$libdir<DD>Library directory.
+<DT>c$bindir<DD>Binary drectory.
+<DT>c$projdir<DD>Project directory.
+<DT>c$datadir<DD>Data directory.
+<DT>c$rdssdir<DD>RDSS directory, from the RDSSDir symbol in config.h during compilation.
+<DT>c$msgname<DD>Message handler name for this process.
+</DL></UL>
+<P>By convention, all of the configuration variables use the prefix `c$'.
+<H3><A NAME="HDR4">  8.2  File Searching</A></H3>
+
+<HR>
+<P>The FindFile() function simplifies searching for files among a list of directory paths.
+<PRE>
+<B>int
+FindFile (file, spath, dest)
+char *file, *spath, *dest;
+</PRE>
+<P></B>The <B>file</B> parameter contains the file name to be found, while <B>spath</B> points to the search path. The search path consists of a comma-separated string of directory paths in which to look for the file. All of the characters between commas are taken as a directory path, so usually the search path should not contain any spaces. Anyone wishing to fix this should feel welcome to do so.
+<P>The search starts by trying access the file name as given. If that fails, the search continues by trying to access the file in each successive directory of the search path. As soon as the file is found, the function returns non-zero with the path to the file contained in <B>dest</B>. If the file cannot be found, the function returns zero. The contents of <B>dest</B> will be destroyed whether or not the search succeeds.
+
+<H3><A NAME="HDR5">  8.3  List Parsing</A></H3>
+
+<HR>
+<P>It is often convenient for a user to be able to specify things as a comma separated list of items. With CommaParse(), it is also convenient for a program to deal with these lists.
+<PRE>
+<B>int
+CommaParse (string, substrings)
+char *string, **substrings;
+</PRE>
+<P></B>Where <B>string</B> is a list to be parsed. After parsing, the return value is the number of items in the list, and <B>substrings</B> is a series of pointers, one to each item. Leading white space will have been removed from each item.
+<P>This routine destructively modifies <B>string</B> by replacing commas with null characters.
+<H3><A NAME="HDR6">  8.4  Regular Expressions</A></H3>
+
+<HR>
+<P>Rather than require lots of system-dependent code when using regular expressions in Zebra, the library interface includes a simple system-independent interface. The interface follows the BSD style, so it should be familiar to anyone familiar with the BSD re_comp() and re_exec() routines.
+<PRE>
+<B>char *
+zl_re_comp (re)
+const char *re;
+</PRE>
+<P></B>The <B>re</B> parameter is the regular expression to be compiled. The function returns NULL if successful, otherwise it returns a pointer to an error message.
+<PRE>
+<B>int
+zl_re_exec (s)
+const char *s;
+</PRE>
+<P></B>The zl_re_exec() function matches the string <B>s</B> with the most recently compiled regular expression. It returns 1 for a match, 0 for no match, and -1 if the regular expression is invalid.
+<H3><A NAME="HDR7">  8.5  Run Length Encoding</A></H3>
+
+<HR>
+<P>A pair of routines exists to perform run length encoding and decoding of character data. Depending on the nature of the data, substantial amounts of space can be saved by using run length encoding.
+
+<H4><A NAME="HDR8">  8.5.1  Routines</A></H4>
+<P>To encode an image into run length form, use RL_Encode() as follows:
+<PRE>
+<B>void
+RL_Encode (source, dest, nsource, ndest, sused, dused)
+unsigned char *source, *dest;
+int nsource, ndest, *sused, *dused;
+</PRE>
+<P></B>Where <B>source</B> is the array of data to be encoded, <B>dest</B> is the destination for the encoded data, <B>nsource</B> is the length of source, and <B>ndest</B> is the length of dest. Encoding is performed until the source array is exhausted, or the destination array is filled. On return, <B>sused</B> is set to the number of source bytes encoded, and <B>dused</B> is set to the length of the data placed in dest.
+<P>To convert encoded data back to its original form, use RL_Decode().
+<PRE>
+<B>void
+RL_Decode (dest, source, len)
+unsigned char *dest, *src;
+int len;
+</PRE>
+<P></B>Where <B>dest</B> is the destination of the decoded data, <B>source</B> is the encoded data to be decoded, and <B>len</B> is the length of source.
+<H4><A NAME="HDR9">  8.5.2  Encoded Data Format</A></H4>
+<P>The encoded format is quite simple. An encoded data array is broken up into a series of runs, consisting of either a set of bytes which all have the same value, or a set of literal data. Each run begins with a single byte, which indicates the type of run, and the length of the run.
+<P>If the high order bit of this byte is set, the run consists of a series of identical bytes. The low-order seven bits give the length of this run---with the convention that a length of zero really means 128. The actual byte that makes up this run follows immediately after the length byte.
+<P>If the high order bit is not set, then a run of literal data follows. The value of the length byte is the length of the run, again with the convention that a length of zero means 128. A series of that many bytes immediately follows.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+
+<HR><H3>Footnotes</H3>
+<DL COMPACT>
+<DT><A NAME=FN1>(1)</A><DD>The directory paths and their corresponding compile-time and run-time settings are also explained in the Zebra installation manual.
+<DT><A NAME=FN2>(2)</A><DD>This is why bin and lib should have the same parent directory in a Zebra installation, in case the location of the installation ever needs to be explicitly overridden by the run-time environment variables.
+</DL>

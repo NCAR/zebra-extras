@@ -1,0 +1,443 @@
+<P><A HREF="Developer.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="customized.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>CHAPTER 3 </B> Guide to Imake for Zebra Developers</TITLE>
+<H1><A NAME="REF27242"> <paranum><B>CHAPTER 3 </B> Guide to Imake for Zebra Developers</A></H1>
+
+<P>Those who are simply installing Zebra need only read the <I>Zebra Installation Manual</I>. You should not need to read this, unless you are simply curious, or unless you are porting Zebra to a new system. For developers, most of this is perhaps detail that you do not need immediately, if ever. Any section that does not look immediately necessary is probably not. This manual was originally a quickly hacked transition guide for local developers, and it still bears the marks of being both quick and hacked.
+<P>First, to give credit where credit is due: Imake was originally written by Todd Brunhoff, Tektronix, Inc., while a guest engineer at Project Athena, MIT, and further developed by Jim Fulton of the X Consortium. Imake is copyrighted by MIT, but permission has been granted for any use and distribution (as long as the Copyright message is distributed as well and all that...). 
+
+<P>This manual describes the general operation of imake and its implementation in the Zebra directory hierarchy. It also offers some guidelines for making<A HREF="imake.html#FN1">(1)</A> the most out of Imakefiles. The most common make targets, such as depend, all, install, clean, and Makefile (mf), still exist. New ones, such as includes and Makefiles, are described below. Also, feel free to give me any suggestions you may have for additions, corrections, or clarifications to this document.<A HREF="imake.html#FN2">(2)</A>
+<P>Some other places to look for information about imake:
+
+<UL>
+<P><LI>The imake(1) man page, imake.man.
+<BR>
+<P><LI>The make(1) man page.
+<BR>
+<P><LI>The cpp(1) man page.
+<BR></UL>
+
+
+<P>You should be familiar with make and cpp to get the most from this document. The imake man page offers some details and command line options which are not discussed here. The imake man page, as well as the imake source and configuration files, can be found in the Zebra directory zebra/config/imake, or in the X11 distribution in xc/config/imake.
+<P>This document refers to several files which Imake uses to generate Makefiles. All of these files can be found in the X11R6 distribution under xc/config/cf, or under Zebra's distribution in zebra/config/cf:
+
+<UL>
+<P><LI>Imake.tmpl
+<BR>
+<P><LI>Imake.rules
+<BR>
+<P><LI>*.cf
+<BR></UL>
+
+
+<P>The site configuration file usually resides in the cf directory, but the Zebra hierarchy puts a specially-modified copy in config/project to override the copy in config/cf.
+
+<UL>
+<P><LI>site.def
+<BR></UL>
+
+
+<H3><A NAME="HDR0">  3.1  How Imake Works</A></H3>
+
+<HR>
+
+<P>Imake takes advantage of the C pre-processor to generate a Makefile from a file called an Imakefile. Makefile rules and variables are set through macros defined in a series of files included by Imake. Imake tells cpp to include a master template file, Imake.tmpl, which in turn uses #include directives to include other files, such as the machine-specific configuration file (with the .cf extension), the Imake.rules file, the Project.tmpl file, and the Imakefile. The Project.tmpl file defines common variables, such as install directories, needed libraries, and include directories, which are specific to a particular project. The Imake.rules file defines macros for common Makefile targets, such as `depend', `includes', and `clean', and rules for building and installing programs and libraries. These macros expand into Makefile rules when processed by cpp to produce the Makefile.
+<P>The imake program is necessary to overcome certain limitations of C pre-processors. First of all, cpp macros cannot expand into multiple lines (i.e., they cannot insert newlines into expanded macros), whereas Makefile targets must be separated from their shell commands by newlines. So Imake rules are defined using two consecutive `@' characters to indicate where newlines should be placed when the macro is expanded. Also, C pre-processors are not consistent in their behavior among different platforms. Some pre-processors convert escaped newlines to spaces, others convert tabs to spaces. Since tabs are required before each line of a make rule's shell commands, imake makes sure the tabs are there or inserts its own tabs in the cpp output.
+<P>A Makefile is built from an Imakefile through the following steps:
+
+<OL>
+<P><LI>imake invokes cpp, piping both cpp's stdin and stdout. Imake sends cpp an include directive to include the Imake template file, Imake.tmpl. Meanwhile, imake filters cpp's output: "@@" is replaced with "\n" and lines following targets (those lines containing a `:') are prepended with tabs.
+<BR>
+<P><LI>Imake.tmpl determines the architecture it is being compiled on through pre-defined cpp symbols so it can include a machine-specific configuration file, *.cf. Then a site.def file is included, allowing a particular site to override any .cf definitions or any of the Imake.tmpl default symbol definitions. Zebra's site.def file, in config/project/site.def, includes the site-specific config.h file. All of the local configuration choices are actually set in config.h.
+<BR>
+<P><LI>Imake.tmpl then gives default definitions to any variables that were not set in the previously included files. Here are some examples of these machine- and site-specific symbols: 
+<BR><PRE>
+</OL>
+
+
+SystemV           HasSockets
+HasVFork                 HasVoidSignalReturn
+HasSaberC                 HasFortran
+DefaultCDebugFlags                 ArCmd
+InstallCmd                 RanlibCmd
+
+</PRE>
+<P>See Imake.tmpl for the full complement. This isn't even close.
+
+<OL>
+<P><LI>Next, Imake.tmpl outputs text which assigns each cpp symbol defined so far to a corresponding Makefile variable:
+<BR><PRE>
+</OL>
+
+
+AR=ArCmd
+INSTALL=InstallCmd
+CC=CCompiler
+RANLIB=RanlibCmd
+INSTPGMFLAGS=InstPgmFlags
+</PRE>
+<UNKNOWN>Note the name convention: cpp symbols are lowercase with capitalized word separations, while Make variables are all uppercase. Remembering this can save some confusion when looking through Imakefiles. There are only one or two notable exceptions to this convention.</UNKNOWN>
+
+<OL>
+<P><LI>Imake.tmpl next includes the Imake.rules file. In Release 5, the Imake rules file was not included until after the project's rules file, giving the project a chance to override the standard Imake rules. In Release 6, Imake.tmpl includes Imake.rules first.
+<BR>
+<P><LI>Imake.tmpl then includes the Project.tmpl file. The Project.tmpl file assigns default values to project-specific cpp symbols and then outputs the text which assigns these symbols to the corresponding Makefile variables, just as Imake.tmpl does in step (4). For example, Zebra's project template sets these variables:
+<BR><PRE>
+</OL>
+
+
+UIC=UicCmd
+ARADD=ArAdd
+LIBZEB=ZebLibrary
+</PRE>
+
+<OL>
+<P><LI>For Zebra's implementation, Project.tmpl is in zeb/config/project. The last line of the Zebra template includes the Zebra.rules file, which defines new Zebra rules and overrides (by first undefining) some of the default definitions given in Imake.rules. The rules in Zebra.rules are specially designed for the Zebra development environment.
+<BR>
+<P><LI>Finally, the Imake.tmpl file includes the actual Imakefile. Here rule macros are expanded, and imake inserts any necessary newlines and tabs into the output.
+<BR>
+<P><LI>Imake.tmpl adds some targets to the output necessary for all Makefiles, such as the following:
+<BR>
+</OL>
+
+
+<UNKNOWN>Makefile  For re-creating the Makefile from the Imakefile using imake. </UNKNOWN>
+<UNKNOWN>clean  The generic clean target which removes all object files, core files, etc.</UNKNOWN>
+<UNKNOWN>If the Imakefile defined the IHaveSubdirs cpp symbol, targets are included for propagating the `depend', `includes', `clean', `install', `all', and `Makefiles' targets to the subdirectories. More on this option later.</UNKNOWN>
+
+<OL>
+<P><LI>Imake writes the resulting output to a Makefile. Though this may sound long and complicated, the whole process has been methodically laid out, and Makefile generation is actually very quick and extremely flexible.
+<BR></OL>
+
+
+<H3><A NAME="HDR1">  3.2  Imakefiles Versus Makefile.cpp Files</A></H3>
+
+<HR>
+<P>The Imakefile system is similar to Zebra's old (we're talkin' way back) Makefile.cpp system. If you are not familiar with that system and don't care to know anything about it, then you may move ahead one square, to the next section.
+<H4><A NAME="HDR2">  3.2.1  Similarities</A></H4>
+<P>Both systems rely on the C pre-processor to handle the configuration and dissemination of distribution-wide variables to the Makefile hierarchy. Imake's template files are simply Zebra's config.h taken to a more thorough and flexible level to maximize portability. Symbols like CCompiler and CCOptions, defined in config.h, are assigned to Makefile variables by lines like the following in each Makefile.cpp:
+<PRE>
+CC=CCompiler
+CFLAGS=CCOptions IncludeDirs
+</PRE>
+
+<P>Imake takes care of this assignment outside of the Imakefile by putting these lines in the template files, thus prepending the general, distribution-wide information to the directory-specific information in the Imakefile. An Imakefile only describes the directory where it is located. It knows nothing about its parent or where it is in the rest of the distribution. This makes the whole Imakefile system modular, flexible, and easy to maintain. And where each and every Makefile.cpp had to include a rule for re-making a Makefile, Imake appends this rule to each Makefile automatically. Imake also provides the added bonus of using cpp macros to generate rules as well as variables; any adjustment required in a rule is made in one rules file, and the whole hierarchy is automatically updated by the `Makefiles' target.
+<P>Notice that because of the Imake system's modularity, where each directory need only know about its immediate subdirectories, the whole Zebra distribution could be inserted inside another Imake distribution hierarchy by simply adding Zebra's directory to one Imakefile's SUBDIRS variable. Imagine compiling <I>every</I> RDSS package by editing one config.h file and typing one make command, while maintaining the capability to distribute and build packages individually.
+<H4><A NAME="HDR3">  3.2.2  Changes to Zebra with the Installation of Imake</A></H4>
+<P>Several changes were made to the Zebra distribution and build behavior with the transition to imake. Most of these changes were made to make imake more effective in building and maintaining Zebra; others were just plain overdue. This section describes these changes.
+
+<OL>
+<P><LI>The resource files originally stored in zeb/lib/resources have been moved to their respective source directories where they should be. They have an extension of `.ad' indicating an application defaults file. These files are installed into the lib/resources directory. Installation rules are generated with the InstallAppDefaults() Imake rule macro.
+<BR></OL>
+
+
+<UNKNOWN>Other files are now installed from more appropriate places rather than permanently residing in their installed location. For example, the master copy of the zeb.hlp file resides in util/xhelp, while the icons and map files reside in src/etc from where they are installed into the library.</UNKNOWN>
+
+<OL>
+<P><LI>The distribution now behaves much more `hierarchically'. A make in a directory will automatically propagate to all of its subdirectories. Note that Imake subdirectory rules make full use of $(MAKE) and $(MFLAGS) when recursively calling make. Hence command-line flags, even -n, will be automatically propagated to subdirectory makes. For a great example of this, try the following command from the toplevel Zebra directory. After the imake program and all of the Makefiles have already been made:
+<BR><PRE>
+</OL>
+
+
+% make -n Everything MFLAGS='-n DEPLIBS='
+
+</PRE>
+<UNKNOWN>This will run make through the process of building the <I>entire</I> distribution without ever actually executing a single command, except of course for the recursive makes. The DEPLIBS= assignment removes any library dependencies for programs; otherwise if the library does not exist, make will give an error about not being able to create the dependency target. (Note that this assignment works because every Imakefile uses the DEPLIBS variable to set its dependent libraries; this variable ususally defaults to `libZeb.a'.) If the distribution has recently been cleaned, the compile command for every source file will be printed by make. Otherwise compile commands will be shown for only those source files which are out-of-date. This is an extremely useful technique for testing configuration settings and Imakefile modifications.</UNKNOWN>
+
+<OL>
+<P><LI>The functionality of the `Makefile' target has been separated. The `Makefile' target no longer automatically does a `make depend'. During installation, a `make Makefiles' must be done to make sure all Makefiles in the distribution are up-to-date. Then a `make includes' is done for the whole distribution to install public header files in the build's include directory ($(TOP)/include). The `depend' target cannot be performed until after the `includes' target is complete. Hence the `Makefile' and `depend' targets had to be separated. The shorthand `mf' target, since it is not invoked in a hierarchical build, performs both the `Makefile' and `depend' targets. So when building a Makefile before the includes directory has been built, use `Makefile' rather than `mf'. But in normal development, you can use `mf'.
+<BR>
+<P><LI>All of the ingest modules in zeb/ingest have been moved into their own subdirectory. Library routines that other ingest modules depend upon are compiled and installed from zeb/ingest/ingest.
+<BR>
+<P><LI>The distribution hierarchy now includes a new subdirectory, zeb/config, which contains the imake source and necessary configuration and template files. Zebra's projet-specific files are in zeb/config/project.
+<BR></OL>
+
+
+<H3><A NAME="HDR4">  3.3  General Imake Features</A></H3>
+
+<HR>
+
+<P>Imakefiles are designed to be as machine-independent as possible. Makefile variables are used wherever possible to name source files, object files, libraries, and even shell commands such as `rm' and `cat'. The use of Makefile variables allows a great deal of flexibility. Usually each variable defaults to some normal value in the makefile, but this value can be overridden from the command line of the make(1) command. For example, a programmer may want to compile a source file with the cpp symbol DEBUG set, even though this is not the default in the Makefile. Using an imake-generated Makefile, the make command would be
+<PRE>
+% make DEFINES=-DDEBUG
+</PRE>
+<P>The same make variables are generated from each and every Imakefile. So even without having written the Imakefile originally, a programmer can be assured that the DEFINES variable is referenced in the Makefile and will produce the desired results. 
+<P>Imakefile rules are defined once in a central file rather than redundantly copied into every Makefile which requires a particular rule. Thus rules can be adjusted in a single location for different development behaviors and for machine portability. For example, here is the definition of the BuildIncludes() macro:
+<PRE>
+#ifndef BuildIncludes
+#define BuildIncludes(srclist,dstsubdir,dstupdir) @@\
+includes:: @@\
+  MakeDir($(BUILDINCDIR)/dstsubdir) @@\
+  @(set -x; cd $(BUILDINCDIR)/dstsubdir; for i in srclist; do \ @@\
+  $(RM) $$i; \ @@\
+  $(CP) -p $(BUILDINCTOP)/dstupdir/$(CURRENT_DIR)/$$i .; \ @@\
+  done)
+#endif /* BuildIncludes */
+</PRE>
+<P>Note the "@@" strings at the end of each line. When invoked in an Imakefile as BuildIncludes($(HEADERS),.,.), using the definition in Zebra.rules, this macro expands to
+<PRE>
+includes::
+  @if [ -d $(BUILDINCDIR)/. ]; then set +x; \
+  else (set -x; $(MKDIRHIER) $(BUILDINCDIR)/.); fi
+  @(set -x; cd $(BUILDINCDIR)/.; for i in $(HEADERS); do \
+  $(RM) $$i; \
+  $(CP) -p $(BUILDINCTOP)/./$(CURRENT_DIR)/$$i .; \
+  done)
+</PRE>
+
+<P>This is a Makefile rule for installing the files in the `srclist' parameter into the directory $(BUILDINCDIR)/dstsubdir. [BUILDINCDIR is a Makefile variable that gives the location of the include directory in use by an entire distribution. For Zebra, BUILDINCDIR usually equals $(TOP)/include, where $(TOP) is the relative path to the top of the distribution hierarchy. TOP is set automatically when Makefiles are generated for subdirectories. For example, in zebra/gp, TOP=..]
+<P>The header files are in the Makefile HEADERS variable, and the subdirectory is `.', hence the path back to the top of the include directory (dstupdir) is `.'. The most common macros and their uses will be described in more detail later.
+<P>The BuildIncludes() macro is an example of a rule which has been re-defined for Zebra's development environment. Usually, BuildIncludes() installs header files by simply creating symbolic links in the include directory to the header file in the source directory. Zebra uses a different behavior; header files are copied directly into the hierarchy's include directory rather than linked. [The -p option, on those systems which support it, preserves the modification time of the copied file rather than using the time of the copy.]
+<P>The Imake system offers a great deal of consistency among the directories of a distribution. Rules which every Makefile needs, such as clean and depend, and rules for generating Makefiles, are automatically included in the generated Makefile. Distribution-wide variables (i.e. project template variables) are automatically included in every Makefile, so that every directory will know where to install any binaries it creates and what command to use for RANLIB. (`ranlib' for BSD but `true' for SYSV.) Likewise, rule macros can be adjusted as necessary from a central file and the changes will automatically be distributed throughout the distribution. This can be especially important when porting distributions to different platforms. If a particular rule must do something special on a certain platform, the rule macro can be adjusted with #ifdef directives to conform to that platform's requirements. The adjustments will be reflected throughout the distribution hierarchy when the Makefiles are re-made.
+<P>The Imake system has built-in support for subdirectories. If a directory has subdirectories that must be built, and to which rules like <I>clean</I>, <I>depend</I>, and <I>includes</I> must be propagated, rules for these actions can be automatically included in the Makefile. All that is necessary is the definition of the IHaveSubdirs cpp symbol and the make variable SUBDIRS in the Imakefile. Here is an example from Zebra's top-level Imakefile:
+<PRE>
+#define IHaveSubdirs
+#define PassCDebugFlags
+
+#if BUILD_OPTIMIZER
+OPTIMIZER_DIR = Optimizer
+#endif
+#if BUILD_INGEST
+INGEST_DIR = ingest
+#endif
+SUBDIRS = config libutil msg timer \
+  DataStore gp dm util datautil \
+  pd $(OPTIMIZER_DIR) $(INGEST_DIR)
+DependSubdirs($(SUBDIRS))
+</PRE>
+<P>The order of the subdirectories is important, since that is the order in which the subdirectories are built. Directories whose objects are needed by other directories should be listed first in the SUBDIRS variable. The DependSubdirs() macro is included because `depend:' targets for subdirectories are not automatically included in the Imake template, unlike targets clean, all, and install.
+<P>The PassCDebugFlags defines any flags that should be propagated to subdirectories. For example, if the ./ingest directory is being compiled with CDEBUGFLAGS=-g, all of the subdirectories will be compiled with this flag since the src/ingest Imakefile defines PassCDebugFlags.
+<PRE>
+#define PassCDebugFlags `CDEBUGFLAGS=$(CDEBUGFLAGS)'
+</PRE>
+<P>The definition of PassCDebugFlags is included on the make command line for each of the subdirectories. In other situations, such as the xhelp subdirectory of ./util, it probably isn't very useful to compile xhelp with the debug flag, so the util Imakefile does not pass the debug variable.
+
+<P>Another important aspect of Imake is the CURDIR and TOPDIR cpp symbols. These symbols are passed from directory to subdirectory on the imake command line by the <I>Makefiles</I> target. The Makefile knows its current directory and appends the subdirectory name to this value to define the subdirectory's CURDIR symbol. The TOPDIR symbol is prefixed with `..' for every subdirectory. The CURDIR and TOPDIR symbols are assigned to the CURRENT_DIR and TOP Makefile variables. For example, in the gp Makefile, CURRENT_DIR=./gp and TOP=../. Hence the include directory can be specified the same way for every Makefile, without using an absolute pathname, as $(TOP)/include. If the current directory is ./ingest/class, $(TOP)/include will be evaluated as ../.././include---the correct directory. For the TOP and CURRENT_DIR variables to be correctly initialized, a `make Makefiles' must be done from the top-level directory. Once initialized though, a Makefile will remember its values each time it is re-made. This hierarchy-independent strategy for defining distribution-wide variables is a large contributor to Imake's flexibility and modularity.
+<H3><A NAME="HDR5">  3.4  Zebra's Own Imakefile Features</A></H3>
+
+<HR>
+<P>Zebra uses some custom-designed Imakefile rule macros for added capability and convenience, from generating UI load files to creating compressed tar distribution files. An excerpt from Zebra.rules describing the rules is included below, followed by examples of using some of the rules. See the Imakefiles for the best examples of using these rules. The actual definitions found in Zebra.rules are the final authority on the behavior of each of these targets. Just as it is with program code, the rules file tends to be updated more often than the documentation.
+<P>There are a few general points about rule macros that might be helpful. Where the target is not a conventional target like install or clean, the target is the first parameter of the macro. So for the UI load file macros, the first parameter is the name of the .lf file which you want to create. Since this name is also the target, `make &lt;loadfile&gt;' works as you would expect. For the CompleteProgramTarget() macro, the first parameter and the Makefile target is the program name. Also, note that a single macro can actually specify more than one target, either explicitly or by invoking another rule macro. For example, CompleteProgramTarget() invokes the NormalProgramTarget() rule macro and then adds an install target for the target program.
+<H4><A NAME="HDR6">  3.4.1  UI Load File Targets</A></H4>
+<P>These macros cover all of the methods for generating .lf files found in the Zebra hierarchy.
+<P><B>UILoadFileTarget(loadfile,uisrc)</B>: <I>loadfile</I> is the .lf file to be created, and <I>uisrc</I> is the source file which will be `read' into uic.  The <I>uisrc</I> file is read into $(UIC), pager$mode is set to false, and a `save &lt;loadfile&gt; all' is performed.
+
+<P><B>UILoadFileDepsTarget(loadfile,uisrc,deps)</B>: <I>loadfile</I> is the .lf file to be created, and <I>uisrc</I> is the source file which will be `read' into uic.  The <I>uisrc</I> file is read into $(UIC), pager$mode is set to false, and a `save &lt;loadfile&gt; all' is performed. <I>deps</I> is additional UI source files to list as dependencies on the make target line.
+<P><B>UIBootFileDepsTarget(loadfile,uisrc,deps)</B>: Target which creates a .lf boot-file from <I>uisrc</I>, installs it and cleans it as well.  Additional dependencies can be passed in the <I>deps</I> parameter.  Just like <I>UILoadFileDepsTarget</I> except it uses uib instead of uic.
+<P><B>UISimpleLoadFileTarget(loadfile,uisrc)</B>: Target which creates a .lf file from uisrc, installs it and cleans it as well.  Unlike targets above, `ui$pager_mode' is not set.
+<P><B>UITestLoadFileTarget(loadfile,uisrc)</B>: Same as <I>UILoadFileTarget</I>, but the <I>loadfile</I> is not named as an all target and not installed.  The <I>loadfile</I> must be specifically mentioned in the <I>deplibs</I> parameter of <I>TestProgramTarget</I> to be made when the test program is being made.
+<P><B>UICppLoadFileTarget(loadfile,uisrc,depfiles)</B>: <I>uisrc</I> is processed with cpp before being compiled with uic to produce <I>loadfile</I>.  <I>depfiles</I> is the list of files, other than <I>uisrc</I>, on which <I>uisrc</I> depends (i.e., the included files).
+<H4><A NAME="HDR7">  3.4.2  Program Targets</A></H4>
+<P>These targets compile a program. These are the targets most common in Zebra Imakefiles.
+<P><B>CompleteProgramTarget(program,objects,deplibs,locallibs,syslibs)</B>: Elaborates the <I>NormalProgramTarget</I> rule in Imake.rules, adding the <I>program</I> to the all:: target and generating a saber target.  Also generates the install target for the program.
+<UL><DL>
+<DT>&lt;program&gt;<DD>Name of program to create (the Makefile target)
+<DT>&lt;objects&gt;<DD>Objects on which the program depends and which should be linked.
+<DT>&lt;deplibs&gt;<DD>Local libraries, such as $(LIBZEB), which should be listed as dependencies.  Almost always this parameter is simply $(DEPLIBS), and the default value for DEPLIBS set in Project.tmpl is used.
+
+<DT>&lt;locallibs&gt;<DD>Local libraries required, such as LIBZEB, LIBNETCDF, LIBRDSS, and so on.
+<DT>&lt;syslibs&gt;<DD>System libraries, such as $(LIBMATH), $(LIBTERMCAP), or $(LIBREGEXP).
+</DL></UL>
+<P><B>CccProgramTarget(program,objects,deplibs,locallibs,syslibs)</B>: Generates rules to compile and link a C++ program. Since it does not use any default object files, it may be used for multiple programs in the same Imakefile.  It also adds an install target for the program.  This rule relies on an implicit rule for .cc.o: defined in Project.tmpl. It uses the Imake.rules macro <I>CplusplusProgramTarget</I> and adds the install and all targets.
+<H4><A NAME="HDR8">  3.4.3  The Includes Target</A></H4>
+<P><B>BuildIncludes(headers,dstsubdir,dstupdir)</B>: Redefines the <I>BuildIncludes</I> macro of Imake.rules. Copies files rather than creating symbolic links. The -p option, use on those systems which support it, preserves the modification time of the file so the copy will not force a remake of dependent files unless the header file has actually changed. dstsubdir is the subdirectory path within the include dir where the file will be put. E.g. for X this is commonly X11, and dstupdir is the path back to the topdir, i.e., `..'. Zebra will most likely always use BuildIncludes(headers,.,.)
+<H4><A NAME="REF23013">  3.4.4  The Distribution List Targets</A></H4>
+<P>This section can be skipped without missing any necessary information, but you may find some of it useful eventually. All of these rules provide extremely useful targets for creating manifest lists, tar files, and linked trees from a source hierarchy, without interference by existing object or executable files and without knowledge of the lower subdirectory levels.
+<P><B>DistfilesTarget(distfiles)</B>: Echoes each of the files in <I>distfiles</I>, prepended with the $(DISTCURDIR) variable. DISTCURDIR defaults to the path of the Imakefile's directory relative to the top, but it is intended to be overridden on the command line. The <I>distfiles</I> are listed as dependencies of the distfiles:: target, so the target fails if a file does not exist. [GNU make first attempts to check the file out of RCS.] The <I>distfiles</I> parameter should usually be the $(DISTFILES) variable.
+
+<P><B>DistfilesSubdirs(subdirs)</B>: Propagate the distfiles target to the subdirectories listed in the <I>subdirs</I> parameter. A new value of DISTCURDIR is passed as $(DISTCURDIR)/$$subdir so that a special top-level path can be given, as in the case of making a tar file of a whole distribution.
+<P>The <I>distfiles</I> target lists the files of a directory intended for distribution. The Imakefile stores a list of the distribtution files in the DISTFILES variable, and passes the value of this variable to the DistfilesTarget() macro. The distfiles:: rule echoes each of the filenames in DISTFILES, prepended with the DISTCURDIR variable. For example, in the msg directory,
+<PRE>
+% make distfiles
+./msg/Imakefile
+./msg/msg_lib.c
+./msg/msg_BCast.c
+./msg/netread.c
+./msg/message.c
+./msg/fccstop.c
+./msg/mstatus.c
+./msg/msg_ping.c
+./msg/zquery.c
+./msg/mlog.c
+./msg/cquery.c
+./msg/mtest.c
+./msg/writev.c
+./msg/cmd_proto.c
+./msg/message.h
+</PRE>
+<P>For Imakefiles with subdirectories, the DistfilesSubdirs() macro expands to a distfiles:: target which performs a `make distfiles' in each of the subdirectories. Sometimes the DISTSUBDIRS variable is different from SUBDIRS, since all subdirectories should be included in distributions even though the current configuration does not build in some of those subdirectories. This target makes possible some useful operations.
+<P>Without having to clean a directory or remove any backup files, you can tar a directory and any or all of its subdirectories. Likewise, a file can be under development and under revision control, but until the file is included in the DISTFILES variable, it will not be distributed. The tar file generated by the following command will only include the files necessary to build that directory:
+<PRE>
+% tar cvf - `make -s distfiles DISTCURDIR=.` | compress -c &gt; msg.tar.Z
+a ./Imakefile 6 blocks
+a ./msg_lib.c 34 blocks
+a ./msg_BCast.c 8 blocks
+a ./netread.c 4 blocks
+
+a ./message.c 71 blocks
+a ./fccstop.c 3 blocks
+a ./mstatus.c 3 blocks
+a ./msg_ping.c 5 blocks
+a ./zquery.c 4 blocks
+a ./mlog.c 6 blocks
+a ./cquery.c 4 blocks
+a ./mtest.c 4 blocks
+a ./writev.c 4 blocks
+a ./cmd_proto.c 4 blocks
+a ./message.h 13 blocks
+</PRE>
+<P>The `DISTCURDIR=.' overrides DISTCURDIR=$(CURRENT_DIR) in the Makefile. In the ingest directory, the same command would make a tar file of all of the ingest modules.
+<P>Suppose you want to create a shadow directory of part of Zebra without copying all of the source files or necessitating a preliminary cleaning. For example, to create a linked copy of /zeb/src/gp in /zeb/src/gp/noshm so that you can compile a graphics process without the shared memory definition:
+<P>In the /zeb/src/gp/noshm directory,
+<PRE>
+% ln -s `(cd /zeb/src/gp; make -s DISTCURDIR=/zeb/src/gp distfiles)` .
+</PRE>
+<P>All of the files necessary for making the gp directory will now be links in /zeb/src/gp/noshm. Create a Makefile with
+<PRE>
+% imake -I/zeb/config -I/zeb/imake -DCURDIR=/zeb/gp/noshm -DTOPDIR=/zeb
+</PRE>
+<P>and compile with
+<PRE>
+% make SHMDEFINES=
+</PRE>
+<P>For making full distributions of Zebra from within the source hierarchy, the <I>tarfile</I> target is included in the top-level Imakefile. This target creates a subdirectory called $(TARNAME) and puts links to the top-level files into this directory. The `make distfiles` command supplies the list of filenames to the tar command, where each filename is prefixed with TARNAME through the DISTCURDIR variable. The result is a compressed tar file of the Zebra distribution hierarchy.
+
+<H3><A NAME="HDR9">  3.5  Common Pitfalls</A></H3>
+
+<HR>
+<P>This section lists some common pitfalls which may be encountered when dealing with Imakefiles.
+
+<UL>
+<P><LI>The Makefiles target <I>does not</I> re-make the Makefile in the current directory. If you change the SUBDIRS variable in the Imakefile, and then do `make Makefiles', the wrong subdirectories will be used. Do a `make Makefile' first.
+<BR>
+<P><LI>When a Makefile is re-made, makedepend's dependency targets are lost and a `make depend' is not automatically re-done (unless the `mf' shortcut target was used). If some header files change, it is not a bad idea to do a `make depend' at that time. The dependency lists may be out of date, or someone else may have re-made the Makefile without re-making the dependency lists.
+<BR>
+<P><LI>Sometimes a Makefile can be corrupted when an incorrect Imakefile is used to generate a new Makefile. Just copy Makefile.bak to Makefile, fix the Imakefile, and try the `make mf' or `make Makefile' again.
+<BR>
+<P><LI>In trying to understand how Imake works, it is helpful to remember that Makefile variables are evaluated recursively. So given the following assignment from Imake.tmpl,
+<BR><PRE>
+</UL>
+
+
+ALLINCLUDES = $(INCLUDES) $(EXTRA_INCLUDES) $(TOP_INCLUDES) $(STD_INCLUDES)
+</PRE>
+<P>If INCLUDES is set to `-Imy_include' in an Imakefile <I>after</I> the ALLINCLUDES assignment above, ALLINCLUDES will evaluate to `Imy_include ....' in the Makefile. It is because of this recursion that assignments like TOP=../$(TOP) are illegal and will produce errors.
+
+<UL>
+<P><LI>A final pitfall, but by no means common: the -n option does not work for the <I>tarfile</I> target in the top-level Imakefile since the rules are all one script line and the line contains $(MAKE).
+<BR></UL>
+
+
+<H3><A NAME="HDR10">  3.6  Tips and Suggestions</A></H3>
+
+<HR>
+<P>To use a make program other than /bin/make, override the value of the standard MAKE variable. For example, to use GNU make found as gmake on the path:
+<PRE>
+% gmake MAKE=gmake
+</PRE>
+<P>The MAKE variable is passed down the entire Makefile hierarchy, and each directory uses that make program.
+
+<P>A more permanent way to substitute make programs is create a link to the make program of your choice in your home (or home/bin) directory, like so:
+<PRE>
+% ln -s /usr/local/bin/gmake $HOME/bin/make 
+% set path=($HOME/bin $path)
+% rehash
+</PRE>
+<P>The current distribution has been tested with GNU make. (It passes.)
+<P>As the saying in the X distribution goes, the easiest way to make a new Imakefile is to first copy an existing one that is similar to what you need and then modify it.
+<P>To find out exactly what targets and variables are generated in the Makefile, first look in the Makefile. For VERY detailed info, try GNU make's p option for printing the Makefile database:
+<PRE>
+% gmake -p -q | less
+</PRE>
+<P>The output is quite voluminous, hence the necessity of piping to a pager. To get just one variable's value, pipe the output to `egrep &lt;variable&gt;'.
+<P>Take advantage of setting variables on the command line. If you just want to make the class, pam, and radar ingest modules, use this one command:
+<PRE>
+% make SUBDIRS='pam class radar' install
+</PRE>
+<P>If you want to test-link a program with OpenWindows, use
+<PRE>
+% make XLIBS='-L/usr/openwin/lib -lXaw -lXmu -lXt -lX11' &lt;program&gt;
+</PRE>
+<P>To temporarily test gp without the X Shared Memory Extension, use
+<PRE>
+% make SHMDEFINES=
+</PRE>
+<P>Look in config/project/Project.tmpl or a Makefile to see all of the make variables which you can override from the command line.
+
+<P>Take advantage of the automatically generated targets. To pass all of the source files through lint, use `make lint'. To pass one file through lint, try `make FILE=file.c lint1'. Another automatic target is `tags'. The default command contained in the TAGS variable is `tags', but this could be changed to use Emacs tags with `TAGS=etags' on the command line or in the Imakefile. Also, a rule macro exists in Zebra.rules for generating a flow file from cflow(1): <B>CflowTarget(prog,objs,locallibs)</B>.
+<P>Imake's flexibility is seriously hindered by fixed include paths, like "../include/defs.h". Do not use such paths in source files. Instead, add the location of special include files to the Imakefile's local INCLUDES variable.
+<P>At the moment, .lf files are not listed as dependencies of the program target. So a `make &lt;program&gt;' will not automatically make sure the .lf file is up to date, though the `all' and `install' targets will. If you want the load file to be a program dependency, add the load file name to the dependent libraries (DEPLIBS) parameter of the program target macro.
+<P>As may be seen from many of the Imakefiles, it is entirely legal and sometimes very useful to include normal, hardcoded Makefile targets in an Imakefile. For example, the Optimizer Imakefile defines the target `lf: Optimzer.lf' as a shortcut for building the Optimizer load file.
+<P>If you feel the need for a new rule macro, or find yourself using the same rule construct in several places, just add a macro to Zebra.rules. Send it to us so that it can be considered for inclusion in the next release.
+<P>Do not use tests for machine-specific cpp symbols. Use a cpp symbol which indicates exactly whether the condition you are testing is true. For example, use the HasWriteV symbol instead of the more general and less accurate symbol SunArchitecture. To add a new symbol, give it a default in Zebra.tmpl and use the machine-specific symbols defined in Imake.tmpl to determine the correct value for the symbol.
+<P>Be sure to keep the Imakefiles up to date. If you add a source file, add the filename to the SRCS variable and its object to the appropriate OBJS variable. If a file is to be distributed, add it to the DISTFILES variable also. If you add a subdirectory somewhere which you wish built with the rest of the distribution, add the subdirectory to the parent directory Imakefile's SUBDIRS variable. If the directory should be distributed but not built, add it to the DISTSUBDIRS variable in the parent directory Imakefile.
+<P>One of the nice things about using imake for development is its ability to build Makefile's for directories outside of the standard source tree. For example, in a source directory with absolute path <I>dir</I>, use
+<PRE>
+% imake -I/zebra/config/project -I/zebra/config/imake -DTOPDIR=/zeb \
+
+DCURDIR=<I>dir
+</PRE>
+<P></I>This sets up a Makefile to use absolute path names for its TOP and CURRENT_DIR variables, and since include and library paths are relative to the TOP variable in the Imakefile, the location of the current directory does not hinder Imake's ability to specify and find files in the Makefile.
+<P>You can also use the `zmkmf' script installed in the bin/ directory of the Zebra tree. This script takes two arguments, a path to the top directory and a path from the top to the current directory. If developing in a directory outside the standard source tree, use absolute paths, as in the previous example:
+<PRE>
+% zmkmf /zebra &lt;absolute-path&gt;
+</PRE>
+<P>Otherwise, you can use relative paths to make Makefiles from within the source tree:
+<PRE>
+% zmkmf ./../.. ./ingest/ingestor_dir
+</PRE>
+<P>At the moment, Imakefiles which have <I>includes</I> targets for installing header files into the top-level common include directory must use relative paths for the top and current directory. Otherwise the <I>includes</I> rule will not work.
+<P>Different Zebra configurations can be tested in isolation from the rest of the development hierarchy, within either a development directory or a shadow directory. [A shadow directory consists of symbolic links to the source files; see the /zebra/src/gp/noshm example in <A HREF="imake.html#REF23013">Section 3.4.4</A>.] Put a copy of config.h in the directory, and set the INCLUDES variable in the Imakefile to `-I.'. The local copy of config.h will be used by the Imakefile and all of the source files rather than the global distribution copy in zebra/config. The local config.h can be edited to the configuration you wish to test regardless of the configuration defined in the global `config.h'. For the /zebra/gp/noshm example given earlier, rather than using SHMDEFINES= on the make command line, the `XSharedMemory' symbol in the local copy of config.h could be defined to NO without affecting the rest of the distribution. The INCLUDES variable could also be set on the command line, as in
+<PRE>
+% make INCLUDES=-I.
+
+</PRE>
+<P>so that the Imakefile does not have to be changed. However, this method is error-prone since you must remember always to add the INCLUDES argument.
+<P>Those porting Zebra to new systems may wish to build the Zebra modules one at a time rather than try to compile the whole distribution in one make. This can be done by splitting up the top-level targets used by the usual installation targets: `make World' and `make Everything'. First, follow all of the normal installation steps, such as editing `config.h'. Then, rather than performing a `make World', build the top-level Makefile out of the Makefile.ini file with these commands:
+<PRE>
+% cd $TOPDIR
+% rm -f Makefile
+% make -f Makefile.ini Makefile
+</PRE>
+<P>Then make the rest of the Makefiles in the distribution:
+<PRE>
+% cd $TOPDIR
+% make Makefiles
+</PRE>
+<P>At this point all of the directories in the distribution have Makefiles configured according to config.h and generated from each directory's Imakefile. The `make Makefile' and `make Makefiles' are exactly the first two steps in the `make World' installation target. Next, install all of the global include files by doing
+<PRE>
+% cd $TOPDIR
+% make includes
+</PRE>
+<P>To add the header file dependences to all of the Makefiles, execute the <I>depend</I> target.
+<PRE>
+% cd $TOPDIR
+% make depend
+</PRE>
+<P>This target traverses the distribution hierarchy generating dependency rules for all of the Makefiles. Now each directory can be built individually by performing a `make all' in that directory. For most executables, however, it will be necessary to first do a `make install' in the library directories, zebra/src/lib and zebra/src/ds.
+
+<H3><A NAME="HDR11">  3.7  Cutting Edge</A></H3>
+
+<HR>
+<P>There have been some three very recent additions to Zebra's Imakefile system, all appearing for the first time in version 4.2.
+<P>The first is autoconfiguration, where the config.h file is bypassed and configuration symbols are chosen automatically based on the architecture. Common configuration choices, such as OpenWindows or MIT X11, native C compiler or GNU, can be propagated to the whole build on the command line in an AUTO_DEFINES variable and in the AutoDefines cpp symbol.
+<P>The second addition is a rule which automatically adds derived files to the .cvsignore file of the current directory. If the symbols HasCvs and WantCvsIgnore are both true, the <I>CvsIgnoreFile</I> rule included in Zebra.rules automatically adds the given file to .cvsignore if the file name was not present there already. For example, the target of a <I>CompleteProgramTarget</I> rule will be added to .cvsignore when that program is built, telling CVS to ignore the appearance of that file. The modified CVS ignore files can either be updated and committed, or they can be ignored and kept up-to-date exclusively with the make system.
+<P>Lastly, the project configuration is now capable of building the RDSS libraries required by Zebra, UI and Util, from within the Zebra distribution tree. The ui and util directories from the RDSS libraries can be grafted beneath the top directory of the Zebra distribution. Defining <I>BuildRDSS</I> to true will build and install the ui and util libraries from within the distribution tree and use those libraries and include files when building the rest of Zebra. This allows for more compact Zebra distributions where it is not necessary to install RDSS separately if all it is needed for is Zebra.
+<H3><A NAME="HDR12">  3.8  Future Developments</A></H3>
+
+<HR>
+<P>There is lots of potential for the current make system. For example, it is very possible to use Imake to build all of the RDSS packages while maintaining and distributing each package separately as well. It is exactly this capability which allows the RDSS UI and Util libraries to be built as part of a Zebra distribution while still being distributed (without modification) with the RDSS Libraries package.
+
+<P>The current distribution automatically compiles and uses the distributed imake. It would be nice to easily allow the use of a previously installed imake. This does not mean much of an improvement in build time; it is simply a desirable capability when porting to other systems.
+<P>To make the distribution even fancier, it should be possible to use the GNU Autoconf (or perhaps Larry Wall's metaconfig) package to configure some of the variables in config.h, either automatically or interactively. The ultimate goal would be a distribution which needed no editing---just a few questions to the installer and away it goes.
+
+<HR><H3>Footnotes</H3>
+<DL COMPACT>
+<DT><A NAME=FN1>(1)</A><DD>Shameful pun, I know. I'm not proud.
+<DT><A NAME=FN2>(2)</A><DD>Gary Granger, NCAR/ATD/RDP, granger@ncar.ucar.edu
+</DL>

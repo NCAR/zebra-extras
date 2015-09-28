@@ -1,0 +1,37 @@
+<P><A HREF="Intro.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="iconbar.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>CHAPTER 4 </B> Model Data in Zebra</TITLE>
+<H1><A NAME="HDT0"> <paranum><B>CHAPTER 4 </B> Model Data in Zebra</A></H1>
+
+<P>This chapter discusses the enhancements and extensions which allow Zebra to deal with model data. In particular, Zebra is able to deal with certain model files in the GRIB (GRIdded Binary) and Grads formats. Hence, Zebra can be used to overlay model forecast data with observed data or other model data in order to simplify intercomparisons.
+<H3><A NAME="HDR1">  4.1  Times for Model Data: Issue Time and Valid Time</A></H3>
+
+<HR>
+
+<P>One significant difference between dealing with observed and model data is in specifying the time of the data to be displayed. With observed data, only one time is associated with each datum: the time at which the observation was made. (This is a simplification since not all observations are instantaneous; e.g., a satellite may take many minutes to scan a complete image. However, for purposes of Zebra, one time is assigned to each observed datum.) However, with model data two times are used to identify a datum: an <I>issue</I> time and a <I>valid</I> time. The <I>issue</I> time of a model run is the time for which the run was initialized, essentially the time at which the model was run. A given run may then be comprised of a number of different forecasts, each with a time offset from the issue time of the model run. Adding an individual forecast's offset to the issue time of the run gives the <I>valid</I> time for that forecast. For example, consider a model for which a run is issued at 0 Z on 1 July and containing forecasts with offsets of 0, 12, and 24 hours. This gives three combinations of issue time and valid time, which uniquely identify the three separate forecasts from this model run: 1 July 0 Z / 1 July 0 Z, 1 July 0 Z / 1 July 12 Z, 1 July 0 Z / 2 July 0 Z.
+<H3><A NAME="HDR2">  4.2  Time Correspondence Between Observed and Model Data</A></H3>
+
+<HR>
+<P>In comparing observed data with model data in Zebra, a choice must be made regarding how to align times, since the observed data can be matched to either the issue time or the valid time of model data. The user chooses how to match data, but as a rule of thumb, observed data will be matched to the <I>valid</I> time of model data when post-processing, and to the <I>issue</I> time of model data when working in real-time. 
+<P>Behind the rule of thumb lie two things. First, in general, the desire is to compare a model's prediction to what actually happened when the prediction was valid. This means matching observed data to the model valid time. In real-time, though, observed data corresponding to model valid time are not available, since the valid times are typically sometime in the future. This constrains the user to using observed data corresponding to the model issue time. 
+<P>The choice between these two modes of display, matching observed data times with model valid or issue times, can be made from the model data widget (see below).
+<P>In order to remain consistent with the way Zebra has worked in the past, the time shown in the upper left of a graphics window will always be the time of the <I>observed</I> data in the plot. When model data are present in a plot, and the valid time of the model is different from the issue time, a separate annotation will be included on the plot indicating the model's issue and valid times.
+<H3><A NAME="HDR3">  4.3  Model Data Widget</A></H3>
+
+<HR>
+
+<P>The model data widget (<A HREF="ModelData.html#REF52496">Figure 3</A>) provides a means for controlling most time-related parameters associated with a plot of model data. In general, the widget is brought up by clicking the right mouse button on any graphics window icon associated with model data, and selecting <CODE>Pop up model widget</CODE> from the resulting menu. The widget will appear essentially as in the figure, although the number of frame buttons will vary depending on which model or models are currently included in the plot. Included in the diagram is a description of function of each of the controls on the model widget.
+<P><A HREF="ModelData.fig_1.ps"><IMG SRC="ModelData.fig_1.gif"><P><A NAME="REF52496"> <paranum><B>FIGURE  3 </B> The Model Data Widget</A>
+
+</A>
+<H3><A NAME="HDR4">  4.4  Other Model Controls</A></H3>
+
+<HR>
+<P>For models with many vertical levels, the level displayed is changed using the up and down cursor keys on the keyboard. It is also possible to use the <CODE>PageUp</CODE> and <CODE>PageDown</CODE> keys to move immediately to the highest or lowest level of the model, respectively.
+
+

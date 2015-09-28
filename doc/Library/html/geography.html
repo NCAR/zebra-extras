@@ -1,0 +1,178 @@
+<P><A HREF="Library.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="timer.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+<HR>
+
+<TITLE> <paranum><B>� CHAPTER 3 � </B> Geography</TITLE>
+<H1><A NAME="HDT0"> <paranum><B>� CHAPTER 3 � </B> Geography</A></H1>
+
+<P>Zebra operates not only in time but also in geographical space. Hence the library includes some rudimentary types and functions for dealing with geography and geographical information.
+<H3><A NAME="REF47057">  3.1  Locations</A></H3>
+
+<HR>
+<P>Geographic locations are represented internally by the Location data type, defined in the library header file defs.h:
+<PRE>
+typedef struct s_Location {
+  float    l_lat;
+  float    l_lon;
+  float    l_alt;
+} Location;
+</PRE>
+<P>Longitudes are proper longitudes---negative for the western hemisphere. Longitudes should fall into the range [-180.0, 180.0]. Latitudes are positve in the northern hemisphere and negative in the southern hemisphere, falling into the range [-90.0, 90.0]. 
+<H3><A NAME="REF51729">  3.2  Regular Grids</A></H3>
+
+<HR>
+<P>The RGrid structure describes regular grids of one, two, or three dimensions. The number of dimensions being used in the grid must be noted in a separate variable. The RGrid type is defined in defs.h as follows:
+<PRE>
+
+typedef struct s_RGrid {
+  float  rg_Xspacing;
+  float  rg_Yspacing;
+  float  rg_Zspacing;
+  int  rg_nX, rg_nY, rg_nZ;
+} RGrid;
+</PRE>
+<P>Regular grids are usually tied to geographical space and kilometer coordinates. An associated Location structure may provide latitude and longitude coordinates of the origin of the grid on the globe. The <I>y </I>dimension is northerly (zero compass degrees) while the <I>x </I>dimension is easterly (90 compass degrees), and <I>z</I> is the vertical axis. When not otherwise obvious, the rg_Xspacing, rg_Yspacing, and rg_Zspacing structure members are in units of kilometers. Note that this means that the latitude/longitude coordinates of a grid must be projected onto a kilometer grid, restricting the accurate use of the grid to the region around the origin used to project the data. At distances far from the origin of projection the grid becomes inaccurate. The rg_nX, rg_nY, and rg_nZ members contain the number of grid elements along the easterly, northerly, and vertical dimensions, respectively, of a three-dimensional, right-handed orthogonal grid.
+<H3><A NAME="REF18112">  3.3  Scales and Offsets</A></H3>
+
+<HR>
+<P>The ScaleInfo structure can be used to store scaling information.
+<PRE>
+typedef struct s_ScaleInfo {
+  float  s_Scale;
+  float  s_Offset;
+} ScaleInfo;
+</PRE>
+<P>Scale information is usually used to convert between byte and float data, such as when converting a regular grid of floating point values into a raster image. The s_Scale member holds the ratio of the floating point data range to the byte data range. Usually the floating point data is bounded by some maximum and minimum, and the range of the byte values is usually the full eight bits, or 255. The s_Offset member holds the offset, i.e., the difference from zero, of the floating point range. For example, the following code sets the scale and offset for converting a range of floating point data with maximum max and minimum min into eight-bit data.
+<PRE>
+ScaleInfo Scale;
+unsigned char bytes[ARRAY_SIZE];
+float floats[ARRAY_SIZE];
+float max, min;
+int i;
+
+/* ... */
+Scale.s_Scale = (max - min) / 255.0;
+Scale.s_Offset = min;
+</PRE>
+<P>The array of float data could then be converted to bytes as follows.
+<PRE>
+for (i = 0; i &lt; ARRAY_SIZE; ++i)
+  bytes[i] = (floats[i] - Scale.s_Offset) / Scale.s_Scale;
+</PRE>
+<P>The byte data could be converted back to floating point values with this calculation:
+<PRE>
+for (i = 0; i &lt; ARRAY_SIZE; ++i)
+  floats[i] = ((float)bytes[i]) * Scale.s_Scale + Scale.s_Offset;
+</PRE>
+<H3><A NAME="HDR1">  3.4  Altitudes</A></H3>
+
+<HR>
+<P>The altitude of a location, when valid or relevant, defaults to units of kilometers above mean sea level ("km above MSL"). When the altitude units of a location are important, the Location structure is often associated with an AltUnitType, also defined in the library header file defs.h.
+<PRE>
+typedef enum 
+{
+  AU_kmMSL,    /* km MSL */
+  AU_mMSL,    /* m MSL */
+  AU_kmAGL,    /* km AGL */
+  AU_mAGL,    /* m AGL */
+  AU_mb,    /* mb (pressure altitude) */
+} AltUnitType;
+</PRE>
+<P>An altitude unit is known by a short reference name and a longer, descriptive name. The altitude units interface contains two functions for retrieving the short and long names from an enumerated value: au_UnitsName() and au_LongUnitsName().
+<PRE>
+<B>const char *
+au_UnitsName (atype)
+AltUnitType    atype;
+const char *
+au_LongUnitsName (atype)
+AltUnitType    atype;
+</PRE>
+<P></B>Each function takes an AltUnitType, <B>atype</B>, as the only parameter and returns a pointer to the corresponding short or long name of the type. The string returned by each function points to memory internal to the interface and should not be modified or freed.
+
+<P>The altitude units interface also associates a print format, in printf() style, for floating point values of each type of altitude units. This frees an application from knowing that it is useless to print an altitude in units of "m MSL" to seven decimal places. The function au_PrintFormat() returns the format string.
+<PRE>
+<B>const char *
+au_PrintFormat (atype)
+AltUnitType    atype;
+</PRE>
+<P></B>Just like au_UnitsName() and au_UnitsLongName(), <B>atype</B> is the enumerated altitude type, and the returned string points to the print format. The format string should not be freed or modified.
+<P>Two convenience routines exist for printing an altitude value given the units of the value. The first, au_AltLabel(), prints a string using the altitude unit's short name. The second, au_AltLongLabel(), uses the long name.
+<PRE>
+<B>const char *
+au_AltLabel (alt, atype)
+double    alt;
+AltUnitType    atype;
+const char *
+au_LongAltLabel (alt, atype)
+double    alt;
+AltUnitType    atype;
+</PRE>
+<P></B>These functions return a nicely formatted, NULL-terminated string containing the given altitude and the units, in either the short form or the long form, respectively. The returned string will be valid until the next call to either au_AltLabel() or au_LongAltLabel(), and should not be modified or freed.
+<P>The last function in the altitude interface converts a string to an enumerated altitude unit type. In addition to the long and short names, each altitude unit type has zero or more alias names by which the units may be known. For example, "km MSL" has aliases of "km &gt; MSL", "km", and "kilometers". Millibar units have alternate names of "mbar", "hPa", and "millibar". <A HREF="geography.html#REF27436">Table 1</A> lists all of the recognized unit types. The function au_ConvertName() tries to find the long name, short name, or alias of one of the unit types in a given string.
+<PRE>
+<B>bool
+au_ConvertName (name, atype)
+char    *name;
+AltUnitType    *atype;
+
+</PRE>
+<P></B>If au_ConvertName() succeeds in recognizing the name of a unit type in the string <B>name</B>, it returns TRUE and stores the unit type in *<B>atype</B>. Otherwise the function returns FALSE.
+<P>The following table contains a summary of the known altitude units.
+<P><A HREF="geography.tbl_1.ps" NAME="REF27436"><IMG SRC="fm2html-table.gif"> TABLE 1. Altitude units</A> 
+<PRE>
+----------------------------------------------------------------------
+<B>Short name  Long name           Format  Aliases                         
+<TableHeadEnd></B>----------------------------------------------------------------------
+km MSL      km above MSL        %.2f    "km &gt; MSL", "km", "kilometers"  
+m MSL       meters above Mean   %.0f    "m &gt; MSL", "m", "meters"        
+            Seal Level                                                  
+km AGL      km AGL              %.2f    "km &gt; AGL"                      
+m AGL       meters AGL          %.0f    "m &gt; AGL"                       
+mb          millibars           %.0f    "mbar", "hPa", "millibar"       
+----------------------------------------------------------------------
+</PRE>
+<H3><A NAME="HDR2">  3.5  Converting Between Coordinate Systems</A></H3>
+
+<HR>
+<P>A set of routines exists for the conversion of points between the latitude-longitude system and an X-Y system in kilometers. These routines need some work, but they work reasonably well for conversions involving a small spatial area.
+<P>Before conversions may take place, the origin for the Cartesian space must be specified with cvt_Origin():
+<PRE>
+<B>void
+cvt_Origin (lat, lon)
+float lat, lon;
+</PRE>
+<P></B>Where <B>lat</B> and <B>lon</B> are the latitude and longitude of the origin point. North latitudes are positive, while south latitudes are negative. Likewise, east longitudes are positive while west longitudes are negative.
+<P>Thenceforth, points may be converted into Cartesian space as follows:
+<PRE>
+<B>void
+cvt_ToXY (lat, lon, x, y)
+float lat, lon, *x, *y;
+</PRE>
+<P></B>Where <B>lat</B> and <B>lon</B> are the latitude and longitude of the point to be converted. On return, the equivalent cartesian locations, relative to the origin, will be stored in *<B>x</B> and *<B>y</B>.
+
+<P>To convert in the opposite direction, use cvt_ToLatLon():
+<PRE>
+<B>void
+cvt_ToLatLon (x, y, lat, lon)
+float x, y, *lat, *lon;
+</PRE>
+<P></B>Where <B>x</B> and <B>y</B> are the coordinates of the point in cartesian space.
+<P>Lastly, it is possible to retrieve the current origin.
+<PRE>
+<B>int
+cvt_GetOrigin (lat, lon)
+float  *lat, *lon;
+</PRE>
+<P></B>If an origin has not been set, then the function returns zero. Otherwise, it returns non-zero, <B>*lat</B> contains the origin latitude in degrees North, and <B>*lon</B> contains the longitude in degrees East.
+<P>The cvt_ShowOrigin() function simply logs the current origin to the event logger.
+<PRE>
+<B>void
+cvt_ShowOrigin ()
+</PRE>
+
+<P><A HREF="Library.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="pdlib.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

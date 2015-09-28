@@ -1,0 +1,46 @@
+<P><A HREF="Developer.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="targets.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+<HR>
+
+<TITLE> <paranum><B>CHAPTER 2 </B> Advanced Configuration Parameters</TITLE>
+<H1><A NAME="REF93623"> <paranum><B>CHAPTER 2 </B> Advanced Configuration Parameters</A></H1>
+
+<P>This chapter lists the advanced and specialized configuration options accessible through the symbols in config.h. These options include customized distributions and grouped, project-specific configuration definitions. The config.h file contains a good deal of explanation about these advanced parameters, so it should be consulted along with this appendix. This chapter also assumes some knowledge of the basic make targets mentioned in <A HREF="targets.html#REF14753">Section 1.4,  "The Distribution Targets", on page 8.</A>
+<H3><A NAME="HDR0">  2.1  Customizing Distributions</A></H3>
+
+<HR>
+<P>It is possible to use the Zebra distribution tree and configuration system to develop a "customized" distribution which does not include all parts of the system. For example, some sites and projects will not need any of the ingest modules, nor the Optimizer, so it is beneficial to be able to remove these directories from the distribution tree without modifying any Imakefiles and without affecting the build behavior.
+
+<P>Six parameters control the distribution of various optional directories in the Zebra distribution tree. These are listed in Table 4 along with their default definitions and the directories they affect. 
+<P><A HREF="customized.tbl_1.ps" NAME="REF40053"><IMG SRC="fm2html-table.gif"> <paranum><B>TABLE 1. </B> Symbols for defining distribution of optional directories</A> 
+<PRE>
+-------------------------------------------------------------
+<B>Symbol                            Default  Directory           
+<TableHeadEnd></B>-------------------------------------------------------------
+DistributeIngest                  YES      /zeb/src/ingest     
+DistributeOptimizer               YES      /zeb/src/Optimizer  
+DistributeDataUtil                YES      /zeb/src/datautil   
+DistributeRealtimeDataStoreTools  YES      /zeb/src/realtime   
+DistributeDataManager             YES      /zeb/src/dsmanage   
+DistributeXHelp                   YES      /zeb/src/xhelp      
+-------------------------------------------------------------
+</PRE>
+<P>All of the symbols default to YES. Setting a symbol to NO causes the Imakefile of the parent directory to forget about its subdirectory, allowing the subdirectory to be removed. Once all of the Makefiles have been updated (`make Makefiles') with the new definitions, no makes will descend into that directory.
+<P>These symbols are different from the Build symbols which control which parts of the distribution are to be built. For example, as long as DistributeIngest has been defined YES, the ingest directory will always be included in the distribution make targets (see <A HREF="targets.html#REF14753">Section 1.4</A>). A `make distfiles' will include the ingest modules in the list, just as `make distclean' will clean all of the ingest module directories. However, if DistributeIngest has been defined to NO, then the ingest directory will not be built nor will it be included by distribution targets. This allows the entire ingest directory, /zebra/src/ingest, to be removed from the tree. Also, targets such as the top-level `tarfile' target will not include the ingest directory in the target tar file. Essentially, the distribution tree will behave as if the ingest directory did not exist, whether it does or does not actually exist.
+<H3><A NAME="HDR1">  2.2  Customizing C Pre-processor Definitions</A></H3>
+
+<HR>
+
+<P>Historically, many important cpp macros and definitions were scattered throughout Zebra's header files without any real checks for consistency. The config.h file now collects many of these definitions into a single file, from where most of the important compile-time parameters can be adjusted to suit particular Zebra applications. All of these symbols possess the prefix CFG_, signifying a symbol which is defined in the central configuration file. Usually, all of the defaults for these configuration symbols should suffice. Their definitions should not be changed without knowing the implications exactly. Consult the section of config.h entitled "Defaults for compile-time constants" for a list of the symbols and their defaults.
+<H3><A NAME="HDR2">  2.3  Custom Configurations for Projects</A></H3>
+
+<HR>
+<P>If a particular project should wish to set up a customized collection of definitions for the compile-time parameters and distribution symbols, these definitions can be included in a conditional section of config.h which depends on some unique project symbol. See the examples for the ARM and NEXUS programs, which use the symbols ARM_PROJECT and NEXUS_PROJECT, respectively. Once the project-specific definitions have been grouped into a conditional section of code, a single line in config.h defining the project symbol suffices to activate the project's customized configuration.
+
+
+<P><A HREF="Developer.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="imake.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

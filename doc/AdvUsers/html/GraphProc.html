@@ -1,0 +1,1087 @@
+<P><A HREF="AdvUsers.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="Displaymgr.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>CHAPTER 6 </B> The graphics process</TITLE>
+<H1><A NAME="REF18013"> <paranum><B>CHAPTER 6 </B> The graphics process</A></H1>
+
+<H3><A NAME="HDR0">  6.1  Introduction</A></H3>
+
+<HR>
+<P>The zebra graphics process is responsible for the production of graphical output for the user. In addition it handles a number of user interface tasks, including menus, movie production, and even some control of the contents of other graphics processes. It is a large and complex program with some complicated configuration issues.
+<P>This chapter is structured as follows: the initial discussion covers the overall structure of the graphics process. Following that are several sections covering the workings of the graphics process at the command level --- primarily the tools which are available to help with the implementation of the user interface. Finally, a long series of sections discusses each plot and representation type in detail, with no plot description parameter left undiscussed (at least until somebody adds something and obsoletes this manual, which may take 15 minutes or so).
+<H3><A NAME="HDR1">  6.2  How the graphics process views its job</A></H3>
+
+<HR>
+<P>The essential task of the graphics process is to keep the contents of its window in agreement with the instructions found in the plot description, under the overall control of the display manager. This is accomplished through the following sort of algorithm:
+<PRE>
+
+do forever
+  perform a plot according to the PD
+  figure out when next plot should happen
+  wait for something to happen
+end do
+</PRE>
+<P>Each of the three operations above warrant some additional attention.
+<H4><A NAME="REF92879">  6.2.1  Production of plots, overview</A></H4>
+<P>The graphics process views the plot description as a series of overlays, to be done in sequence from the first to the last. Each overlay is characterized by two key plot description parameters, which describe the basic plotting task to be performed. These parameters are the <I>plot type</I> and the <I>representation type</I>. The plot type is a global parameter, describing the overall nature of the plot in the window. The currently implemented plot types are:
+<DL>
+<DT><I>Plot types
+</DL>
+<UL><DL>
+<DT></I>CAP<DD>Constant altitude plot --- the basic zebra horizontal overlaid plot.
+<DT>skewt<DD>The skew-t sounding plot type.
+<DT>xsect<DD>A vertical cross-section through one or more datasets.
+<DT>tseries<DD>The old time series plot type. These plots still work, but better results are obtained from the xyplot type with time as one of the axes.
+<DT>xyplot<DD>Generic plotting of one variable against another. Variables can include time or spatial dimensions. Xyplots can generate time-series traces, time-height profiles, and a number of other types of output.
+</DL></UL>
+<P>The tseries plot type may go away at some point in the future.
+
+<P>The representation is an overlay-specific parameter, telling how the data in that overlay is to be plotted. Some plot types (i.e. skewt) have only one allowed type of representation (also skewt); others (i.e. CAP) allow a wide variety of representations. There are too many representation types to list here. Instead see the listings for the plot type of interest to see which representations are supported for that type.
+<P>The end result is that the graphics process, when generating a plot, need only look at each component, find the function that implements the requested combination of plot type and representation, and pass off the plot description component to the function for implementation. A large part of the graphics process's code is made up of these plotting functions, which are all essentially independent of each other.
+<H4><A NAME="REF48986">  6.2.2  Triggers</A></H4>
+<P>The second step in the plot cycle is to determine when the next plot should be performed. If the graphics process is running in the history mode, the decision is easy --- nothing happens until the user explicitly requests it. But in real time mode the contents of the window need to keep up with the data stream, and thus new plots need to be automatically generated in the future.
+<P>The purpose of a <I>trigger</I> is to cause these replots to happen. There are two types of triggers: time-based and data-based. A time based trigger simply states that something is to be redrawn at some future time --- say 10 seconds from now. Such a trigger would be found in the plot description as:
+<PRE>
+trigger: 10s
+</PRE>
+<P>The possible suffixes for a time trigger are s (seconds), m (minutes), h (hours), or d (days).
+<P>Data-based triggers call for a replot when new data is available for a given platform. Most triggers actually used in real time operations are data-based triggers. They have the following form:
+<PRE>
+trigger: cp4
+</PRE>
+<P>This trigger would cause a replot when new data arrives from the CP4 radar. A special form of data-based trigger exists:
+<PRE>
+trigger: platform
+</PRE>
+<P>If the word platform is given as the trigger platform, then the real trigger is taken from the platform parameter in the same plot description component.
+
+<P>Finally, triggers can cause two different types of replots. A <I>global</I> replot causes the entire window to be redrawn from the beginning. An update plot, instead, tries to do a minimal replot to keep up with a minor change in the available data. Updates are used, for example, to extend an aircraft track on the screen without the need to redraw everything.
+<H4><A NAME="HDR2">  6.2.3  Waiting for something to happen</A></H4>
+<P>The final step of the plot cycle is to wait for something to happen to wake the graphics process up again. This something may be a trigger that was previously arranged, or it could be some sort of user event. These events can include time changes, new plot descriptions, or any number of user actions within the graphics window.
+<H3><A NAME="HDR3">  6.3  Tools for plot description editing</A></H3>
+
+<HR>
+<P>The graphics process contains a number of commands which allow the user to modify the current plot description. None of these commands are directly executed by a user of zebra, of course, since there is no command-line interface to the graphics process (well...there is always zrun, but that is an exception). Instead, modifications are done through button mappings, form widgets and pulldown menus. The commands listed here are intended to be used as tools in the creation of a graphical interface for the user.
+<P>To change an individual plot description parameter, the parameter command may be used. This command is very similar to the display manager command by the same name, but, since the graphics process has only one plot description, the plot description name is not present:
+<PRE>
+parameter <I>comp param value
+</PRE>
+<P></I>Where <I>comp</I> is the name of the component, <I>param</I> is the name of the parameter to be changed (or defined), and <I>value</I> is the value to be assigned to that parameter. Changing a plot description parameter will almost certainly cause a global replot (some parameters are known to the graphics process as not requiring such a replot). If you issue several parameter commands within a single procedure, the replot will not happen until after the procedure exits.
+
+<P>The graphics process does not have add and remove commands like the display manager. Instead, the display manager must be asked to perform that function. To get rid of a component named "comp", you would execute something like:
+<PRE>
+dm concat3("remove ",ourname," comp")
+</PRE>
+<P>The variable ourname always contains the name of the current window.
+<P>The graphics process may not be able to remove existing components, but it can shuffle them around. The movecomp command will rearrange the plotting order of the components in the current plot description:
+<PRE>
+movecomp <I>comp</I> <I>position
+</PRE>
+<P></I>Where <I>comp</I> is the name of the component to move, and <I>position</I> is the new position in the stacking order. The bottommost position is 1; a position of 0 is interpreted, instead, to mean that the component should be put on the top of the stack.
+<H4><A NAME="HDR4">  6.3.1  Command line functions</A></H4>
+<P>The graphics process has a number of command line functions whose purpose is to help in the writing of procedures to work with plot descriptions. 
+<P>There are four functions for retrieving the values of plot description parameters. They are:
+<PRE>
+pd_param (comp, param, type)
+PDParam (comp, param)
+pd_paramsearch (comp, param, qual, type)
+PDSearch (comp, param, qual)
+</PRE>
+<P>All of these functions will attempt to locate the value of the given param within the given component comp. The pd_param and PDParam functions search only in the given component; pd_paramsearch and PDSearch will do a full search as described in <A HREF="UserInterface.html#REF77693">Section 4.3.4 on page 75</A>, using the given qualifier qual. The return value from PDParam and PDSearch is always of string type; the other two attempt to return a value of the given type, which can be string, date, real, or integer. In practice, return values of other that string type have proved to have almost no useful value.If the search for the parameter fails, all of the above functions will return the string value "(Undefined)".
+<P>The function pd_defined, called as:
+<PRE>
+
+pd_defined (component, parameter)
+</PRE>
+<P>returns a value of true iff the given parameter is defined within the specified component.
+<P>To remove the definition of a parameter, use:
+<PRE>
+pd_removeparam (component, parameter)
+</PRE>
+<P>The return value is true iff something was actually removed. It is unclear why this feature is implemented as a command-line function rather than as a simple command, but that's the way it is.
+<P>To test whether a user-specified platform name corresponds to a platform known by the system, use:
+<PRE>
+realplatform (platform)
+</PRE>
+<P>The return value is true iff platform is known to the system.
+<P>Many plot description parameters are defined to be a comma-separated list of values; often it is necessary to operate on elements of these lists without disturbing the rest. A set of functions has been provided to help in this task:
+<PRE>
+ListPosition (element, list)
+RmElement (list, nth)
+ReplElement (list, nth, new)
+substr_remove (list, substring)
+</PRE>
+<P>ListPosition returns an integer value indicating the position of element in the given list, or -1 if the element does not appear. Once you have the position, you may remove the given element with RmElement, or replace it with a new value with ReplElement. For both functions, the return value is the given list after the operation. You may also remove a substring directly with substr_remove.
+<P>In addition, a function is provided which will extract the nth element from a comma-separated list:
+<PRE>
+NthElement (list, nth)
+</PRE>
+<P>NthElement will return a string containing the nth element from list, or an empty string if the list has no nth element.
+
+<H4><A NAME="REF85610">  6.3.2  The plot description monitoring utility</A></H4>
+<P>A special utility has been created to aid the editing of plot descriptions from outside the graphics process. This is a plot description development and debugging tool --- it is not intended for "production" zebra use. It requires that you have either the epoch or GNU Emacs version 19 editor available.
+<P>From within epoch, load the file .../lib/pd-utils.elc; from within Emacs, load the file <CODE>.../lib/pd-utils19.el</CODE>. This gives you the commands for dealing with plot descriptions. At this point, you may run the simple command:
+<PRE>
+M-x pd::check
+</PRE>
+<P>in a buffer where you are editing a plot description. The function will scan over your plot description and point out any syntactic errors that it finds. It will also highlight unknown plot description parameters, and flag any parameters that have clearly erroneous values. (Note that, for the time being, pd::check does not yet know about a number of valid parameters, so false errors are fairly common).
+<P>More useful, though, is the pd::monitor function. This function will prompt you for a process name. Enter the name of a running graphics process, and that process's plot description will be extracted and displayed in a separate buffer (and a separate window in the epoch version). You will also be presented with either a set of buttons (epoch) or a menu titled "PD_Monitor" (Emacs) to provide access to the following functions:
+<UL><DL>
+<DT>Start PD Monitor<DD> (Emacs only) Start a PD monitor process. You will be prompted for the name of the graphics process to monitor.
+<DT>Send PD<DD><DD>The plot description will be checked, then sent back <DD>to the graphics process for implementation.
+<DT>Check PD<DD>The plot description will be checked for errors.
+<DT>Help<DD>A help window will be popped up describing the parameter on the line where the cursor sits.
+<DT>Quit<DD>Pops down the window and unhooks from the graphics process.
+
+<DT>Detach Monitor <DD>(Emacs only) Terminate the current PD monitor process.
+</DL></UL>
+<P>One additional feature of plot description monitoring is that if the plot description changes in the graphics process (due, usually, to some user action) it will be updated in the display window. Thus it can be used to watch the effects of user actions.
+<H3><A NAME="HDR5">  6.4  Rubber-banding operations</A></H3>
+
+<HR>
+<P>The graphics process has some simple commands which support interactive drawing on the screen. Since this drawing generally takes the form of boxes or lines which move and stretch with the pointer, it is called "rubber-banding".
+<H4><A NAME="HDR6">  6.4.1  Box drawing and window zooming</A></H4>
+<P>The drawbox command allows the user to draw a box on the screen by specifying diagonally-opposite corners with the mouse. This command is invoked as:
+<PRE>
+drawbox <I>command
+</PRE>
+<P></I>Where <I>command</I> is a command to be executed when the drawing is complete. Drawbox assumes that a mouse button is already depressed when it is invoked; it will rubber-band the box on the screen, and complete when the button is released. For this reason, about the only useful way to invoke drawbox is to attach it to a mouse button event in the window's button map (see <A HREF="Displaymgr.html#REF26390">Section 5.2.4 on page 83</A>).
+<P>If the user presses a second mouse button before releasing the first, drawbox will abort the operation and <I>command</I> will not be executed. Otherwise, before <I>command</I> is executed, the variables BoxX0, BoxY0, BoxX1 and BoxY1 will be set to coordinates (in kilometers from the origin) of the upper left and lower right corners of the box indicated by the user.
+
+<P>The usual commands to see associated with drawbox are pushcoords and zoom. This command will take the current window coordinates, push them on a stack, then set the window coordinates to be those of the box drawn by the user. This is how the zoom-up capability is implemented. The commands popcoords and unzoom will take those coordinates off the stack and zoom the window back to where it was before the previous zoom happened.
+<P>pushcoords and popcoords apply to CAP plots.
+<BR>zoom and unzoom apply to XYGraph plots.
+<H4><A NAME="REF91883">  6.4.2  Line drawing</A></H4>
+<P>The graphics process drawline command is very similar to drawbox, except that it draws a line between the two points instead of a box. It is invoked as:
+<PRE>
+drawline <I>command
+</PRE>
+<P></I>Where <I>command</I> is the command to be executed when the line is successfully drawn.
+<P>The sendendpoints command is usually the one associated with drawline. This command sends the endpoints of the line just drawn off to another graphics process -- typically one which is displaying cross sections. The line just drawn is then used to plot the new cross section. The full syntax if sendendpoints is:
+<PRE>
+sendendpoints [x0 y0 x1 y1]
+</PRE>
+<P>Where x0, y0, x1, and y1 are optional parameters giving the endpoints to be sent. If not specified, the endpoints indicated by drawline are used. To know which graphics window to modify, the sendendpoints command uses two plot description parameters, which must be in the global component:
+<DL>
+<DT>xsect-window<DD>The window to which the endpoints are to be sent.
+<DT>xsect-component<DD>The component to be modified in that window.
+</DL>
+<P>Another common command is AllXSect, which causes all cross-section plots on the screen to be updated.
+<H4><A NAME="HDR7">  6.4.3  Polylines</A></H4>
+
+<P>The graphics process also supports the drawing of polylines through the rubber-banding mechanism. This mechanism is provided to allow the entry of boundaries by drawing them over data plotted in the window. These boundaries will be entered into the data store upon completion and thus may displayed in any graphics process.
+<P>Polyline drawing is started with the polyline command:
+<PRE>
+polyline <I>platform
+</PRE>
+<P></I>Where <I>platform</I> is the name of the platform for which the polyline is to be entered once the drawing is completed.
+<P>Polyline drawing is different in that it persists over more than one mouse click. It starts by popping up a small control window at the top of the window giving the user the option of either entering the boundary as drawn or aborting the whole operation. Each time the mouse button is pressed, a new line segment is started, with one end point anchored at the end of the previous segment (or at the pointer location for the first segment). The segment rubber-bands until the pointer is released.
+<H3><A NAME="HDR8">  6.5  Limit widgets</A></H3>
+
+<HR>
+<P>Limit widgets are an interactive mechanism within the graphics process for allowing the user to modify certain plotting limits interactively. Their function would probably be better implemented with user interface form widgets, but they predate that capability and are now preserved through history. This section describes their configuration and use.
+<P>Limit widgets are put on the screen with the activate command:
+<PRE>
+activate <I>type component params
+</PRE>
+<P></I>Where type is the type of limit widget to put up, component is the plot description component that is to be operated on by this limit widget, and params is a set of widget-specific parameters. The widget will be put on the screen, and will remain there until the user clicks on either the "store" or the "cancel" button. If the user selects "store," one or more plot description parameters will be modified before the widget is popped down.
+<P>The rest of this section will describe the various types of widgets that are available.
+<H4><A NAME="HDR9">  6.5.1  Single value entry widgets</A></H4>
+<P>There are several widgets for the entry of single values. They are:
+
+<DL>
+<DT><DD><DD>singleint<DD>Accepts a single integer value.
+</DL>
+<UL><DL>
+<DT>singlefloat<DD>Accepts a single floating-point value.
+<DT>singlestring<DD>Accepts a single character string.
+</DL></UL>
+<P>All of these widgets have the same sort of activate command:
+<PRE>
+activate <I>type</I> <I>comp param</I> <I>prompt initial
+</PRE>
+<P></I>Where <I>type</I> is one of the above limit widget types, <I>comp</I> is the component to be modified, <I>param</I> is the plot description parameter to be modified, <I>prompt</I> is the prompt string to appear in the widget, and <I>initial</I> is the initial value to appear in the user's entry box.
+<H4><A NAME="HDR10">  6.5.2  The double float limit widget</A></H4>
+<P>Numerous applications call for the simultaneous entry of two floating-point numbers. The doublefloat limit widget exists for this purpose. Its activate command is:
+<PRE>
+activate doublefloat <I>comp param1 prompt1 initial1</I> \
+             <I>param2 prompt2 initial2
+</PRE>
+<P></I>Where <I>comp</I> is the component to be modified, <I>param1</I> is the parameter to be associated with the first floating-point number, <I>prompt1</I> is the prompt for the first number, and <I>initial1</I> is the initial value for the first number. <I>Param2</I>, <I>prompt2</I> and <I>initial2</I> serve the same functions for the second number.
+<H4><A NAME="HDR11">  6.5.3  The station widget</A></H4>
+<P>The station widget is a special-case limit widget oriented toward the selection of individual stations out of a mesonet array. It is heavily oriented toward the NCAR PAM system, and is probably not very useful for any other application. Someday something better will be implemented.
+<P>The station widget is activated as:
+<PRE>
+activate stationwidget <I>comp plat
+</PRE>
+<P></I>Where <I>comp</I> is the component to be modified, and <I>plat</I> is the name of the composite platform.
+
+<H3><A NAME="HDR12">  6.6  Global plot description parameters</A></H3>
+
+<HR>
+<P>This section begins the discussion of all the plot description parameters known to the system. Most parameters are specific to a given plot type, and are discussed separately. A few, however, are always relevant --- the "global" parameters, which are found in the global component. This section will cover those parameters.
+<H4><A NAME="HDR13">  6.6.1  Overall plotting parameters</A></H4>
+<P>A small number of parameters control the overall type of plot that is done and the mode of the graphics process as a whole. These parameters are:
+<DL>
+<DT>plot-type<DD>(Required). The type of the plot. The list of valid plot types is given in <A HREF="GraphProc.html#REF92879">Section 6.2.1 on page 120</A>.
+<DT>plot-mode<DD>(Required). The time mode of this plot, either history or realtime.
+<DT>plot-time<DD>The time of the plot. This parameter is required in the history mode, and ignored otherwise.
+<DT>trigger<DD>The global trigger for the plot. See <A HREF="GraphProc.html#REF48986">Section 6.2.2 on page 121</A> for details on how triggers work.
+<DT>post-proc-mode<DD>(Default: false). Determines whether the graphics process is operating in the post processing mode. Several things operate a little differently in the postprocessing mode, including: (1) the DataAvailable menu tries to center times around the plot time, and (2) movie control times default to the plot time.
+<DT>pp-dm-time-adjust <DD>(Default: 600 seconds). Time amount of time by which to adjust the plot time to determine the starting time for the DataAvailable widget. Used in the postprocessing mode only.
+<DT>show-steps<DD>(Default: false). If true, the screen will be updated after each component is plotted. It gives the user something to watch while waiting for the display, but lengthens the total display time slightly.
+
+<DT>plot-hold<DD>(Default: false). If true, disables all replots in the window. This parameter is useful for situations where a number of other parameters are being changed at once and replots between the changes are not desired. NOTE that there is (currently) no visual indication that the window will not plot; leaving plot-hold set can create massive user confusion.
+</DL>
+<H4><A NAME="HDR14">  6.6.2  Frame caching parameters</A></H4>
+<P>The frame cache is a means by which the graphics process saves plots which have been generated, on the chance they may be called for again. In certain situations, a great deal of time can be saved by simply restoring previously-generated images instead of replotting them from the beginning.
+<P>The frame cache operates on two different levels. The first is the in-memory cache, which is implemented through the use of X11 pixmaps. In-memory frames can be restored to the screen almost instantaneously. However, core memory is an expensive resource and it is usually not desirable to keep all cached frames there. So frames which have not been used in a while are put out to a disk file. Retrieval time for disk-based images is longer than for those in memory, but still (usually) much less than the time required to replot the image from base data. The graphics process is able to operate without a disk-based frame cache, but must be able to cache at least one frame in memory.
+<P>Most plot description changes will cause the invalidation of the frame cache. About the only parameters which can be changed without cache invalidation are plot-mode, plot-time, field, and the movie control parameters.
+<P>Several plot description parameters control the behavior of the frame cache:
+<DL>
+<DT><I>Frame cache parameters
+</DL>
+<UL><DL>
+<DT></I>file-path<DD>The name of the file to which frames are written --- i.e. the location of the disk-based frame cache. If this parameter is not defined, or the file can not be created, the graphics process will operate without a disk-based cache.
+
+<DT>time-frames<DD>(Default: 1). The number of frames to keep in core memory. Normally this parameter is set to one when no movie is running, but there are applications where more than one in-memory frame is useful outside of movies (for example: looking at radar data where changes between reflectivity and velocity are common). This parameter will be changed by the movie system when a movie is run.
+<DT>max-frames<DD>(Default: 100). The maximum number of frames that the graphics process will cache. The purpose of this parameter is to keep the disk cache file from growing too large. The default value is almost certainly too big for most applications.
+</DL></UL>
+<P>One note with regard to disk-based frame caching: the disk-based cache works much better when the cache file is on a disk local to the machine which is running zebra. Frame caching through NFS can be both slow and hard on the network. If a local cache file is not possible, it is often better to disable file caching altogether by not defining the file-path parameter.
+<H4><A NAME="HDR15">  6.6.3  Movie control</A></H4>
+<P>The graphics process contains within it a complex system for the generation of time-lapse plots or "movies." Almost all movie control is done by way of the movie control widget; the user seldom sees the plot description parameters which act behind the scene. However, that widget takes its initial values from those parameters, and stores the user's setting back into them, so the zebra configuration dude should know about them.
+<DL>
+<DT>movie-end-time<DD>(Default: current time). The time of the last frame in the movie loop. This value can be given as "now," in which case (1) in real time mode the current time will be used, and the movie will shift forward through time to keep up with incoming data or (2) in postprocessing mode the current plot time will be used.
+<DT>movie-minutes<DD>(Default: 30). The time period to be covered by the movie, in minutes.
+<DT>frame-skip<DD>(Default: 3). The period of time between movie frames, in minutes.
+
+<DT>frame-rate<DD>(Default: 2). The rate at which movie frames are presented to the user, in frames per second. The maximum rate is ten frames/second.
+<DT>movie-pregenerate <DD>A comma-separated list of fields for which movie frames are to be pregenerated. For each frame time, one frame will be generated for each of the fields, which are sequentially substituted into the bottommost component in the plot description. If this parameter is absent, no pregeneration is done.
+</DL>
+<P>Pregeneration of movie frames can save a lot of time in situations where users are frequently changing fields in a running movie. It does, however, noticeably slow down the initial generation of the movie, and creates a lot of frame cache activity. Pregeneration will fail if there is no disk-based frame cache unless time-frames is set very high.
+<H4><A NAME="HDR16">  6.6.4  Model control</A></H4>
+<P>Control of model-related plot information is generally handled through the graphics process' model data widget. The default values used for setting up the model widget are controlled by plot description parameters, however. These parameters are:
+<DL>
+<DT>frame-rate<DD>(Default: 2). The rate at which model animation frames are presented to the user, in frames per second. The maximum rate is ten frames/second.
+<DT><CODE>forecast-offset</CODE><DD>(Default: 0 s). The forecast offset time to use in obtaining model data. The format for the value is an integer followed by one of the characters "s", "m", or "h", for seconds, minutes, and hours, respectively. For example, the 12 hour forecast from a given model would be displayed if <CODE>forecast-offset</CODE> were set to "12 h."
+<DT><CODE>validation-mode</CODE><DD>(Default: false). When true, observational data will be shown corresponding to the <I>valid</I> time of displayed model data. Otherwise observational data times will be matched to the <I>issue</I> time of displayed model data.
+
+</DL>
+<H4><A NAME="HDR17">  6.6.5  Layout control</A></H4>
+<P>A set of parameters exists to control the layout of space within the window. Essentially their purpose is to tell how much space to set aside for annotation on each side of the window, with whatever is left over used for the actual data. <B>NOTE:</B> currently only the xygraph plot type makes use of these parameters; someday the rest of the plot types will follow suit.
+<P>The layout control parameters are:
+<DL>
+<DT>axis-bottom-space<DD> The amount of space to leave on the bottom of the window. This space goes above the icon space.
+<DT>axis-top-space<DD>The amount of space to leave on the top of the window.
+<DT>axis-left-space<DD>The amount of space to leave on the left side of the window.
+<DT>axis-right-space<DD>The amount of space to leave on the right side of the window.
+<DT>icon-space<DD>(Default: 40). The amount of space to leave for the icons in the window.
+</DL>
+<P>All of the above parameters take values in pixels.
+<H3><A NAME="HDR18">  6.7  Common per-component parameters</A></H3>
+
+<HR>
+<P>Several plot description parameters are applicable to all components, regardless of the plot type or component representation. These parameters concern such issues as icons, menus, annotation and disable flags. They will all be discussed here.
+<H4><A NAME="HDR19">  6.7.1  The disable flag</A></H4>
+<P>Any component may be <I>disabled</I>, meaning that it is not plotted in the graphics window, but still remains part of the plot description. This allows the user to remove some clutter from the screen without losing any changes which have been made to the affected component.
+
+<DL>
+<DT>disable<DD>(Default: false). If true, the component in which this parameter is found will not be plotted. Its icon, if any, will be displayed in gray while the component is disabled.
+</DL>
+<H4><A NAME="HDR20">  6.7.2  Annotation options</A></H4>
+<P>Annotation is the descriptive text which appears around the data in the plot window. Some options exist to control the appearance of this annotation. They are:
+<DL>
+<DT>ta-color<DD>(Default: white). The color to use for annotation along the top of the window.
+<DT>ta-color-match<DD>(Default: false). If true, this parameter will cause the graphics process to make the color of the top annotation match that of the data. This only works for simple plot types with only one color. This parameter can cause ta-color to be overridden.
+<DT>ta-scale<DD>(Default: 0.035). The size of the top annotation. The size is expressed either as a portion of the height of the window as a whole (value &lt; 1.0) or as a direct height in pixels (value &gt; 1.0).
+<DT>sa-scale<DD>(Default: varies). The size of the annotation along the right side of the window.
+<DT>sa-show<DD>(Default: true). If true, the side annotation will be shown. Set to false if the annotation is not interesting and you wish to use the side space for something else.
+<DT>history-color<DD>(Default: yellow). The color to use in annotating the time when the window is in the history mode.
+</DL>
+<P>A number of other annotation options are specific to particular plot types and representations, and will be discussed in the appropriate place.
+<H4><A NAME="HDR21">  6.7.3  Icons and menus</A></H4>
+
+<P>The icons along the bottom of the graphics process window form an important part of the zebra user interface. While the icons and menus that appear in any given window tend to be very specific to the type of plot (and the project), the mechanism by which they are configured is always the same. That mechanism will be described here.
+<P>Each component in the plot description has associated with it one icon. These icons are placed along the bottom of the window from left to right, starting with the global component. Icons may be of any size, though overly tall icons will obscure the data in the window. The icons are spaced as closely as possible in the horizontal dimension; they will never be placed on top of each other vertically.
+<P>To specify the actual icon for a component, use the icon parameter:
+<DL>
+<DT>icon<DD>(Qualifier: platform). The name of the icon to display for this component. The qualifier for the global component is "global". If no icon is specified, or it can not be found, no icon will appear for this component.
+</DL>
+<P>To actually find icons, the graphics process searches through the list of directories specified in the IconPath variable until it finds a file by the same name as the requested icon. The default value of IconPath is
+<PRE>
+/zeb/lib/icons,./icons
+</PRE>
+<P>where /zeb/lib may be adjusted to match the library directory used in a specific installation of zebra.
+<P>Some other parameters control the appearance of icons:
+<DL>
+<DT>icon-color<DD>(Qualifier: platform; default: white). The foreground color for the icon.
+<DT>disabled-icon-color<DD> (Qualifier: platform; default: white). The color to use for icons when the component has been disabled.
+<DT>icon-background<DD>(Qualifier: platform; default: black). The background color for the icon.
+<DT>disabled-icon-background<DD> (Qualifier: platform; default: black). The background color for icons in components which have been disabled.
+
+</DL>
+<P>All of the above colors for icons can be overridden to flag data which is old relative to the plot time of the window. The parameters which control this behavior are:
+<DL>
+<DT>icon-age-limit<DD>(Qualifier: platform). The permissible age of data in this component before it is flagged, expressed as a trigger time. If this parameter is not defined, no age checking is done for this component.
+<DT>icon-age-foreground<DD> The foreground color to use to flag old data. If not defined, the normal icon-color is used.
+<DT>icon-age-background<DD> The background color to use to flag old data.
+</DL>
+<P>The icons need to have menus associated with them to function fully as part of the user interface. A different menu may be attached for each mouse button. Normally, these menus are user-defined widgets (of type intmenu), but special menus implemented internally to the graphics processes also exist. These menus are described further below.
+<P>To attach menus to the icons, set the following parameters:
+<DL>
+<DT>icon-left-menu<DD>(Qualifier: platform). The name of the menu to be attached to the left mouse button.
+<DT>icon-middle-menu<DD>(Qualifier: platform). The name of the menu to be attached to the middle mouse button.
+<DT>icon-right-menu<DD>(Qualifier: platform). The name of the menu to be attached to the right mouse button.
+</DL>
+<H4><A NAME="REF86810">  6.7.4  Active areas</A></H4>
+
+<P>Icons are actually a special case of the graphics process feature known as <B>active areas</B>. Active areas are regions of the graphics window which have special user interaction semantics. In particular, they can have menus attached to them, though other possible semantics may be implemented in the future. Active areas are created by the graphics process and may not be specified at the configuration level, though the way in which they behave is configurable. See the documentation for the individual plot types and representations to see which active areas are created and with which parameters.
+<P>Each active area on the screen has several parameters defined for it, including:
+
+<UL>
+<P><LI>The plot description component associated with this area, in the variable icon_component.
+<BR>
+<P><LI>The platform (or similar quantity) associated with this area, in the variable icon_platform.
+<BR>
+<P><LI>The type of the area, in the variable area_type. The type is defined by plotting code, but usually is one of the following: icon for the row of icons at the bottom of the screen, posicon for "position" icons withing the graphics window, and annot for areas within the annotation area.
+<BR></UL>
+
+
+<P>By the time any menu is invoked, all of the above variables will have been set with the appropriate values. In addition, for areas of type posicon, the variable posicon will be set to true. This is a backward-compatibility feature and should not be used by new code.
+<P>Menus for active areas are defined with a generalized version of the menu plot description parameters defined above:
+<DL>
+<DT><I>at</I>-left-menu<DD>(Qualifier: platform). The menu to use for the left mouse button.
+<DT><I>at</I>-middle-menu<DD>(Qualifier: platform). The menu to use with the middle mouse button.
+<DT><I>at</I>-right-menu<DD>(Qualifier: platform). The definition of this parameter is left as an exercise for the reader.
+</DL>
+<P>For all of the above parameters, the quantity <I>at</I> should be substituted with the relevant area type. Thus, the left menu for an area in the annotation zone would be defined with annot-left-menu.
+<P>One global parameter is used in the highlighting of active areas under the pointer:
+<DL>
+<DT>active-area-color <DD>(Default: red). The color to use in highlighting active areas in the graphics window.
+
+</DL>
+<P>Active areas are a very new feature of the graphics process, and the details of their use may change slightly in the near future.
+<H4><A NAME="HDR22">  6.7.5  The data available menu</A></H4>
+<P>The DataAvailable menu allows the user to quickly set the plot time and mode based on which data is available for one or more platforms. To use this menu, simply attach it to an icon using the above parameters, then optionally set the following:
+<DL>
+<DT>menu-platform<DD>(Qualifier: platform). A comma-separated list of platforms for which data is to be shown in the menu. If this parameter is not present, it defaults to the current platform.
+</DL>
+<P>Every time this menu is brought up by the user, it searches for up to ten available observations from each platform in the menu-platform list. The times for each platform are sorted together, and the twenty most recent entries are put into the menu.
+<P>When the user selects an entry in the menu, the graphics process looks up the following parameter:
+<DL>
+<DT>data-available-command<DD> (Qualifier: selected platform). The value of this parameter is expected to be a command which can be executed, with the selected platform and time as parameters.
+</DL>
+<P>The data available command should set the plot modes correctly, and do any other platform-specific modifications. Usually most platforms are set up with a data available procedure like:
+<PRE>
+procedure DefaultDataAvail platform string when string
+!
+! Switch to the given platform; however, let's check 
+! to see that we are not already on that one 
+! -- we can avoid frame cache invalidations
+! that way.
+!
+  if (pd_param (icon_component, "platform", \
+        "string") &lt;&gt; platform)
+    parameter #icon_component platform #platform
+  endif
+!
+! Now drop into history mode and display this time.
+!
+
+  parameter global plot-mode history
+  parameter global plot-time #when
+endprocedure
+</PRE>
+<P>Some platforms require something a little more complicated, but not very often.
+<H4><A NAME="REF21351">  6.7.6  The field selection menu</A></H4>
+<P>The field selection menu allows the user to change the field being displayed in any plot description component. This menu is automatically regenerated every time it is popped up so that it displays the exact set of fields that are available at the plot time. To use this menu, just specify FieldMenu as one of the menus associated with the icon.
+<P>When the user selects a field from the field menu, the default behavior is to store the name of that field in the field parameter in the relevant plot description component. If different behavior is called for, you may specify a procedure to be run instead:
+<DL>
+<DT>field-select-command<DD>(Qualifier: platform). The name of a procedure to be run when the user selects a field from the menu. This procedure will be passed the name of the desired field as its only parameter.
+</DL>
+<P>If a procedure is specified, the field selection menu will not change any plot description parameters itself; all of that will be left to the selection command.
+<P>The field selection menu can be instructed to place entries in the menu that do not correspond to data fields existing at the plot time. Such entries may be used to add other field-related changes to the field menu, and should usually be used in conjunction with a custom procedure as described above. Extra entries are added with:
+<UL><DL>
+<DT>field-menu-extras<DD>(Qualifier: see below). A list of extra "fields" to add to the field selection menu.
+</DL></UL>
+
+<P>The field menu uses both the platform name and the area type to search for this parameter. If the menu is invoked from a position icon, for example, the first search will be for posicon-field-menu-extras, followed by, if necessary, a search for just field-menu-extras, in both cases qualified by the platform name. In this way, the field menu may have a different appearance when invoked in different contexts, even when associated with the same component.
+<P>Multiple extra entries should be separated by commas. If an extra entry contains a vertical bar character ("|") then the text before the bar is interpreted as the name of the field to pass to the selection command, and the text after the bar is considered to be the description of the field which appears in the menu itself.
+<P>As an example, consider the station representation in CAP plots. This representation allows the specification of up to four fields to be displayed in textual form around the wind arrow. Also allowed is the pseudo-field station, which displays as the name of the associated surface station. To allow the user to select this pseudo field from within the field menu, the following plot description parameter is used:
+<PRE>
+field-menu-extras:   station|Station Identification
+</PRE>
+<P>Another use for this parameter might be turning on monochrome coloring instead of field-based color-coding.
+<H4><A NAME="HDR23">  6.7.7  The "require" mechanism</A></H4>
+<P>Often plot description components must assume the presence of an amount of associated user interface declaration code. Such code defines the menus, widgets, and procedures called for by the plot description. One way to insure the presence of this code is to put it all into the graphics process initialization file (traditionally gp.init), but that approach has some drawbacks:
+
+<OL>
+<P><LI>All of the code that might possibly be used must be loaded into every graphics process, creating a large amount of memory overhead.
+<BR>
+<P><LI>The initialization file tends to get very large, intimidating, and error prone.
+<BR></OL>
+
+
+<P>To get around these drawbacks, the require mechanism may be used. Every component in the plot description is scanned for the following parameter:
+<DL>
+<DT>require<DD>(Optional, unqualified). The name of a "module" of user interface code that must be loaded for this plot description to work properly. Multiple module names may be separated by commas.
+
+</DL>
+<P>For each module listed in every require parameter found, the graphics process looks through the list of directories specified by the RequirePath user interface variable until it finds a file with the same name as the requested module. That file is then read in as user interface code and executed. Modules are only loaded once --- subsequent require parameters asking for this module will be ignored.
+<P>The default value for RequirePath is .../lib/gp. It is expected that most configurations will extend the require path to include a project-specific directory. There is also a graphics process require command, which has the exact same effect when executed.
+<H3><A NAME="HDR24">  6.8  Standard graphics control parameters</A></H3>
+
+<HR>
+<P>This section contains a list of plot description parameters which are used in most representation types to control the generation of graphics. They are described here to avoid repeating the description several times; the section on each representation will list which of the following parameters are relevant to that representation.
+<DL>
+<DT>age-limit<DD>(Qualifier: platform). The oldest a piece of data can be before it is rejected, as a time trigger. So far this parameter is used almost exclusively for overlays, but other representations will eventually make use of it too.
+<DT>color<DD>The color to use for overlays that use a single color.
+<DT>color-table<DD>The name of a color table giving the colors to be used to encode the data being displayed in this component.
+<DT>ct-limit<DD>(Default: 1). A mechanism for thinning out the display of numbers in the side annotation. This parameter is used with color table lists and color bars. If it is set to n, then only every nth number will be displayed.
+<DT>field<DD>The name of the field to be plotted.
+
+<DT>line-width<DD>(Default: usually 0). The width of lines to be drawn in this overlay, in pixels. The special value of zero means to use whatever is fastest in the hardware, which is usually similar in effect to width-one lines.
+<DT>platform<DD>The name of the platform to be plotted. In some cases, the value of this parameter may be a comma-separated list. This parameter also controls the contents of the DataAvailable menu if no menu-platform parameter exists, and is used as the qualifier for no end of other parameter lookups.
+<DT>range-min<DD>(Qualifier: field). The minimum data value that is considered to be good. Any values below this will be replaced with bad value flags.
+<DT>range-max<DD>(Qualifier: field). The maximum data value that is considered to be good.
+</DL>
+<H3><A NAME="HDR25">  6.9  Constant altitude plots</A></H3>
+
+<HR>
+<P>The constant altitude plot (CAP) plot type produces a wide variety of plots in the horizontal mode. It is the most complicated plot type in the graphics process, with several representations and an intimidating number of options. This chapter will try to cover all that in an understandable sort of way.
+<H4><A NAME="HDR26">  6.9.1  CAP global parameters</A></H4>
+<P>CAP plots have a set of additional parameters which should appear in the global component for things to work properly. They include:
+<UL><DL>
+<DT>origin-lat<DD>(Required). The latitude of the origin to be used for the CAP plot's coordinate system, as a floating-point number.
+<DT>origin-lon<DD>(Required). The longitude of the origin.
+</DL></UL>
+<P>The origin parameters do not directly relate to any "origin" in any given CAP plot. Instead, the coordinates of the plot itself are controlled by:
+<UL><DL>
+<DT>x-min<DD>(Required). The western extent of the plot window, in kilometers from the origin.
+
+<DT>y-min<DD>(Required). The southern extent of the plot window, in kilometers from the origin.
+<DT>x-max<DD>(Required). The eastern extent of the plot window, in kilometers from the origin.
+<DT>y-max<DD>(Required). The northern extent of the plot window, in kilometers from the origin.
+<DT>altitude<DD>(Required). The altitude of the plane to display, in the altitude units of the platform from which altitude is being selected. (but see the radar-space parameter, below).
+</DL></UL>
+<P>Normally the X and Y limits of the window are adjusted before plotting such that the scales are equal in both directions. However, the following global parameter does exist:
+<UL><DL>
+<DT>expand<DD>(Default: true). If true, the one plot window dimension will be expanded to make its scale match the other. If false, plot window dimensions are left unchanged, creating a potentially distorted plot.
+</DL></UL>
+<P>Some hacks have been put into the constant altitude plot code to facilitate the display of radar image data. This data arrives as a seemingly flat image, which represents, in reality, a conical slice through the atmosphere taken with the antenna at a given elevation. The following parameter exists to change some behavior when dealing with radar data:
+<UL><DL>
+<DT>radar-space<DD>(Default: false). If true, changes a number of aspects of the CAP plot to better suit dealing with radar data.
+</DL></UL>
+<P>When the graphics process is operating in radar space, the following things are changed:
+
+<UL>
+<P><LI>The altitude parameter is interpreted as being in degrees of elevation instead of kilometers above sea level.
+<BR>
+<P><LI>The altitude control code (see below) looks at all the images in an observation for possible altitudes to move to.
+<BR>
+</UL>
+
+
+<H4><A NAME="HDR27">  6.9.2  Map projections</A></H4>
+<P>An optional capability of the graphics process is to perform map projections on all CAP displays. Projections are controlled by the global parameter projection:
+<UL><DL>
+<DT>projection<DD>(Default: zebra). The projection to use for this CAP plot.
+</DL></UL>
+<P>The default projection, called zebra, is a fast implementation of the equidistant cylindrical projection. It is the speediest of projections, and works well for small areas or in the tropics. 
+<P>For large-scale plots in other regions of the world, a different projection may be called for. The projections currently supported are:
+<UL><DL>
+<DT>zebra<DD>The default projection, and the only option if map projections are not enabled in your version of the software.
+<DT>aea<DD>Albers Equal Area.
+<DT>cass<DD>Cassini projection.
+<DT>merc<DD>The classic Mercator projection. This is a very slow projection, and not too useful in most situations.
+<DT>eqc<DD>Equidistant cylindrical. This projection will produce the same plot as the zebra projection, while taking significantly more time in the process. It is useful mostly for debugging the projection code.
+<DT>leac<DD>Lambert equal area projection. This projection, like the other Lambert projections, is useful mostly for plots of the continental United States.
+<DT>lcc<DD>Lambert conformal.
+<DT>lcpolar<DD>Lambert conformal polar.
+<DT>moll<DD>Mollweide.
+<DT>ortho<DD>Orthographic.
+<DT>stere<DD>Stereographic
+
+<DT>stpolar<DD>Polar stereographic.
+</DL></UL>
+<P>All of these projections appear courtesy of the "PROJ" package, written by Gerald Evenden at the United States Geological Survey. Many other projections are provided by that package, and they can be easily incorporated into the Zebra graphics process. Ask if there is one you need.
+<H4><A NAME="HDR28">  6.9.3  Altitude control</A></H4>
+<P>The CAP module includes a command to make it easy to change the altitude of the constant altitude plane. This command, altstep, is invoked as follows:
+<PRE>
+altstep <I>nstep
+</PRE>
+<P></I>Where <I>nstep</I> is the number of steps to move. A negative <I>nstep</I> means to move down. The altstep command performs the following actions:
+
+<OL>
+<P><LI>All possible altitudes for the given plot time, <I>for the bottommost component with varying altitudes </I>are gathered together in a sorted list.
+<BR>
+<P><LI>The current location in the list is found. Then <I>nstep</I> steps are moved from the current position. If either end of the list is reached, movement stops --- it does not wrap around.
+<BR>
+<P><LI>The altitude parameter is set appropriately and a replot is done.
+<BR></OL>
+
+
+<P>Since stepping stops at the end of the list, one may easily move to the highest or lowest altitudes simply by giving a large number. The following are common button map entries:
+<PRE>
+buttonmap radar-map
+  local    Up    `altstep 1'
+  local    Down    `altstep -1'
+  local    F29    `altstep 99'
+  local    F35    `altstep -99'
+  ...
+endmap
+</PRE>
+<P>(The keysyms F29 and F35 correspond to the "PgUp" and "PgDn" keys, respectively.)
+<H4><A NAME="REF72195">  6.9.4  Interpolation</A></H4>
+
+<P>Certain representations expect to get regular grid data as input. These representations include raster, contour, and vector. If you wish to display an array of stations in the irregular grid format in one of the above representations, it must first be interpolated to a regular grid. Fortunately for you, the graphics process has a module which will do that.
+<P>There are three different interpolation algorithms available:
+<UL><DL>
+<DT>rgrid<DD>The old PAM "rgrid" technique --- essentially a triangularization scheme.
+<DT>closest-point<DD>The closest data point to each grid location is used without change.
+<DT>barnes<DD>Barnes objective analysis. This is the recommended algorithm.
+</DL></UL>
+<P>Irregular grids with more than 100 stations can not be interpolated with the rgrid algorithm due to the problem of excessive aging of users while the process is going on.
+<P>To chose your interpolation method, set:
+<DL>
+<DT>grid-method<DD>(Default: rgrid; qualifier: platform). The gridding method to use. Must be one of the methods listed above. Rgrid is the default for historical reasons; this could change at some point in the future.
+</DL>
+<P>If you select rgrid, your configuration work is done; there are no other parameters which affect the rgrid module. A 20 by 20 grid is always created in this case.
+<P>The following parameters apply to Barnes and closest-point interpolation:
+<DL>
+<DT>x-points<DD>(Default: 20; qualifier: platform). The number of grid points in the X dimension.
+<DT>y-points<DD>(Default: 20; qualifier: platform). The number of grid points in the Y dimension.
+</DL>
+<P>The actual resolution of your grid will be modified somewhat to enforce the requirement that the grid spacings be the same in both dimensions. The following are only used for Barnes interpolation:
+
+<DL>
+<DT>full-grid<DD>(Default: false). If true, the resulting regular grid exactly covers the original station array. If false, the grid instead exactly covers the window.
+<DT>radius<DD>(Default: 2.0). The "radius of influence" used. This is the distance from the station --- in grid points --- at which the weight of the station is one tenth of its full value.
+<DT>max-fill<DD>(Default: 3.0). How many grid points away a station must be from a location before its data will not be used in computing the value at that location.
+</DL>
+<H4><A NAME="REF22478">  6.9.5  Spatial offsets</A></H4>
+<P>Almost any type of data in CAP plots may be shifted in space before plotting. This capability is there to help correct for incorrectly positioned data (i.e. satellite data with navigation errors) or to allow compensation for advection.
+<P>There is one global parameter controlling spatial offsets:
+<DL>
+<DT>enable-spatial-shift <DD>(Default: false). If true, spatial offsets are enabled; otherwise none will be performed.
+</DL>
+<P>All other options are per-component. For constant spatial shifts, all that is needed is the shift amount:
+<DL>
+<DT>x-shift<DD>(Default: 0; qualifier: platform). The amount to shift the data toward the east, in kilometers.
+<DT>y-shift<DD>(Default: 0; qualifier: platform). The amount to shift the data toward the north, in kilometers.
+</DL>
+<P>The parameters controlling advection are:
+<DL>
+<DT>enable-advection<DD>(Default: false; qualifier: platform). If true, advection will be performed; otherwise not.
+<DT>advection-speed<DD>The speed at which the storm system is thought to be moving, in meters/second.
+
+<DT>advection-direction <DD>The direction in which the advection is happening, in degrees clockwise from North.
+</DL>
+<P>Advection is performed by moving each individual sample according to the time period between when that sample was taken and the plot time.
+<H4><A NAME="HDR29">  6.9.6  Raster representation</A></H4>
+<P>Raster image data may be plotted with the raster representation type. With this representation, the image is read in, color-coded by a color table, and re-rasterized onto the screen.
+<P>The following common parameters are used in image plotting: color-table (<A HREF="GraphProc.html#REF0">page 142</A>), ct-limit (<A HREF="GraphProc.html#REF0">page 142</A>), field (<A HREF="GraphProc.html#REF0">page 142</A>), platform (<A HREF="GraphProc.html#REF0">page 143</A>), range-min and range-max (<A HREF="GraphProc.html#REF0">page 143</A>), the interpolation parameters (<A HREF="GraphProc.html#REF72195">page 146</A>) and the spatial offset parameters (<A HREF="GraphProc.html#REF22478">page 148</A>). In addition, the following parameters apply:
+<DL>
+<DT>raster-<I>field</I>-center <DD>(Required). The center value to use for color coding. <I>Field</I> is replaced with the name of the field being plotted.
+<DT>raster-<I>field</I>-step<DD> (Required). The change in data value between rasterization steps.
+<DT>raster-<I>field</I>-nsteps<DD> (Default: 11). The number of data steps.
+<DT>out-of-range-color<DD> (Default: black; qualifier: platform). The color to use when color-coding data that falls outside the range given by the above parameters.
+</DL>
+<P>A "highlight" mechanism exists for emphasizing certain data values through the use of a special color. Highlighting is controlled by these parameters:
+<DL>
+<DT><I>field</I>-highlight-range<DD> The range of data values to be rasterized in the highlight color. If this parameter is not set, or it is not greater than zero, no highlighting is done.
+<DT><I>field</I>-highlight<DD>The center value to use for highlighting.
+<DT>field-highlight-color<DD> The color to use in highlighting data.
+
+</DL>
+<P>A pair of parameters control how images are rasterized onto the screen. There should almost never be any reason to do anything with these --- they are documented here for completeness.
+<DL>
+<DT>new-raster<DD>(Default: true). Use the "new" rasterization code. If you turn this off, rasterization is done through the use of a "draw rectangle" call for each pixel in the source image. Not a particularly useful way to do things.
+<DT>fast-raster<DD>(Default: false). Uses a different, integer-based rasterization scheme. Is probably a little faster.
+</DL>
+<H4><A NAME="HDR30">  6.9.7  Contour representation</A></H4>
+<P>There are actually two variants on the contour representation, being filled contours and line contours. Filled contours fill the entire area covered by a contour range with a color; as such, they are usually only suitable for plotting as the base component. Line contours are simple curves drawn along the iso-whatever lines.
+<DL>
+<DT>representation<DD>Either contour for line contours, or filled-contour for a filled contour plot.
+</DL>
+<P>The common parameters that are used in contour plotting are: color-table (<A HREF="GraphProc.html#REF0">page 142</A>), ct-limit (<A HREF="GraphProc.html#REF0">page 142</A>), field (<A HREF="GraphProc.html#REF0">page 142</A>), line-width, (<A HREF="GraphProc.html#REF0">page 142</A>), platform (<A HREF="GraphProc.html#REF0">page 143</A>), range-min and range-max (<A HREF="GraphProc.html#REF0">page 143</A>), the interpolation parameters (<A HREF="GraphProc.html#REF72195">page 146</A>) and the spatial offset parameters (<A HREF="GraphProc.html#REF22478">page 148</A>). In addition, the following parameters apply:
+<DL>
+<DT>scale-mode<DD>(Default: manual; qualifier: platform). If set to auto (or autoscale), the center and step values for contours will be produced automatically from the data. Otherwise the following two parameters will be used. Autoscaling is also used if the following center/step parameters are not specified, regardless of the setting of this parameter.<DD>
+<DT>contour-<I>field</I>-center <DD>(Required for manual scaling). The center value to use for contouring. <I>Field</I> is replaced with the name of the field being plotted.
+
+<DT>contour-<I>field</I>-step<DD> (Required for manual scaling). The change in data value between contour steps.
+</DL>
+<P>The number of contour steps is determined by the number of colors in the color table. In the case of monochrome contours, as many steps as are needed will be drawn.
+<DL>
+<DT>color-mono<DD>(Default: false). If true, the contours will be drawn in monochrome instead of color-coded. This only really works with line contours. If true, the color parameter is used to determine which color is used to draw the contours.
+<DT>label-blanking<DD>(Default: true). If true, the piece of screen under each (line) contour label will be blanked before writing the label. This makes the label easier to read, but can produce ugly results on the underlying data.
+<DT>do-labels<DD>(Default: true). If true, line contours will be labelled. This feature is crucial for monochrome contours, not always necessary for color-coded contours.
+</DL>
+<H4><A NAME="HDR31">  6.9.8  Vector representation</A></H4>
+<P>The vector representation displays gridded data as a field of arrows showing direction and magnitude. This representation is almost exclusively used for wind data, but can be used for any sort of physical vector field data that may be available.
+<P>The common parameters that are used in vector plotting are: line-width, (<A HREF="GraphProc.html#REF0">page 142</A>), platform (<A HREF="GraphProc.html#REF0">page 143</A>), range-min and range-max (<A HREF="GraphProc.html#REF0">page 143</A>), the interpolation parameters (<A HREF="GraphProc.html#REF72195">page 146</A>) and the spatial offset parameters (<A HREF="GraphProc.html#REF22478">page 148</A>). In addition, the following parameters apply:
+<DL>
+<DT>u-field<DD>(Required). The field to use for the U direction.
+<DT>v-field<DD>(Required). The field to use for the V direction.
+
+<DT>degrade<DD>(Default: 0; qualifier: platform). The factor by which to degrade the grid resolution before performing the plot. This parameter is useful to clean up plots that are otherwise so thick with arrows that interpretation is impossible. Degredation is done with a simple "every nth point" algorithm.
+<DT>arrow-scale<DD>(Required). The scale factor for the arrows, as a portion of the screen per meter per second. A value like 0.01 is a good place to start.
+<DT>arrow-color<DD>(Default: white). The color in which to draw the arrows. If this parameter is not present, the color parameter is consulted before defaulting.
+</DL>
+<P>For completeness, there is also one obsolete parameter:
+<DL>
+<DT>grid<DD>(Default: true). If false, it means that the user really wanted the station representation instead.
+</DL>
+<H4><A NAME="HDR32">  6.9.9  Station plot representation</A></H4>
+<P>The station plot representation is oriented around irregular grid surface station networks. The winds at each station are displayed as a vector at the station location, perhaps with some other fields displayed numerically around it.
+<P>The common parameters that are used in station plots are: line-width, (<A HREF="GraphProc.html#REF0">page 142</A>), platform (<A HREF="GraphProc.html#REF0">page 143</A>), range-min and range-max (<A HREF="GraphProc.html#REF0">page 143</A>), and the spatial offset parameters (<A HREF="GraphProc.html#REF22478">page 148</A>). In addition, the following parameters apply:
+<DL>
+<DT>u-field<DD>(Required). The field to use for the U direction.
+<DT>v-field<DD>(Required). The field to use for the V direction.
+<DT>arrow-scale<DD>(Required). The scale factor for the arrows, as a portion of the screen per meter per second. A value like 0.01 is a good place to start.
+<DT>arrow-color<DD>(Default: white). The color in which to draw the arrows. If this parameter is not present, the color parameter is consulted before defaulting.
+
+<DT>station-icon<DD>(Default: pam-loc, qualifier: platform). The name of an icon to use to mark the station locations. The default (pam-loc) is a simple, small cross.
+</DL>
+<P>Each arrow is considered to be surrounded by four "quadrants" in which data can be displayed numerically. The parameters which control this display are:
+<DL>
+<DT>quad<I>N</I><DD>The name of the field to put into quadrant <I>N</I>, where <I>N</I> is between 1 and 4. If the parameter for a quadrant is not defined, no data is displayed in that particular quadrant.
+<DT>quad-color<DD>The color in which to display the quadrant data.
+</DL>
+<P>Station plots also offer a "spatial filtering" option which can be used to thin out the data in the interest of readability. Spatial filtering is based on screen space --- not physical space --- with the result that more stations automatically appear as the user zooms in. The spatial filtering options are:
+<DL>
+<DT>spatial-filter<DD>(Default: false; qualifier: platform). If true, spatial filtering will be performed.
+<DT>filter-resolution<DD> (Default: 50; qualifier: platform). The resolution of the spatial filter, in pixels.
+</DL>
+<P>The algorithm that is used for spatial filtering is essentially the following:
+<PRE>
+Exclude all stations with missing wind data
+Divide the screen into grid points
+For each grid point
+  Find and mark the closest station
+Exclude all unmarked stations
+</PRE>
+<P>Then the station plot is performed in the usual manner.
+<P>Station plots make extensive use of active areas (<A HREF="GraphProc.html#REF86810">page 137</A>). The annotation of the field names for the quadrants described above is active (area type annot), with the intent that the field menu (<A HREF="GraphProc.html#REF21351">page 140</A>) will be assigned to it. The icon_platform variable, in this case, has the name of the relevant quadrant assigned to it instead of the platform name. A good example set of parameters to use with the station plot would be:
+<PRE>
+
+annot-left-menu:           FieldMenu
+annot-field-menu-extras:        station|Station Id,none
+field-select-command:        station-fld-select
+</PRE>
+<P>Where station-fld-select is a procedure like:
+<PRE>
+procedure station-fld-select field string
+  parameter #icon_component #icon_platform #field
+endprocedure
+</PRE>
+<P>The following parameter controls the use of additional active areas in the station plot:
+<DL>
+<DT>active-icon<DD>(Qualifier: platform; default: false). If true, the icon representating each station in the station plot will be made active, with an area type of posicon.
+</DL>
+<P>This feature is useful to enable the user to select stations for plotting in other windows, such as time-series windows.
+<H4><A NAME="HDR33">  6.9.10  Track representation</A></H4>
+<P>Tracks are a display of the movement of some mobile platform over time, with optional color coding, arrows, and time annotations. There are a lot of configuration options with tracks, but once you wade through them all you get a nice display!
+<P>Tracks also do the right thing with update plots in real time --- the track is extended in place, without the need for a global replot.
+<P>The common parameters that are used in track plots are: color (<A HREF="GraphProc.html#REF0">page 142</A>), color-table (<A HREF="GraphProc.html#REF0">page 142</A>), ct-limit (<A HREF="GraphProc.html#REF0">page 142</A>), field (<A HREF="GraphProc.html#REF0">page 142</A>), line-width, (<A HREF="GraphProc.html#REF0">page 142</A>), platform (<A HREF="GraphProc.html#REF0">page 143</A>), and the spatial offset parameters (<A HREF="GraphProc.html#REF22478">page 148</A>). In addition, the following parameters apply:
+<DL>
+<DT>time-period<DD>(Default: 300s; qualifier: platform). The period of time over which to draw the track, expressed as a trigger time.
+</DL>
+<P>The time-period may also be the keyword "observation", in which case the entire observation at or before the plot time is plotted, regardless of its length.
+
+<DL>
+<DT>data-skip<DD>(Default: 0; qualifier: platform). This parameter may be used to thin out data in high-bandwidth situations. If it is set to <I>N</I>, then only every <I>N</I>th point will be plotted.
+<DT>show-position<DD>(Default: false; qualifier: platform). If true, the most recent end of the track will be decorated with an icon to show the platform's position.
+<DT>position-icon<DD>(Qualifier: platform). Required if show-position is true. The name of the icon to use to show the platform's position.
+</DL>
+<P>If the parameter field (qualified by platform) is defined, then the track will be color-coded by that field (using the specified color-table) and the following set of parameters apply. Otherwise the track will be monochrome, as determined by the color parameter.
+<DL>
+<DT>scale-mode<DD>(default: manual, qualifier: platform). The scaling mode for color-coding. If set to auto (or autoscale), center and step values will be determined automatically from the data to be plotted. Otherwise the following two parameters apply.<DD><DD><DD>
+<DT>track<I>-F</I>-center<DD>(Required). The center value to use for color-coding this field <I>F</I>.
+<DT>track-<I>F</I>-step<DD>(Required). The step to use in color-coding this field <I>F</I>.
+<DT>out-of-range-color <DD>(Default: red; qualifier: field). The color to use in coding data which falls outside of the range provided by the center and step values and the color table.
+</DL>
+<P>The addition of arrows to tracks is controlled by:
+<DL>
+<DT>arrow<DD>(Default: false; qualifier: platform). If true, arrows will be added to the track.
+</DL>
+<P>If arrows are being plotted, there is another whole set of applicable parameters:
+
+<DL>
+<DT>arrow-scale<DD>(Default: 0.007, qualifier: platform). The scaling of the arrows, as a portion of the screen per field unit.
+<DT>arrow-line-width<DD>(Default: 1; qualifier: platform). The width of lines used to draw the arrows.
+<DT>arrow-invert<DD>(Default: false; qualifier: platform). If true, the arrows will be inverted in direction.
+<DT>arrow-interval<DD>(Default: 10s; qualifier: platform). The interval at which arrows are to be drawn, as a trigger time.
+<DT>arrow-color<DD>(Default: white; qualifier: platform). The color in which to draw the arrows.
+<DT>arrow-type<DD>(Default: "wind"; qualifier: platform). The "type" of the arrows being drawn. The only purpose of this parameter is for annotation.
+<DT>x-field<DD>(Default: u_wind; qualifier: platform). The horizontal field. This parameter name is inconsistent with that used for vector and station plots, which is unfortunate.
+<DT>y-field<DD>(Default: v_wind; qualifier: platform). The vertical field.
+</DL>
+<P>Tracks can optionally be annotated by time as well. The parameters controlling time annotation are:
+<DL>
+<DT>annot-time<DD>(Default: false). If true, the track will have time annotations added to it.
+<DT>annot-time-interval<DD>(Default: 1h). The interval at which the track is annotated.
+<DT>annot-time-label<DD>(Default: time). The label with which to annotate the track. Possible values are none (no label), time (the data time at that point), or a literal string.
+
+<DT>annot-time-icon<DD>(Default: "littlecircle"). The icon to use to mark the point at which annotation occurs.
+<DT>annot-time-color<DD>(Default: white). The color in which the annotation is to be done.
+<DT>annot-time-scale<DD>(Default: 0.01). The size of the font to use in annotations, expressed either as a portion of the height of the window as a whole (value &lt; 1.0) or as a direct height in pixels (value &gt; 1.0).
+</DL>
+<H4><A NAME="HDR34">  6.9.11  Lightning representation</A></H4>
+<P>This representation was added for the lightning display in the CaPE project and has not been used since, to the knowledge of this writer. The capability still exists, however. Lightning plots mark the location(s) of lightning events with an icon, which is color-coded by the elapsed time between the event and the plot time.
+<P>The common parameters that are used in lightning plots are: color-table (<A HREF="GraphProc.html#REF0">page 142</A>) and platform (<A HREF="GraphProc.html#REF0">page 143</A>). In addition, the following parameters apply:
+<DL>
+<DT>time-step<DD>(Default: 300s; qualifier: platform). The amount of elapsed time between each step in the color table, as a trigger time.
+<DT>icon<DD>(Required, qualifier: platform). The name of the icon to use to mark event locations. Note that this is the same icon parameter which determines the icon at the bottom of the screen.
+</DL>
+<H4><A NAME="HDR35">  6.9.12  Overlay representation</A></H4>
+<P>The overlay representation is a sort of catchall type for a wide variety of "static" overlays --- information plotted on CAP plots which does not change (much) over time.
+
+<P>Static overlays use a number of the standard plot description parameters, but in rather non-standard ways. They all have a representation of overlay; then the field parameter is used to determine the type of overlay. This overloading is probably unfortunate, but that is how it was done. Standard parameters used in a normal way include color and line-width.
+<P>The boundary overlay type displays a user-entered (or, on occasion, program-generated) outline on the screen. This outline may be annotated, and may be drawn open or closed. The configuration parameters are:
+<DL>
+<DT><I>Boundary overlays
+<DT></I>platform<DD>(Required). A comma-separated list of platforms to be displayed.
+<DT>closed-boundary<DD>(Default: true). If true, the first point of the outline is connected to the last, resulting in the drawing of a closed polygon.
+<DT>label<DD>(Default: "platform"). The labelling option for this boundary. This option may be platform to label with the platform name; none for no label at all, or a literal string.
+<DT>label-size<DD>(Default: 0.015). The size of the label, as a portion of the full window height.
+<DT>data-time-adjust<DD>(Default: 0). The amount by which to offset the plot time, in minutes.
+<DT>show-icon<DD>(Default: true). If true, an icon will be placed at the location marked by the center_lat and center_lon data attributes in the data. If those attributes do not exist, the first point in the boundary is used.
+<DT>position-icon<DD>(Required, if show-icon is true). The icon to plot along with the boundary.
+</DL>
+<P>The grid overlay type can be used to put a cartesian grid onto the plot window. Grids may be labelled in either latitude/longitude, or in kilometers from an arbitrary origin. Grid configuration parameters are:
+<DL>
+<DT><I>Grid overlays
+
+<DT></I>lat-lon<DD>(Default: false). If true, the grid will be a latitude and longitude grid; otherwise it is a kilometer grid.
+<DT>x-spacing<DD>(Default: 10). The spacing of the grid, in the horizontal direction. Depending on the grid type, it is interpreted as either minutes longitude or kilometers.
+<DT>y-spacing<DD>(Default: 10). The spacing of the grid, in the vertical direction. Depending on the grid type, it is interpreted as either minutes latitude or kilometers.
+<DT>annot-height<DD>(Default: 0.02). The height of the grid annotation, as a portion of the total window height.
+<DT>solid<DD>(Default: false). If true, the grid is drawn with solid lines across the window; otherwise it is drawn with tic marks.
+<DT>tic-width<DD>(Default: 8). The width of tic marks, in pixels.
+<DT>origin<DD>The origin to use for kilometer grids. It should be specified as the name of a platform, or as the name of a location defined in the defaults table.
+</DL>
+<P>The grid bounding box (type gridbbox) draws a box on the screen to indicate the area covered by a grid dataset. About the only relevant parameter is:
+<DL>
+<DT><I>Grid bounding box
+<DT></I>platform<DD>The source of the grid for which the bounding box is to be drawn.
+</DL>
+<P>The window bounds overlay performs a similar function, but it draws the bounding box for another window instead. In this way, the coverage of a detail window can be seen on another, large-scale window. Usually not too much use for ordinary work, but can be helpful for demos.
+<P>The overlay type is wbounds, and it uses these parameters:
+<DL>
+<DT><I>Wbounds overlays
+
+<DT></I>platform<DD>(Required). The name of the window for which the bounds are to be displayed.
+</DL>
+<P>Window bounds overlays work where the source window is running with the CAP or xsect plot types. In the latter case, a line showing the intersection of the vertical plane is drawn.
+<P>Map overlays draw some sort of map or other diagram on the screen. The overlay type is, surprisingly enough, map, and the parameters are:
+<DL>
+<DT><I>Map overlays
+<DT></I>platform<DD>(Required). The name of the map file. 
+</DL>
+<P>The indirect variable MapPath is used to find the map files. The default value for MapPath is:
+<PRE>
+/zeb/lib,./maps
+</PRE>
+<P>Where /zeb/lib may be changed to match the library directory for your installation of zebra. If the old environment variable GP_MAP_PATH has been set, the value of that variable will be appended to the default map path automatically.
+<P>The map files themselves have a format that has seen years of history. Essentially they consist of numerous sets of connected line segments. Each set starts with an integer point count, followed by the points themselves in latitude-longitude pairs. A point count of one is alleged to be an indicator of a landmark, but that feature is not really used anywhere.
+<P>The location overlay type is used to indicate the locations of objects of interest, possibly with some sort of annotation. The parameters are:
+<DL>
+<DT><I>Location overlays
+<DT></I>platform<DD>(Required). A comma-separated list of locations to plot. They need to be the names of platforms, or else a location defined in the defaults table.
+<DT>location-icon<DD>The icon to use in marking locations. If this parameter is not specified, the icon parameter will be used instead.
+
+<DT>label<DD>(Default: platform). The label to be put under each location icon. It may be platform, in which case the platform name is used; none for no label at all, or an arbitrary string.
+<DT>label-size<DD>(Default: 0.015). The size of the labelling, as a portion of the window height.
+<DT>time-label<DD>(Default: false). If true, location icons will also be labelled with the time associated with the location, if such a time actually exists. (Static locations from the defaults table have no times).
+</DL>
+<P>The range rings overlay type draws range rings and azimuth lines around an arbitrary origin. It is mostly used at radar locations, but there are other applications as well. The overlay type is range-rings, and the parameters are:
+<DL>
+<DT><I>Range rings overlay
+<DT></I>platform<DD>(Required). The location for the center of the range rings. Should be either a platform or a static location from the defaults table.
+<DT>ring-interval<DD>(Default: 20, qualifier: platform). The spacing of the range rings, in kilometers.
+<DT>azimuth-interval<DD>(Default: 30; qualifier: platform). The spacing of the azimuth lines, in degrees.
+<DT><CODE>do-labels<DD></CODE>(Default: true; qualifier: "range-ring"). If true, the range rings and azimuth lines will be annotated.
+<DT>ring-annot-azimuth<DD>(Default: varies). The azimuth at which the range rings are annotated.
+<DT>azimuth-annot-range<DD>(Default: varies). The range at which the azimuth lines are annotated.
+
+<DT>azimuth-offset<DD>(Default: 0). The amount by which to rotate the rings from true north, in degrees. Useful for VOR/DME rings.
+</DL>
+<P>Range rings also use the color and line-width standard parameters.
+<P>The azimuth limits overlay type draws a pie-shaped wedge indicating an area being scanned by a remote radar. The overlay type is azimuth-limits, and the parameters are:
+<DL>
+<DT><I>Azimuth limits overlay
+<DT></I>platform<DD>(Required). The radar location. The actual azimuth limits are pulled from the data store using the given platform name with "-az-limits" appended.
+<DT>range<DD>(Default: 100; qualifier: platform). The range to which the azimuth limit lines are drawn, in kilometers.
+</DL>
+<P>The azimuth limits overlay also uses the color, line-width and age-limit standard parameters.
+<H3><A NAME="HDR36">  6.10  Skew-t plots</A></H3>
+
+<HR>
+<P>The skew-t plot type draws the familiar sounding plot, with up to three different soundings overlaid. The current implementation of the skew-t plot expects the plot description to have exactly one component (other than global) to plot; more than that will not work correctly. This may be changed someday.
+<P>The only representation implemented in skew-t plots is also called skew-t. The following plot description parameters are understood:
+<DL>
+<DT>platform<DD>(Required). A comma-separated list of up to three platforms to plot in the skew-t diagram.
+<DT>color-table<DD>(Required; qualifier "skewt"). The color table to use in generating the plot. The table must have at least eight colors.
+
+<DT>pres-minval<DD>(Default: 100). The minimum pressure value to display on the chart, in millibars.
+<DT>pres-maxval<DD>(Default: 1050). The maximum pressure value to display on the chart, in millibars.
+<DT>temp-minval<DD>(Default: -40). The minimum temperature value to display.
+<DT>temp-maxval<DD>(Default: 35). The maximum temperature value to display.
+<DT>data-skip<DD>(Default: 1). The data point skip factor to be used when plotting winds. When set to a number other than 1, every nth point will be plotted.
+<DT>do-feet<DD>(Default: false). If true, altitude will be annotated in feet; otherwise kilometers.
+<DT><CODE>wind-platform<DD></CODE>If specified, defines a separate platform from which to obatin winds data. This is useful for sounding data where the thermodynamic and winds data are kept as separate platforms.
+<DT><CODE>wind-style<DD></CODE>(Default: "vector") The wind representation to use for the plot. This may be "vector" or "barb."
+</DL>
+<P>There is really not much more to be said about the skew-t representation.
+<H3><A NAME="HDR37">  6.11  XY Graphs</A></H3>
+
+<HR>
+<P>The xygraph plot type gives a general, two-dimensional plot where just about anything can be assigned to the axes. It produces a number of familiar plots, including time-series "strip chart" graphs, wind profiles, and contour plots. The plot-type for xygraphs is xygraph; valid representations are simple, wind, contour, filled-contour, and obs.
+<P>A large number of the xygraph plot description parameters are common to all representations. They will be discussed in the next few sections, followed by a description of each representation.
+
+<H4><A NAME="HDR38">  6.11.1  Platform</A></H4>
+<P>The platform(s) to be displayed in an xygraph are specified by:
+<DL>
+<DT>platform<DD>(Required). A comma-separated list of platforms to display in this xygraph component.
+</DL>
+<P>Normally, for each platform specified with this parameter, you must give a matching field and color (as described below).
+<H4><A NAME="HDR39">  6.11.2  Field parameters</A></H4>
+<P>Xygraphs have up to three fields which are to be specified in most representations. They are:
+<DL>
+<DT>x-field<DD>(Required). The field(s) to be used for the horizontal axis of the plot.
+<DT>y-field<DD>(Required). The field(s) to be used for the vertical axis of the plot.
+<DT>z-field<DD>The field to be used for the "third dimension" of the plot. The interpretation of this field depends on the representation.
+</DL>
+<P>The x-field and y-field parameters may be a comma-separated list of fields, in which case the platform parameter must supply a corresponding list of platforms. You may also specify a single field only; if multiple platforms appear, the same field will be plotted for each platform. These parameters may also be the special fields time, height, or nothing. The last case causes no data to be plotted for that component; such components are typically used to put grids onto the window.
+<P><B>Disclaimer</B>: xygraph components with more than one platform and field have not been extensively tested, and could possibly produce unexpected results.
+<H4><A NAME="REF10171">  6.11.3  Axis control parameters</A></H4>
+<P>Xygraphs have several parameters which control the placement and appearance of the axes in the window. Overall control is maintained through the following:
+<DL>
+<DT>axis-top<DD>(Default: false; qualifier "xy"). If true an axis will be put at the top of the window.
+
+<DT>axis-bottom<DD>(Default: true; qualifier "xy"). If true an axis will be put at the bottom of the window.
+<DT>axis-left<DD>(Default: true; qualifier "xy"). If true an axis will be put at the left side of the window.
+<DT>axis-right<DD>(Default: false; qualifier "xy"). If true an axis will be put at the right side of the window.
+</DL>
+<P>Most of the remaining axis parameters incorporate the side of the window into the parameter name. The side is always a single letter, which is one of the following: b (bottom), t (top), l (left), or r (right). The side is indicated by <I>S</I> in the following:
+<DL>
+<DT>axis-<I>S</I>-color<DD>(Default: white; qualifier: "xy"). The color in which to draw the axis on the given side.
+<DT>axis<I>-S</I>-label<DD>(Qualifier: "xy"). The label to put next to the axis. If not specified, the label defaults to the description of the relevant field (if possible) or just the field name otherwise.
+<DT>axis-<I>S</I>-tic-len<DD>(Default: 5; qualifier: "xy"). The length in pixels of the labelled tic marks on the axis. The unlabeled tics will be half of this size.
+<DT>axis<I>-S</I>-tic-interval <DD>(Default: 10m for time scales, 1 otherwise; qualifier: "xy"). The distance between tic marks, in data units.
+<DT>axis-<I>S</I>-font-scale (Default: 0.025; qualifier: "xy"). <DD>The size of annotation for axis labelling, expressed either as a portion of the height of the window as a whole (value &lt; 1.0) or as a direct height in pixels (value &gt; 1.0).
+<DT>axis-<I>S</I>-grid-intensity<DD> (Default: 0.75; qualifier: "xy"). Controls the intensity of grid lines drawn in the data window. This parameter is a value from 0 to 1, indicating the color intensity of the grid lines, relative to the color of the tic marks. If set to zero, the grid is not drawn.
+
+</DL>
+<H4><A NAME="HDR40">  6.11.4  Scaling parameters</A></H4>
+<P>Several parameters control how the data is scaled as it is plotted into the window. They are:
+<DL>
+<DT>scale-x-mode<DD>(Default: autoscale; qualifier: "xy"). The manner in which the X axis is scaled. If it is "autoscale" then the scale in this dimension will be figured automatically from the data. Set to "manual" to set the scale by hand. Note that with time scales, the series-span parameter will be used for autoscaling.
+<DT>scale-y-mode<DD>(Default: autoscale; qualifier: "xy"). Like scale-x-mode, but for the vertical dimension.
+</DL>
+<P>If autoscaling is used, it is not necessary to specify the minimum and maximum values for the scales; otherwise the following must be defined:
+<DL>
+<DT>scale-x-min<DD>(Required for manual scaling; qualifier: field). The minimum value for the horizontal scale.
+<DT>scale-x-max<DD>(Required for manual scaling; qualifier: field). The maximum value for the horizontal scale.
+<DT>scale-y-min<DD>(Required for manual scaling; qualifier: field). The minimum value for the vertical scale.
+<DT>scale-y-max<DD>(Required for manual scaling; qualifier: field). The maximum value for the vertical scale.
+</DL>
+<P>Finally, scales may be normal or inverted, as determined by:
+<DL>
+<DT>scale-x-style<DD>(Default: regular; qualifier: "xy"). If regular, the scale is run in the usual left-to-right sense. Set to invert to run the scale right-to-left instead.
+<DT>scale-y-style<DD>(Default: regular; qualifier: "xy"). If regular, the scale is run in the usual bottom-to-top sense. Set to invert to go top-to-bottom instead.
+
+</DL>
+<H4><A NAME="HDR41">  6.11.5  Other common xygraph parameters</A></H4>
+<P>Side annotation may be disabled with the following parameter:
+<DL>
+<DT>do-side-annotation <DD>(Default: true). If true, side annotation will be put into the window.
+</DL>
+<P>Side annotation should not be confused with the axes, which are controlled by parameters listed in <A HREF="GraphProc.html#REF10171">Section 6.11.3 on page 164</A>; this annotation consists primarily of field names in the color of the data. This parameter performs the same function as the sa-show parameter in the other plot types.
+<P>A pair of parameters control how data is to be fetched from the data store to be plotted on the screen. They are:
+<DL>
+<DT>data-mode<DD>(Default: snap-shot). If set to snap-shot, the most recent observation is fetched in its entirety and displayed. If set to series, then a user-specified period of time is fetched.
+<DT>series-span<DD>(Required). The period of time to grab when data-mode is set to series, as a trigger time.
+</DL>
+<H4><A NAME="HDR42">  6.11.6  The simple representation</A></H4>
+<P>The "simple" xygraph representation produces a basic plot of the data within the axes. There are just a few parameters controlling this representation.
+<DL>
+<DT>representation-style<DD> (Default: line). The style in which the data are plotted. May be <CODE>line</CODE> for a polyline connecting all the data or point, cross, xmark,or <CODE>icon</CODE> for an appropriate marker to be plotted at each datum. In the case of <CODE>icon</CODE>, the marker used will be the icon named by the <CODE>point-icon</CODE> parameter.
+<DT><CODE>point-icon</CODE><DD>(Default: cross). The name of the icon to use when drawing points if the <CODE>icon</CODE> representation style is chosen.
+
+<DT>field-color<DD>(Default: white). A comma-separated list of colors (corresponding to the lists of platforms and fields) in which to draw the data.
+<DT>time-annot<DD>(Default: true; qualifier: "xy"). If true, the end time for each trace will appear in the side annotation.
+</DL>
+<P>Simple xygraphs make a piece of the side annotation active, allowing the association of menus with each individual trace, even if there are more then one in each component. The area type for these areas is annot. It is also possible to make the field names in the side annotation active by setting the following:
+<DL>
+<DT>x-annot-active<DD>(Default: false; qualifier: "xy"). If true, the X field name will be active, with an area type of xfield.
+<DT>y-annot-active<DD>(Default: false; qualifier: "xy"). If true, the Y field name will be active, with an area type of yfield.
+</DL>
+<P>The two axes are separate to allow the creation of an interface that will (for example) insure that the time axis of a time-based plot is not changed while allowing the independent variable to be adjusted by the user.
+<H4><A NAME="HDR43">  6.11.7  The wind representation</A></H4>
+<P>This representation plots data points as wind vectors or barbs. Its most common use is the production of time-height wind profiles, but others are possible. The wind representation parameters are:
+<DL>
+<DT>representation-style<DD> (Default: vector; qualifier: "xy-wind"). The style in which the winds are displayed. Set to vector to get arrows, or barb to get wind barbs.
+<DT>barb-scale<DD>(Default: 25; qualifier: "xy-wind"). The length of the shaft of a wind barb, in pixels.
+
+<DT>barb-type<DD>(Default m/s; qualifier: "xy-wind"). Controls whether wind barbs display in meters per second (m/s) or in knots. The underlying data is always in meters per second; this parameter just controls how it is displayed.
+<DT>vec-scale<DD>(Default: 5.0; qualifier: "xy-wind"). The length of a wind vector, as a percent of the height of the window per speed unit. <B>NOTE</B> that this parameter is inconsistent with most of the other size parameters, which are direct values instead of percentages.
+<DT>data-skip<DD>(Default: 0; qualifier: "xy-wind"). The number of data points to skip between each point plotted.
+</DL>
+<P>The wind plotting code can deal with wind information in either polar or cartesian coordinates. This capability will remain necessary until such a time as a real field derivation module is incorporated into the system. Until then, it is necessary to specify the behavior by hand, using the following parameters.
+<DL>
+<DT>coords<DD>(Default: cartesian; qualifier: "xy-wind"). Defines which wind fields will be used to generate the plot. If set to compass, speed and direction fields are used; if set to cartesian, u and v fields are used instead.
+<DT>u-field<DD>(Default: u_wind; qualifier: "xy-wind"). The field to use for the u direction when coords is set to cartesian.
+<DT>v-field<DD>(Default: v_wind; qualifier: "xy-wind"). The field to use for the v direction when coords is set to cartesian.
+<DT>wdir-field<DD>(Default: wdir; qualifier: "xy-wind"). The field to use for wind direction when coords is set to compass.
+<DT>wspd-field<DD>(Default: wspd; qualifier: "xy-wind"). The field to use for wind speed when coords is set to compass.
+</DL>
+<P>Wind arrows and barbs may be color-coded by wind speed as well. Color is controlled by these parameters:
+
+<DL>
+<DT>color-mono<DD>(Default: false). If true, arrows and barbs are plotted in a single color; otherwise they are color coded.
+<DT>color<DD>(Default: white). The color to use when drawing monochrome arrows or barbs.
+<DT>color-table<DD>(Required, qualifier: "xy-wind"). The color table to be used for color-coding of wind arrows and barbs.
+</DL>
+<P>The mapping of speeds to colors is done with the step parameter:
+<DL>
+<DT>step<DD>(Default: 5; qualifier: "xy-wind"). The span of wind speed covered by each color in the color table.
+</DL>
+<P>If winds are being plotted as arrows, an "example" vector is put in the side annotation space to help the user map vector length onto a velocity. The size of that vector is determined by:
+<DL>
+<DT>scale-speed<DD>(Default: 25). The size of the example vector.
+</DL>
+<H4><A NAME="HDR44">  6.11.8  The contour and filled-contour representations</A></H4>
+<P>These representations will contour a third field (specified by the z-field parameter) within the bounds of the two axis fields. The contour representation yields line contours, while filled-contour gives solid, filled contours instead. The parameters which control contour overlays are:
+<DL>
+<DT>x-grid<DD>(Default: 25; qualifier: "xy-contour"). The horizontal resolution of the interpolated grid.
+<DT>y-grid<DD>(Default: 25; qualifier: "xy-contour"). The vertical resolution of the interpolated grid.
+<DT>z-step<DD>(Default: 20; qualifier: "xy-contour"). The contour interval. There is no contour-center parameter for xygraphs; instead, the z-min and z-max parameters are used to derive the center.
+
+<DT>grid-method<DD>(Default: profile-linear; qualifier: "xy-contour"). The method by which the data points are gridded before contouring. Can be rgrid to use the rgrid package, raw for a closest-point scheme, or profile-linear to do a linear interpolation across the rows.
+<DT>color-table<DD>(Required; qualifier: "xy-contour"). The name of the color table to be used in drawing the contours.
+<DT>representation-style<DD> (Default: line). Selects the contouring style. Use line for line contours, or filled for filled contours. <B>NOTE</B> that this is an obsolete parameter; use the representation parameter to choose the contouring style instead. <B>Note also</B> that if this parameter is present, it will <B>override</B> the style chosen by representation --- backwards compatibility at work.
+</DL>
+<H4><A NAME="HDR45">  6.11.9  The observation representation</A></H4>
+<P>The "observation" representation displays data values by overloading the z field onto the x axis. An observation is fetched, and the plotting is anchored at the appropriate point on the x axis as determined by the x field (usually time). Then the points are plotted along the y field with a horizontal shift as determined by the z field. In this way time-height-temperature profiles can be generated, for example.
+<P>The parameters which control observation xygraphs are:
+<DL>
+<DT>field-color<DD>(Default: white; qualifier: "xy-obs"). The color in which the data is drawn.
+<DT>representation-style<DD> (Default: line; qualifier: "xy-obs"). The style in which the points are plotted. May be point to draw as dots in the window, cross for crosses, xmark for x's, or line for a connected polyline representation.
+<DT>data-skip<DD>(Default: 0; qualifier: "xy-contour"). The number of points to skip between each plotted data point.
+
+<DT>z-scale<DD>(Default: 0.001). The scaling factor for the z field (along the x axis) as a portion of the graphics window width.
+<DT>z-justify<DD>(Default: mid). Which point in the observation is anchored on the x axis. Use base for the first point, mid for the middle point, or top for the last point.
+</DL>
+<H3><A NAME="HDR46">  6.12  Time series plots</A></H3>
+
+<HR>
+<P>The tseries plot type provides a simple, strip-chart-like time-series display. It's use is discouraged, since xygraphs provide the same functionality in a better way. For completeness, however, this plot type is documented here.
+<P>The only representation implemented for tseries plots is also called tseries. There can be any number of components laid on a tseries plot.
+<H4><A NAME="HDR47">  6.12.1  Time series parameters</A></H4>
+<P>Time-series plots use a number of common parameters, including color-table (<A HREF="GraphProc.html#REF0">page 142</A>), field (<A HREF="GraphProc.html#REF0">page 142</A>), and platform (<A HREF="GraphProc.html#REF0">page 143</A>). Time-series plots can take a comma-separated list of platforms and plot them all together.
+<P>Other time-series parameters are:
+<DL>
+<DT>axis-color<DD>(Default: gray60; qualifier: "tseries"). The color of the axes in the time series plot.
+<DT><I>F</I>-center<DD>(Required, qualifier: "tseries"). The center value for the plot; <I>F</I> should be substituted with the field name.
+<DT><I>F</I>-step<DD>(Required; qualifier: "tseries"). The step value for the plot.
+<DT>flip-time<DD>(Default: false; qualifier: "tseries"). If true the time axis will be inverted, so that time moves from right to left.
+
+<DT>nstep<DD>(Required; qualifier: "tseries"). The number of steps to put on the data axis.
+<DT>time-interval<DD>(Required; qualifier "tseries"). The time period to be covered by the plot, expressed as a trigger time.
+</DL>
+<P>Time series plots handle updates properly, and thus can be used to track incoming data.
+<H3><A NAME="HDR48">  6.13  Vertical cross sections</A></H3>
+
+<HR>
+<P>The xsect plot type interpolates and plots data along a vertical surface. The data can some from a series of soundings, or from a three-dimensional cartesian grid. With soundings, the vertical surface can be either a simple plane or a "zig-zag" line joining the sounding stations; grids can be plotted on a vertical plane only. Contours may be either line contours or filled.
+<H4><A NAME="HDR49">  6.13.1  Common cross section parameters</A></H4>
+<P>Most parameters are used by all types of cross sections; they will be listed here. In addition, the following common parameters are used: platform, field, color-table, and line-width (<A HREF="GraphProc.html#REF0">page 142</A>).
+<DL>
+<DT>representation<DD>(Required). The way the cross section is plotted. Can be either line-contour for line contours, filled-contour for solid filled contours, or vector for a grid of vectors.
+<DT>by-altitude<DD>(Default: true; qualifier: "xsect"). If true, the vertical axis of the cross section will be labelled according to the altitude of the data. Otherwise the pressure value will be used.
+<DT>zig-zag<DD>(Default: false; qualifier: "xsect"). If true, a "zig-zag" cross section is done; otherwise a planar cross section is done. Must be false if you are using gridded data. This parameter must be specified in the global component.
+
+<DT>hgrid<DD>(Default: varies; qualifier: "xsect"). The number of points in the horizontal dimension for the interpolated grid.
+<DT>vgrid<DD>(Default: varies; qualifier: "xsect"). The number of points in the vertical dimension for the interpolated grid.
+<DT>max-time-diff<DD>(Default: -1; qualifier: "xsect"). The maximum difference in time that will be allowed between the sounding times and the plot time, in minutes. Only relevant, obviously, if sounding data is being used. A value of -1 disables time checking.
+</DL>
+<H4><A NAME="HDR50">  6.13.2  Contour representation parameters</A></H4>
+<P>The usual parameters to control the assignment and coloring of contours are present (<I>F</I>, below, should be substituted with the name of the field being plotted):
+<DL>
+<DT><I>F</I>-center<DD>(Required; qualifier: "contour"). The center value to use for contouring.
+<DT><I>F</I>-step<DD>(Required; qualifier: "contour"). The step value to use for contouring.
+<DT>do-labels<DD>(Default: true; qualifier: "xsect"). If true, line contours will be labelled with their associated value.
+</DL>
+<H4><A NAME="HDR51">  6.13.3  Vector representation parameters</A></H4>
+<DL>
+<DT>u-field<DD><DD><DD>(Required; qualifier: "xsect"). The field to use for the u component of the vectors.
+<DT>v-field<DD><DD><DD>(Required; qualifier: "xsect"). The field to use for the v component of the vectors.
+<DT>arrow-scale<DD>(Required; qualifier: "xsect"). The scale factor for drawing arrows, as a fraction of window height per unit vector length. A value like 0.01 is a good place to start.
+
+<DT>arrow-color<DD>(Default: white; qualifier: "xsect") Color to use for drawing arrows.
+<DT>line-width<DD>(Default: 0; qualifier: "xsect"). The line width, in pixels, to use when drawing arrows.
+</DL>
+<H4><A NAME="HDR52">  6.13.4  Planar cross sections</A></H4>
+<P>Planar cross sections are interpolated onto a single vertical plane, the location of which is specified by two endpoints. They may be created either from sounding data or from three-dimensional grids. The relevant parameters are:
+<DL>
+<DT>platform<DD>(Required). For gridded data, the name of the platform providing the grid. For sounding data, a comma-separated list of platforms to use in the generation of this cross section.
+<DT>left-endpoint<DD>(Required). This global parameter tells where one endpoint of the cross section plane is to be. It should consist of two comma-separated, floating-point numbers, being offsets from the origin in kilometers.
+<DT>right-endpoint<DD>(Required). The other endpoint of the cross section plane.
+</DL>
+<P>The endpoints need not be in any particular spatial order --- i.e. the "left" endpoint may be to the right of the "right" endpoint as viewed in a CAP plot. These endpoints are usually set with the sendendpoints graphics process command (<A HREF="GraphProc.html#REF91883">Section 6.4.2 on page 127</A>).
+<DL>
+<DT>grid-method<DD>(Default: hdweight; qualifier: "xsect"). The method by which the data will be interpolated onto the cross section plane. The two allowed gridding methods are bilinear, which should be used for cross-sections through gridded data, and hdweight (horizontal distance weighting), which should be used for sounding cross sections.
+
+</DL>
+<H4><A NAME="HDR53">  6.13.5  Zig-zag cross sections</A></H4>
+<P>These cross sections plot a "fanfold" plane created by directly connecting a set of sounding stations and interpolating along the resulting lines. Zig-zag cross sections can only be generated from sounding data. The only relevant control parameter is:
+<DL>
+<DT>platform<DD>(Required). A comma-separated list of at least two sounding stations from which the cross section is to be generated. <I>Since the platform list determines the bounds of a zig-zag plot, this parameter must be placed in the <CODE>global</CODE> plot component, to assure that is the same for all components of the plot
+</DL>
+<H3><A NAME="HDR54">  6.14  Histograms</A></H3>
+
+<HR>
+<P></I>Histogram plots (which use a plot-type of histogram) display data from one or more platforms and fields in a bar-chart format. The current implementation displays counts of values that fall within given sets of ranges (bins), for time-series data only. Future plans call for other sorts of bar chart displays (averages, sums, etc.) over a wider range of data types (i.e. within a boundary in a grid). Someday.
+<P>Histogram windows draw one chart for each component in the plot description. Charts are stacked vertically, starting at the bottom.
+<H4><A NAME="HDR55">  6.14.1  Count bar charts</A></H4>
+<P>A count bar chart tallies up the number of points that fall within a set of range-delineated bins and produces a bar chart of the results. The parameters controlling these charts are:
+<UL><DL>
+<DT>platform<DD>(Required). A comma-separated list of platforms to plot.
+<DT>field<DD>(Required). A comma-separated list of fields to plot.
+</DL></UL>
+<P>The bar chart will plot all fields for all platforms, so the total number of bars in each bin is the product of the number of platforms and the number of fields.
+
+<UL><DL>
+<DT>bins<DD>(Required). A comma-separated, monotonically-increasing list of values defining the bins to use in the display. If bins is given as <A HREF = "GraphProc.fig_1.ps"><IMG SRC="GraphProc.fig_1.gif"></A>, the first bin displayed will contain a count of values less than <A HREF = "GraphProc.fig_2.ps"><IMG SRC="GraphProc.fig_2.gif"></A>; the second will count values <A HREF = "GraphProc.fig_3.ps"><IMG SRC="GraphProc.fig_3.gif"></A>, and so on up to the last bin, which will contain a count of all values <A HREF = "GraphProc.fig_4.ps"><IMG SRC="GraphProc.fig_4.gif">
+</A>.
+<DT>badvalue-bin<DD>(Default: false). If this parameter is true, an extra bin will be displayed indicating how many bad data values existed within the time period. 
+<DT>time-period<DD>(Required). The period of time over which the bar chart is to be calculated, expressed as a time trigger value (<A HREF="GraphProc.html#REF48986">page 121</A>). The special value observation is also recognized, and causes the entire observation containing the plot time to be processed.
+<DT>color-table<DD>(Default: hotcold). The color table to use in drawing the bars.
+</DL></UL>
+<P>A set of optional parameters controls the scaling of the bars on the display. Most of the time these can be simply left alone, and the right result will be obtained.
+<UL><DL>
+<DT>scale-mode<DD>(Default: auto). Controls whether bar scaling is done automatically. If set to manual, the count-min and count-max parameters must be used to set the scaling.
+<DT>zero-anchor<DD>(Default: true). When autoscaling is used, this parameter controls whether the lower plot limit is always set to zero. If false, the minimum count value will be used instead.
+<DT>count-min<DD>(Required for manual scaling). The lower plot bound for the bar chart.
+<DT>count-max<DD>(Required for manual scaling). The upper plot bound for the bar chart.
+</DL></UL>
+<P>The following optional parameters control the annotation of a bar chart display.
+
+<UL><DL>
+<DT>annotate-counts<DD>(Default: false). If true, causes all bars to be annotated by the actual count values.
+<DT>bar-annot-scale<DD>(Default: 10). Controls the size of the bar annotation. The value is in pixels, or, if less than 1, a fraction of the height of the display.
+<DT>sa-scale<DD>(Default: 14). The size of annotation on the side of the plot.
+<DT>divider-color<DD>(Default: gray50, qualifier: histogram). The color of the divider drawn between histogram plots.
+<DT>count-grid<DD>(Default: true). If true, a horizontal grid will be drawn across the bar chart.
+<DT>count-grid-scale<DD>(Default: 12). The size of annotation on the count grid.
+<DT>count-grid-color<DD>(Default: gray60). The color used to draw the count grid.
+<DT>count-grid-annot-color<DD>(Default: white). The color used to annotate the count grid.
+</DL></UL>
+<P>A histogram module exists, which should be required by histogram windows. It includes some user interface support, allowing users to change most of the above parameters.
+

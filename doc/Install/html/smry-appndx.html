@@ -1,0 +1,63 @@
+<P><A HREF="Install.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="mach-appndx.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>APPENDIX B </B> Summary of the Installation Steps</TITLE>
+<H1><A NAME="REF10525"> <paranum><B>APPENDIX B </B> Summary of the Installation Steps</A></H1>
+
+<P>This appendix briefly outlines the steps in compiling the source distribution of Zebra. It is intended as a general guideline for those who are familiar with the installation of Zebra from previous attempts, or for those who are familiar with UNIX software installations in general. If you would like to start with the complete and detailed instructions, see the beginning of this manual.
+<P>Compiling and installing Zebra on a supported system is generally very straightforward. You need to know the location of the third-party libraries and include files---described in <A HREF="install.html#REF31635">Section 7, "Acquiring Third-Party Software"</A>, the correct C and FORTRAN compiler commands, and the FORTRAN libraries required by the FORTRAN compiler. Then follow the instructions below. Note that most make programs will work. In particular, the standard system make will work as well as GNU make. The make process will use whichever make program appears first in your path.
+
+<OL>
+<P><LI>Untar the source distribution into a directory with enough space for the source code, object files, and installed files---about 60 megabytes, or as much as 100 megabytes if compiling with OpenWindows libraries or linking statically.
+<BR>
+<P><LI>From the top of the Zebra source tree, change to the directory config/project.
+<BR>
+<P><LI>Edit config.h according to the instructions within the file.
+<BR>
+
+<P><LI>If you do not have the RDSS libraries or wish to install them from a combined Zebra/RDSS distribution, define BuildRDSS to YES in config.h.
+<BR>
+<P><LI>Make sure the environment variable LD_LIBRARY_PATH is not set.
+<BR><PRE>
+</OL>
+
+
+unsetenv LD_LIBRARY_PATH
+</PRE>
+
+<OL>
+<P><LI>Return to the top directory of the source tree. Then, on all systems <B>except Solaris</B>, run
+<BR><PRE>
+</OL>
+
+
+make World &gt;&amp; Make.World &amp;
+</PRE>
+
+<OL>
+<P><LI>On <B>Solaris</B> systems, run
+<BR><PRE>
+</OL>
+
+
+make BOOTSTRAPCFLAGS=-Dsolaris World &gt;&amp; \
+  Make.World &amp;
+</PRE>
+
+<OL>
+<P><LI>Check the log file for errors. Errors in the log file likely indicate a need to adjust config.h. See <A HREF="install.html#REF44395">Section 10, "In Case of Errors"</A> for troubleshooting suggestions. If necessary, re-compile from the top-level directory with the same command used for the initial build, given in steps (7) and (8).
+<BR>
+<P><LI>After a successful build, check the operating system issues mentioned in <A HREF="install.html#REF65572">Section 12, "Tuning the Operating System"</A>.
+<BR>
+<P><LI>Introduce yourself to Zebra with the <I>Introducing Zebra</I> manual.
+<BR></OL>
+
+
+<P>If these instructions are not clear, or problems occur, follow the more detailed instructions given in the full <I>Installation</I> manual.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+

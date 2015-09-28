@@ -1,0 +1,62 @@
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="datachunks.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>· CHAPTER 3 · </B> The Location Classes: Location and Boundary</TITLE>
+<H1><A NAME="REF99837"> <paranum><B>· CHAPTER 3 · </B> The Location Classes: Location and Boundary</A></H1>
+
+<H3><A NAME="HDR0">  3.1  The Boundary DataChunk Class</A></H3>
+
+<HR>
+<P>The boundary data class (class identifier DCC_Boundary, subclass of DCC_Transparent) is oriented toward the representation of data in the form of outlines or boundaries---essentially a series of locations in physical space. It is a relatively simple class, with just a couple of methods for storing boundaries into data chunks and getting them back out again.
+<P>To store a boundary into a data chunk, use dc_BndAdd() as follows:
+<PRE>
+<B>void 
+dc_BndAdd (dc, when, platform, points, npoint)
+DataChunk *dc;
+ZebTime *when;
+PlatformId platform;
+Location *points;
+int npoint;
+</PRE>
+<P></B>Where <B>dc</B> is a data chunk which is a subclass of DCC_Boundary, <B>when</B> is the time associated with this boundary, <B>platform</B> is the ID of the platform associated with this boundary---this should generally be the same as the platform which appears in the dc_Platform field, <B>points</B> is the series of points which makes up the boundary, and <B>npoint</B> is the number of points in the boundary.
+
+<P>To retrieve a boundary from a data chunk, use the dc_BndGet() function:
+<PRE>
+<B>Location *
+dc_BndGet (dc, sample, npoint)
+DataChunk *dc;
+int sample, *npoint;
+</PRE>
+<P></B>The return value is a pointer to the series of points corresponding to the given <B>sample</B> index in <B>dc</B>; the number of points will be stored into <B>npoint</B>.
+<H3><A NAME="HDR1">  3.2  The Location DataChunk Class</A></H3>
+
+<HR>
+<P>The location class (identifier DCC_Location) is a very simple subclass of DCC_Transparent, useful when the only desired information is a time series of locations. This class may be used, for example, to represent a track of a moving observation platform for which no other data is desired or available.
+<P>About the only thing that can be done with this class is to store or fetch locations. Use dc_LocAdd() to add a location to a data chunk:
+<PRE>
+<B>void
+dc_LocAdd (dc, when, loc)
+DataChunk *dc;
+ZebTime *when;
+Location *loc;
+</PRE>
+<P></B>Where <B>dc</B> is a data chunk which is a subclass of DCC_Location, <B>when</B> is the time associated with this location, and <B>loc</B> is the location itself.
+<P>To retrieve a location from a data chunk, use dc_LocGet().
+<PRE>
+<B>int dc_LocGet (dc, sample, when, loc)
+DataChunk *dc;
+int sample;
+ZebTime *when;
+Location *loc;
+</PRE>
+<P></B>Where <B>dc</B> is the data chunk, and <B>sample</B> is the sample of interest. The location and its associated time will be returned in <B>loc</B> and <B>when</B>, respectively.
+<P>Since location data chunks are subclasses of DCC_Transparent, you may also use dc_GetLoc() and dc_GetTime() to get the location and time information independently.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="metclasses.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

@@ -1,0 +1,283 @@
+<P><A HREF="Library.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="ipc.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>� CHAPTER 2 � </B> Matters of Timing</TITLE>
+<H1><A NAME="HDT0"> <paranum><B>� CHAPTER 2 � </B> Matters of Timing</A></H1>
+
+<P>There are two main facilities in the library interface for handling time: the time type and utility functions, and the timer module. This chapter describes both.
+<H3><A NAME="HDR1">  2.1  Finding the Time</A></H3>
+
+<HR>
+<P>The Zebra system uses the universal ZebTime structure to specify times.
+<PRE>
+typedef struct _ZebTime {
+  long  zt_Sec;      /* Seconds since 1/1/70        */
+  long  zt_MicroSec;      /* Additional microseconds         */
+} ZebTime;
+</PRE>
+<P>The zt_Sec field holds the number seconds since the epoch, 1 January 1970 GMT, making it compatible with the system type time_t. The zt_MicroSec field holds an additional number of microseconds beyond the time contained in zt_Sec. At present, the library interface does not actually check or restrict the value of zt_MicroSec, though some macros will not work correctly unless the microsecond field falls within the range 0 - 999,999. To be safe, applications should try to keep microseconds within 0 to 999,999, in case that range is enforced in future iterations of the interface. Lastly, just to be sure there is no question, note that times stored in the ZebTime type are GMT times by definition. It is not necessary (and indeed meaningless) for a timezone to be associated with a ZebTime. Consequently, local times should first be converted to GMT before being stored in ZebTime structures.
+
+<P>The defs.h file contains the definition of the ZebTime type as well as prototypes for the ZebTime utility functions described in this chapter. Applications should include this file with the following line.
+<PRE>
+#include &lt;defs.h&gt;
+</PRE>
+<P>The ZebTime structure replaces a time type used in much earlier versions of the library. Since the replacement, the library has used the ZebTime type extensively and almost exclusively. The library still provides limited support for the original time type, but the ZebTime type and its corresponding functions should be used whenever possible.
+<P>Also, Zebra no longer uses the time type as an equivalent of the date type found in the RDSS UI library.  Do not use time in any applications, since it conflicts with other names used by the Zebra interface.  If you must use the date type rather than ZebTime, use the UItime type.  UItime replaces the original type definition of time; it is equivalent to the RDSS date type and also less ambiguous.
+<H3><A NAME="HDR2">  2.2  Translating Time</A></H3>
+
+<HR>
+<P>In some situations, it is useful to be able to easily convert between the ZebTime format, the UItime format, and the formats used by the Unix operating system. Certain operations, such as simple time arithmetic, are more easily performed in the native format. Other library routines convert ZebTime times to ASCII strings, split a time into date and time components, and conversely assemble a ZebTime from date and time components.
+<P>Note that the ZebTime type supports microsecond resolution, while other time types, such as UItime and the system time type time_t, only support a resolution of seconds. In other words, converting ZebTime times into other formats will result in a loss of precision and possibly also accuracy. 
+<P>The function TC_ZtToSys() converts ZebTime to system time type time_t, which is equivalent to type long.
+<PRE>
+<B>long
+TC_ZtToSys (zt)
+const ZebTime *zt;
+</PRE>
+<P></B>The parameter <B>zt</B> points to the ZebTime structure to be converted. The return value is the system time within one second of the ZebTime.
+
+<P>A second function does the reverse, converting system time to ZebTime.
+<PRE>
+<B>void
+TC_SysToZt (sys, zt)
+long sys;
+ZebTime *zt;
+</PRE>
+<P></B>The TC_SysToZt() function converts the system time in the parameter <B>sys</B> and stores the result in the ZebTime structure pointed to by <B>zt</B>.
+<P>To convert UItime to system format, use the TC_FccToSys() function.
+<PRE>
+<B>long
+TC_FccToSys (fcc)
+UItime *fcc;
+</PRE>
+<P></B>Where <B>fcc</B> is a pointer to a UItime structure. The UItime type is equivalent to the original time format time and the RDSS UI library type date. The return value will be the system format equivalent of that time, in the same format as the standard type time_t.
+<P>TC_SysToFcc() converts system time to UItime:
+<PRE>
+<B>void
+TC_SysToFcc (sys, fcc)
+long sys;
+UItime *fcc
+</PRE>
+<P></B>Where <B>sys</B> is a time in system format. The converted type will be stored in the location pointed to by <B>fcc</B>.
+<P>Times can be translated into text using the TC_EncodeTime() function.
+<PRE>
+<B>void
+TC_EncodeTime (zt, format, dest)
+const ZebTime *zt;
+TimePrintFormat format;
+char *dest;
+</PRE>
+
+<P></B>The time in <B>zt</B> is written into <B>dest</B> according to the format in <B>format</B>. The buffer at <B>dest</B> must be large enough to contain the translated text string; a safe size is 80 characters. Upon return, <B>dest</B> contains a null-terminated string representing the given time. The TimePrintFormat type, defined in defs.h, enumerates the possible formats for the translation.
+<PRE>
+<B>typedef enum 
+{
+  TC_DateOnly,      /* Only the date part          */
+  TC_TimeOnly,      /* Only the time part          */
+  TC_Full,      /* The whole works          */
+  TC_FullUSec      /* Full with microseconds          */
+} TimePrintFormat;
+</PRE>
+<P></B>As an example, passing the time `12:34:56.7 GMT on 14 September 1994' to TC_EncodeTime() writes one of the following strings into <B>dest</B>, depending upon the <B>format</B> parameter .
+<UL><DL>
+<DT>TC_DateOnly<DD>14-Sep-94
+<DT>TC_TimeOnly<DD>12:34:56
+<DT>TC_Full<DD>14-Sep-94,12:34:56
+<DT>TC_FullUSec<DD>14-Sep-94,12:34:56.700000
+</DL></UL>
+<P>If an encoded time string is only needed temporarily, the TC_AscTime() function can be more convenient than TC_EncodeTime() since it does not need to be passed a pointer to memory.
+<PRE>
+<B>const char *
+TC_AscTime (zt, format)
+const ZebTime *zt;
+int format;
+</PRE>
+<P></B>The parameters are exactly the same as for TC_EncodeTime(), except for the absence of <B>dest</B>. The returned pointer to a string belongs to the library and should not be freed, and the string is only valid until the next call. This function is the ZebTime equivalent to the asctime() C library function, except there is no trailing newline appended to the string. Be careful about passing a call to TC_AscTime() as more than one argument to a function, since the second evaluation will invalidate the first.
+<P>Converse to the encoding functions, TC_DecodeTime() tries to translate a string into a ZebTime.
+<PRE>
+<B>bool
+TC_DecodeTime (string, zt)
+const char  *string;
+ZebTime    *zt;
+
+</PRE>
+<P></B>The string to translate is passed in <B>string</B>, and <B>zt</B> points to the space which will hold the translated ZebTime. The function attempts to decode the string by interpreting it in this form:
+<PRE>
+dd-mmm-{yy|yyyy},hh:mm:ss.uuuuuu
+</PRE>
+<P>At the very least, the first three fields---day, month, and year---must be successfully decoded for the translation to succeed. The month abbreviation can be a mix of upper and lower case, but if the first three letters do not match the name of a month, the translation fails. All of the other fields---hour, minute, second, and microsecond---default to zero unless they could be read from the string in the form above. If present, the hour should fall into the range 0 to 23. The function succeeds as long as the month, day, and year can be decoded, in which case it stores the translated time into <B>zt</B> and returns a non-zero value. If the translation fails, TC_DecodeTime() returns zero and leaves <B>zt</B> unchanged.
+<P>The TC_ZtSplit() function splits a ZebTime into the familiar time components.
+<PRE>
+<B>void
+TC_ZtSplit (zt, year, month, day, hour, minute, second, microsec)
+const ZebTime *zt;
+int *year, *month, *day, *hour, *minute, *second, *microsec;
+</PRE>
+<P></B>The <B>zt</B> parameter points to the ZebTime structure to be split. Any of the other parameters may be passed as NULL, in which case no value will be returned for that component. Values for the rest of the components are returned in the ranges noted below.
+<PRE>
+<B>year</B>        0 - 99
+<B>month</B>        1 - 12
+<B>day</B>        1 - 31
+<B>hour</B>        0 - 23
+<B>minute</B>        0 - 59
+<B>second</B>        0 - 59
+<B>microsec    </B>    0 - 999,999
+</PRE>
+<P>Since one likes to be able to put together what one takes apart, TC_ZtSplit() has a counterpart called TC_ZtAssemble().
+<PRE>
+<B>void
+TC_ZtAssemble (zt, year, month, day, hour, minute, second, microsec)
+ZebTime *zt;
+int year, month, day, hour, minute, second, microsec;
+
+</PRE>
+<P></B>TC_ZtAssemble() assembles the time components and stores the resulting ZebTime into <B>zt</B>. Each of the components should fall into the ranges listed above for TC_ZtSplit(), except for the year. The year will be interpreted correctly if it falls in either of the ranges 0 - 100 and 1900 - 1999. The value of <B>microsec</B> is not actually checked; instead, it is copied as is into <B>zt</B>.
+<H3><A NAME="HDR3">  2.3  Comparing Time</A></H3>
+
+<HR>
+<P>The library header file defs.h contains a few macros for comparing ZebTime structures: TC_Less, TC_LessEq, and TC_Eq.
+<PRE>
+# define TC_Less(t1,t2)         \
+  (((t1).zt_Sec == (t2).zt_Sec) ?     \
+    ((t1).zt_MicroSec &lt; (t2).zt_MicroSec) :  \
+    ((t1).zt_Sec &lt; (t2).zt_Sec))
+# define TC_LessEq(t1,t2)           \
+  (((t1).zt_Sec == (t2).zt_Sec) ?       \
+    ((t1).zt_MicroSec &lt;= (t2).zt_MicroSec) :  \
+    ((t1).zt_Sec &lt;= (t2).zt_Sec))
+# define TC_Eq(t1,t2) (((t1).zt_Sec == (t2).zt_Sec) &amp;&amp; \
+      ((t1).zt_MicroSec == (t2).zt_MicroSec))
+</PRE>
+<P>In all three macros, the parameters <B>t1</B> and <B>t2</B> are ZebTime variables. Note that <B>t1</B> and <B>t2</B> are not pointers to ZebTime structures, and they may be evaluated more than once in the expanded expression.
+<P>More importantly, note that these macros assume the microseconds field to be less than a whole second (less than one million). If that assumption is not valid, the comparisons are indeterminate.
+<H3><A NAME="HDR4">  2.4  Decoding Periods of Time</A></H3>
+
+<HR>
+<P>The routine InterpDTime() may be used to interpret simple delta time specifications, as may be used for triggers or time intervals. The time format understood is simply an integer, optionally followed by a single letter, either "s" (seconds), "m" (minutes), "h" (hours), or "d" (days). If no qualifier is present, the delta time is interpreted as seconds.
+<P>InterpDTime() is called as:
+<PRE>
+<B>int
+InterpDTime (dtime)
+char *dtime;
+
+</PRE>
+<P></B>Where <B>dtime</B> is a delta time in the above format. The return value is the actual delta time, in seconds. If the given delta time could not be interpreted, zero is returned.
+<H3><A NAME="REF56557">  2.5  The Timer Module</A></H3>
+
+<HR>
+<P>The timer module runs as a separate process, and keeps track of all time-related issues in the system. The rest of this chapter describes the library interface to the timer system.
+<P>To use the timer library routines, you must include the timer header file:
+<PRE>
+# include &lt;timer.h&gt;
+</PRE>
+<H3><A NAME="HDR5">  2.6  Getting the Current Time</A></H3>
+
+<HR>
+<P>To obtain the current system time, simply call:
+<PRE>
+<B>void
+tl_Time (zt)
+ZebTime *zt;
+</PRE>
+<P></B>The system time, to the nearest second, is copied into the ZebTime structure referenced by <B>zt</B>.
+<P>An older function returns a UItime.
+<PRE>
+<B>tl_GetTime (t)
+UItime *t;
+</PRE>
+<P></B>On return, *<B>t</B> contains the current time.
+<H3><A NAME="HDR6">  2.7  Requesting Timer Events</A></H3>
+
+<HR>
+<P>The main purpose of the timer module is to inform processes when a certain time has arrived. These notifications can be requested in an absolute or relative sense, and may be optionally repeated.
+
+<H4><A NAME="HDR7">  2.7.1  Specifying Timer Events</A></H4>
+<P>To request a relative timer event, use:
+<PRE>
+<B>int
+tl_RelativeReq (func, param, delay, incr)
+void (*func) ();
+void *param;
+int delay, incr;
+</PRE>
+<P></B>For absolute timer events, use:
+<PRE>
+<B>int
+tl_AbsoluteReq (func, param, when, incr)
+void (*func) ();
+void *param;
+ZebTime *when;
+int incr;
+</PRE>
+<P></B>In either case, <B>func</B> is a function to be called after the time has elapsed, <B>param</B> is a parameter to pass to that function, and <B>incr</B> is the repeat interval. For relative events, <B>delay</B> is the period of time to pass before the notification occurs. For absolute events, <B>when</B> is the time at which the notification is to happen.
+<P>Both <B>delay</B> and <B>incr</B> are represented in fractional seconds; to obtain the right value, multiply the time period of interest by the predefined symbol INCFRAC. This mechanism allows sub-second intervals to be specified.
+<P>If <B>incr</B> is zero, then the event will only occur once.  Otherwise timer notifications will occur every incr/INCFRAC seconds until the event is cancelled.
+<P>For both types of events, the return value will be an integer slot number, which may be used to cancel the event later. (See <A HREF="timer.html#REF82012">Section 2.8 on page 27</A>.)
+<P>When a timer event occurs, the given function will be called as:
+<PRE>
+<B>(*func) (zt, param)
+ZebTime *zt;
+void *param;
+</PRE>
+<P></B>where <B>zt</B> is the current time, and <B>param</B> is the parameter that was given in the call to either tl_RelativeReq() or tl_AbsoluteReq().
+
+<P>The older interface functions are still available for backwards compatibility.  For relative requests, use
+<PRE>
+<B>int
+tl_AddRelativeEvent (func, param, delay, incr)
+void (*func) (), *param;
+int delay, incr;
+</PRE>
+<P></B>For absolute requests, use
+<PRE>
+<B>int
+tl_AddAbsoluteEvent (func, param, when, incr)
+void (*func) (), *param;
+UItime *when;
+int incr;
+</PRE>
+<P></B>The handler will be called as before:
+<PRE>
+<B>(*func) (t, param)
+UItime *t;
+void *param;
+</PRE>
+<H4><A NAME="HDR8">  2.7.2  Events for Changing Times</A></H4>
+<P></B>Applications may specify a function to be called on each time change.
+<PRE>
+<B>void
+tl_ChangeHandler (func)
+void (*func) ();
+</PRE>
+<P></B>The function <B>func</B> is called for each time change as follows:
+<PRE>
+<B>(*func) (zt)
+ZebTime *zt;
+</PRE>
+<P></B>To cancel the time change handler, call tl_ChangeHandler() with a NULL argument.
+<H3><A NAME="REF82012">  2.8  Cancelling Timer Events</A></H3>
+
+<HR>
+<P>To cancel a specific timer event, use <CODE>tl_Cancel()</CODE> as follows:
+<PRE>
+<B>void
+tl_Cancel (slot)
+int slot;
+</PRE>
+
+<P></B>Where <B>slot</B> is the slot number returned by tl_RelativeReq(), tl_AbsoluteReq(), tl_AddRelativeEvent(), or tl_AddAbsoluteEvent(). The event associated with <B>slot</B> is cancelled, and no further notifications for that event will be sent by the timer. However, notifications of events which occurred before the cancellation might still be present in the message queue if messages are not being handled expediently enough.
+<P>To cancel all outstanding timer events, use:
+<PRE>
+<B>void
+tl_AllCancel ();
+</PRE>
+<P></B>The timer will deliver no more events to the application after receiving the cancellation.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+<P><A HREF="Library.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="geography.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

@@ -1,0 +1,83 @@
+<P><A HREF="Developer.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="title.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>CHAPTER 1 </B> Make Targets</TITLE>
+<H1><A NAME="REF85863"> <paranum><B>CHAPTER 1 </B> Make Targets</A></H1>
+
+<P>The Imake implementation for the Zebra distribution contains several targets available for conveniently handling the entire distribution. This chapter describes these targets. The descriptions and examples assume a working knowledge of make(1). For an explanation of Imake, see <A HREF="imake.html#REF27242">Chapter 3, "Guide to Imake for Zebra Developers."</A>
+<H3><A NAME="HDR0">  1.1  Imake Release 6 Transition</A></H3>
+
+<HR>
+<P>Zebra 4.2 incorporates the Imake system from the MIT Release 6 of X11. A few of Zebra's rules and macros had to change to be compatible with the Release 6 changes. Other changes were made to fix inconsistencies between the Zebra Imake implementation and the conventions of Imake proper. Thanks to the Release 6 improvements, the gray area between Imake configuration and the X11 configuration has become much narrower and more clearly defined. The Zebra changes try to take advantage of this separation.
+<P>In particular, developers should be aware of the following changes which may break existing Imakefiles.
+
+<UL>
+<P><LI>Rather than redefine the Imake rule NormalProgramTarget as before, Zebra uses its own rule called CompleteProgramTarget. The NormalProgramTarget rule does not install its target.
+<BR>
+
+<P><LI>The system libraries LIBMATH, LIBTERMCAP, and LIBREGEXP were originally automatically specified on every linker command line. Among other things, this generates warnings on some architectures about superfluous libraries from which no symbols were resolved. The required system libraries must now be passed explicitly in the system libraries parameter of the CompleteProgramTarget or NormalProgramTarget macro rules.
+<BR>
+<P><LI>The make library variables have been generalized to make it easier to include new libraries in the future.
+<BR></UL>
+
+
+<P>Essentially all existing Imakefiles require these changes to restore their original behavior:
+
+<OL>
+<P><LI>Change all occurrences of NormalProgramTarget to CompleteProgramTarget.
+<BR>
+<P><LI>Set a SYSLIBS variable in the Imakefile to contain the appropriate combination of system libraries necessary for the program, from LIBTERMCAP, LIBREGEXP, and LIBMATH. Pass $(SYSLIBS) as the last parameter to CompleteProgramTarget.
+<BR>
+<P><LI>Replace specific libraries with their generalized names, where possible. Use ZLIBS for all clients requiring the general Zebra library and utilities. Use DFALIBS for programs which access the Data File Format interface in the datastore library, but use DSLIBS for clients which only use the datastore public protocol interface and do not need to read or write file formats.
+<BR><PRE>
+</OL>
+
+
+ZLIBS = $(LIBZEB) $(LIBRDSS)
+DFALIBS = $(LIBZEBDS) $(LIBNETCDF) $(LIBHDF)
+DSLIBS = $(LIBZEBDS)
+</PRE>
+<H3><A NAME="HDR1">  1.2  The Conventional Make Targets</A></H3>
+
+<HR>
+<P>The conventional make targets are all, install, includes, depend, Makefile, Makefiles, and clean. All of these targets, with the natural exception of Makefile, will descend into any directories of the directory from which the make begins. Makes begun at the top-level directory will traverse the whole distribution tree, except of course for those directories which have been disabled in config.h.
+
+<UL><DL>
+<DT>all:<DD>The default target for any Makefile. This target compiles, links, and archives all of the targets in a directory, but stops short of installing any of the targets. Hence, this is the usual target when building a single directory individually, or simply testing some configuration changes with a build.
+<DT>install:<DD>This target executes the all target and then executes any install targets. Installation is not limited to programs and libraries; library "data files" such as icon bitmaps, color tables, maps, and UI load files are also installed under this target.
+<DT>includes:<DD>The includes target installs public header files into the build tree's include directory, ./include. The most important public include files come from ./config/project, ./src/lib, and ./src/ds. 
+<DT>depend:<DD>Adds header file dependencies to the end of the Makefile. Consequently, this target usually follows a Makefile or Makefiles target, since those two targets overwrite any existing Makefile and with it any prior dependency information.
+<DT>Makefile:<DD>Uses imake to process the Imakefile in the current directory to produce a Makefile.
+<DT>Makefiles:<DD>Uses imake to generate Makefiles for each subdirectory, without requiring that the subdirectory already have a Makefile.
+<DT>clean:<DD>The clean target removes any programs, object files, backup files, libraries, and so on, generated by a specific directory. The target then propagates to all of the subdirectories.
+</DL></UL>
+<P>The conventional targets usually follow this order: Makefile, Makefiles, includes, depend, and finally all or install. Note that the includes target must precede the depend target for the first build attempt, otherwise the public include files cannot be found by the makedepend program since the header files have not been installed yet.
+
+<H3><A NAME="HDR2">  1.3  The Top-Level Build Targets</A></H3>
+
+<HR>
+<P>A couple of targets are used exclusively by the top-level Imakefile for performing full builds of the installation. The most important target is <I>World</I>, which takes care of performing all of the conventional targets in the correct order. First, the World target builds the imake program, then it generates the top-level Makefile, and continues with the Makefiles, clean, includes, depend, and install targets, in that order.
+<P>The <I>Everything</I> target attempts to save time in difficult builds by performing the same actions as the World target, except that the Everything target omits the cleaning step. This allows most changes to the configuration or distribution to be updated without requiring everything to be re-compiled. Use this target only if you know that existing object files and programs do not need to be re-compiled to account for a particular configuration change. Generally, it is safer to do the `make clean' step if time allows, since this ensures that everything will be up-to-date.
+<P>If you know that none of the object code needs to be re-compiled, and no header files need to be installed or updated, then performing the <I>install</I> target from the top-level directory should suffice to finish compiling and installing an interrupted build.
+<H3><A NAME="REF14753">  1.4  The Distribution Targets</A></H3>
+
+<HR>
+<P>Other make targets have been added to the conventional targets which allow control of the distribution tree as a whole, regardless of which parts of the distribution are being built.
+<UL><DL>
+<DT>distfiles:<DD>Echoes to the terminal the path names of all files <DD>which are meant to be distributed in a directory and all of the subdirectories.  By setting the DISTCURDIR variable on the command line, all of the file names printed will be prefixed with the value of the variable.  See the tarfile: target in the top-level Imakefile for an example of how this can be used.
+<DT>distmakefiles:<DD>Makes Makefiles for ALL of the distribution directories, not just those which have been "turned on" to be built.  This is necessary before performing other distribution targets in order to create the Makefile which the targets will operate on.
+
+<DT>distclean:<DD>Cleans in ALL directories in the distribution.  This is useful when programs have been compiled explicitly from within a directory which has been disabled in the regular distribution tree.  From the top-level, this target also removes the ./include directory. As the name implies, this target essentially returns the entire distribution tree to the original distribution state, except for the presence of Makefiles.
+<DT>tarfile:<DD>In the top-level Imakefile, this target uses the other distribution targets to generate a compressed tar file of all of the files in the original distribution. Even if the tree has been compiled and all of the directories contain object files and executables, the generated tar file will only include the files from the original distribution tree. First, use the distmakefiles target to ensure that the every directory has a Makefile, even those not being built. Then, run `make tarfile' to make the tar file, optionally specifying the name of the tar file in the TARFILE variable on the command line. Examine the actual rules in zebra/Imakefile for more details on this target.
+</DL></UL>
+<P>Zebra's customizations to its Imake implementation are described further in <A HREF="imake.html#REF27242">Chapter 3, "Guide to Imake for Zebra Developers."</A> It also includes several examples of the flexibility of Imake in general and the distribution targets in particular.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+
+<P><A HREF="Developer.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="customized.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

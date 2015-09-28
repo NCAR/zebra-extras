@@ -1,0 +1,230 @@
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+<ADDRESS>granger@ncar.ucar.edu</ADDRESS>
+<HR>
+
+<TITLE>Zebra Installation Manual</TITLE>
+<H1>Zebra Installation Manual</H1>
+<P><ADDRESS><B>Jonathan Corbet
+<BR>Chris Burghart
+<BR>Gary Granger</ADDRESS>
+<TITLE>Installing Zebra</TITLE>
+<H1><A NAME="REF80697">Installing Zebra</A></H1>
+<H2>Table of Contents</H2>
+
+<UL>
+<UL>
+<A HREF="install.html#HDR0">  1.  System Requirements</A>
+
+<UL>
+<A HREF="install.html#HDR1">  1.1  Supported Systems</A>
+
+<BR>
+<A HREF="install.html#HDR2">  1.2  Hardware Requirements</A>
+
+<BR>
+<A HREF="install.html#HDR3">  1.3  Software Requirements</A>
+
+<BR>
+<A HREF="install.html#HDR4">  1.4  Disk Space Requirements</A>
+
+<BR>
+<A HREF="install.html#HDR5">  1.5  Recommended Hardware and Software</A>
+</UL>
+
+<A HREF="install.html#HDR6">  2.  What to do with Old Versions of Zebra</A>
+
+<UL>
+<A HREF="install.html#HDR7">  2.1  What To Do About Existing Configurations</A>
+
+<BR>
+<A HREF="install.html#REF26403">  2.2  What To Do About Existing Data</A>
+</UL>
+
+<A HREF="install.html#REF21030">  3.  How to Get Zebra</A>
+
+<UL>
+<A HREF="install.html#HDR8">  3.1  Where to Get It</A>
+
+<BR>
+<A HREF="install.html#HDR9">  3.2  What to Get</A>
+
+<BR>
+<A HREF="install.html#REF72381">  3.3  Whether to Get Binary or Source</A>
+
+<BR>
+<A HREF="install.html#HDR10">  3.4  Where to Put It</A>
+
+<BR>
+<A HREF="install.html#REF48410">  3.5  How to Extract It From Tar Files</A>
+
+<BR>
+<A HREF="install.html#REF83230">  3.6  How to Extract It From Tape</A>
+</UL>
+
+<A HREF="install.html#REF20940">  4.  The Zebra Directory Tree</A>
+
+<BR>
+<A HREF="install.html#REF12734">  5.  Installing the Binary Distribution</A>
+
+<UL>
+<A HREF="install.html#HDR11">  5.1  Setting the Top Directory</A>
+
+<BR>
+<A HREF="install.html#HDR12">  5.2  Environment Variables</A>
+</UL>
+
+<A HREF="install.html#REF42176">  6.  Installing the Source Distribution</A>
+
+<BR>
+<A HREF="install.html#REF31635">  7.  Acquiring Third-Party Software</A>
+
+<UL>
+<A HREF="install.html#HDR13">  7.1  The RDSS Libraries</A>
+
+<BR>
+<A HREF="install.html#HDR14">  7.2  X11 Libraries</A>
+
+<BR>
+<A HREF="install.html#REF33577">  7.3  Athena Widgets</A>
+
+<BR>
+<A HREF="install.html#HDR15">  7.4  The netCDF Library</A>
+
+<BR>
+<A HREF="install.html#REF60659">  7.5  GNU C Compiler</A>
+
+<BR>
+<A HREF="install.html#HDR16">  7.6  HTML Online Help</A>
+</UL>
+
+<A HREF="install.html#REF82546">  8.  Configuring the Compilation</A>
+
+<UL>
+<A HREF="install.html#HDR17">  8.1  Where to Install</A>
+
+<BR>
+<A HREF="install.html#HDR18">  8.2  Editing the Configuration File</A>
+
+<BR>
+<A HREF="install.html#REF60690">  8.3  Specifying a Help Browser</A>
+
+<BR>
+<A HREF="install.html#HDR19">  8.4  Specifying Important Directory Paths</A>
+
+<BR>
+<A HREF="install.html#HDR20">  8.5  Choosing Which Parts of Zebra to Compile</A>
+
+<BR>
+<A HREF="install.html#HDR21">  8.6  Configuring the Compiler Commands</A>
+
+<BR>
+<A HREF="install.html#HDR22">  8.7  Map Projections</A>
+
+<BR>
+<A HREF="install.html#HDR23">  8.8  Selecting Plot Types and Overlays</A>
+
+<BR>
+<A HREF="install.html#HDR24">  8.9  Advanced Configuration Parameters</A>
+
+<BR>
+<A HREF="install.html#REF23180">  8.10  Saving the Configuration File</A>
+</UL>
+
+<A HREF="install.html#REF18004">  9.  Compiling Zebra</A>
+
+<UL>
+<A HREF="install.html#HDR25">  9.1  The Imake System</A>
+
+<BR>
+<A HREF="install.html#HDR26">  9.2  The Make Command</A>
+
+<BR>
+<A HREF="install.html#REF26371">  9.3  Checking for Errors</A>
+</UL>
+
+<A HREF="install.html#REF44395">  10.  In Case of Errors</A>
+
+<UL>
+<A HREF="install.html#REF85127">  10.1  Unresolved Symbols</A>
+
+<BR>
+<A HREF="install.html#HDR27">  10.2  Runtime Dynamic Linking Errors</A>
+
+<BR>
+<A HREF="install.html#HDR28">  10.3  Missing Header Files</A>
+
+<BR>
+<A HREF="install.html#HDR29">  10.4  Corrupted Makefile in /zeb/config/imake</A>
+
+<BR>
+<A HREF="install.html#REF15502">  10.5  Re-compiling After Errors</A>
+</UL>
+
+<A HREF="install.html#HDR30">  11.  After a Successful Installation</A>
+
+<BR>
+<A HREF="install.html#REF65572">  12.  Tuning the Operating System</A>
+
+<UL>
+<A HREF="install.html#HDR31">  12.1  Setting the Message Handler Port</A>
+
+<BR>
+<A HREF="install.html#REF70619">  12.2  Enabling Shared Memory</A>
+</UL>
+
+<A HREF="install.html#REF38563">  13.  Whom to Contact</A>
+
+<UL>
+<A HREF="install.html#HDR32">  13.1  Zebra Contact Points</A>
+
+<BR>
+<A HREF="install.html#HDR33">  13.2  Reporting Problems</A>
+
+<BR>
+<A HREF="install.html#HDR34">  13.3  Zebra Version Information</A>
+
+<BR>
+<A HREF="install.html#HDR35">  13.4  The Zebra Users' Mailing List</A>
+</UL>
+</UL>
+</UL>
+
+<P><A HREF="mach-appndx.html#REF90414"> <paranum><B>APPENDIX A </B> Installation Notes for Specific Systems</A>
+
+
+<UL>
+<UL>
+<A HREF="mach-appndx.html#REF20046">  A-1  Installation Notes for HP-UX</A>
+
+<UL>
+<A HREF="mach-appndx.html#HDR0">  A-1.1  Installing X11 from the InterWorks CD-ROM</A>
+
+<BR>
+<A HREF="mach-appndx.html#REF70510">  A-1.2  HP-UX FORTRAN Compiler Options</A>
+</UL>
+
+<A HREF="mach-appndx.html#HDR1">  A-2  Installation Notes for SunOS 4.1.x</A>
+
+<UL>
+<A HREF="mach-appndx.html#REF56435">  A-2.1  OpenWindows 3.0 Patches</A>
+
+<BR>
+<A HREF="mach-appndx.html#REF42048">  A-2.2  Compiling with SPARCompilers Version SC2.0.1</A>
+</UL>
+
+<A HREF="mach-appndx.html#HDR2">  A-3  Installation Notes for Solaris 2.2, 2.3, and 2.4</A>
+
+<BR>
+<A HREF="mach-appndx.html#HDR3">  A-4  Installation notes for SGI IRIX 5</A>
+
+<BR>
+<A HREF="mach-appndx.html#HDR4">  A-5  Installation Notes for Linux 1.2.x</A>
+</UL>
+</UL>
+
+<P><A HREF="smry-appndx.html#REF10525"> <paranum><B>APPENDIX B </B> Summary of the Installation Steps</A>
+
+<HR>

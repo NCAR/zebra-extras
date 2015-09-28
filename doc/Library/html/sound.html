@@ -1,0 +1,28 @@
+<P><A HREF="Library.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="graphicsw.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>· CHAPTER 6 · </B> Sound</TITLE>
+<H1><A NAME="HDT0"> <paranum><B>· CHAPTER 6 · </B> Sound</A></H1>
+
+<P>The Sound module is a rarely used but nonetheless existing and potentially useful part of the Zebra system. The Sound module is a separate process, similar to the Timer module, which services requests to send audio files to the local audio device. This chapter describes the library interface to the sound functionality. At the moment this chapter is very short, due to the fact that there is only one function in the interface.
+<H3><A NAME="HDR1">  6.1  Playing Audio Files</A></H3>
+
+<HR>
+<P>Clients can use the DoSound() function to request that an audio file be played on the local audio device.
+<PRE>
+<B>void
+DoSound (sound)
+char *sound;
+</PRE>
+<P></B>The single parameter <B>sound</B> points to the name of the audio file which should be played by the Sound process. This function first checks whether the device /dev/audio is accessible. If it is accessible, it sends a message to the `Sound' process (protocol MT_SOUND) to play the specified sound file. If the device is not accessible then no message is sent.
+
+<P>If the Sound process is not running or sound has been disabled, then the message will be dropped and the call to DoSound() will have no effect. Note there is no return value indicating the success of failure of the call. Also, DoSound() returns immediately upon sending the message and does not wait for the Sound process to actually write the sound file to the audio device.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+<P><A HREF="Library.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="ixfr.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

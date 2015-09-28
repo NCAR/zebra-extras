@@ -1,0 +1,980 @@
+<P><A HREF="AdvUsers.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="Structure.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+<HR>
+
+<TITLE> <paranum><B>CHAPTER 3 </B> The zebra data store</TITLE>
+<H1><A NAME="REF50768"> <paranum><B>CHAPTER 3 </B> The zebra data store</A></H1>
+
+<H3><A NAME="HDR0">  3.1  Introduction</A></H3>
+
+<HR>
+<P>The data store module is charged with the task of bringing data into the system, integrating it behind a single interface, and delivering it to other processes as needed.
+<H3><A NAME="HDR1">  3.2  Changes in 4.2</A></H3>
+
+<HR>
+<P>Release 4.2 adds another data format interface: Hierarchical Data Format (HDF) from the National Center for Supercomputing Applications. At the moment this interface limited to HDF satellite images generated from SeaSpace TeraScan software.
+<P>The daemon supports keyword settings on the command-line, making it easier to customize particular zebra sessions without editing the daemon configuration file.
+<P>There is a new daemon variable, DelayDataDirs, which prevents the daemon from creating data directories on start-up. The daemon delays creation of a platform's data directory until another process wants to store data to that platform. This allows large projects to work with subsets of their usual dataset without creating huge directory trees.
+
+<H3><A NAME="HDR2">  3.3  Changes in release 4.1</A></H3>
+
+<HR>
+<P>Always evolving, the data store has undergone a few changes since 4.0. Release 4.1 introduces platform classes and instances, allowing similar platforms to be defined and grouped according to class and network hierarchies. This enhancement includes several new commands and a fundamental change in the definition and implementation of platforms. However, existing data store configuration files will work as before. <A HREF="DataStore.html#REF37355">Section 3.8 on page 56</A> notes some of the compatibility issues.
+<P>The data store daemon and application interface have added support for model data. This includes access to the GRIB and GrADS file formats and an understanding of the distinction between issue and valid times.
+<P>The daemon now includes some primitive debugging aids for detecting problems in configuration files, and access to real-time information has been expanded. 
+<P>Lastly, there has been a change in the behavior of file searches. Originally the daemon ignored remote data files when it found a local file which preceded the desired time. Instead the daemon now follows the more intuitive behavior of choosing the data file which is closest to the desired time, regardless of whether the file resides on a local or remote source.
+<H3><A NAME="HDR3">  3.4  The logical structure of the data store</A></H3>
+
+<HR>
+<P>The "core" data store is split into two distinct pieces, the data store daemon and the application library. The daemon is an autonomous process which has general oversight over the data store subsystem on any one host. It keeps track of all available data, coordinates the ingest of new data, informs processes of new data, and attempts to keep the disk from overflowing.
+<P>The data store application library is the interface to the data store for the rest of the system. It looks to the daemon process for guidance, but performs most of the actual work involved in handling data. The application library hides the underlying structure of the data store from the rest of zebra, including details of file formats, disk layout, and the interface to the data store daemon. The <I>Zebra Data Store Interface Manual</I> contains a programmer's guide to the application interface.
+
+<P>When need be, the application library and the data store communicate through the interprocess communication system. In an older implementation, the two used a shared memory segment for this purpose as well. That segment no longer exists in the current data store implementation. The <I>Zebra Library Interface Manual</I> describes the interprocess communication system.
+<H4><A NAME="REF63679">  3.4.1  Platforms, files, observations and samples</A></H4>
+<P>Every datum in the data store is associated with exactly one <I>platform</I>. A platform is simply a source of data, usually --- but not always --- associated with a physical observing platform in the field somewhere. Platforms have a number of characteristics, including:
+
+<UL>
+<P><LI>A unique name;
+<BR>
+<P><LI>Some physical information about the platform (i.e., does it move?);
+<BR>
+<P><LI>A file format in which its data is stored;
+<BR>
+<P><LI>One or more sources of stored data.
+<BR></UL>
+
+
+<P>Each platform maintains at least one list of <I>data files</I> --- physical files on some disk containing data for the platform. For each file, the data store knows the time period covered by the file, and the amount of data contained therein.
+<P>Each list of data files is considered to be a <I>data source</I>. The current implementation of the data store is able to handle two data sources for each platform, called the "local" and "remote" sources. The local source is normally found on the host running zebra, while the remote source will be on some remote server. Usually the remote source is a dedicated machine which will have data covering a longer time period; this way, more data is available to a display host than can actually be stored locally.
+<P>Logically, a data stream can be thought of as a series of <I>samples</I> and <I>observations</I>. A sample is one or more data points associated with a single time. An observation is a grouping of samples into a set that makes up a "complete" observation of some phenomenon. For example, a single measurement of temperature, pressure, etc., from a sounding is considered to be a sample, while the sounding as a whole is an observation. The current data store implementation uses file boundaries to delimit observations.
+<H3><A NAME="HDR4">  3.5  Daemon start-up and configuration</A></H3>
+
+<HR>
+
+<P>As a core process, the data store daemon must be running before the bulk of zebra is able to function in a useful manner. Typically the daemon is started just after the timer process in the zebra startup sequence. The daemon startup command is:
+<PRE>
+dsDaemon <I>config_file
+</PRE>
+<P></I>Where <I>config_file</I> is the name of the file containing the data store configuration. Optionally, configuration variables can be assigned values on the command line using the form <I>variable</I>=<I>value</I>. For example, this command starts the daemon and names a unified cache file:
+<PRE>
+dsDaemon CacheFile=/zeb/my.cache ds.config
+</PRE>
+<P>For usage information, the data store daemon supports the help option. See the end of this chapter for more options and the available configuration variables.
+<P>The data store startup process involves several steps, including a scan of the data directories, and can thus take a little while. Any other zebra processes which try to access the data store during the start-up process will simply wait until initialization is complete.
+<P>The daemon configuration file is read by the RDSS User Interface Package, and thus needs to conform to the usual syntactic conventions. There are three general categories of definitions found in the configuration file: platforms, various data store daemon behavior options, and the cleanup algorithm. These definitions will be discussed in turn below.
+<H3><A NAME="HDR5">  3.6  Platform classes</A></H3>
+
+<HR>
+<P>Every platform defined in the data store belongs to a <I>platform class</I>. A class is essentially a template which describes a set of similar platforms. Platforms might be classified by location, function, or type of observation. The platform class specifies the attributes and characteristics shared between all of the platforms which belong to that class. For example, all aircraft platforms are mobile, so an aircraft class would possess the mobile attribute. If the n312d platform belongs to the aircraft class, then it will be mobile like every other member of the aircraft class. 
+
+<P>Some platform information is necessarily specific to the platform, such as the platform's directory for data files. Other platform information, such as the platform's chain of data files, is dynamic and naturally changes while the daemon is running. Each individual platform stores its own copy of its platform-specific and run-time information. Information which can be generalized among multiple platforms---and which remains constant through the duration of the daemon's operation---belongs in the platform's class. The platform class model clarifies and formalizes the distinction between these types of information.
+<H4><A NAME="HDR6">  3.6.1  The class defintion</A></H4>
+<P>Before defining a platform for the data store, the platform's class must be defined. The class statement opens a platform class definition.
+<PRE>
+class <I>classname</I> [<I>superclass</I>]
+</PRE>
+<P>The endclass statement closes a class definition.
+<PRE>
+endclass [<I>classname</I>]
+</PRE>
+<P>The <I>classname</I> is optional in the endclass statement. If it is present, the daemon matches the name against the class name given in the opening statement. The daemon reports a warning if the two names are not identical.
+<P>The <I>superclass</I> parameter specifies the name of an existing (previously-defined) platform class. The class being defined will <I>inherit</I> its attributes from the <I>superclass</I>. If a class does not change the attributes inherited from its superclass, then the superclass' attributes take effect. Just as a class serves as a template for individual platforms, a class can also serve as a template for another class. The new class which inherits from <I>superclass</I> is called a <I>subclass</I> of the class named <I>superclass</I>. The network of classes and their subclasses forms a class hierarchy. The top of the hierarchy contains those classes which do not have superclasses---the top-level classes. The next level, depth one, contains the subclasses of the top-level classes. The third level, depth two, contains the subclasses of the second-level classes, and so on.
+<P>Here is an example of the class and endclass statements for an aircraft class definition.
+<PRE>
+class Aircraft
+  ... specify attributes here ...
+endclass Aircraft
+</PRE>
+<P>In this case, the Aircraft class has no superclass.
+
+<H4><A NAME="HDR7">  3.6.2  Class attributes</A></H4>
+<P>Within a class definition, several UI subcommands specify the various attributes of the class.
+<PRE>
+class <I>classname</I> [<I>superclass</I>]
+  fileletype <I>type
+</I>  organization <I>org
+</I>  [directory <I>dir</I>]
+  [remote <I>remote-dir</I>]
+  [inheritdir <I>method</I>]
+  [instancedir <I>method</I>]
+  [mobile]
+  [maxsamples <I>max</I>]
+  [daysplit]
+  [keep <I>minutes</I>]
+  [composite]
+  [subplats <I>class</I> <I>name</I> [<I>name</I> ...]]
+  [model]
+  [virtual]
+  [abstract]
+  [comment <I>string</I>]
+  [regular <I>interval</I>]
+  [discrete]
+endclass [<I>classname</I>]
+</PRE>
+<P>A class definition does not require any subcommands; an empty class definition is perfectly valid, though not very useful. However, two attributes must be specified for every platform --- filetype and organization; the other attributes are optional for both classes and platforms. The next several sections explain each of the attributes and their subcommands.
+<H4><A NAME="HDR8">  3.6.3  Data file types</A></H4>
+<P>The filetype subcommand tells the data store which format to use for a platform's data. The data store supports the following formats:
+<DL>
+<DT><I>File formats
+</DL>
+
+<UL><DL>
+<DT></I>netCDF<DD>The netCDF file format supported by the UNIDATA project of the University Corporation for Atmospheric research and others. All data organizations except for image and boundary may be stored in netCDF files.
+<DT>boundary<DD>The zebra native boundary format. This format should no longer be used for new configurations---use the zebra format instead.
+<DT>raster<DD>The zebra raster image format. This is currently the only format which can cope with raster image data.
+<DT>compressed_raster<DD><DD> This format is almost identical to raster, with the exception that images are stored on disk in a simple run-length encoded format. Images stored in this way take longer to access, but can be as much as 70% smaller, depending on the image itself.
+<DT>zeb<DD>The general zebra native format. This format can handle all zebra data organizations with the exception of images; that organization will be added at some later time.
+<DT>grib<DD>The three-dimensional model grid format. The expected file extension is `.grib'. Only grid types 2, 27, 36, and 105 are currently supported.
+<DT>grib_sfc<DD>Specifies the same physical format as grib, except the two-dimensional surface grids will be accessed rather than the three-dimensional model grids. 
+<DT>grads<DD>The GRADS file format for model data. The daemon actually manages the control files---those with the `.ctl' extension---since the control file includes the name of the data file.
+<DT>hdf<DD>The HDF format, currently limited to specially structured satellite images.
+</DL></UL>
+<P>For most purposes, the zebra native formats are faster than the netCDF format, but they lack the portability provided by the netCDF standard. At present, the grib, grib_sfc, grads and hdf formats can only be read by the data store and not created nor written.
+
+<H4><A NAME="HDR9">  3.6.4  Data organizations</A></H4>
+<P>Every platform must have a data organization. The data organization is simply the general shape of the data associated with the platform. The currently supported data organizations follow:
+<DL>
+<DT><I>Data organizations
+</DL>
+<UL><DL>
+<DT></I>image<DD>The raster image organization. Data such as radar images and satellite pictures fall into this category.
+<DT>irgrid<DD>The irregular grid format. Used for irregularly-spaced data, such as surface station networks.
+<DT>outline<DD>The organization for outline data, such as boundaries, manually-entered flight tracks, or polygons.
+<DT>scalar<DD>Simple scalar observations, such as returned by most aircraft probes, soundings, or individual surface stations.
+<DT>nspace<DD>Multi-dimensional data. The field values are scalar, but they have dimensions other than time, such as height, channel, power level, or frequency. Profilers and many radiometers use this organization.
+<DT>1dgrid<DD>One dimensional, regularly-spaced grid data, such as wind profiles.
+<DT>2dgrid<DD>Two-dimensional, regularly-spaced grids, such as surface temperature grids. This organization differs from raster images in that the data points are floating-point numbers rather than bytes. There may still be a few uses of the synonymous keyword grid, but the less ambiguous keyword 2dgrid should be used instead.
+<DT>3dgrid<DD>Three-dimensional, regularly-spaced grids, such as model output or dual-doppler analysis data.
+
+<DT>transparent<DD>This is a specialized category for storing transparent-class data chunks of arbitrary organization. The organization is transparent because the data store will not try to interpret the data. The interpretation of the data read from the file is application-specific. This organization most often indicates textual data stored as a string of bytes. Only the zebra native format supports the storage and retrieval of transparent organizations.
+<DT>fixedscalar<DD>A specialized format for the zeb native format. This organization is identical to scalar, except it also implies the set of fields stored in a file will not change. The zeb format can conserve substantial file space by relying on a fixed set of fields.
+</DL></UL>
+<P>None of the file formats supports all of the data organizations. The table below lists which organizations can be handled by each file format.
+<P><A HREF="DataStore.tbl_1.ps"><IMG SRC="fm2html-table.gif">TABLE 1. Data organizations supported by each file format 
+</A>
+<PRE>
+--------------------------------------------------------------------------------------------
+<B>File format        Data organizations                                                         
+<TableHeadEnd></B>--------------------------------------------------------------------------------------------
+netCDF             scalar, nspace, irgrid, 1dgrid, 2dgrid, 3dgrid                             
+boundary           outline                                                                    
+raster             image                                                                      
+compressed_raster  image                                                                      
+zeb                outline, 1dgrid, 2dgrid, 3dgrid, irgrid, transparent, scalar, fixedscalar  
+grib               nspace                                                                     
+grib_sfc           nspace                                                                     
+grads              nspace                                                                     
+hdf                image, 2dgrid                                                              
+--------------------------------------------------------------------------------------------
+</PRE>
+<H4><A NAME="REF16604">  3.6.5  Class data directories</A></H4>
+<P>The current data store scheme allows the definition of two data directories. The local directory must always exist, even if not explicitly defined in the configuration file. To specify a local data directory within a class definition, use the following subcommand:
+<PRE>
+directory <I>dir
+</PRE>
+
+<P></I>The <I>dir</I> parameter is the path to the directory of interest. If no local directory is given for a class, it defaults to the value of the user interface variable datadir with the name of the class appended. If <I>dir</I> is not an aboslute path, then it is interpreted as a directory path relative to datadir. When used, the datadir variable should be set at the beginning of the configuration file, before any platform class definitions. It <I>is</I> possible to change datadir anywhere in the configuration file, thereby changing the default top directory of any class definitions following the change. However, this technique has not been used in the past and should be tried with caution, if at all. Note that the datadir variable also goes by the name DataDir, and both forms are used interchangeably in this manual. In fact, all of the UI variable names in the configuration file are case-insensitive.
+<P>Consider the example below.
+<PRE>
+set datadir /scratch/data/storm
+class Radar
+  ...
+  directory radar
+endclass
+</PRE>
+<P>The full path of the Radar class' data directory will be
+<PRE>
+/scratch/data/storm/radar
+</PRE>
+<P>However, the class definition might specify an absolute directory like so:
+<PRE>
+class Radar
+  ...
+  directory /data/radars
+endclass
+</PRE>
+<P>In this case the directory attribute will not be modified at all; /data/radars will be copied exactly into the class' data directory. If directory is not specified, the data directory for Radar will default to /scratch/data/storm/Radar.
+<P>The secondary or "remote" data directory can be defined in a similar way:
+<PRE>
+remote <I>rdir
+</PRE>
+
+<P></I>Where <I>rdir</I> is the name of the remote directory. Normally, a platform has no remote directory unless it is explicitly specified in the platform class. However, that behavior can be modified with the variable RemDataDir. When set, this variable names the default parent directory of the remote data directories. For each platform without an explicit remote directory, the daemon will look in RemDataDir for a directory with the same name as the platform. If found, that directory becomes the platform's remote data directory. The daemon does not attempt to automatically create remote data directories. The suggestions for using the DataDir variable apply to RemDataDir as well. If a remote directory needs to be specified, then RemDataDir should be set at the beginning of the configuration file. Likewise, the variable name is case-insensitive and may also be seen as remdatadir.
+<P>The daemon's access of remote directories can be enabled or disabled with the DisableRemote variable. If this variable is set to TRUE, no remote data directories will be accessed, regardless of the platform definitions. The default value of DisableRemote is FALSE.
+<P>A class' data directory can also be inherited from its superclass. There are three methods of inheritance.
+<UL><DL>
+<DT>append<DD>Append the name of the subclass to the superclass directory.
+<DT>copy<DD>Copy the superclass directory exactly.
+<DT>none<DD>Do not use the superclass directory at all; use the class' default subdirectory of DataDir.
+</DL></UL>
+<P>The inheritdir command sets the directory inheritance within a class definition to one of the above methods. The method applies to the inheritance of both the local and the remote directories.
+<PRE>
+set datadir /coare
+class Ocean
+  directory       ocean-plats
+  inheritdir      append
+endclass
+class Ship Ocean
+  ...
+  directory ship
+endclass
+</PRE>
+
+<P>The Ocean class sets the inheritdir attribute to append, so the Ship class inherits this same setting. Ocean does not have a superclass, so the inheritdir attribute has no effect in the Ocean class. The inheritdir statement could be moved from the Ocean class definition to the Ship class definition and the effect would be the same. The Ship class' directory will be appended to the Ocean data directory. The full data directory path for the Ocean class is /coare/oceanplats, so the directory for the Ship class is
+<PRE>
+/coare/ocean-plats/ship
+</PRE>
+<P>If the directory attribute were omitted from the Ship class, then the class name becomes the default directory and the full data directory path becomes
+<PRE>
+/coare/ocean-plats/Ship
+</PRE>
+<P>If the inheritdir copy attribute were in effect, and neither class specified a directory attribute, then their respective data directories would both be /coare/Ocean.
+<P>Remember, the directory and remote subcommands assign a directory to the <I>class</I>, not to the members of the class. A class' data directory is used to <I>derive</I> the data directories of each of its members. The details of this derivation must wait until <A HREF="DataStore.html#REF76061">Section 3.7.2</A>, after the explanation of platform instances.
+<H4><A NAME="REF16959">  3.6.6  Other class attributes</A></H4>
+<P>There are a few other parameters available within a platform class definition. All of them are optional.
+<P>For platforms which move (i.e. sondes, aircraft), the mobile command, which takes no arguments, activates the mobility attribute. The presence of mobile causes the data store to maintain the position information of a moving platform.
+<P>It is possible to specify the maximum number of samples that the data store will put into a single file with the maxsamples parameter:
+<PRE>
+maxsamples <I>max
+</PRE>
+<P></I>where <I>max</I> is the maximum number of samples. The default value varies between implementations, but is usually 60. For a number of types of platforms (such as soundings), it is important to set this parameter higher or observations will be split in the middle.
+
+<P>For some platforms, it may be desirable to split data files across day boundaries. This is usually the case for regularly-reporting platforms, such as surface stations. The daysplit parameter will cause this behavior for a particular platform.
+<P>The <I>keep</I> time controls how much data the daemon keeps on-line during a call to the truncate procedure. 
+<PRE>
+keep <I>keep
+</PRE>
+<P></I>The daemon will only delete those files which do not contain any data from the most recent <I>keep</I> minutes. If <I>keep</I> is 60*24, or one day, then the most recent 24 hours of data will always be left by a call to truncate which uses the default platform keep attribute.
+<P>The composite attribute indicates that a platform will serve as the parent of one or more subplatforms. Usually the platform has an irgrid data organization, and the points of the irregular grid are each a scalar subplatform. <A HREF="DataStore.html#REF12813">Section 3.7.3</A> describes subplatforms, while <A HREF="DataStore.html#REF73597">Section 3.7.5</A> covers the special case of composite platforms.
+<P>The model parameter indicates that a platform holds model data. Model data have separate issue and valid times (forecast times) and therefore require specialized handling. At present, model data is only accessible through the accepted model formats, grib, grib_sfc, and grads.
+<H4><A NAME="HDR10">  3.6.7  Abstract attributes</A></H4>
+<P>In addition to the regular platform properties, classes have a few unique properties which are relevant mostly to the class hierarchy rather than to a platform model. The abstract attribute indicates a base abstract class which is not meant to be instantiated.  An abstract class only serves as a superclass for other classes.  Flagging a class as abstract prevents instances from being accidentally created for a class which has likely not been defined completely. Note that it would not make much sense for the subclasses of an abstract base class to inherit the abstract attribute. To set the abstract attribute for any class or subclass, the abstract subcommand must be explicitly called in its definition.
+<H4><A NAME="HDR11">  3.6.8  Obsolete attributes</A></H4>
+<P>Two more attribute subcommands exist but are no longer used: regular and discrete. If these attributes are present in a platform definition, their presence is merely historical and no longer has any effect on the handling of the platform.
+
+<H3><A NAME="HDR12">  3.7  Platform instances</A></H3>
+
+<HR>
+<P>Platform classes are an abstract classification of information; <I>platform instances</I> are the meat of the matter. Once a class has been defined, it can be used to create a platform instance. The platform instance is the node through which the data store accesses the data and files of an observational platform or dataset. In any discussion of the data store, the term `platform instance' is identical to `platform'. The `definition of a platform' is actually, technically speaking, the instantiation of a defined platform class, but the distinction is rarely useful or necessary.
+<H4><A NAME="HDR13">  3.7.1  The instance command</A></H4>
+<P>The instance command instantiates one or more platforms from a single class.
+<PRE>
+instance <I>class</I> <I>instance</I> [<I>instance</I> ...]
+</PRE>
+<P>For example, consider this definition of the Aircraft class:
+<PRE>
+class Aircraft
+  filetype        zeb
+  organization        scalar
+  mobile
+endclass
+</PRE>
+<P>The class name is `Aircraft'; the file type is the Zebra native file format; the organization is scalar; and all aircraft platforms are mobile. This definition compiles the information which is constant among all aircraft platforms. The individual aircraft platforms in a project must then be instantiated from the Aircraft class using instance:
+<PRE>
+instance Aircraft n308d p3 nc1701
+</PRE>
+<P>More Aircraft platforms could be instantiated with additional instance commands.
+<PRE>
+instance Aircraft blackbird discovery
+</PRE>
+<P>The file type, data organization, and mobility attribute of the platforms n308d, p3, nc1701, blackbird and discovery will all be identical. The differences between the platforms will be their instance name and data directories. <A HREF="DataStore.html#REF76061">Section 3.7.2</A> explains the determination of data directories.
+
+<H4><A NAME="REF76061">  3.7.2  Instance data directories</A></H4>
+<P>Naturally, a platform's data directory cannot be limited to the same directory as its class and all of the class' other members. By default, the data directory of a platform instance is a subdirectory of DataDir, where the instance name serves as the name of the subdirectory. Consider the example of the Aircraft class in the previous section. If DataDir were /data/project, then the respective data directories of the Aircraft platforms n308d, p3, and blackbird would be as follows:
+<PRE>
+/data/project/n308d
+/data/project/p3
+/data/project/blackbird
+</PRE>
+<P>Instead of the default, the platform data directory can be derived from the class directory according to the class' instancedir attribute. The acceptable values for the instancedir attribute are described below.
+<UL><DL>
+<DT>copyclass<DD>Copy the class directory exactly.
+<DT>subdirclass<DD>Append the instance name to the class directory.
+<DT>copyparent<DD>Copy the directory of the parent exactly.
+<DT>subdirparent<DD>Append the instance name to the parent platform's directory.
+<DT>root<DD>Ignore the class and parent directories. Put the directory at the root of the data directory tree, using the instance name as a subdirectory of DataDir.
+<DT>default<DD>Same as root.
+</DL></UL>
+<P>The instancedir command sets the derivation of instance data directories to one of the above methods.
+<PRE>
+instancedir <I>method
+</PRE>
+<P></I>The <I>method</I> parameter must match one of the attribute values listed above. As for the inheritdir method, the instancedir method applies to both the local and remote data directories of the instance.
+
+<P>When a platform is instantiated from a class, it is assigned a platform based on the class' instancedir attribute and the class directory. The class directory is specified in the class definition, as noted in <A HREF="DataStore.html#REF16604">Section 3.6.5</A>. If the platform's local data directory does not exist when the daemon tries to scan it, the daemon will attempt to create the directory, and then log a message about the success or failure of the attempt.
+<P>The example below configures a data directory hierarchy based on the class hierarchy.
+<PRE>
+set datadir /data/ufp
+class Craft
+  filetype        zeb
+  organization        scalar
+  mobile
+  instancedir        subdirclass
+  inheritdir        none
+endclass
+class Aircraft Craft
+  maxsamples        1000
+  directory        air
+endclass Aircraft
+class Spacecraft Craft
+  maxsamples        65000
+  directory        space
+endclass Spacecraft
+instance Aircraft n308d p3 blackbird
+instance Spacecraft nc1701a discovery
+</PRE>
+<P>The Aircraft and Spacecraft classes inherit the instancedir subdirclass method from the Craft class. Consequently, the instances of those two classes acquire the data directories listed below, in order of instantiation.
+<PRE>
+/data/ufp/air/n308d
+/data/ufp/air/p3
+/data/ufp/air/blackbird
+/data/ufp/space/nc1701a
+/data/ufp/space/discovery
+</PRE>
+
+<P>With a few changes in the class definitions, the hierarchy looks a little different. Omit the directory commands so that the default directories take effect, and change the directory inheritance in the Craft class to append.
+<PRE>
+class Craft
+  filetype        zeb
+  organization        scalar
+  mobile
+  instancedir        subdirclass
+  inheritdir        append
+endclass
+</PRE>
+<P>The data directory hierarchy then looks like this:
+<PRE>
+/data/ufp/Craft/Aircraft/n308d
+/data/ufp/Craft/Aircraft/p3
+/data/ufp/Craft/Aircraft/blackbird
+/data/ufp/Craft/Spacecraft/nc1701a
+/data/ufp/Craft/Spacecraft/discovery
+</PRE>
+<P>Finally, if the inheritdir method of Craft is copy, the subclasses of Craft lose their directory identities. The Aircraft and Spacecraft classes inherit the copy attribute from Craft, and so they receive exact copies of the Craft directory, `Craft'. The effect would be the same if the Aircraft and Spacecraft class definitions explicitly specified the copy attribute.
+<PRE>
+/data/ufp/Craft/n308d
+/data/ufp/Craft/p3
+/data/ufp/Craft/blackbird
+/data/ufp/Craft/nc1701a
+/data/ufp/Craft/discovery
+</PRE>
+<P>The subdirparent and copyparent methods of deriving instance directories relate to the notions of instance hierarchies and parent platforms. Consequently their explanation is put off until the next section.
+<H4><A NAME="REF12813">  3.7.3  Instance hierarchies</A></H4>
+
+<P>In an instance hierarchy, one individual platform serves as the <I>parent</I> of one or more other platforms. The child platforms are called the <I>subplatforms</I> of the parent platform. The parent-child relationship can represent many real-life relationships, such as containment, or co-location, or composition. An irregular grid comprised of platform sites is an example of composition. The parent platform---the irregular grid---is actually composed of other platforms. A single site containing several instruments might also be represented as an instance hierarchy; the site itself is defined as a platform which parents the several instrument platforms. The hierarchy might be extended further by defining a network platform whose children are the site platforms. Ideally, class and instance hierarchies can be used to more closely represent the real structure of an observation network---allowing for ease and accuracy in defining the network to the datastore, and for a broader interpretation and use of the network information by the datastore. [See <A HREF="DataStore.html#REF54300">'Virtual platforms', Section 3.7.6</A>.]
+<P>In past versions of Zebra, the instance hierarchy was restricted to a depth of one and to the notion of a composite platform (an irgrid) and its set of subplatforms (scalar).  [<A HREF="DataStore.html#REF73597">See "Composite platforms" on page 49.</A>] The current model allows hierarchical links between any platforms to any depth. Subplatform links can be associated with either platform instances or platform classes. When associated with a class, the subplatform links are a template for instantiating the child platforms of any instance of that class. A subplatform template consists of a name for the subplatform instance and a class from which to instantiate the subplatform. Within a class definition, the subplats command specifies the subplatform class and a list of subplatform names to instantiate with that class.
+<PRE>
+subplats <I>class</I> <I>name</I> [<I>name</I> ...]
+</PRE>
+<P>A class definition may contain any number of subplats commands and any number of subplatform templates. A subplatform template class may itself contain subplatform templates, in which case each generation of subplatforms will be recursively instantiated for each instance of the class being defined.
+<P>Class subplatforms will also be inherited from the superclass. Each subplats command in the class definition adds subplatform templates to the list of subplatforms inherited from the superclass. If a class needs to disable the inheritance of subplatforms, it can use the none keyword with the subplats subcommand.
+<PRE>
+subplats none
+</PRE>
+<P>This subcommand should appear before any other subplats statements in the class definition, since it erases the class' subplatform templates when it is called. Any prior subplats entries and all inherited subplatform templates will be erased.
+
+<P>The code shown below defines an ISS platform class whose members contain an Omega sounding platform and two profilers<A HREF="DataStore.html#FN1">(1)</A>.
+<PRE>
+class Omega
+  organization    scalar
+  filetype        netcdf
+  maxsamples      1000
+  mobile
+endclass
+class Profiler
+  organization        1dgrid
+  filetype        netcdf
+  maxsamples        1000
+endclass
+!
+! The parent platform of the ISS instruments
+!
+class ISS
+  subplats Omega omega
+  subplats Profiler prof915h prof915l
+endclass ISS
+</PRE>
+<P>Besides its instance name, a platform instance is also assigned a canonical name for the data store's platform table. The canonical name distinguishes platform instances with similar instance names but which are children of different parents. A platform's canonical name is formed by joining its parent's canonical name to the platform's instance name, separating the names with a slash (`/'). If the platform has no parent, then the platform's instance name becomes its canonical name. If the parent is itself the child of another platform, then its canonical name will already include the name of <I>its</I> parent, and the platform's canonical name will therefore contain the names of all of its ancestors. If `tao' begets `buoy' begets a thermometer named `temp', then the thermometer's canonical name will be `tao/buoy/temp'. The use of a slash to separate parent names likens the canonical name-space to the UNIX filesystem name-space. Child platforms are analogous to subdirectories, instance names are analagous to directory names, and canonical names are the `absolute path' of a platform instance name.
+
+<P>Suppose the ISS class in the example above were instantiated.
+<PRE>
+instance ISS kapinga
+</PRE>
+<P>The ISS subplatform templates are automatically instantiated as child platforms of the `kapinga' platform. The list below shows the canonical names of the instantiated platforms.
+<PRE>
+kapinga
+kapinga/omega
+kapinga/prof915h
+kapinga/prof915l
+</PRE>
+<P>A second instantiation of ISS with the name `kavieng' yields distinct canonical names for the parent and all of its subplatforms.
+<PRE>
+kavieng
+kavieng/omega
+kavieng/prof915h
+kavieng/prof915l
+</PRE>
+<P>The subplatforms `kapinga/omega' and `kavieng/omega' have identical instance names, `omega'. Hence the reason for a naming scheme which incorporates the parent name.
+<P>The data store's platform table actually contains entries for instance names, canonical names, and all the `relative paths' in between. When `kapinga/omega' is instantiated, the names `kapinga/omega' and `omega' are both entered into the table as references to that platform. The canonical name `soundings/issnet/kapinga/omega' would be added to the table under all of these names:
+<PRE>
+soundings/issnet/kapinga/omega
+issnet/kapinga/omega
+kapinga/omega
+omega
+</PRE>
+<P>Usually, only the canonical name will be unique, since the next instantiation of an Omega subplatform would override any existing references for the name `omega'. Consequently, the canonical name should be used to avoid ambiguity when referring to platforms.
+<P>The subplats command can also be used outside of a class definition.
+<PRE>
+
+subplats {<I>class</I>|<I>instance</I>} {<I>class</I>} <I>name</I> [...]
+</PRE>
+<P>The first argument is the name of the class or instance with which the subplatforms will be associated.  If the name given belongs to both an instance and a class, the platform instance takes precedence. The second argument, <I>class</I>, is the class to use for the subplatform instances.  Finally, the last arguments are the instance names to be created.  This form of the subplats command can be used to add subplatform templates to a class after the class has been defined. This technique is convenient and less cumbersome when tens or even hundreds of subplatform templates must be named. If the target is a platform instance, then this command immediately instantiates the named subplatforms as children of the target instance. This capability allows platforms to be linked in an instance hierarchy without requiring the instance hierarchy to be laid out in the class definitions.
+<H4><A NAME="HDR14">  3.7.4  Subplatform data directories</A></H4>
+<P>The instancedir attribute provides two methods which allow platform data directories to follow the instance hierarchy rather than the class hierarchy: copyparent and subdirparent. As the names imply, these instance directory methods are similar to copyclass and subdirclass except the data directory is derived from the platform's parent rather than its class.
+<P>If a platform is to have a parent (i.e., the platform will also be a subplatform), the parent must be known at the time the platform is instantiated. It is not possible to link a platform to a parent after the platform has been instantiated. Therefore, a subplatform's data directory can be derived from the data directory of its known parent when the subplatform is instantiated. If the instancedir method is copyparent, the instantiated platform receives an exact copy of its parent's data directory. If the method is subdirparent, the platform's data directory will be a subdirectory of its parent's data directory, and the platform's instance name will be the name of the subdirectory.
+<P>As an example, suppose we want to represent the fact that an aircraft has three platforms, a radar and two radiometers, besides the normal scalar meteorological instruments.
+<PRE>
+class Aircraft
+  filetype        netcdf
+  organization        scalar
+
+  maxsamples        1000
+  mobile
+endclass Aircraft
+class Radiometer Aircraft
+  filetype        netcdf
+  organization        scalar
+  maxsamples        6000
+  instancedir        subdirparent
+endclass
+class Radar Aircraft
+  filetype        raster
+  organization        image
+  maxsamples        15
+  instancedir        subdirparent
+endclass
+class P3 Aircraft
+  virtual
+  subplats      Radiometer upward downward
+  subplats      Radar lf
+endclass P3
+instance P3 n42rf n43rf
+</PRE>
+<P>In this case, the instance hierarchy represents containment, and it models the fact that every aircraft contains certain subplatforms. As subclasses of Aircraft, the subplatform classes inherit the mobility attribute and override other attributes as necessary. If one of the aircraft instances also had an ozone detector, the detector could be added as a subplatform with a separate subplats command, outside of the Aircraft class definition..
+<PRE>
+class Ozone Aircraft
+  filetype netcdf
+  organization scalar
+  maxsamples 1000
+endclass Ozone
+subplats n43rf Ozone ozone
+</PRE>
+
+<P>The gist of the above example is that scalar flight data are stored in the Aircraft instances `n42rf' and `n43rf' using their default data directories, while the data from the subplatforms are stored separately. The platform data directories will be the subdirectories of DataDir listed below.
+<PRE>
+n42rf
+n43rf
+n42rf/lf
+n43rf/lf
+n42rf/upward
+n42rf/downward
+n43rf/upward
+n43rf/downward
+n43rf/ozone
+</PRE>
+<P>By more than mere coincidence, the directory paths above are exactly the canonical names of the platform instances.
+<H4><A NAME="REF73597">  3.7.5  Composite platforms</A></H4>
+<P>The composite class attribute mentioned in <A HREF="DataStore.html#REF16959">Section 3.6.6</A> relates to a special form of instance hierarchy. The subplatforms of a composite platform are not fully-qualified platforms with their own data directories and data file chains. In fact, the data store daemon ignores them for the most part. Instead, the subplatform data are combined and stored in the composite platform's data files. At the moment, the only type of cominbation supported is an irregular grid, where each subplatform represents a single site in the irregular grid. In other words, the composite platform must always have an irgrid data organization, and the subplatforms must all be scalar. The irregular grid platform uses the subplatform information only to name its stations; it ignores any attribute, file type, or directory information. Beyond that, the subplatform instance is given a canonical name and platform table entry just like any other platform instance.
+<H4><A NAME="REF54300">  3.7.6  Virtual platforms</A></H4>
+<P>Members of virtual platform classes are platform instances which serve as a node in the platform instance hierarchy but which are not intended to actually hold data.  For example, an ISS station which contains subplatforms would likely be virtual, since only the subplatforms would be referenced for storing and accessing the instrument data.
+<PRE>
+class ISS
+  virtual
+  subplats Omega omega
+
+  subplats Profiler prof915h prof915l
+endclass ISS
+</PRE>
+<P>Just as it is for the abstract attribute, subclasses of a virtual class do not inherit the virtual attribute. To set the virtual attribute for a class or subclass, the virtual subcommand must be explicitly present in the class definition.
+<P>Eventually, more might be done with virtual platforms, such as allowing fetches of data from a virtual platform to automatically fetch data from all of its subplatforms. For the moment, though, the data store daemon does not differentiate between virtual and non-virtual platforms. Consequently, virtual platforms must also be valid data platforms: they must have a file type, a data organization, and a data directory (the default directory would usually work). As a work-around, virtual classes which do not inherit the necessary settings from a superclass could inherit them from a `Virtual' class. This prevents the class definition from being cluttered with irrelevant information.
+<PRE>
+class Virtual
+  filetype        zeb
+  organization        scalar
+  directory        virtual
+  virtual
+endclass Virtual
+class ISS Virtual
+  virtual
+  subplats Omega omega
+  subplats Profiler prof915h prof915l
+endclass ISS
+</PRE>
+<P>Note that the virtual command in the ISS definition must be present since the virtual attribute will not be inherited from the Virtual class.
+<H4><A NAME="REF15992">  3.7.7  Examples</A></H4>
+<P>This section contains examples of class and instance definitions for representing different types of platforms and observation networks.
+<PRE>
+class Satellite
+  organization        image
+  filetype        raster
+  maxsamples        50
+
+endclass
+instance Satellite gms gms-big gms-2k
+</PRE>
+<P>The above configuration code would define three platforms.  Each platform would share the parameters of the satellite class, except for the data directory. The data directory becomes a subdirectory of DataDir whose name is the instance name of the platform.
+<P>A second class can be subclassed from the Satellite class:
+<PRE>
+class CompressedSatellite Satellite
+  filetype      compressed_raster
+endclass
+</PRE>
+<P>To put the platform directory in a subdirectory of the class directory:
+<PRE>
+class Satellite
+  organization        image
+  filetype        raster
+  maxsamples        50
+!  Name of this class' directory
+  directory        satellites
+!  Put instance directories under the class
+  instancedir        subdirclass
+  comment    `Raster images from satellites'
+endclass
+</PRE>
+<P>If DataDir is /data, then the three instances of the Satellite class would have these data directories, respectively:
+<PRE>
+datadir/satellites/gms
+datadir/satellites/gms-big
+datadir/satellites/gms-2k
+</PRE>
+<P>In the coare project ds.config file, the boat platform definitions which once took almost a hundred lines can be simplified to the following code:
+<PRE>
+class BoatPosition
+  organization        scalar
+  filetype        netcdf
+  maxsamples        50
+  mobile
+
+  comment    `Ship locations in netcdf'
+endclass
+instance BoatPosition vickers xiang5 kexue1 \
+    shiyan3 wecoma moana noroit
+instance BoatPosition franklin alis hakuho \
+    keifu natsu kaiyo malaita
+</PRE>
+<P>Changing the maxsamples attribute of all of the boat platforms would require a single change to the maxsamples line in the BoatPosition class definition.
+<P>The code below defines a more complex instance and class hierarchy for ISS stations. The `ISSPlatform' class serves as an abstract base class for all of the ISS instrument platforms. Each instrument platform will inherit the subdirparent setting of instancedir attribute, so that each instrument's data directory will be a subdirectory of its parent ISS platform. Also, every ISSPlatform instance will inherit the netcdf file type. Only the attributes which differ among the instrument platforms need to be specified in each instrument's class.
+<PRE>
+class ISSPlatform
+  abstract
+  filetype        netcdf
+  instancedir        subdirparent
+  comment `ISS instrument platform'
+endclass
+class Omega ISSPlatform
+  organization    scalar
+  maxsamples      1000
+  mobile
+endclass
+class Profiler915 ISSPlatform
+  organization        1dgrid
+  maxsamples        1000
+endclass
+class Rass915 ISSPlatform
+  organization        1dgrid
+  discrete
+  maxsamples        1000
+
+endclass
+class Surface ISSPlatform
+  organization        scalar
+  maxsamples        720
+endclass
+class Virtual
+  filetype        zeb
+  organization        scalar
+  directory        virtual
+  virtual
+endclass Virtual
+class ISS Virtual
+  subplats Omega omega
+  subplats Profiler915 prof915h prof915l
+  subplats Rass915 rass915
+  subplats Surface surf
+  virtual
+  comment `Platform node for ISS site'
+endclass
+</PRE>
+<P>The ISS class definition uses the virtual work-around mentioned in <A HREF="DataStore.html#REF54300">Section 3.7.6</A>. The ISS class template includes templates for five subplatforms: an omega sounding platform, two profilers, one RASS, and surface observations. Five such platforms will be instantiated for a single instance of the ISS class, and each of the five platforms will be children of the ISS instantiation. So the following code instantiates 30 platforms, including the five virtual ISS platforms.
+<PRE>
+instance ISS kapinga kavieng nauru manus sci1
+</PRE>
+<P>The definitions above present one model of the ISS platform hierarchy while allowing much flexibility for making changes.  To put all of the ISS stations under the directory DataDir/iss, only the definition of the ISS class needs to change:
+<PRE>
+class ISS Virtual
+  subplats Omega omega
+  subplats Profiler915 prof915h prof915l
+  subplats Rass915 rass915
+  subplats Surface surf
+
+  virtual
+  directory      iss
+  instancedir      subdirclass
+endclass
+</PRE>
+<P>The data directory of each ISS instance gets the location DataDir/iss/&lt;instancename&gt;.  The ISS subplatforms are not subplatforms in the historical sense. They do not have scalar organizations, and their parent platform is not an irregular grid whose composite flag is set. Each instrument platform contains a link to its parent platform; unfortunately, the data store does not yet do anything with this link information. Eventually, the parent-subplatform links could describe complicated datasets such as irregular surface grids of profilers, or a network of scanning radiometers.
+<H4><A NAME="REF25593">  3.7.8  The platform command</A></H4>
+<P>In past versions, the platform command existed for actually defining a platform with all of its attributes---attributes which are now reserved for the class. Every platform required its own definition and its own attribute commands within its definition. For backwards compatibility with existing data store configurations, the platform command still exists but its implementation has changed.
+<PRE>
+platform <I>name
+</I>  filetype <I>type
+</I>  organization <I>org
+</I>  [directory <I>dir</I>]
+  [remote <I>remote-dir</I>]
+  [mobile]
+  [maxsamples <I>max</I>]
+  [daysplit]
+  [keep <I>minutes</I>]
+  [composite]
+  [model]
+  [regular <I>interval</I>]
+  [discrete]
+endplatform
+</PRE>
+<P>Internally, the platform statement is now an implicit class definition which is then automatically instantiated using the <I>name</I> given to the platform statement. For example, a satellite platform definition using the historical syntax might look like this:
+<PRE>
+
+platform gms
+  organization        image
+  filetype        raster
+  maxsamples        50
+endplatform
+</PRE>
+<P>This use of platform now creates both a class named `gms' and an instance named `gms'. The `gms' class is automatically given an instancedir method of copyclass, so that the `gms' instance receives the same directory as the class. The end result is the same as before: the creation of an instance with the name `gms', a data directory datadir/gms, and all the attributes which appear in the platform definition. The difference is that internally the attributes are actually part of the class rather than the instance.
+<P>Due to the way the platform statement now works, platform takes an optional argument which is the name of a superclass for the implicitly-defined class.  
+<PRE>
+platform <I>name</I> [<I>class</I>]<I>
+</PRE>
+<P></I>Here is an example.
+<PRE>
+class LongRangeScanner
+  organization        3dgrid
+  maxsamples        10
+  filetype        netcdf
+endclass LongRangeScanner
+platform aftscanner LongRangeScanner
+  maxsamples        5
+endplatform
+</PRE>
+<P>The code above creates two classes, `LongRangeScanner' and `aftscanner', and one platform instance, `aftscanner'.  The `aftscanner' platform has the same properties as `LongRangeScanner' except for the maxsamples number.
+<H4><A NAME="REF67504">  3.7.9  The subplatform command</A></H4>
+<P>Originally, subplatforms of composite platforms [see <A HREF="DataStore.html#REF73597">Section 3.7.5</A>] were defined with the subplatform command.
+<PRE>
+subplatform <I>platform</I> <I>name</I> [<I>name </I>...]
+
+</PRE>
+<P>The <I>platform</I> parameter is the name of the composite platform which will parent the scalar subplatforms listed in the <I>name</I> parameters. The composite platform must be defined before calling subplatform. More than one subplatform command can be used to add subplatforms to a composite platform.
+<P>Since the introduction of platform classes, the subplatform command works similarly to the platform command described above. The subplatform command automatically creates a class from which all of the composite platform's subplatforms will be instantiated. Each subplatform statement for the composite platform becomes the equivalent of a subplats command with the composite platform instance as the subplats target instance. The presence of the composite attribute in the parent platform automatically flags the subplatforms as part of a composite network. See <A HREF="DataStore.html#REF73597">Section 3.7.5 on page 49</A> for an explanation of composite platforms and their subplatforms.
+<H3><A NAME="REF37355">  3.8  Backwards compatibility</A></H3>
+
+<HR>
+<P>Despite the move to a platform class model, existing datastore configuration files work as before. The original platform and subplatform commands still exist and produce the same platform definitions as before. These commands and their implementation changes are explained in <A HREF="DataStore.html#REF25593">Section 3.7.8</A> and <A HREF="DataStore.html#REF67504">Section 3.7.9</A>, respectively.
+<P>The composite flag still exists and its implication remains the same.  Any subplatform of a composite platform instance, whether defined using subplatform or subplats, will automatically be assigned the <I>subplatform attribute</I>. This means that for most operations the daemon ignores the platform and neither creates nor scans any data directories for it. Note that being a subplatform merely means having a link to a parent platform, which is much different than actually possessing the subplatform attribute and being ignored by the daemon. <A HREF="DataStore.html#REF73597">Section 3.7.5 on page 49</A> contains a full explanation of composite platforms and the historical use of subplatforms.
+<P>Some configurations currently use the slash (` / ') naming scheme to distinguish similar platforms between different sites. A name such as `kapinga/omega' indicates an omega sonde at the kapinga site. This name would generate this default data directory:
+<PRE>
+DataDir/kapinga/omega
+
+</PRE>
+<P>However, in the daemon's eyes the platform instance will be a regular platform and not a subplatform (no parent link).  Such definitions can easily be converted to true subplatforms by defining a virtual parent platform `kapinga' and using subdirparent for the subplatforms' instancedir method. The difference between the two approaches is the existence of an actual parent platform `kapinga'. See the examples in <A HREF="DataStore.html#REF12813">Section 3.7.3</A> and <A HREF="DataStore.html#REF15992">Section 3.7.7</A>.
+<H3><A NAME="HDR15">  3.9  Shortfalls and future developments</A></H3>
+
+<HR>
+<P>If subplatforms are added to a class after that class has been instantiated, there is no attempt to add the subplatforms to the existing instances. Nor is there any warning that instances of a class already exist when a subplats statement is attempted on that class.
+<P>It is not possible to explicitly override the derived directory path for a platform instance. Sometimes this is necessary when a single platform's dataset resides in an unusual directory, or the data directory must be changed temporarily without affecting the other platforms in its class. If a platform must be given a uniquely derived directory, it must also be given its own class which specifies that derivation. The platform shortcut can be used to create a subclass with the platform-specific directory and instantiate a platform with that directory.
+<PRE>
+class Satellite
+  organization        image
+  filetype        raster
+  directory        /data/satellite/lo-res
+endclass
+instance gms gms-big
+platform gms-2k Satellite
+  directory        /data/gms/hi-res
+endplatform
+</PRE>
+<P>The `gms' and `gmsbig' instances will use the usual class-derived directories:
+<PRE>
+/data/satellite/lo-res/gms
+/data/satellite/lo-res/gms-big
+
+</PRE>
+<P>The `gms2k' definition inherits the Satellite attributes and overrides the directory path, yielding this directory path:
+<PRE>
+/data/gms/hi-res
+</PRE>
+<P>The comment statement exists in the data store daemon's command set, but the interpreter ignores it.  Someday it may become a way to associate comments and text information with platforms and classes. Such information could have several uses: make summaries of each platform accessible on-line during run-time, store the command-line of the ingest program responsible for compiling a platform's dataset, or include citations for published datasets. However, perhaps such functionality is best left to a full-fledged database rather than re-inventing one in the data store. For the moment, a platform class definition can include a comment line for purposes of documenting the configuration file itself, but the daemon will not do anything with the comment.
+<P>The next development step will be to make class and hierarchy information more accessible to datastore clients, and then make the clients and the daemon itself able to intelligently handle the information. For example, the daemon could provide a command-line function which returns a list of each platform instance of a certain class.  Then common functions like `CleanupScan' could simply loop over each instance of a class, truncating each platform by some period shared by the class. Likewise, tools like dsdump could limit their operation to platforms of a certain class.
+<H3><A NAME="HDR16">  3.10  The platform and file tables</A></H3>
+
+<HR>
+<P>There are several user interface variables within the data store daemon which control how it behaves, particularly with respect to the initial data scan. Those parameters will be discussed in this section.
+<P>The <I>platform table</I> is simply an internal list maintained by the data store daemon of all known platforms. This table is not directly accessible outside of the daemon process. To avoid using an excessive amount of memory, the daemon initially creates a platform table large enough to hold a "normal" number of platforms. That table is then expanded as needed. Two variables control the initial table size and the rate of expansion.
+<UL><DL>
+<DT>PTableSize<DD>The initial size of the platform table. Note that subplatforms also take one platform table entry, and should be counted if you are contemplating changing this variable. The default value of this variable is 200.
+
+<DT>PTableGrow<DD>The amount by which the platform table is expanded when all available entries are taken. PTableGrow has a default value of 50.
+</DL></UL>
+<P>Note that expanding the platform table is a relatively expensive operation, so it is preferable to set the above parameters such that the table runs out of entries as few times as possible.
+<P>The PTableSize parameter must be set before the first platform definition in the configuration file for it to have any effect.
+<P>The daemon maintains a <I>data file table</I> which performs a similar function for data files. This table is expanded when needed as well. There is an analogous set of variables to control file table growth.
+<UL><DL>
+<DT>DFTableSize<DD>The initial size of the data file table. Default value is 2000.
+<DT>DFTableGrow<DD>The amount by which to expand the data file table when needed. The default value is 500.
+</DL></UL>
+<P>Certain applications which use large numbers of data files will certainly want to increase the values of these parameters. An event (at the "info" level) is logged whenever it is necessary to expand the platform or data file table, so it is clear when an increase is necessary.
+<P>You may determine the current sizes and usage of the platform and data files by using zquery. <A HREF="DataStore.html#REF42939">See "Troubleshooting" on page 64.</A>
+<H3><A NAME="HDR17">  3.11  The file cache</A></H3>
+
+<HR>
+<P>When the data store performs its initial data scan, it starts by looking for a <I>cache file </I>in each data directory. This file contains information on all data files in the directory at the time that the cache file was written; its purpose is to speed up the data scan operation. The presence of a file in the cache can eliminate the need to open the file and check its contents.
+
+<P>When the daemon looks for a cache file in a platform directory, it first looks for a platform-specific file called &lt;platform&gt;.ds_cache, where &lt;platform&gt; is the platform name with any slash (`/') characters removed. If that file is found, the daemon reads it as the cache file for the platform and the search ends. If the platform-specific file is not found, the daemon next looks in the directory for a file called .ds_cache. If neither cache file can be found, the entire directory must be scanned.
+<P>The format of the cache file depends upon the data store protocol version in use when the cache file was written. The protocol version stored in the cache file must match the protocol version of the daemon trying to read the cache file. If the versions do not match, the daemon logs a message to that effect---"Cache version mismatch for ..."---and scans the entire directory.
+<P>The actual behavior of the data store with regard to cache entries depends on the settings of a number of variables. These variables are described below:
+<DL>
+<DT><I>Cache variables
+</DL>
+<UL><DL>
+<DT></I>LDirConst<DD>This variable indicates that the local directory is "constant," meaning that its contents never change. This will be the case for (and, probably, only for) data directories which are stored on read-only media, such as a CDROM. If LDirConst has a value of TRUE, the data store daemon will assume that the cache files have an exact picture of the data directories in which they are found, and no scan of the directory will be done at all.
+<DT>LFileConst<DD>Files in the local data directories are constant. If this variable is set to TRUE (and LDirConst is FALSE), then any files which are found in the cache are assumed not to have changed since the cache was written. The daemon will scan the directory, however, to find any new files and to notice any old files which no longer exist. Setting this variable TRUE is appropriate in postprocessing situations where files may be loaded from tape and deleted, but their contents will not change.
+<DT>RDirConst<DD>The remote directory is constant. Same as LDirConst, but for remote directores.
+<DT>RFileConst<DD>Remote files are constant.
+</DL></UL>
+<P>The default value of all four variables is FALSE.
+
+<P>The data store daemon writes cache files for all local data directories when given a cache command. It is rare, however (though not unknown) to find this command inside of the data store configuration file. Instead, it is invoked externally by a user with zrun, as follows:
+<PRE>
+zrun DS_Daemon cache
+</PRE>
+<P>It is also possible to run the cache command through the every mechanism, described below.
+<P>The daemon can also be configured to automatically write a set of cache files on a normal exit. Using this feature, you can have cache files written whenever zebra is shut down, so that they will be there for the next start-up. To have cache files written automatically on shutdown, simply set the variable CacheOnExit to TRUE.
+<P>The cache command also takes an optional dirty qualifier:
+<PRE>
+cache dirty
+</PRE>
+<P>Then only platforms which have seen changes since the last cache file was written will have their caches updated. This option may be used to frequently update caches without incurring overhead writing cache files for platforms which have not changed.
+<H4><A NAME="HDR18">  3.11.1  Delaying automatic directory creation</A></H4>
+<P>By default the daemon tries to create all of its platform data directories while it is starting up and performing the initial scan. This can be cumbersome and even downright annoying when a project defines hundreds of platforms and only a few them contain data or will be accessed. There fore directory creation can be delayed by setting the DelayDataDirs variable to true in the configuration file or on the daemon command line. When this variable is true, the daemon does not create a platform's directory until another client asks to store data there. For platforms whose data directory does not exist, the daemon tells its clients that the platform has no data.
+<H4><A NAME="HDR19">  3.11.2  Unified file cache</A></H4>
+
+<P>The data store daemon supports a variant on the file caching scheme wherein all information is stored in a single, large file. This method exists to support certain applications where individual cache files cannot be (re-) written, such as with CDROM distributions; it is not useful in most other situations.
+<P>To write a unified cache file, use this variant of the cache command:
+<PRE>
+cache <I>file
+</PRE>
+<P></I>where <I>file</I> is the name of the cache file to write. All platforms will be written to the file.
+<P>If, after the configuration file has been read, the daemon finds the variable CacheFile set, it is interpreted as the name of a unified cache file, and the contents of the file are loaded. In this case, per-platform cache files for any platforms found in the unified cache file will be ignored. Platforms without any cache information in the unified file will be scanned as usual.
+<H3><A NAME="HDR20">  3.12  File revisions</A></H3>
+
+<HR>
+<P>The data store daemon must keep track of data file revisions so that its clients will know when their information for a particular file is out of date. A data file revision is a number which increases when any zebra process changes the file. By default, the file's modification time (in seconds since the UNIX epoch), retrieved via the system call stat(), is used as the revision number. This makes it possible for the daemon to determine when a file has been changed outside of the daemon's scope. The modification time of such a file will be more recent than the revision number on record in the daemon. The rescan operation (<A HREF="DataStore.html#REF43678">Section 3.13 on page 63</A>) takes advantage of this capability to determine when a data file's table entry needs to be updated.
+<P>Unfortunately, the stat() system call can become costly in terms of I/O time, especially when the data files are mounted from remote file systems. Therefore, an alternative revision numbering scheme can be chosen, depending on the characteristics of the particular zebra installation. In cases where files rarely change, such as post-processing applications, the default revision scheme will suffice very well. In fact, in most real-time operations where data is collected on the order of minutes and hours, the system performance will probably not be affected by the default revision scheme. However, operations which update files on the order of seconds, and which remotely mount the data files, should consider using the alternative scheme.
+
+<P>The alternative revision scheme uses a simple counter which increments by one with each change to the file. To activate this scheme, set the StatRevisions variable to false in the data store configuration file:
+<PRE>
+set StatRevisions false
+</PRE>
+<P>By default, the StatRevisions variable is true. Unfortunately, this scheme has some disadvantages with regard to rescans. Since the daemon does not keep track of the file's modification time, it cannot know whether a file has changed since the last revision. Thus, under the alternative revision scheme, rescans will tend to scan more files, and most of them unnecessarily. Some redundancy is avoided by remembering the time of the last full scan; the daemon only scans those files modified since that time.
+<H3><A NAME="REF43678">  3.13  The rescan command</A></H3>
+
+<HR>
+<P>When data files are changed, added, or deleted outside the control of the data store daemon, the daemon and the zebra clients will be unaware of the changes. A rescan forces the daemon to re-read platform directories to discover the absence, addition, or modification of data files, and update its internal tables accordingly. The data store command rescan invokes a rescan of one or all of the platforms.
+<PRE>
+rescan [<I>platform</I>|all]
+</PRE>
+<P>With no arguments, or with the single argument all, all of the platform directories will be re-scanned. Otherwise, the single argument will be interpreted as the name of a platform to rescan. Ordinarily, rescans are invoked by the dsrescan client, described in <A HREF="DataStore.html#REF87435">Section 3.16.4 on page 68</A>. However, the rescan command allows rescans to be executed through the zrun utility:
+<PRE>
+zrun DS_Daemon "rescan all"
+</PRE>
+<P>Also, it allows the data store to be configured to perform rescans periodically, using the every command.
+<PRE>
+every 600 `rescan all'
+</PRE>
+<P>The above example instructs the data store daemon to rescan all platform directories every ten minutes.
+
+<H3><A NAME="REF42939">  3.14  Troubleshooting</A></H3>
+
+<HR>
+<P>The data store daemon provides some limited facilities for debugging and troubleshooting. Two options are available on the command line:
+<UL><DL>
+<DT>-debug<DD>Print feedback while reading the configuration file. Print descriptions of all platforms and classes when finished reading the file. The output can be rather voluminous.
+<DT>-parse<DD>Tell the daemon to exit immediately after reading the configuration file.
+</DL></UL>
+<P>Any unique substring of an option is acceptable on the command line. Using both options simultaneously provides a simple check of whether the daemon is configuring itself as intended in the configuration file. The daemon echoes the configuration information as it reads the configuration file, then it exits immediately, before scanning any files or trying to create any data directories.
+<PRE>
+dsDaemon -d -p ds.config
+</PRE>
+<P>Run-time information can be acquired from the daemon using the message query protocol. The daemon's query handler reports memory usage, lock queues, statistics, variable values, most recent scan and cache times, and daemon up time. For example, use zquery to query the daemon from the shell prompt.
+<PRE>
+zquery ds_daemon
+</PRE>
+<P>The output will look similar to the following:
+<PRE>
+Zeb data store daemon, protocol version 00940424
+$Id: d_Debug.c,v 3.4 1994/05/24 00:14:11 granger Exp $
+Up since Mon Nov 21 12:27:35 1994, 28 hours and 0 mins ago
+Last full rescan at Tue Nov 22 14:24:45 1994, 123 minutes and 20 secs ago
+No cache file updates have occurred.
+    Data directory: /net/tcw/data/zeb
+  Remote directory: 
+  Platform classes: 29 used of 100 allocated, grow by 50
+         Platforms: 232 used of 250 allocated, grow by 50
+                    2 composite platforms with 114 subplatforms
+  DataFile entries: 45879 used of 46000, grow by 1000
+      Memory usage: 120640 bytes for platforms
+                    14848 bytes for classes
+                    3670320 bytes for DFE's
+
+        Statistics: 11 platforms marked dirty
+                    1 cache invalidate messages sent
+                    1 write lock requests
+                    4400 read lock requests
+         Variables: revision method: stat(); cache on exit: true
+                    local files const: false; local dir const: false
+                    remote files const: false; remote dir const: false
+                    debugging: disabled; remote directories: disabled
+Locks:
+        Read lock queue for `null': w2@ale w2@stout w2@ale
+</PRE>
+<H3><A NAME="REF18938">  3.15  Running the daemon remotely</A></H3>
+
+<HR>
+<P>In certain limited conditions, it is possible to run zebra without a local data store daemon process. These conditions are:
+
+<UL>
+<P><LI>There is another host on the net---call it server---which is running a data store daemon.
+<BR>
+<P><LI>All data directories are mounted from server and the directory names are the same as they are on server.
+<BR></UL>
+
+
+<P>In this situation, zebra clients on the local machine can be configured to use the daemon on server as if it were the local daemon. All that is necessary is to set the environment variable DS_DAEMON_HOST to the name of the server host.
+<PRE>
+setenv DS_DAEMON_HOST server
+</PRE>
+<H3><A NAME="HDR21">  3.16  Miscellaneous utilities</A></H3>
+
+<HR>
+<P>There are several independent utilities that are part of the data store, serving informational and maintenance purposes. This section describes the use of these utilities.
+<H4><A NAME="HDR22">  3.16.1  dsdelete</A></H4>
+<P>The dsdelete command provides shell-level access to the data store's deletion protocol. The syntax of dsdelete is:
+<PRE>
+dsdelete [-h] [-o] [-z] <I>platform</I> <I>zaptime
+</PRE>
+
+<P></I>The dsdelete command deletes all files whose times fall before a calculated cutoff time. If <I>zaptime</I> is a number, or a UI expression which evaluates to a number, the cutoff time is that number of seconds prior to the current Zebra time. Otherwise the cutoff time is <I>zaptime</I> interpreted as an absolute time in UI format, `dd-mmm-yy[,hh:mm:ss]'. The options are described below.
+<UL><DL>
+<DT>-o<DD>Deletes the single observation which contains the cutoff time.
+<DT>-z<DD>Deletes the single most recent observation.
+<DT>-h<DD>Prints a help message.
+</DL></UL>
+<P>Delete the most recent radar platform, platform "radar":
+<PRE>
+dsdelete -z radar
+</PRE>
+<P>Delete files 24 hours prior to now and before:
+<PRE>
+dsdelete prof915h `(3600*24)'
+</PRE>
+<P>Delete the single GMS file containing the given time:
+<PRE>
+dsdelete -o gms "29-feb-93,4:15:42"
+</PRE>
+<P>Delete all of the files in platform "test". Be careful with these types of commands.
+<PRE>
+dsdelete test 0
+</PRE>
+<H4><A NAME="HDR23">  3.16.2  dsdump</A></H4>
+<P>The dsdump utility provides a list of all platforms and data files known to the data store. It is a good way to check what is going on if some process cannot find data that you think should be there. Regular expression searching allows plaforms to be dumped by categories, and options can tailor the type and the amount of information displayed.
+<PRE>
+dsdump [<I>options</I>] [-e <I>name</I>] [<I>regexp</I> ...]
+</PRE>
+<P>If no regular expressions are given, all of the platforms are listed. Otherwise, the program only lists those platforms whose names match one of the given regular expressions. The output from dsdump consists of a list of platforms. For each platform, there will be a line for every known data file, containing the file name, dates covered, and the number of data samples in the file. If the file has been archived by the zebra archiver process, the line will be marked with the character `A'; otherwise it is marked with an `N'. The options are noted below:
+<UL><DL>
+<DT>-h<DD>Print usage information.
+
+<DT>-a<DD>Alphabetize the list generated for each regular expression.
+<DT>-e <I>name</I><DD>Match the given name exactly.
+<DT>-s<DD>Include subplatforms in the list of candidate platforms to match.
+<DT>-c<DD>Show subplatforms (children) for each platform.
+<DT>-x<DD>Exclude data files from the listed information.
+<DT>-n<DD>List only the platform names, one line per platform.
+</DL></UL>
+<P>Some examples follow. To show an alphabetized list of all platforms:
+<PRE>
+dsdump -a
+</PRE>
+<P>List `ship' platforms, including the subplatforms of each ship platform:
+<PRE>
+dsdump -c `.*ship.*'
+</PRE>
+<P>List the radars, those platforms with the string `radars' in their name, and the platform exactly named `base':
+<PRE>
+dsdump radars -e base
+</PRE>
+<H4><A NAME="HDR24">  3.16.3  dsdwidget</A></H4>
+<P>Dsdwidget is a window-oriented version of dsdump. When invoked, dsdwidget creates a window with a list of platforms; clicking on a platform will create a new window with the data file listing for that platform.
+<PRE>
+dsdwidget [<I>options</I>] [-t <I>title</I>] [<I>regexp</I> ...]
+</PRE>
+<P>If a regular expression is present, only those platforms whose names match the expression are displayed.  Any number or combination of expressions may be given.  If there are no regular expression arguments to match, all of the platforms will be displayed, alphabetically by default. The options follow.
+<UL><DL>
+<DT>-h<DD>Print the usage message.
+
+<DT>-a<DD>Alphabetize the platforms for each matching string. This option is enabled by default.
+<DT>-u<DD>Don't alphabetize the platform names.
+<DT>-t<DD>Specify a title for the window.
+</DL></UL>
+<P>For example, create a window which lists all of the aircraft platforms, given that the aircraft platform names are the aircraft call numbers:
+<PRE>
+dsdwidget -t Aircraft `^n[0-9]'
+</PRE>
+<P>The title option allows multiple dsdwidget windows to be easily distinguished by the platform categories being listed in each window. In addition to the window above, a second window might list all of the ISS platforms:
+<PRE>
+dsdwidget -t ISS rass prof omega surf
+</PRE>
+<H4><A NAME="REF87435">  3.16.4  dsrescan</A></H4>
+<P>The dsrescan utility causes the data store daemon to rescan one or more platforms in search of changes that have occured outside of the data store mechanism. [<A HREF="DataStore.html#REF43678">See "The rescan command" on page 63.</A>] Such changes are usually the addition of new files or the deletion of old ones. To rescan platform directories, the dsrescan is invoked in any of the following ways:
+<PRE>
+dsrescan -h
+dsrescan -all
+dsrescan <I>regexp</I> [<I>regexp</I> ...]
+</PRE>
+<P>The -h option simply prints the usage message. The -all option causes all platforms to be rescanned. If one or more regular expressions are given, the command rescans only those platforms whose names match the given   regular expressions.
+<P>The dsrescan utility can also be used to scan a single file.
+<PRE>
+dsrescan [-remote] -file <I>filename</I> <I>platform
+</PRE>
+<P></I>All of the options to dsrescan can be uniquely abbreviated to one or more letters.
+
+<UL><DL>
+<DT>-remote<DD>Indicate that the file is in the platform's remote directory. Otherwise, the file is assumed to be in the platform's local directory.
+<DT>-file<I> file</I><DD>Specify the name of a new file to scan.
+</DL></UL>
+<P>The latter form of the dsrescan command scans a <I>new</I> file in the directory of the named platform. This form is most useful when a single data file has been added to a platform directory unbeknownst to the daemon. If the platform directory is large and contains dozens of files, this reduces time and system load by only scanning a single file rather than all of the files in the directory. Note that at the moment, the file must be new to the data store daemon. Files already known to the daemon must be updated through a full platform scan.
+<H4><A NAME="HDR25">  3.16.5  GRIBdump, rfdump and zfdump</A></H4>
+<P>The GRIBdump, rfdump and zfdump utilities provide dumps of the contents of GRIB, zebra raster and native format files, respectively. They are useful for situations in which you wish to know what is inside a file, or you suspect that a file may have gotten corrupted somehow. The zfdump command accepts a help option, -h, which explains its usage. The rfdump command takes only the name of a single raster file.
+<P>The standard netCDF utility ncdump may be used to examine the contents of netCDF files.
+
+
+<HR><H3>Footnotes</H3>
+<DL COMPACT>
+<DT><A NAME=FN1>(1)</A><DD>This ISS class definition would need to be modified slightly for actual use; see the explanation about virtual platforms in Section3.7.6.
+</DL>
+<P><A HREF="AdvUsers.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="UserInterface.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

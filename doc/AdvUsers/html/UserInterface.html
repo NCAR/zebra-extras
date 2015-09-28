@@ -1,0 +1,123 @@
+<P><A HREF="AdvUsers.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="DataStore.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>CHAPTER 4 </B> How the zebra user interface works</TITLE>
+<H1><A NAME="HDT0"> <paranum><B>CHAPTER 4 </B> How the zebra user interface works</A></H1>
+
+<H3><A NAME="HDR1">  4.1  Introduction</A></H3>
+
+<HR>
+<P>The zebra user interface was designed to provide as friendly an interface as possible to scientific users of zebra, while simultaneously allowing a high degree of configurability. The result has been reasonably successful, but it has produced an interface setup that can be initially hard to understand for those seeking to change it. This chapter attempts to give an overall description of how the interface works, which should be helpful for those learning how to do customization.
+<P>The RDSS user interface system is used extensively in the configuration of zebra's interface. A good understanding of that system is really necessary to be able to do any non-trivial configuration work. See <I>The Definitive Guide to the RDSS User Interaction Package for details</I>.
+<H3><A NAME="HDR2">  4.2  Overview of processes in the zebra user interface</A></H3>
+
+<HR>
+<P>Numerous processes are involved in the presentation of the interface to the user in zebra. In the end, however, two core programs are responsible for almost all of it: the display manager and the graphics process.
+
+<P>The display manager handles all aspects of the interface which are external to any one graphics window. The layout and configuration of each window on the screen is the part of this task which gives the display manager its name, but there are other responsibilities as well. The icon bar that is a central part of most zebra configurations is implemented by the display manager, as is the time control widget. The help mechanism is another part of the display manager. The display manager also serves as a repository for button maps and color tables. A detailed discussion of the display manager is found in Chapter <A HREF="Displaymgr.html#REF46655">5</A>.
+<P>The graphics process ("gp") is responsible for the contents of a single window. This includes, of course, the production of the graphics within that window, as well as the implementation of the internal icons and various per-window widgets. The graphics process is described in gory detail in Chapter <A HREF="GraphProc.html#REF18013">6</A>.
+<P>Numerous other processes handle small parts of the user interface. They will be listed here, but not discussed further.
+<UL><DL>
+<DT>dsdwidget<DD>Dumps out the contents of the data store in a window-oriented fashion.
+<DT>dsmanage<DD>Window-oriented utility for loading data from CDROM or tape and for disk cleanup.
+<DT>LastData<DD>Monitors real-time data streams.
+</DL></UL>
+<H3><A NAME="REF73665">  4.3  Plot descriptions</A></H3>
+
+<HR>
+<P>Plot descriptions lie at the heart of the zebra graphics system. They drive the contents of graphics windows, and most of the user interface work is concerned with the manipulation of plot descriptions. It is not possible to fully understand plot descriptions without a working knowledge of the graphics process (chapter <A HREF="GraphProc.html#REF18013">6</A>), but an overview is sufficient for now.
+<H4><A NAME="HDR3">  4.3.1  The format of plot descriptions</A></H4>
+<P>Every plot description ("PD") is made up of one or more <I>components</I>. A component (almost always) corresponds to one graphical overlay in the graphics window. Components have names, all of which must be unique in any given plot description.
+<P>All plot descriptions should have a component called "global", which contains overall information about the plot description (its name, if nothing else). Any other components are optional.
+
+<P>Every plot description component contains zero or more <I>parameters</I>. A parameter is a simple association of a character-string name with a character value. The name is used as a key; the graphics process references a key when it wants the associated value.
+<P>A typical plot description looks like this:
+<PRE>
+global
+  pd-name: c_rings
+  comment: Generic range rings overlay
+c_rings
+  platform: honiara
+  representation: overlay
+  field: range-rings
+  color: green
+  icon-middle-menu: simple-color
+  icon-right-menu: rings-menu
+  icon: rings
+  ring-interval: 450
+  azimuth-interval: 45
+</PRE>
+<P>This plot description describes a range-ring overlay for a constant altitude plot. Its name is c_rings, as defined by the pd-name parameter. All of the information on the range rings themselves are found in the second component (also called c_rings). The origin ("platform") is Honiara, the rings are spaced 450 km apart ("ring-interval"), and so on.
+<P>A plot description can represent the entire contents of a display window, and indeed, for each window, there is such a PD. However, many plot descriptions represent instead a graphical overlay which is intended to be added to an existing window, perhaps after modification. This second type of plot description will contain only one component (after the global one), and is called a "component PD." Their names usually begin with the string "c_", as in the example above.
+<H4><A NAME="REF88027">  4.3.2  Plot description files</A></H4>
+
+<P>Plot descriptions are generally kept in files ending in ".pd". Without that suffix, the display manager will not find a given plot description. Be careful about renaming back-up plot description files but keeping the ".pd" extension; the back-up file will still be read by the display manager and may take precedence over the original. Exactly one plot description is stored in each file.
+<H4><A NAME="HDR4">  4.3.3  Plot description syntax</A></H4>
+<P>Most people will never need to edit a plot description, in which case this section can be safely skipped. For the rest of you, though, here is the syntax of a plot description in all its gory detail.
+<P><B>Note:</B> In past releases the syntax of plot descriptions was much stricter, requiring tabs in very specific places and prohibiting blank lines and trailing comments. The syntax has since relaxed greatly. For all those who once feared and heeded the warnings about the careful placement of tabs in plot descriptions, those warnings can now be completely forgotten. The rest of this section outlines the most recent syntax for plot descriptions, which is completely backwards compatible with all existing plot description files.
+<P>Within a plot description file, the syntax is as follows. All blank lines or lines containing only comments are ignored. Comments begin with an exclamation point (`!') and may begin anywhere on the line. If the line is meant to be empty except for the comment, the exclamation point may only be preceded by whitespace.
+<P>Component names appear on a line by themselves, except they may be followed by a comment. The name itself cannot contain any white space or punctuation. A very common mistake is to put a colon on the component name line, but this makes the component name look like a parameter. The example PD above contains two components, "global" and "c_rings". 
+<P>Each parameter line following a component line contains at least a parameter name followed by a colon. Just as for component names, the parameter name cannot contain any spaces or punctuation. The parameter value begins with the first non-whitespace character following the colon; it ends with the last non-whitespace character on the line before a comment character (`!') or the end of the line. It is not possible to extend a parameter value onto more than one line. If there are no non-whitespace characters following the colon, the parameter will have an empty (but legal) value. All of a component's parameters must appear on the lines following the component name, up until the next component line or the end of the file. If a component has no parameter lines, then that component will be empty. (It will contain no parameters, but it will be legal.)
+
+<P>The plot description ends at the end of the file. It is an error for a plot description file to not contain at least one component.
+<P>Editing plot description files can be aided with the PD utilities described in <A HREF="GraphProc.html#REF85610">Section 6.3.2 on page 125</A> and <A HREF="Displaymgr.html#REF82588">Section 5.4.3 on page 89</A>. Also, the utility pdcheck can be used to check the syntax of a file:
+<PRE>
+pdcheck <I>pdfile</I> [<I>pdfile</I> ...]
+</PRE>
+<P>The pdcheck program reports syntax errors and warns about empty components and parameter values.
+<P>Plot descriptions can also be created using display manager commands rather than files. See <A HREF="Displaymgr.html#REF14011">Section 5.4.2 on page 87</A>.
+<H4><A NAME="REF77693">  4.3.4  Parameter lookup and the defaults table</A></H4>
+<P>For a typical graphics overlay, there are perhaps several dozen plot description parameters which control the appearance of that overlay. The large number of parameters makes it possible to modify almost any aspect of the display, but also raises the issue of how anybody is going to configure even a single window before going crazy specifying every parameter needed by the plotting software.
+<P>The solution is the use of the defaults mechanism. A special plot description, called "defaults", is used as a source of default values for plot description parameters. If a needed parameter is not found in the current plot description, the graphics process will look into the defaults table for a default definition of that parameter.
+<P>In addition, most plot description parameter lookups are accompanied by a "qualifier." A qualifier is an additional string which is added to the parameter name before looking in the defaults table. This mechanism allows the specification of more specific default entries.
+<P>For example, the graphics process uses the parameters contourcenter and contourstep to control the placement of counters in a horizontal contour plot. When this parameter is retrieved from the plot description, the name of the field is used as a qualifier. So, if you are plotting a field called pres, and a contourstep parameter does not appear in the relevant component of the plot description, the defaults table will be consulted for the parameter prescontourstep.
+
+<P>For completeness, the full lookup scheme follows this sequence:
+
+<OL>
+<P><LI>Look for the parameter exactly as specified in the current component of the current plot description.
+<BR>
+<P><LI>Look under the global component of the current plot description using the qualified name.
+<BR>
+<P><LI>Look in the defaults table using the qualified name.
+<BR>
+<P><LI>Look in the defaults table using the unqualified name.
+<BR></OL>
+
+
+<H3><A NAME="HDR5">  4.4  Control of plot descriptions</A></H3>
+
+<HR>
+<P>Since plot descriptions completely describe the contents of a graphics window, much of the task of user control can be accomplished through modifications to the PD. The details of the tools for working with plot descriptions will wait until the display manager and graphics process chapters; this section gives an overview of how changes are made.
+<P>All plot descriptions start in the display manager. There is an (often large) set of plot descriptions which are read by the display manager during its startup phase, and others can be created in the course of normal operations.
+<P>When a display configuration is created, each graphics window must have a plot description assigned to it. When the display manager creates a window at run time, it passes the assigned plot description to the window. Thereafter, the user makes changes to the plot description, and consequently the window itself, through a number of mechanisms.
+<P>The icon bar, a mechanism provided by the display manager, is usually used to add new overlays to windows. Underneath, adding an overlay translates to the addition of components to an existing plot description. Once the user has specified a specific overlay and window, the relevant component is pulled out, possibly modified (to change a field name, for example) then added to the target window's plot description. Finally the display manager ships the entire plot description to the window's graphics process.
+<P>Some display manager commands may result in changing a single parameter in a plot description. In this case, only the changed parameter is sent to the target window. In this way, less data moves through the message system, and the graphics process can optimize its action for the specific parameter that changed.
+
+<P>However, most single-parameter changes are done within the graphics process itself. A large variety of changes can be done through key actions and the per-overlay icon menus; these changes are made directly by the graphics process and implemented immediately. When the graphics process has a spare moment, it ships its modified plot description back to the display manager so that both processes have a consistent idea of what is being displayed in the window.
+<P>In summary, most user interface tasks can be described by one of the paragraphs above. By considering the nature of the change that needs to be made, the interface designer can quickly decide where the work needs to be done. The next section may also be helpful in this regard.
+<H3><A NAME="HDR6">  4.5  An overview of user interface configuration files</A></H3>
+
+<HR>
+<P>The distributed nature of the user interface means that there are several configuration files which are read to define it. This section lists the files used in a typical RDP deployment of zebra; other users may define the files differently but the idea remains the same. The details of these files are described in the relevant sections for the display manager and graphics process; this section lists only the basic purpose of each file.
+<DL>
+<DT><I>Configuration files
+</DL>
+<UL><DL>
+<DT></I>dm.config<DD>The display manager configuration file. The real purpose of this file is to read all of the other dm configuration files. Very little of interest is found here directly; however, this file usually specifies the default display configuration.
+<DT>DisplayConfigs<DD>The definition of an initial set of display configurations. Configurations saved at run time, however, are not found in this file, but in a set of files in a separate directory, usually called dconfigs.
+<DT>ColorTables<DD>The color tables known to the display manager. The presence of this file is usually a sign of older display configurations; most color tables now live in their own files and are loaded on demand by the display manager.
+
+<DT>ButtonMaps<DD>The button maps known to the display manager. Button maps associate key and mouse events with actions inside the graphics process.
+<DT>IconBar<DD>The display manager icon bar and associated support procedures.
+<DT>gp.init<DD>The graphics process initialization file. The largest part of this file is dedicated to the definition of pulldown menus which are later attached to icons in the display window.
+</DL></UL>
+<P>In addition, all of the window-oriented utilities (dm, gp, dsmanage, and so on) have applications defaults files. These files contain graphics resources which affect the way things are displayed. In a running system, these files are found in <I>zeb_topdir</I>/lib/resources; they are placed there from copies found in the source directores.
+<P>Application defaults files, for the most part, contain resources pertaining to the colors of buttons, menus, and so on. In the case of the graphics process, there are also resources controlling how windows are popped up as well as translation resources. The graphics process chapter describes these in detail.
+
+<P><A HREF="AdvUsers.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="Displaymgr.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

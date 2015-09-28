@@ -1,0 +1,237 @@
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+<ADDRESS>granger@ncar.ucar.edu</ADDRESS>
+<HR>
+
+<TITLE>The Zebra Library Interface Manual</TITLE>
+<H1>The Zebra Library Interface Manual</H1>
+<P><ADDRESS><B>Gary Granger
+<BR>Jonathan Corbet</ADDRESS>
+<H2>Table of Contents</H2>
+<P><A HREF="ipc.html#REF11804"> <paranum><B>· CHAPTER 1 · </B> The Interprocess Communication Interface</A>
+
+
+<UL>
+<UL>
+<A HREF="ipc.html#HDR0">  1.1  The IPC Interface</A>
+
+<UL>
+<A HREF="ipc.html#HDR1">  1.1.1  Basic Functions</A>
+
+<BR>
+<A HREF="ipc.html#HDR2">  1.1.2  Intercepting Specific Protocols</A>
+
+<BR>
+<A HREF="ipc.html#HDR3">  1.1.3  Looking for Specific Messages</A>
+
+<BR>
+<A HREF="ipc.html#HDR4">  1.1.4  Network Broadcast Support</A>
+
+<BR>
+<A HREF="ipc.html#HDR5">  1.1.5  Event Logging</A>
+
+<BR>
+<A HREF="ipc.html#REF89330">  1.1.6  Message Event Dispatching</A>
+</UL>
+
+<A HREF="ipc.html#HDR6">  1.2  The Message Handler Protocol</A>
+
+<UL>
+<A HREF="ipc.html#HDR7">  1.2.1  Initialization Handshake</A>
+
+<BR>
+<A HREF="ipc.html#HDR8">  1.2.2  Death</A>
+
+<BR>
+<A HREF="ipc.html#HDR9">  1.2.3  Client Events</A>
+</UL>
+
+<A HREF="ipc.html#HDR10">  1.3  The Command Protocol</A>
+</UL>
+</UL>
+
+<P><A HREF="timer.html#HDT0"> <paranum><B>· CHAPTER 2 · </B> Matters of Timing</A>
+
+
+<UL>
+<UL>
+<A HREF="timer.html#HDR1">  2.1  Finding the Time</A>
+
+<BR>
+<A HREF="timer.html#HDR2">  2.2  Translating Time</A>
+
+<BR>
+<A HREF="timer.html#HDR3">  2.3  Comparing Time</A>
+
+<BR>
+<A HREF="timer.html#HDR4">  2.4  Decoding Periods of Time</A>
+
+<BR>
+<A HREF="timer.html#REF56557">  2.5  The Timer Module</A>
+
+<BR>
+<A HREF="timer.html#HDR5">  2.6  Getting the Current Time</A>
+
+<BR>
+<A HREF="timer.html#HDR6">  2.7  Requesting Timer Events</A>
+
+<UL>
+<A HREF="timer.html#HDR7">  2.7.1  Specifying Timer Events</A>
+
+<BR>
+<A HREF="timer.html#HDR8">  2.7.2  Events for Changing Times</A>
+</UL>
+
+<A HREF="timer.html#REF82012">  2.8  Cancelling Timer Events</A>
+</UL>
+</UL>
+
+<P><A HREF="geography.html#HDT0"> <paranum><B>· CHAPTER 3 · </B> Geography</A>
+
+
+<UL>
+<UL>
+<A HREF="geography.html#REF47057">  3.1  Locations</A>
+
+<BR>
+<A HREF="geography.html#REF51729">  3.2  Regular Grids</A>
+
+<BR>
+<A HREF="geography.html#REF18112">  3.3  Scales and Offsets</A>
+
+<BR>
+<A HREF="geography.html#HDR1">  3.4  Altitudes</A>
+
+<BR>
+<A HREF="geography.html#HDR2">  3.5  Converting Between Coordinate Systems</A>
+</UL>
+</UL>
+
+<P><A HREF="pdlib.html#HDT0"> <paranum><B>· CHAPTER 4 · </B> The Plot Description Library</A>
+
+
+<UL>
+<UL>
+<A HREF="pdlib.html#HDR1">  4.1  Preliminaries</A>
+
+<BR>
+<A HREF="pdlib.html#HDR2">  4.2  Loading and Converting Plot Descriptions</A>
+
+<BR>
+<A HREF="pdlib.html#HDR3">  4.3  Operations on PD Components</A>
+
+<BR>
+<A HREF="pdlib.html#HDR4">  4.4  Accessing Information Within Plot Descriptions</A>
+
+<BR>
+<A HREF="pdlib.html#HDR5">  4.5  Copying Plot Descriptions</A>
+
+<BR>
+<A HREF="pdlib.html#HDR6">  4.6  Auxiliary Plot Description Table</A>
+</UL>
+</UL>
+
+<P><A HREF="graphicsw.html#HDT0"> <paranum><B>· CHAPTER 5 · </B> The Graphics Widget </A>
+
+
+<UL>
+<UL>
+<A HREF="graphicsw.html#HDR1">  5.1  Description </A>
+
+<BR>
+<A HREF="graphicsw.html#HDR2">  5.2  Using a Graphics Widget</A>
+
+<UL>
+<A HREF="graphicsw.html#HDR3">  5.2.1  Creating a Graphics Widget</A>
+
+<BR>
+<A HREF="graphicsw.html#HDR4">  5.2.2  Setting Resources For a Graphics Widget </A>
+
+<BR>
+<A HREF="graphicsw.html#HDR5">  5.2.3  Destroying a Graphics Widget</A>
+</UL>
+
+<A HREF="graphicsw.html#HDR6">  5.3  Convenience Routines </A>
+
+<UL>
+<A HREF="graphicsw.html#HDR7">  5.3.1  Informational Routines </A>
+
+<BR>
+<A HREF="graphicsw.html#HDR8">  5.3.2  Pixmap Operations </A>
+
+<BR>
+<A HREF="graphicsw.html#HDR9">  5.3.3  Shared Memory Routines</A>
+</UL>
+</UL>
+</UL>
+
+<P><A HREF="sound.html#HDT0"> <paranum><B>· CHAPTER 6 · </B> Sound</A>
+
+
+<UL>
+<UL>
+<A HREF="sound.html#HDR1">  6.1  Playing Audio Files</A>
+</UL>
+</UL>
+
+<P><A HREF="ixfr.html#HDT0"> <paranum><B>· CHAPTER 7 · </B> Direct Image Transfer</A>
+
+
+<UL>
+<UL>
+<A HREF="ixfr.html#HDR1">  7.1  Description</A>
+
+<BR>
+<A HREF="ixfr.html#HDR2">  7.2  Attaching to Image Transfer Segments</A>
+
+<BR>
+<A HREF="ixfr.html#HDR3">  7.3  Detaching From Image Segments</A>
+
+<BR>
+<A HREF="ixfr.html#HDR4">  7.4  Producer Interface</A>
+
+<BR>
+<A HREF="ixfr.html#HDR5">  7.5  Consumer Interface</A>
+
+<BR>
+<A HREF="ixfr.html#HDR6">  7.6  Miscellaneous Calls</A>
+</UL>
+</UL>
+
+<P><A HREF="misc.html#HDT0"> <paranum><B>· CHAPTER 8 · </B> General Utilities</A>
+
+
+<UL>
+<UL>
+<A HREF="misc.html#HDR1">  8.1  Configuration Variables</A>
+
+<UL>
+<A HREF="misc.html#HDR2">  8.1.1  Directory Paths</A>
+
+<BR>
+<A HREF="misc.html#HDR3">  8.1.2  UI Configuration Variables</A>
+</UL>
+
+<A HREF="misc.html#HDR4">  8.2  File Searching</A>
+
+<BR>
+<A HREF="misc.html#HDR5">  8.3  List Parsing</A>
+
+<BR>
+<A HREF="misc.html#HDR6">  8.4  Regular Expressions</A>
+
+<BR>
+<A HREF="misc.html#HDR7">  8.5  Run Length Encoding</A>
+
+<UL>
+<A HREF="misc.html#HDR8">  8.5.1  Routines</A>
+
+<BR>
+<A HREF="misc.html#HDR9">  8.5.2  Encoded Data Format</A>
+</UL>
+</UL>
+</UL>
+
+<HR>

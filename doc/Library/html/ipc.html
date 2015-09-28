@@ -1,0 +1,320 @@
+<P><A HREF="Library.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="title.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>� CHAPTER 1 � </B> The Interprocess Communication Interface</TITLE>
+<H1><A NAME="REF11804"> <paranum><B>� CHAPTER 1 � </B> The Interprocess Communication Interface</A></H1>
+
+<P>This chapter describes the interprocess communication (IPC) module. Current capabilities include communication between arbitrary pairs of processes by name, reliable broadcast to process groups, and a basic event logging mechanism. The IPC system also supports multi-host broadcasting using the User Datagram Protocol (UDP).
+<P>The enhancements in version 4.2 include connectionless event logging, application-modifiable print and send event masks, a msg_disconnect function, and polling by protocol. These are described in the relevant sections of this chapter.
+<H3><A NAME="HDR0">  1.1  The IPC Interface</A></H3>
+
+<HR>
+<P>All modules using the messaging system must have the following include lines at the head of the file:
+<PRE>
+# include &lt;defs.h&gt;
+# include &lt;message.h&gt;
+</PRE>
+<P>Interprocess communication in Zebra is based on the messaging model---each communication between a pair of processes consists of an atomic message passed from one to the other. A message is simply an array of bytes and a protocol code. The protocol code tells the receiving process how to interpret the data found within the message.
+
+<P>Currently, the following protocol codes have been defined in message.h:
+<DL>
+<DT>MT_MESSAGE<DD>The protocol understood by the messaging system itself. This protocol is described in detail below.
+<DT>MT_DISPLAYMGR<DD>The display manager protocol.
+<DT>MT_LOG<DD>The event logger protocol.
+<DT>MT_ELOG<DD>Extended event logging.
+<DT>MT_DATASTORE<DD>The data store daemon protocol.
+<DT>MT_TIMER<DD>The FCC timing system.
+<DT>MT_SOUND<DD>The sound generation subsystem.
+<DT>MT_DATASTORE<DD>The data store subsystem.
+<DT>MT_IMAGEXFR<DD>The direct image transfer mechanism.
+<DT>MT_NETXFR<DD>The data store network transfer module.
+<DT>MT_ACINGEST<DD>The FAA aircraft ingest module.
+<DT>MT_SLDATA<DD>Serial line data ingest protocol.
+<DT>MT_QUERY<DD>General status query, used by zquery.
+<DT>MT_COMMAND<DD>UI command execution protocol, used by zrun.
+<DT>MT_PDMON<DD>The plot description monitor protocol.
+<DT>MT_PBOUNDS<DD>Plotting bounds exchange protocol.
+<DT>MT_MTAP<DD>The message tap protocol, used by mtap.
+<DT>MT_FINISH<DD>Generic "clean up and exit" protocol.
+</DL>
+<P>With the exception of MT_MESSAGE, MT_LOG, MT_ELOG, and MT_MTAP, the IPC system knows nothing about the protocols implemented by the rest of Zebra. It simply moves messages from one process to another.
+
+<P>Each process is known to the IPC system by name. For example, the display manager may identify itself as DisplayMgr, and all messages to that process will use that name. Processes on remote hosts may be addressed with the familiar @ notation. For example, the display manager running on host <I><CODE>zorba</I></CODE> would be reachable as DisplayMgr@zorba.
+<P>Processes may also join <I>process groups</I>, which are addressed by name. By default, every process on the local host is a member of the group called everybody; messages sent to everybody will reach every process in the system. For example, if Zebra is being shut down, an appropriate message sent to everybody could cause all processes to clean up and exit.
+<H4><A NAME="HDR1">  1.1.1  Basic Functions</A></H4>
+<P>On start-up, each process must make a connection to the message handler. This connection is created by msg_connect(), as follows:
+<PRE>
+<B>msg_connect (handler, name)
+int (*handler) ();
+char *name;
+</PRE>
+<P></B>Where <B>handler</B> is a function which is to be called to deal with incoming messages, and <B>name</B> is the name by which the process is to be known to the system. This function creates a UNIX socket and establishes a connection to the message manager process. The message manager socket has a name in the UNIX filesystem namespace, allowing client processes to name the socket and connect to the message manager. Usually, the message manager and its clients use a default name which was compiled into the message manager executable and the library. (See the <I>Zebra Installation Manual</I> for information about changing this default name.) However, the socket name can also be specified at run-time through the environment variable ZEB_SOCKET. For the message process and a client to connect, both must be run with the same value of ZEB_SOCKET. Multiple Zebra sessions can be run on the same machine by running each set of Zebra processes under a unique socket name. See the <I>Advanced User's Manual</I> for more information on using the ZEB_SOCKET variable.
+<P>To await the delivery of a message, a process will call msg_await(), which takes no parameters.
+<PRE>
+<B>int msg_await ()
+</PRE>
+
+<P></B>This function will simply block until a message arrives or something happens on another file descriptor of interest to the process (see <A HREF="ipc.html#REF89330">Section 1.1.6</A>). If an error occurs while waiting for file descriptor activity, the function returns -1. Otherwise msg_await() will return on any non-zero value returned from one of the message handlers. Ordinarily, all of the message handlers in an application always return 0, and msg_await() never returns.
+<P>When a message arrives, the <B>handler</B> function is called as follows:
+<PRE>
+<B>(*handler) (msg)
+struct message *msg;
+</PRE>
+<P></B>Where <B>msg</B> is a pointer to the message structure:
+<PRE>
+struct message
+{
+  char m_from[MAX_NAME_LEN];         /* Who it's from */
+  char  m_to[MAX_NAME_LEN];      /* Who it's going to */ 
+  int  m_proto;      /* Message protocols */
+  int  m_seq;      /* Sequence number */
+  short  m_flags;      /* Flag field */
+  short  m_len;      /* Message length */
+  char  *m_data;      /* data pointer */
+};
+</PRE>
+<P>The m_from field names the sender of the message; in m_to will be found either the name of the receiving process, or the name of a process group of which the receiving process is a member. The protocol code is found in m_proto; m_seq is a simple sequence number. If this message was broadcast to a process group, the MF_BROADCAST flag will be set in the m_flags field. Finally, m_len gives the length of the message data, and m_data points to the data itself. If the receiving process wishes to make use of the data after the handler returns, it must make a copy of that data.
+<P>To send a message, a process invokes msg_send() as follows:
+<PRE>
+<B>msg_send (to, proto, broadcast, data, len)
+char *to, *data;
+int protocol, broadcast, len;
+</PRE>
+<P></B>Where <B>to</B> is the name of the destination process or process group, <B>proto</B> is the protocol code, <B>broadcast</B> is true if and only if the message is to be broadcast to a process group, <B>data</B> is the data to be sent, and <B>len</B> is the length of that data.
+<P>Message delivery is asynchronous---there is no guarantee that all processes have received a message by the time msg_send() returns to the caller.
+
+<P>To join a process group, a process calls msg_join() as follows:
+<PRE>
+<B>msg_join (group)
+char *group;
+</PRE>
+<P></B>Where <B>group</B> is the name of the group to be joined. If this group does not exist, it will be created with the calling process as the only member. Untested feature: it is also possible to join groups on remote machines, by specifying a group name in the name@host notation.
+<P>Similarly, a process can remove itself from a group it has joined by calling msg_quit():
+<PRE>
+<B>msg_quit (group)
+char *group;
+</PRE>
+<P></B>Where <B>group</B> is the name of the group to quit. The process will then stop receiving messages directed to the specified group.
+<P>One last function allows an application to cut all ties with the message manager and free the resources used by the connection.
+<PRE>
+<B>void
+msg_disconnect ()
+</PRE>
+<P></B>This function essentially resets the IPC interface to its initialized but unconnected state. It closes the message socket file descriptor, frees all messages in the message queue, and resets all of the protocol and file descriptor handlers to their defaults. It is not necessary to call this function before an application exits. This function is intended for applications which need to free resources before continuing without the Zebra IPC, fork children which will not be sharing file descriptors, or perhaps reconnect to the message handler under a different name.
+<H4><A NAME="HDR2">  1.1.2  Intercepting Specific Protocols</A></H4>
+<P>The function msg_AddProtoHandler() may be used to add a handler for a specific protocol as follows:
+<PRE>
+<B>void msg_AddProtoHandler (proto, handler)
+int proto;
+int (*handler) ();
+</PRE>
+<P></B>Where <B>proto</B> is the protocol of interest, and <B>handler</B> is the function which will be called for all messages with that protocol. The primary purpose for this function is to allow specific protocol access libraries (e.g., data store or timer) to receive their messages without the need for special code in the application.
+
+<H4><A NAME="HDR3">  1.1.3  Looking for Specific Messages</A></H4>
+<P>On occasion, an application will need to wait for a specific message before continuing. The function msg_Search() can be used for this purpose:
+<PRE>
+<B>int msg_Search (proto, handler, param)
+int proto;
+int (*handler) ();
+void *param;
+</PRE>
+<P></B>The msg_Search() function will call the <B>handler</B> function for every incoming message with the indicated protocol, until the handler returns zero. All messages with a different protocol, or for which the handler returns a non-zero value, will be queued and delivered to the application later. The handler is called as:
+<PRE>
+<B>(*handler) (msg, param)
+struct message *msg;
+void *param;
+</PRE>
+<P></B>Where <B>msg</B> is the incoming message, and <B>param</B> is the same parameter value that was passed to msg_Search().
+<P>The msg_Search() handler should return one of these three values:
+<DL>
+<DT>MSG_DONE<DD>The search is over. The expected message was found and consumed.
+<DT>MSG_CONSUMED<DD>The message was consumed and can be discarded, but continue searching.
+<DT>MSG_ENQUEUE<DD>Hold this message in the queue to be processed <DD><DD><DD>later. Keep searching.
+</DL>
+<P><B>Note</B>: The message structure passed to the handler will cease to exist after the handler returns. If an application needs to save information from the message, it must copy the message structure and data into its own storage space.
+<H4><A NAME="HDR4">  1.1.4  Network Broadcast Support</A></H4>
+<P>The message subsystem provides basic support for the use of network broadcast protocols. It is up to the process using the following routines to do its own checking for dropped messages, corrupted data, and so on.
+
+<P>To send or receive broadcast messages on a particular port, a process must first call msg_BCSetup() as follows:
+<PRE>
+<B>int msg_BCSetup (address, port, handler)
+int address, port, (*handler) ();
+</PRE>
+<P></B>Where <B>address</B> is the Internet Protocol broadcast to use, <B>port</B> is the number of the port of interest, and <B>handler</B> is a handler routine to be called with incoming broadcast data. If a process is only interested in receiving broadcasts, the address may be passed as zero. The return value, on successful setup, is a nonnegative <I>connection number</I> (the file descriptor of the broadcast socket); otherwise the return value is less than zero.
+<P>When incoming broadcast packets are received, the handler process is called as declared below.
+<PRE>
+<B>(*handler) (port, data, len)
+int port, len;
+char *data;
+</PRE>
+<P></B>Where <B>port</B> is the port the data arrived on, <B>data</B> is the actual packet, and <B>len</B> is the length of that packet. Packet data is in static storage, and should be copied if the application wants it to last beyond the return of handler process.
+<P>To send a broadcast packet:
+<PRE>
+<B>void msg_BCast (conn, data, len)
+int conn, len;
+char *data;
+</PRE>
+<P></B>Where <B>conn</B> is the connection number number returned from msg_BCSetup(), <B>data</B> is the information to be sent, and <B>len</B> is the length of that information. Due to the way in which UDP broadcast works, an application sending broadcast messages should be prepared to receive those messages back by way of the handler function.
+<H4><A NAME="HDR5">  1.1.5  Event Logging</A></H4>
+<P>The extended event logger is now standard within the Zebra IPC system. The logging interface is msg_ELog():
+<PRE>
+<B>msg_ELog (type, fmt, ...)
+int type;
+char *fmt;
+</PRE>
+<P></B>Where <B>type</B> is a message type and the following arguments are the usual printf()style format and arguments. The event types for logged messages are described below:
+
+<DL>
+<DT>EF_DEBUG<DD>Messages for debugging purposes only---not of interest to actual production users of the system.
+<DT>EF_INFO<DD>Informational messages that may be of interest to a user, but which do not indicate problems.
+<DT>EF_PROBLEM<DD>Recoverable problems.
+<DT>EF_EMERGENCY<DD>Non-recoverable problems, which in general cause the application to exit.
+</DL>
+<H4><A NAME="REF89330">  1.1.6  Message Event Dispatching</A></H4>
+<P>A typical Zebra process will be reacting to events from several sources, such as the IPC system, the X server, or an external data source. It is necessary to implement a mechanism by which processes can deal with these multiple sources in a rational way. The IPC library includes such a mechanism, but its use is not required. A programmer may choose to implement a different input multiplexing system than the one presented here.
+<P>To use the IPC dispatcher, it is necessary only to specify the file descriptors on which activity is expected. The function msg_add_fd() adds a file descriptor to the list of descriptors which the IPC dispatch functions will monitor for activity.
+<PRE>
+<B>msg_add_fd (fd, handler)
+int fd, (*handler) ();
+</PRE>
+<P></B>The open file descriptor is <B>fd</B>, and <B>handler</B> is a function which is prepared to deal with input on that file descriptor. When there is data available on the file descriptor, the handler will be called with <B>fd</B> as a parameter. To stop watching a file descriptor, use msg_delete_fd().
+<PRE>
+<B>void msg_delete_fd (fd)
+int fd;
+</PRE>
+<P></B>To begin dispatching messages, the process calls msg_await() with no parameters. Input events will be dispatched until (1) the connection to the message handler is broken, or (2) one of the handler routines returns a non-zero value. In the latter case, the value returned is also the return value from msg_await().
+<P>If a separate dispatching mechanism is to be implemented, an application may obtain the file descriptor for the message handler connection with this function:
+<PRE>
+<B>int msg_get_fd()
+
+</PRE>
+<P></B>For example,
+<PRE>
+int msg_fd = msg_get_fd ();
+</PRE>
+<P>The return value of msg_get_fd() is the file descriptor. When select() indicates that a read may be performed on msg_fd, the routine msg_incoming() should be called with msg_fd as the only parameter. One message will then be dispatched, and the return value of the handler routine (as passed to msg_connect()) will be the return value from msg_incoming().
+<P>If your application calls msg_Search(), it may leave unprocessed messages in the message queue. To make sure that these messages get dispatched properly, you should call msg_DispatchQueued().
+<PRE>
+<B>void
+msg_DispatchQueued ();
+</PRE>
+<P></B>before blocking on a select() call.
+<P>The registered set of file descriptors may also be polled with the msg_poll() function.
+<PRE>
+<B>int msg_poll(timeout)
+int timeout; /* seconds */
+</PRE>
+<P></B>First, msg_poll() checks the message queue for any pending messages, and then polls the message file descriptor and any other descriptors added through msg_add_fd(). The <B>timeout</B> parameter specifies the number of seconds to block in a select() call waiting for file descriptor activity. As soon as a message is found, either on the queue or waiting to be read, the message is dispatched. Message handler messages are dispatched via msg_incoming(), and the rest are dispatched via the file descriptor's specified handler. After dispatching a single message from any of the descriptors, msg_poll() returns with the value returned by the function handling the message. If the select() times out, msg_poll() returns MSG_TIMEOUT. This function is useful for checking for messages occasionally during intense processing, and for detecting periods of inactivity, as in the example below.
+<PRE>
+while (msg_poll(0) != MSG_TIMEOUT)
+  /* handle pending messages*/;
+
+</PRE>
+<P>Sometimes an application is only prepared to handle messages from a particular set of protocols. The msg_PollProto() function handles this case well.
+<PRE>
+<B>int
+msg_PollProto (timeout, nproto, protolist)
+int timeout;       /* seconds */
+int nproto;      /* number of protocols in proto array */
+int *protolist;      /* array of protocols to handle */
+</PRE>
+<P></B>It is similar to msg_poll() except it will not try to handle any messages which are not in the specified array of protocols, <B>protolist</B>, where <B>protolist</B> has <B>nproto</B> members. If no qualified messages can be found in the queue, then the function blocks in a select call for <B>timeout</B> seconds. At most one function is handled, and either msg_PollProto() returns the value returned by the handler (usually zero), or it returns MSG_TIMEOUT.
+<P>As an example, the data store daemon uses the code below to handle most of the protocols besides its own while it is busy scanning data directories.
+<PRE>
+static int ScanProto[] =
+{
+  MT_MESSAGE, MT_ELOG, MT_PING, MT_CPING, MT_QUERY, MT_MTAP, MT_FINISH
+};
+static int NProto = sizeof (ScanProto) / sizeof (ScanProto[0]);
+/* ... */
+  /*
+   * Check and handle any pending messages except ds protocol
+   */
+    while (msg_PollProto (0, NProto, ScanProto) != MSG_TIMEOUT)
+      /* handle messages besides our own */ ;
+</PRE>
+<P>If msg_PollProto() is called with either <B>nproto</B> equal to zero or <B>protolist</B> equal to NULL, it will perform exactly like a call to msg_poll().
+<H3><A NAME="HDR6">  1.2  The Message Handler Protocol</A></H3>
+
+<HR>
+<P>This section documents the protocol understood by the message handler process itself. Most messages in this protocol are handled by the interface library, so client processes need not worry about them or the underlying protocol. However, all clients should deal with the MH_SHUTDOWN message type, as mentioned below.
+<P>All messages passed to and from the message handler are represented by C structures. The actual structure used depends on the type of the message, but every message can be initially examined as an mh_template structure:
+<PRE>
+
+struct mh_template
+{
+  int mh_type; /* The message type */
+};
+</PRE>
+<P>The mh_type field contains a code identifying the type of the message, which can be used to determine the proper structure to use in dealing with the rest of the message.
+<H4><A NAME="HDR7">  1.2.1  Initialization Handshake</A></H4>
+<P>When a connection is made to the message handler, usually through a call to msg_connect(), the connecting process receives as its first message a greeting with a message type of MH_GREETING and the following format:
+<PRE>
+struct mh_greeting 
+{
+  int mh_type; /* == MH_GREETING */
+  char mh_version[20]; /* Server version */
+};
+</PRE>
+<P>The mh_version field of this structure holds a string identifying the current version of the message handler. If this string does not match the MH_VERSION compiled into the connecting process, the connecting process should be recompiled.
+<P>As the first order of business, a connecting process is expected to identify itself by sending a MH_IDENTIFY message to the handler:
+<PRE>
+struct mh_ident
+{
+  int mh_type; /* == MH_IDENTIFY */
+  char mh_name[MAX_NAME_LEN]; /* The name */
+};
+</PRE>
+<P>Where mh_name is the name by which this process is to be known.
+<P>A process may join one or more process groups by sending MH_JOIN requests. The format of this request is identical to MH_IDENTIFY, with the name of the desired group stored in the mh_name field.
+<H4><A NAME="HDR8">  1.2.2  Death</A></H4>
+<P>A process may cause the message handler to exit by sending a MH_DIE message. This message carries no other data. Programmers should be careful in their use of this request, since the results could be considered rather antisocial at the wrong time.
+
+<P>When the message handler shuts down, all processes are sent an MH_SHUTDOWN message. The connection will be broken shortly thereafter. Most processes will deal with MH_SHUTDOWN by cleaning up and shutting down.
+<P>If a process tries to send a message after receiving a shutdown order, it risks crashing on a pipe error since the message handler connection may already be broken. The IPC library interface detects MH_SHUTDOWN messages internally, and will not allow any messages to be written once a shutdown message has been detected. Instead, an error will be printed to standard output. Log messages sent via msg_ELog() will also be printed to standard output rather than written to the message handler connection. In general, a process should try to avoid sending any IPC messages after receiving a shutdown order.
+<H4><A NAME="HDR9">  1.2.3  Client Events</A></H4>
+<P>There is a hook in the message handler for processes which are interested in learning about the actions of other processes. Such nosy processes can satisfy their curiosities by joining the "Client Events" group. Thereafter, they will start receiving MH_CLIENT messages, which all have the following structure:
+<PRE>
+struct mh_client
+{
+  int mh_type;         /* == MH_CLIENT */
+  int mh_evtype;         /* The client event type */
+  char mh_client[MAX_NAME_LEN];        /* Client */
+  char mh_group[MAX_NAME_LEN];        /* Group name, when appl */
+};
+</PRE>
+<P>The mh_evtype field contains a code identifying the specific event that has occurred, mh_client always contains the name of the client, and mh_group contains a related group name when appropriate.
+<P>When a new client connects and identifies itself, the message handler informs interested processes with a MH_CLIENT message and a mh_evtype of MH_CE_CONNECT. The mh_client field contains the name of the new client. If the new process later disconnects, the message handler sends MH_CE_DISCONNECT to all of the processes in the client events group.
+<P>Whenever a process joins a new group, processes in the client events group receive a MH_CLIENT message with a mh_evtype field of MH_CE_JOIN. The mh_group field holds the name of the joined group.
+
+<H3><A NAME="HDR10">  1.3  The Command Protocol</A></H3>
+
+<HR>
+<P>The command protocol (MT_COMMAND) allows processes to send UI commands to one another for execution. Accordingly, the library interface includes one function for sending a command to a process for execution, and another function for receiving and executing commands.
+<P>A process sends a command to another process using cp_Exec().
+<PRE>
+<B>void
+cp_Exec (process, command)
+char *process, *command;
+</PRE>
+<P></B>This function tells the process named <B>process</B> to execute the command string in <B>command</B>.
+<P>Conversely, a process can prepare itself to receive command protocol messages using cp_SetupCmdProto().
+<PRE>
+<B>void
+cp_SetupCmdProto ()
+</PRE>
+<P></B>This function installs a handler for the MT_COMMAND protocol, using the call shown below.
+<PRE>
+msg_AddProtoHandler (MT_COMMAND, cp_RunCommand);
+</PRE>
+<P>The private function cp_RunCommand() simply calls ui_perform() on the command string received in the message. Naturally, a program should not call cp_SetupCmdProto() unless it has also called ui_init() and is actually prepared to perform UI commands.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+
+<P><A HREF="Library.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="timer.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

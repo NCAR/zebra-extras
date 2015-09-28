@@ -1,0 +1,164 @@
+<P><A HREF="Data.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="compile.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>CHAPTER 5 </B> The Format of netCDF Files</TITLE>
+<H1><A NAME="HDT0"> <paranum><B>CHAPTER 5 </B> The Format of netCDF Files</A></H1>
+
+<H3><A NAME="HDR1">  5.1  Introduction</A></H3>
+
+<HR>
+<P>This chapter discusses the conventions used in the definition and use of netCDF files within Zebra. While the use of netCDF is a great help in insuring that data files are portable between systems and programs, it alone is not sufficient for that goal. For two programs to be able to work with the same netCDF file, they must agree on a set of conventions for the internal format of those files. Zebra was designed to adhere to common netCDF conventions as they existed at the time of its development; only a few features of Zebra's netCDF files are truly unique to the Zebra system.
+<P>Features common to all Zebra netCDF files will be discussed first; following that, organization-specific conventions will be described.
+<H3><A NAME="HDR2">  5.2  Common Conventions</A></H3>
+
+<HR>
+<P>All Zebra netCDF files adhere to a set of conventions that is the same regardless of the organization of the underlying data. These conventions are described below.
+<H4><A NAME="HDR3">  5.2.1  Time Conventions</A></H4>
+
+<P>All netCDF files used in Zebra are set up with time as the unlimited dimension. Thought has been given toward extending the netCDF driver in the future to allow for other organizations around time, but no work has been done along those lines as of this writing. Times are stored as Unix system times --- seconds since January 1, 1970. The following two netCDF variables may be used to obtain the time of any sample in the file:
+<DL>
+<DT>base_time<DD>(Scalar, integer). The "base" time of the netCDF file, as a Unix system time.
+<DT>time_offset<DD>(Dimension: time; float or double). A per-sample array giving a time offset. The actual time for any sample is obtained by adding the time offset to the base time. Time offsets may be stored in either single or double precision; Zebra defaults to double unless instructed otherwise.
+</DL>
+<H4><A NAME="HDR4">  5.2.2  Position Information</A></H4>
+<P>With the exception of irregular grid data (which is described in detail below), all data organizations have the concept of an origin location. This location may be static, or may change for every sample. The location of data is stored in three variables:
+<DL>
+<DT>lat<DD>(float). The latitude in degrees north.
+<DT>lon<DD>(float). The longitude, in degrees east.
+<DT>alt<DD>(float). The altitude in kilometers.
+</DL>
+<P>In most cases, these variables are scalar, containing only a single, static location. However, for scalar data where the platform is mobile (i.e. aircraft, soundings), they are all dimensioned by time, and contain one location for every sample in the file.
+<H4><A NAME="HDR5">  5.2.3  Data Fields</A></H4>
+<P>Every field defined in the netCDF file that is not one of the above "overhead" fields (or a few others that will be described below) is considered to be a "data" field. All data fields are (for now) expected to contain data in float format. Data fields have two recognized attributes:
+<DL>
+<DT>long_name<DD>(string). The long descriptive name for this field. This name, if present, is used by the Zebra display software to annotate plots.
+
+<DT>units<DD>(string). The units in which the field is expressed.
+<DT>missing_value<DD>(float). A sentinel value used to flag "bad" or missing data values. All data with this value will be ignored by the plotting software.
+</DL>
+<P>All other field attributes found in the netCDF file will be packaged into any data chunks retrieved from it, but will not be interpreted by the Zebra system itself.
+<H4><A NAME="HDR6">  5.2.4  Global Attributes</A></H4>
+<P>All global attributes found in the netCDF file will be packaged into any data chunks retrieved from it, but they are not interpreted by the Zebra data store itself.
+<H3><A NAME="HDR7">  5.3  Organization-Specific Conventions</A></H3>
+
+<HR>
+<H4><A NAME="HDR8">  5.3.1  Scalar Data</A></H4>
+<P>Data stored in the scalar organization has a very simple format which should be readable and writable by just about any program. All scalar fields are dimensioned simply by time.
+<H4><A NAME="HDR9">  5.3.2  Regular Grid Data</A></H4>
+<P>The regular grid organizations are slightly more complicated in that there are the details of the grid origin and resolution to be dealt with. The origin (the center of the southwest, bottom grid point) is simply stored in the location variables described above. The following dimensions describe the geometry of each grid in the netCDF file:
+<UL><DL>
+<DT>x<DD>The number of grid points in the x (east-west) dimension.
+<DT>y<DD>The number of grid points in the y (north-south) dimension.
+<DT>z<DD>The number of grid points in the z (vertical) dimension.
+</DL></UL>
+<P>To complete the grid geometry, the following scalar variables exist in each netCDF file:
+
+<UL><DL>
+<DT>x_spacing<DD>The distance between grid points in the x dimension, in kilometers.
+<DT>y_spacing<DD>The distance between grid points in the y dimension, in kilometers.
+<DT>z_spacing<DD>The distance between grid points in the vertical dimension, in kilometers.
+</DL></UL>
+<P>The data fields are then dimensioned as:
+<PRE>
+field (time, z, y, x)
+</PRE>
+<P>Note, however that the Zebra data store allows platforms to be defined with one-dimensional and two-dimensional grid organizations. For such platforms, the z (and, for one-dimensional, y) dimensions do not exist.
+<H4><A NAME="HDR10">  5.3.3  Irregular Grid Data</A></H4>
+<P>An irregular grid is a series of observations at random (but constant) locations. A network of surface stations is the classic platform for which the irregular grid organization is appropriate. For this organization, some extra housekeeping information is needed in order to keep track of the individual stations within the grid.
+<P>Two additional dimensions exist for irregular grid data:
+<UL><DL>
+<DT>platform<DD>The number of platforms that make up this irregular grid.
+<DT>fldlen<DD>The maximum length of a platform name.
+<DT>The actual platform names appear in the platform variable:
+</DL></UL>
+<DL>
+<DT>platform(platform,fldlen) The names of the platforms stored in this irregular grid. These names conform to the normal netCDF conventions for storage of string values.
+</DL>
+<P>With irregular grids, locations are stored on a per-platform basis. Thus the standard location variables lat, lon, and alt are dimensioned by platform. The actual data fields are dimensioned as:
+<PRE>
+field (time, platform)
+
+</PRE>
+<P>Thus all data for a given time are stored together, indexed by the individual platforms that make up the irregular grid.
+<H3><A NAME="HDR11">  5.4  Sample netCDF File Formats</A></H3>
+
+<HR>
+<P>This section simply contains output from ncdump for the file formats discussed above. Only the header portion of the files is shown.
+<H4><A NAME="HDR12">  5.4.1  Scalar Example</A></H4>
+<P>The following is from an aircraft data file. The platform is mobile, thus the location variables are all dimensioned by time. For a static platform, these variables would be scalar instead.
+<PRE>
+netcdf n312d_gen {
+dimensions:
+  time = UNLIMITED ; // (11880 currently)
+variables:
+  long base_time ;
+  float time_offset(time) ;
+  float palt(time) ;
+    palt:missing_value = -32768.f ;
+  float dp(time) ;
+    dp:missing_value = -32768.f ;
+  float lat(time) ;
+    lat:missing_value = -32768.f ;
+  float lon(time) ;
+    lon:missing_value = -32768.f ;
+  float alt(time) ;
+    alt:missing_value = -32768.f ;
+</PRE>
+<H4><A NAME="HDR13">  5.4.2  Regular Grid Example</A></H4>
+<P>This is a dump from a dual-doppler analysis.
+<PRE>
+netcdf ddop.910715.190547 {
+dimensions:
+  time = UNLIMITED ; // (1 currently)
+  x = 101 ;
+  y = 101 ;
+  z = 26 ;
+
+variables:
+  float u_wind(time, z, y, x) ;
+    u_wind:missing_value = -32768.f ;
+  float v_wind(time, z, y, x) ;
+    v_wind:missing_value = -32768.f ;
+  float w_wind(time, z, y, x) ;
+    w_wind:missing_value = -32768.f ;
+  float ref_cp3(time, z, y, x) ;
+    ref_cp3:missing_value = -32768.f ;
+  float ref_cp4(time, z, y, x) ;
+    ref_cp4:missing_value = -32768.f ;
+  long base_time ;
+  float time_offset(time) ;
+  float lat ;
+  float lon ;
+  float alt ;
+  float x_spacing ;
+  float y_spacing ;
+  float z_spacing ;
+</PRE>
+<H4><A NAME="HDR14">  5.4.3  Irregular Grid Example</A></H4>
+<P>The following is a dump from a typical file containing data from the NCAR Portable Automated Mesonet (PAM) system:
+<PRE>
+netcdf mesonet.910802.1810 {
+dimensions:
+  time = UNLIMITED ; // (330 currently)
+  platform = 47 ;
+  fldlen = 20 ;
+variables:
+  long base_time ;
+  float time_offset(time) ;
+  float tdry(time, platform) ;
+    tdry:missing_value = -9999.f ;
+  float twet(time, platform) ;
+    twet:missing_value = -9999.f ;
+  float lat(platform) ;
+  float lon(platform) ;
+  float alt(platform) ;
+</PRE>
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+<P><A HREF="Data.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="RasterFile.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

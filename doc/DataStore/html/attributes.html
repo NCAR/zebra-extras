@@ -1,0 +1,639 @@
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="elements.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>� CHAPTER 8 � </B> DataChunk Attributes</TITLE>
+<H1><A NAME="REF99837"> <paranum><B>� CHAPTER 8 � </B> DataChunk Attributes</A></H1>
+
+<P>The world would be a simple place indeed if the data itself told us all we needed to know about it. Alas, such is not the case. Usually a great deal of auxiliary information needs to be stored along with the data, such as the source of the data, instrument type and status, or an explanation of derivations. The information may apply to the whole data chunk, to individual samples, or even to individual fields. The data chunk implementation includes facilities for storing this sort of auxiliary information, known as data chunk attributes.
+<H3><A NAME="HDR0">  8.1  In With the New</A></H3>
+
+<HR>
+<P>The original<A HREF="attributes.html#FN1">(1)</A> attribute interface remains as before, but many functions have been added which allow attributes to be stored as a type other than string, and as arrays of elements rather than just one. The interface is now consistent among all types of attributes: global, sample, and field. Any attribute can be removed, and every type of attribute now has a corresponding `Process' function which calls a handler for each attribute/value pair. The handler can even modify the attributes (remove or redefine) between calls to it from the `Process' function. The newer functions usually include `AttrArray' in the function name to distinguish them from the older functions.
+
+<P>Though the interface is compatible, the underlying implementation is not. In particular, old ZNF files may contain attribute blocks in the old attribute format. The new implementation tries to detect and convert old formats, but may not always be successful. There is no problem with old netCDF files. Old interface functions simply pass on their parameters to the new ones, storing the attribute value as a single string.
+<P>With the addition of typed attributes, data chunks can now completely mimic all of the descriptive and storage capability of netCDF files. This now allows attributes which were meant be a type other than string to be stored as the natural or conventional type. For example, the `min', `max', and `range' attributes should be the same type as the netCDF variable with which they are associated. Until version 4.0, attribute values had to be stored as strings.
+<H3><A NAME="HDR1">  8.2  Overview</A></H3>
+
+<HR>
+<P>There are three types of attributes: global, sample, and field.<A HREF="attributes.html#FN2">(2)</A> Global attributes apply to the entire data chunk. A sample attribute applies to a particular sample, and of course a field attribute applies to a particular field. The scope of an attribute determines the class which implements the attribute and whose methods store the attribute in the data chunk. The Raw class naturally implements global attributes, meaning that every data chunk class also possesses global attributes. The Transparent class, as the class which implements samples, also implements sample attributes, and so every data chunk which uses samples can also have sample attributes. Likewise, and not surprisingly, the MetData class implements field attributes since it also implements the notion of fields. Any of the subclasses of MetData can associate attributes with their fields. This makes sense since only subclasses of MetData will actually have fields to which attributes can be attached. Likewise, only subclasses of Transparent will have samples to which attributes can be attached.
+<H4><A NAME="HDR2">  8.2.1  Keys and Values</A></H4>
+
+<P>An attribute associates a value with a key. The key is a simple string which names the attribute, and the value is an array of <I>elements</I>, as descried in <A HREF="elements.html#REF30246">Chapter 7</A>. The key indicates the meaning of the attribute and the sort of information the attribute holds. Common keys are "source", "max_value", "long_name", or "valid_range". The second part of the attribute, the value, holds the information to be associated with the key. This information can be a single data value or a series of data values. The type of the values can be any of the types allowed for data chunk elements; however, all of the elements associated with a single attribute key must be the same type. Therefore all of the data values associated with a key called "altitudes" can be either floating point or integer, but not both.
+<P>With respect to the data chunk interface, key names can contain any number and kind of characters. However, in practice it is best to restrict the key to printable alphanumeric characters without any spaces. The key name becomes especially critical when storing attributes in netCDF files, since netCDF enforces limits on the length and content of attribute names. See the netCDF manual for documentation of the limits.
+<H4><A NAME="HDR3">  8.2.2  Method Names</A></H4>
+<P>Every class of attributes uses a similar naming scheme for its methods, and it will be helpful to mention the scheme here. In keeping with the rest of the data chunk interface, every attribute function uses the `dc_' prefix. The older functions which only deal with string values use the `Attr' suffix, while the newer typed array functions usually end with `AttrArray'. The base of the name comes from the purpose of the function, which falls into one of these categories.
+<UL><DL>
+<DT>Set<DD>Associate this attribute value (array of elements) with a key, and possibly with a field or sample as well.
+<DT>Get<DD>Retrieve the value associated with a key.
+<DT>GetN<DD>Return the number of attributes for a particular class.
+<DT>Remove<DD>Remove the attribute with the given key.
+<DT>Process or Proc<DD>Loop over the attribute keys in a class and call a handler function for each.
+</DL></UL>
+<P>The name will also contain an indication to the class of the attributes, either `Global', `Sample', or `Field'.
+
+<H4><A NAME="HDR4">  8.2.3  General Notes about the Interface</A></H4>
+<P>An attribute can have only one string value, which is a null-terminated array of characters. An array of characters, on the other hand, is stored as N elements of type DCT_Char (or DCT_UnsignedChar), without any null terminator.
+<P>Many of the prototypes return pointers to keys or values. All returned pointers point to internal memory and <I>should neither be modified nor freed</I>.
+<P>Many of the methods return values via reference parameters. Except where explicitly noted, such parameters can be passed as NULL, causing the parameter to be disregarded.
+<H3><A NAME="REF74802">  8.3  Global Attributes</A></H3>
+
+<HR>
+<P>Global attributes have the simplest interface since they have the widest scope and are not limited to a particular sample or field. Each of the basic attribute methods are described here in detail. The sections on sample and field attributes leave out some detail in favor of referring to the common explanations in this section. In other words, it will be helpful to thoroughly understand this section before referring to the later sections. Also, on questions of how a particular method operates, consult the equivalent method in this section as well the method's specific prototype.
+<H4><A NAME="HDR5">  8.3.1  Setting and Getting</A></H4>
+<P>The two backwards-compatible functions are below. 
+<PRE>
+<B>void
+dc_SetGlobalAttr (dc, key, value)
+DataChunk *dc;
+char *key, *value;
+char *
+dc_GetGlobalAttr (dc, key)
+DataChunk *dc;
+char *key;
+</PRE>
+<P></B>The first function associates a string <B>value</B> with the named <B>key</B> for the given data chunk, <B>dc</B>. The second returns a pointer to the string value of the given <B>key</B>. If the key has an attribute type other than DCT_String, or the key does not exist, then the function logs a warning message and returns NULL.
+
+<P>The more generic interface to global attributes allows arrays of values.
+<PRE>
+<B>void
+dc_SetGlobalAttrArray (dc, key, type, nval, values)
+DataChunk *dc;
+char *key;
+DC_ElemType type;
+int nval;
+void *values;
+</PRE>
+<P></B>The additional parameters are <B>type</B>, <B>nval</B>, and <B>values</B>. The <B>type</B> specifies the type of the elements in the values array. The number of values is passed in <B>nval</B>, and <B>values</B> points to the array itself. The array should be an array of elements in their native form, i.e., not DC_Element unions. The example below stores an array of doubles under the key `global_doubles'.
+<PRE>
+#define NUM(ra) (sizeof(ra)/(sizeof((ra)[0])))
+double ddata[] = { 0.0, 1.0, 2.0, 4.0, 8.0 };
+DataChunk *dc;
+dc = dc_CreateDC(DCC_Scalar);
+dc-&gt;dc_Platform = plat;
+dc_SetGlobalAttrArray (dc, "global_doubles", DCT_Double, 
+             NUM(ddata), (void *)ddata);
+</PRE>
+<P>Of course, there is the opposite function for retrieving the array of values.
+<PRE>
+<B>void *
+dc_GetGlobalAttrArray (dc, key, type, nval)
+DataChunk *dc;
+char *key;
+DC_ElemType *type;
+int *nval;
+</PRE>
+<P></B>In this case, the function returns a pointer to the values array for the given <B>key</B>. The returned pointer points to memory inside the data chunk, so it should not be modified or freed, nor is it valid once the data chunk has been destroyed. The type of the array elements and the number of elements are returned in the <B>type</B> and <B>nval</B> reference parameters, respectively. Either of <B>type</B> and <B>nval</B> can be passed as NULL to prevent a value from being returned in that parameter. If no attribute exists with the given key, then the return value will be NULL and none of the other parameters will be changed.
+<P>Continuing with the earlier example, the excerpt below retrieves and prints the `global_doubles' attribute value.
+<PRE>
+double *dget;
+DC_ElemType type;
+int nval, i;
+
+dget = (double *)dc_GetGlobalAttrArray (dc, "global_doubles", 
+        &amp;type, &amp;nval);
+assert(type == DCT_Double);
+for (i = 0; i &lt; nval; ++i) printf (" %lf ", dget[i]);
+printf ("\n");
+</PRE>
+<P>Note that the older function dc_GetGlobalAttr() would always return NULL when called with the doubles key:
+<PRE>
+/* Would always return NULL since value is not a string */
+dget = dc_GetGlobalAttr (dc, "global_doubles");
+</PRE>
+<H4><A NAME="HDR6">  8.3.2  Counting</A></H4>
+<P>The dc_GetNGlobalAttrs() function returns the number of attributes, of all types, in a data chunk.
+<PRE>
+<B>int
+dc_GetNGlobalAttrs(dc)
+DataChunk *dc;
+</PRE>
+<H4><A NAME="HDR7">  8.3.3  Removing</A></H4>
+<P></B>Any global attribute can be removed from a data chunk with dc_RemoveGlobalAttr().
+<PRE>
+<B>void
+dc_RemoveGlobalAttr (dc, key)
+DataChunk *dc;
+char *key;
+</PRE>
+<P></B>This function removes the global attribute of the given <B>key</B> from the data chunk <B>dc</B>. If an attribute with the given key does not exist, the function has no effect.
+<P>The internal attribute implementation does not actually release memory freed by removed attributes, so it is not possible to reduce memory consumption by removing attributes. However, the memory is not dropped; it will be used for additional attributes.
+
+<H4><A NAME="REF87646">  8.3.4  Processing by Key</A></H4>
+<P>When an application needs to find out all of the global attributes attached to a data chunk, it can use dc_ProcessAttrArrays() to pass each of the attributes to a handler function.
+<PRE>
+<B>int
+dc_ProcessAttrArrays (dc, pattern, func, arg)
+DataChunk *dc;
+char *pattern;
+int (*func) (/* char *key, void *vals, int nval, DC_ElemType, 
+     void *arg */);
+void *arg;
+</PRE>
+<P></B>The data chunk is passed in <B>dc</B>, and <B>func</B> is a function which will be called for each attribute in the data chunk. The <B>arg</B> parameter is a void pointer which will be passed to the function as follows:
+<PRE>
+<B>(*func) (key, vals, nval, type, arg)
+char *key;
+void *vals;
+int nval;
+DC_ElemType type;
+void *arg;
+</PRE>
+<P></B>If <B>pattern</B> is non-NULL, it is interpreted as a regular expression to match against attribute keys. Only those keys which match the regular expression are passed on to <B>func</B>. The handler function will be called for every matching global attribute in the data chunk until the function returns a non-zero value, in which case the non-zero return value will be returned by dc_ProcessAttrArrays(). If there are no global attributes, then dc_ProcessAttrArrays() has no effect and returns zero.
+<P>The attributes are processed from a copy of the actual attribute information in the data chunk. This allows the handler function to modify or remove attributes without affecting the attribute information which is being processed. The code below defines a handler function for removing attributes from a data chunk.
+<PRE>
+struct AttrDesc {
+  enum { Global, Field, Sample } which;
+  DataChunk *dc;
+  int sample;
+  FieldId field;
+};
+RemoveAttr (key, value, nval, type, arg)
+char *key;
+void *value;
+int nval;
+DC_ElemType type;
+
+void *arg;
+{
+  struct AttrDesc *ad = (struct AttrDesc *)arg;
+  switch (ad-&gt;which)
+  {
+     case Global:
+    dc_RemoveGlobalAttr (ad-&gt;dc, key);
+    break;
+     case Field:
+    dc_RemoveFieldAttr (ad-&gt;dc, ad-&gt;field, key);
+    break;
+     case Sample:
+    dc_RemoveSampleAttr (ad-&gt;dc, ad-&gt;sample, key);
+    break;
+  }
+  return (0);
+}
+</PRE>
+<P>The code above can be used with dc_ProcessAttrArrays() to remove all of the global attributes from a data chunk.
+<PRE>
+AttrDesc ad;
+DataChunk *dc;
+/* ... */
+ad.dc = dc;
+ad.which = Global;
+dc_ProcessAttrArrays (dc, NULL, RemoveAttr, (void *)&amp;ad);
+</PRE>
+<P>The older process function dc_ProcessAttrs() still exists.
+<PRE>
+<B>int dc_ProcessAttrs (dc, pattern, func)
+DataChunk *dc;
+char *pattern;
+int (*func) ();
+</PRE>
+<P></B>As before, <B>dc</B> is the usual data chunk, and <B>func</B> is a function which will be called for each attribute in the data chunk as follows:
+<PRE>
+<B>(*func) (key, value)
+char *key, *value;
+</PRE>
+<P></B>The <B>pattern</B> parameter, if non-NULL, performs the same function as in dc_ProcessAttrArrays(). Note that the handler function cannot be passed an argument, so any information besides the key and value must be passed as global variables. Also, since the handler expects string values, only attributes with string values are passed to the handler function. Attributes with non-string values will be skipped by dc_ProcessAttrs(). As far as handling the return values from <B>func</B>, dc_ProcessAttrs() and dc_ProcessAttrArrays() are identical.
+
+<P>The dc_GetGlobalAttrKeys() function returns an array of all of the global attribute keys in a data chunk.
+<PRE>
+<B>char **
+dc_GetGlobalAttrKeys (dc, natts)
+DataChunk *dc;
+int *natts;
+</PRE>
+<P></B>The returned memory should not be freed or modified. The memory is allocated internally and shared among the other attribute methods which return key lists (dc_GetSampleAttrKeys() and dc_GetFieldAttrKeys()). The key strings themselves actually reside inside the data chunk, so they are only valid while the data chunk exists. The reference parameter <B>natts</B> returns with the number of keys in the returned key array, and the key array itself is also terminated with a NULL entry, i.e., keys[natts] == NULL. The <B>natts</B> pointer can also be passed as NULL, in which case it is ignored and the number of keys is not returned. If there are no attributes present, the return value will be NULL and <B>natts</B>, if non-NULL, will be set to zero.
+<P>The example below prints all of the attribute keys in a data chunk.
+<PRE>
+char **keys;
+int natts, i;
+keys = dc_GetGlobalAttrKeys(dc, &amp;natts);
+for (i = 0; i &lt; natts; ++i)
+  printf ("   %s%c", keys[i], (i+1)%5 ? ` `:'\n');
+printf ("\n");
+</PRE>
+<P>Or, the following is also possible.
+<PRE>
+for (keys = dc_GetGlobalAttrKeys(dc, NULL);
+  keys &amp;&amp; *keys; ++keys)
+  printf ("   %s", *keys);
+</PRE>
+<P>If a key list must be preserved beyond calls to dc_GetSampleAttrKeys(), dc_GetFieldAttrKeys(), or dc_GetGlobalAttrKeys(), or it must be preserved past the destruction of the data chunk, then the array of key pointers and the key strings themselves must be copied by the application.
+<H3><A NAME="HDR8">  8.4  Sample Attributes</A></H3>
+
+<HR>
+
+<P>The transparent class implements samples. Accordingly, it implements the attributes which can be attached to a specific sample. The sample attribute methods are identical to those for global attributes except they take one additional parameter, the specific sample number whose attributes are to be accessed. Also, these methods only work for subclasses of DCC_Transparent (which includes the Transparent class itself), since these are the only classes which have samples.
+<P>At the moment, no check is performed to verify that the given sample actually exists in the data chunk. However, future versions might perform such a check, so applications should only add attributes to samples which already exist in the data chunk.
+<P>As mentioned in <A HREF="attributes.html#REF74802">Section 8.3, "Global Attributes"</A>, some details of the sample attribute methods are left out where those details are identical to the descriptions of the global methods. Refer to the global attributes section for the particulars of a method's implementation and more thorough examples.
+<H4><A NAME="HDR9">  8.4.1  Setting and Getting</A></H4>
+<P>The most basic sample attribute method adds a key and value pair to a data chunk sample.
+<PRE>
+<B>void
+dc_SetSampleAttrArray (dc, sample, key, type, nval, values)
+DataChunk *dc;
+int sample;
+char *key;
+DC_ElemType type;
+int nval;
+void *values;
+</PRE>
+<P></B>The target data chunk is in <B>dc</B>, and <B>sample</B> contains the number of the sample to which the attribute will be added. The rest of the parameters are just as they are for the global method dc_SetGlobalAttrArray(). See <A HREF="attributes.html#REF74802">Section 8.3</A>.
+<P>The other basic method retrieves the value of an attribute.
+<PRE>
+<B>void
+*dc_GetSampleAttrArray (dc, sample, key, type, nval)
+DataChunk *dc;
+int sample;
+char *key;
+DC_ElemType *type;
+int *nval;
+</PRE>
+
+<P></B>Again, except for the required sample number, <B>sample</B>, the rest of the parameters serve the same function as in the global method, dc_GetGlobalAttrArray(). The return value is NULL if the given key string <B>key</B> could not be found for the given sample.
+<P>The original functions for setting and getting string attribute values still exist.
+<PRE>
+<B>void
+dc_SetSampleAttr (dc, sample, key, value)
+DataChunk *dc;
+int sample;
+char *key;
+char *value;
+char *
+dc_GetSampleAttr (dc, sample, key)
+DataChunk *dc;
+int sample;
+char *value;
+</PRE>
+<P></B>The <B>dc</B>, <B>sample</B>, and <B>key</B> parameters are the same as usual. The <B>value</B> parameter is a string value which will be paired with the given key. Likewise, dc_GetSampleAttr() only returns string values, so if <B>key</B> does not have a string value or it does not exist, the return value will be NULL. The returned pointer belongs to the data chunk, so it should not be modified or freed. Also, it will be invalid once the data chunk has been destroyed.
+<H4><A NAME="HDR10">  8.4.2  Counting</A></H4>
+<P>The dc_GetNSampleAttrs() function returns the number of attributes stored with a particular sample.
+<PRE>
+<B>int
+dc_GetNSampleAttrs (dc, sample)
+DataChunk *dc;
+int sample;
+</PRE>
+<P></B>The return value will be the number of key and value pairs associated with sample number <B>sample</B> in data chunk <B>dc</B>, regardless of the type of the attribute values.
+<H4><A NAME="HDR11">  8.4.3  Removing</A></H4>
+<P>There is a single function for removing an attribute from a sample by its key.
+<PRE>
+<B>void
+dc_RemoveSampleAttr (dc, sample, key)
+DataChunk *dc;
+int sample;
+char *key;
+
+</PRE>
+<P></B>This function removes the attribute with the given <B>key</B> from sample number <B>sample</B> of the data chunk <B>dc</B>.
+<H4><A NAME="HDR12">  8.4.4  Processing By Key</A></H4>
+<P>A sample's attributes can be processed key by key using dc_ProcSampleAttrArrays().
+<PRE>
+<B>int
+dc_ProcSampleAttrArrays (dc, sample, pattern, func, arg)
+DataChunk *dc;
+int sample;
+char *pattern;
+int (*func) (/* char *key, void *vals, int nval, 
+     DC_ElemType, void *arg */);
+void *arg;
+</PRE>
+<P></B>This function traverses the attributes for the given sample number, <B>sample</B>, and data chunk, <B>dc</B>. If the regular expression <B>pattern</B> is non-NULL, then the function skips those attributes whose keys do not match the expression. For each attribute traversed, the handler <B>func</B> is called with these parameters.
+<PRE>
+<B>(*func) (key, vals, nval, type, arg)
+char *key;
+void *vals;
+int nval;
+D_ElemType type;
+void *arg;
+</PRE>
+<P></B>The attribute key is in <B>key</B>, and <B>vals</B> points to the array of values. The <B>nval</B> parameter holds the number of elements in the <B>vals</B> array, while <B>type</B> holds the type of those elements. The <B>arg</B> parameter is the parameter passed to dc_ProcSampleAttrArrays(). The function handler is called for each attribute until the handler returns non-zero, at which time the non-zero return value is returned by dc_ProcSampleAttrArrays(). Otherwise, dc_ProcSampleAttrArrays() exhausts the attribute list and returns zero.
+<P>Note that there is no backwards-compatible dc_ProcSampleAttrs() function since the function never existed in earlier versions. Where that sort of functionality is needed, use dc_ProcSampleAttrArrays() and screen out the attributes whose values are not strings.
+
+<P>The dc_GetSampleAttrKeys() function returns a list of attribute keys to an application.
+<PRE>
+<B>char
+**dc_GetSampleAttrKeys (dc, sample, natts)
+DataChunk *dc;
+int sample;
+int *natts;
+</PRE>
+<P></B>The data chunk and sample number are passed in the parameters <B>dc</B> and <B>sample</B>, respectively. The <B>natts</B> parameter, if non-NULL, returns the number of attribute keys. If there are no attributes, the return value is NULL and <B>natts</B> contains zero. Otherwise, the return value is a pointer to internally allocated memory which should not be modified or freed. The pointer points to an array of strings; each string points to an attribute key in the data chunk, so the key list is only valid while the data chunk exists. Also, since the memory is shared among other attribute methods, the key list is only valid until the next call to any of the other key methods: dc_GetGlobalAttrKeys(), dc_GetSampleAttrKeys(), or dc_GetFieldAttrKeys(). To preserve the key list, the application must copy the array of string pointers and the strings themselves.
+<H3><A NAME="HDR13">  8.5  Field Attributes</A></H3>
+
+<HR>
+<P>Last but certainly not least, field attributes associate values with an attribute key for a particular field of a data chunk. Since the MetData class implements field functionality, it also implements field attributes. The field attribute methods are identical to those for global attributes except they take one additional parameter, the FieldId of the field whose attributes will be accessed. Also, these methods only work for subclasses of DCC_MetData, since those are the only classes which have fields.
+<P>At the moment, no check is performed to verify that a given field actually exists in the data chunk. However, future versions might perform such a check, so applications should only add attributes to fields which already exist in the data chunk.
+<P>As mentioned in <A HREF="attributes.html#REF74802">Section 8.3, "Global Attributes"</A>, some details of the field attribute methods are left out where those details are identical to the global methods. Refer to the global attributes section for the particulars of a method's implementation and more thorough examples.
+
+<H4><A NAME="HDR14">  8.5.1  Setting and Getting</A></H4>
+<P>The dc_SetFieldAttrArray() function performs the task of assigning an array of elements to an attribute key for a particular field.
+<PRE>
+<B>void
+dc_SetFieldAttrArray (dc, field, key, type, nval, vals)
+DataChunk *dc;
+FieldId field;
+char *key;
+DC_ElemType type;
+int nval;
+void *vals;
+</PRE>
+<P></B>Where <B>dc</B> is the data chunk, <B>field</B> is a FieldId, and <B>key</B> is the attribute key. The rest of the parameters specify the value part of the attribute: <B>vals</B> points to an array containing <B>nval</B> number of elements of the given <B>type</B>. The elements are in their native form rather than DC_Element unions, so an array of floating point values is passed as exactly that, an array of floats.
+<PRE>
+FieldId field;
+float min, max, range[2];
+...
+range[0] = min = 0.0;
+range[1] = max = 98.6;
+dc_SetFieldAttrArray (dc, field, "range", DCT_Float, 2, range);
+</PRE>
+<P>Attributes whose values are strings (DCT_String) can only have one element in their array, the given string. The call below fails with a warning message to the event logger.
+<PRE>
+char *names[] = { "mike", "larry", "stacy" };
+...
+dc_SetFieldAttrArray (dc, field, "names", DCT_String, 3, names);
+</PRE>
+<P>The names array actually has two dimensions: the names and the characters in the names. The interface does not yet possess the capability of storing this sort of `multi-dimensional' data as an attribute.
+<P>An attribute can be retrieved for a particular field using dc_GetFieldAttrArray().
+<PRE>
+<B>void *
+dc_GetFieldAttrArray (dc, field, key, type, nval)
+DataChunk *dc;
+FieldId field;
+char *key;
+DC_ElemType *type;
+int *nval;
+
+</PRE>
+<P></B>As for dc_SetFieldAttrArray(), <B>dc</B> is the data chunk, <B>field</B> is the FieldId of the field to access, and <B>key</B> is the key of the attribute to be retrieved. If no attribute exists with the given key, the function returns NULL. Otherwise, the return value is a pointer to the attribute's array of values, exactly as passed to dc_SetFieldAttrArray(). If <B>type</B> and <B>nval</B> are non-NULL, they will be set to the type and the number of the array elements, respectively.
+<P>The attribute stored above could be retrieved as follows:
+<PRE>
+float *getf;
+int nval;
+DC_ElemType type;
+getf = dc_GetFieldAttrArray (dc, field, "range", &amp;type, &amp;nval);
+/* type == DCT_Float &amp;&amp; nval == 2 &amp;&amp; getf[0] == 0.0 &amp;&amp; getf[1] == 98.6 */
+</PRE>
+<P>The original field attribute functions dc_SetFieldAttr() and dc_GetFieldAttr() limit their operations to string types.
+<PRE>
+<B>void
+dc_SetFieldAttr (dc, field, key, value)
+DataChunk *dc;
+FieldId field;
+char *key;
+char *value;
+char *
+dc_GetFieldAttr (dc, field, key)
+DataChunk *dc;
+FieldId field;
+char *key;
+</PRE>
+<P></B>In fact, dc_SetFieldAttr() is exactly equivalent to a call to dc_SetFieldAttrArray() like the one below.
+<PRE>
+dc_SetFieldAttrArray (dc, field, key, DCT_String, 1, value);
+</PRE>
+<P>Likewise, when the attribute value for the given <B>key</B> is a string, a call to dc_GetFieldAttr() behaves like the following call to dc_GetFieldAttrArray().
+<PRE>
+value = (char *)dc_GetFieldAttrArray (dc, field, key, NULL, NULL);
+</PRE>
+<P>If the attribute does not have a string value, or the key cannot be found, dc_GetFieldAttr() returns NULL.
+
+<H4><A NAME="HDR15">  8.5.2  Counting</A></H4>
+<P>The field attributes count method works similarly to the count methods of the other attribute classes.
+<PRE>
+<B>int
+dc_GetNFieldAttrs (dc, field)
+DataChunk *dc;
+FieldId field;
+</PRE>
+<P></B>This function returns the number of attributes---regardless of type---associated with the given FieldId <B>field</B> in the data chunk <B>dc</B>.
+<H4><A NAME="HDR16">  8.5.3  Removing</A></H4>
+<P>As far as data chunk attributes are concerned, what can be added can also be removed. For field attributes, dc_RemoveFieldAttr() performs the requisite removal task.
+<PRE>
+<B>void
+dc_RemoveFieldAttr (dc, field, key)
+DataChunk *dc;
+FieldId field;
+char *key;
+</PRE>
+<P></B>This function removes any attribute with the given <B>key</B> from the field with FieldId <B>field</B> in data chunk <B>dc</B>. If the key does not exist, dc_RemoveFieldAttr() has no effect.
+<H4><A NAME="HDR17">  8.5.4  Processing by Key</A></H4>
+<P>Field attributes can also be processed one key at a time, either by calling a handler function for each attribute or by retrieving a list of keys all at once.
+<P>The dc_ProcFieldAttrArrays() function takes the first approach, calling a handler function for each attribute.
+<PRE>
+<B>int
+dc_ProcFieldAttrArrays (dc, field, pattern, func, type, arg)
+DataChunk *dc;
+FieldId field;
+char *pattern;
+int (*func) (/* char *key, void *vals, int nval, 
+       DC_ElemType, void *arg */);
+void *arg;
+</PRE>
+
+<P></B>This function behaves exactly like the global attribute method dc_ProcessAttrArrays(), except it requires the additional parameter <B>field</B> to specify the field attributes to be processed. See <A HREF="attributes.html#REF87646">Section 8.3.4 on page 105</A> for an explanation.
+<P>The original dc_ProcessFieldAttrs() function only operates on attributes with string types, exactly like its global attribute counterpart dc_ProcessFieldAttrs(). See <A HREF="attributes.html#REF87646">Section 8.3.4 on page 105</A>.
+<PRE>
+<B>int
+dc_ProcessFieldAttrs (dc, field, key, func)
+DataChunk *dc;
+FieldId field;
+char *key;
+int (*func) (/* char *key, char *value */);
+</PRE>
+<P></B>The dc_GetFieldAttrKeys() function takes the second approach mentioned earlier, where a list of attribute keys is acquired all at once to be processed step by step.
+<PRE>
+<B>char
+**dc_GetFieldAttrKeys (dc, field, natts)
+DataChunk *dc;
+FieldId field;
+int *natts;
+</PRE>
+<P></B>This function returns an array of keys for the attributes in data chunk <B>dc</B> and the field with FieldId <B>field</B>. If the field has no attributes, the return value is NULL. If <B>natts</B> is non-NULL, it will be set to the number of attribute keys in the returned array. See the description of the similar global attribute method dc_GetGlobalAttrKeys() in <A HREF="attributes.html#REF87646">Section 8.3.4 on page 105</A>.
+<H3><A NAME="HDR18">  8.6  Examples</A></H3>
+
+<HR>
+<P>The section of code included in this section performs all kinds of attribute operations using most of the various element types and attribute methods.
+<PRE>
+float data = 1.0;
+int natts, nval, i;
+DC_ElemType type;
+#define NUM(ra) (sizeof(ra)/(sizeof((ra)[0])))
+double ddata[] = { 0.0, 1.0, 2.0, 4.0, 8.0 };
+double *dget;
+float fdata[] = { -1.2, -3.4, -5.6, -6.7, -8.9, -10.0 };
+float *fget;
+unsigned char bytes[] = { 1, 3, 7, 15, 31, 63, 127, 255 };
+unsigned char *uget;
+char *cdata = "array of characters";
+short sdata[] = { 512, 1024, 2048, 4096, 8192, 16384, 32767 };
+short *sget;
+
+dc = dc_CreateDC(DCC_Scalar);
+dc-&gt;dc_Platform = plat;
+dc_SetGlobalAttr (dc, "global_key", "global_value");
+dc_SetGlobalAttrArray (dc, "global_doubles", DCT_Double, 
+           NUM(ddata), (void *)ddata);
+dc_SetGlobalAttrArray (dc, "global_floats", DCT_Float, 
+           NUM(fdata), (void *)fdata);
+dc_SetGlobalAttrArray (dc, "global_bytes", DCT_UnsignedChar, 
+           NUM(bytes), (void *)bytes);
+dc_SetGlobalAttrArray (dc, "global_shorts", DCT_ShortInt, 
+           NUM(sdata), (void *)sdata);
+dc_SetGlobalAttrArray (dc, "global_string", DCT_String,
+           1, "this is a global attribute string");
+dc_SetGlobalAttrArray (dc, "global_char", DCT_Char,
+           strlen(cdata), cdata); /* no null char */
+/*
+* Get the typed arrays added above
+*/
+printf ("Double attribute: ");
+dget = (double *)dc_GetGlobalAttrArray (dc, "global_doubles", 
+        &amp;type, &amp;nval);
+for (i = 0; i &lt; nval; ++i) printf (" %lf ", dget[i]);
+printf ("\n");
+printf ("Short attribute: ");
+sget = (short *)dc_GetGlobalAttrArray (dc, "global_shorts", 
+             &amp;type, &amp;nval);
+for (i = 0; i &lt; nval; ++i) printf (" %hd ", sget[i]);
+printf ("\n");
+field = F_Lookup ("temp");
+dc_SetScalarFields (dc, 1, &amp;field);
+dc_AddScalar (dc, &amp;when, 0, field, &amp;data);
+dc_SetFieldAttr (dc, field, "field_key", "field_value");
+dc_SetSampleAttr (dc, 0, "sample_key", "sample_value");
+dc_SetFieldAttrArray (dc, field, "field_doubles", DCT_Double, 
+           NUM(ddata), (void *)ddata);
+dc_SetFieldAttrArray (dc, field, "field_floats", DCT_Float, 
+           NUM(fdata), (void *)fdata);
+dc_SetFieldAttrArray (dc, field, "field_bytes", DCT_UnsignedChar, 
+           NUM(bytes), (void *)bytes);
+dc_SetFieldAttrArray (dc, field, "field_shorts", DCT_ShortInt, 
+           NUM(sdata), (void *)sdata);
+dc_SetFieldAttrArray (dc, field, "field_string", DCT_String,
+           1, "this is a field attribute string");
+dc_SetSampleAttrArray (dc, 0, "sample_doubles", DCT_Double, 
+           NUM(ddata), (void *)ddata);
+dc_SetSampleAttrArray (dc, 0, "sample_floats", DCT_Float, 
+           NUM(fdata), (void *)fdata);
+dc_SetSampleAttrArray (dc, 0, "sample_bytes", DCT_UnsignedChar, 
+           NUM(bytes), (void *)bytes);
+dc_SetSampleAttrArray (dc, 0, "sample_shorts", DCT_ShortInt, 
+           NUM(sdata), (void *)sdata);
+dc_SetSampleAttrArray (dc, 0, "sample_string", DCT_String,
+
+           1, "this is a sample attribute string");
+dc_DumpDC(dc);
+</PRE>
+<P>When all is said and done, the output produced by dc_DumpDC(dc) looks something like this:
+<PRE>
+METDATA class, 1 fields, uniform True, uniform org True, size 4
+Fields:  temp(float,4);
+Field Attributes:
+        temp:    field_key='field_value'; 
+field_doubles=[0.000000,1.000000,2.000000,4.000000,8.000000]; 
+field_floats=[-1.200000,-3.400000,-5.600000,-6.700000,-8.900000,-10.000000];
+field_bytes=[0x1,0x3,0x7,0xf,0x1f,0x3f,0x7f,0xff]; 
+field_shorts=[512,1024,2048,4096,8192,16384,32767]; 
+field_string='this is a field attribute string'; 
+field_char=[a,r,r,a,y, ,o,f, ,c,h,a,r,a,c,t,e,r,s];
+TRANSPARENT class, 1 samples, 1 allocated, next off 4, use avg: true
+Hints: nsamples 0, sample size 4, avg 4, data 4, subclass 0
+         0 at 1-Jan-93,0:00:00, len 4 offset 0
+                sample_key --&gt; `sample_value'
+                sample_doubles --&gt; 0.000000, 1.000000, 2.000000, 4.000000, 
+8.000000
+                sample_floats --&gt; -1.200000, -3.400000, -5.600000, -6.700000, 
+-8.900000, -10.000000
+                sample_bytes --&gt; 0x1, 0x3, 0x7, 0xf, 0x1f, 0x3f, 0x7f, 0xff
+                sample_shorts --&gt; 512, 1024, 2048, 4096, 8192, 16384, 32767
+                sample_string --&gt; `this is a sample attribute string'
+RAW, class `Scalar', plat 4 (t_att_types_cdf), data len 4, 5 ADE totaling 
+4289
+internal class checking: enabled
+Global attributes:
+        global_key --&gt; `global_value'
+        global_doubles --&gt; 0.000000, 1.000000, 2.000000, 4.000000, 8.000000
+        global_floats --&gt; -1.200000, -3.400000, -5.600000, -6.700000, 
+8.900000, -10.000000
+        global_bytes --&gt; 0x1, 0x3, 0x7, 0xf, 0x1f, 0x3f, 0x7f, 0xff
+        global_shorts --&gt; 512, 1024, 2048, 4096, 8192, 16384, 32767
+        global_string --&gt; `this is a global attribute string'
+        global_char --&gt; a, r, r, a, y,  , o, f,  , c, h, a, r, a, c, t, e, r, s
+</PRE>
+<P>For those interested in using netCDF, here is the netCDF header of a data file created with the above data chunk.
+<PRE>
+netcdf t_att_types_cdf.930101.000000 {
+dimensions:
+        time = UNLIMITED ; // (1 currently)
+variables:
+        long base_time ;
+                base_time:string = "1-Jan-93,0:00:00 GMT" ;
+                base_time:long_name = "Base time in Epoch" ;
+                base_time:units = "seconds since 1970-1-1 0:00:00 0:00" ;
+
+        double time_offset(time) ;
+                time_offset:units = "seconds since 1993-01-01 00:00:00 0:00" ;
+                time_offset:long_name = "Time offset from base_time" ;
+        float temp(time) ;
+                temp:long_name = "temp" ;
+                temp:units = "unknown" ;
+                temp:missing_value = -99999.898f ;
+                temp:field_key = "field_value" ;
+                temp:field_doubles = 0., 1., 2., 4., 8. ;
+                temp:field_floats = -1.2f, -3.4000001f, -5.5999999f, -
+6.6999998f, -8.8999996f, -10.f ;
+                temp:field_bytes = `\1', `\3', `\7', `\17', `\37', `?', `\177', 
+`\377' ;
+                temp:field_shorts = 512s, 1024s, 2048s, 4096s, 8192s, 16384s, 
+32767s ;
+                temp:field_string = "this is a field attribute string" ;
+                temp:field_char = "array of characters" ;
+        float lat ;
+                lat:long_name = "north latitude" ;
+                lat:units = "degrees" ;
+                lat:valid_range = -90.f, 90.f ;
+        float lon ;
+                lon:long_name = "east longitude" ;
+                lon:units = "degrees" ;
+                lon:valid_range = -180.f, 180.f ;
+        float alt ;
+                alt:long_name = "altitude" ;
+                alt:units = "km above MSL" ;
+// global attributes:
+                :global_key = "global_value" ;
+                :global_doubles = 0., 1., 2., 4., 8. ;
+                :global_floats = -1.2f, -3.4000001f, -5.5999999f, -6.6999998f, 
+-8.8999996f, -10.f ;
+                :global_bytes = `\1', `\3', `\7', `\17', `\37', `?', `\177', 
+`\377' ;
+                :global_shorts = 512s, 1024s, 2048s, 4096s, 8192s, 16384s, 
+32767s ;
+                :global_string = "this is a global attribute string" ;
+                :global_char = "array of characters" ;
+                :zeb_platform = "t_att_types_cdf" ;
+                :history = "created by Zeb DataStore, 11-Dec-94,16:36:50, 
+$RCSfile: DFA_NetCDF.c,v $ $Revision: 3.37 $\n",
+    "" ;
+}
+</PRE>
+<P>It is very important to note that at present the DataStore cannot store sample attributes in netCDF files. <A HREF="dfa.html#REF30476">Section 10.1, "Field Attributes and Data Files"</A>, discusses the particulars of file format limitations with regard to attributes.
+
+<H3><A NAME="HDR19">  8.7  In the Works</A></H3>
+
+<HR>
+<P>The attributes interface still needs some work and there are a few enhancements under consideration. One convenient addition would be the ability to select attributes on the basis of type. Also, coding simple loops over attributes could be simplified with a get-first, get-next mechanism rather than relying solely on the processing mechanism. Lastly, the lack of a file format which stores both field and sample attributes has not been a critical issue for Zebra applications; nonetheless, this shortcoming needs to be corrected.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+
+<HR><H3>Footnotes</H3>
+<DL COMPACT>
+<DT><A NAME=FN1>(1)</A><DD>Prior to Version 4.0
+<DT><A NAME=FN2>(2)</A><DD>Some realms call them global-level attributes (GLA's) and field-level attributes (FLA's), but that's too many TLA's (three-letter acronyms) for me. In this manual they are called simply global, sample, or field attributes.
+</DL>
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="dsapi.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

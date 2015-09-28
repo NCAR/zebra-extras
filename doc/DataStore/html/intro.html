@@ -1,0 +1,354 @@
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="preface.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>� CHAPTER 1 � </B> Introduction to the Zebra DataStore</TITLE>
+<H1><A NAME="REF30814"> <paranum><B>� CHAPTER 1 � </B> Introduction to the Zebra DataStore</A></H1>
+
+<P>The term `DataStore' refers to several parts of the whole Zebra system, all the parts which manage, track, and manipulate data, both between processes and within an individual process. At the heart of the DataStore lies a Zebra process called the DataStore <I>daemon</I>. The daemon essentially manages data files and provides information about the availability and location of data. Other processes, called DataStore <I>clients</I>, exchange information with the daemon through the DataStore <I>application interface</I>. The application interface provides convenient routines which take care of the details of exchanging messages with the daemon through the Zebra message manager. [See the <I>Zebra Library Interface Manual</I>.] This manual describes the application interface for DataStore clients. Other manuals, such as the <I>Zebra Advanced User's Manual</I>, describe the details of operating the DataStore daemon itself. However, the first section of this chapter does contain a brief introduction to the daemon to assist the discussion of the application interface. The following sections introduce some basic data types and structures which the interface uses to reference DataStore objects and information. Lastly, the end of the chapter describes the basic requirements for initializing and using the interface.
+
+<P>The following chapters cover various areas of the DataStore interface. <A HREF="datachunks.html#REF99837">Chapter 2</A> introduces DataChunks, which applications use to exchange data with the DataStore application interface. <A HREF="dsapi.html#REF72749">Chapter 9</A> details the interface functions for actually storing and reading DataChunks to and from data files. Other chapters cover the DataStore's data file access (DFA) module, DataChunk optimization issues, the ingest module utilities, and some notes on internal implementations.
+<P>The DataStore application interface resides in the Zebra DataStore library, usually named libZebDS.a. Many of the functions in the DataStore library rely on the Zebra library, libZeb.a. Any application which references DataStore interface functions must link with both libZebDS.a and libZeb.a, in that order. Most of the information in this manual requires familiarity with the time and event-logging interfaces in the Zebra library, as well as the basic grid, scale, and altitude types. Much of the necessary information can be inferred from this manual, but the curious or very thorough can consult the <I>Zebra Library</I> manual.
+<H3><A NAME="REF19363">  1.1  The DataStore Daemon</A></H3>
+
+<HR>
+<P>This section gives a quick overview of the daemon and how it operates. An awareness of how the daemon functions will promote a better understanding of the application interface.
+<P>Essentially, the DataStore daemon keeps track of data. The data are categorized by <I>platform</I>, usually on the basis of the physical instrument or observation platform which makes the measurements or derives the data. Each platform dataset comprises data files separated according to the times of the data contained within the files. Within a platform dataset, each data file covers a period of time which does not intersect the periods covered by any of the other data files. The impetus of this is that a coordinate in time maps to a specific data file. In other words, the mapping
+<P><A HREF = "intro.fig_1.ps"><IMG SRC="intro.fig_1.gif">
+</A>
+<P>is a function.
+<P>The data file itself is simply a collection of <I>samples</I>, where a sample refers to the data values collected at a single time. A sample contains data for each of several named <I>fields</I>. The daemon keeps track of all of the platforms, all of the data files in each platform, the time period covered by the data in each file, and the organization of each platform's data. The data organization refers to the shape and type of the data, such as scalar (time series), gridded, or image data. The daemon makes all of this information available to its clients, and it mediates the access, control, and changes of both this information and the data files themselves.
+
+<P>In the current design and implementation of the Zebra DataStore, fields and platforms are completely independent. In other words, a field is not associated with a particular platform, nor is a platform required to provide or prohibit a particular field. The "data space" is meant to have three dimensions for locating data: platform, field, and time. A coordinate triplet of platform name, field name, and time uniquely maps any location in the data space. The question of whether a field should be platform-dependent or platform-independent is arguable either way. The Zebra design takes the platform-independent approach.
+<P>An important distinction must be made about how the daemon controls the flow of data. The daemon and its clients do not actually exchange any data through the application interface or through interprocess communication. [There are other avenues for that, such as the NetXfr client, discussed in the <I>Guide to Realtime Zebra.</I>] Instead, an application receives information about the <I>location</I> of the data file for a particular period of time, then the application itself writes or reads the data file. All of this happens within the DataStore application interface, without any special consideration on the part of the application. The interface encapsulates the handling of the data according to the platform's file type and data structure.
+<H3><A NAME="HDR0">  1.2  Platforms</A></H3>
+
+<HR>
+<P>Platforms have names, such as "mesonet" or "n312d". These names are convenient for homo sapiens using Zebra, but they are unwieldy internally. Instead, the application interface and the daemon reference platforms internally as objects of type PlatformId. The data store provides routines for translating literal names to PlatformId's and vice versa. Only the DataStore daemon keeps track of platform names and identifiers. The daemon configuration file (usually called ds.config) defines each of the platforms which the daemon will maintain and service. A platform definition specifies information which the daemon must know and must provide to DataStore clients. For example, here is a simple platform definition below.
+<PRE>
+!
+! GMS satellite data
+!
+class Satellite
+  organization      image
+  filetype      raster
+  maxsamples      50
+endclass
+instance Satellite gms
+
+</PRE>
+<P>The image organization indicates the structure of the data which will be stored in the platform's data files. In this case the data will be structured as an image, a two-dimensional array of bytes at a particular location in time and space, with optional scaling and offset information. The filetype is raster, a file format for raster data designed for Zebra. At the very least, the DataStore application interface must know what type of data file it will read and write and the organization of the data stored within the file. Some file types, such as netCDF and the Zebra native format (ZNF), can be used to store several different organizations (thought not necessarily in the same file). Platform information such as the file type and organization are not needed directly by the application. The DataStore library acquires the information from the DataStore daemon through the message interface, unbeknownst to the application. For more information about the daemon configuration file, see the <I>Zebra Advanced User's Manual</I>.
+<H4><A NAME="HDR1">  1.2.1  Platform Identifiers</A></H4>
+<P>The daemon assigns each platform defined in the configuration file an identifier. Every platform, as well as every subplatform, receives a unique PlatformId. The daemon and its clients will refer to platforms exclusively by their PlatformId. Platform identifiers are not necessarily consistent between runs of the DataStore daemon, so a client must find the ID of a platform from its name using ds_LookupPlatform().
+<PRE>
+<B>PlatformId
+ds_LookupPlatform(name)
+char *name;
+</PRE>
+<P></B>For example,
+<PRE>
+PlatformId pid;
+pid = ds_LookupPlatform("gms");
+</PRE>
+<P>The ds_LookupPlatform() function queries the DataStore for the ID of the platform named "gms", then returns the ID given by the DataStore's reply. If the platform name could not be found, the function returns the special symbol BadPlatform.
+<PRE>
+if (pid == BadPlatform)
+{
+  msg_ELog (EF_PROBLEM, "Platform `%s' is unkown.", "gms");
+  exit (1);
+}
+
+</PRE>
+<P>The function ds_PlatformName() returns the name of a platform given it's identifier. The memory occupied by the returned string belongs to the library and should not be freed or modified by the application.
+<PRE>
+<B>char *
+ds_PlatformName(id)
+PlatformId id;
+</PRE>
+<P></B>If <B>id</B> is invalid, the function returns the string "(BadPlatformID)".
+<P>A client may also wish to know how many platforms have been defined. The function ds_GetNPlat() returns this number.
+<PRE>
+<B>int ds_GetNPlat(void);
+</PRE>
+<P></B>The latest versions of the DataStore daemon support dynamic platform definition, meaning the number of platforms may change over the life of the DataStore daemon or even over the life of the client.
+<H3><A NAME="REF15614">  1.3  The Fields Table</A></H3>
+
+<HR>
+<P>A DataStore client needs to be able to remember and distinguish all of the fields it uses. By design, the interface tries to enforce some consistency in the names of the fields. Fields must be defined and added to the <I>fields table</I>. The DataStore interface includes an interface to the fields table, allowing a field to be assigned a name, units, and a description. Similarly to platforms, fields are known to users by name but are referenced internally through the FieldId type.
+<P>The fields table must be initialized by calling F_Init().
+<PRE>
+<B>void F_Init (void);
+</PRE>
+<P></B>Most applications will never need to call this function directly. The DataStore interface initialization function, ds_Initialize(), calls F_Init() automatically.
+<H4><A NAME="HDR2">  1.3.1  Declaring Fields</A></H4>
+<P>The basic function for declaring a field is F_DeclareField().
+<PRE>
+<B>FieldId
+F_DeclareField (name, desc, units)
+char *name, *desc, *units;
+</PRE>
+
+<P></B>The name of the field being declared is in <B>name</B>. The parameter <B>desc</B> is a terse description of the field, and <B>units</B> is a string describing the units of the field's data values. [See the note about the syntax of the units string in <A HREF="intro.html#REF68894">Section 1.3.4</A>.] The description and the units strings are copied internally; F_DeclareField() only copies as much of the strings as will fit in the field's table entry. The description should usually be about 40 to 60 characters long and the units no more than about 15 characters. If a field has already been declared as <B>name</B>, the FieldId of the existing declaration will be returned and the <B>desc</B> and <B>units</B> parameters will be ignored. 
+<P>The fields interface enforces a limit on the number of fields which an application can declare. The limit is usually on the order of 500 fields, so an application will rarely reach capacity. When it does reach capacity, F_DeclareField() logs a warning message.
+<P>Fields can also be given aliases.
+<PRE>
+<B>FieldId
+F_Alias (name, alias)
+char *name, *alias;
+</PRE>
+<P></B>After calling F_Alias(), the name <B>alias</B> is equivalent to the field named <B>name</B>. Every search for a field with name <B>alias</B> will return the field named <B>name</B>. The <B>name</B> parameter itself can be an alias. F_Alias() uses F_Declared() to find the field named <B>name</B>, so if the field cannot be found then F_Alias() does not create any alias and instead returns the symbol BadField. Aliases can be useful when integrating data from a new data source which has different names for the same data fields.
+<H4><A NAME="HDR3">  1.3.2  Searching for Fields</A></H4>
+<P>Two functions return a FieldId when passed a field name.
+<PRE>
+<B>FieldId
+F_Lookup (name)
+char *name;
+FieldId
+F_Declared (name)
+char *name;
+</PRE>
+
+<P></B>The <B>name</B> parameter is the name of a field (or an alias) to find in the fields table. If the field is found, both functions return the field's FieldId. <B>However</B>, if the field is not found, the two functions behave <B>differently</B>. F_Lookup() will declare a field called <B>name</B> and supply default values for the description and the units. The default description will be the field name, and the units will be declared as "unknown". This behavior of F_Lookup() allows "quick-and-dirty" field handling when the application just needs a FieldId for reference and does not care to properly declare the field. Use of F_Lookup() this way should be limited to special circumstances.
+<P>Alternatively, F_Declared() will return the special symbol BadField when the field <B>name</B> cannot be found, otherwise it returns the FieldId. See the example in <A HREF="intro.html#REF68894">Section 1.3.4</A>.
+<H4><A NAME="HDR4">  1.3.3  Retrieving Field Information</A></H4>
+<P>The fields interface provides three functions for retrieving the individual characteristics of a field. 
+<PRE>
+<B>char *
+F_GetName (id)
+FieldId id;
+char *
+F_GetDesc (id)
+FieldId id;
+char *
+F_GetUnits (id)
+FieldId id;
+</PRE>
+<P></B>Each function requires a FieldId as the only argument, <B>id</B>, and each function returns the requested information as a string. The string occupies memory which belongs to the interface and should not be freed or modified. If <B>id</B> is an invalid FieldId, the functions return NULL.
+<H4><A NAME="REF68894">  1.3.4  Rules of Thumb</A></H4>
+<P>Here are some "rules of thumb" which might be helpful in declaring and using Zebra fields. First, a field's declared characteristics should be limited to platform-independent information. If data have different units for different platforms, then by Zebra's present notion each platform is using a different field and thus should use a unique field name. Whenever possible, use F_DeclareField() to fully and unambiguously specify each field which will be used by an application; do not allow F_Lookup() to supply an ambiguous declaration. First look for the field by name with F_Declared(), and then declare the field if it has not already been defined.
+<PRE>
+FieldId fid;
+if ((fid = F_Declared ("tdry")) == BadField)
+  fid = F_DeclareField ("tdry", "ambient temperature", "deg C");
+
+</PRE>
+<P>The above piece of code is equivalent to just calling F_DeclareField(), except that in the code below it is less clear that the "ambient temperature" and "deg C" strings will be ignored if the field "tdry" already exists.
+<PRE>
+FieldId fid;
+fid = F_DeclareField ("tdry", "ambient temperature", "deg C");
+</PRE>
+<P>A field declaration cannot be changed. Attempts to declare a field which has already been defined will be silently ignored (but F_DeclareField() will still return the original field's FieldId). This is Zebra's attempt at enforcing a single, consistent declaration of a field throughout an entire application. It is the <I>application's</I> responsibility to ensure that its <I>use</I> of the field is consistent with the declaration.
+<P>Note that the fields table is not actually administered by the DataStore daemon. Therefore it is entirely possible (though not desirable) for two applications to declare the same field name inconsistently. The fields interface attempts to enforce consistency within an application, while developers ensure consistency among all of the applications and platforms.
+<P>Obviously, the fields table does not have a complete or thorough understanding of fields. In particular, it lacks the notions of field derivation and units conversion. These enhancements are on the drawing board. In the future, the fields table will likely incorporate better units handling through Unidata's <I>udunits</I> package or something similar.<A HREF="intro.html#FN1">(1)</A> Meanwhile, applications may benefit in the long run by declaring field units which are compatible with the <I>udunits</I> syntax.
+<H3><A NAME="HDR5">  1.4  Basic Types</A></H3>
+
+<HR>
+<P>The DataStore interface utilizes a number of simple but convenient variable types and structures. These types and structures exist to facilitate the exchange of information and data between client and daemon. Some of the types are only useful when referenced in a larger context of information. Other types with more limited relevance or very specific uses are described with the interface functions which use them.
+<P>The DataStore interface makes extensive use of the ZebTime type, which is part of the Zebra library interface and hence not described here. See the <I>Zebra Library Interface Manual</I> for information on using ZebTime.
+
+<P>The Location, RGrid, and ScaleInfo types are also actually part of the Zebra library, but summaries of these types are included here for the sake of easy reference. More details on these types can be found in the <I>Zebra Library Interface Manual</I>.
+<H4><A NAME="REF30055">  1.4.1  Locations</A></H4>
+<P>Geographic locations are represented internally by the Location data type, defined in the library header file defs.h:
+<PRE>
+typedef struct s_Location {
+  float    l_lat;
+  float    l_lon;
+  float    l_alt;
+} Location;
+</PRE>
+<P>Longitudes are proper longitudes---negative for the western hemisphere. Longitudes should fall into the range [-180.0, 180.0]. Latitudes are positive in the northern hemisphere and negative in the southern hemisphere, falling into the range [-90.0, 90.0]. 
+<H4><A NAME="REF92075">  1.4.2  Altitudes</A></H4>
+<P>The altitude of a location, when valid or relevant, defaults to units of kilometers above mean sea level ("km above MSL"). When the altitude of a location is significant, the Location structure is often associated with an AltUnitType, also defined in the library header file defs.h.
+<PRE>
+typedef enum 
+{
+  AU_kmMSL,    /* km MSL */
+  AU_mMSL,    /* m MSL */
+  AU_kmAGL,    /* km AGL */
+  AU_mAGL,    /* m AGL */
+  AU_mb,    /* mb (pressure altitude) */
+  AU_sigma,    /* sigma level (unitless) */
+  AU_level    /* unknown, unitless level */
+} AltUnitType;
+</PRE>
+<P>The prototypes for the altitude functions are listed below for reference. For a complete explanation of altitude units and the interface, see the <I>Zebra Library Interface Manual</I>.
+<PRE>
+const char *au_UnitsName (AltUnitType atype);
+const char *au_LongUnitsName (AltUnitType atype);
+const char *au_PrintFormat (AltUnitType atype);
+const char *au_AltLabel (double alt, AltUnitType atype);
+const char *au_LongAltLabel (double alt, AltUnitType atype);
+bool au_ConvertName (char *name, AltUnitType *atype);
+
+</PRE>
+<H4><A NAME="HDR6">  1.4.3  Scales and Offsets</A></H4>
+<P>The ScaleInfo structure can be used to store scaling information.
+<PRE>
+typedef struct s_ScaleInfo {
+  float  s_Scale;
+  float  s_Offset;
+} ScaleInfo;
+</PRE>
+<P>An array of float data would be converted to bytes as follows.
+<PRE>
+for (i = 0; i &lt; ARRAY_SIZE; ++i)
+  bytes[i] = (floats[i] - Scale.s_Offset) / Scale.s_Scale;
+</PRE>
+<P>The byte data could be converted back to floating point values with this loop.
+<PRE>
+for (i = 0; i &lt; ARRAY_SIZE; ++i)
+  floats[i] = ((float)bytes[i]) * Scale.s_Scale + Scale.s_Offset;
+</PRE>
+<P>See the library manual for more details.
+<H4><A NAME="HDR7">  1.4.4  Regular Grids</A></H4>
+<P>The RGrid structure describes regular grids of one, two, or three dimensions. The number of dimensions being used in the grid must be noted in a separate variable. The RGrid type is defined in defs.h as follows:
+<PRE>
+typedef struct s_RGrid {
+  float  rg_Xspacing;
+  float  rg_Yspacing;
+  float  rg_Zspacing;
+  int  rg_nX, rg_nY, rg_nZ;
+} RGrid;
+</PRE>
+<H4><A NAME="HDR8">  1.4.5  Data Organizations</A></H4>
+<P>The DataStore and its clients must differentiate between many "shapes" or organizations of data. The enumerated type DataOrganization, defined in DataStore.h, refers to these organizations.
+<PRE>
+typedef enum {
+  OrgUnknown      = 0,
+  Org2dGrid      = 1,
+  OrgIRGrid      = 2,
+  OrgScalar      = 3,
+  OrgImage      = 4,
+  OrgOutline      = 5,
+  Org3dGrid      = 6,
+  OrgCmpImage      = 7,
+  Org1dGrid      = 8,
+  OrgTransparent      = 9,
+
+  OrgFixedScalar      = 10,
+  OrgNSpace      = 11,
+} DataOrganization;
+</PRE>
+<P>Most applications will not need to use the DataOrganization type. DataStore applications usually deal exclusively with DataChunks, whose organization is inherent to their class. The library interface uses the DataOrganization internally to write DataChunks according to file format. <A HREF="datachunks.html#REF99837">Chapter 2</A> describes DataChunks in detail.
+<H3><A NAME="HDR9">  1.5  Using the DataStore Interface</A></H3>
+
+<HR>
+<P>This section contains the minimal steps required to use the DataStore interface in an application.
+<H4><A NAME="HDR10">  1.5.1  The DataStore Header File</A></H4>
+<P>Applications which require the DataStore interface should include the DataStore header file as shown below.
+<PRE>
+#include &lt;DataStore.h&gt;
+</PRE>
+<P>The DataStore.h header file defines several types, structures, and macros used by the interface. In addition, it includes prototypes for all of the public interface functions. Since the DataStore library requires the Zebra library, and most DataStore clients will use many of the Zebra library routines, the client source file should usually include all of these files, in this order:
+<PRE>
+#include &lt;defs.h&gt;
+#include &lt;ui.h&gt;
+#include &lt;message.h&gt;
+#include &lt;timer.h&gt;
+#include &lt;DataStore.h&gt;
+</PRE>
+<P>Past versions of Zebra required source files to include the DataChunk.h header file. This file has been incorporated into DataStore.h and is now obsolete. Source files which still include DataChunk.h should remove the include directive for DataChunk.h.
+<H4><A NAME="HDR11">  1.5.2  Initialization</A></H4>
+<P>Any program which uses the data store must first initialize the interface and the connection to the DataStore daemon.
+<PRE>
+<B>int
+ds_Initialize (void);
+
+</PRE>
+<P></B>The ds_Initialize() function assumes that the user interface (UI) symbol table module has been initialized and that msg_connect() has been called. The UI symbol table can be initialized through a call to ui_init() or usy_init(). The function ds_Initialize() returns non-zero (true) on success and zero (false) on failure.
+<P>A typical DataStore client might begin with the following code.
+<PRE>
+main (argc, argv)
+int argc;
+char **argv;
+{
+/*
+ * Connect to the message handler
+ */
+  msg_connect (msg_handler, Ourname);
+  msg_DeathHandler (ShutDown);
+  msg_SetQueryHandler (AnswerQuery);
+/*
+ * Hand off information to the UI, and initialize things.
+ */
+  fixdir ("LOAD_FILE", GetLibDir (), "loadfile.lf", loadfile);
+  ui_init (loadfile, FALSE, TRUE);
+  ui_setup ("ourname", &amp;argc, argv, (char *) Resources);
+/*
+ * Initialize the data store.
+ */
+  if (! ds_Initialize ())
+  {
+    msg_ELog (EF_EMERGENCY, "Data store initialize failed");
+    exit (1);
+  }
+  /* ... */
+</PRE>
+<P>Simpler clients which do not need the UI command interpreter or a load file can initialize the symbol table module directly with usy_init().
+<PRE>
+main (argc, argv)
+int argc;
+char **argv;
+{
+  msg_connect (msg_handler, Ourname);
+  usy_init ();
+  if (! ds_Initialize ())
+  {
+    msg_ELog (EF_EMERGENCY, "Data store initialize failed");
+    exit (1);
+  }
+  /* ... */
+
+</PRE>
+<H4><A NAME="HDR12">  1.5.3  Compiling and Linking</A></H4>
+<P>The Zebra development environment uses Imake<A HREF="intro.html#FN2">(2)</A> to configure and build all of the Makefiles in the directory hierarchy. The easiest way to write and compile a new DataStore client is to first copy the Imakefile for an existing DataStore client into the new client's source directory. Then edit the new Imakefile. Usually it should be sufficient to change the name of the executable and the source files. From the source directory, use the following command to generate a Makefile from the Imakefile.
+<PRE>
+% zmkmf <I>zeb_topdir</I> <I>curdir
+</PRE>
+<P></I><I>zeb_topdir</I> is the path, either relative or absolute, to the top-level directory of the Zebra distribution. Likewise, <I>curdir</I> is the path <I>from</I> the top-level directory back to the source directory. The <I>curdir</I> path can also be either relative or absolute. The zmkmf script is found in the Zebra binary directory; this directory should be on your path.
+<P>For example, to generate a Makefile for a new ingest module called count_prairie_dogs, the Imakefile might look like the following. This one was edited from a copy of the class_ingest Imakefile.
+<PRE>
+MFVERSION="$Id: Imakefile,v 1.7 1994/01/21 11:48:55 granger Exp $"
+LIBS = $(LIBSUDS) $(LIBZEBDS) $(LIBZEB) $(LIBRDSSGRAPH) \
+        $(LIBRDSS) $(LIBNETCDF) $(XLIBS)
+LINTOPTS = -nuvxz
+SRCS = count_prairie_dogs.c
+OBJS = count_prairie_dogs.o
+DISTFILES = count_prairie_dogs.c Imakefile
+NormalProgramTarget(count_prairie_dogs, $(OBJS), $(DEPLIBS), $(LIBS), 
+                $(SYSLIBS))
+DependTarget()
+LintTarget()
+DistfilesTarget($(DISTFILES))
+
+</PRE>
+<P>If the source directory for count_prairie_dogs is /zeb/local/cpd and the top directory of the Zebra installation is /zebra, then running the zmkmf command
+<PRE>
+% zmkmf /zebra /zebra/local/cpd
+</PRE>
+<P>from the source directory would create a Makefile in that directory. The commands
+<PRE>
+% zmkmf /zebra `pwd`
+</PRE>
+<P>and
+<PRE>
+% zmkmf ../.. local/cpd
+</PRE>
+<P>would also work. More information on writing ingest modules can be found in <A HREF="ingest.html#REF65598">Chapter 11</A>.
+<H3><A NAME="HDR13">  1.6  Overview of the DataStore Interface</A></H3>
+
+<HR>
+<P>The DataStore application interface provides ways to describe, store, retrieve, and delete data, as well as inquire about available data and the attributes of those data. The interface can be loosely divided into those categories: data description, data storage and retrieval, and data inquiries. The next several chapters deal with each of these categories in detail. The responsibility of data description essentially lies in the realm of the data chunk, which is described next. Later chapters explain how to associate attribute information with data chunks, how to store a data chunk to a file, and how to retrieve data from files as a data chunk. <A HREF="dsapi.html#REF72749">Chapter 9</A> lays out the application interface to the data storage, retrieval, searching, and deletion capabilities of the datastore protocol. Lastly, there are also a few chapters which mention efficiency issues and considerations regarding internal implementations and the data file format drivers.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+<HR><H3>Footnotes</H3>
+<DL COMPACT>
+<DT><A NAME=FN1>(1)</A><DD>Unidata, University Corporation of Atmospheric Research. udunits is available via anonymous ftp to ftp.unidata.ucar.edu.
+<DT><A NAME=FN2>(2)</A><DD>Imake was originally written by Todd Brunhoff, Tektronix, Inc., while a guest engineer at Project Athena, MIT, and further developed by Jim Fulton of the X Consortium. Imake is copyrighted by MIT, but permission has been granted for any use and distribution, as long as the copyright message is included.
+</DL>
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="datachunks.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

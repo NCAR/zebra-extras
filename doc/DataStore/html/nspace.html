@@ -1,0 +1,824 @@
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="grids.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>� CHAPTER 6 � </B> The N-space Class</TITLE>
+<H1><A NAME="REF21503"> <paranum><B>� CHAPTER 6 � </B> The N-space Class</A></H1>
+
+<P>The N-space DataChunk class (class ID DCC_NSpace), subclassed from DCC_MetData, stores general-purpose, N-dimensional, floating-point, regularly- or irregularly-spaced meteorological data which do not fit existing DataChunk class organizations. It fills a gap between the scalar class and the gridded classes: scalar-class data are limited to a single temporal dimension, while the dimensions of gridded-class data are restricted to physical coordinate systems. N-space fields can be defined as time-dependent or time-independent, over zero dimensions or over several dimensions. The N-space class is flexible enough to define several organizations of data, including irregularly-spaced data, and allow fields of different organizations to be combined within the same DataChunk.
+<P>On a fundamental level, the N-space class is analogous to the netCDF data model. The class can serve as a vehicle for passing general data through the DataChunk interface to the netCDF interface and netCDF-format files. The N-space interface makes use of many of the requirements and conventions of the netCDF interface, including the use of <I>coordinate variables</I> (also referred to here as <I>dimension variables</I>) to describe irregularly-indexed arrays of data. Coordinate variables are explained in <A HREF="nspace.html#REF23692">Section 6.1.2</A>. Also, see the NetCDF User's Guide<A HREF="nspace.html#FN1">(1)</A> for details on the netCDF interface.
+
+<P>Since the N-space class is designed to take advantage of the flexibility of the netCDF interface, the netCDF file format is the only format for which Zebra supports the storage and retrieval of N-space DataChunks. The current support is limited to scalar and nspace organizations, but support for other organizations is possible.
+<P>Note that <A HREF="nspace.html#REF54847">Section 6.4, "Examples"</A>, contains several examples of N-space code which may be helpful references while reading the first few sections of the chapter. Feel free to suggest other examples which would help clarify any of the information.
+<H4><A NAME="HDR0">  6.0.1  Changes in Zebra 4.1</A></H4>
+<P>Release 4.1 includes some new flexibility for manipulating N-space datachunks. Originally, variables and dimensions could be redefined while the definition was still open and no data had been added, but a redefinition always produced a warning in the event logger. The new function dc_NSAllowRedefine() allows redefinitions to be explicitly allowed rather than always causing warnings. For backwards compatibility, N-space datachunks default to the historical behavior of warning about redefinitions. See the new section, <A HREF="nspace.html#REF33020">Section 6.2.4, "Redefinition"</A>, for more information.
+<H4><A NAME="HDR1">  6.0.2  Changes in Zebra 4.0</A></H4>
+<P>Release 4.0 of Zebra includes some additions and enhancements to the N-space interface.   First of all, there is a new function dc_NSAddMultSamples(), which allows multiple samples of a single field to be added in one function call. This function is analogous to the MetData class's dc_AddMData() function.
+<P>The dc_NSGetSample() function is no longer restricted to retrieving dynamic data. If data for a static field is requested, dc_NSGetSample() ignores the sample number parameter and returns the static data. This makes sense because static data is by definition constant across all of the samples in the DataChunk, and therefore it can be returned as valid data for any sample number. The opposite is not true; static data cannot be added through the dc_NSAddSample() function.
+<P>The interface sections below, <A HREF="nspace.html#REF12561">Section 6.2.6, "Adding Data"</A> and <A HREF="nspace.html#REF45148">Section 6.2.7, "Extracting Data"</A>, describe both of the changes above in more detail and include the function prototypes.
+
+<H3><A NAME="HDR2">  6.1  General Overview</A></H3>
+
+<HR>
+<P>This section describes three concepts which are unique to the N-space DataChunk class: dimensions, coordinate variables, and static fields.
+<H4><A NAME="REF25895">  6.1.1  Dimensions</A></H4>
+<P>Like its parent class, DCC_MetData, the N-space class organizes DataChunks as a collection of fields, each distinguished by their unique FieldId. For the N-space class, the words `field' and `variable' will be used interchangeably, and in general the words refer to the same concept. In addition to fields, the N-space class adds the notion of dimensions. Two required pieces of information describe a dimension: the name and the size. The dimension's name uniquely identifies itself among the other dimensions in a DataChunk and serves as a reference when defining fields or inquiring about the dimensions in a DataChunk. The dimension's size is simply the number of coordinates (i.e., indices) in the dimension. The N-space interface allows dimensions to be specified either by name or by FieldId. When specified by FieldId, the field name associated with the FieldId becomes the name of the dimension. The ability to specify dimensions by FieldId can simplify situations where one field or a group of fields will serve to irregularly index several other fields [see <A HREF="nspace.html#REF23692">Section 6.1.2</A> on coordinate variables].
+<P>An N-space field differs from MetData fields in that N-space fields are defined over a list of dimensions and can be either static or dynamic. The interface for defining fields and dimensions is explained in <A HREF="nspace.html#REF67263">Section 6.2.3</A>. <A HREF="nspace.html#REF76984">Section 6.1.3</A> explains static fields.
+<H4><A NAME="REF23692">  6.1.2  Coordinate Variables</A></H4>
+
+<P>To define irregularly-spaced data, the netCDF data model and the N-space interface rely on the notion of <I>coordinate variables</I>. A coordinate variable is a mapping whose range maps the domain of another variable. Hence the coordinate variable maps the irregularly-spaced points along a dimension, while a variable defined over that same dimension maps its range values corresponding to the points mapped by the coordinate variable. The convention used by netCDF and adopted by the N-space interface identifies a coordinate variable as a variable whose name is identical to the name of a dimension. For example, consider a variable named <I>x</I> which maps the dimension x into the domain of a variable y, yielding two mappings <A HREF = "nspace.fig_3.ps"><IMG SRC="nspace.fig_3.gif"></A> and <A HREF = "nspace.fig_4.ps"><IMG SRC="nspace.fig_4.gif"></A>, where <A HREF = "nspace.fig_5.ps"><IMG SRC="nspace.fig_5.gif"></A>is the <I>variable x</I> and <A HREF = "nspace.fig_6.ps"><IMG SRC="nspace.fig_6.gif"></A> is the <I>dimension x</I>. Note that there is a distinction between <I>x</I> the variable and <I>x</I> the dimension. The N-space interface makes this distinction by clearly separating the definition of a variable from the definition of a dimension. In this case, <A HREF = "nspace.fig_7.ps"><IMG SRC="nspace.fig_7.gif">
+</A> is the coordinate variable. A set of data points for the irregularly-spaced variable <I>y</I> such as
+<P><A HREF="nspace.fig_8.ps"><IMG SRC="nspace.fig_8.gif">
+</A>
+<P>would be described by the following field data in an N-space DataChunk (<I>x</I> is the variable <A HREF = "nspace.fig_9.ps"><IMG SRC="nspace.fig_9.gif">
+</A>):
+<P><A HREF="nspace.fig_10.ps"><IMG SRC="nspace.fig_10.gif">
+</A>
+<P>and
+<P><A HREF="nspace.fig_11.ps"><IMG SRC="nspace.fig_11.gif">
+</A>
+<P>If the domain of another variable, <I>z</I>, was also mapped by <I>x</I>, then the field would be defined as <A HREF = "nspace.fig_12.ps"><IMG SRC="nspace.fig_12.gif">
+</A>in the DataChunk. The values of <I>z</I> would be the values of at each of the points mapped by <I>x</I>.
+<P>The N-space interface does not explicitly define a coordinate variable. The interpretation of a field as a coordinate variable is implicit in the naming convention described above. A dimension <I>does not </I>need to have a corresponding variable of the same name. A dimension without a coordinate variable simply represents a regularly-spaced domain containing the indices, 1, 2, 3, <I>n</I>, where <I>n</I> is the size of the dimension. A field dimensioned over such a domain maps the indices of the dimension to the field's values at specific coordinates along the dimension. Coordinate variables are purely a method of attaching auxiliary and optional information to a dimension, such as an explicit mapping of the values in a field's domain or a physical significance of the field's dimension. For example, a vector in 3-space dimensioned over time might be defined as <A HREF = "nspace.fig_13.ps"><IMG SRC="nspace.fig_13.gif"></A>. Time is the dimension <I>t</I>, while <I>c</I> is the component dimension of size 3. The values of the <I>x, y, z</I> and components of <I>v</I> would be stored at the coordinates <A HREF = "nspace.fig_14.ps"><IMG SRC="nspace.fig_14.gif">
+</A>, respectively, for each time coordinate along dimension <I>t</I>. In this example, a coordinate variable for dimension <I>c</I> is not only unnecessary but unreasonable as well.
+<H4><A NAME="REF76984">  6.1.3  Static Fields</A></H4>
+<P>Occasionally it may be desirable to store a field or coordinate variable whose data do not vary with time. Rather than store the same data repeatedly for each time sample in a DataChunk and waste space, the N-space class allows the definition of static fields. A static field is not associated with a particular time or sample number, and its data only needs to be added to the DataChunk once.
+
+<P>Any N-space field, regardless of the number of dimensions or whether it is a coordinate variable, can be defined as static. A field which is not static stores data according to specific times and sample numbers, as in the MetData interface.
+<H3><A NAME="HDR3">  6.2  The N-space Interface </A></H3>
+
+<HR>
+<P>This section provides general guidelines for using the N-Space interface, as well as descriptions of the specific interface functions, their prototypes, and their uses.
+<H4><A NAME="REF87038">  6.2.1  Guidelines</A></H4>
+<P>The N-space interface divides the construction of an N-space DataChunk into two steps: first, the definition of dimensions and fields; and second, the addition of the data. The definition must be completed before any data can be added.
+<P>Dimensions can be defined in two ways: individually by specifying a FieldId and a size, or in arrays of names and sizes passed to a field definition. The two methods differ primarily in that the use of a FieldId to specify a dimension can make the definition of coordinate variables more convenient. Since FieldIds are unique, a dimension and a field with identical FieldIds are guaranteed to have the same name, and hence by convention the field can be interpreted as a coordinate variable. Also, when defining many fields and dimensions in a single DataChunk, FieldIds may be easier to manipulate.
+<P>In either approach to defining dimensions, when defining a field the dimensions of the field are listed in an array, either an array of FieldIds or an array of names. The order of the dimensions in the array corresponds to the order of the arguments in the `function mapping' of the field, as in
+<P><A HREF="nspace.fig_1.ps"><IMG SRC="nspace.fig_1.gif">
+</A>
+
+<P>where <I>f</I> is a field defined over four dimensions, <I>A, B, C, </I>and<I> D</I>, whose range is the set of real numbers, <A HREF = "nspace.fig_2.ps"><IMG SRC="nspace.fig_2.gif">
+</A>. To store the multi-dimensional array of field values in linear memory, the N-space interface requires that arrays be in row-major order---the coordinate for dimension <I>d</I> varying fastest in memory, followed by dimension <I>c</I>, and so on:
+<P><A HREF="nspace.fig_15.ps"><IMG SRC="nspace.fig_15.gif">
+</A>
+<P>The use of row-major order complies with the netCDF C interface specification. All field data will be stored and retrieved in row-major order, as a linear array of floating point values. The N-space interface itself cannot verify that it receives data in the correct order. Improper ordering of a data array can be detected by visual inspection of the netCDF file which stores the data.
+<P>Once all dimensions and fields have been defined, the definition must be marked completed. This happens automatically when adding data to any of the fields for the first time. Definition can also be forced to completion by calling dc_NSDefineComplete(). Once definition is complete, it cannot be re-opened. <A HREF="nspace.html#REF67263">Section 6.2.3</A> describes the functions available for defining dimensions and fields. <A HREF="nspace.html#REF12561">Section 6.2.6</A> describes the functions available for adding data.
+<P>There are two categories of functions for retrieving information from an N-space DataChunk: inquiries about the available dimensions and fields, and retrieval of actual field data. <A HREF="nspace.html#REF46101">Section 6.2.5</A> explains how to get information about the dimensions and fields in a DataChunk, and <A HREF="nspace.html#REF12561">Section 6.2.6</A> explains how to retrieve field data.
+<P>Numerical and Boolean parameters, except for the size of a dimension, are always type int. Dimension sizes and lengths of data arrays are always type unsigned long. The `length' of a data array or `size' of a field is the number of floating point elements in the array or in the range of the field, respectively, <I>not</I> the number of bytes occupied by the data. For information retrieval, character strings are returned as pointers to memory inside the DataChunk. The memory containing the strings will be valid for the lifetime of the DataChunk, but it should not be freed or modified. Any parameters passed by reference to hold return values can be passed as NULL, in which case nothing will be returned for that parameter. Lastly, all of the N-space interface functions have a prefix of "dc_NS".
+<P>Interface functions from the N-space parent class, MetData, can also be useful, but only for retrieving information and data, and only once definition has been completed. Following are some potentially useful MetData class functions:
+<DL>
+<DT>dc_GetNField()<DD>For getting the total number of fields, both static and dynamic.
+
+<DT>dc_GetFields()<DD>For getting lists of the fields and their field IDs, both static and dynamic.
+<DT>dc_GetMData()<DD>For retrieving data from a dynamic field at a particular sample as an opaque block of bytes. There is no way to retrieve static field data outside of the N-space interface.
+<DT>dc_SetBadval(), dc_GetBadval()<DD>Set and retrieve the bad values associated with N-space fields. The bad value can only be set once definition is complete, as the fields are not defined in the superclass MetData structure until the definition of all N-space fields is complete.
+</DL>
+<P>The N-space class inherits all of the attribute capabilities of the MetData class, including per-field and per-sample attributes. Of course, per-sample attributes are meaningless for static fields.
+<H4><A NAME="REF61325">  6.2.2  Header File Declarations</A></H4>
+<P>The header file DataStore.h contains some parameters and declarations required by the N-space interface. First of all, it contains prototypes for all of the functions in the N-space interface. It also contains comments outlining the general use of the N-space interface. Three C pre-processor symbols defined in DataStore.h are used by the N-space class: DC_MaxField, DC_MaxDimension, and DC_MaxDimName. DC_MaxField is the maximum number of fields which can be defined in a DataChunk. Likewise, DC_MaxDimension is the maximum number of dimensions which can be defined in a DataChunk. The DC_MaxDimName parameter is the maximum size of a dimension name, including the NULL terminator. Dimension names longer than the DC_MaxDimName length are truncated, as described in <A HREF="nspace.html#REF67263">Section 6.2.3</A>. Any attempts to breach the DC_MaxDimension or DC_MaxField limits in an N-space DataChunk results in error messages to the event logger.
+<H4><A NAME="REF67263">  6.2.3  Definition</A></H4>
+<P>All of the definition functions have the prefix dc_NSDefine.
+
+<P>The dc_NSDefineField() function defines a field and its dimensions simultaneously:
+<PRE>
+<B>void
+dc_NSDefineField(dc, field, ndims, dimnames, dimsizes, is_static)
+DataChunk *dc;
+FieldId field;
+int ndims;
+char **dimnames;
+unsigned long *dimsizes;
+int is_static;
+</PRE>
+<P></B>The FieldId of the field is passed in <B>field</B>. The number of dimensions in this field is given in <B>ndims</B>, while <B>dimnames</B> and <B>dimsizes</B> are arrays which provide a name and size for each dimension. The field will be defined as static if and only if the flag <B>is_static</B> is non-zero. The dimension names and sizes will be copied into the DataChunk, so the memory occupied by <B>dimnames</B> and <B>dimsizes</B> does not need to be valid beyond the call to the function. If a dimension named in <B>dimnames</B> does not exist, it is defined and given the corresponding size from <B>dimsizes</B>. If a named dimension does exist in the DataChunk, it will be verified with the previous definition. A disagreement in size will produce a warning and a re-definition of the dimension to the new size.[See dc_NSAllowRedefine() in <A HREF="nspace.html#REF33020">Section 6.2.4</A>.] It is acceptable to define a field with zero dimensions. A dynamic field with zero dimensions is essentially identical to a DCC_Scalar field, while a static field with zero dimensions will hold a single floating point value in the DataChunk.
+<P>The dc_NSDefineField() function is the simpler method of defining a field, intended for fields whose dimensions will not be indexed by other fields in the DataChunk. As stated in <A HREF="nspace.html#REF25895">Section 6.1.1</A>, dimension names must be unique since they are used to distinguish the dimensions in a DataChunk, no matter whether the dimension is defined by name through dc_NSDefineField() or by FieldId through dc_NSDefineDimension() (described below). It is not possible to define two dimensions with identical names and different sizes. Each definition of a dimension's size overrides any previous definitions. A field whose name matches a dimension name is assumed to be a coordinate variable (see <A HREF="nspace.html#REF23692">Section 6.1.2</A>). When intentionally defining a coordinate variable with dc_NSDefineField(), note that errors such as misspelled dimension names cannot be caught by the interface. The functions dc_NSDefineDimension() and dc_NSDefineVariable() provide a more rigorous approach to defining indirectly-indexed field data.
+
+<P>Use dc_NSDefineDimension() to explicitly define a single dimension using the FieldId mechanism:
+<PRE>
+<B>void 
+dc_NSDefineDimension(dc, dimn, size)
+DataChunk *dc;
+FieldId dimn;
+unsigned long size;
+</PRE>
+<P></B>The dimension's FieldId is taken from <B>dimn</B>, while <B>size</B> is the size of the dimension. The name associated with the FieldId <B>dimn</B> is used as the name of the dimension. Any dimension defined with a FieldId can be referenced either by its name or by its FieldId. Ordinarily, dimensions defined with dc_NSDefineDimension() are used in defining a field with dc_NSDefineVariable() (described below). The N-space class interprets any field defined with the same FieldId as a dimension as a coordinate variable. [See <A HREF="nspace.html#REF73956">Section 6.3</A> for exceptions in netCDF files.] The dimension name is still checked for uniqueness among other dimensions, even if the FieldId is unique. If a dimension of the same name has already been defined, then the most recent definition, including the FieldId and size, will override the existing definition.
+<P>The dc_NSDefineVariable() function adds a field to an N-space DataChunk:
+<PRE>
+<B>void
+dc_NSDefineVariable(dc, field, ndims, dims, is_static)
+DataChunk *dc;
+FieldId field;
+int ndims;
+FieldId *dims;
+int is_static;
+</PRE>
+<P></B>The field is identified by the FieldId <B>field</B>. The field will be defined over <B>ndims</B> dimensions, where each FieldId in the array <B>dims</B> corresponds to the FieldId of a dimension defined previously with dc_NSDefineDimension(). If <B>is_static</B> is non-zero, the field will be defined as static---it will not be implicitly defined over time, meaning data for this field will be stored independent of sample numbers and sample times (see <A HREF="nspace.html#REF76984">Section 6.1.3</A>). The <B>is_static</B> flag is primarily intended for coordinate variables whose mappings do not change over the period of samples stored in the DataChunk. As mentioned with dc_NSDefineField(), it is acceptable to define a variable with zero dimensions. Previous definitions of a variable with the same FieldId will be overridden by the most recent definition.
+
+<P>The N-space definition interface contains two functions dealing with the state of a DataChunk's definition:
+<PRE>
+<B>void
+dc_NSDefineComplete (dc)
+DataChunk *dc;
+</PRE>
+<P></B>and
+<PRE>
+<B>int
+dc_NSDefineIsComplete (dc)
+DataChunk *dc;
+</PRE>
+<P></B>The first function, dc_NSDefineComplete(), marks the definition of the DataChunk as completed. Closing the definition blocks any further definition changes or additions, defines the N-space fields to the parent class, MetData, and calculates the sizes of each of the fields from the sizes of their dimensions. If definition is already closed, dc_NSDefineComplete() does nothing. Definition is automatically completed whenever data are first added to the DataChunk; the dc_NSDefineComplete() function is provided to allow important calculations to be forced before dumping a DataChunk with dc_DumpDC(), without requiring the addition of any data. Once the definition is marked completed, it cannot be re-opened.
+<P>To test whether the definition of a DataChunk is open or closed, use the function dc_NSDefineIsComplete(), which returns a non-zero value if and only if the definition is complete (closed).
+<H4><A NAME="REF33020">  6.2.4  Redefinition</A></H4>
+<P>While a datachunk's definition is still open, applications can call dc_NSAllowRedefine() to set whether redefinitions should produce warning messages or be silently accepted.
+<PRE>
+<B>void
+dc_NSAllowRedefine(dc, allow)
+DataChunk *dc;
+int allow;
+</PRE>
+<P></B>The <B>allow</B> parameter is a Boolean value. If non-zero, redefinitions will be silently accepted for the given datachunk. If zero, the datachunk resets to the default behavior of warning about all redefinitions. Once the datachunk definition has been closed, calls to dc_NSAllowRedefine() have no effect.
+
+<P>Changing the redefinition behavior can be useful when defining `placeholder' dimensions or variables whose sizes will not be known until a program completes other calculations. Warnings can be turned on and off depending upon where and when redefinitions must be allowed, so that unintended or accidental redefinitions can still be easily detected and debugged.
+<H4><A NAME="REF46101">  6.2.5  Inquiry</A></H4>
+<P>The inquiry functions retrieve the information which is defined through the definition functions. All of the inquiry functions return type int. For some functions, this return value is either the number of fields or dimensions found. For other functions, the return value is a result code. A non-zero result code indicates success; result codes of zero indicate failure.
+<P>The function dc_NSGetAllDimensions() returns all available information for each of the dimensions defined in an N-space DataChunk.
+<PRE>
+<B>int
+dc_NSGetAllDimensions(dc, names, dimn_ids, sizes)
+DataChunk *dc;
+char **names;
+FieldId *dimn_ids;
+unsigned long *sizes;
+</PRE>
+<P></B>It returns the number of dimensions contained in the DataChunk as its return value. If <B>dimn_ids</B> is non-NULL, the function also copies the FieldId of each dimension into the array of FieldIds pointed to by <B>dimn_ids</B>. Only those dimensions defined through dc_NSDefineDimension() will have a valid FieldId, all other elements of <B>dimn_ids</B> will be set to BadField. If <B>sizes</B> is non-NULL, the array of unsigned longs pointed to by <B>sizes</B> holds the size of each dimension. If <B>names</B> is non-NULL, a pointer to each dimension name is assigned to each element of <CODE>names</CODE>. The memory referenced by the elements of <B>names</B> is guaranteed to be valid as long as the DataChunk exists. This memory must not be freed or modified. Dimensions are listed in the <B>names</B>, <B>dimn_ids</B>, and <B>sizes</B> arrays in the order in which they were defined. Adequate space for the <B>dimn_ids</B>, <B>names</B>, and <B>sizes</B> arrays can be defined with
+<PRE>
+char *names[ DC_MaxDimension ];
+FieldId dimn_ids[ DC_MaxDimension ];
+unsigned long sizes[ DC_MaxDimension ];
+</PRE>
+<P>The function dc_NSGetAllVariables() retrieves lists of all of the fields in a DataChunk and the number of dimensions in each field.
+<PRE>
+<B>int
+dc_NSGetAllVariables(dc, fields, ndims)
+DataChunk *dc;
+FieldId *fields;
+int *ndims;
+
+</PRE>
+<P></B>The return value of the function is the number of variables in the DataChunk. If <B>fields</B> is non-NULL, its elements return the FieldId of each variable in the DataChunk. If <B>ndims</B> is non-NULL, the elements of <B>ndims</B> return the number of dimensions in each variable. The function lists the variables in the order in which they were defined. To ensure adequate space for returned values, the following definitions may be used for the <B>fields</B> and <B>ndims</B> arrays:
+<PRE>
+FieldId fields[ DC_MaxField ];
+int ndims[ DC_MaxField ];
+</PRE>
+<P>The information retrieval counterpart to dc_NSDefineField() is dc_NSGetField():
+<PRE>
+<B>int
+dc_NSGetField (dc, field, ndims, names, sizes, is_static)
+DataChunk *dc;
+FieldId field;
+int *ndims;
+char **names;
+unsigned long *sizes;
+int *is_static;
+</PRE>
+<P></B>For the specified DataChunk <B>dc</B> and the field with FieldId <B>field</B>, dc_NSGetField() returns that field's number of dimensions, the name and size of each dimension, and a flag indicating whether the field is static. If any of the reference parameters are NULL, no value will be returned in that parameter. The return value of the function is non-zero if and only if no errors occur during the inquiry. When <B>names</B> is non-NULL, the elements of the <B>names</B> array point to the names of each of the field's dimensions. Likewise, <B>sizes</B> holds the corresponding size of each dimension. The integer <CODE>*<B>is_static</B></CODE> returns non-zero if the field is static. The following definitions suggest one possibility for defining adequate space for the returned information:
+<PRE>
+char *names[ DC_MaxDimension ];
+unsigned long sizes[ DC_MaxDimension ];
+</PRE>
+<P>The information retrieval counterpart to dc_NSDefineDimension() is the function dc_NSGetDimension():
+<PRE>
+<B>int
+dc_NSGetDimension (dc, dimn, name, size)
+DataChunk *dc;
+FieldId dimn;
+char **name;
+unsigned long *size;
+</PRE>
+
+<P></B>This function returns information about the dimension identified by the FieldId <B>dimn</B>. The search for the dimension explicitly uses the value of <B>dimn</B> rather than the name associated with the FieldId. Hence this function is only useful for dimensions which were defined with dc_NSDefineDimension(). No values are returned for NULL reference parameters. The address of the dimension name is returned in <CODE>*<B>name</B></CODE>. The memory occupied by the name exists until the datachunk is destroyed; do not try to free it as it belongs to the datachunk. The size of the dimension is returned in <CODE>*<B>size</B></CODE>. The return value of the function is non-zero on success, zero otherwise.
+<P>The function dc_NSGetVariable() is the information retrieval counterpart to the function dc_NSDefineVariable():
+<PRE>
+<B>int
+dc_NSGetVariable (dc, field, ndims, dims, is_static)
+DataChunk *dc;
+FieldId field;
+int *ndims;*ndims*ndims
+FieldId *dims;
+int *is_static;
+</PRE>
+<P></B>If <B>ndims</B> is non-NULL, this function returns the number of dimensions in the variable in *<B>ndims</B>. If <B>dims</B> is non-<CODE>NULL</CODE>, then it must point to an array of length *<B>ndims</B>. Each element of <B>dims</B> will be set to the FieldId of each of the dimensions over which the variable is defined. If a dimension of the variable was not defined with dc_NSDefineDimension(), that dimension's returned FieldId will be BadField. If the variable is static, *<B>is_static</B> will be non-zero. Once the FieldIds of the variable's dimensions are known, specifics about each dimension can be obtained with dc_NSGetDimension(), assuming the dimensions were assigned a FieldId via dc_NSDefineDimension(). Information for dimensions whose FieldId is BadField will have to be retrieved through dc_NSGetField() or dc_NSGetAllDimensions(). The return value of the function is non-zero on success, zero otherwise.
+<P>The dc_NSIsStatic() function provides a simple test for determining whether a field is static or dynamic. 
+<PRE>
+<B>int
+dc_NSIsStatic (dc, field)
+DataChunk *dc;
+FieldId field;
+</PRE>
+<P></B>The return value is non-zero if and only if the field specified by FieldId <B>field</B> is static.
+
+<H4><A NAME="REF12561">  6.2.6  Adding Data</A></H4>
+<P>To add a sample of dynamic field data to an N-space DataChunk, use 
+<PRE>
+<B>void
+dc_NSAddSample(dc, when, sample, field, values)
+DataChunk *dc;
+ZebTime *when;
+int sample;
+FieldId field;
+void *values;
+</PRE>
+<P></B>This function stores the array of floating point values in the specified <B>sample</B>, associated with time <B>when</B> and variable <B>field</B>. The length of the <B>values</B> array equals the size of the field---the product of the sizes of the dimensions over which the variable was defined. The array should be in row-major order---the last dimension (the one defined at the highest index into the <CODE>dims</CODE> array or the <CODE>dimnames</CODE> array) varies the fastest in linear memory (see <A HREF="nspace.html#REF87038">Section 6.2.1</A>). The variable must have been defined as dynamic, else an error occurs. If this is the first attempt to add data to the DataChunk, dc_NSAddSample() will complete the definition and flag it as closed before adding the data.
+<P>Multiple samples of data for a single field can be added with the function dc_NSAddMultSamples():
+<PRE>
+<B>void
+dc_NSAddMultSamples(dc, when, begin, nsample, field, values)
+DataChunk *dc;
+ZebTime *when;      /* an array of times, one per sample  */
+int begin;      /* starting sample index     */
+int nsample;      /* number of samples to add    */
+FieldId field;
+void *values;
+</PRE>
+<P></B>As in dc_NSAddSample(), <B>dc</B> is the N-space datachunk and <B>field</B> is the FieldId of the field begin stored. The first sample number to store is given in <B>begin</B>, and <B>nsample</B> holds the number of samples to store. The <B>when</B> and <B>values</B> arrays must hold times and data values, respectively, for <B>nsample</B> numbers of samples.
+<P>To add static field data to an N-space DataChunk, use
+<PRE>
+<B>void
+dc_NSAddStatic (dc, field, values)
+DataChunk *dc;
+FieldId field;
+void *values;
+
+</PRE>
+<P></B>This function is similar to dc_NSAddSample() with the exception that no time or sample number is associated with the field's data. The <B>field</B> must have been defined as static, else an error occurs. As with dc_NSAddSample(), the <CODE>values</CODE> array should be in row-major order. Each successive call to dc_NSAddStatic() overwrites any data previously stored for the given field. Static data will be added directly to the raw data chunk since it is not associated with any particular sample, hence it cannot be retrieved through any of the MetData class methods. Note that static fields are lumped into the fields definition for the MetData class structure (see definition completion in <A HREF="nspace.html#REF87038">Section 6.2.1</A>), but no data are ever stored for the fields via dc_AddMData().
+<H4><A NAME="REF45148">  6.2.7  Extracting Data</A></H4>
+<P>To get a pointer to a sample of field data, use
+<PRE>
+<B>void *
+dc_NSGetSample(dc, sample, field, size)
+DataChunk *dc;
+int sample;
+FieldId field;
+unsigned long *size;
+</PRE>
+<P></B>The function returns a pointer to the data for <B>field</B> at sample number <B>sample</B>. If <B>size</B> is non-NULL, *<B>size</B> returns the length of the data array as the number of floating point elements in the array. The array is in row-major order, exactly as it was stored. If the data for the specified field or sample cannot found, the function returns NULL. 
+<P>The <B>field</B> parameter may be a static field, in which case the function ignores the sample number and returns that field's static data. By definition, static data are valid and constant across all of the samples in the DataChunk, so it makes sense to return the same static data for any sample in the DataChunk. As long as the sample number <B>sample</B> exists in the DataChunk and data for the static field have been stored in the DataChunk, dc_NSGetSample() will return those data regardless of the sample number. If there are no data for that field, or the sample number is out of range, dc_NSGetSample() reports an error and returns NULL.
+
+<P>Note that there is no analogous capability in dc_NSAddSample(). Too many ambiguities can arise about which static data should take precedence for which samples, and whether static data can be added for a sample which does not contain any dynamic data. More importantly, when static data is being added, it is essentially being added for the entire DataChunk and not for a single sample. Requiring the use of dc_NSAddStatic() to add static field data makes this distinction very clear.
+<P>To get a pointer to a field's static data in an N-space DataChunk, use
+<PRE>
+<B>void *
+dc_NSGetStatic (dc, field, size)
+DataChunk *dc;
+FieldId field;
+unsigned long *size;
+</PRE>
+<P></B>Basically, this function is exactly like dc_NSGetSample(), except no sample number is necessary and the field with FieldId <B>field</B> must be static rather than dynamic.
+<H3><A NAME="REF73956">  6.3  Storage in netCDF Files</A></H3>
+
+<HR>
+<P>This section gives information which might be helpful when using Nspace DataChunks to store data in netCDF files.
+<P>Dimensions in the N-space DataChunk will be defined as dimensions in the netCDF file using the N-space name and the corresponding size. Static fields will be defined as netCDF variables over their given N-space dimensions, while dynamic fields will be defined over a temporal dimension as well as the N-space dimensions. If a FieldId is defined as both a dimension and a variable in the DataChunk, then a variable will automatically be defined in the netCDF file with the same name as a netCDF dimension. Hence, by netCDF convention, the variable will be a coordinate variable, implying that it maps the irregularly-spaced domain of any variables defined over the coordinate variable's dimension. The naming scheme for coordinate variables is only a convention. It is up to the application using the netCDF file to look for possible coordinate variables and handle them appropriately.
+<P>The N-space class limits the number of dimensions in a DCC_NSpace variable to DC_MaxDimension, which ideally is less than the netCDF maximum, MAX_NC_DIMS. Note that the N-space limit does not include the temporal dimension, which for MetData subclasses is implicit in the organization of data by samples. Therefore dynamic variables normally should be limited to one dimension less than the netCDF maximum for storage in netCDF files. MAX_NC_DIMS is defined in the netCDF header file, netcdf.h, and DC_MaxDimension is defined in DataStore.h. See <A HREF="nspace.html#REF61325">Section 6.2.2</A> for the Nspace header file definitions.
+
+<P>Dimension names must be limited in length to DC_MaxDimName bytes (including the NULL terminator), which is reasonable since there is a similar limit to dimension names in netCDF files. However, if a dimension is defined with a name that is too long, either through dc_NSDefineField() or dc_NSDefineDimension(), then the name will be truncated. If the dimension name was meant to match the name of a coordinate variable, then the convention may be lost in the netCDF file as the truncated dimension name may be different from the variable name.
+<P>With the N-space interface, it is now possible to store the same fields in more than one netCDF file using differently sized dimensions, or even different numbers of dimensions, by changing the definition of the N-space DataChunk for each data file. This can be hazardous to Zebra if a data fetch spanning more than one file must read the same field but different dimensions from the files. At present, nothing in Zebra attempts to detect a change in the shape of a field between files. As long as fetches are performed on the observation level, where an observation in Zebra corresponds to a single file, shape changes between files should not be a problem.
+<P>There is another shortcoming in Zebra's handling of N-space data. At present, Zebra applications expect all data files to contain time-dependent data. In other words, an application expects to find an array of sample times in every file. For this reason, it is not a good idea to store N-space DataChunks which contain only static fields. There needs to be at least one non-static field from which to generate the sample times for the file.
+<H3><A NAME="REF54847">  6.4  Examples</A></H3>
+
+<HR>
+<P>This section includes several examples of code which use the N-space interface. All of the examples also include CDL (network Common Data form Language) descriptions of the netCDF file structure generated by the sample code. Most of the examples concentrate on establishing the structure and shape of the dataset; once the definition is complete the addition of data is straightforward.
+<H4><A NAME="HDR4">  6.4.1  A Dynamic Field Over a Single Dimension</A></H4>
+<P>The first example of the N-space interface defines a single, dynamic field over a single dimension. In effect this creates a time-varying vector, where the number of components in the vector equals the size of the dimension. The vector is an array of virtual temperatures measured at 50 levels of an atmospheric profile.
+<PRE>
+DataChunk *dc;
+
+char *dim_names[] = { "levels" };
+unsigned long dim_sizes[] = { 50 };
+FieldId vfld;
+dc = dc_CreateDC (DCC_NSpace);
+dc-&gt;dc_Platform = ds_LookupPlatform ("profiler");
+dc_SetBadval (dc, BADVAL);
+vfld = F_DeclareField ("virtual","Virtual temperature", "K");
+/*
+ * Define a dynamic field, dimensioned on "levels"
+ */
+dc_NSDefineField (dc, vlfd, 1, dim_names, dim_sizes, FALSE);
+</PRE>
+<P>The code above produces a netCDF structure like the following:
+<PRE>
+netcdf example {       // a single dynamic field with 1 non-temporal dimn
+dimensions:
+  time = unlimited;
+  levels = 50;
+variables:
+  float  virtual(time,levels);
+    virtual:long_name = "Virtual temperature";
+    virtual:units = "K";
+}
+</PRE>
+<P>Note that the time dimension defined in the netCDF file was not defined in the N-space call to dc_NSDefineField(). The temporal dimension is implied by specifying the is_static parameter as FALSE. For each time coordinate, or sample, in the file, this dataset holds 50 temperatures---one for each coordinate along the levels dimension.
+<H4><A NAME="HDR5">  6.4.2  Defining a Coordinate Variable</A></H4>
+
+<P>In the previous example, no physical significance was attached to the levels dimension. There is no information about the location or meaning of each of the coordinates along the levels dimension. The virtual temperature values are simply accessed directly through the indices 1, 2, &hellip;, 50. However, since the domain of the virtual temperature vector has a physical basis---a series of heights above ground level---this relationship should be communicated through the definition of the data. A coordinate variable [<A HREF="nspace.html#REF23692">Section 6.1.2</A>] supplies the link between the locations of the virtual temperature readings and the temperature values. Since there are 50 levels in the profile, both the array of temperatures and the array of heights will have 50 components in the non-temporal dimension. To explicitly show the link between the heights and the domain of the virtual field, the height values are stored in a field whose name is the same as the dimension used to index the virtual temperature heights. In the Nspace interface, the two fields are defined as usual, both over the same dimension. The only significance to the definition is that one of the fields has the same name as its dimension. Also, the dimension name has been changed from "levels" to "height", since "height" is more descriptive. It might be helpful to think of dimensions as coordinates rather than as arrays of indices or simply lengths and sizes. In actuality dimensions represent coordinates. A mapping over 3-space has dimensions <I>x</I>, <I>y</I>, and <I>z</I>, as opposed to having the dimensions "Xs", "Ys", and "Zs". The fact that a size must be assigned to a dimension confuses the fact that the dimension is more than just a count. The assignment of a size is necessary to specify how many coordinates will be stored in a dataset along a dimension, but the dimension name should still be a dimension rather than a counting variable. Hence this example uses "height" rather than "levels" or "heights". The code looks like this:
+<PRE>
+DataChunk *dc;
+char *dim_names[] = { "height" };
+unsigned long dim_sizes[] = { 50 };
+FieldId vfld, hfld;
+dc = dc_CreateDC (DCC_NSpace);
+dc-&gt;dc_Platform = ds_LookupPlatform ("profiler");
+dc_SetBadval (dc, BADVAL);
+vfld = F_DeclareField ("virtual", "Virtual temperature", "K");
+hfld = F_DeclareField ("height", "Height above ground", "km");
+dc_NSDefineField (dc, vlfd, 1, dim_names, dim_sizes, FALSE);
+dc_NSDefineField (dc, hfld, 1, dim_names, dim_sizes, FALSE);
+</PRE>
+<P>The CDL description for the corresponding netCDF header looks like this:
+<PRE>
+netcdf example { // using a coordinate variable
+dimensions:
+  time = UNLIMITED ;
+  height = 50 ;
+variables:
+  float  virtual(time,height);
+    virtual:long_name = "Virtual temperature";
+    virtual:units = "K";
+  float  height(time,height);
+    height:long_name = "Height above ground";
+    height:units = "km";
+</PRE>
+
+<P>Notice how the netCDF file clearly describes a set of temperature values defined at each of 50 heights and at each sample time, and the actual locations of those heights are given in the variable "height". The temperature readings are no longer just a set of values over some 50 levels; the temperatures now correspond to specific heights above the ground, whose locations are given in kilometers above the ground.
+<P>The Nspace interface functions dc_NSDefineDimension() and dc_NSDefineVariable() can also be used to define this dataset. The following code produces a CDL header identical to the CDL header above.
+<PRE>
+DataChunk *dc;
+FieldId vfld, hfld;
+dc = dc_CreateDC (DCC_NSpace);
+dc-&gt;dc_Platform = ds_LookupPlatform ("profiler");
+dc_SetBadval (dc, BADVAL);
+vfld = F_DeclareField ("virtual", "Virtual temperature", "K");
+hfld = F_DeclareField ("height", "Height above ground", "km");
+dc_NSDefineDimension (dc, hfld, (unsigned long)50);
+dc_NSDefineVariable (dc, vfld, 1, &amp;hlfd, FALSE);
+dc_NSDefineVariable (dc, hfld, 1, &amp;hlfd, FALSE);
+</PRE>
+<P>Any data structure describable in Nspace can be defined using either of the two coding methods shown in this example. In general, however, for complicated data structures the dc_NSDefineDimension() method produces code which is more readable than the dc_NSDefineField() interface. When using dc_NSDefineDimension(), every dimension is explicitly defined once, and once defined the dimension can be referenced any number of times by its FieldId, in as many places and for as many variables as needed. Also, when defining coordinate variables, the code clearly shows when a variable is being defined "over itself", i.e., over a dimension with the same FieldId as the variable.
+<P>It might be tempting to define the above dataset by retaining the "levels" dimension, as in the following code:
+<PRE>
+DataChunk *dc;
+char *dim_names[] = { "levels" };
+unsigned long dim_sizes[] = { 50 };
+FieldId vfld, hfld;
+dc = dc_CreateDC (DCC_NSpace);
+dc-&gt;dc_Platform = ds_LookupPlatform ("profiler");
+dc_SetBadval (dc, BADVAL);
+vfld = F_DeclareField ("virtual", Virtual temperature", "K");
+hfld = F_DeclareField ("height", "Height above ground", "km");
+dc_NSDefineField (dc, vlfd, 1, dim_names, dim_sizes, FALSE);
+dc_NSDefineField (dc, hfld, 1, dim_names, dim_sizes, FALSE);
+</PRE>
+<P>The above definition results in this CDL header:
+<PRE>
+
+netcdf example {         // using a coordinate variable
+dimensions:
+  time = unlimited;
+  levels = 50;
+variables:
+  float  virtual(time,levels);
+    virtual:long_name = "Virtual temperature";
+    virtual:units = "K";
+  float  height(time,levels);
+    height:long_name = "Height above ground";
+    height:units = "km";
+}
+</PRE>
+<P>In this CDL, the only observation that is certain is that the virtual and height fields have 50 components along the levels dimension. It is not necessarily obvious that the heights of the virtual temperature values are given in the height field for each coordinate in levels. Further confusion is possible if more fields are added, such as <I>pres (time, levels)</I>. Hence it is advisable to use the coordinate variable convention whenever possible to reduce the ambiguity of the dataset's description.
+<H4><A NAME="HDR6">  6.4.3  Defining a Static Field</A></H4>
+<P>Now suppose that the profiler in the first and second examples produces virtual readings at fixed heights for every time sample. In other words, the "height" values will not change over time. The height field is not time-dependent, so it is inaccurate to give the height field a time dimension. Also, a great deal of space is wasted by storing the same 50 heights for every sample in a data file. The Nspace interface addresses this issue by allowing fields to be specified as static [see <A HREF="nspace.html#REF76984">Section 6.1.3</A>]. The code which defines the "height" variable as static using dc_NSDefineVariable() looks exactly like the code in the previous example, except the is_static parameter is passed as TRUE. So the dc_NSDefineField() call becomes
+<PRE>
+dc_NSDefineField (dc, hfld, 1, dim_names, dim_sizes, TRUE);
+</PRE>
+<P>and the call to dc_NSDefineVariable() becomes
+<PRE>
+dc_NSDefineVariable (dc, hfld, 1, &amp;hlfd, TRUE);
+</PRE>
+<P>The resulting CDL looks like this:
+<PRE>
+netcdf example {       // using a coordinate variable
+dimensions:
+  time = unlimited;
+  height = 50;
+
+variables:
+  float  virtual(time,height);
+    virtual: long_name =     "Virtual temperature";
+    virtual: units = "K";
+  float  height(height);
+    height: long_name = "Height above ground";
+    height: units = "km";
+}
+</PRE>
+<P>The shape of the data clearly shows that the heights of the virtual temperatures are fixed over all of the samples in the file. There are 50 heights stored in the file, and these heights are valid for every sample.
+<P>Only the height variable is static, virtual is defined as before and retains its time dimension. Any number of static and dynamic fields may be mixed together in an N-space definition. The dynamic fields will automatically include the time, or "sample", dimension, and they can accept data for a particular sample. Static fields have no temporal dimension, and hence the N-space interface does not allow data for static fields to be associated with a particular time or sample. See <A HREF="nspace.html#REF12561">Section 6.2.6</A> for the precise interface.
+<H4><A NAME="HDR7">  6.4.4  Mixing Static and Sampled Data</A></H4>
+<P>The next example constructs an Nspace DataChunk containing two fields, one static and the other dynamic, each over the same two dimensions. This code uses the dc_NSDefineField() function to define a field and its dimensions simultaneously. In the second call to dc_NSDefineField(), the dimensions are already defined, so the interface implicitly assumes the identical names refer to the previously defined dimensions, and silently ignores the dimensions which are identical to their existing definitions. If a dimension size specified in the second call disagreed with the existing definition, a warning message would be produced and the dimension would be re-defined to the new size. The code includes examples of both storing and retrieving data. The CDL description of the dataset follows the code.
+<PRE>
+DataChunk *dc;
+float *retrieve;
+FieldId field, sfield;
+char *dim_names[2];
+unsigned long dim_sizes[2];
+ZebTime when;
+float test_data[5000];
+/* 
+ * Set-up the name and size arrays for the dimensions
+ */
+dim_names[0] = "x";
+dim_names[1] = "y";
+
+dim_sizes[0] = 50;
+dim_sizes[1] = 25;
+/*
+ * Declare the fields and obtain the FieldId's
+ */
+field = F_DeclareField ("curl", "Long name", "units");
+sfield = F_DeclareField ("static_curl", "Long name", "units");
+/*
+ * Create and define our datachunk, sfield is static
+ */
+dc = dc_CreateDC (DCC_NSpace);
+dc-&gt;dc_Platform = ds_LookupPlatform("platform");
+dc_NSDefineField (dc, field, 2, dim_names, dim_sizes, FALSE);
+dc_NSDefineField (dc, sfield, 2, dim_names, dim_sizes, TRUE);
+/*
+ * Add some data
+ */
+dc_NSAddSample (dc, &amp;when, 0, field, test_data);
+dc_NSAddStatic (dc, sfield, test_data);
+dc_NSAddSample (dc, &amp;when, 1, field, test_data+100);
+/* 
+ *Locate the data
+ */
+retrieve = dc_NSGetStatic (dc, field, &amp;size);
+retrieve = dc_NSGetSample (dc, 1, field, &amp;size);
+</PRE>
+<P>And now for the description of the dataset using CDL notation:
+<PRE>
+netcdf example {
+dimensions:
+  time = unlimited;
+  x = 50;
+  y = 25;
+variables:
+  float  curl(time,x,y);
+    curl:long_name = "Long name";
+    curl:units = "units";
+  float  static_curl(x,y);
+    static_curl:long_name = "Long name";
+    static_curl:units = "units";
+}
+</PRE>
+<H4><A NAME="HDR8">  6.4.5  Defining Dimensions Explicitly, and Adding Data</A></H4>
+
+<P>The next example explicitly defines each dimension with its own FieldId. One of the fields serves as a coordinate variable for the other fields, and since this field does not change over time, it is defined as static. The data are added using the dc_NSAddStatic() function for the static fields and dc_NSAddSample() for dynamic data. Note that the static data need only be stored once. When static data are added for a field, the data overwrite any data previously stored for that field.
+<PRE>
+DataChunk *dc;
+ZebTime when;
+float test_data[7000];
+FieldId wnum_id, therm_id;
+FieldId mean_rad_id, sd_rad_id;
+FieldId *fields;
+int nfield;
+dc = dc_CreateDC(DCC_NSpace);
+dc-&gt;dc_Platform = ds_LookupPlatform("aeri");
+/* 
+ * Define a dimension and a field with the same   FieldId
+ */
+wnum_id = F_DeclareField("wnum", "Wave Number",           "1 / cm");
+dc_NSDefineDimension(dc, wnum_id, 6224);
+dc_NSDefineVariable(dc, wnum_id, 1, &amp;wnum_id,       /*is_static*/TRUE);
+mean_rad_id = F_DeclareField("mean_rad", 
+      "Mean of Radiance spectra ensemble",
+      "mW / m^2 sr 1 / cm");
+dc_NSDefineVariable(dc, mean_rad_id, 1, &amp;wnum_id,       FALSE);
+sd_rad_id = F_DeclareField("standard_dev_rad",
+  "standard deviation for Radiance spectra ensemble",         "1/cm");
+dc_NSDefineVariable(dc, sd_rad_id, 1, &amp;wnum_id, FALSE);
+/*
+ * The thermistor field is a single scalar per sample,
+ * so it is defined with zero dimensions. The temporal
+ * dimension is implied since is_static parameter is FALSE.
+ */
+therm_id = F_DeclareField("thermistor1", 
+      "Long name for thermistor",     "units");
+dc_NSDefineVariable(dc, therm_id, 0, NULL, FALSE);
+/* Definition will be closed when data added */
+dc_NSAddSample (dc, &amp;begin, 0, therm_id, test_data);
+dc_NSAddSample (dc, &amp;begin, 0, mean_rad_id,       test_data);
+dc_NSAddSample (dc, &amp;begin, 0, sd_rad_id, test_data);
+dc_NSAddSample (dc, &amp;end, 1, therm_id, test_data+100); 
+dc_NSAddSample (dc, &amp;end, 1, mean_rad_id,       test_data+100);
+dc_NSAddSample (dc, &amp;end, 1, sd_rad_id,       test_data+100);
+dc_NSAddStatic (dc, wnum_id, test_data+50);
+/* 
+ * Use a DCC_MetData method to get a list of fields
+ */
+fields = dc_GetFields (dc, &amp;nfield);
+
+dc_DestroyDC (dc);
+</PRE>
+<P>The corresponding CDL looks like this:
+<PRE>
+netcdf example {
+dimensions:
+  time = unlimited; // (2 currently)
+  wnum = 6224, 
+variables:
+  float  wnum(wnum);
+    wnum:long_name = "Wave Number";
+    wnum:units = "1 / cm";
+  float  mean_rad(time,wnum);
+    mean_rad:long_name = "Mean of Radiance spectra ensemble";
+    mean_rad:units =     "mW / m^2 sr 1 / cm";
+  float  standard_dev_rad(time,wnum)
+    standard_dev_rad:long_name =
+     "standard deviation for Radiance spectra ensemble";
+    standard_dev_rad:units = "1/cm";
+// Note the definition of a field with only the
+// temporal dimension
+  float  thermistor1(time);
+    thermistor1:long_name = "Long name for thermistor";
+    thermistor1:units = "units";
+}
+</PRE>
+<H4><A NAME="HDR9">  6.4.6  Zero-Dimensional Data</A></H4>
+<P>The N-space interface allows any field, static or dynamic, to be defined with zero dimensions. This means a dynamic field has no non-temporal coordinates. If the field is static, the field has no dimensions at all. The entire DataChunk, and even the entire data file, contain only one value for that field. If the field is dynamic, then each sample contains just one value for the field. Dynamic fields defined with zero N-space dimensions are analogous to the data in the DCC_Scalar class---one floating point value per field per sample. The code below defines two fields with zero dimensions: one static field and one dynamic field.
+<PRE>
+DataChunk *dc;
+FieldId pi, rainr;
+dc = dc_CreateDC (DCC_NSpace);
+dc-&gt;dc_Platform = ds_LookupPlatform ("constants");
+pi = F_DeclareField ("pi", "Circumference/Diameter", "none");
+rainr = F_DeclareField ("rainr", "Rainrate", "mm/hr");
+dc_NSDefineField (dc, pi, 0, NULL, NULL, TRUE);
+dc_NSDefineField (dc, rainr, 0, NULL, NULL, FALSE);
+
+</PRE>
+<P>The field pi is defined with is_static TRUE, so there will be only one value of pi stored in the DataChunk and data file. The rainrate field varies over time, but since there is a single scalar value per sample, it is defined with zero dimensions in the call to dc_NSDefineField(). The CDL header for the file appears below:
+<PRE>
+netcdf example {       // zero-dimensional fields
+dimensions:
+  time = unlimited;
+variables:
+  float  pi;
+    pi:long_name = "Circumference/Diameter";
+    pi:units = "none";
+  float  rainr(time);
+    rainr:long_name = "Rainrate";
+    rainr:units = "mm/hr";
+}
+</PRE>
+<H4><A NAME="HDR10">  6.4.7  Going for Complexity</A></H4>
+<P>The last example combines several of the possible dataset shapes---many of which were shown in previous examples---into one complex Nspace dataset. For the sake of brevity, the variable attributes are not included in the corresponding CDL. Bear in mind that this example does not attempt to show a sensible combination, but only what is possible. Also note that this code is not written to be robust. There are no checks for error conditions, and in this respect the code should not be taken as a model for most applications.
+<PRE>
+DataChunk *dc;
+FieldId u_wind_id, v_wind_id w_wind_id;
+FieldId ref_id, azimuth_id, elev_id;
+FieldId dpt_id, tdry_id, cal_id;
+FieldId avg_wspd_id, avg_wdir_id;
+char *grid_dim_names[] = { "x", "y", "z" };
+unsigned long grid_dim_sizes[] = { 40, 50, 30 };
+char *range_name[] = { "range" };
+unsigned long range_size[] = { 1000 };
+FieldId dim_ids[3];
+/* 
+ * Create the DataChunk, set the PlatformId, and set the bad value 
+ */
+dc = dc_CreateDC(DCC_NSpace);
+dc-&gt;dc_Platform = ds_LookupPlatform("kitchen_sink");
+dc_SetBadval(dc, -99999);
+/*
+ * Define a volume of 3-D wind vectors. Each component   is one 
+ * scalar   field dimensioned over the entire   3-D grid.
+ */
+
+u_wind_id = F_DeclareField("u_wind",         "Westerly wind","m/s");
+v_wind_id = F_DeclareField("v_wind",     "Southerly wind","m/s");
+w_wind_id = F_DeclareField("w_wind",     "Vertical wind","m/s");
+dc_NSDefineField(dc, u_wind_id, 3, grid_dim_names,
+     grid_dim_sizes, FALSE);
+dc_NSDefineField(dc, v_wind_id, 3, grid_dim_names,
+     grid_dim_sizes, FALSE);
+dc_NSDefineField(dc, w_wind_id, 3, grid_dim_names,
+     grid_dim_sizes, FALSE);
+/* 
+ * Store an origin for the grid. We'll do it two ways: one field for
+ * each coordinate, and one field for all three coordinates. Note that
+ * for both ways, all fields are static, meaning the grid is
+ * stationary and the origin is valid over all the grid samples in the
+ * DataChunk.
+ * Of the two, the first is recommended as it is a little less
+ * ambiguous. First, the first way:
+ */
+dc_NSDefineField(dc, F_DeclareField("grid_lat","Grid latitude",
+    "degrees"), 0, NULL, NULL, TRUE);
+dc_NSDefineField(dc, F_DeclareField("grid_lon","Grid longitude",
+    "degrees"), 0, NULL, NULL, TRUE);
+dc_NSDefineField(dc, F_DeclareField("grid_alt","Grid altitude",
+    "km"), 0, NULL, NULL, TRUE);
+/*
+ * And now the second way:
+ */
+{
+  char *orig_dimn = "components";
+  unsigned long orig_size = 3;
+  dc_NSDefineField(dc,F_DeclareField("grid_origin",
+    "Grid lat, lon, and alt","deg, deg, km"),
+    1, &amp;orig_dimn, &amp;orig_size, TRUE);
+}
+/*
+ * Define some more static fields containing statistical info:
+ * averages over all the samples in the DataChunk. 
+ */
+avg_wspd_id = F_DeclareField ("avg_wspd","Average wind speed","m/s");
+avg_wdir_id = F_DeclareField ("avg_wdir", "Average wind   direction",
+         "degrees");
+dc_NSDefineField (dc, avg_wspd_id, 3, grid_dim_names, 
+      grid_dim_sizes, TRUE);
+dc_NSDefineField (dc, avg_wdir_id, 3, grid_dim_names, 
+      grid_dim_sizes, TRUE);
+/*
+ * Give our radar dimensions FieldIds
+ */
+azimuth_id = F_DeclareField("azimuth","Azimuth of radar beam",
+       "degrees");
+
+elev_id = F_DeclareField("elev","Elevation of radar beam",
+       "degrees");
+range_id = F_DeclareField("range","Coordinate along beam",
+       "none");
+/*
+ * Define the three dimensions of our radar volume
+ */
+dc_NSDefineDimension(dc, azimuth_id, 360);
+dc_NSDefineDimension(dc, elev_id, 45);
+dc_NSDefineDimension(dc, range_id, 1000);
+dim_ids[0] = azimuth_id;
+dim_ids[1] = elev_id;
+dim_ids[2] = range_id;
+ref_id = F_DeclareField("reflectivity","Radar reflectivity","dbz");
+dc_NSDefineVariable(dc, ref_id, 3, dim_ids, FALSE);
+/*
+ * Note that though we defined all three dimensions explicitly
+ * and gave them FieldId's for use in the above call to
+ * dc_NSDefineVariable(), only azimuth and elevation will
+ * actually be indirectly indexed via coordinate variables.
+ */
+dc_NSDefineVariable(dc, azimuth_id, 1, &amp;azimuth_id, FALSE);
+dc_NSDefineVariable(dc, elev_id, 1, &amp;elev_id, FALSE);
+/*
+ * Since not all volume coordinates may be valid for every volume
+ * time, three more variables are needed to record the valid
+ * number for each volume sample. The name is the dimension name
+ * prepended with `n_'.
+ */
+dc_NSDefineVariable(dc, F_DeclareField("n_azimuth",
+    "Number azimuths stored per sample","none"),
+     0, 0, FALSE);
+dc_NSDefineVariable(dc, F_DeclareField("n_elev",
+    "Number elevations stored per sample","none"),
+     0, 0, FALSE);
+/*
+ * We want to specify the size of the range for a particular sample,
+ * azimuth, and elevation, hence we add those dimensions to `n_range'
+ */
+dc_NSDefineVariable(dc, F_DeclareField("n_range",
+    "Number ranges stored per sample","none"),
+    2, dim_ids, FALSE);
+/*
+ * Define some fields which use a dimension to differentiate
+ * between multiple instruments (e.g. instrument types, backups).
+ */
+{
+  char *dim_name = "instrument";
+  unsigned long dim_size = 5;
+  /* 5 different instruments */
+  dc_NSDefineField (dc, F_Lookup("tdry"), &amp;dim_name,
+       &amp;dim_size, FALSE);
+
+  dc_NSDefineField (dc, F_Lookup("dpt"), &amp;dim_name,
+       &amp;dim_size, FALSE);
+}
+/*
+ * A scalar time-series defined with zero (non-temporal) dimensions
+ */
+dc_NSDefineField (dc, F_Lookup("pres"), 0, NULL, NULL, FALSE);
+/*
+ * Last but not least, a calibration factor for the whole DataChunk,
+ * stored as a static value with zero dimensions.
+ */
+dc_NSDefineField (dc, F_Lookup("calibration"), 0, NULL, NULL, TRUE);
+/*
+ * Just for the heck of it, explicitly close the definition.
+ */
+dc_NSDefineComplete (dc);
+/*
+ * Nothing left to do now but add data...
+ */
+</PRE>
+<P>The CDL notation for the data structures defined in the above code, minus the variable attributes:
+<PRE>
+netcdf example {
+dimensions:
+  time = unlimited;
+  x = 40, y = 50, z = 30;
+  components = 3;
+  azimuth = 360, elev = 45, range = 1000;
+  instrument = 5;
+variables:
+  float  u_wind(time,x,y,z);
+  float  v_wind(time,x,y,z);
+  float  w_wind(time,x,y,z);
+  float  grid_lat;
+  float  grid_lon;
+  float  grid_alt;
+  float  grid_origin(components);
+  float  avg_wspd(x,y,z);
+  float  avg_wdir(x,y,z);
+  float  reflectivity(time,azimuth,elev,range);
+  float  azimuth(time,azimuth);
+  float  elev(time,elev);
+  float  n_azimuth(time);
+  float  n_elev(time);
+  float  n_range(time);
+  float  tdry(time,instrument);
+  float  dpt(time,instrument);
+  float  pres(time);
+  float  calibration;
+
+}
+</PRE>
+<P>Ideally, the counting variables n_azimuth, n_elev, and n_range would be netCDF integers. Unfortunately, this is not possible with the current DataChunk interface.
+<H3><A NAME="HDR11">  6.5  Internals and Implementation</A></H3>
+
+<HR>
+<P>The N-space code resides in the file dc_NSpace.c. The code is extensively documented, and much of the implementation is carefully explained there, as well as possible targets for improvement. This section gives a brief summary of the implementation. None of the information in this section or in the next section is required to effectively use the interface outlined above. Nor is the information guaranteed to be accurate, since the underlying implementation may change.
+<P>The N-space class maintains a single, `master' auxiliary data entry (ADE) which holds the number of fields and dimensions, and a flag indicating whether definition has been completed. Each dimension is given an ADE containing its name, size, and the optional FieldId. The ADE is located in the DataChunk by an index assigned in the order the dimensions are defined. Each field is assigned its own ADE containing its FieldId, a static flag, and the indices of the ADE's of each of its dimensions. The field ADE also holds an offset into the raw DataChunk which points to any static data which have been stored for the field.
+<P>To complete the definition, all of the fields, both static and dynamic, are defined to the MetData class structure using MetData's dc_SetupFields(). [<A HREF="metclasses.html#REF47897">Section 4.1.1 on page 42</A>.] This explains why the MetData methods cannot be used with an N-space DataChunk until the N-space definition has been completed. When completing the definition, the sizes of each of the fields are calculated from the sizes of each of their dimensions. This ensures field sizes are correct even if some dimensions or fields were re-defined before the definition was closed. While the definition is open, the N-space dump method will print the field sizes calculated from the current definitions.
+<P>The addition and retrieval of dynamic field data are essentially handled directly by the MetData class methods. For static fields, the N-space methods allocate raw DataChunk space and store the data directly. Hence only the N-space methods can store and retrieve static data.
+
+<H3><A NAME="HDR12">  6.6  Comments</A></H3>
+
+<HR>
+<P>A few of the drawbacks of the N-space interface must be mentioned, and so they are mentioned below.
+<H4><A NAME="HDR13">  6.6.1  Hyperslabs</A></H4>
+<P>Note that there is, as yet, no intention to include an equivalent to the netCDF interface's hyperslab access in the N-space interface. It could be easily implemented by filling new samples with BadValues before storing hyperslabs of data (very similar to netCDF `fill values'). Theoretically though, this is incorrect since the values in a sample which were never written via a hyperslab would be missing rather than bad. Hyperslabs are described in the NetCDF User's Guide.
+<H4><A NAME="HDR14">  6.6.2  Static Data Which Change Between Files</A></H4>
+<P>Even though static fields are defined and forced to be static inside a single DataChunk, there is no way to enforce this across data files. One DataChunk may be written to one file at one time, while a second DataChunk may be written to a second file at a different time. Conflict and inconsistency arise if the data in the two files are later read into the same DataChunk. There is currently no way to direct which file's data takes precedence. So for the moment, applications which are fetching static fields across multiple files should be careful about cases where the static field data may actually differ between the files. The safest approach would be to always fetch DataChunks one file (observation) at a time.
+<H3><A NAME="HDR15">  6.7  Quick Reference</A></H3>
+
+<HR>
+<P>This section lists the prototypes of each of the N-Space interface functions for quick reference.
+<PRE>
+void dc_NSDefineField (DataChunk *dc, FieldId field, int ndims, 
+  char **dimnames, unsigned long *dimsizes, int is_static);
+void dc_NSDefineDimension (DataChunk *dc, FieldId dimn, 
+  unsigned long size);
+void dc_NSDefineVariable (DataChunk *dc, FieldId field, 
+  int ndims, FieldId *dims, int is_static);
+void dc_NSDefineComplete (DataChunk *dc);
+int dc_NSDefineIsComplete (DataChunk *dc);
+
+int dc_NSGetAllDimensions (DataChunk *dc, char **names, 
+  FieldId *dimn_ids, unsigned long *sizes);
+int dc_NSGetAllVariables (DataChunk *dc, FieldId *fields, int *ndims);
+int dc_NSGetField (DataChunk *dc, FieldId field, int *ndims, 
+  char **names, unsigned long *sizes, int *is_static);
+int dc_NSGetDimension (DataChunk *dc, FieldId dimn, char **name,
+  unsigned long *size);
+int dc_NSGetVariable (DataChunk *dc, FieldId field, int *ndims, 
+  FieldId *dims, int *is_static);
+int dc_NSIsStatic (DataChunk *dc, FieldId field);
+void dc_NSAddSample (DataChunk *dc, ZebTime *when, int sample, 
+  FieldId field, float *values);
+void dc_NSAddMultSamples (DataChunk *dc, ZebTime *when, int begin,
+  int nsample, FieldId field, void *values);
+void dc_NSAddStatic (DataChunk *dc, FieldId field, float *values);
+float *dc_NSGetSample (DataChunk *dc, int sample, FieldId field, 
+  unsigned long *size);
+float *dc_NSGetStatic (DataChunk *dc, FieldId field, 
+  unsigned long *size);
+</PRE>
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+<HR><H3>Footnotes</H3>
+<DL COMPACT>
+<DT><A NAME=FN1>(1)</A><DD>NetCDF User's Guide, Unidata Program Center, October 1991
+</DL>
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="elements.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>

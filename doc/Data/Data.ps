@@ -1,0 +1,5767 @@
+%!PS-Adobe-3.0
+%%BoundingBox: (atend)
+%%Pages: (atend)
+%%PageOrder: (atend)
+%%DocumentFonts: (atend)
+%%Creator: Frame 5.0
+%%DocumentData: Clean7Bit
+%%EndComments
+%%BeginProlog
+%
+% Frame ps_prolog 5.0, for use with Frame 5.0 products
+% This ps_prolog file is Copyright (c) 1986-1995 Frame Technology
+% Corporation.  All rights reserved.  This ps_prolog file may be
+% freely copied and distributed in conjunction with documents created
+% using FrameMaker, FrameMaker/SGML and FrameViewer as long as this 
+% copyright notice is preserved.
+%
+% FrameMaker users specify the proper paper size for each print job in the
+% "Print" dialog's "Printer Paper Size" "Width" and "Height~ fields.  If the
+% printer that the PS file is sent to does not support the requested paper
+% size, or if there is no paper tray of the proper size currently installed, 
+% then the job will not be printed.  The following flag, if set to true, will
+% cause the job to print on the default paper in such cases.
+/FMAllowPaperSizeMismatch            false def
+%
+% Frame products normally print colors as their true color on a color printer
+% or as shades of gray, based on luminance, on a black-and white printer. The
+% following flag, if set to true, forces all non-white colors to print as pure
+% black. This has no effect on bitmap images.
+/FMPrintAllColorsAsBlack             false def
+%
+% Frame products can either set their own line screens or use a printer's 
+% default settings. Three flags below control this separately for no 
+% separations, spot separations and process separations. If a flag
+% is true, then the default printer settings will not be changed. If it is
+% false, Frame products will use their own settings from a table based on
+% the printer's resolution.
+/FMUseDefaultNoSeparationScreen      true  def
+/FMUseDefaultSpotSeparationScreen    true  def
+/FMUseDefaultProcessSeparationScreen false def
+%
+% For any given PostScript printer resolution, Frame products have two sets of 
+% screen angles and frequencies for printing process separations, which are 
+% recomended by Adobe. The following variable chooses the higher frequencies
+% when set to true or the lower frequencies when set to false. This is only
+% effective if the appropriate FMUseDefault...SeparationScreen flag is false.
+/FMUseHighFrequencyScreens true def
+%
+% The following is a set of predefined optimal frequencies and angles for various
+% common dpi settings. This is taken from "Advances in Color Separation Using
+% PostScript Software Technology," from Adobe Systems (3/13/89 P.N. LPS 0043)
+% and corrolated with information which is in various PPD (4.0) files.
+%
+% The "dpiranges" figure is the minimum dots per inch device resolution which
+% can support this setting. The "low" and "high" values are controlled by the
+% setting of the FMUseHighFrequencyScreens flag above. The "TDot" flags control
+% the use of the "Yellow Triple Dot" feature whereby the frequency id divided by
+% three, but the dot function is "trippled" giving a block of 3x3 dots per cell.
+%
+% PatFreq is a compromise pattern frequency for ps Level 2 printers which is close
+% to the ideal WYSIWYG pattern frequency of 9 repetitions/inch but does not beat
+% (too badly) against the screen frequencies of any separations for that DPI.
+/dpiranges   [  2540    2400    1693     1270    1200     635      600      0      ] def
+/CMLowFreqs  [ 100.402  94.8683 89.2289 100.402  94.8683  66.9349  63.2456 47.4342 ] def
+/YLowFreqs   [  95.25   90.0    84.65    95.25   90.0     70.5556  66.6667 50.0    ] def
+/KLowFreqs   [  89.8026 84.8528 79.8088  89.8026 84.8528  74.8355  70.7107 53.033  ] def
+/CLowAngles  [  71.5651 71.5651 71.5651 71.5651  71.5651  71.5651  71.5651 71.5651 ] def
+/MLowAngles  [  18.4349 18.4349 18.4349 18.4349  18.4349  18.4349  18.4349 18.4349 ] def
+/YLowTDot    [  true    true    false    true    true     false    false   false   ] def
+/CMHighFreqs [ 133.87  126.491 133.843  108.503 102.523  100.402   94.8683 63.2456 ] def
+/YHighFreqs  [ 127.0   120.0   126.975  115.455 109.091   95.25    90.0    60.0    ] def
+/KHighFreqs  [ 119.737 113.137 119.713  128.289 121.218   89.8026  84.8528 63.6395 ] def
+/CHighAngles [  71.5651 71.5651 71.5651  70.0169 70.0169  71.5651  71.5651 71.5651 ] def
+/MHighAngles [  18.4349 18.4349 18.4349  19.9831 19.9831  18.4349  18.4349 18.4349 ] def
+/YHighTDot   [  false   false   true     false   false    true     true    false   ] def
+/PatFreq     [	10.5833 10.0     9.4055  10.5833 10.0	  10.5833  10.0	   9.375   ] def
+%
+% PostScript Level 2 printers contain an "Accurate Screens" feature which can
+% improve process separation rendering at the expense of compute time. This 
+% flag is ignored by PostScript Level 1 printers.
+/FMUseAcccurateScreens true def
+%
+% The following PostScript procedure defines the spot function that Frame
+% products will use for process separations. You may un-comment-out one of
+% the alternative functions below, or use your own.
+%
+% Dot function
+/FMSpotFunction {abs exch abs 2 copy add 1 gt 
+		{1 sub dup mul exch 1 sub dup mul add 1 sub }
+		{dup mul exch dup mul add 1 exch sub }ifelse } def
+%
+% Line function
+% /FMSpotFunction { pop } def
+%
+% Elipse function
+% /FMSpotFunction { dup 5 mul 8 div mul exch dup mul exch add 
+%		sqrt 1 exch sub } def
+%
+%
+/FMversion (5.0) def 
+/fMLevel1 /languagelevel where {pop languagelevel} {1} ifelse 2 lt def
+/FMPColor
+	fMLevel1 {
+		false
+		/colorimage where {pop pop true} if
+	} {
+		true
+	} ifelse
+def
+/FrameDict 400 dict def 
+systemdict /errordict known not {/errordict 10 dict def
+		errordict /rangecheck {stop} put} if
+% The readline in PS 23.0 doesn't recognize cr's as nl's on AppleTalk
+FrameDict /tmprangecheck errordict /rangecheck get put 
+errordict /rangecheck {FrameDict /bug true put} put 
+FrameDict /bug false put 
+mark 
+% Some PS machines read past the CR, so keep the following 3 lines together!
+currentfile 5 string readline
+00
+0000000000
+cleartomark 
+errordict /rangecheck FrameDict /tmprangecheck get put 
+FrameDict /bug get { 
+	/readline {
+		/gstring exch def
+		/gfile exch def
+		/gindex 0 def
+		{
+			gfile read pop 
+			dup 10 eq {exit} if 
+			dup 13 eq {exit} if 
+			gstring exch gindex exch put 
+			/gindex gindex 1 add def 
+		} loop
+		pop 
+		gstring 0 gindex getinterval true 
+		} bind def
+	} if
+/FMshowpage /showpage load def
+/FMquit /quit load def
+/FMFAILURE { 
+	dup = flush 
+	FMshowpage 
+	/Helvetica findfont 12 scalefont setfont
+	72 200 moveto show
+	72 220 moveto show
+	FMshowpage 
+	FMquit 
+	} def 
+/FMVERSION {
+	FMversion ne {
+		(Frame product version does not match ps_prolog!  Check installation;)
+		(also check ~/fminit and ./fminit for old versions) FMFAILURE
+		} if
+	} def 
+/FMBADEPSF { 
+	(Adobe's PostScript Language Reference Manual, 2nd Edition, section H.2.4)
+	(says your EPS file is not valid, as it calls X              )
+	dup dup (X) search pop exch pop exch pop length 
+	5 -1 roll 
+	putinterval 
+	FMFAILURE
+	} def
+/fmConcatProcs
+	{
+	/proc2 exch cvlit def/proc1 exch cvlit def/newproc proc1 length proc2 length add array def
+	newproc 0 proc1 putinterval newproc proc1 length proc2 putinterval newproc cvx
+}def
+FrameDict begin [
+	/ALDsave
+	/FMdicttop
+	/FMoptop
+	/FMpointsize
+	/FMsaveobject
+	/b
+	/bitmapsave
+	/blut
+	/bpside
+	/bs
+	/bstring
+	/bwidth
+	/c
+	/cf
+	/cs
+	/cynu
+	/depth
+	/edown
+	/fh
+	/fillvals
+	/fw
+	/fx
+	/fy
+	/g
+	/gfile
+	/gindex
+	/grnt
+	/gryt
+	/gstring
+	/height
+	/hh
+	/i
+	/im
+	/indx
+	/is
+	/k
+	/kk
+	/landscape
+	/lb
+	/len
+	/llx
+	/lly
+	/m
+	/magu
+	/manualfeed
+	/n
+	/offbits
+	/onbits
+	/organgle
+	/orgbangle
+	/orgbfreq
+	/orgbproc
+	/orgbxfer
+	/orgfreq
+	/orggangle
+	/orggfreq
+	/orggproc
+	/orggxfer
+	/orgmatrix
+	/orgproc
+	/orgrangle
+	/orgrfreq
+	/orgrproc
+	/orgrxfer
+	/orgxfer
+	/pagesave
+	/paperheight
+	/papersizedict
+	/paperwidth
+	/pos
+	/pwid
+	/r
+	/rad
+	/redt
+	/sl
+	/str
+	/tran
+	/u
+	/urx
+	/ury
+	/val
+	/width
+	/width
+	/ws
+	/ww
+	/x
+	/x1
+	/x2
+	/xindex
+	/xpoint
+	/xscale
+	/xx
+	/y
+	/y1
+	/y2
+	/yelu
+	/yindex
+	/ypoint
+	/yscale
+	/yy
+] { 0 def } forall
+/FmBD {bind def} bind def
+systemdict /pdfmark known {
+	/fMAcrobat true def
+	
+	/FmPD /pdfmark load def
+	
+	
+	/FmPT /show load def
+	
+	
+	currentdistillerparams /CoreDistVersion get 2000 ge {
+	
+		
+		/FmPD2 /pdfmark load def
+		
+		
+		
+		
+		
+		/FmPA { mark exch /Dest exch 5 3 roll 
+				/View [ /XYZ null 6 -2 roll FmDC exch pop null] /DEST FmPD 
+		}FmBD
+	} {
+		
+		/FmPD2 /cleartomark load def
+		/FmPA {pop pop pop}FmBD
+	} ifelse
+} {
+	
+	/fMAcrobat false def
+	/FmPD /cleartomark load def
+	/FmPD2 /cleartomark load def
+	/FmPT /pop load def
+	/FmPA {pop pop pop}FmBD
+} ifelse
+/FmDC {
+	transform fMDefaultMatrix itransform cvi exch cvi exch
+}FmBD
+/FmBx {
+	dup 3 index lt {3 1 roll exch} if 
+	1 index 4 index lt {4 -1 roll 3 1 roll exch 4 1 roll} if
+}FmBD
+/FMnone 0 def
+/FMcyan 1 def
+/FMmagenta 2 def
+/FMyellow 3 def
+/FMblack 4 def
+/FMcustom 5 def
+/fMNegative false def 
+/FrameSepIs FMnone def 
+/FrameSepBlack 0 def
+/FrameSepYellow 0 def
+/FrameSepMagenta 0 def
+/FrameSepCyan 0 def
+/FrameSepRed 1 def
+/FrameSepGreen 1 def
+/FrameSepBlue 1 def
+/FrameCurGray 1 def
+/FrameCurPat null def
+/FrameCurColors [ 0 0 0 1 0 0 0 ] def 
+/FrameColorEpsilon .001 def	
+/eqepsilon {		
+	sub dup 0 lt {neg} if
+	FrameColorEpsilon le
+} bind def
+/FrameCmpColorsCMYK { 
+	2 copy 0 get exch 0 get eqepsilon {
+		2 copy 1 get exch 1 get eqepsilon {
+			2 copy 2 get exch 2 get eqepsilon {
+				3 get exch 3 get eqepsilon
+			} {pop pop false} ifelse
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+/FrameCmpColorsRGB { 
+	2 copy 4 get exch 0 get eqepsilon {
+		2 copy 5 get exch 1 get eqepsilon {
+			6 get exch 2 get eqepsilon
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+/RGBtoCMYK { 
+	1 exch sub 
+	3 1 roll 
+	1 exch sub 
+	3 1 roll 
+	1 exch sub 
+	3 1 roll 
+	3 copy 
+	2 copy 
+	le { pop } { exch pop } ifelse 
+	2 copy 
+	le { pop } { exch pop } ifelse 
+	dup dup dup 
+	6 1 roll 
+	4 1 roll 
+	7 1 roll 
+	sub 
+	6 1 roll 
+	sub 
+	5 1 roll 
+	sub 
+	4 1 roll 
+} bind def
+/CMYKtoRGB { 
+	dup dup 4 -1 roll add 						  
+	5 1 roll 3 -1 roll add 						  
+	4 1 roll add 								  
+	1 exch sub dup 0 lt {pop 0} if 3 1 roll 	  
+	1 exch sub dup 0 lt {pop 0} if exch 	      
+	1 exch sub dup 0 lt {pop 0} if exch	  		  
+} bind def
+/FrameSepInit {
+	1.0 RealSetgray
+} bind def
+/FrameSetSepColor { 
+	/FrameSepBlue exch def
+	/FrameSepGreen exch def
+	/FrameSepRed exch def
+	/FrameSepBlack exch def
+	/FrameSepYellow exch def
+	/FrameSepMagenta exch def
+	/FrameSepCyan exch def
+	/FrameSepIs FMcustom def
+	setCurrentScreen	
+} bind def
+/FrameSetCyan {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 1.0 def
+	/FrameSepIs FMcyan def
+	setCurrentScreen	
+} bind def
+ 
+/FrameSetMagenta {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 1.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMmagenta def
+	setCurrentScreen
+} bind def
+ 
+/FrameSetYellow {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 1.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMyellow def
+	setCurrentScreen
+} bind def
+ 
+/FrameSetBlack {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 1.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMblack def
+	setCurrentScreen
+} bind def
+ 
+/FrameNoSep { 
+	/FrameSepIs FMnone def
+	setCurrentScreen
+} bind def
+/FrameSetSepColors { 
+	FrameDict begin
+	[ exch 1 add 1 roll ]
+	/FrameSepColors  
+	exch def end
+	} bind def
+/FrameColorInSepListCMYK { 
+	FrameSepColors {  
+       		exch dup 3 -1 roll 
+       		FrameCmpColorsCMYK 
+       		{ pop true exit } if
+    	} forall 
+	dup true ne {pop false} if
+	} bind def
+/FrameColorInSepListRGB { 
+	FrameSepColors {  
+       		exch dup 3 -1 roll 
+       		FrameCmpColorsRGB 
+       		{ pop true exit } if
+    	} forall 
+	dup true ne {pop false} if
+	} bind def
+/RealSetgray /setgray load def
+/RealSetrgbcolor /setrgbcolor load def
+/RealSethsbcolor /sethsbcolor load def
+end 
+/setgray { 
+	FrameDict begin
+	FrameSepIs FMnone eq
+		{ RealSetgray } 
+		{ 
+		FrameSepIs FMblack eq 
+			{ RealSetgray } 
+			{ FrameSepIs FMcustom eq 
+			  FrameSepRed 0 eq and
+			  FrameSepGreen 0 eq and
+			  FrameSepBlue 0 eq and {
+			  	RealSetgray
+			  } {
+				1 RealSetgray pop 
+			  } ifelse
+			} ifelse
+		} ifelse
+	end
+} bind def
+/setrgbcolor { 
+	FrameDict begin
+	FrameSepIs FMnone eq
+	{  RealSetrgbcolor }
+	{
+		3 copy [ 4 1 roll ] 
+		FrameColorInSepListRGB
+		{
+				FrameSepBlue eq exch 
+			 	FrameSepGreen eq and exch 
+			 	FrameSepRed eq and
+			 	{ 0 } { 1 } ifelse
+		}
+		{
+			FMPColor {
+				RealSetrgbcolor
+				currentcmykcolor
+			} {
+				RGBtoCMYK
+			} ifelse
+			FrameSepIs FMblack eq
+			{1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		RealSetgray
+	} 
+	ifelse
+	end
+} bind def
+/sethsbcolor {
+	FrameDict begin
+	FrameSepIs FMnone eq 
+	{ RealSethsbcolor } 
+	{
+		RealSethsbcolor 
+		currentrgbcolor  
+		setrgbcolor 
+	} 
+	ifelse
+	end
+} bind def
+FrameDict begin
+/setcmykcolor where {
+	pop /RealSetcmykcolor /setcmykcolor load def
+} {
+	/RealSetcmykcolor {
+		4 1 roll
+		3 { 3 index add 0 max 1 min 1 exch sub 3 1 roll} repeat 
+		RealSetrgbcolor pop
+	} bind def
+} ifelse
+userdict /setcmykcolor { 
+		FrameDict begin
+		FrameSepIs FMnone eq
+		{ RealSetcmykcolor } 
+		{
+			4 copy [ 5 1 roll ]
+			FrameColorInSepListCMYK
+			{
+				FrameSepBlack eq exch 
+				FrameSepYellow eq and exch 
+				FrameSepMagenta eq and exch 
+				FrameSepCyan eq and 
+				{ 0 } { 1 } ifelse
+			}
+			{
+				FrameSepIs FMblack eq
+				{1.0 exch sub 4 1 roll pop pop pop} {
+				FrameSepIs FMyellow eq
+				{pop 1.0 exch sub 3 1 roll pop pop} {
+				FrameSepIs FMmagenta eq
+				{pop pop 1.0 exch sub exch pop } {
+				FrameSepIs FMcyan eq
+				{pop pop pop 1.0 exch sub } 
+				{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+			} ifelse
+			RealSetgray
+		}
+		ifelse
+		end
+	} bind put
+fMLevel1 { 
+	
+	
+	
+	/patScreenDict 7 dict dup begin
+		<0f1e3c78f0e1c387> [ 45  { pop } {exch pop} 		.5   2 sqrt] FmBD
+		<0f87c3e1f0783c1e> [ 135 { pop } {exch pop}			.5   2 sqrt] FmBD
+		<cccccccccccccccc> [ 0   { pop } dup				.5   2	   ] FmBD
+		<ffff0000ffff0000> [ 90  { pop } dup				.5   2	   ] FmBD
+		<8142241818244281> [ 45  { 2 copy lt {exch} if pop}	dup .75  2 sqrt] FmBD
+		<03060c183060c081> [ 45  { pop } {exch pop}			.875 2 sqrt] FmBD
+		<8040201008040201> [ 135 { pop } {exch pop}			.875 2 sqrt] FmBD
+	end def
+} { 
+	
+	/patProcDict 5 dict dup begin
+		<0f1e3c78f0e1c387> { 3 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<0f87c3e1f0783c1e> { 3 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+		<8142241818244281> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke
+											-1 -1 moveto 9 9 lineto stroke } bind def
+		<03060c183060c081> { 1 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<8040201008040201> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+	end def
+	/patDict 15 dict dup begin
+		/PatternType 1 def		
+		/PaintType 2 def		
+		/TilingType 3 def		
+		/BBox [ 0 0 8 8 ] def 	
+		/XStep 8 def			
+		/YStep 8 def			
+		/PaintProc {
+			begin
+			patProcDict bstring known {
+				patProcDict bstring get exec
+			} {
+				8 8 true [1 0 0 -1 0 8] bstring imagemask
+			} ifelse
+			end
+		} bind def
+	end def
+} ifelse
+/combineColor {
+    FrameSepIs FMnone eq
+	{
+		graymode fMLevel1 or not {
+			
+			[/Pattern [/DeviceCMYK]] setcolorspace
+			FrameCurColors 0 4 getinterval aload pop FrameCurPat setcolor
+		} {
+			FrameCurColors 3 get 1.0 ge {
+				FrameCurGray RealSetgray
+			} {
+				fMAcrobat not FMPColor graymode and and {
+					0 1 3 { 
+						FrameCurColors exch get
+						1 FrameCurGray sub mul
+					} for
+					RealSetcmykcolor
+				} {
+					4 1 6 {
+						FrameCurColors exch get
+						graymode {
+							1 exch sub 1 FrameCurGray sub mul 1 exch sub
+						} {
+							1.0 lt {FrameCurGray} {1} ifelse
+						} ifelse
+					} for
+					RealSetrgbcolor
+				} ifelse
+			} ifelse
+		} ifelse
+	} { 
+		FrameCurColors 0 4 getinterval aload
+		FrameColorInSepListCMYK {
+			FrameSepBlack eq exch 
+			FrameSepYellow eq and exch 
+			FrameSepMagenta eq and exch 
+			FrameSepCyan eq and
+			FrameSepIs FMcustom eq and
+			{ FrameCurGray } { 1 } ifelse
+		} {
+			FrameSepIs FMblack eq
+			{FrameCurGray 1.0 exch sub mul 1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop FrameCurGray 1.0 exch sub mul 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		graymode fMLevel1 or not {
+			
+			[/Pattern [/DeviceGray]] setcolorspace
+			FrameCurPat setcolor
+		} { 
+			graymode not fMLevel1 and {
+				
+				dup 1 lt {pop FrameCurGray} if
+			} if
+			RealSetgray
+		} ifelse
+	} ifelse
+} bind def
+/savematrix {
+	orgmatrix currentmatrix pop
+	} bind def
+/restorematrix {
+	orgmatrix setmatrix
+	} bind def
+/fMDefaultMatrix matrix defaultmatrix def
+/fMatrix2 matrix def
+/dpi    72 0 fMDefaultMatrix dtransform
+    dup mul exch   dup mul add   sqrt def
+	
+/freq dpi dup 72 div round dup 0 eq {pop 1} if 8 mul div def
+/sangle 1 0 fMDefaultMatrix dtransform exch atan def
+	sangle fMatrix2 rotate 
+	fMDefaultMatrix fMatrix2 concatmatrix 
+	dup 0 get /sflipx exch def
+	    3 get /sflipy exch def
+/screenIndex {
+	0 1 dpiranges length 1 sub { dup dpiranges exch get 1 sub dpi le {exit} {pop} ifelse } for
+} bind def
+/getCyanScreen {
+	FMUseHighFrequencyScreens { CHighAngles CMHighFreqs} {CLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+/getMagentaScreen {
+	FMUseHighFrequencyScreens { MHighAngles CMHighFreqs } {MLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+/getYellowScreen {
+	FMUseHighFrequencyScreens { YHighTDot YHighFreqs} { YLowTDot YLowFreqs } ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get { 3 div
+			{2 { 1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch} repeat
+			FMSpotFunction } } {/FMSpotFunction load } ifelse
+			0.0 exch
+} bind def
+/getBlackScreen  {
+	FMUseHighFrequencyScreens { KHighFreqs } { KLowFreqs } ifelse
+		screenIndex get 45.0 /FMSpotFunction load 
+} bind def
+/getSpotScreen {
+	getBlackScreen
+} bind def
+/getCompositeScreen {
+	getBlackScreen
+} bind def
+/FMSetScreen 
+	fMLevel1 { /setscreen load 
+	}{ {
+		8 dict begin
+		/HalftoneType 1 def
+		/SpotFunction exch def
+		/Angle exch def
+		/Frequency exch def
+		/AccurateScreens FMUseAcccurateScreens def
+		currentdict end sethalftone
+	} bind } ifelse
+def
+/setDefaultScreen {
+	FMPColor {
+		orgrxfer cvx orggxfer cvx orgbxfer cvx orgxfer cvx setcolortransfer
+	}
+	{
+		orgxfer cvx settransfer
+	} ifelse
+	orgfreq organgle orgproc cvx setscreen
+} bind def
+/setCurrentScreen {
+	FrameSepIs FMnone eq {
+		FMUseDefaultNoSeparationScreen {
+			setDefaultScreen
+		} {
+			getCompositeScreen FMSetScreen
+		} ifelse
+	} {
+		FrameSepIs FMcustom eq {
+			FMUseDefaultSpotSeparationScreen {
+				setDefaultScreen
+			} {
+				getSpotScreen FMSetScreen
+			} ifelse
+		} {
+			FMUseDefaultProcessSeparationScreen {
+				setDefaultScreen
+			} {
+				FrameSepIs FMcyan eq {
+					getCyanScreen FMSetScreen
+				} {
+					FrameSepIs FMmagenta eq {
+						getMagentaScreen FMSetScreen
+					} {
+						FrameSepIs FMyellow eq {
+							getYellowScreen FMSetScreen
+						} {
+							getBlackScreen FMSetScreen
+						} ifelse
+					} ifelse
+				} ifelse
+			} ifelse
+		} ifelse
+	} ifelse 
+} bind def
+end
+	
+/FMDOCUMENT { 
+	array /FMfonts exch def 
+	/#copies exch def
+	FrameDict begin
+	0 ne /manualfeed exch def
+	/paperheight exch def
+	/paperwidth exch def
+	0 ne /fMNegative exch def 
+	0 ne /edown exch def 
+	/yscale exch def
+	/xscale exch def
+	fMLevel1 {
+		manualfeed {setmanualfeed} if
+		/FMdicttop countdictstack 1 add def 
+		/FMoptop count def 
+		setpapername 
+		manualfeed {true} {papersize} ifelse 
+		{manualpapersize} {false} ifelse 
+		{desperatepapersize} {false} ifelse 
+		{papersizefailure} if
+		count -1 FMoptop {pop pop} for
+		countdictstack -1 FMdicttop {pop end} for 
+		}
+		{2 dict
+		 dup /PageSize [paperwidth paperheight] put
+		 manualfeed {dup /ManualFeed manualfeed put} if
+		 {setpagedevice} stopped {papersizefailure} if
+		}
+	ifelse 
+	
+	FMPColor {
+		currentcolorscreen
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+			cvlit /orgbproc exch def
+				  /orgbangle exch def 
+				  /orgbfreq exch def
+			cvlit /orggproc exch def
+				  /orggangle exch def 
+				  /orggfreq exch def
+			cvlit /orgrproc exch def
+				  /orgrangle exch def 
+				  /orgrfreq exch def
+			currentcolortransfer 
+			fMNegative {
+				1 1 4 { 
+					pop { 1 exch sub } fmConcatProcs 4 1 roll
+				} for
+				4 copy
+				setcolortransfer
+			} if
+			cvlit /orgxfer exch def
+			cvlit /orgbxfer exch def
+			cvlit /orggxfer exch def
+			cvlit /orgrxfer exch def
+	} {
+		currentscreen 
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+				  
+		currenttransfer 
+		fMNegative {
+			{ 1 exch sub } fmConcatProcs
+			dup settransfer
+		} if 
+		cvlit /orgxfer exch def
+	} ifelse
+	end 
+} def 
+/FMBEGINPAGE { 
+	FrameDict begin 
+	/pagesave save def
+	3.86 setmiterlimit
+	/landscape exch 0 ne def
+	landscape { 
+		90 rotate 0 exch dup /pwid exch def neg translate pop 
+	}{
+		pop /pwid exch def
+	} ifelse
+	edown { [-1 0 0 1 pwid 0] concat } if
+	0 0 moveto paperwidth 0 lineto paperwidth paperheight lineto 
+	0 paperheight lineto 0 0 lineto 1 setgray fill
+	xscale yscale scale
+	/orgmatrix matrix def
+	gsave 
+} def 
+/FMENDPAGE {
+	grestore 
+	pagesave restore
+	end 
+	showpage
+	} def 
+/FMFONTDEFINE { 
+	FrameDict begin
+	findfont 
+	ReEncode 
+	1 index exch 
+	definefont 
+	FMfonts 3 1 roll 
+	put
+	end 
+	} def 
+/FMFILLS {
+	FrameDict begin dup
+	array /fillvals exch def
+	dict /patCache exch def
+	end 
+	} def 
+/FMFILL {
+	FrameDict begin
+	 fillvals 3 1 roll put
+	end 
+	} def 
+/FMNORMALIZEGRAPHICS { 
+	newpath
+	1 setlinewidth
+	0 setlinecap
+	0 0 0 sethsbcolor
+	0 setgray 
+	} bind def
+/FMBEGINEPSF { 
+	end 
+	/FMEPSF save def 
+	/showpage {} def 
+% See Adobe's "PostScript Language Reference Manual, 2nd Edition", page 714.
+% "...the following operators MUST NOT be used in an EPS file:" (emphasis ours)
+	/banddevice {(banddevice) FMBADEPSF} def
+	/clear {(clear) FMBADEPSF} def
+	/cleardictstack {(cleardictstack) FMBADEPSF} def 
+	/copypage {(copypage) FMBADEPSF} def
+	/erasepage {(erasepage) FMBADEPSF} def
+	/exitserver {(exitserver) FMBADEPSF} def
+	/framedevice {(framedevice) FMBADEPSF} def
+	/grestoreall {(grestoreall) FMBADEPSF} def
+	/initclip {(initclip) FMBADEPSF} def
+	/initgraphics {(initgraphics) FMBADEPSF} def
+	/quit {(quit) FMBADEPSF} def
+	/renderbands {(renderbands) FMBADEPSF} def
+	/setglobal {(setglobal) FMBADEPSF} def
+	/setpagedevice {(setpagedevice) FMBADEPSF} def
+	/setshared {(setshared) FMBADEPSF} def
+	/startjob {(startjob) FMBADEPSF} def
+	/lettertray {(lettertray) FMBADEPSF} def
+	/letter {(letter) FMBADEPSF} def
+	/lettersmall {(lettersmall) FMBADEPSF} def
+	/11x17tray {(11x17tray) FMBADEPSF} def
+	/11x17 {(11x17) FMBADEPSF} def
+	/ledgertray {(ledgertray) FMBADEPSF} def
+	/ledger {(ledger) FMBADEPSF} def
+	/legaltray {(legaltray) FMBADEPSF} def
+	/legal {(legal) FMBADEPSF} def
+	/statementtray {(statementtray) FMBADEPSF} def
+	/statement {(statement) FMBADEPSF} def
+	/executivetray {(executivetray) FMBADEPSF} def
+	/executive {(executive) FMBADEPSF} def
+	/a3tray {(a3tray) FMBADEPSF} def
+	/a3 {(a3) FMBADEPSF} def
+	/a4tray {(a4tray) FMBADEPSF} def
+	/a4 {(a4) FMBADEPSF} def
+	/a4small {(a4small) FMBADEPSF} def
+	/b4tray {(b4tray) FMBADEPSF} def
+	/b4 {(b4) FMBADEPSF} def
+	/b5tray {(b5tray) FMBADEPSF} def
+	/b5 {(b5) FMBADEPSF} def
+	FMNORMALIZEGRAPHICS 
+	[/fy /fx /fh /fw /ury /urx /lly /llx] {exch def} forall 
+	fx fw 2 div add fy fh 2 div add  translate
+	rotate
+	fw 2 div neg fh 2 div neg translate
+	fw urx llx sub div fh ury lly sub div scale 
+	llx neg lly neg translate 
+	/FMdicttop countdictstack 1 add def 
+	/FMoptop count def 
+	} bind def
+/FMENDEPSF {
+	count -1 FMoptop {pop pop} for 
+	countdictstack -1 FMdicttop {pop end} for 
+	FMEPSF restore
+	FrameDict begin 
+	} bind def
+FrameDict begin 
+/setmanualfeed {
+%%BeginFeature *ManualFeed True
+	 statusdict /manualfeed true put
+%%EndFeature
+	} bind def
+/max {2 copy lt {exch} if pop} bind def
+/min {2 copy gt {exch} if pop} bind def
+/inch {72 mul} def
+/pagedimen { 
+	paperheight sub abs 16 lt exch 
+	paperwidth sub abs 16 lt and
+	{/papername exch def} {pop} ifelse
+	} bind def
+/setpapername { 
+	/papersizedict 14 dict def 
+	papersizedict begin
+	/papername /unknown def 
+		/Letter 8.5 inch 11.0 inch pagedimen
+		/LetterSmall 7.68 inch 10.16 inch pagedimen
+		/Tabloid 11.0 inch 17.0 inch pagedimen
+		/Ledger 17.0 inch 11.0 inch pagedimen
+		/Legal 8.5 inch 14.0 inch pagedimen
+		/Statement 5.5 inch 8.5 inch pagedimen
+		/Executive 7.5 inch 10.0 inch pagedimen
+		/A3 11.69 inch 16.5 inch pagedimen
+		/A4 8.26 inch 11.69 inch pagedimen
+		/A4Small 7.47 inch 10.85 inch pagedimen
+		/B4 10.125 inch 14.33 inch pagedimen
+		/B5 7.16 inch 10.125 inch pagedimen
+	end
+	} bind def
+/papersize {
+	papersizedict begin
+		/Letter {lettertray letter} def
+		/LetterSmall {lettertray lettersmall} def
+		/Tabloid {11x17tray 11x17} def
+		/Ledger {ledgertray ledger} def
+		/Legal {legaltray legal} def
+		/Statement {statementtray statement} def
+		/Executive {executivetray executive} def
+		/A3 {a3tray a3} def
+		/A4 {a4tray a4} def
+		/A4Small {a4tray a4small} def
+		/B4 {b4tray b4} def
+		/B5 {b5tray b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	statusdict begin stopped end 
+	} bind def
+/manualpapersize {
+	papersizedict begin
+		/Letter {letter} def
+		/LetterSmall {lettersmall} def
+		/Tabloid {11x17} def
+		/Ledger {ledger} def
+		/Legal {legal} def
+		/Statement {statement} def
+		/Executive {executive} def
+		/A3 {a3} def
+		/A4 {a4} def
+		/A4Small {a4small} def
+		/B4 {b4} def
+		/B5 {b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	stopped 
+	} bind def
+/desperatepapersize {
+	statusdict /setpageparams known
+		{
+		paperwidth paperheight 0 1 
+		statusdict begin
+		{setpageparams} stopped 
+		end
+		} {true} ifelse 
+	} bind def
+/papersizefailure {
+	FMAllowPaperSizeMismatch not
+		{
+(The requested paper size is not available in any currently-installed tray)
+(Edit the PS file to "FMAllowPaperSizeMismatch true" to use default tray)
+		 FMFAILURE } if
+	} def
+/DiacriticEncoding [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /space /exclam /quotedbl
+/numbersign /dollar /percent /ampersand /quotesingle /parenleft
+/parenright /asterisk /plus /comma /hyphen /period /slash /zero /one
+/two /three /four /five /six /seven /eight /nine /colon /semicolon
+/less /equal /greater /question /at /A /B /C /D /E /F /G /H /I /J /K
+/L /M /N /O /P /Q /R /S /T /U /V /W /X /Y /Z /bracketleft /backslash
+/bracketright /asciicircum /underscore /grave /a /b /c /d /e /f /g /h
+/i /j /k /l /m /n /o /p /q /r /s /t /u /v /w /x /y /z /braceleft /bar
+/braceright /asciitilde /.notdef /Adieresis /Aring /Ccedilla /Eacute
+/Ntilde /Odieresis /Udieresis /aacute /agrave /acircumflex /adieresis
+/atilde /aring /ccedilla /eacute /egrave /ecircumflex /edieresis
+/iacute /igrave /icircumflex /idieresis /ntilde /oacute /ograve
+/ocircumflex /odieresis /otilde /uacute /ugrave /ucircumflex
+/udieresis /dagger /.notdef /cent /sterling /section /bullet
+/paragraph /germandbls /registered /copyright /trademark /acute
+/dieresis /.notdef /AE /Oslash /.notdef /.notdef /.notdef /.notdef
+/yen /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/ordfeminine /ordmasculine /.notdef /ae /oslash /questiondown
+/exclamdown /logicalnot /.notdef /florin /.notdef /.notdef
+/guillemotleft /guillemotright /ellipsis /.notdef /Agrave /Atilde
+/Otilde /OE /oe /endash /emdash /quotedblleft /quotedblright
+/quoteleft /quoteright /.notdef /.notdef /ydieresis /Ydieresis
+/fraction /currency /guilsinglleft /guilsinglright /fi /fl /daggerdbl
+/periodcentered /quotesinglbase /quotedblbase /perthousand
+/Acircumflex /Ecircumflex /Aacute /Edieresis /Egrave /Iacute
+/Icircumflex /Idieresis /Igrave /Oacute /Ocircumflex /.notdef /Ograve
+/Uacute /Ucircumflex /Ugrave /dotlessi /circumflex /tilde /macron
+/breve /dotaccent /ring /cedilla /hungarumlaut /ogonek /caron
+] def
+/ReEncode { 
+	dup 
+	length 
+	dict begin 
+	{
+	1 index /FID ne 
+		{def} 
+		{pop pop} ifelse 
+	} forall 
+	0 eq {/Encoding DiacriticEncoding def} if 
+	currentdict 
+	end 
+	} bind def
+FMPColor 
+	
+	{
+	/BEGINBITMAPCOLOR { 
+		BITMAPCOLOR} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPCOLORc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUECOLOR } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUECOLORc } def
+	/BEGINBITMAPCMYK { 
+		BITMAPCMYK } def
+	/BEGINBITMAPCMYKc { 
+		BITMAPCMYKc } def
+	}
+	
+	{
+	/BEGINBITMAPCOLOR { 
+		BITMAPGRAY} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPGRAYc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUEGRAY } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUEGRAYc } def
+	/BEGINBITMAPCMYK { 
+		BITMAPCMYKGRAY } def
+	/BEGINBITMAPCMYKc { 
+		BITMAPCMYKGRAYc } def
+	}
+ifelse
+/K { 
+	FMPrintAllColorsAsBlack {
+		dup 1 eq 2 index 1 eq and 3 index 1 eq and not
+			{7 {pop} repeat 0 0 0 1 0 0 0} if
+	} if 
+	FrameCurColors astore 
+	pop combineColor
+} bind def
+/graymode true def
+fMLevel1 {
+	/fmGetFlip {
+		fMatrix2 exch get mul 0 lt { -1 } { 1 } ifelse
+	} FmBD
+} if
+/setPatternMode {
+	fMLevel1 {
+		2 index patScreenDict exch known {
+			pop pop
+			patScreenDict exch get aload pop 
+			freq 								
+			mul									
+			5 2 roll							
+			fMatrix2 currentmatrix 1 get 0 ne {
+				3 -1 roll 90 add 3 1 roll 		
+				sflipx 1 fmGetFlip sflipy 2 fmGetFlip neg mul
+			} {  								
+				sflipx 0 fmGetFlip sflipy 3 fmGetFlip mul 
+			} ifelse
+			0 lt {exch pop} {pop} ifelse 		
+			fMNegative { 
+				{neg} fmConcatProcs 			
+			} if
+			bind
+			
+			
+			
+			systemdict /setscreen get exec		
+			/FrameCurGray exch def
+		} {
+			/bwidth  exch def
+			/bpside  exch def
+			/bstring exch def
+			/onbits 0 def  /offbits 0 def
+			freq sangle landscape {90 add} if 
+				{/ypoint exch def
+				 /xpoint exch def
+				 /xindex xpoint 1 add 2 div bpside mul cvi def
+				 /yindex ypoint 1 add 2 div bpside mul cvi def
+				 bstring yindex bwidth mul xindex 8 idiv add get
+				 1 7 xindex 8 mod sub bitshift and 0 ne fMNegative {not} if
+				 {/onbits  onbits  1 add def 1}
+				 {/offbits offbits 1 add def 0}
+				 ifelse
+				}
+				setscreen
+			offbits offbits onbits add div fMNegative {1.0 exch sub} if
+			/FrameCurGray exch def
+		} ifelse
+	} { 
+		pop pop
+		dup patCache exch known {
+			patCache exch get
+		} { 
+			dup
+			patDict /bstring 3 -1 roll put
+			patDict 
+			9 PatFreq screenIndex get div dup matrix scale
+			makepattern
+			dup 
+			patCache 4 -1 roll 3 -1 roll put
+		} ifelse
+		/FrameCurGray 0 def
+		/FrameCurPat exch def
+	} ifelse
+	/graymode false def
+	combineColor
+} bind def
+/setGrayScaleMode {
+	graymode not {
+		/graymode true def
+		fMLevel1 {
+			setCurrentScreen
+		} if
+	} if
+	/FrameCurGray exch def
+	combineColor
+} bind def
+/normalize {
+	transform round exch round exch itransform
+	} bind def
+/dnormalize {
+	dtransform round exch round exch idtransform
+	} bind def
+/lnormalize { 
+	0 dtransform exch cvi 2 idiv 2 mul 1 add exch idtransform pop
+	} bind def
+/H { 
+	lnormalize setlinewidth
+	} bind def
+/Z {
+	setlinecap
+	} bind def
+	
+/PFill {
+	graymode fMLevel1 or not {
+		gsave 1 setgray eofill grestore
+	} if
+} bind def
+/PStroke {
+	graymode fMLevel1 or not {
+		gsave 1 setgray stroke grestore
+	} if
+	stroke
+} bind def
+/X { 
+	fillvals exch get
+	dup type /stringtype eq
+	{8 1 setPatternMode} 
+	{setGrayScaleMode}
+	ifelse
+	} bind def
+/V { 
+	PFill gsave eofill grestore
+	} bind def
+/Vclip {
+	clip
+	} bind def
+/Vstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/N { 
+	PStroke
+	} bind def
+/Nclip {
+	strokepath clip newpath
+	} bind def
+/Nstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/M {newpath moveto} bind def
+/E {lineto} bind def
+/D {curveto} bind def
+/O {closepath} bind def
+/L { 
+ 	/n exch def
+	newpath
+	normalize
+	moveto 
+	2 1 n {pop normalize lineto} for
+	} bind def
+/Y { 
+	L 
+	closepath
+	} bind def
+/R { 
+	/y2 exch def
+	/x2 exch def
+	/y1 exch def
+	/x1 exch def
+	x1 y1
+	x2 y1
+	x2 y2
+	x1 y2
+	4 Y 
+	} bind def
+/rarc 
+	{rad 
+	 arcto
+	} bind def
+/RR { 
+	/rad exch def
+	normalize
+	/y2 exch def
+	/x2 exch def
+	normalize
+	/y1 exch def
+	/x1 exch def
+	mark
+	newpath
+	{
+	x1 y1 rad add moveto
+	x1 y2 x2 y2 rarc
+	x2 y2 x2 y1 rarc
+	x2 y1 x1 y1 rarc
+	x1 y1 x1 y2 rarc
+	closepath
+	} stopped {x1 y1 x2 y2 R} if 
+	cleartomark
+	} bind def
+/RRR { 
+	/rad exch def
+	normalize /y4 exch def /x4 exch def
+	normalize /y3 exch def /x3 exch def
+	normalize /y2 exch def /x2 exch def
+	normalize /y1 exch def /x1 exch def
+	newpath
+	normalize moveto 
+	mark
+	{
+	x2 y2 x3 y3 rarc
+	x3 y3 x4 y4 rarc
+	x4 y4 x1 y1 rarc
+	x1 y1 x2 y2 rarc
+	closepath
+	} stopped
+	 {x1 y1 x2 y2 x3 y3 x4 y4 newpath moveto lineto lineto lineto closepath} if
+	cleartomark
+	} bind def
+/C { 
+	grestore
+	gsave
+	R 
+	clip
+	setCurrentScreen
+} bind def
+/CP { 
+	grestore
+	gsave
+	Y 
+	clip
+	setCurrentScreen
+} bind def
+/F { 
+	FMfonts exch get
+	FMpointsize scalefont
+	setfont
+	} bind def
+/Q { 
+	/FMpointsize exch def
+	F 
+	} bind def
+/T { 
+	moveto show
+	} bind def
+/RF { 
+	rotate
+	0 ne {-1 1 scale} if
+	} bind def
+/TF { 
+	gsave
+	moveto 
+	RF
+	show
+	grestore
+	} bind def
+/P { 
+	moveto
+	0 32 3 2 roll widthshow
+	} bind def
+/PF { 
+	gsave
+	moveto 
+	RF
+	0 32 3 2 roll widthshow
+	grestore
+	} bind def
+/S { 
+	moveto
+	0 exch ashow
+	} bind def
+/SF { 
+	gsave
+	moveto
+	RF
+	0 exch ashow
+	grestore
+	} bind def
+/B { 
+	moveto
+	0 32 4 2 roll 0 exch awidthshow
+	} bind def
+/BF { 
+	gsave
+	moveto
+	RF
+	0 32 4 2 roll 0 exch awidthshow
+	grestore
+	} bind def
+/G { 
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	PFill fill
+	grestore
+	} bind def
+/Gstrk {
+	savematrix
+    newpath
+    2 index 2 div add exch 3 index 2 div sub exch 
+    normalize 2 index 2 div sub exch 3 index 2 div add exch 
+    translate
+    scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+    } bind def
+/Gclip { 
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	clip newpath
+	restorematrix
+	} bind def
+/GG { 
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto 
+	rotate 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath
+	PFill
+	fill
+	grestore
+	} bind def
+/GGclip { 
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath
+	clip newpath
+	restorematrix
+	} bind def
+/GGstrk { 
+	savematrix
+    newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath 
+	restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/A { 
+	gsave
+	savematrix
+	newpath
+	2 index 2 div add exch 3 index 2 div sub exch 
+	normalize 2 index 2 div sub exch 3 index 2 div add exch 
+	translate 
+	scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+/Aclip {
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	strokepath clip newpath
+	restorematrix
+} bind def
+/Astrk {
+	Gstrk
+} bind def
+/AA { 
+	gsave
+	savematrix
+	newpath
+	
+	3 index 2 div add exch 4 index 2 div sub exch 
+	
+	normalize 3 index 2 div sub exch 4 index 2 div add exch
+	translate 
+	rotate 
+	scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+/AAclip {
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath
+	strokepath clip newpath
+	restorematrix
+} bind def
+/AAstrk {
+	GGstrk
+} bind def
+/BEGINPRINTCODE { 
+	/FMdicttop countdictstack 1 add def 
+	/FMoptop count 7 sub def 
+	/FMsaveobject save def
+	userdict begin 
+	/showpage {} def 
+	FMNORMALIZEGRAPHICS 
+	3 index neg 3 index neg translate
+	} bind def
+/ENDPRINTCODE {
+	count -1 FMoptop {pop pop} for 
+	countdictstack -1 FMdicttop {pop end} for 
+	FMsaveobject restore 
+	} bind def
+/gn { 
+	0 
+	{	46 mul 
+		cf read pop 
+		32 sub 
+		dup 46 lt {exit} if 
+		46 sub add 
+		} loop
+	add 
+	} bind def
+/cfs { 
+	/str sl string def 
+	0 1 sl 1 sub {str exch val put} for 
+	str def 
+	} bind def
+/ic [ 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0
+	{0 hx} {1 hx} {2 hx} {3 hx} {4 hx} {5 hx} {6 hx} {7 hx} {8 hx} {9 hx}
+	{10 hx} {11 hx} {12 hx} {13 hx} {14 hx} {15 hx} {16 hx} {17 hx} {18 hx}
+	{19 hx} {gn hx} {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12}
+	{13} {14} {15} {16} {17} {18} {19} {gn} {0 wh} {1 wh} {2 wh} {3 wh}
+	{4 wh} {5 wh} {6 wh} {7 wh} {8 wh} {9 wh} {10 wh} {11 wh} {12 wh}
+	{13 wh} {14 wh} {gn wh} {0 bl} {1 bl} {2 bl} {3 bl} {4 bl} {5 bl} {6 bl}
+	{7 bl} {8 bl} {9 bl} {10 bl} {11 bl} {12 bl} {13 bl} {14 bl} {gn bl}
+	{0 fl} {1 fl} {2 fl} {3 fl} {4 fl} {5 fl} {6 fl} {7 fl} {8 fl} {9 fl}
+	{10 fl} {11 fl} {12 fl} {13 fl} {14 fl} {gn fl}
+	] def
+/ms { 
+	/sl exch def 
+	/val 255 def 
+	/ws cfs 
+	/im cfs 
+	/val 0 def 
+	/bs cfs 
+	/cs cfs 
+	} bind def
+400 ms 
+/ip { 
+	is 
+	0 
+	cf cs readline pop 
+	{	ic exch get exec 
+		add 
+		} forall 
+	pop 
+	
+	} bind def
+/rip { 
+	   
+	  
+	  bis ris copy pop 
+      is
+      0
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop 
+	  ris gis copy pop 
+	  dup is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  gis bis copy pop 
+	  dup add is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+      pop 
+      
+      } bind def
+/rip4 { 
+	   
+	  
+	  kis cis copy pop 
+      is
+      0
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop 
+	  cis mis copy pop 
+	  dup is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  mis yis copy pop 
+	  dup dup add is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  yis kis copy pop 
+	  3 mul is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+      pop 
+      
+      } bind def
+/wh { 
+	/len exch def 
+	/pos exch def 
+	ws 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/bl { 
+	/len exch def 
+	/pos exch def 
+	bs 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/s1 1 string def
+/fl { 
+	/len exch def 
+	/pos exch def 
+	/val cf s1 readhexstring pop 0 get def
+	pos 1 pos len add 1 sub {im exch val put} for
+	pos len 
+	} bind def
+/hx { 
+	3 copy getinterval 
+	cf exch readhexstring pop pop 
+	} bind def
+/wbytes { 
+      dup dup
+      8 gt { pop 8 idiv mul }
+      { 8 eq {pop} {1 eq {7 add 8 idiv} {3 add 4 idiv} ifelse} ifelse } ifelse
+	} bind def
+/BEGINBITMAPBWc { 
+	1 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAPGRAYc { 
+	8 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAP2BITc { 
+	2 {} COMMONBITMAPc
+	} bind def
+/COMMONBITMAPc { 
+		 
+	/cvtProc exch def
+	/depth exch def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	cvtProc                
+	/is im 0 lb getinterval def 
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height depth [width 0 0 height neg 0 height] 
+	{ip} image 
+	bitmapsave restore 
+	grestore
+	} bind def
+/BEGINBITMAPBW { 
+	1 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAPGRAY { 
+	8 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAP2BIT { 
+	2 {} COMMONBITMAP
+	} bind def
+/COMMONBITMAP { 
+	/cvtProc exch def
+	/depth exch def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/bitmapsave save def 
+	cvtProc              
+	/is width depth wbytes string def
+	/cf currentfile def 
+	width height depth [width 0 0 height neg 0 height] 
+	{cf is readhexstring pop} image
+	bitmapsave restore 
+	grestore
+	} bind def
+/ngrayt 256 array def
+/nredt 256 array def
+/nbluet 256 array def
+/ngreent 256 array def
+fMLevel1 {
+/colorsetup {
+	currentcolortransfer
+	/gryt exch def
+	/blut exch def
+	/grnt exch def
+	/redt exch def
+	0 1 255 {
+		/indx exch def
+		/cynu 1 red indx get 255 div sub def
+		/magu 1 green indx get 255 div sub def
+		/yelu 1 blue indx get 255 div sub def
+		/kk cynu magu min yelu min def
+		/u kk currentundercolorremoval exec def
+%		/u 0 def
+		nredt indx 1 0 cynu u sub max sub redt exec put
+		ngreent indx 1 0 magu u sub max sub grnt exec put
+		nbluet indx 1 0 yelu u sub max sub blut exec put
+		ngrayt indx 1 kk currentblackgeneration exec sub gryt exec put
+	} for
+	{255 mul cvi nredt exch get}
+	{255 mul cvi ngreent exch get}
+	{255 mul cvi nbluet exch get}
+	{255 mul cvi ngrayt exch get}
+	setcolortransfer
+	{pop 0} setundercolorremoval
+	{} setblackgeneration
+	} bind def
+}
+{
+/colorSetup2 {
+	[ /Indexed /DeviceRGB 255 
+		{dup red exch get 255 div 
+		 exch dup green exch get 255 div 
+		 exch blue exch get 255 div}
+	] setcolorspace
+} bind def
+} ifelse
+/fakecolorsetup {
+	/tran 256 string def
+	0 1 255 {/indx exch def 
+		tran indx
+		red indx get 77 mul
+		green indx get 151 mul
+		blue indx get 28 mul
+		add add 256 idiv put} for
+	currenttransfer
+	{255 mul cvi tran exch get 255.0 div}
+	exch fmConcatProcs settransfer
+} bind def
+/BITMAPCOLOR { 
+	/depth 8 def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/bitmapsave save def
+	fMLevel1 {	
+		colorsetup
+		/is width depth wbytes string def
+		/cf currentfile def 
+		width height depth [width 0 0 height neg 0 height] 
+		{cf is readhexstring pop} {is} {is} true 3 colorimage 
+	} {
+		colorSetup2
+		/is width depth wbytes string def
+		/cf currentfile def 
+		7 dict dup begin
+			/ImageType 1 def
+			/Width width def
+			/Height height def
+			/ImageMatrix [width 0 0 height neg 0 height] def
+			/DataSource {cf is readhexstring pop} bind def
+			/BitsPerComponent depth def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPCOLORc { 
+	/depth 8 def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	fMLevel1 {	
+		colorsetup
+		/is im 0 lb getinterval def 
+		ws 0 lb getinterval is copy pop 
+		/cf currentfile def 
+		width height depth [width 0 0 height neg 0 height] 
+		{ip} {is} {is} true 3 colorimage
+	} {
+		colorSetup2
+		/is im 0 lb getinterval def 
+		ws 0 lb getinterval is copy pop 
+		/cf currentfile def 
+		7 dict dup begin
+			/ImageType 1 def
+			/Width width def
+			/Height height def
+			/ImageMatrix [width 0 0 height neg 0 height] def
+			/DataSource {ip} bind def
+			/BitsPerComponent depth def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPTRUECOLORc { 
+	/depth 24 def
+        gsave
+ 	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/ris im 0 width getinterval def	
+	/gis im width width getinterval def	
+	/bis im width 2 mul width getinterval def 
+        
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height 8 [width 0 0 height neg 0 height] 
+	{width rip pop ris} {gis} {bis} true 3 colorimage
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPCMYKc { 
+	/depth 32 def
+        gsave
+ 	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/cis im 0 width getinterval def	
+	/mis im width width getinterval def	
+	/yis im width 2 mul width getinterval def 
+	/kis im width 3 mul width getinterval def 
+        
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height 8 [width 0 0 height neg 0 height] 
+	{width rip4 pop cis} {mis} {yis} {kis} true 4 colorimage
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPTRUECOLOR { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /gis width string def
+        /bis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop } 
+        { cf gis readhexstring pop } 
+        { cf bis readhexstring pop } 
+        true 3 colorimage 
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYK { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /mis width string def
+        /yis width string def
+        /kis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop } 
+        { cf mis readhexstring pop } 
+        { cf yis readhexstring pop } 
+        { cf kis readhexstring pop } 
+        true 4 colorimage 
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPTRUEGRAYc { 
+	/depth 24 def
+        gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/ris im 0 width getinterval def	
+	/gis im width width getinterval def	
+	/bis im width 2 mul width getinterval def 
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        {width rip pop ris gis bis width gray} image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYKGRAYc { 
+	/depth 32 def
+        gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/cis im 0 width getinterval def	
+	/mis im width width getinterval def	
+	/yis im width 2 mul width getinterval def 
+	/kis im width 3 mul width getinterval def 
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        {width rip pop cis mis yis kis width cgray} image
+        bitmapsave restore 
+        grestore
+        } bind def
+/cgray { 
+        /ww exch def
+        /k exch def
+        /y exch def
+        /m exch def
+        /c exch def
+        0 1 ww 1 sub { /i exch def c i get m i get y i get k i get CMYKtoRGB
+				.144 mul 3 1 roll .587 mul 3 1 roll .299 mul add add
+				c i 3 -1 roll floor cvi put } for
+        c
+ 		} bind def
+/gray { 
+        /ww exch def
+        /b exch def
+        /g exch def
+        /r exch def
+        0 1 ww 1 sub { /i exch def r i get .299 mul g i get .587 mul
+			b i get .114 mul add add r i 3 -1 roll floor cvi put } for
+        r
+        } bind def
+/BITMAPTRUEGRAY { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /gis width string def
+        /bis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop 
+          cf gis readhexstring pop 
+          cf bis readhexstring pop width gray}  image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYKGRAY { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /yis width string def
+        /mis width string def
+        /kis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop 
+          cf mis readhexstring pop 
+          cf yis readhexstring pop 
+          cf kis readhexstring pop width cgray}  image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPGRAY { 
+	8 {fakecolorsetup} COMMONBITMAP
+	} bind def
+/BITMAPGRAYc { 
+	8 {fakecolorsetup} COMMONBITMAPc
+	} bind def
+/ENDBITMAP {
+	} bind def
+end 
+	/ALDmatrix matrix def ALDmatrix currentmatrix pop
+/StartALD {
+	/ALDsave save def
+	 savematrix
+	 ALDmatrix setmatrix
+	} bind def
+/InALD {
+	 restorematrix
+	} bind def
+/DoneALD {
+	 ALDsave restore
+	} bind def
+/I { setdash } bind def
+/J { [] 0 setdash } bind def
+%%EndProlog
+%%BeginSetup
+(5.0) FMVERSION
+1 1 0 0 612 792 0 1 19 FMDOCUMENT
+0 0 /Times-Roman FMFONTDEFINE
+1 0 /Times-Bold FMFONTDEFINE
+2 0 /Helvetica-Bold FMFONTDEFINE
+3 0 /Helvetica FMFONTDEFINE
+4 0 /Times-Italic FMFONTDEFINE
+5 0 /Courier FMFONTDEFINE
+6 0 /Courier-Bold FMFONTDEFINE
+32 FMFILLS
+0 0 FMFILL
+1 0.1 FMFILL
+2 0.3 FMFILL
+3 0.5 FMFILL
+4 0.7 FMFILL
+5 0.9 FMFILL
+6 0.97 FMFILL
+7 1 FMFILL
+8 <0f1e3c78f0e1c387> FMFILL
+9 <0f87c3e1f0783c1e> FMFILL
+10 <cccccccccccccccc> FMFILL
+11 <ffff0000ffff0000> FMFILL
+12 <8142241818244281> FMFILL
+13 <03060c183060c081> FMFILL
+14 <8040201008040201> FMFILL
+16 1 FMFILL
+17 0.9 FMFILL
+18 0.7 FMFILL
+19 0.5 FMFILL
+20 0.3 FMFILL
+21 0.1 FMFILL
+22 0.03 FMFILL
+23 0 FMFILL
+24 <f0e1c3870f1e3c78> FMFILL
+25 <f0783c1e0f87c3e1> FMFILL
+26 <3333333333333333> FMFILL
+27 <0000ffff0000ffff> FMFILL
+28 <7ebddbe7e7dbbd7e> FMFILL
+29 <fcf9f3e7cf9f3f7e> FMFILL
+30 <7fbfdfeff7fbfdfe> FMFILL
+%%EndSetup
+%%Page: "1" 1
+%%BeginPaperSize: Letter
+%%EndPaperSize
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+J
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 756 558 756 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 72 558 72 2 L
+0.5 H
+2 Z
+N
+0 30 Q
+-0.21 -0.31 (The Zebra Data Management) 207 664 B
+207 587.98 558 618 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+207 587.98 558 618 R
+7 X
+0 0 0 1 0 0 0 K
+V
+207 596.98 513 596.98 2 L
+V
+0.5 H
+2 Z
+0 X
+N
+0 0 612 792 C
+0 30 Q
+0 X
+0 0 0 1 0 0 0 K
+-0.31 (Guide) 207 628 S
+1 18 Q
+(J) 207 529.98 T
+(onathan Corbet) 215.73 529.98 T
+(Chris Bur) 207 509.98 T
+(ghart) 284.33 509.98 T
+(Gary Granger) 207 489.98 T
+2 10 Q
+(National Center f) 207 115.31 T
+(or Atmospheric Resear) 286.81 115.31 T
+(c) 396.64 115.31 T
+(h) 402.1 115.31 T
+(Resear) 207 103.31 T
+(c) 240.15 103.31 T
+(h Data Pr) 245.61 103.31 T
+(ogram) 289.31 103.31 T
+(Zebra ver) 207 91.31 T
+(sion 4.2 \321 Jan) 251.87 91.31 T
+(uar) 321.8 91.31 T
+(y 1996) 337.46 91.31 T
+FMENDPAGE
+%%EndPage: "1" 1
+%%Page: "2" 2
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(Cop) 72 679.98 T
+(yright \050C\051 1987-1996 by UCAR) 91.88 679.98 T
+(Uni) 72 666.98 T
+(v) 89.7 666.98 T
+(ersity Corporation for Atmospheric) 95.52 666.98 T
+(Research All rights reserv) 72 653.98 T
+(ed) 196.79 653.98 T
+(No part of this w) 72 627.98 T
+(ork co) 153.2 627.98 T
+(v) 183.35 627.98 T
+(ered by the cop) 189.17 627.98 T
+(yrights) 262.69 627.98 T
+-0.38 (herein may be reproduced or used in an) 72 614.98 P
+-0.38 (y form or) 258.8 614.98 P
+(by an) 72 601.98 T
+(y means \321 graphic, electronic, or) 98.15 601.98 T
+(mechanical, including photocop) 72 588.98 T
+(ying, recording,) 225.53 588.98 T
+(taping, or information storage and retrie) 72 575.98 T
+(v) 263.66 575.98 T
+(al) 269.36 575.98 T
+(systems \321 without permission of the cop) 72 562.98 T
+(yright) 271.21 562.98 T
+(o) 72 549.98 T
+(wner) 77.7 549.98 T
+(.) 101.03 549.98 T
+(This softw) 72 523.98 T
+(are and an) 122.88 523.98 T
+(y accompan) 172.01 523.98 T
+(ying written) 229.48 523.98 T
+(materials are pro) 72 510.98 T
+(vided \322as is\323 without w) 152.46 510.98 T
+(arranty) 265 510.98 T
+(of an) 72 497.98 T
+(y kind. UCAR e) 96.14 497.98 T
+(xpressly disclaims all) 173.96 497.98 T
+-0.52 (w) 72 484.98 P
+-0.52 (arranties of an) 80.54 484.98 P
+-0.52 (y kind, either e) 147.97 484.98 P
+-0.52 (xpress or implied,) 218.22 484.98 P
+(including b) 72 471.98 T
+(ut not limited to the implied) 126.1 471.98 T
+(w) 72 458.98 T
+(arranties of merchantibility and \336tness for a) 80.54 458.98 T
+(particular purpose. UCAR does not indemnify) 72 445.98 T
+(an) 72 432.98 T
+(y infringement of cop) 83.15 432.98 T
+(yright, patent, or) 187.34 432.98 T
+(trademark through use or modi\336cation of this) 72 419.98 T
+(softw) 72 406.98 T
+(are. UCAR does not pro) 98.54 406.98 T
+(vide maintenance) 214.68 406.98 T
+(or updates for its softw) 72 393.98 T
+(are.) 182.53 393.98 T
+FMENDPAGE
+%%EndPage: "2" 2
+%%Page: "3" 3
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 74.02 558 74.02 2 L
+2 Z
+N
+2 8 Q
+(The z) 207 60.29 T
+(ebra ad) 227.53 60.29 T
+(v) 255.86 60.29 T
+(anced user) 260.15 60.29 T
+(s man) 302.27 60.29 T
+(ual) 325.31 60.29 T
+2 10 Q
+-2.78 (3) 552.44 60.29 P
+0 14 Q
+(CHAPTER 1) 72 676.68 T
+(Introduction to Zebra Data Management) 207 676.68 T
+(5) 447.28 676.68 T
+(CHAPTER 2) 72 638.68 T
+(Con) 207 638.68 T
+(v) 229.78 638.68 T
+(ersion Utilities) 236.57 638.68 T
+(7) 333.41 638.68 T
+(CHAPTER 3) 72 600.68 T
+(Ingest Modules) 207 600.68 T
+(9) 307.72 600.68 T
+0 10 Q
+(3.1) 185.5 583.35 T
+(The Purpose of Ingest Modules) 207 583.35 T
+(9) 342.54 583.35 T
+(3.2) 185.5 567.35 T
+(Ingest Modules in Release 4.2) 207 567.35 T
+(10) 337.82 567.35 T
+0 14 Q
+(CHAPTER 4) 72 530.68 T
+(Compiling Ingestors) 207 530.68 T
+(13) 335.73 530.68 T
+(CHAPTER 5) 72 492.68 T
+(The F) 207 492.68 T
+(ormat of netCDF Files) 239.84 492.68 T
+(15) 380.24 492.68 T
+0 10 Q
+(5.1) 185.5 475.35 T
+(Introduction) 207 475.35 T
+(15) 266.44 475.35 T
+(5.2) 185.5 459.35 T
+(Common Con) 207 459.35 T
+(v) 263 459.35 T
+(entions) 267.85 459.35 T
+(15) 306.74 459.35 T
+3 8 Q
+(5.2.1) 207 446.68 T
+(Time Con) 230.98 446.68 T
+(v) 265.49 446.68 T
+(entions) 269.29 446.68 T
+(15) 303.08 446.68 T
+(5.2.2) 207 436.68 T
+(P) 230.98 436.68 T
+(osition Inf) 235.91 436.68 T
+(or) 269.91 436.68 T
+(mation) 277.22 436.68 T
+(16) 309.23 436.68 T
+(5.2.3) 207 426.68 T
+(Data Fields) 230.98 426.68 T
+(16) 279.43 426.68 T
+(5.2.4) 207 416.68 T
+(Global Attr) 230.98 416.68 T
+(ib) 268.89 416.68 T
+(utes) 274.95 416.68 T
+(17) 298.07 416.68 T
+0 10 Q
+(5.3) 185.5 403.35 T
+(Or) 207 403.35 T
+(g) 217.37 403.35 T
+(anization-Speci\336c Con) 222.32 403.35 T
+(v) 313.3 403.35 T
+(entions) 318.15 403.35 T
+(17) 357.04 403.35 T
+3 8 Q
+(5.3.1) 207 390.68 T
+(Scalar Data) 230.98 390.68 T
+(17) 280.77 390.68 T
+(5.3.2) 207 380.68 T
+(Regular Gr) 230.98 380.68 T
+(id Data) 270.22 380.68 T
+(17) 303.56 380.68 T
+(5.3.3) 207 370.68 T
+(Irregular Gr) 230.98 370.68 T
+(id Data) 271.99 370.68 T
+(18) 305.34 370.68 T
+0 10 Q
+(5.4) 185.5 357.35 T
+(Sample netCDF File F) 207 357.35 T
+(ormats) 297.14 357.35 T
+(19) 334.36 357.35 T
+3 8 Q
+(5.4.1) 207 344.68 T
+(Scalar Example) 230.98 344.68 T
+(19) 294.99 344.68 T
+(5.4.2) 207 334.68 T
+(Regular Gr) 230.98 334.68 T
+(id Example) 270.22 334.68 T
+(19) 317.78 334.68 T
+(5.4.3) 207 324.68 T
+(Irregular Gr) 230.98 324.68 T
+(id Example) 271.99 324.68 T
+(20) 319.56 324.68 T
+0 14 Q
+(CHAPTER 6) 72 290.68 T
+(The Zebra Raster File F) 207 290.68 T
+(ormat) 340.55 290.68 T
+(21) 387.21 290.68 T
+0 10 Q
+(6.1) 185.5 273.35 T
+(Introduction) 207 273.35 T
+(21) 266.44 273.35 T
+(6.2) 185.5 257.35 T
+(Rele) 207 257.35 T
+(v) 225.08 257.35 T
+(ant Source Files) 229.83 257.35 T
+(22) 304.27 257.35 T
+(6.3) 185.5 241.35 T
+(File F) 207 241.35 T
+(ormat) 230.47 241.35 T
+(22) 263.8 241.35 T
+3 8 Q
+(6.3.1) 207 228.68 T
+(The File Header) 230.98 228.68 T
+(22) 296.33 228.68 T
+(6.3.2) 207 218.68 T
+(The T) 230.98 218.68 T
+(ab) 250.91 218.68 T
+(le of Contents) 259.65 218.68 T
+(23) 317.01 218.68 T
+(6.3.3) 207 208.68 T
+(Image Data F) 230.98 208.68 T
+(or) 279.2 208.68 T
+(mat) 286.51 208.68 T
+(25) 307.85 208.68 T
+0 14 Q
+(Zebra\325) 207 174.68 T
+(s Map File F) 243.54 174.68 T
+(ormat) 314.51 174.68 T
+(27) 361.17 174.68 T
+0 10 Q
+(1) 193 157.35 T
+(Map File F) 207 157.35 T
+(ormat) 251.3 157.35 T
+(27) 284.63 157.35 T
+3 8 Q
+(1.1) 207 144.68 T
+(Header Lines) 230.98 144.68 T
+(27) 286.55 144.68 T
+(1.2) 207 134.68 T
+(V) 230.98 134.68 T
+(er) 235.67 134.68 T
+(tices) 243.1 134.68 T
+(28) 267.55 134.68 T
+0 10 Q
+(2) 193 121.35 T
+(Ho) 207 121.35 T
+(w T) 218.97 121.35 T
+(o Use The File) 234 121.35 T
+(29) 303.16 121.35 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "3" 3
+%%Page: "4" 4
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(4) 54 60.29 T
+2 8 Q
+(The z) 189 60.29 T
+(ebra ad) 209.53 60.29 T
+(v) 237.86 60.29 T
+(anced user) 242.15 60.29 T
+(s man) 284.27 60.29 T
+(ual) 307.31 60.29 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "4" 4
+%%Page: "5" 5
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 445.03 558 445.03 2 L
+2 Z
+N
+72 74.02 558 74.02 2 L
+0.25 H
+N
+2 8 Q
+(The z) 207 60.29 T
+(ebra ad) 227.53 60.29 T
+(v) 255.86 60.29 T
+(anced user) 260.15 60.29 T
+(s man) 302.27 60.29 T
+(ual) 325.31 60.29 T
+2 10 Q
+-2.78 (5) 552.44 60.29 P
+1 12 Q
+1.2 (CHAPTER 1) 72 677 S
+0 24 Q
+-0.48 (Introduction to Zebra Data) 207 677 S
+-0.48 (Management) 207 647 S
+0 12 Q
+(This manual pro) 207 424 T
+(vides information about managing the data side of the) 285.48 424 T
+-0.15 (Zebra system. Man) 207 410 P
+-0.15 (y kinds and formats of data can be inte) 298.84 410 P
+-0.15 (grated with the) 483.45 410 P
+(Zebra data store system, some without an) 207 396 T
+(y processing whatsoe) 405.79 396 T
+(v) 508.14 396 T
+(er and) 513.96 396 T
+(others with the application of e) 207 382 T
+(xisting ingest or con) 355.8 382 T
+(v) 452.99 382 T
+(ersion utilities. F) 458.81 382 T
+(or) 539.64 382 T
+(desperate situations, this manual also includes speci\336cations of some of) 207 368 T
+(the more common \336le formats and con) 207 354 T
+(v) 392.5 354 T
+(entions recognized by Zebra.) 398.32 354 T
+FMENDPAGE
+%%EndPage: "5" 5
+%%Page: "6" 6
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(Intr) 189 736.18 T
+(oduction to Zebra Data Mana) 203.32 736.18 T
+(g) 326.74 736.18 T
+(ement) 332.33 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(6) 54 60.29 T
+2 8 Q
+(The z) 189 60.29 T
+(ebra ad) 209.53 60.29 T
+(v) 237.86 60.29 T
+(anced user) 242.15 60.29 T
+(s man) 284.27 60.29 T
+(ual) 307.31 60.29 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "6" 6
+%%Page: "7" 7
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 445.03 558 445.03 2 L
+2 Z
+N
+72 74.02 558 74.02 2 L
+0.25 H
+N
+2 8 Q
+(Getting star) 207 60.29 T
+(ted) 252.06 60.29 T
+2 10 Q
+-2.78 (7) 552.44 60.29 P
+1 12 Q
+1.2 (CHAPTER 2) 72 677 S
+0 24 Q
+-0.48 (Con) 207 677 S
+-0.48 (v) 244.61 677 S
+-0.48 (ersion Utilities) 255.77 677 S
+0 12 Q
+-0.02 (The data utilities are really a special class of ingestors which simply con-) 207 424 P
+0.13 (v) 207 410 P
+0.13 (ert from a foreign format into a format recognized by Zebra. This chap-) 212.82 410 P
+0.99 (ter describes each of the utilities a) 207 396 P
+0.99 (v) 375.97 396 P
+0.99 (ailable in the Zebra distrib) 381.67 396 P
+0.99 (ution and) 512.02 396 P
+(pro) 207 382 T
+(vides instructions for compiling them.) 222.82 382 T
+FMENDPAGE
+%%EndPage: "7" 7
+%%Page: "8" 8
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(Con) 189 736.18 T
+(ver) 206.14 736.18 T
+(sion Utilities) 219.51 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(8) 54 60.29 T
+2 8 Q
+(Getting star) 189 60.29 T
+(ted) 234.06 60.29 T
+FMENDPAGE
+%%EndPage: "8" 8
+%%Page: "9" 9
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 445.03 558 445.03 2 L
+2 Z
+N
+72 74.02 558 74.02 2 L
+0.25 H
+N
+2 8 Q
+(The z) 207 60.29 T
+(ebra installation man) 227.53 60.29 T
+(ual) 307.47 60.29 T
+2 10 Q
+-2.78 (9) 552.44 60.29 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+1 12 Q
+1.2 (CHAPTER 3) 72 677 S
+0 24 Q
+-0.48 (Ingest Modules) 207 677 S
+0 12 Q
+-0.04 (This appendix pro) 207 424 P
+-0.04 (vides a brief listing and descriptions of the ingest mod-) 294.06 424 P
+1.52 (ules included in Zebra Release 4.2. All of these modules will compile) 207 410 P
+-0.1 (under SunOS 4.1.x and GNU C. Most of the others are kno) 207 396 P
+-0.1 (wn to compile) 489.54 396 P
+-0.28 (under the other systems and compilers as well. Those modules that do not) 207 382 P
+(compile on a particular system are noted e) 207 368 T
+(xplicitly) 409.78 368 T
+(.) 449 368 T
+72 324 558 327 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+207 325.5 558 325.5 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 325.5 198 325.5 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(3.1) 181.32 331 T
+(The Purpose of Ing) 207 331 T
+(est Modules) 315.8 331 T
+0 F
+2.08 (An ingest module is a program which reads data from some e) 207 306 P
+2.08 (xternal) 524.68 306 P
+1.23 (source in some foreign format, and then creates from that data a Data-) 207 292 P
+-0.09 (Chunk which can be described, transported, and stored through the Zebra) 207 278 P
+0.42 (DataStore. As there is no uni) 207 264 P
+0.42 (v) 347.46 264 P
+0.42 (ersal format for meteorological data, there) 353.28 264 P
+-0.16 (is lik) 207 250 P
+-0.16 (e) 230.39 250 P
+-0.16 (wise no uni) 235.42 250 P
+-0.16 (v) 290.12 250 P
+-0.16 (ersal ingest module. Instead, ingest modules ha) 295.94 250 P
+-0.16 (v) 521.36 250 P
+-0.16 (e been) 527.18 250 P
+0.22 (written for literally dozens of formats and data sources o) 207 236 P
+0.22 (v) 480.43 236 P
+0.22 (er Zebra\325) 486.25 236 P
+0.22 (s life-) 530.12 236 P
+(time.) 207 222 T
+1.38 (Almost e) 207 196 P
+1.38 (xclusi) 251.87 196 P
+1.38 (v) 280.23 196 P
+1.38 (ely) 286.05 196 P
+1.38 (, an ingest module is written for a particular task at) 299.94 196 P
+0.34 (hand at a particular time. The task can be a quick-and-dirty collection of) 207 182 P
+1.82 (data \336elds, and the time can be the middle of an intense \336eld project) 207 168 P
+2.36 (where e) 207 154 P
+2.36 (v) 246.7 154 P
+2.36 (erything has been designed around a speci\336c, one-time, and) 252.52 154 P
+0.71 (in\337e) 207 140 P
+0.71 (xible set-up. The ingest modules are included in the Zebra distrib) 228.16 140 P
+0.71 (u-) 548 140 P
+-0.16 (tion in case one of them has some usefulness for a particular site or appli-) 207 126 P
+0.73 (cation. Lik) 207 112 P
+0.73 (ely as not, the ingest module will need to be modi\336ed to suit) 259.6 112 P
+0.37 (the particular need, b) 207 98 P
+0.37 (ut an e) 309.18 98 P
+0.37 (xisting module is a much better launch point) 341.74 98 P
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "9" 9
+%%Page: "10" 10
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(Ing) 189 736.18 T
+(est Modules) 202.59 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(10) 54 60.29 T
+2 8 Q
+(The z) 189 60.29 T
+(ebra installation man) 209.53 60.29 T
+(ual) 289.47 60.29 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 12 Q
+0.42 (than no module at all. The ingest modules can also serv) 189 678.02 P
+0.42 (e as e) 459.29 678.02 P
+0.42 (xamples of) 486.59 678.02 P
+1.58 (using the DataStore programming interf) 189 664.02 P
+1.58 (ace to manipulate and ingest a) 387.15 664.02 P
+(wide v) 189 650.02 T
+(ariety of types of data from an equally wide range of sources.) 221.03 650.02 T
+0.62 (Countless other ingest modules ha) 189 624.02 P
+0.62 (v) 355.89 624.02 P
+0.62 (e been written for Zebra which were) 361.71 624.02 P
+0.12 (not included in this release. These modules may be older code which has) 189 610.02 P
+1 (not been maintained for lack of a need, or the) 189 596.02 P
+1 (y may be modules de) 415.81 596.02 P
+1 (v) 521.52 596.02 P
+1 (el-) 527.34 596.02 P
+1.89 (oped by some other project which are not of) 189 582.02 P
+1.89 (\336cially part of the Zebra) 415.79 582.02 P
+0.69 (mainstream de) 189 568.02 P
+0.69 (v) 259.7 568.02 P
+0.69 (elopment. If you need to ingest data for which an ingest) 265.52 568.02 P
+1.52 (module does not e) 189 554.02 P
+1.52 (xist in this release, contact one of the persons men-) 281.04 554.02 P
+0.11 (tioned in the \322Whom to Contact\323 section of the) 189 540.02 P
+4 F
+0.11 (Installation Manual) 419.65 540.02 P
+0 F
+0.11 (. It is) 515.44 540.02 P
+(possible that the ingest module required can be obtained else) 189 526.02 T
+(where.) 480.32 526.02 T
+54 482.02 540 485.02 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+189 483.52 540 483.52 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+54 483.52 180 483.52 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(3.2) 163.32 489.02 T
+(Ing) 189 489.02 T
+(est Modules in Release 4.2) 207.12 489.02 T
+0 F
+0.96 (F) 189 464.02 P
+0.96 (ollo) 195.49 464.02 P
+0.96 (wing is a list of the ingest modules included in Release 4.2, along) 213.86 464.02 P
+0.54 (with a brief description. F) 189 450.02 P
+0.54 (or all of these modules, the \336nal w) 315.3 450.02 P
+0.54 (ord on pur-) 484.93 450.02 P
+0.23 (pose and application can be found in the source code itself, though some) 189 436.02 P
+1.68 (of the programs will also print usage information when gi) 189 422.02 P
+1.68 (v) 480.83 422.02 P
+1.68 (en the \324-h\325) 486.65 422.02 P
+4.64 (option on the command line. The source directories reside under) 189 408.02 P
+5 F
+0.02 (zebra/src/) 189 394.02 P
+0.02 (ingest) 261 394.02 P
+0 F
+0.01 ( in the Zebra distrib) 304.2 394.02 P
+0.01 (ution tree. The left column of) 398.65 394.02 P
+0.29 (T) 189 380.02 P
+0.29 (able) 195.37 380.02 P
+0.29 (1 gi) 218.36 380.02 P
+0.29 (v) 236.69 380.02 P
+0.29 (es the name of each module directory; the center column lists) 242.51 380.02 P
+-0.28 (the ingest programs b) 189 366.02 P
+-0.28 (uilt within each directory; and the right column sup-) 291.58 366.02 P
+(plies a brief description of each ingest program\325) 189 352.02 T
+(s use.) 418.62 352.02 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "10" 10
+%%Page: "11" 11
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(Ing) 207 736.18 T
+(est Modules in Release 4.2) 220.59 736.18 T
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 74.02 558 74.02 2 L
+2 Z
+N
+2 8 Q
+(The z) 207 60.29 T
+(ebra installation man) 227.53 60.29 T
+(ual) 307.47 60.29 T
+2 10 Q
+-2.78 (11) 546.88 60.29 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 675.03 558 688.03 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+207 682.03 558 682.03 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 682.03 198 682.03 2 L
+0 Z
+N
+0 0 612 792 C
+1 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(T) 72 669.03 T
+(ABLE 1.) 78.92 669.03 T
+3 9 Q
+(Ingest director) 207 669.03 T
+(ies included in) 264.16 669.03 T
+(Zebr) 323.68 669.03 T
+(a) 342.1 669.03 T
+( 4.2, with br) 347.1 669.03 T
+(ief descr) 393.76 669.03 T
+(iptions of each) 427.9 669.03 T
+2 8 Q
+(Ing) 78 645.7 T
+(est Director) 90.08 645.7 T
+(y) 134.62 645.7 T
+(Ing) 165 645.7 T
+(est Pr) 177.08 645.7 T
+(ogram) 199.15 645.7 T
+(Description) 258 645.7 T
+0 9 Q
+(is) 78 631.03 T
+(is) 165 631.03 T
+(Schedules and con\336gures multiple ingest processes for real-time operation) 258 631.03 T
+(ssmi) 78 616.03 T
+(ssmi_ingest) 165 616.03 T
+(Ingests SSMI satellite data into images for the TRMM project) 258 616.03 T
+(mcidas) 78 601.03 T
+(libmcidas.a) 165 601.03 T
+(Collection of FOR) 258 601.03 T
+(TRAN subroutines for na) 324.46 601.03 T
+(vig) 416.02 601.03 T
+(ating MCID) 427.48 601.03 T
+(AS GOES images) 470.87 601.03 T
+(st_ingest) 78 586.03 T
+(st_ingest) 165 586.03 T
+(Ingests P3 \322slo) 258 586.03 T
+(w tape\323 ASCII \336les for T) 311.77 586.03 T
+(OGA-CO) 402.85 586.03 T
+(ARE) 437.52 586.03 T
+(no) 78 571.03 T
+(wrad) 86.78 571.03 T
+(no) 165 571.03 T
+(wrad_ingest) 173.77 571.03 T
+(Ingests NO) 258 571.03 T
+(WRAD image data into re) 298.43 571.03 T
+(gular grids) 392.77 571.03 T
+(tao) 78 556.03 T
+(tao_ingest) 165 556.03 T
+(Ingests T) 258 556.03 T
+(A) 290.41 556.03 T
+(O \050T) 296.41 556.03 T
+(ropical Atmosphere Ocean\051 mooring data as an irre) 313.34 556.03 T
+(gular grid) 497.9 556.03 T
+(p3composite) 78 541.03 T
+(p3comp_ingest) 165 541.03 T
+(Ingests P3 composite images from fuselage radars, from T) 258 541.03 T
+(OGA-CO) 468.05 541.03 T
+(ARE) 502.73 541.03 T
+(tog) 78 526.03 T
+(ast) 89.46 526.03 T
+(tog) 165 526.03 T
+(ast) 176.46 526.03 T
+(Ingests ASCII dumps of P3 \322slo) 258 526.03 T
+(w tapes\323, from T) 373.52 526.03 T
+(OGA-CO) 434.35 526.03 T
+(ARE) 469.02 526.03 T
+(SLGrabber) 78 511.03 T
+(SLGrabber) 165 511.03 T
+(General data ingest from a serial line port on a UNIX w) 258 511.03 T
+(orkstation) 458.61 511.03 T
+(precip) 78 496.03 T
+(PrecipIngest) 165 496.03 T
+(Ingests a composite precip data \336le as an irre) 258 496.03 T
+(gular grid) 419.83 496.03 T
+(trmm_rain) 78 481.03 T
+(trmm_rain) 165 481.03 T
+(Ingests raing) 258 481.03 T
+(auge data from ASCII \336les for the TRMM project) 304.2 481.03 T
+(class) 78 466.03 T
+(class_ingest) 165 466.03 T
+(Ingests CLASS data through the RDSS sonde \050snd_\051 access library) 258 466.03 T
+(profs) 78 451.03 T
+(profs_ingest) 165 451.03 T
+(Ingests PR) 258 451.03 T
+(OFS ASCII data as an irre) 296.39 451.03 T
+(gular grid) 390.99 451.03 T
+(trmm_sonde) 78 436.03 T
+(trmm_sonde) 165 436.03 T
+(Ingests sonde data from ASCII \336les for the TRMM project) 258 436.03 T
+(dap) 78 421.03 T
+(dap_ingest) 165 421.03 T
+(Ingests data from a D) 258 421.03 T
+(AP format \336le) 335.12 421.03 T
+(radar) 78 406.03 T
+(radar_ingest) 165 406.03 T
+(Ingests radar data from the netw) 258 406.03 T
+(ork and rasterizes it) 374.13 406.03 T
+(UFIngest) 165 391.03 T
+(Rasterizes and ingests UF radar data) 258 391.03 T
+(adrad_ingest) 165 376.03 T
+(Ingests and rasterizes adrad radar data) 258 376.03 T
+(wetnet) 78 361.03 T
+(wetnet_ingest) 165 361.03 T
+(Ingests WETNET data) 258 361.03 T
+(fest_p3_c130) 78 346.03 T
+(p3fest_ingest) 165 346.03 T
+(Ingests FEST project binary data \336les for NO) 258 346.03 T
+(AA P3) 421.41 346.03 T
+(c130fest_ingest) 165 331.03 T
+(Ingests FEST project ASCII data \336les for the U of W) 258 331.03 T
+(ashington\325) 448.76 331.03 T
+(s C-130 Con) 486.26 331.03 T
+(v) 531.4 331.03 T
+(air) 535.68 331.03 T
+(acqual) 165 316.03 T
+(Rudimentary quality and consistenc) 258 316.03 T
+(y checking of netCDF aircraft \336les) 387.11 316.03 T
+(rap_data_serv) 78 301.03 T
+(er) 128.35 301.03 T
+(RAP_DsIngest) 165 301.03 T
+(Generic data ingest from RAP\325) 258 301.03 T
+(s data serv) 369.48 301.03 T
+(ers) 407.34 301.03 T
+(gmsISCCP) 78 286.03 T
+(gmsISCCP) 165 286.03 T
+(Ingests images from a NO) 258 286.03 T
+(AA ISCCP format tape) 352.17 286.03 T
+(satellite) 78 271.03 T
+(SatIngest) 165 271.03 T
+(Ingests MCID) 258 271.03 T
+(AS GOES images) 308.89 271.03 T
+(GMSIngest) 165 256.03 T
+(Ingests MCID) 258 256.03 T
+(AS GMS images, calibrating IR radiation to temperature) 308.89 256.03 T
+(pam) 78 241.03 T
+(pam_ingest) 165 241.03 T
+(Ingests P) 258 241.03 T
+(AM data on ir) 289.92 241.03 T
+(grid using RDSS MD) 340.5 241.03 T
+(A and station libraries) 417.9 241.03 T
+(daypam_ingest) 165 226.03 T
+(Ingests P) 258 226.03 T
+(AM data into ir) 289.92 226.03 T
+(grid on daily boundaries using RDSS MD) 345.51 226.03 T
+(A library) 496.15 226.03 T
+72 657.78 72 221.28 2 L
+V
+0.5 H
+0 Z
+N
+159 658.28 159 220.78 2 L
+V
+N
+252 658.28 252 220.78 2 L
+V
+N
+558 657.78 558 221.28 2 L
+V
+N
+71.75 658.03 558.25 658.03 2 L
+V
+N
+71.75 641.03 558.25 641.03 2 L
+V
+N
+71.75 626.03 558.25 626.03 2 L
+V
+N
+71.75 611.03 558.25 611.03 2 L
+V
+N
+71.75 596.03 558.25 596.03 2 L
+V
+N
+71.75 581.03 558.25 581.03 2 L
+V
+N
+71.75 566.03 558.25 566.03 2 L
+V
+N
+71.75 551.03 558.25 551.03 2 L
+V
+N
+71.75 536.03 558.25 536.03 2 L
+V
+N
+71.75 521.03 558.25 521.03 2 L
+V
+N
+71.75 506.03 558.25 506.03 2 L
+V
+N
+71.75 491.03 558.25 491.03 2 L
+V
+N
+71.75 476.03 558.25 476.03 2 L
+V
+N
+71.75 461.03 558.25 461.03 2 L
+V
+N
+71.75 446.03 558.25 446.03 2 L
+V
+N
+71.75 431.03 558.25 431.03 2 L
+V
+N
+71.75 416.03 558.25 416.03 2 L
+V
+N
+158.75 401.03 558.25 401.03 2 L
+V
+N
+158.75 386.03 558.25 386.03 2 L
+V
+N
+71.75 371.03 558.25 371.03 2 L
+V
+N
+71.75 356.03 558.25 356.03 2 L
+V
+N
+158.75 341.03 558.25 341.03 2 L
+V
+N
+158.75 326.03 558.25 326.03 2 L
+V
+N
+71.75 311.03 558.25 311.03 2 L
+V
+N
+71.75 296.03 558.25 296.03 2 L
+V
+N
+71.75 281.03 558.25 281.03 2 L
+V
+N
+158.75 266.03 558.25 266.03 2 L
+V
+N
+71.75 251.03 558.25 251.03 2 L
+V
+N
+158.75 236.03 558.25 236.03 2 L
+V
+N
+71.75 221.03 558.25 221.03 2 L
+V
+N
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "11" 11
+%%Page: "12" 12
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(Ing) 189 736.18 T
+(est Modules) 202.59 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(12) 54 60.29 T
+2 8 Q
+(The z) 189 60.29 T
+(ebra installation man) 209.53 60.29 T
+(ual) 289.47 60.29 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "12" 12
+%%Page: "13" 13
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 445.03 558 445.03 2 L
+2 Z
+N
+72 74.02 558 74.02 2 L
+0.25 H
+N
+2 8 Q
+(Getting star) 207 60.29 T
+(ted) 252.06 60.29 T
+2 10 Q
+-2.78 (13) 546.88 60.29 P
+1 12 Q
+1.2 (CHAPTER 4) 72 677 S
+0 24 Q
+-0.48 (Compiling Ingestors) 207 677 S
+0 12 Q
+1.26 (The ingestors included in the Zebra distrib) 207 424 P
+1.26 (ution are normally not com-) 418.3 424 P
+1 (piled by the def) 207 410 P
+1 (ault con\336guration. This chapter e) 284.86 410 P
+1 (xplains ho) 447.65 410 P
+1 (w to change) 498.02 410 P
+1.51 (the con\336guration to select the compilers you need to b) 207 396 P
+1.51 (uild and install.) 480.64 396 P
+1.04 (This section does not co) 207 382 P
+1.04 (v) 326.96 382 P
+1.04 (er the procedures necessary for writing a ne) 332.78 382 P
+1.04 (w) 549.34 382 P
+(ingestor; see instead the) 207 368 T
+4 F
+(Zebr) 324.98 368 T
+(a De) 347.47 368 T
+(veloper\325) 370.28 368 T
+(s Guide) 409.79 368 T
+0 F
+(.) 446.78 368 T
+1.65 (The ne) 207 316 P
+1.65 (xt section of) 241.46 316 P
+5 F
+3.96 (config.h) 308.74 316 P
+0 F
+1.65 ( speci\336es the ingest programs to b) 366.34 316 P
+1.65 (uild) 539.33 316 P
+2.33 (during compilation. These programs are not lik) 207 302 P
+2.33 (ely to e) 447.18 302 P
+2.33 (v) 486.88 302 P
+2.33 (er be needed) 492.7 302 P
+1.1 (e) 207 288 P
+1.1 (xcept for sites which are running Zebra in real-time. If do) 212.15 288 P
+1.1 (wn the road) 499.14 288 P
+0.16 (you disco) 207 274 P
+0.16 (v) 253.31 274 P
+0.16 (er a need for a particular ingest module, it is easier to compile) 259.13 274 P
+-0.02 (that module indi) 207 260 P
+-0.02 (vidually at that time. T) 285.33 260 P
+-0.02 (o a) 393.95 260 P
+-0.02 (v) 408.01 260 P
+-0.02 (oid compiling all of the ingest) 413.77 260 P
+(modules for no) 207 246 T
+(w) 279.36 246 T
+(, lea) 287.24 246 T
+(v) 307 246 T
+(e this line unchanged.) 312.82 246 T
+5 F
+(#define BuildIngest NO) 230.4 220 T
+0 F
+-0.19 (This will disable compilation of all of the ingest modules under the direc-) 207 194 P
+0.29 (tory) 207 180 P
+5 F
+0.71 (/zeb/src/ingest) 229.63 180 P
+0 F
+0.29 (. T) 337.63 180 P
+0.29 (o enable the compilation of an ingest mod-) 350.29 180 P
+0.78 (ule, the) 207 166 P
+5 F
+1.86 (BuildIngest) 246.88 166 P
+0 F
+0.78 ( symbol must \336rst be de\336ned as) 326.08 166 P
+5 F
+1.86 (YES) 486.52 166 P
+0 F
+0.78 (. Then the) 508.12 166 P
+1.44 (determination of whether an ingest program is compiled rests with the) 207 152 P
+2.15 (setting of that ingest module\325) 207 138 P
+2.15 (s speci\336c b) 355.61 138 P
+2.15 (uild symbol in the follo) 413.01 138 P
+2.15 (wing) 534 138 P
+1.18 (lines of) 207 124 P
+5 F
+2.83 (config.h) 248.02 124 P
+0 F
+1.18 (. F) 305.62 124 P
+1.18 (or e) 319.29 124 P
+1.18 (xample, the satellite ingest programs will be) 338.61 124 P
+-0.02 (compiled if) 207 110 P
+5 F
+-0.05 (BuildIngest) 264.96 110 P
+0 F
+-0.02 ( is) 344.16 110 P
+5 F
+-0.05 (YES) 358.12 110 P
+0 F
+-0.02 ( and) 379.72 110 P
+5 F
+-0.05 (BuildSatelliteIngest) 403.02 110 P
+0 F
+-0.02 ( is) 547.02 110 P
+5 F
+29.54 (YES) 207 96 P
+0 F
+12.31 (. If) 228.6 96 P
+5 F
+29.54 (BuildIngest) 270.21 96 P
+0 F
+12.31 ( is) 349.41 96 P
+5 F
+29.54 (NO) 388.03 96 P
+0 F
+12.31 (, then the de\336nition of) 402.43 96 P
+72 297.65 198 333.3 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+81 306.3 189 324.3 R
+7 X
+0 0 0 1 0 0 0 K
+V
+4 12 Q
+0 X
+(BuildIng) 81 316.3 T
+(est) 122.88 316.3 T
+0 0 612 792 C
+FMENDPAGE
+%%EndPage: "13" 13
+%%Page: "14" 14
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(Compiling Ing) 189 736.18 T
+(estor) 249.09 736.18 T
+(s) 270.96 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(14) 54 60.29 T
+2 8 Q
+(Getting star) 189 60.29 T
+(ted) 234.06 60.29 T
+5 12 Q
+-0.68 (BuildSatelliteIngest) 189 678.02 P
+0 F
+-0.28 ( is ignored and the satellite ingest programs) 333 678.02 P
+(will not be compiled.) 189 664.02 T
+1 F
+1.86 (Caution) 189 638.02 P
+0 F
+1.86 (: Some of the ingest programs require specialized libraries or) 230.34 638.02 P
+7.92 (presently only compile on certain machines.) 189 624.02 P
+1 F
+7.92 (F) 451.48 624.02 P
+7.92 (or HP-UX) 458.51 624.02 P
+0 F
+7.92 (, if) 518.75 624.02 P
+5 F
+3.87 (BuildIngest) 189 610.02 P
+0 F
+1.61 ( has been de\336ned as) 268.2 610.02 P
+5 F
+3.87 (YES) 375.24 610.02 P
+0 F
+1.61 (, then the follo) 396.84 610.02 P
+1.61 (wing symbols) 471.38 610.02 P
+(should be de\336ned to) 189 596.02 T
+5 F
+(NO) 289 596.02 T
+0 F
+(.) 303.4 596.02 T
+5 10 Q
+(# define BuildIngestScheduler NO /* Sun only */) 212.4 571.35 T
+(# define BuildRadarIngest NO /* Sun only */) 212.4 559.35 T
+(# define BuildSLGrabber NO /* Sun only */) 212.4 547.35 T
+(# define Build_TRMM_Rain NO /* Sun only */) 212.4 535.35 T
+0 12 Q
+0.55 (On HP-UX, all of other ingest modules will compile. Under SunOS and) 189 510.02 P
+2.38 (Solaris, all of the ingest modules\321including the four abo) 189 496.02 P
+2.38 (v) 483.49 496.02 P
+2.38 (e\321can be) 489.31 496.02 P
+-0.04 (compiled and installed gi) 189 482.02 P
+-0.04 (v) 309.58 482.02 P
+-0.04 (en that an) 315.39 482.02 P
+-0.04 (y necessary libraries e) 361.79 482.02 P
+-0.04 (xist on the sys-) 467.79 482.02 P
+(tem.) 189 468.02 T
+1.14 (In most cases the only documentation for an ingest program is a usage) 189 442.02 P
+-0.12 (message and the code itself. If you think you need a particular ingest pro-) 189 428.02 P
+-0.21 (gram, be prepared to wrestle with it a little bit to get it to meet your appli-) 189 414.02 P
+-0.11 (cation. Or) 189 400.02 P
+-0.11 (, feel free to request assistance from one of the persons listed in) 236.4 400.02 P
+2.09 (the \322Whom to Contact\323 section of the) 189 386.02 P
+4 F
+2.09 (Installation Manual) 387.92 386.02 P
+0 F
+2.09 (. F) 485.68 386.02 P
+2.09 (or more) 500.26 386.02 P
+1.74 (detailed information about the ingest modules, such as descriptions of) 189 372.02 P
+(each, see Section) 189 358.02 T
+(3.2, \322Ingest Modules in Release 4.2\323.) 274.31 358.02 T
+FMENDPAGE
+%%EndPage: "14" 14
+%%Page: "15" 15
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 445.03 558 445.03 2 L
+2 Z
+N
+72 74.02 558 74.02 2 L
+0.25 H
+N
+2 8 Q
+(Getting star) 207 60.29 T
+(ted) 252.06 60.29 T
+2 10 Q
+-2.78 (15) 546.88 60.29 P
+1 12 Q
+1.2 (CHAPTER 5) 72 677 S
+0 24 Q
+-0.48 (The F) 207 677 S
+-0.48 (ormat of netCDF) 260.91 677 S
+-0.48 (Files) 207 647 S
+72 417 558 420 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+207 418.5 558 418.5 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 418.5 198 418.5 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(5.1) 181.32 424 T
+(Intr) 207 424 T
+(oduction) 226.09 424 T
+0 F
+0.85 (This chapter discusses the con) 207 399 P
+0.85 (v) 355.23 399 P
+0.85 (entions used in the de\336nition and use of) 361.05 399 P
+1.31 (netCDF \336les within Zebra. While the use of netCDF is a great help in) 207 385 P
+1.94 (insuring that data \336les are portable between systems and programs, it) 207 371 P
+0.39 (alone is not suf) 207 357 P
+0.39 (\336cient for that goal. F) 280.86 357 P
+0.39 (or tw) 386.56 357 P
+0.39 (o programs to be able to w) 411.82 357 P
+0.39 (ork) 542 357 P
+1.02 (with the same netCDF \336le, the) 207 343 P
+1.02 (y must agree on a set of con) 358.57 343 P
+1.02 (v) 499.5 343 P
+1.02 (entions for) 505.32 343 P
+0.74 (the internal format of those \336les. Zebra w) 207 329 P
+0.74 (as designed to adhere to com-) 411.34 329 P
+0.56 (mon netCDF con) 207 315 P
+0.56 (v) 290.31 315 P
+0.56 (entions as the) 296.13 315 P
+0.56 (y e) 362.4 315 P
+0.56 (xisted at the time of its de) 377.11 315 P
+0.56 (v) 504.18 315 P
+0.56 (elopment;) 510 315 P
+0.28 (only a fe) 207 301 P
+0.28 (w features of Zebra\325) 249.26 301 P
+0.28 (s netCDF \336les are truly unique to the Zebra) 347.07 301 P
+(system.) 207 287 T
+1.15 (Features common to all Zebra netCDF \336les will be discussed \336rst; fol-) 207 261 P
+(lo) 207 247 T
+(wing that, or) 216.04 247 T
+(g) 276.82 247 T
+(anization-speci\336c con) 282.76 247 T
+(v) 387.25 247 T
+(entions will be described.) 393.07 247 T
+72 203 558 206 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+207 204.5 558 204.5 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 204.5 198 204.5 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(5.2) 181.32 210 T
+(Common Con) 207 210 T
+(ventions) 285.18 210 T
+0 F
+1.39 (All Zebra netCDF \336les adhere to a set of con) 207 185 P
+1.39 (v) 434.63 185 P
+1.39 (entions that is the same) 440.45 185 P
+0.62 (re) 207 171 P
+0.62 (g) 216.14 171 P
+0.62 (ardless of the or) 222.08 171 P
+0.62 (g) 300.71 171 P
+0.62 (anization of the underlying data. These con) 306.65 171 P
+0.62 (v) 517.51 171 P
+0.62 (entions) 523.33 171 P
+(are described belo) 207 157 T
+(w) 294 157 T
+(.) 301.88 157 T
+2 F
+(5.2.1) 171.31 125 T
+(Time Con) 207 125 T
+(ventions) 261.19 125 T
+0 F
+1.43 (All netCDF \336les used in Zebra are set up with) 207 107 P
+5 F
+3.42 (time) 445.25 107 P
+0 F
+1.43 ( as the unlimited) 474.05 107 P
+0.51 (dimension. Thought has been gi) 207 93 P
+0.51 (v) 362.4 93 P
+0.51 (en to) 368.22 93 P
+0.51 (w) 392.1 93 P
+0.51 (ard e) 400.64 93 P
+0.51 (xtending the netCDF dri) 424.62 93 P
+0.51 (v) 542.86 93 P
+0.51 (er) 548.68 93 P
+FMENDPAGE
+%%EndPage: "15" 15
+%%Page: "16" 16
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(The Format of netCDF Files) 189 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(16) 54 60.29 T
+2 8 Q
+(Getting star) 189 60.29 T
+(ted) 234.06 60.29 T
+0 12 Q
+1.19 (in the future to allo) 189 678.02 P
+1.19 (w for other or) 285.46 678.02 P
+1.19 (g) 355.14 678.02 P
+1.19 (anizations around time, b) 361.08 678.02 P
+1.19 (ut no w) 485.74 678.02 P
+1.19 (ork) 524 678.02 P
+1.29 (has been done along those lines as of this writing. T) 189 664.02 P
+1.29 (imes are stored as) 450.48 664.02 P
+0.34 (Unix system times \321 seconds since January 1, 1970. The follo) 189 650.02 P
+0.34 (wing tw) 494.78 650.02 P
+0.34 (o) 534 650.02 P
+1.27 (netCDF v) 189 636.02 P
+1.27 (ariables may be used to obtain the time of an) 236.97 636.02 P
+1.27 (y sample in the) 463.19 636.02 P
+(\336le:) 189 622.02 T
+5 F
+(base_time) 189 596.02 T
+0 F
+-0.16 (\050Scalar) 306 596.02 P
+-0.16 (, inte) 339.5 596.02 P
+-0.16 (ger\051. The \322base\323 time of the netCDF) 363.16 596.02 P
+(\336le, as a Unix system time.) 306 582.02 T
+5 F
+(time_offset) 189 556.02 T
+0 F
+(\050Dimension:) 306 556.02 T
+5 F
+(time) 369 556.02 T
+0 F
+(; \337oat or double\051. A per) 397.8 556.02 T
+(-sam-) 510.88 556.02 T
+-0.5 (ple array gi) 306 542.02 P
+-0.5 (ving a time of) 359.35 542.02 P
+-0.5 (fset. The actual time for) 424.54 542.02 P
+-0.13 (an) 306 528.02 P
+-0.13 (y sample is obtained by adding the time of) 317.15 528.02 P
+-0.13 (fset) 519.8 528.02 P
+(to the base time. T) 306 514.02 T
+(ime of) 394.57 514.02 T
+(fsets may be stored in) 425.27 514.02 T
+(either single or double precision; Zebra def) 306 500.02 T
+(aults) 513.17 500.02 T
+(to double unless instructed otherwise.) 306 486.02 T
+2 F
+(5.2.2) 153.31 454.02 T
+(P) 189 454.02 T
+(osition Inf) 196.52 454.02 T
+(ormation) 253.62 454.02 T
+0 F
+1.78 (W) 189 436.02 P
+1.78 (ith the e) 199.85 436.02 P
+1.78 (xception of irre) 241.89 436.02 P
+1.78 (gular grid data \050which is described in detail) 319.25 436.02 P
+-0.15 (belo) 189 422.02 P
+-0.15 (w\051, all data or) 209.36 422.02 P
+-0.15 (g) 275.36 422.02 P
+-0.15 (anizations ha) 281.3 422.02 P
+-0.15 (v) 343.9 422.02 P
+-0.15 (e the concept of an origin location. This) 349.72 422.02 P
+0.57 (location may be static, or may change for e) 189 408.02 P
+0.57 (v) 400.24 408.02 P
+0.57 (ery sample. The location of) 406.06 408.02 P
+(data is stored in three v) 189 394.02 T
+(ariables:) 300.35 394.02 T
+5 F
+(lat) 189 368.02 T
+0 F
+(\050\337oat\051. The latitude in de) 306 368.02 T
+(grees north.) 425.47 368.02 T
+5 F
+(lon) 189 342.02 T
+0 F
+(\050\337oat\051. The longitude, in de) 306 342.02 T
+(grees east.) 437.81 342.02 T
+5 F
+(alt) 189 316.02 T
+0 F
+(\050\337oat\051. The altitude in kilometers.) 306 316.02 T
+0.83 (In most cases, these v) 189 290.02 P
+0.83 (ariables are scalar) 296.35 290.02 P
+0.83 (, containing only a single, static) 383.5 290.02 P
+0.61 (location. Ho) 189 276.02 P
+0.61 (we) 248.64 276.02 P
+0.61 (v) 262.33 276.02 P
+0.61 (er) 268.15 276.02 P
+0.61 (, for scalar data where the platform is mobile \050i.e. air-) 276.99 276.02 P
+1.81 (craft, soundings\051, the) 189 262.02 P
+1.81 (y are all dimensioned by) 293.76 262.02 P
+5 F
+4.34 (time) 423.79 262.02 P
+0 F
+1.81 (, and contain one) 452.59 262.02 P
+(location for e) 189 248.02 T
+(v) 252.68 248.02 T
+(ery sample in the \336le.) 258.5 248.02 T
+2 F
+(5.2.3) 153.31 216.02 T
+(Data Fields) 189 216.02 T
+0 F
+0.33 (Ev) 189 198.02 P
+0.33 (ery \336eld de\336ned in the netCDF \336le that is not one of the abo) 202.15 198.02 P
+0.33 (v) 495.23 198.02 P
+0.33 (e \322o) 501.05 198.02 P
+0.33 (v) 520.86 198.02 P
+0.33 (er-) 526.68 198.02 P
+0.64 (head\323 \336elds \050or a fe) 189 184.02 P
+0.64 (w others that will be described belo) 285.89 184.02 P
+0.64 (w\051 is considered) 460.07 184.02 P
+0.18 (to be a \322data\323 \336eld. All data \336elds are \050for no) 189 170.02 P
+0.18 (w\051 e) 407.48 170.02 P
+0.18 (xpected to contain data) 428.47 170.02 P
+(in \337oat format. Data \336elds ha) 189 156.02 T
+(v) 329.41 156.02 T
+(e tw) 335.23 156.02 T
+(o recognized attrib) 355.44 156.02 T
+(utes:) 445.18 156.02 T
+5 F
+(long_name) 189 130.02 T
+0 F
+-0.27 (\050string\051. The long descripti) 306 130.02 P
+-0.27 (v) 433.54 130.02 P
+-0.27 (e name for this \336eld.) 439.36 130.02 P
+(This name, if present, is used by the Zebra dis-) 306 116.02 T
+(play softw) 306 102.02 T
+(are to annotate plots.) 356.21 102.02 T
+FMENDPAGE
+%%EndPage: "16" 16
+%%Page: "17" 17
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(Or) 207 736.18 T
+(ganization-Speci\336c Con) 217.37 736.18 T
+(ventions) 319.02 736.18 T
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 74.02 558 74.02 2 L
+2 Z
+N
+2 8 Q
+(Getting star) 207 60.29 T
+(ted) 252.06 60.29 T
+2 10 Q
+-2.78 (17) 546.88 60.29 P
+0 12 Q
+(units) 207 678.02 T
+(\050string\051. The units in which the \336eld is) 324 678.02 T
+(e) 324 664.02 T
+(xpressed.) 329.15 664.02 T
+(missing_v) 207 638.02 T
+(alue) 256.04 638.02 T
+(\050\337oat\051. A sentinel v) 324 638.02 T
+(alue used to \337ag \322bad\323 or) 417.02 638.02 T
+-0.23 (missing data v) 324 624.02 P
+-0.23 (alues. All data with this v) 392.58 624.02 P
+-0.23 (alue will) 513.79 624.02 P
+(be ignored by the plotting softw) 324 610.02 T
+(are.) 477.54 610.02 T
+0.83 (All other \336eld attrib) 207 584.02 P
+0.83 (utes found in the netCDF \336le will be packaged into) 304.9 584.02 P
+-0.1 (an) 207 570.02 P
+-0.1 (y data chunks retrie) 218.15 570.02 P
+-0.1 (v) 311.84 570.02 P
+-0.1 (ed from it, b) 317.66 570.02 P
+-0.1 (ut will not be interpreted by the Zebra) 376.43 570.02 P
+(system itself.) 207 556.02 T
+2 F
+(5.2.4) 171.31 524.02 T
+(Global Attrib) 207 524.02 T
+(utes) 279.43 524.02 T
+0 F
+0.73 (All global attrib) 207 506.02 P
+0.73 (utes found in the netCDF \336le will be packaged into an) 284.89 506.02 P
+0.73 (y) 552 506.02 P
+1.14 (data chunks retrie) 207 492.02 P
+1.14 (v) 294.28 492.02 P
+1.14 (ed from it, b) 300.1 492.02 P
+1.14 (ut the) 362.6 492.02 P
+1.14 (y are not interpreted by the Zebra) 390.56 492.02 P
+(data store itself.) 207 478.02 T
+72 434.02 558 437.02 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+207 435.52 558 435.52 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 435.52 198 435.52 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(5.3) 181.32 441.02 T
+(Or) 207 441.02 T
+(ganization-Speci\336c Con) 220.82 441.02 T
+(ventions) 356.36 441.02 T
+(5.3.1) 171.31 406.02 T
+(Scalar Data) 207 406.02 T
+0 F
+1.68 (Data stored in the scalar or) 207 388.02 P
+1.68 (g) 344.17 388.02 P
+1.68 (anization has a v) 350.11 388.02 P
+1.68 (ery simple format which) 435.3 388.02 P
+1.57 (should be readable and writable by just about an) 207 374.02 P
+1.57 (y program. All scalar) 451.32 374.02 P
+(\336elds are dimensioned simply by time.) 207 360.02 T
+2 F
+(5.3.2) 171.31 328.02 T
+(Regular Grid Data) 207 328.02 T
+0 F
+-0.05 (The re) 207 310.02 P
+-0.05 (gular grid or) 237.76 310.02 P
+-0.05 (g) 297.43 310.02 P
+-0.05 (anizations are slightly more complicated in that there) 303.37 310.02 P
+0.43 (are the details of the grid origin and resolution to be dealt with. The ori-) 207 296.02 P
+-0.23 (gin \050the center of the southwest, bottom grid point\051 is simply stored in the) 207 282.02 P
+1.62 (location v) 207 268.02 P
+1.62 (ariables described abo) 255.99 268.02 P
+1.62 (v) 365.68 268.02 P
+1.62 (e. The follo) 371.5 268.02 P
+1.62 (wing dimensions describe) 430.1 268.02 P
+(the geometry of each grid in the netCDF \336le:) 207 254.02 T
+5 F
+(x) 207 228.02 T
+0 F
+(The number of grid points in the x \050east-west\051) 302.4 228.02 T
+(dimension.) 302.4 214.02 T
+5 F
+(y) 207 188.02 T
+0 F
+(The number of grid points in the y \050north-south\051) 302.4 188.02 T
+(dimension.) 302.4 174.02 T
+5 F
+(z) 207 148.02 T
+0 F
+(The number of grid points in the z \050v) 302.4 148.02 T
+(ertical\051) 479.53 148.02 T
+(dimension.) 302.4 134.02 T
+1.92 (T) 207 108.02 P
+1.92 (o complete the grid geometry) 213.37 108.02 P
+1.92 (, the follo) 361.6 108.02 P
+1.92 (wing scalar v) 411.48 108.02 P
+1.92 (ariables e) 479.01 108.02 P
+1.92 (xist in) 526.4 108.02 P
+(each netCDF \336le:) 207 94.02 T
+FMENDPAGE
+%%EndPage: "17" 17
+%%Page: "18" 18
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(The Format of netCDF Files) 189 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(18) 54 60.29 T
+2 8 Q
+(Getting star) 189 60.29 T
+(ted) 234.06 60.29 T
+5 12 Q
+(x_spacing) 189 678.02 T
+0 F
+-0.12 (The distance between grid points in the x dimension,) 284.4 678.02 P
+(in kilometers.) 284.4 664.02 T
+5 F
+(y_spacing) 189 638.02 T
+0 F
+-0.12 (The distance between grid points in the y dimension,) 284.4 638.02 P
+(in kilometers.) 284.4 624.02 T
+5 F
+(z_spacing) 189 598.02 T
+0 F
+(The distance between grid points in the v) 284.4 598.02 T
+(ertical) 481.86 598.02 T
+(dimension, in kilometers.) 284.4 584.02 T
+(The data \336elds are then dimensioned as:) 189 558.02 T
+5 F
+(field \050time, z, y, x\051) 212.4 532.02 T
+0 F
+1.29 (Note, ho) 189 506.02 P
+1.29 (we) 231.31 506.02 P
+1.29 (v) 245.01 506.02 P
+1.29 (er that the Zebra data store allo) 250.83 506.02 P
+1.29 (ws platforms to be de\336ned) 407.54 506.02 P
+0.8 (with one-dimensional and tw) 189 492.02 P
+0.8 (o-dimensional grid or) 330.94 492.02 P
+0.8 (g) 436.32 492.02 P
+0.8 (anizations. F) 442.26 492.02 P
+0.8 (or such) 504.21 492.02 P
+(platforms, the) 189 478.02 T
+5 F
+(z) 258.66 478.02 T
+0 F
+( \050and, for one-dimensional,) 265.86 478.02 T
+5 F
+(y) 399.17 478.02 T
+0 F
+(\051 dimensions do not e) 406.37 478.02 T
+(xist.) 509.52 478.02 T
+2 F
+(5.3.3) 153.31 446.02 T
+(Irregular Grid Data) 189 446.02 T
+0 F
+-0.29 (An irre) 189 428.02 P
+-0.29 (gular grid is a series of observ) 222.85 428.02 P
+-0.29 (ations at random \050b) 365.41 428.02 P
+-0.29 (ut constant\051 loca-) 457.27 428.02 P
+0.47 (tions. A netw) 189 414.02 P
+0.47 (ork of surf) 254.15 414.02 P
+0.47 (ace stations is the classic platform for which the) 305.62 414.02 P
+2.41 (irre) 189 400.02 P
+2.41 (gular grid or) 205.48 400.02 P
+2.41 (g) 270.07 400.02 P
+2.41 (anization is appropriate. F) 276.01 400.02 P
+2.41 (or this or) 408.38 400.02 P
+2.41 (g) 456.32 400.02 P
+2.41 (anization, some) 462.26 400.02 P
+1.32 (e) 189 386.02 P
+1.32 (xtra housek) 194.15 386.02 P
+1.32 (eeping information is needed in order to k) 251 386.02 P
+1.32 (eep track of the) 461.74 386.02 P
+(indi) 189 372.02 T
+(vidual stations within the grid.) 207.37 372.02 T
+(T) 189 346.02 T
+(w) 195.37 346.02 T
+(o additional dimensions e) 203.92 346.02 T
+(xist for irre) 326.74 346.02 T
+(gular grid data:) 380.54 346.02 T
+5 F
+(platform) 189 320.02 T
+0 F
+(The number of platforms that mak) 284.4 320.02 T
+(e up this irre) 449.26 320.02 T
+(gular) 509.4 320.02 T
+(grid.) 284.4 306.02 T
+5 F
+(fldlen) 189 280.02 T
+0 F
+(The maximum length of a platform name.) 284.4 280.02 T
+(The actual platform names appear in the platform v) 189 254.02 T
+(ariable:) 435.31 254.02 T
+5 F
+(platform\050platform,fldlen\051) 189 228.02 T
+0 F
+( The names of the platforms stored) 369 228.02 T
+(in this irre) 306 214.02 T
+(gular grid. These names conform to) 355.15 214.02 T
+(the normal netCDF con) 306 200.02 T
+(v) 418.51 200.02 T
+(entions for storage of) 424.33 200.02 T
+(string v) 306 186.02 T
+(alues.) 342.04 186.02 T
+1.33 (W) 189 160.02 P
+1.33 (ith irre) 199.85 160.02 P
+1.33 (gular grids, locations are stored on a per) 233.33 160.02 P
+1.33 (-platform basis. Thus) 435.02 160.02 P
+0.79 (the standard location v) 189 146.02 P
+0.79 (ariables) 300.05 146.02 P
+5 F
+1.89 (lat) 341.16 146.02 P
+0 F
+0.79 (,) 362.76 146.02 P
+5 F
+1.89 (lon) 369.55 146.02 P
+0 F
+0.79 (, and) 391.15 146.02 P
+5 F
+1.89 (alt) 419.05 146.02 P
+0 F
+0.79 ( are dimensioned by) 440.65 146.02 P
+5 F
+(platform) 189 132.02 T
+0 F
+(. The actual data \336elds are dimensioned as:) 246.6 132.02 T
+5 F
+(field \050time, platform\051) 212.4 106.02 T
+FMENDPAGE
+%%EndPage: "18" 18
+%%Page: "19" 19
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(Sample netCDF File Formats) 207 736.18 T
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 74.02 558 74.02 2 L
+2 Z
+N
+2 8 Q
+(Getting star) 207 60.29 T
+(ted) 252.06 60.29 T
+2 10 Q
+-2.78 (19) 546.88 60.29 P
+0 12 Q
+0.1 (Thus all data for a gi) 207 678.02 P
+0.1 (v) 306.86 678.02 P
+0.1 (en time are stored together) 312.68 678.02 P
+0.1 (, inde) 440.59 678.02 P
+0.1 (x) 467.17 678.02 P
+0.1 (ed by the indi) 472.99 678.02 P
+0.1 (vid-) 538.67 678.02 P
+(ual platforms that mak) 207 664.02 T
+(e up the irre) 315.2 664.02 T
+(gular grid.) 372.67 664.02 T
+72 620.02 558 623.02 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+207 621.52 558 621.52 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 621.52 198 621.52 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(5.4) 181.32 627.02 T
+(Sample netCDF File Formats) 207 627.02 T
+0 F
+-0.12 (This section simply contains output from ncdump for the \336le formats dis-) 207 602.02 P
+(cussed abo) 207 588.02 T
+(v) 259.14 588.02 T
+(e. Only the header portion of the \336les is sho) 264.96 588.02 T
+(wn.) 474.64 588.02 T
+2 F
+(5.4.1) 171.31 556.02 T
+(Scalar Example) 207 556.02 T
+0 F
+0.83 (The follo) 207 538.02 P
+0.83 (wing is from an aircraft data \336le. The platform is mobile, thus) 251.86 538.02 P
+0.53 (the location v) 207 524.02 P
+0.53 (ariables are all dimensioned by time. F) 273.09 524.02 P
+0.53 (or a static platform,) 462.42 524.02 P
+(these v) 207 510.02 T
+(ariables w) 240.36 510.02 T
+(ould be scalar instead.) 289.22 510.02 T
+5 F
+(netcdf n312d_gen {) 230.4 484.02 T
+(dimensions:) 230.4 470.02 T
+(time = UNLIMITED ; // \05011880 currently\051) 259.2 456.02 T
+(variables:) 230.4 428.02 T
+(long base_time ;) 259.2 414.02 T
+(float time_offset\050time\051 ;) 259.2 400.02 T
+(float palt\050time\051 ;) 259.2 386.02 T
+(palt:missing_value = -32768.f ;) 288 372.02 T
+(float dp\050time\051 ;) 259.2 358.02 T
+(dp:missing_value = -32768.f ;) 288 344.02 T
+(float lat\050time\051 ;) 259.2 330.02 T
+(lat:missing_value = -32768.f ;) 288 316.02 T
+(float lon\050time\051 ;) 259.2 302.02 T
+(lon:missing_value = -32768.f ;) 288 288.02 T
+(float alt\050time\051 ;) 259.2 274.02 T
+(alt:missing_value = -32768.f ;) 288 260.02 T
+2 F
+(5.4.2) 171.31 228.02 T
+(Regular Grid Example) 207 228.02 T
+0 F
+(This is a dump from a dual-doppler analysis.) 207 210.02 T
+5 F
+(netcdf ddop.910715.190547 {) 230.4 184.02 T
+(dimensions:) 230.4 170.02 T
+(time = UNLIMITED ; // \0501 currently\051) 259.2 156.02 T
+(x = 101 ;) 259.2 142.02 T
+(y = 101 ;) 259.2 128.02 T
+(z = 26 ;) 259.2 114.02 T
+FMENDPAGE
+%%EndPage: "19" 19
+%%Page: "20" 20
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(The Format of netCDF Files) 189 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(20) 54 60.29 T
+2 8 Q
+(Getting star) 189 60.29 T
+(ted) 234.06 60.29 T
+5 12 Q
+(variables:) 212.4 678.02 T
+(float u_wind\050time, z, y, x\051 ;) 241.2 664.02 T
+(u_wind:missing_value = -32768.f ;) 270 650.02 T
+(float v_wind\050time, z, y, x\051 ;) 241.2 636.02 T
+(v_wind:missing_value = -32768.f ;) 270 622.02 T
+(float w_wind\050time, z, y, x\051 ;) 241.2 608.02 T
+(w_wind:missing_value = -32768.f ;) 270 594.02 T
+(float ref_cp3\050time, z, y, x\051 ;) 241.2 580.02 T
+(ref_cp3:missing_value = -32768.f ;) 270 566.02 T
+(float ref_cp4\050time, z, y, x\051 ;) 241.2 552.02 T
+(ref_cp4:missing_value = -32768.f ;) 270 538.02 T
+(long base_time ;) 241.2 524.02 T
+(float time_offset\050time\051 ;) 241.2 510.02 T
+(float lat ;) 241.2 496.02 T
+(float lon ;) 241.2 482.02 T
+(float alt ;) 241.2 468.02 T
+(float x_spacing ;) 241.2 454.02 T
+(float y_spacing ;) 241.2 440.02 T
+(float z_spacing ;) 241.2 426.02 T
+2 F
+(5.4.3) 153.31 394.02 T
+(Irregular Grid Example) 189 394.02 T
+0 F
+2 (The follo) 189 376.02 P
+2 (wing is a dump from a typical \336le containing data from the) 235.03 376.02 P
+(NCAR Portable Automated Mesonet \050P) 189 362.02 T
+(AM\051 system:) 378.55 362.02 T
+5 F
+(netcdf mesonet.910802.1810 {) 212.4 336.02 T
+(dimensions:) 212.4 322.02 T
+(time = UNLIMITED ; // \050330 currently\051) 241.2 308.02 T
+(platform = 47 ;) 241.2 294.02 T
+(fldlen = 20 ;) 241.2 280.02 T
+(variables:) 212.4 252.02 T
+(long base_time ;) 241.2 238.02 T
+(float time_offset\050time\051 ;) 241.2 224.02 T
+(float tdry\050time, platform\051 ;) 241.2 210.02 T
+(tdry:missing_value = -9999.f ;) 270 196.02 T
+(float twet\050time, platform\051 ;) 241.2 182.02 T
+(twet:missing_value = -9999.f ;) 270 168.02 T
+(float lat\050platform\051 ;) 241.2 154.02 T
+(float lon\050platform\051 ;) 241.2 140.02 T
+(float alt\050platform\051 ;) 241.2 126.02 T
+FMENDPAGE
+%%EndPage: "20" 20
+%%Page: "21" 21
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 445.03 558 445.03 2 L
+2 Z
+N
+72 74.02 558 74.02 2 L
+0.25 H
+N
+2 8 Q
+(Getting star) 207 60.29 T
+(ted) 252.06 60.29 T
+2 10 Q
+-2.78 (21) 546.88 60.29 P
+1 12 Q
+1.2 (CHAPTER 6) 72 677 S
+0 24 Q
+-0.48 (The) 207 677 S
+-0.48 (Zebra) 248.4 677 S
+-0.48 ( Raster File) 301.97 677 S
+-0.48 (F) 207 647 S
+-0.48 (ormat) 219.51 647 S
+72 417 558 420 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+207 418.5 558 418.5 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 418.5 198 418.5 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(6.1) 181.32 424 T
+(Intr) 207 424 T
+(oduction) 226.09 424 T
+0 F
+-0.26 (Zebra uses a special internal format for raster image data \050really eight-bit,) 207 399 P
+-0.29 (tw) 207 385 P
+-0.29 (o-dimensional grid data\051. There are a fe) 218.88 385 P
+-0.29 (w reasons for the decision to go) 407.11 385 P
+0.61 (with an internal format; all ha) 207 371 P
+0.61 (v) 352.8 371 P
+0.61 (e to do with shortcomings of other a) 358.61 371 P
+0.61 (v) 536.3 371 P
+0.61 (ail-) 542 371 P
+(able image formats, including:) 207 357 T
+6 11 Q
+(\245) 207 337 T
+0 12 Q
+0.34 (Most true \322image\323 \336le formats do not ha) 221.4 337 P
+0.34 (v) 418.49 337 P
+0.34 (e an) 424.31 337 P
+0.34 (y w) 444.13 337 P
+0.34 (ay to store the loca-) 462.01 337 P
+2.4 (tion and spacing information that is needed to display image data) 221.4 323 P
+(o) 221.4 309 T
+(v) 227.22 309 T
+(erlaid with other data sets.) 233.04 309 T
+6 11 Q
+(\245) 207 292 T
+0 12 Q
+2.13 (Image \336le formats also tend to lack scaling information needed to) 221.4 292 P
+(retrie) 221.4 278 T
+(v) 246.42 278 T
+(e real data v) 252.24 278 T
+(alues from the pix) 310.25 278 T
+(el data.) 397.06 278 T
+6 11 Q
+(\245) 207 261 T
+0 12 Q
+0 (NetCDF has the XDR o) 221.4 261 P
+0 (v) 335.89 261 P
+0 (erhead cost, which is e) 341.7 261 P
+0 (xcessi) 450.5 261 P
+0 (v) 479.53 261 P
+0 (e when dealing) 485.35 261 P
+1.08 (with image data. NetCDF \336les also do not allo) 221.4 247 P
+1.08 (w for dif) 452.75 247 P
+1.08 (ferent image) 496.61 247 P
+(sizes in the same \336le, and does not allo) 221.4 233 T
+(w for compression.) 408.08 233 T
+2.21 (It is hoped that, in the near future, some sort of standard \336le format) 207 207 P
+0.52 (\050probably one of the HDF formats\051 will replace the raster image format.) 207 193 P
+(Meanwhile, its use will continue within Zebra.) 207 179 T
+0.15 (Note that if you are considering writing code to w) 207 153 P
+0.15 (ork directly with raster) 447.89 153 P
+2.48 (image \336les, you should really consider using the data store interf) 207 139 P
+2.48 (ace) 542.02 139 P
+0.6 (instead. The data store interf) 207 125 P
+0.6 (ace is some) 346.24 125 P
+0.6 (what simpler) 402.46 125 P
+0.6 (, and allo) 464.91 125 P
+0.6 (ws you to) 510.13 125 P
+(write code that is not dependent on the format of raster image \336les.) 207 111 T
+FMENDPAGE
+%%EndPage: "21" 21
+%%Page: "22" 22
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(The Zebra Raster File Format) 189 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(22) 54 60.29 T
+2 8 Q
+(Getting star) 189 60.29 T
+(ted) 234.06 60.29 T
+54 671.02 540 674.02 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+189 672.52 540 672.52 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+54 672.52 180 672.52 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(6.2) 163.32 678.02 T
+(Rele) 189 678.02 T
+(v) 214.16 678.02 T
+(ant Sour) 220.6 678.02 T
+(ce Files) 269.03 678.02 T
+0 F
+-0.16 (All of the structures used in raster image \336les are de\336ned in the C include) 189 653.02 P
+3.63 (\336le) 189 639.02 P
+5 F
+8.72 (.../src/ds/) 210.97 639.02 P
+8.72 (RasterFile.h) 290.17 639.02 P
+0 F
+3.63 (. In the same directory can be) 376.57 639.02 P
+1.12 (found a couple of \336les which actually deal with raster image \336les. The) 189 625.02 P
+3.82 (\336rst is) 189 611.02 P
+5 F
+9.18 (rfdump.c) 229.32 611.02 P
+0 F
+3.82 (, the source for the) 286.92 611.02 P
+5 F
+9.18 (rfdump) 398.68 611.02 P
+0 F
+3.82 ( program. The \336le) 441.88 611.02 P
+5 F
+2.4 (DFA_Raster.c) 189 597.02 P
+0 F
+1 ( contains the data store routines which actually create) 275.4 597.02 P
+(and access raster image \336les.) 189 583.02 T
+54 539.02 540 542.02 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+189 540.52 540 540.52 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+54 540.52 180 540.52 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(6.3) 163.32 546.02 T
+(File Format) 189 546.02 T
+(6.3.1) 153.31 511.02 T
+(The File Header) 189 511.02 T
+0 F
+0.3 (At the be) 189 493.02 P
+0.3 (ginning of e) 233.41 493.02 P
+0.3 (v) 291.71 493.02 P
+0.3 (ery raster image \336le is the) 297.53 493.02 P
+1 F
+0.3 (header structur) 426.64 493.02 P
+0.3 (e) 507.04 493.02 P
+0 F
+0.3 (. This) 512.36 493.02 P
+-0.26 (structure describes the contents of the \336le, and gi) 189 479.02 P
+-0.26 (v) 421.6 479.02 P
+-0.26 (es pointers which allo) 427.42 479.02 P
+-0.26 (w) 531.34 479.02 P
+(all other components of the \336le to be found. The header is de\336ned as:) 189 465.02 T
+5 10 Q
+(typedef struct s_RFHeader) 212.4 440.35 T
+({) 212.4 428.35 T
+(int) 252 416.35 T
+(rf_Magic;) 288 416.35 T
+(char) 252 404.35 T
+(rf_Platform[40];) 288 404.35 T
+(/* Name of platform /) 384 404.35 T
+(int) 252 392.35 T
+(rf_MaxSample;) 288 392.35 T
+(/* Max number of samples) 366 392.35 T
+(*/) 510 392.35 T
+(int) 252 380.35 T
+(rf_NSample;) 288 380.35 T
+(/* How many we have) 360 380.35 T
+(*/) 474 380.35 T
+(int) 252 368.35 T
+(rf_NField;) 288 368.35 T
+(/* How many fields) 360 368.35 T
+(*/) 468 368.35 T
+(RFField rf_Fields[MaxRFField];) 252 356.35 T
+(/* Fields) 432 356.35 T
+(*/) 486 356.35 T
+(int) 252 344.35 T
+(rf_Flags;) 288 344.35 T
+(/* Flag info) 360 344.35 T
+(*/) 432 344.35 T
+(} RFHeader;) 212.4 332.35 T
+0 12 Q
+0.25 (The) 189 307.02 P
+5 F
+0.61 (rf_Magic) 210.91 307.02 P
+0 F
+0.25 ( \336eld should contain the v) 268.51 307.02 P
+0.25 (alue) 393.81 307.02 P
+5 F
+0.61 (RF_MAGIC) 417.06 307.02 P
+0 F
+0.25 (. If that is not) 474.66 307.02 P
+0.06 (the case, the \336le from which this header w) 189 293.02 P
+0.06 (as read is probably not really a) 392.33 293.02 P
+(raster image \336le; the Zebra data store will refuse to w) 189 279.02 T
+(ork with it.) 445.49 279.02 T
+1.21 (The name of the platform is stored in) 189 253.02 P
+5 F
+2.9 (rf_Platform) 379.97 253.02 P
+0 F
+1.21 ( when the \336le is) 459.17 253.02 P
+0.32 (created; Zebra does not mak) 189 239.02 P
+0.32 (e an) 326.12 239.02 P
+0.32 (y further use of this \336eld afterw) 345.92 239.02 P
+0.32 (ard. The) 499.7 239.02 P
+5 F
+(rfdump) 189 225.02 T
+0 F
+( program will print its contents, ho) 232.2 225.02 T
+(we) 398.23 225.02 T
+(v) 411.92 225.02 T
+(er) 417.74 225.02 T
+(.) 426.41 225.02 T
+5 F
+0.25 (rf_MaxSample) 189 199.02 P
+0 F
+0.1 ( contains the maximum number of samples that the \336le) 275.4 199.02 P
+1.14 (may hold. This is the same v) 189 185.02 P
+1.14 (alue that is supplied for) 333.19 185.02 P
+5 F
+2.73 (maxsamples) 454.53 185.02 P
+0 F
+1.14 ( in) 526.53 185.02 P
+0.19 (the platform de\336nition. Since this v) 189 171.02 P
+0.19 (alue is used to size certain data struc-) 359.68 171.02 P
+0.66 (tures \050described belo) 189 157.02 P
+0.66 (w\051, it can not be e) 289.99 157.02 P
+0.66 (xceeded. The number of samples) 379.08 157.02 P
+(currently present in the \336le is stored in) 189 143.02 T
+5 F
+(rf_NSample) 376.98 143.02 T
+0 F
+(.) 448.98 143.02 T
+FMENDPAGE
+%%EndPage: "22" 22
+%%Page: "23" 23
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(File Format) 207 736.18 T
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 74.02 558 74.02 2 L
+2 Z
+N
+2 8 Q
+(Getting star) 207 60.29 T
+(ted) 252.06 60.29 T
+2 10 Q
+-2.78 (23) 546.88 60.29 P
+0 12 Q
+1.29 (Some \336eld information is stored in the \336le header) 207 678.02 P
+1.29 (.) 454.66 678.02 P
+5 F
+3.1 (rf_NField) 461.95 678.02 P
+0 F
+1.29 ( is the) 526.75 678.02 P
+1.02 (number of \336elds currently kno) 207 664.02 P
+1.02 (wn in the \336le. The) 356.76 664.02 P
+5 F
+2.44 (rf_Fields) 452.51 664.02 P
+0 F
+1.02 ( array is) 517.31 664.02 P
+(made up of the follo) 207 650.02 T
+(wing structure:) 304.02 650.02 T
+5 10 Q
+(typedef struct s_RFField) 230.4 625.35 T
+({) 230.4 613.35 T
+(char) 270 601.35 T
+(rff_Name[20];) 306 601.35 T
+(/* Name of the field) 384 601.35 T
+(*/) 504 601.35 T
+(char) 270 589.35 T
+(rff_Desc[40];) 306 589.35 T
+(/* It\325s description) 384 589.35 T
+(*/) 498 589.35 T
+(ScaleInfo rff_Scale;) 270 577.35 T
+(/* Scaling info) 390 577.35 T
+(*/) 480 577.35 T
+(} RFField;) 230.4 565.35 T
+0 12 Q
+1.88 (One of these structures e) 207 540.02 P
+1.88 (xists for e) 332.98 540.02 P
+1.88 (v) 383.76 540.02 P
+1.88 (ery kno) 389.58 540.02 P
+1.88 (wn \336eld, and contains the) 427.49 540.02 P
+-0.02 (name of the \336eld \050) 207 526.02 P
+5 F
+-0.04 (rff_Name) 294.92 526.02 P
+0 F
+-0.02 (\051, a long description \050) 352.52 526.02 P
+5 F
+-0.04 (rff_Desc) 455.44 526.02 P
+0 F
+-0.02 (\051, and the) 513.04 526.02 P
+0.65 (scaling information needed to con) 207 512.02 P
+0.65 (v) 372.42 512.02 P
+0.65 (ert pix) 378.24 512.02 P
+0.65 (el v) 409.71 512.02 P
+0.65 (alues into normal data v) 427.72 512.02 P
+0.65 (al-) 545.34 512.02 P
+8.01 (ues \050) 207 498.02 P
+5 F
+19.23 (rff_Scale) 238.01 498.02 P
+0 F
+8.01 (\051. The) 302.81 498.02 P
+5 F
+19.23 (ScaleInfo) 350.49 498.02 P
+0 F
+8.01 ( structure is de\336ned \050in) 415.29 498.02 P
+5 F
+(DataStore.h\051) 207 484.02 T
+0 F
+( as:) 293.4 484.02 T
+5 10 Q
+(typedef struct _ScaleInfo) 230.4 459.35 T
+({) 230.4 447.35 T
+(float) 270 435.35 T
+( s_Scale;) 306 435.35 T
+(/* real value = data/s_scale) 378 435.35 T
+(*/) 546 435.35 T
+(float s_Offset;) 270 423.35 T
+(/*   + s_Offset) 360 423.35 T
+(*/) 450 423.35 T
+(} ScaleInfo;) 230.4 411.35 T
+0 12 Q
+0.64 (The \336nal header \336eld is) 207 386.02 P
+5 F
+1.55 (rf_Flags) 326.54 386.02 P
+0 F
+0.64 (. Currently only one \337ag is de\336ned,) 384.14 386.02 P
+0.88 (being) 207 372.02 P
+5 F
+2.1 (RFF_COMPRESS) 237.54 372.02 P
+0 F
+0.88 (. If this \337ag is set, then images are stored using) 323.94 372.02 P
+(run-length encoding; this scheme is described in detail belo) 207 358.02 T
+(w) 492 358.02 T
+(.) 499.88 358.02 T
+2 F
+(6.3.2) 171.31 326.02 T
+(The T) 207 326.02 T
+(ab) 238.04 326.02 T
+(le of Contents) 251.93 326.02 T
+0 F
+0.56 (Immediately follo) 207 308.02 P
+0.56 (wing the header structure in a raster \336le is the table of) 293.59 308.02 P
+0.71 (contents \050T) 207 294.02 P
+0.71 (OC\051. The T) 261.82 294.02 P
+0.71 (OC describes all of the actual data samples to be) 318.67 294.02 P
+-0.19 (found in the \336le, and must be consulted whene) 207 280.02 P
+-0.19 (v) 428.83 280.02 P
+-0.19 (er data is needed from the) 434.65 280.02 P
+3.84 (\336le. Each T) 207 266.02 P
+3.84 (OC entry is one of the follo) 270.12 266.02 P
+3.84 (wing structures; there are) 424.85 266.02 P
+5 F
+(rf_MaxSample) 207 252.02 T
+0 F
+( of them stored contiguously after the header:) 293.4 252.02 T
+5 10 Q
+(typedef struct s_RFToc) 230.4 227.35 T
+({) 230.4 215.35 T
+(UItime) 270 203.35 T
+( rft_Time;) 306 203.35 T
+(/* Time of this image) 378 203.35 T
+(*/) 504 203.35 T
+(long) 270 191.35 T
+(rft_Offset[MaxRFField];) 306 191.35 T
+(/* It\325s place) 444 191.35 T
+(*/) 522 191.35 T
+(long) 270 179.35 T
+(rft_Size[MaxRFField];) 306 179.35 T
+(/* Length) 432 179.35 T
+(*/) 486 179.35 T
+(RGrid) 270 167.35 T
+( rft_Rg;) 306 167.35 T
+(/* Geometry info) 414 167.35 T
+(*/) 510 167.35 T
+(Location rft_Origin;) 270 155.35 T
+(/* Image origin) 390 155.35 T
+(*/) 480 155.35 T
+(int) 270 143.35 T
+(rft_AttrLen;) 306 143.35 T
+(/* Length of attrs) 378 143.35 T
+(*/) 486 143.35 T
+(long) 270 131.35 T
+(rft_AttrOffset;) 306 131.35 T
+(/* Where they are) 396 131.35 T
+(*/) 498 131.35 T
+(} RFToc;) 230.4 119.35 T
+FMENDPAGE
+%%EndPage: "23" 23
+%%Page: "24" 24
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(The Zebra Raster File Format) 189 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(24) 54 60.29 T
+2 8 Q
+(Getting star) 189 60.29 T
+(ted) 234.06 60.29 T
+0 12 Q
+0.04 (The time of each sample is stored in) 189 678.02 P
+5 F
+0.11 (rft_Time) 365.99 678.02 P
+0 F
+0.04 ( in the old user interf) 423.59 678.02 P
+0.04 (ace) 524.02 678.02 P
+(time format:) 189 664.02 T
+5 10 Q
+(typedef struct s_UItime) 212.4 639.35 T
+({) 212.4 627.35 T
+(long) 252 615.35 T
+(ds_yymmdd;) 288 615.35 T
+(/* Day portion) 348 615.35 T
+(*/) 432 615.35 T
+(long) 252 603.35 T
+(ds_hhmmss;) 288 603.35 T
+(/* time portion */) 348 603.35 T
+(} UItime;) 212.4 591.35 T
+0 12 Q
+0.4 (T) 189 566.02 P
+0.4 (imes are stored as simple inte) 195.91 566.02 P
+0.4 (gers; as an e) 339.37 566.02 P
+0.4 (xample, the date of this writ-) 399.36 566.02 P
+2.02 (ing \050December 20, 1993, 2:17 pm\051 w) 189 552.02 P
+2.02 (ould be represented as \050931220,) 378.96 552.02 P
+(141700\051.) 189 538.02 T
+1.98 (The location of each image in the \336le is stored in the) 189 512.02 P
+5 F
+4.74 (rft_Offset) 468 512.02 P
+0 F
+0.38 (\336eld; this is a simple \336le of) 189 498.02 P
+0.38 (fset in bytes which may be passed directly to) 321.66 498.02 P
+5 F
+4.13 (lseek) 189 484.02 P
+0 F
+1.72 ( to position to the image. The size of each image \050in bytes\051 is) 225 484.02 P
+3.1 (stored in) 189 470.02 P
+5 F
+7.45 (rft_Size) 239.87 470.02 P
+0 F
+3.1 (. Note that) 297.47 470.02 P
+5 F
+7.45 (rft_Offset) 360.11 470.02 P
+0 F
+3.1 ( and) 432.11 470.02 P
+5 F
+7.45 (rft_Size) 461.64 470.02 P
+0 F
+3.1 ( are) 519.24 470.02 P
+(arrays, with one entry for each \336eld.) 189 456.02 T
+2.09 (The grid geometry of each image is stored in the standard data store) 189 430.02 P
+5 F
+(RGrid) 189 416.02 T
+0 F
+( structure as) 225 416.02 T
+5 F
+(rft_Rg) 285.98 416.02 T
+0 F
+(, de\336ned in) 329.18 416.02 T
+5 F
+(DataStore.h) 385.85 416.02 T
+0 F
+(:) 465.05 416.02 T
+5 10 Q
+(typedef struct _RGrid) 212.4 391.35 T
+({) 212.4 379.35 T
+(float) 252 367.35 T
+( rg_Xspacing;) 288 367.35 T
+(/* X dimension spacing) 366 367.35 T
+(*/) 498 367.35 T
+(float) 252 355.35 T
+( rg_Yspacing;) 288 355.35 T
+(/* Y \050north/south\051 spacing) 366 355.35 T
+(*/) 522 355.35 T
+(float) 252 343.35 T
+( rg_Zspacing;) 288 343.35 T
+(/* Vertical spacing) 366 343.35 T
+(*/) 480 343.35 T
+(int) 252 331.35 T
+(rg_nX, rg_nY, rg_nZ;) 288 331.35 T
+(/* Dimensions) 408 331.35 T
+(*/) 486 331.35 T
+(} RGrid;) 212.4 319.35 T
+0 12 Q
+1.49 (Similarly) 189 294.02 P
+1.49 (, the origin \050lo) 232.9 294.02 P
+1.49 (wer) 305.73 294.02 P
+1.49 (-left corner\051 of each sample is found in the) 323.48 294.02 P
+5 F
+(rft_Origin) 189 280.02 T
+0 F
+( \336eld, using the Zebra) 261 280.02 T
+5 F
+(Location) 368.99 280.02 T
+0 F
+( type:) 426.59 280.02 T
+5 10 Q
+(typedef struct s_Location) 212.4 255.35 T
+({) 212.4 243.35 T
+(float) 252 231.35 T
+(l_lat;) 294 231.35 T
+(float) 252 219.35 T
+( l_lon;) 288 219.35 T
+(float) 252 207.35 T
+( l_alt;) 288 207.35 T
+(} Location;) 212.4 195.35 T
+0 12 Q
+0.32 (Longitudes are stored as de) 189 170.02 P
+0.32 (grees east; altitudes are al) 321.39 170.02 P
+0.32 (w) 445.83 170.02 P
+0.32 (ays in kilometers,) 454.37 170.02 P
+(which is perhaps not what one w) 189 156.02 T
+(ould e) 346.19 156.02 T
+(xpect, b) 375.67 156.02 T
+(ut that is the w) 413.42 156.02 T
+(ay it is.) 483.97 156.02 T
+1.14 (Finally) 189 130.02 P
+1.14 (, the T) 222.23 130.02 P
+1.14 (OC has a couple of \336elds oriented around attrib) 255.3 130.02 P
+1.14 (utes. This) 492.19 130.02 P
+1.52 (implementation re\337ects a truly ancient vie) 189 116.02 P
+1.52 (w of attrib) 398.63 116.02 P
+1.52 (utes, which is not) 451.43 116.02 P
+0.08 (really recognized an) 189 102.02 P
+0.08 (ywhere else in Zebra. Raster \336le attrib) 286.27 102.02 P
+0.08 (utes are a sim-) 470.12 102.02 P
+FMENDPAGE
+%%EndPage: "24" 24
+%%Page: "25" 25
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(File Format) 207 736.18 T
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 74.02 558 74.02 2 L
+2 Z
+N
+2 8 Q
+(Getting star) 207 60.29 T
+(ted) 252.06 60.29 T
+2 10 Q
+-2.78 (25) 546.88 60.29 P
+0 12 Q
+-0.21 (ple, comma-separated string; if a set of attrib) 207 678.02 P
+-0.21 (utes e) 420.58 678.02 P
+-0.21 (xists for a sample, then) 447.85 678.02 P
+5 F
+13.12 (rft_AttrLen) 207 664.02 P
+0 F
+5.47 ( will gi) 286.2 664.02 P
+5.47 (v) 330.84 664.02 P
+5.47 (e the length of the attrib) 336.66 664.02 P
+5.47 (ute string, and) 478.74 664.02 P
+5 F
+3.95 (rft_AttrOffset) 207 650.02 P
+0 F
+1.65 ( tells where to \336nd it. If no attrib) 307.8 650.02 P
+1.65 (utes are present,) 477.06 650.02 P
+5 F
+(rft_AttrLen) 207 636.02 T
+0 F
+( is zero.) 286.2 636.02 T
+2 F
+(6.3.3) 171.31 604.02 T
+(Ima) 207 604.02 T
+(g) 227.56 604.02 T
+(e Data Format) 235.01 604.02 T
+0 F
+0.39 (After plo) 207 586.02 P
+0.39 (wing through all of the abo) 250.75 586.02 P
+0.39 (v) 382.84 586.02 P
+0.39 (e structures, it is \336nally possible to) 388.66 586.02 P
+0.59 (look at the actual image data. This data is simply stored along the ro) 207 572.02 P
+0.59 (ws,) 541.67 572.02 P
+(starting at the origin, mo) 207 558.02 T
+(ving left to right and bottom to top.) 325.15 558.02 T
+-0.05 (The only complication come in if the image is compressed. Zebras uses a) 207 532.02 P
+2.03 (v) 207 518.02 P
+2.03 (ery simple run-length encoding scheme to compress strings of equal) 212.82 518.02 P
+-0.22 (data v) 207 504.02 P
+-0.22 (alues. This scheme w) 235.48 504.02 P
+-0.22 (orks well for certain kinds of data\321especially) 337.35 504.02 P
+(radar data which has been thresholded.) 207 490.02 T
+0.52 (If you need to w) 207 464.02 P
+0.52 (ork directly with compressed image data, the best place) 287.59 464.02 P
+2.7 (to look is in) 207 450.02 P
+5 F
+6.48 (.../src/lib/) 277.81 450.02 P
+6.48 (RLEncode.c) 364.21 450.02 P
+0 F
+2.7 (. This \336le describes the) 436.21 450.02 P
+0.09 (encoding scheme in detail, and pro) 207 436.02 P
+0.09 (vides routines which will do encoding) 374.57 436.02 P
+(and decoding for you.) 207 422.02 T
+FMENDPAGE
+%%EndPage: "25" 25
+%%Page: "26" 26
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+2 9 Q
+(The Zebra Raster File Format) 189 736.18 T
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+2 10 Q
+(26) 54 60.29 T
+2 8 Q
+(Getting star) 189 60.29 T
+(ted) 234.06 60.29 T
+FMENDPAGE
+%%EndPage: "26" 26
+%%Page: "27" 27
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 445.03 558 445.03 2 L
+2 Z
+N
+72 74.02 558 74.02 2 L
+0.25 H
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 8 Q
+(Getting star) 207 60.29 T
+(ted) 252.06 60.29 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 10 Q
+-2.78 (27) 546.88 60.29 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 24 Q
+-0.48 (Zebra\325) 207 677 S
+-0.48 (s Map File F) 266.76 677 S
+-0.48 (ormat) 382.67 677 S
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 12 Q
+3.97 (Geographic maps and similar o) 207 424 P
+3.97 (v) 372.7 424 P
+3.97 (erlays are an important feature of) 378.52 424 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0.09 (Zebra\325) 207 410 P
+0.09 (s graphics capabilities. Most project con\336gurations will come sup-) 238.32 410 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0.54 (plied with one or more maps appropriate to the project. It is often desir-) 207 396 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0.64 (able, ho) 207 382 P
+0.64 (we) 245.33 382 P
+0.64 (v) 259.02 382 P
+0.64 (er) 264.84 382 P
+0.64 (, to use a custom map for v) 273.69 382 P
+0.64 (arious purposes. Users are free) 407.84 382 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+-0.07 (to mak) 207 368 P
+-0.07 (e their o) 239.81 368 P
+-0.07 (wn \322map\323 \336les which can then be made a) 278.68 368 P
+-0.07 (v) 477.14 368 P
+-0.07 (ailable to Zebra) 482.84 368 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0.22 (for adding to plots. This document describes the map \336le format used by) 207 354 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Zebra, which should be follo) 207 340 T
+(wed when generating custom \336les.) 345.01 340 T
+0 0 0 1 0 0 0 K
+72 296 558 299 C
+0 0 0 1 0 0 0 K
+207 297.5 558 297.5 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 297.5 198 297.5 2 L
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 612 792 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(1) 191.33 303 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Map File Format) 207 303 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 F
+-0.27 (Zebra mak) 207 278 P
+-0.27 (es use of a simple ASCII format for map \336les, adopted from an) 258.26 278 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+-0.13 (older v) 207 264 P
+-0.13 (ersion of the NCAR Graphics P) 240.35 264 P
+-0.13 (ackage. A map \336le is comprised of) 391.82 264 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+1.79 (a number of polyline de\336nitions, each consisting of a header line fol-) 207 250 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+-0.09 (lo) 207 236 P
+-0.09 (wed by one or more lines of v) 216.04 236 P
+-0.09 (erte) 358.88 236 P
+-0.09 (x locations. All positions are gi) 376.68 236 P
+-0.09 (v) 525.94 236 P
+-0.09 (en by) 531.76 236 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+-0.13 (latitude and longitude, with north latitudes and east longitudes being pos-) 207 222 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2.29 (iti) 207 208 P
+2.29 (v) 216.71 208 P
+2.29 (e, and south latitudes and west longitudes being ne) 222.53 208 P
+2.29 (g) 484.31 208 P
+2.29 (ati) 490.25 208 P
+2.29 (v) 501.95 208 P
+2.29 (e. A brief) 507.77 208 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0.31 (e) 207 194 P
+0.31 (xample map \336le is sho) 212.15 194 P
+0.31 (wn in Figure) 321.08 194 P
+0.31 (1. An) 386.02 194 P
+0.31 (y number of polylines may be) 412.81 194 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(included in a map \336le, and there should be no empty lines.) 207 180 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 F
+(1.1) 181.32 148 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Header Lines) 207 148 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 F
+1.49 (Each polyline de\336nition in a map \336le be) 207 130 P
+1.49 (gins with a header line which) 409.57 130 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+1.14 (contains a count the number of v) 207 116 P
+1.14 (alues in the polyline follo) 370.83 116 P
+1.14 (wed by four) 497.74 116 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2.37 (v) 207 102 P
+2.37 (alues de\336ning the bounding box of the polyline: maximum latitude,) 212.7 102 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "27" 27
+%%Page: "28" 28
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 9 Q
+(Zebra\325) 189 736.18 T
+(s Map File Format) 215.47 736.18 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 10 Q
+(28) 54 60.29 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 8 Q
+(Getting star) 189 60.29 T
+(ted) 234.06 60.29 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 12 Q
+1.66 (minimum latitude, maximum longitude, and minimum longitude. Note) 189 424 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0.49 (that the count is the number of) 189 410 P
+4 F
+0.49 (values) 342.08 410 P
+0 F
+0.49 ( for the polyline, which is actually) 372.74 410 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0.16 (twice the number of) 189 396 P
+4 F
+0.16 (vertices) 288.96 396 P
+0 F
+0.16 ( in the polyline, since each v) 326.28 396 P
+0.16 (erte) 464.05 396 P
+0.16 (x has both a) 481.86 396 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2.64 (latitude and a longitude associated with it. The format for writing a) 189 382 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(header line is:) 189 368 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+1 F
+(C:) 212.4 342 T
+5 F
+( \322%4d %9.3f %9.3f %9.3f %9.3f\323) 225.06 342 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+1 F
+(FOR) 212.4 316 T
+(TRAN:) 237.25 316 T
+5 F
+( \050I4, 4 \050X, F9.3\051\051) 275.24 316 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 F
+-0.02 (A comment may be included after the v) 189 290 P
+-0.02 (alues on the header line, up to the) 378.85 290 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(end of the line.) 189 276 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 F
+(1.2) 163.32 244 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(V) 189 244 T
+(er) 196.4 244 T
+(tices) 207.98 244 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 F
+-0.06 (The header line is simply follo) 189 226 P
+-0.06 (wed by a list of latitude/longitude pairs for) 335.41 226 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(the locations of the v) 189 212 T
+(ertices of the polyline. The format for each pair is:) 289.48 212 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+1 F
+(C:) 212.4 186 T
+5 F
+( \322 %9.3f %9.3f\323) 225.06 186 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+1 F
+(FOR) 212.4 160 T
+(TRAN:) 237.25 160 T
+5 F
+( \0502 \050X, F9.3\051\051) 275.24 160 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 F
+(and up to four pairs may be placed on a line.) 189 134 T
+0 0 0 1 0 0 0 K
+52.03 432 541.97 686.02 C
+0 0 0 1 0 0 0 K
+106.03 470.02 484.03 686.02 R
+7 X
+0 0 0 1 0 0 0 K
+V
+5 7 Q
+0 X
+(36    30.583    30.300   -86.933   -87.450    !a comment can go here) 114.43 681.35 T
+(    30.300   -87.450    30.317   -87.350    30.350   -87.317    30.350   -87.267) 106.03 673.35 T
+(    30.383   -87.267    30.417   -87.183    30.500   -87.150    30.533   -87.183) 106.03 665.35 T
+(    30.583   -87.167    30.533   -87.133    30.517   -87.100    30.450   -87.100) 106.03 657.35 T
+(    30.450   -87.083    30.550   -87.033    30.583   -87.000    30.500   -87.017) 106.03 649.35 T
+(    30.467   -86.933    30.400   -87.000) 106.03 641.35 T
+(   6    30.400    30.367   -87.000   -87.183) 106.03 633.35 T
+(    30.400   -87.000    30.383   -87.117    30.367   -87.183) 106.03 625.35 T
+( 112    30.500    30.100   -85.600   -87.000) 106.03 617.35 T
+(    30.400   -87.000    30.400   -86.883    30.417   -86.817    30.417   -86.700) 106.03 609.35 T
+(    30.417   -86.600    30.467   -86.600    30.433   -86.567    30.450   -86.550) 106.03 601.35 T
+(    30.467   -86.500    30.500   -86.483    30.500   -86.467    30.450   -86.417) 106.03 593.35 T
+(    30.483   -86.333    30.483   -86.200    30.467   -86.200    30.450   -86.167) 106.03 585.35 T
+(    30.417   -86.167    30.433   -86.150    30.383   -86.117    30.400   -86.200) 106.03 577.35 T
+(    30.433   -86.233    30.433   -86.267    30.383   -86.233    30.417   -86.333) 106.03 569.35 T
+(    30.383   -86.350    30.400   -86.400    30.417   -86.483    30.400   -86.517) 106.03 561.35 T
+(    30.383   -86.467    30.383   -86.417    30.367   -86.317    30.350   -86.233) 106.03 553.35 T
+(    30.317   -86.133    30.283   -86.017    30.233   -85.917    30.183   -85.817) 106.03 545.35 T
+(    30.133   -85.733    30.150   -85.717    30.167   -85.750    30.217   -85.750) 106.03 537.35 T
+(    30.250   -85.783    30.250   -85.817    30.233   -85.850    30.267   -85.867) 106.03 529.35 T
+(    30.283   -85.850    30.300   -85.767    30.283   -85.733    30.233   -85.717) 106.03 521.35 T
+(    30.267   -85.700    30.267   -85.650    30.233   -85.683    30.183   -85.717) 106.03 513.35 T
+(    30.133   -85.633    30.150   -85.633    30.117   -85.600    30.100   -85.617) 106.03 505.35 T
+(  22    30.117    30.017   -85.450   -85.617) 106.03 497.35 T
+(!comments can go on any header line) 295.03 497.35 T
+(    30.100   -85.617    30.117   -85.583    30.117   -85.533    30.100   -85.517) 106.03 489.35 T
+(    30.100   -85.500    30.033   -85.483    30.017   -85.450    30.017   -85.483) 106.03 481.35 T
+(30.050   -85.517    30.083   -85.550    30.100   -85.617) 122.83 473.35 T
+52.03 434.02 538.03 470.02 R
+7 X
+V
+0 0 0 1 0 0 0 K
+52.03 457.02 538.03 470.02 C
+0 0 0 1 0 0 0 K
+187.03 464.02 538.03 464.02 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+52.03 464.02 178.03 464.02 2 L
+0 Z
+N
+0 0 0 1 0 0 0 K
+52.03 432 541.97 686.02 C
+0 0 0 1 0 0 0 K
+2 9 Q
+0 X
+0 0 0 1 0 0 0 K
+(FIGURE  1) 52.03 451.02 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+3 F
+(A br) 187.03 451.02 T
+(ief e) 203.67 451.02 T
+(xample Zebr) 220.41 451.02 T
+(a map \336le) 270.33 451.02 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 612 792 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "28" 28
+%%Page: "29" 29
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 9 Q
+(Ho) 207 736.18 T
+(w T) 218.86 736.18 T
+(o Use The File) 233.15 736.18 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 74.02 558 74.02 2 L
+2 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 8 Q
+(Getting star) 207 60.29 T
+(ted) 252.06 60.29 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 10 Q
+-2.78 (29) 546.88 60.29 P
+0 0 0 1 0 0 0 K
+72 671.02 558 674.02 C
+0 0 0 1 0 0 0 K
+207 672.52 558 672.52 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 672.52 198 672.52 2 L
+0 Z
+N
+0 0 0 1 0 0 0 K
+0 0 612 792 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2) 191.33 678.02 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Ho) 207 678.02 T
+(w T) 222.82 678.02 T
+(o Use The File) 241.86 678.02 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 F
+-0.18 (Once a map \336le is created, it should be named with an e) 207 653.02 P
+-0.18 (xtension of) 472.9 653.02 P
+5 F
+-0.44 (.map) 529.2 653.02 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 F
+4.68 (and placed in the) 207 639.02 P
+5 F
+11.24 (zeb/projects/<project>/maps) 310.38 639.02 P
+0 F
+4.68 ( directory) 504.78 639.02 P
+4.68 (,) 555 639.02 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+1.1 (\050which may need to be created\051. When plotting, a map plot description) 207 625.02 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+-0.17 (component uses its) 207 611.02 P
+5 F
+-0.42 (platform) 300.81 611.02 P
+0 F
+-0.17 ( parameter for looking up the map to plot,) 358.41 611.02 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(e.g., a map component with parameter:) 207 597.02 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+5 F
+(platform: mycustom) 230.4 571.02 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 F
+1.75 (will dra) 207 545.02 P
+1.75 (w the map contained in \336le) 245.57 545.02 P
+5 F
+4.2 (mycustom.map) 389.38 545.02 P
+0 F
+1.75 (. Hence, when a) 475.78 545.02 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+1.52 (map \336le has been created and placed in the correct directory) 207 531.02 P
+1.52 (, only the) 509.97 531.02 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+5 F
+-0.58 (platform) 207 517.02 P
+0 F
+-0.24 ( parameter of a map plot component need be changed to dra) 264.6 517.02 P
+-0.24 (w) 549.34 517.02 P
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(the ne) 207 503.02 T
+(w map.) 235.69 503.02 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "29" 29
+%%Page: "30" 30
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 750.02 540 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 9 Q
+(Zebra\325) 189 736.18 T
+(s Map File Format) 215.47 736.18 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 726.98 540 726.98 2 L
+0.25 H
+N
+54 74.02 540 74.02 2 L
+2 Z
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 10 Q
+(30) 54 60.29 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 8 Q
+(Getting star) 189 60.29 T
+(ted) 234.06 60.29 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "30" 30
+%%Page: "31" 31
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.02 558 750.02 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 74.02 558 74.02 2 L
+2 Z
+N
+2 8 Q
+(The z) 207 60.29 T
+(ebra ad) 227.53 60.29 T
+(v) 255.86 60.29 T
+(anced user) 260.15 60.29 T
+(s man) 302.27 60.29 T
+(ual) 325.31 60.29 T
+2 10 Q
+-2.78 (31) 546.88 60.29 P
+2 9 Q
+(R) 72 680.02 T
+5 12 Q
+(rfdump) 72 671.02 T
+0 9 Q
+(22) 119.7 671.02 T
+2 F
+(S) 72 652.02 T
+0 F
+(shared memory) 72 643.02 T
+(27) 132.24 643.02 T
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "31" 31
+%%Trailer
+%%BoundingBox: 0 0 612 792
+%%PageOrder: Ascend
+%%Pages: 31
+%%DocumentFonts: Times-Roman
+%%+ Times-Bold
+%%+ Helvetica-Bold
+%%+ Helvetica
+%%+ Times-Italic
+%%+ Courier
+%%+ Courier-Bold
+%%EOF

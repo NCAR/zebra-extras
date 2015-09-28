@@ -1,0 +1,154 @@
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="locations.html"><IMG SRC="fm2html-previous.gif">Previous Chapter</A>
+<!-- This file was created with the fm2html filter.
+The filter is copyright Norwegian Telecom Research and
+was programmed by Jon Stephenson von Tetzchner. -->
+
+
+<TITLE> <paranum><B>� CHAPTER 4 � </B> The Simple Meteorological Classes: MetData and Scalar</TITLE>
+<H1><A NAME="REF99837"> <paranum><B>� CHAPTER 4 � </B> The Simple Meteorological Classes: MetData and Scalar</A></H1>
+
+<P>The DCC_MetData class, a subclass of DCC_Transparent, is the work horse of the data chunk class hierarchy. The MetData class implements the field abstraction, so that a sample is not just a block of data but also a collection of data for a known set of fields. From this functionality the Scalar class (DCC_Scalar) derives its implementation of simple scalar fields in time, i.e., time series data. The Scalar class is perhaps the most frequently used and widely applicable data chunk class. If MetData does most of the work behind the scenes, then Scalar is the actor which appears most on stage.
+<H3><A NAME="HDR0">  4.1  The Meteorological DataChunk Class</A></H3>
+
+<HR>
+<P>The meteorological data class (DCC_MetData, subclass of DCC_Transparent) is intended to be a parent class for the classes which represent real world observations. It introduces the concepts of data <I>fields</I> and data <I>elements</I>. A MetData sample contains data for a set of fields, where each field is a collection of data values. If the field is a simple scalar, then the field contains exactly one data value. If the field is a grid, then the number of data values stored in any particular sample depends upon the geometry of the grid. Each individual data value in a collection is known as an <I>element</I>. The MetData class does not actually concern itself with the organization of the elements in a field. It only takes care of the space requirements for some specified number of elements. The MetData subclasses take care of imposing an order and interpretation on the collection of elements in a field.
+
+<P>For reasons of prevalence, precedence, and convenience, MetData elements default to the floating point type. So far, Zebra applications use floating point data exclusively. However, MetData fields can be defined to hold elements of any type. The MetData interface for handling non-float field types depends on data elements, which are covered in <A HREF="elements.html#REF30246">Chapter 7</A>. Consequently, the explanation of the MetData field types interface must wait until <A HREF="elements.html#REF69101">Section 7.3,  "DataChunk Field Types", on page 90.</A> This chapter makes no assumptions (nor needs to) about the type of the fields being stored in the data chunk.
+<H4><A NAME="REF47897">  4.1.1  Meteorological Data Setup</A></H4>
+<P>Unlike its superclasses, the DCC_MetData class requires a setup operation before any data may be stored. This setup informs the class which fields will be stored into the data chunk, and whether they will all be of uniform length or not. Uniform length fields are not required, but if the data happens to be that way, a more efficient implementation results from declaring it.
+<P>To initialize a data chunk with uniform-length fields, call dc_SetupUniformFields() as follows:
+<PRE>
+<B>void
+dc_SetupUniformFields (dc, nsamples, nfield, fields, size)
+DataChunk *dc;
+int nsamples, nfield, size;
+FieldId *fields;
+</PRE>
+<P></B>Where <B>dc</B> is a data chunk and a subclass of DCC_MetData, <B>nsamples</B> is an indication of how many samples will be stored in this data chunk, <B>nfield</B> is the number of fields to be stored, <B>fields</B> is an array of FieldID's identifying the fields to be stored, and <B>size</B> is the size of the data, in bytes, for one sample and one field. The value of <B>nsamples</B> is used to pre-allocate space for multiple samples, and is not a binding commitment on the part of the application.
+<P>In the more general case, where fields may vary in length between each other or from sample to sample, the data chunk should be initialized with dc_SetupFields() as follows:
+<PRE>
+<B>void
+dc_SetupFields (dc, nfield, fields)
+DataChunk *dc;
+int nfield;
+FieldId fields;
+</PRE>
+<P></B>Where the arguments are as described above. 
+
+<P>The fields in the data chunk must be defined in a single call to either dc_SetupUniformFields() or dc_SetupFields(). Once the fields have been defined, the fields cannot be re-defined. In other words, successive calls to either of the two above functions will fail with warning messages to the event logger. Internally, the MetData class copies the FieldID's into the data chunk, so the <B>fields</B> array need not be valid past the function call.
+<P>To find out how many fields a data chunk contains, use dc_GetNField(). This function returns the number of fields defined in the data chunk <B>dc</B>.
+<PRE>
+<B>int
+dc_GetNField (dc)
+DataChunk *dc;
+</PRE>
+<P></B>To get the list of fields stored in a data chunk, use dc_GetFields() as follows:
+<PRE>
+<B>FieldId *
+dc_GetFields (dc, nfield)
+DataChunk *dc;
+int *nfield;
+</PRE>
+<P></B>The return value is a pointer to an array of FieldID's for the fields stored in the data chunk. This array actually belongs to the data chunk, so it should not be modified or freed, and it is only valid for the life of the data chunk. If <B>nfield</B> is non-NULL, it is set to the number of fields. If the data chunk has no fields, dc_GetFields() returns NULL and sets <B>nfield</B> to zero.
+<H4><A NAME="HDR1">  4.1.2  Storing and Retrieving Data</A></H4>
+<P>Data is stored into a data chunk subclassed from DCC_MetData one field at a time, though multiple samples can be stored simultaneously. The interface defines the method dc_AddMData() for storing data.
+<PRE>
+<B>void
+dc_AddMData (dc, when, field, size, sample, nsample, data)
+DataChunk *dc;
+ZebTime *when;
+FieldId field;
+int size, sample, nsample;
+DataPtr data;
+</PRE>
+
+<P></B>Where <B>dc</B> is a data chunk subclassed from DCC_MetData, <B>when</B> is a list of times, one per sample, <B>field</B> is the ID of the field to be stored, <B>size</B> is the size of each sample to be stored (if the samples are not all the same size, multiple calls are required), <B>sample</B> is the index of the first sample to be stored, <B>nsample</B> is the number of samples to be stored, and <B>data</B> is the data to be stored for each sample. If this data chunk was initialized with uniform fields, the <B>size</B> parameter must match the specified uniform size. The data array must contain field data for each sample being stored, in order from index <B>sample</B> to index <B>sample</B>+<B>nsample</B>1. If <B>size</B> is 20 bytes and <B>nsample</B> is 10, then <B>data</B> should point to 200 bytes of data. The data are copied into the data chunk for each sample, so the memory pointed to by <B>data</B> does not need to be valid past the function call. Calls to dc_AddMData() will overwrite data and times where necessary, so the last write for a given sample will determine that sample's time, and the last write for a given sample/field pair will set the value for that pair.
+<P>To retrieve data from a data chunk, use dc_GetMData().
+<PRE>
+<B>DataPtr
+dc_GetMData (dc, sample, field, len)
+DataChunk *dc;
+int sample, *len;
+FieldId field;
+</PRE>
+<P></B>Where <B>dc</B> is the data chunk, <B>sample</B> is the sample of interest, and <B>field</B> is the field of interest. If the sample and field exist in the data chunk, the function returns a pointer to the block of data for that sample and field; otherwise it returns NULL. The returned pointer points to memory inside the data chunk; it should not be freed, and the memory is only valid for the life of the data chunk. If <B>len</B> is non-NULL, it is set to the length of the data.
+<H4><A NAME="HDR2">  4.1.3  Bad Data Flags</A></H4>
+<P>The DCC_MetData class does some simple accounting of bad data flags. At the moment, there is no distinction between `missing' data values and `bad' data values. Both are labelled as `bad' by the MetData class. To store a bad value flag into a data chunk, use dc_SetBadval() after the data chunk has been initialized.
+<PRE>
+<B>void
+dc_SetBadval (dc, flag)
+DataChunk *dc;
+float flag;
+</PRE>
+<P></B>Where <B>dc</B> is the data chunk, and <B>flag</B> is the bad value flag to be used. Note that dc_SetBadval() only sets a floating point bad value, which will not correspond to non-float field types. This is an artifact of the original floating-point-only implementation. Eventually, the MetData class will support both bad and missing value flags, for multiple types, on a per-field basis.
+
+<P>The dc_SetBadval() routine sets the <I>bad_value_flag</I> global attribute. (See <A HREF="attributes.html#REF99837">Chapter 8</A>.) If a bad value flag is not explicitly set in a data chunk, it defaults to the value 99999.9. This default can be changed with the compile-time configuration parameters.
+<P>To retrieve the floating point bad value flag, call dc_GetBadval().
+<PRE>
+<B>float
+dc_GetBadval (dc)
+DataChunk *dc;
+</PRE>
+<P></B>The return value will be the bad data flag used in this data chunk. The function first checks for a "bad_value_flag" global attribute, and failing that it returns the most recent value assigned to the data chunk. If no fields have been defined, it returns the default bad value flag mentioned above.
+<H3><A NAME="HDR3">  4.2  The Scalar DataChunk Class</A></H3>
+
+<HR>
+<P>The scalar data class (DCC_Scalar) presents a view of the data chunk as a time series of single, scalar data values. Technically speaking, the Scalar class extends the field abstraction of its parent class, MetData, to be a collection of a single data element. Just as for MetData, the default Scalar element type is floating point. The Scalar interpretation of the MetData field abstraction yields the OrgScalar data object organization.
+<P>Before data may be stored into a scalar data chunk, dc_SetScalarFields() must be called to initialize the list of fields to be stored.
+<PRE>
+<B>void
+dc_SetScalarFields (dc, nfield, fields)
+DataChunk *dc;
+int nfield;
+FieldId *fields;
+</PRE>
+<P></B>Where <B>dc</B> is a data chunk subclassed from DCC_Scalar, <B>nfield</B> is the number of fields to be stored in this data chunk, and <B>fields</B> is a list of FieldID's for those fields.
+
+<P>To store a data point into the data chunk, use dc_AddScalar() as follows:
+<PRE>
+<B>void
+dc_AddScalar (dc, when, sample, field, value)
+DataChunk *dc;
+ZebTime *when;
+int sample;
+FieldId field;
+void *value;
+</PRE>
+<P></B>Where <B>dc</B> is the data chunk, <B>when</B> is the time of this datum, <B>sample</B> is the index of the sample to be stored, <B>field</B> is the field of this data, and <B>value</B> is a pointer to the actual data value.
+<P>To add a number of data points for one field, the alternate interface dc_AddMultScalar() may be used.
+<PRE>
+<B>void 
+dc_AddMultScalar (dc, when, sample, nsample, field, values)
+DataChunk *dc;
+ZebTime *when;
+int sample, nsample;
+FieldId field;
+void *values;
+</PRE>
+<P></B>Where <B>dc</B> is the data chunk, <B>when</B> is an array of times for this data, <B>sample</B> is the index of the first sample to be stored, <B>nsample</B> is the number of samples to be stored, <B>field</B> is the field of this data. The <B>values</B> parameter is an array of data values, containing one sample's worth of data for the field for each of the <B>nsample</B> samples to be stored, beginning at <B>sample</B>. `A sample's worth' of data depends on the application or the subclass. For a grid subclass, a sample of data for a field will be a whole two-dimensional array; for a scalar subclass, a field's sample data will be a single element value.
+<P>The dc_GetScalar() function retrieves a floating point datum from a scalar data chunk.
+<PRE>
+<B>float
+dc_GetScalar (dc, sample, field)
+DataChunk *dc;
+int sample;
+FieldId field;
+</PRE>
+<P></B>Where <B>dc</B> is the data chunk, <B>sample</B> is the sample of interest, and <B>field</B> is the field of interest. The return value will be the requested data point. If the type of the given field is not floating point, this function fails and returns zero. If the sample or field cannot be found, dc_GetScalar() returns the data chunk's current bad value flag.
+
+<P>Now that subclasses of MetData can support element types other than floating point, the Scalar class provides the dc_GetScalarData() method for retrieving data values of any type.
+<PRE>
+<B>void *
+dc_GetScalarData (dc, sample, field)
+DataChunk *dc;
+int sample;
+FieldId field;
+</PRE>
+<P></B>The dc_GetScalarData() function takes the same parameters as dc_GetScalar(), where <B>dc</B> is the data chunk, <B>sample</B> is the sample index, and <B>field</B> is the FieldId from which to retrieve the data value. The difference is that dc_GetScalarData() returns a void pointer to the indicated data value if the data exists in the data chunk. If the data noes not exist, the function returns NULL.
+
+<A NAME="ENDFILE"><PRE> </PRE></A>
+
+
+<P><A HREF="DataStore.html"><IMG SRC="fm2html-toc.gif">Table of Contents</A>
+<A HREF="grids.html"><IMG SRC="fm2html-next.gif">Next Chapter</A>
