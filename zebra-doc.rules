@@ -1,0 +1,31 @@
+
+
+create repository zebra-extra.git
+end repository
+
+match /trunk/zebra/doc
+  repository zebra-extra.git
+  branch master
+  prefix doc
+end match
+
+match /trunk/zebra/nondist
+  repository zebra-extra.git
+  branch master
+  prefix nondist
+end match
+
+match /trunk/zebra/cdrom
+  repository zebra-extra.git
+  branch master
+  prefix cdrom
+end match
+
+match /trunk/zebra/project
+  repository zebra-extra.git
+  branch master
+  prefix project
+end match
+
+match /
+end match
